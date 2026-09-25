@@ -47,15 +47,16 @@ st.markdown(
     button[data-testid="stPopoverButton"] div[aria-hidden="true"] { display: none !important; }
 
     /* Paksa panel popover selalu terang, apapun tema browser/sistemnya —
-       sebelumnya panel ini ikut dark-mode sehingga teks gelap jadi tak kebaca */
-    div[data-testid="stPopoverBody"],
-    div[data-baseweb="popover"] div[role="tooltip"],
-    div[data-baseweb="popover"] > div {
+       sebelumnya panel ini ikut dark-mode sehingga teks gelap jadi tak kebaca.
+       Sekarang juga dikasih border + shadow biar nggak nyaru ke background putih halaman. */
+    div[data-testid="stPopoverBody"] {
         background-color: #ffffff !important;
         color: #1c1a17 !important;
+        border: 1.5px solid #ecddc9 !important;
+        border-radius: 14px !important;
+        box-shadow: 0 16px 36px -14px rgba(28,26,23,0.22) !important;
     }
-    div[data-testid="stPopoverBody"] * ,
-    div[data-baseweb="popover"] div[role="tooltip"] * {
+    div[data-testid="stPopoverBody"] * {
         color: inherit;
     }
 
@@ -94,7 +95,8 @@ st.markdown(
     }
 
     .stApp { background-color: #ffffff; }
-    .block-container { padding-top: 2rem; padding-bottom: 3rem; max-width: 1360px; }
+    .block-container { padding-top: 1.5rem; padding-bottom: 2rem; max-width: 1360px; }
+    div[data-testid="stVerticalBlock"] { gap: 0.6rem !important; }
 
     .stApp, .stApp p, .stApp span, .stApp div, .stApp b, .stApp li,
     .stApp label, .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5,
@@ -122,7 +124,7 @@ st.markdown(
         max-width: 680px; margin: 0 0 30px 0; text-align: left;
     }
     .dr-hero-sub em { color: #b8562f !important; font-style: normal; font-weight: 600; }
-    .dr-section-title-wrap { margin-bottom: 26px; }
+    .dr-section-title-wrap { margin-bottom: 18px; }
     .dr-section-title {
         font-family: 'Fraunces', serif; font-size: 28px; font-weight: 700;
         color: #1c1a17 !important; margin: 0; text-align: left; display: inline-block;
@@ -183,10 +185,11 @@ st.markdown(
         box-shadow: 0 20px 50px -22px rgba(139,90,47,0.25);
     }
     .dr-result-header {
-        padding: 18px 26px; background: linear-gradient(135deg, #d9743f, #b8562f);
-        color: #ffffff !important; font-size: 14.5px; font-weight: 700;
+        padding: 20px 26px; background: #fdf3e7; border-bottom: 2px solid #ecddc9;
+        color: #8a5a2f !important; font-family: 'Fraunces', serif;
+        font-size: 17px; font-weight: 700;
     }
-    .dr-result-header * { color: #ffffff !important; }
+    .dr-result-header * { color: #8a5a2f !important; }
     .dr-mini-card {
         padding: 16px 18px; border: 1px solid #ecddc9; border-radius: 12px;
         margin-bottom: 12px; background: #fffdf9;
@@ -213,19 +216,49 @@ st.markdown(
 
     hr { border-color: #ece6dc !important; }
 
+    /* Streamlit versi ini pakai komponen react-aria-ComboBox untuk selectbox,
+       bukan lagi data-baseweb="select" — dua-duanya dipasang biar tahan
+       terhadap versi Streamlit yang beda. */
     .stTextInput input, .stDateInput input, .stTimeInput input,
-    .stSelectbox div[data-baseweb="select"] > div {
+    .stSelectbox div[data-baseweb="select"] > div,
+    .stSelectbox [class*="react-aria-ComboBox"] > div {
         border-radius: 8px !important; border-color: #e4ddd0 !important;
     }
 
-    /* Dropdown bahasa di nav: kecil & cream, bukan hitam */
+    /* Dropdown bahasa di nav: kecil, cream, border lebih jelas, sejajar tengah dgn logo */
     .st-key-lang_switch { max-width: 130px; margin-left: auto; }
-    .st-key-lang_switch div[data-baseweb="select"] > div {
-        background: #fdf3e7 !important; border: 1.5px solid #ecddc9 !important;
+    .st-key-lang_switch div[data-baseweb="select"] > div,
+    .st-key-lang_switch [class*="react-aria-ComboBox"] > div {
+        background: #fdf3e7 !important; border: 1.5px solid #e4a56e !important;
         border-radius: 100px !important; color: #8a5a2f !important;
-        min-height: 38px !important; font-weight: 600 !important;
+        min-height: 40px !important; font-weight: 700 !important;
+        box-shadow: 0 1px 3px rgba(184,86,47,0.08) !important;
+    }
+    .st-key-lang_switch [class*="react-aria-ComboBox"] input {
+        color: #8a5a2f !important; font-weight: 700 !important; background: transparent !important;
+    }
+    .st-key-lang_switch div[data-baseweb="select"] > div:hover,
+    .st-key-lang_switch [class*="react-aria-ComboBox"] > div:hover {
+        border-color: #b8562f !important;
     }
     .st-key-lang_switch svg { fill: #8a5a2f !important; }
+
+    /* Daftar opsi dropdown (portal terpisah) — paksa terang, ikut dark-mode
+       kalau tidak dipaksa, sama seperti kasus panel popover */
+    div[role="listbox"] {
+        background-color: #ffffff !important;
+        border: 1.5px solid #ecddc9 !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        box-shadow: 0 12px 30px -10px rgba(28,26,23,0.18) !important;
+    }
+    div[role="listbox"] * { color: #1c1a17 !important; }
+    div[role="listbox"] [role="option"] { background-color: #ffffff !important; }
+    div[role="listbox"] [role="option"]:hover,
+    div[role="listbox"] [aria-selected="true"] { background-color: #fdf3e7 !important; }
+
+    /* Nav: sejajarkan logo & dropdown bahasa secara vertikal */
+    .st-key-nav_row [data-testid="stHorizontalBlock"] { align-items: center !important; }
 
     /* Kontainer Contoh Laporan lebih compact */
     .dr-report-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
@@ -265,66 +298,82 @@ st.markdown(
 )
 
 # ── Data sistem lengkap (buat popover chip) — urut abjad ────
-# format: (nama, icon_material, apa_ini, [topik yang bisa diketahui], aktif)
+# format: (nama, icon_material, apa_ini, [topik yang bisa diketahui], kalimat_ajakan, aktif)
 SEMUA_SISTEM = [
     ("BaZi", "account_tree",
-     "Sistem astrologi Tiongkok kuno yang membaca empat pilar waktu lahir, yaitu tahun, bulan, tanggal, dan jam, untuk memetakan struktur nasib seseorang.",
-     ["Elemen dominan dalam diri", "Potensi rezeki dan karier", "Periode hidup yang perlu diperhatikan"], False),
+     "Sistem astrologi Tiongkok kuno yang membaca empat pilar waktu lahir, yaitu tahun, bulan, tanggal, dan jam, untuk memetakan struktur nasib seseorang secara mendalam.",
+     ["Elemen dominan dalam diri", "Potensi rezeki dan karier", "Periode hidup yang perlu diperhatikan"],
+     "Banyak yang baru sadar polanya justru dari sisi yang paling sering diabaikan, yaitu jam lahir.", False),
     ("Big Five", "insights",
-     "Model kepribadian yang paling banyak divalidasi dalam riset psikologi modern, mengukur lima dimensi utama karakter seseorang.",
-     ["Tingkat keterbukaan terhadap hal baru", "Cara mengelola emosi", "Gaya bekerja sama dengan orang lain"], False),
+     "Model kepribadian yang paling banyak divalidasi dalam riset psikologi modern, mengukur lima dimensi utama karakter seseorang secara terukur.",
+     ["Tingkat keterbukaan terhadap hal baru", "Cara mengelola emosi", "Gaya bekerja sama dengan orang lain"],
+     "Cocok buat kamu yang ingin memahami diri lewat data, bukan sekadar label kepribadian.", False),
     ("DISC", "groups",
      "Model perilaku kerja yang memetakan bagaimana seseorang berkomunikasi, mengambil keputusan, dan merespons tekanan di lingkungan profesional.",
-     ["Gaya komunikasi di tempat kerja", "Cara mengambil keputusan", "Reaksi terhadap tekanan"], False),
+     ["Gaya komunikasi di tempat kerja", "Cara mengambil keputusan", "Reaksi terhadap tekanan"],
+     "Sering dipakai perusahaan untuk proses rekrutmen, sekarang kamu bisa coba versi personalnya sendiri.", False),
     ("Enneagram", "category",
-     "Sistem sembilan tipe kepribadian yang menelusuri motivasi inti dan ketakutan terdalam di balik setiap perilaku.",
-     ["Motivasi tersembunyi di balik tindakan", "Ketakutan yang memengaruhi pilihan", "Arah berkembang jadi versi terbaik diri"], False),
+     "Sistem sembilan tipe kepribadian yang menelusuri motivasi inti dan ketakutan terdalam di balik setiap perilaku seseorang.",
+     ["Motivasi tersembunyi di balik tindakan", "Ketakutan yang memengaruhi pilihan", "Arah berkembang jadi versi terbaik diri"],
+     "Kalau kamu sering bertanya kenapa selalu bereaksi dengan cara yang sama, jawabannya mungkin ada di sini.", False),
     ("Golongan Darah", "bloodtype",
      "Pembacaan sifat berdasarkan golongan darah, populer di budaya Jepang dan Korea sebagai cara memahami kecenderungan dasar seseorang.",
-     ["Kecenderungan sifat bawaan", "Cara menghadapi masalah", "Kecocokan dengan golongan darah lain"], False),
+     ["Kecenderungan sifat bawaan", "Cara menghadapi masalah", "Kecocokan dengan golongan darah lain"],
+     "Terdengar sederhana, tapi banyak orang justru merasa gambarannya paling mengena.", False),
     ("Human Design", "hub",
      "Sistem yang memetakan tipe energi bawaan dan cara alami seseorang dalam mengambil keputusan yang selaras dengan dirinya.",
-     ["Tipe energi alami", "Cara terbaik mengambil keputusan", "Peran dalam kelompok atau tim"], False),
+     ["Tipe energi alami", "Cara terbaik mengambil keputusan", "Peran dalam kelompok atau tim"],
+     "Cocok buat kamu yang lelah memaksakan cara kerja orang lain ke dalam ritme hidupmu sendiri.", False),
     ("Love Language", "favorite",
      "Konsep lima bahasa kasih yang menjelaskan cara seseorang paling nyaman menerima dan menyampaikan perhatian dalam suatu hubungan.",
-     ["Cara paling nyaman menerima kasih sayang", "Cara menyampaikan perhatian ke orang lain", "Potensi kesalahpahaman dalam hubungan"], False),
+     ["Cara paling nyaman menerima kasih sayang", "Cara menyampaikan perhatian ke orang lain", "Potensi kesalahpahaman dalam hubungan"],
+     "Pahami ini, dan komunikasi dengan orang terdekatmu bisa terasa jauh lebih lancar.", False),
     ("Matrix Destiny", "grid_view",
-     "Peta numerologi menyeluruh dari tanggal lahir yang menggambarkan kepribadian, arah rezeki, hubungan, dan pelajaran hidup sekaligus.",
-     ["Peta kepribadian menyeluruh", "Arah rezeki dan keuangan", "Pelajaran hidup yang dibawa sejak lahir"], False),
+     "Peta numerologi menyeluruh dari tanggal lahir yang menggambarkan kepribadian, arah rezeki, hubungan, dan pelajaran hidup sekaligus dalam satu diagram.",
+     ["Peta kepribadian menyeluruh", "Arah rezeki dan keuangan", "Pelajaran hidup yang dibawa sejak lahir"],
+     "Satu peta yang merangkum hampir semua sisi hidupmu hanya dari satu tanggal lahir.", False),
     ("MBTI", "psychology",
-     "Salah satu tes kepribadian paling dikenal, membagi cara berpikir dan bekerja seseorang ke dalam enam belas tipe.",
-     ["Gaya berpikir dan memproses informasi", "Cara bekerja yang paling efektif", "Kecocokan dengan tipe kepribadian lain"], False),
+     "Salah satu tes kepribadian paling dikenal secara global, membagi cara berpikir dan bekerja seseorang ke dalam enam belas tipe.",
+     ["Gaya berpikir dan memproses informasi", "Cara bekerja yang paling efektif", "Kecocokan dengan tipe kepribadian lain"],
+     "Tes yang paling sering jadi bahan obrolan, sekarang saatnya lihat versi yang lebih lengkap.", False),
     ("Numerologi", "tag",
      "Ilmu penafsiran angka dari tanggal lahir dan nama untuk membaca arah hidup dan pola yang berulang pada diri seseorang.",
-     ["Jalan hidup utama", "Angka keberuntungan pribadi", "Tantangan yang cenderung berulang"], False),
+     ["Jalan hidup utama", "Angka keberuntungan pribadi", "Tantangan yang cenderung berulang"],
+     "Angka lahir dan namamu ternyata menyimpan pola yang jarang disadari sebelumnya.", False),
     ("Shio", "pets",
-     "Astrologi Tiongkok berdasarkan siklus dua belas hewan yang menggambarkan sifat, elemen bawaan, dan peruntungan tahunan.",
-     ["Sifat dan elemen bawaan lahir", "Peruntungan tahun berjalan", "Kecocokan dengan shio lain"], False),
+     "Astrologi Tiongkok berdasarkan siklus dua belas hewan yang menggambarkan sifat, elemen bawaan, dan peruntungan tahunan seseorang.",
+     ["Sifat dan elemen bawaan lahir", "Peruntungan tahun berjalan", "Kecocokan dengan shio lain"],
+     "Dipercaya turun-temurun, tapi jarang dibaca sampai ke elemen dan peruntungan tahunannya.", False),
     ("Tarot", "style",
-     "Pembacaan simbolis melalui kartu yang merepresentasikan arketipe jiwa dan pelajaran hidup yang sedang dijalani seseorang.",
-     ["Arketipe jiwa yang mewakili dirimu", "Pelajaran hidup yang sedang dijalani", "Energi yang sedang berlangsung"], False),
+     "Pembacaan simbolis melalui kartu yang merepresentasikan arketipe jiwa dan pelajaran hidup yang sedang dijalani seseorang saat ini.",
+     ["Arketipe jiwa yang mewakili dirimu", "Pelajaran hidup yang sedang dijalani", "Energi yang sedang berlangsung"],
+     "Bukan soal menebak masa depan, tapi mengenali energi yang sedang kamu jalani sekarang.", False),
     ("Weton", "calendar_today",
      "Perhitungan tradisi Jawa yang menggabungkan hari kelahiran dan siklus pasaran untuk membaca watak bawaan dan hari baik.",
-     ["Watak bawaan lahir menurut tradisi Jawa", "Hari baik untuk momen penting", "Neptu dan maknanya"], False),
+     ["Watak bawaan lahir menurut tradisi Jawa", "Hari baik untuk momen penting", "Neptu dan maknanya"],
+     "Sistem asli Indonesia yang masih dipakai untuk menentukan hari baik sampai sekarang.", False),
     ("Zi Wei", "auto_awesome",
      "Astrologi bintang ungu dari Tiongkok yang memetakan dua belas istana kehidupan berdasarkan posisi bintang saat lahir.",
-     ["Peta dua belas istana kehidupan", "Potensi karier dan jodoh", "Periode baik dalam siklus hidup"], False),
+     ["Peta dua belas istana kehidupan", "Potensi karier dan jodoh", "Periode baik dalam siklus hidup"],
+     "Lebih detail dibanding astrologi Barat, karena memetakan dua belas sisi kehidupan sekaligus.", False),
     ("Zodiak", "star",
      "Astrologi Barat yang membaca karakter dasar seseorang dari posisi matahari terhadap salah satu dari dua belas rasi bintang saat lahir.",
-     ["Karakter dasar dan elemen", "Gaya emosi dan cara merespons", "Kecocokan dengan zodiak lain"], True),
+     ["Karakter dasar dan elemen", "Gaya emosi dan cara merespons", "Kecocokan dengan zodiak lain"],
+     "Sistem yang paling familiar, tapi baru terasa lengkap kalau digabung dengan sistem lain.", True),
 ]
 
 # ── NAV ──────────────────────────────────────────────────────
-nav_l, nav_r = st.columns([5, 1])
-with nav_l:
-    st.markdown(
-        '<div style="font-family:\'Fraunces\',serif;font-size:28px;font-weight:700;'
-        'color:#1c1a17;padding-top:4px;letter-spacing:-0.01em;">✨ Destiny Reveal</div>',
-        unsafe_allow_html=True,
-    )
-with nav_r:
-    with st.container(key="lang_switch"):
-        st.selectbox("Bahasa", ["🇮🇩 ID", "🇬🇧 EN"], label_visibility="collapsed")
+with st.container(key="nav_row"):
+    nav_l, nav_r = st.columns([5, 1])
+    with nav_l:
+        st.markdown(
+            '<div style="font-family:\'Fraunces\',serif;font-size:28px;font-weight:700;'
+            'color:#1c1a17;letter-spacing:-0.01em;">✨ Destiny Reveal</div>',
+            unsafe_allow_html=True,
+        )
+    with nav_r:
+        with st.container(key="lang_switch"):
+            st.selectbox("Bahasa", ["🇮🇩 ID", "🇬🇧 EN"], label_visibility="collapsed")
 
 st.markdown("<hr style='margin-top:14px;'>", unsafe_allow_html=True)
 
@@ -359,7 +408,7 @@ with tab_home:
     for i in range(0, len(SEMUA_SISTEM), n_per_row):
         chunk = SEMUA_SISTEM[i:i + n_per_row]
         cols = st.columns(n_per_row)
-        for col, (nama, icon, apa_ini, topik_list, aktif) in zip(cols, chunk):
+        for col, (nama, icon, apa_ini, topik_list, ajakan, aktif) in zip(cols, chunk):
             with col:
                 with st.popover(nama, use_container_width=True, icon=f":material/{icon}:"):
                     status_badge = "Sudah aktif" if aktif else "Segera hadir"
@@ -381,9 +430,12 @@ with tab_home:
                             f'<span style="color:#b8562f !important;">•</span> {topik}</p>',
                             unsafe_allow_html=True,
                         )
+                    st.markdown(
+                        f'<p style="font-size:12.5px;color:#8a5a2f !important;font-style:italic;'
+                        f'margin:14px 0 0 0;padding-top:10px;border-top:1px solid #ecddc9;">{ajakan}</p>',
+                        unsafe_allow_html=True,
+                    )
 
-    st.write("")
-    st.write("")
     st.write("")
 
     # ── CARA KERJA ───────────────────────────────────────────
@@ -420,8 +472,6 @@ with tab_home:
                 )
 
     st.write("")
-    st.write("")
-    st.write("")
 
     # ── SATU DATA, BANYAK CARA PANDANG ────────────────────────
     st.markdown('<div class="dr-section-title-wrap"><span class="dr-section-title">Satu Data, Banyak Cara Pandang</span></div>', unsafe_allow_html=True)
@@ -446,8 +496,6 @@ with tab_home:
                     unsafe_allow_html=True,
                 )
 
-    st.write("")
-    st.write("")
     st.write("")
 
     # ── CONTOH LAPORAN — Global vs Mingguan ──────────────────
@@ -518,8 +566,6 @@ with tab_home:
     st.markdown('</div>', unsafe_allow_html=True)
 
     st.write("")
-    st.write("")
-    st.write("")
 
     # ── CTA PENUTUP ──────────────────────────────────────────
     st.markdown("<hr>", unsafe_allow_html=True)
@@ -557,7 +603,6 @@ with tab_form:
             st.text_input("Kode Verifikasi (6 digit)", placeholder="○ ○ ○ ○ ○ ○", label_visibility="collapsed")
 
     st.write("")
-    st.write("")
 
     st.markdown('<p style="font-size:12.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#b8562f !important;margin-bottom:4px;">Langkah 2 dari 3</p>', unsafe_allow_html=True)
     st.markdown('<div class="dr-section-title-wrap"><span class="dr-section-title">Isi Data Lahir</span></div>', unsafe_allow_html=True)
@@ -574,7 +619,6 @@ with tab_form:
             st.text_input("Kota Lahir (opsional)", placeholder="Contoh: Jakarta")
             st.selectbox("Bahasa Laporan", ["Bahasa Indonesia", "English"])
 
-    st.write("")
     st.write("")
 
     st.markdown('<p style="font-size:12.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#b8562f !important;margin-bottom:4px;">Langkah 3 dari 3</p>', unsafe_allow_html=True)
