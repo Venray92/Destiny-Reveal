@@ -138,6 +138,7 @@ st.markdown(
         padding: 24px; border-radius: 16px; background: #ffffff;
         height: 100%; box-sizing: border-box;
         border: 2px solid #ece6dc;
+        text-align: center;
     }
     .dr-card b { color: #1c1a17 !important; font-size: 15.5px; }
     .dr-card p { color: #6b6459 !important; }
@@ -204,10 +205,10 @@ st.markdown(
     .dr-mini-text { font-family: 'Lora', serif; font-size: 13.5px; color: #3a362f !important; line-height: 1.6; margin: 2px 0 0 0; }
 
     div.stButton > button[kind="primary"] {
-        background: #b8562f; color: #ffffff !important; border: 2px solid #b8562f;
+        background: #c9683a; color: #ffffff !important; border: 2px solid #c9683a;
         padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 16px;
     }
-    div.stButton > button[kind="primary"]:hover { background: #a5482a; border-color: #a5482a; }
+    div.stButton > button[kind="primary"]:hover { background: #b8562f; border-color: #b8562f; }
     div.stButton > button[kind="secondary"] {
         background: #ffffff; color: #1c1a17 !important; border: 2px solid #e4ddd0;
         padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 16px;
@@ -225,8 +226,24 @@ st.markdown(
         border-radius: 8px !important; border-color: #e4ddd0 !important;
     }
 
-    /* Dropdown bahasa di nav: kecil, cream, border lebih jelas, sejajar tengah dgn logo */
-    .st-key-lang_switch { max-width: 130px; margin-left: auto; }
+    /* Dropdown bahasa di nav: kecil, cream, border lebih jelas, sejajar tengah dgn logo.
+       Bintang kiri-kanan dipasang lewat ::before/::after (dekorasi, dipindah dari
+       badge hero yang sudah dihapus) supaya tidak perlu elemen HTML tambahan. */
+    .st-key-lang_switch {
+        max-width: 250px; margin-left: auto; margin-right: 4px;
+        position: relative; padding: 0 24px;
+    }
+    .st-key-lang_switch::before,
+    .st-key-lang_switch::after {
+        content: "✧"; color: #b8562f; font-size: 15px;
+        position: absolute; top: 50%; transform: translateY(-50%);
+        line-height: 1;
+    }
+    .st-key-lang_switch::before { left: 2px; }
+    .st-key-lang_switch::after { right: 2px; }
+    .st-key-lang_switch [class*="react-aria-ComboBox"] input {
+        font-size: 13.5px !important;
+    }
     .st-key-lang_switch div[data-baseweb="select"] > div,
     .st-key-lang_switch [class*="react-aria-ComboBox"] > div {
         background: #fdf3e7 !important; border: 1.5px solid #e4a56e !important;
@@ -373,7 +390,7 @@ with st.container(key="nav_row"):
         )
     with nav_r:
         with st.container(key="lang_switch"):
-            st.selectbox("Bahasa", ["🇮🇩 ID", "🇬🇧 EN"], label_visibility="collapsed")
+            st.selectbox("Bahasa", ["🇮🇩 Indonesian", "🇬🇧 English"], label_visibility="collapsed")
 
 st.markdown("<hr style='margin-top:14px;'>", unsafe_allow_html=True)
 
@@ -385,12 +402,12 @@ tab_home, tab_form = st.tabs([":material/home: Beranda", ":material/edit_note: P
 with tab_home:
 
     # ── HERO ─────────────────────────────────────────────────
-    st.markdown('<span class="dr-badge">✧ 15 sistem pembacaan diri, 1 laporan personal</span>', unsafe_allow_html=True)
-    st.markdown('<div class="dr-hero-title">Sudah Tahu Zodiakmu?<br>Itu Baru Permukaan.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="dr-hero-title">Ada Banyak Versi Dirimu yang Belum Kamu Kenal.</div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="dr-hero-sub">'
-        'Isi data sekali, 15 sistem pembacaan digabung jadi satu laporan.<br>'
-        'Bukan sekadar label, tapi jawaban untuk <em>"Lalu, apa yang sebaiknya aku lakukan?"</em>'
+        'Masa lalu sudah menjadi pelajaran, saatnya kenali dirimu sepenuhnya sebelum melangkah ke depan.<br>'
+        'Satu pembacaan lengkap dari 15 sistem ini akan menunjukkan potensi, kelebihan, kelemahan, '
+        'dan langkah yang sebaiknya kamu ambil.'
         '</div>',
         unsafe_allow_html=True,
     )
