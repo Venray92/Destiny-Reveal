@@ -44,6 +44,19 @@ st.markdown(
     /* Sembunyikan panah dropdown bawaan di tombol popover chip sistem */
     div[data-testid="stPopover"] button svg { display: none !important; }
 
+    /* Paksa panel popover selalu terang, apapun tema browser/sistemnya —
+       sebelumnya panel ini ikut dark-mode sehingga teks gelap jadi tak kebaca */
+    div[data-testid="stPopoverBody"],
+    div[data-baseweb="popover"] div[role="tooltip"],
+    div[data-baseweb="popover"] > div {
+        background-color: #ffffff !important;
+        color: #1c1a17 !important;
+    }
+    div[data-testid="stPopoverBody"] * ,
+    div[data-baseweb="popover"] div[role="tooltip"] * {
+        color: inherit;
+    }
+
     /* Kolom Streamlit auto-stretch tinggi sesuai isi paling tinggi */
     [data-testid="stHorizontalBlock"] { align-items: stretch !important; }
     [data-testid="column"] { display: flex !important; flex-direction: column !important; }
