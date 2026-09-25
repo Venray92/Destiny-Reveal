@@ -41,13 +41,10 @@ st.markdown(
     .dr-font-display { font-family: 'Fraunces', serif !important; }
     .dr-font-reading { font-family: 'Lora', serif !important; }
 
-    /* Sembunyikan panah dropdown bawaan di tombol popover chip sistem —
-       beberapa selector dipasang sekaligus karena struktur DOM-nya bisa beda
-       antar versi Streamlit */
-    div[data-testid="stPopover"] svg:not([data-testid="stIconMaterial"] svg) { display: none !important; }
-    div[data-testid="stPopover"] button svg:last-child { display: none !important; }
-    div[data-testid="stPopover"] button::after { content: none !important; }
-    div[data-testid="stPopover"] button [data-testid="stIconMaterial"] { display: inline-flex !important; }
+    /* Sembunyikan panah dropdown (expand_more) di tombol popover chip sistem.
+       Dicek langsung dari DOM: panah dibungkus div aria-hidden="true" terpisah
+       dari ikon+label, jadi bisa ditarget spesifik tanpa ikut menghapus ikon. */
+    div[data-testid="stPopoverButton"] div[aria-hidden="true"] { display: none !important; }
 
     /* Paksa panel popover selalu terang, apapun tema browser/sistemnya —
        sebelumnya panel ini ikut dark-mode sehingga teks gelap jadi tak kebaca */
