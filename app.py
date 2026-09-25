@@ -254,6 +254,29 @@ st.markdown(
     .stDateInput input::placeholder, .stTimeInput input::placeholder,
     .stTextInput input::placeholder { color: #9a948a !important; }
 
+    /* Popover pilihan dropdown (listbox-nya sendiri) dirender lewat portal
+       terpisah, dibungkus stSelectboxVirtualDropdown — wrapper ini juga
+       punya background gelap sendiri yang beda dari listbox di dalamnya,
+       jadi kelihatan kayak "bingkai hitam" ngelilingin pilihan. */
+    [data-testid="stSelectboxVirtualDropdown"] { background-color: #ffffff !important; }
+
+    /* Teks yang tampil di selectbox sebenarnya dirender oleh <input> di dalam
+       react-aria-ComboBox, BUKAN oleh div pembungkusnya. Rule di atas cuma
+       ngasih warna ke div pembungkus, jadi teks <input>-nya sendiri masih
+       ikut warna default tema (putih di dark-mode) dan nyaru sama background
+       putih situs. Dipaksa eksplisit di sini. */
+    .stSelectbox input { color: #1c1a17 !important; }
+
+    /* Kolom teks biasa (Email, Nama Lengkap, Kota Lahir) juga sama kasusnya
+       kayak Tanggal/Jam Lahir: border yang KELIHATAN itu bukan di <input>,
+       tapi di div pembungkus langsung di dalam react-aria-TextField. Tanpa
+       dipaksa, border div ini ikut warna gelap tema browser/OS (garis
+       hitam/navy). */
+    .stTextInput [class*="react-aria-TextField"] > div {
+        border-color: #e4ddd0 !important;
+        background-color: #ffffff !important;
+    }
+
     /* Tanggal & Jam Lahir sebenarnya bukan <input> polos — nilai yang kelihatan
        dirender lewat span-span react-aria-DateField (per-segmen tahun/bulan/hari
        dan jam/menit). Wrapper aslinya adalah stDateInputField / stTimeInputTimeDisplay,
