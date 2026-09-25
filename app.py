@@ -139,20 +139,30 @@ st.markdown(
         border-radius: 8px !important; border-color: #e4ddd0 !important;
     }
 
-    /* Tab (Beranda / Preview Form + Global / Mingguan) jadi tombol berborder */
+    /* Tab (Beranda / Preview Form + Global / Mingguan) jadi pill nav modern */
+    [data-testid="stTabs"] [data-baseweb="tab-list"] {
+        gap: 10px !important; background: #fbf8f3; padding: 8px; border-radius: 100px;
+        border: 1px solid #ece6dc; display: inline-flex !important; width: auto !important;
+    }
     [data-testid="stTabs"] button[role="tab"] {
-        border: 2px solid #e4ddd0 !important;
-        border-radius: 10px !important;
-        padding: 10px 22px !important;
-        font-size: 15px !important;
+        border: 1.5px solid transparent !important;
+        border-radius: 100px !important;
+        padding: 10px 24px !important;
+        font-size: 14.5px !important;
         font-weight: 700 !important;
-        margin-right: 10px !important;
         color: #6b6459 !important;
+        background: transparent !important;
+        transition: all 0.15s ease;
+    }
+    [data-testid="stTabs"] button[role="tab"] p { font-weight: 700 !important; }
+    [data-testid="stTabs"] button[role="tab"]:hover {
+        border-color: #ecddc9 !important; color: #b8562f !important;
     }
     [data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
         border-color: #b8562f !important;
-        background: #fdf3e7 !important;
+        background: #ffffff !important;
         color: #b8562f !important;
+        box-shadow: 0 0 0 3px rgba(184,86,47,0.12), 0 4px 14px -4px rgba(184,86,47,0.35);
     }
     [data-testid="stTabs"] [data-baseweb="tab-highlight"] { display: none; }
     [data-testid="stTabs"] [data-baseweb="tab-border"] { display: none; }
@@ -190,7 +200,7 @@ with nav_r:
 
 st.markdown("<hr style='margin-top:14px;'>", unsafe_allow_html=True)
 
-tab_home, tab_form = st.tabs(["🏠  Beranda", "📝  Preview Form Screening"])
+tab_home, tab_form = st.tabs([":material/home: Beranda", ":material/edit_note: Preview Form Screening"])
 
 # ══════════════════════════════════════════════════════════════
 # TAB 1 — BERANDA
@@ -306,7 +316,7 @@ with tab_home:
 
     with st.container():
         st.markdown('<div style="padding:22px 26px 6px 26px;">', unsafe_allow_html=True)
-        tab_global, tab_mingguan = st.tabs(["🌐  Baca Global (Seumur Hidup)", "📅  Baca Minggu Ini"])
+        tab_global, tab_mingguan = st.tabs([":material/public: Baca Global (Seumur Hidup)", ":material/calendar_month: Baca Minggu Ini"])
 
         with tab_global:
             hasil_global = [
