@@ -42,7 +42,8 @@ st.markdown(
     .dr-font-reading { font-family: 'Lora', serif !important; }
 
     /* Sembunyikan panah dropdown bawaan di tombol popover chip sistem */
-    div[data-testid="stPopover"] button svg { display: none !important; }
+    div[data-testid="stPopover"] svg { display: none !important; }
+    div[data-testid="stPopover"] button [data-testid="stIconMaterial"] { display: inline-flex !important; }
 
     /* Paksa panel popover selalu terang, apapun tema browser/sistemnya —
        sebelumnya panel ini ikut dark-mode sehingga teks gelap jadi tak kebaca */
@@ -117,9 +118,7 @@ st.markdown(
         font-weight: 800; font-size: 17px; flex-shrink: 0;
     }
     .dr-step-line { flex: 1; height: 3px; background: #ecddc9; margin: 0 10px; border-radius: 3px; }
-    .dr-step-card-1 { border-color: #ecddc9 !important; }
-    .dr-step-card-2 { border-color: #d98a5e !important; }
-    .dr-step-card-3 { border-color: #b8562f !important; }
+    .dr-step-card-1, .dr-step-card-2, .dr-step-card-3 { border-color: #e4ddd0 !important; }
 
     /* Chip popover (sistem kecil di hero) */
     div[data-testid="stPopover"] button {
@@ -154,7 +153,7 @@ st.markdown(
         box-shadow: 0 20px 50px -22px rgba(139,90,47,0.25);
     }
     .dr-result-header {
-        padding: 18px 26px; background: linear-gradient(135deg, #8a5a2f, #6b4226);
+        padding: 18px 26px; background: linear-gradient(135deg, #d9743f, #b8562f);
         color: #ffffff !important; font-size: 14.5px; font-weight: 700;
     }
     .dr-result-header * { color: #ffffff !important; }
@@ -311,10 +310,8 @@ with tab_home:
     st.markdown('<div class="dr-hero-title">Sudah Tahu Zodiakmu?<br>Tapi Sudah Tahu Weton, Shio,<br>sampai Matrix Destiny-mu?</div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="dr-hero-sub">'
-        'Cukup isi data sekali saja.<br>'
-        '15 sistem pembacaan kepribadian akan digabungkan menjadi satu laporan.<br>'
-        'Bukan sekadar label, tetapi jawaban atas pertanyaan yang paling sering muncul:<br>'
-        '<em>"Lalu, apa yang sebaiknya aku lakukan?"</em>'
+        'Isi data sekali, 15 sistem pembacaan digabung jadi satu laporan.<br>'
+        'Bukan sekadar label, tapi jawaban untuk <em>"Lalu, apa yang sebaiknya aku lakukan?"</em>'
         '</div>',
         unsafe_allow_html=True,
     )
