@@ -186,6 +186,8 @@ SEMUA_SISTEM = [
     ("Big Five", "Untuk mengetahui 5 trait kepribadian yang tervalidasi riset psikologi."),
     ("Enneagram", "Untuk mengetahui motivasi inti di balik perilakumu, dari 9 tipe dasar."),
     ("DISC", "Untuk mengetahui gaya perilaku kerja & komunikasimu."),
+    ("Golongan Darah", "Untuk mengetahui kecenderungan sifat dari golongan darah, populer di budaya Jepang & Korea."),
+    ("Love Language", "Untuk mengetahui cara kamu paling nyaman menerima & menyampaikan kasih sayang."),
 ]
 
 # ── NAV ──────────────────────────────────────────────────────
@@ -208,10 +210,10 @@ tab_home, tab_form = st.tabs([":material/home: Beranda", ":material/edit_note: P
 with tab_home:
 
     # ── HERO ─────────────────────────────────────────────────
-    st.markdown('<div class="dr-center"><span class="dr-badge">✧ 13 sistem pembacaan diri, 1 laporan personal</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="dr-center"><span class="dr-badge">✧ 15 sistem pembacaan diri, 1 laporan personal</span></div>', unsafe_allow_html=True)
     st.markdown('<div class="dr-hero-title">Dari Weton Sampai MBTI,<br>Kenali Dirimu Lebih Dalam</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class="dr-hero-sub">Isi data sekali aja, langsung dapet pembacaan dari 13 sistem populer '
+        '<div class="dr-hero-sub">Isi data sekali aja, langsung dapet pembacaan dari 15 sistem populer '
         'dalam satu laporan. Bukan cuma kasih label, tapi jawab pertanyaan yang sebenarnya kamu cari: '
         'terus gue harus ngapain?</div>',
         unsafe_allow_html=True,
@@ -287,7 +289,7 @@ with tab_home:
         ("📅", "Cuma dari Tanggal Lahir", ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"]),
         ("🕐", "+ Tambah Jam Lahir", ["BaZi (4 Pilar)", "Zi Wei Dou Shu", "Human Design", "Ascendant Zodiak"]),
         ("📍", "+ Tambah Kota Lahir", ["BaZi Akurat Penuh", "Human Design Akurat Penuh"]),
-        ("📋", "Kuesioner Terpisah", ["MBTI", "Big Five", "Enneagram", "DISC"]),
+        ("📋", "Kuesioner Terpisah", ["MBTI", "Big Five", "Enneagram", "DISC", "Golongan Darah", "Love Language"]),
     ]
     bcols = st.columns(4, gap="medium")
     for col, (icon, title, items) in zip(bcols, bulk_groups):
