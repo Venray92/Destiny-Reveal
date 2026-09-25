@@ -44,7 +44,7 @@ st.markdown(
     /* Sembunyikan panah dropdown (expand_more) di tombol popover chip sistem.
        Dicek langsung dari DOM: panah dibungkus div aria-hidden="true" terpisah
        dari ikon+label, jadi bisa ditarget spesifik tanpa ikut menghapus ikon. */
-    div[data-testid="stPopoverButton"] div[aria-hidden="true"] { display: none !important; }
+    button[data-testid="stPopoverButton"] div[aria-hidden="true"] { display: none !important; }
 
     /* Paksa panel popover selalu terang, apapun tema browser/sistemnya —
        sebelumnya panel ini ikut dark-mode sehingga teks gelap jadi tak kebaca */
