@@ -254,6 +254,25 @@ st.markdown(
     .stDateInput input::placeholder, .stTimeInput input::placeholder,
     .stTextInput input::placeholder { color: #9a948a !important; }
 
+    /* Tanggal & Jam Lahir sebenarnya bukan <input> polos — nilai yang kelihatan
+       dirender lewat span-span react-aria-DateField (per-segmen tahun/bulan/hari
+       dan jam/menit). Wrapper aslinya adalah stDateInputField / stTimeInputTimeDisplay,
+       bukan .stDateInput input, jadi rule di atas tidak kena ke situ dan wrapper ini
+       ikut warna gelap tema browser/OS. Dipaksa eksplisit di sini. */
+    [data-testid="stDateInputField"], [data-testid="stTimeInputTimeDisplay"] {
+        background-color: #ffffff !important;
+        border: 1px solid #e4ddd0 !important;
+        border-radius: 8px !important;
+    }
+    [data-testid="stDateInputField"] span[role="spinbutton"],
+    [data-testid="stTimeInputTimeDisplay"] span[role="spinbutton"] {
+        color: #1c1a17 !important;
+    }
+    [data-testid="stDateInputField"] span[data-type="literal"],
+    [data-testid="stTimeInputTimeDisplay"] span[data-type="literal"] {
+        color: #9a948a !important;
+    }
+
     /* Dropdown bahasa di nav: kecil, cream, border lebih jelas, sejajar tengah dgn logo.
        Bintang kiri-kanan dipasang lewat ::before/::after (dekorasi, dipindah dari
        badge hero yang sudah dihapus) supaya tidak perlu elemen HTML tambahan. */
