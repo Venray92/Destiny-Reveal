@@ -219,26 +219,20 @@ st.markdown(
 
     div.stButton > button[kind="primary"] {
         background: #c9683a; color: #ffffff !important; border: 2px solid #c9683a;
-        padding: 14px 32px; border-radius: 10px; font-weight: 800; font-size: 16px;
+        padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 18px;
     }
     div.stButton > button[kind="secondary"] {
         background: #ffffff; color: #1c1a17 !important; border: 2px solid #e4ddd0;
-        padding: 14px 32px; border-radius: 10px; font-weight: 800; font-size: 16px;
+        padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 18px;
     }
     /* Teks label tombol Streamlit dibungkus <p>, dan aturan global ".stApp p"
-       di atas lebih spesifik ke elemen <p> itu sendiri dibanding warna/weight
-       yang diset di <button>-nya, jadi warna & ketebalan teksnya harus
-       dipaksa lagi di sini juga (bug yang sama kayak kasus tombol "Mulai
-       Eksplorasi" sebelumnya). */
+       di atas lebih spesifik ke elemen <p> itu sendiri dibanding warna yang
+       diset di <button>-nya, jadi warnanya harus dipaksa lagi di sini juga
+       (bug yang sama kayak kasus tombol "Mulai Eksplorasi" sebelumnya). */
     div.stButton > button[kind="primary"] p,
     div.stButton > button[kind="primary"] span,
     div.stButton > button[kind="primary"] div {
-        color: #ffffff !important; font-weight: 800 !important;
-    }
-    div.stButton > button[kind="secondary"] p,
-    div.stButton > button[kind="secondary"] span,
-    div.stButton > button[kind="secondary"] div {
-        font-weight: 800 !important;
+        color: #ffffff !important;
     }
     div.stButton > button[kind="primary"]:hover { background: #b8562f; border-color: #b8562f; }
     div.stButton > button[kind="secondary"]:hover { border-color: #b8562f; color: #b8562f !important; }
@@ -248,11 +242,17 @@ st.markdown(
     /* Streamlit versi ini pakai komponen react-aria-ComboBox untuk selectbox,
        bukan lagi data-baseweb="select" — dua-duanya dipasang biar tahan
        terhadap versi Streamlit yang beda. */
+    /* Sama kayak kasus popover/dropdown sebelumnya: tanpa background-color
+       dipaksa eksplisit, input-input ini ikut tema dark-mode browser/OS
+       (jadi item hitam) alih-alih tema cream/putih situsnya. */
     .stTextInput input, .stDateInput input, .stTimeInput input,
     .stSelectbox div[data-baseweb="select"] > div,
     .stSelectbox [class*="react-aria-ComboBox"] > div {
         border-radius: 8px !important; border-color: #e4ddd0 !important;
+        background-color: #ffffff !important; color: #1c1a17 !important;
     }
+    .stDateInput input::placeholder, .stTimeInput input::placeholder,
+    .stTextInput input::placeholder { color: #9a948a !important; }
 
     /* Dropdown bahasa di nav: kecil, cream, border lebih jelas, sejajar tengah dgn logo.
        Bintang kiri-kanan dipasang lewat ::before/::after (dekorasi, dipindah dari
@@ -426,7 +426,7 @@ with st.container(key="nav_row"):
         )
     with nav_home_btn:
         if st.button(
-            "Beranda", key="nav_btn_home", icon=":material/home:",
+            "Home", key="nav_btn_home", icon=":material/home:",
             type="primary" if st.session_state.dr_page == "home" else "secondary",
             use_container_width=True,
         ):
