@@ -1,10 +1,11 @@
 """
-Halaman "Reveal Yourself" — form screening 3 langkah.
+Halaman "Reveal Yourself" — cuma 2 langkah: Verifikasi Email & Pilih Mode.
 
 Dipisah dari app.py (bukan ditaruh di file utama) biar app.py nggak makin
-gemuk tiap ada halaman baru. Visual/layout di sini ngikutin mock design yang
-dibuat di Design canvas (kartu-kartu langkah dengan icon badge, background
-gradient cream + blob dekoratif, "Pilih Fokus" jadi kartu bukan radio polos).
+gemuk tiap ada halaman baru. Data kelahiran (tanggal/jam/kota/dll) SENGAJA
+tidak diminta di halaman ini lagi — itu dicicil per-titik nanti di halaman
+loading (loadingpage.py, belum dibuat), muncul lewat floating window cuma
+pas benar-benar dibutuhkan buat sistem yang lagi diproses.
 
 Logic submit (OTP, simpan ke Supabase, dst) masih belum jalan — itu next step
 terpisah, bukan bagian dari revisi visual ini.
@@ -17,34 +18,12 @@ def _inject_style():
     st.markdown(
         """
         <style>
-        /* Wrapper seluruh halaman: background gradient cream + 2 blob
-           dekoratif lewat ::before/::after (dekorasi doang, gak ganggu
-           konten), biar gak polos putih kayak sebelumnya. */
+        /* Halaman ini sekarang background putih polos (ikut background
+           utama situs), bukan gradient cream + blob dekoratif kayak
+           sebelumnya. Wrapper cuma dipakai buat padding, warna dikasih
+           lewat kartu-kartu di dalamnya aja (card putih/cream tipis). */
         .st-key-reveal_page_wrap {
-            position: relative;
-            background: linear-gradient(180deg, #fdf3e4 0%, #fdf9f2 30%, #fbf6ec 100%);
-            border-radius: 32px;
-            padding: 44px 52px 52px 52px;
-            overflow: hidden;
-            box-shadow: 0 30px 70px -40px rgba(139,90,47,0.35);
-        }
-        .st-key-reveal_page_wrap::before {
-            content: "";
-            position: absolute; top: -160px; right: -140px;
-            width: 420px; height: 420px; border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(201,104,58,0.16), rgba(201,104,58,0) 70%);
-            pointer-events: none; z-index: 0;
-        }
-        .st-key-reveal_page_wrap::after {
-            content: "";
-            position: absolute; bottom: -160px; left: -140px;
-            width: 380px; height: 380px; border-radius: 50%;
-            background: radial-gradient(circle at 50% 50%, rgba(228,165,110,0.2), rgba(228,165,110,0) 70%);
-            pointer-events: none; z-index: 0;
-        }
-        .st-key-reveal_page_wrap [data-testid="stVerticalBlockBorderWrapper"],
-        .st-key-reveal_page_wrap > div {
-            position: relative; z-index: 1;
+            padding: 8px 4px 24px 4px;
         }
 
         .ry-hero-badge {
@@ -76,9 +55,19 @@ def _inject_style():
             margin-top: 6px; text-align: center; white-space: nowrap;
         }
         .ry-step-line { flex-grow: 1; height: 3px; background: #ecddc9; margin: 19px 8px 0 8px; border-radius: 3px; }
+        /* Stepper di halaman ini adalah preview PERJALANAN penuh (termasuk
+           yang terjadi di halaman lain sesudahnya), bukan cuma langkah di
+           halaman ini sendiri — makanya titik terakhir ("Hasil Reveal")
+           sengaja dibikin dim/belum aktif, karena itu terjadi di halaman
+           loading & reveal berikutnya, bukan di sini. */
+        .ry-step-dot-upcoming {
+            background: #f6dfc2 !important; color: #b8562f !important;
+            border: 2px solid #e4a56e;
+        }
+        .ry-step-label-upcoming { color: #9a948a !important; }
 
         /* Kartu tiap langkah */
-        .st-key-ry_card_1, .st-key-ry_card_2, .st-key-ry_card_3 {
+        .st-key-ry_card_1, .st-key-ry_card_3 {
             background: #ffffff; border: 2px solid #f0e6d5; border-radius: 22px;
             padding: 28px 32px 8px 32px; box-shadow: 0 22px 55px -30px rgba(139,90,47,0.28);
             margin-bottom: 4px;
@@ -216,7 +205,7 @@ RY_MODES = [
 
 
 def render():
-    """Render halaman Reveal Yourself (form screening 3 langkah)."""
+    """Render halaman Reveal Yourself (Verifikasi Email + Pilih Mode)."""
     _inject_style()
 
     with st.container(key="reveal_page_wrap"):
@@ -234,21 +223,24 @@ def render():
             '<div style="text-align:center;padding-top:8px;">'
             '<span class="ry-hero-badge">✧ Butuh 3 menit, tanpa akun</span>'
             '<div class="ry-hero-title">Reveal Yourself</div>'
-            '<div class="ry-hero-sub">Ikuti tiga langkah singkat ini untuk membuka pembacaan '
-            'lengkap dari 15 sistem sekaligus.</div>'
+            '<div class="ry-hero-sub">Verifikasi email kamu, pilih mode eksplorasi yang kamu mau, '
+            'sisanya biar kami yang pandu satu per satu.</div>'
             '</div>',
             unsafe_allow_html=True,
         )
+        # Stepper ini preview PERJALANAN penuh, bukan cuma langkah di halaman
+        # ini — titik ke-3 ("Hasil Reveal") kejadiannya di halaman loading &
+        # reveal berikutnya, jadi sengaja ditampilin dim/upcoming.
         st.markdown(
             '<div class="ry-stepper">'
             '<div class="ry-step-unit"><div class="ry-step-dot">1</div>'
             '<div class="ry-step-label">Verifikasi<br>Email</div></div>'
             '<div class="ry-step-line"></div>'
             '<div class="ry-step-unit"><div class="ry-step-dot">2</div>'
-            '<div class="ry-step-label">Isi Data<br>Lahir</div></div>'
-            '<div class="ry-step-line"></div>'
-            '<div class="ry-step-unit"><div class="ry-step-dot">3</div>'
-            '<div class="ry-step-label">Pilih Fokus<br>Eksplorasi</div></div>'
+            '<div class="ry-step-label">Pilih<br>Mode</div></div>'
+            '<div class="ry-step-line" style="background:#ecddc9;"></div>'
+            '<div class="ry-step-unit"><div class="ry-step-dot ry-step-dot-upcoming">3</div>'
+            '<div class="ry-step-label ry-step-label-upcoming">Hasil<br>Reveal</div></div>'
             '</div>',
             unsafe_allow_html=True,
         )
@@ -264,7 +256,7 @@ def render():
                 '<rect x="3" y="5" width="18" height="14" rx="2.5"></rect>'
                 '<path d="M3.5 6.5 12 13l8.5-6.5"></path>'
                 '</svg></div>'
-                '<div><div class="ry-card-step-label">Langkah 1 dari 3</div>'
+                '<div><div class="ry-card-step-label">Langkah 1 dari 2</div>'
                 '<div class="ry-card-title">Verifikasi Email</div>'
                 '<div class="ry-card-desc">Tidak perlu membuat akun. Cukup email untuk '
                 'menyimpan &amp; membuka hasilmu nanti.</div></div></div>',
@@ -284,37 +276,10 @@ def render():
 
         st.write("")
 
-        # ── STEP 2 — Isi Data Lahir ──
-        with st.container(key="ry_card_2"):
-            st.markdown(
-                '<div class="ry-card-head">'
-                '<div class="ry-card-icon">'
-                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" '
-                'stroke-linecap="round" stroke-linejoin="round">'
-                '<path d="M6 4h9l4 4v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"></path>'
-                '<path d="M14 4v4h4"></path>'
-                '<path d="M8.5 13h7M8.5 16.5h4.5"></path>'
-                '</svg></div>'
-                '<div><div class="ry-card-step-label">Langkah 2 dari 3</div>'
-                '<div class="ry-card-title">Isi Data Lahir</div>'
-                '<div class="ry-card-desc">3 kolom pertama wajib diisi. Sisanya opsional, namun '
-                'membuat hasil BaZi &amp; Human Design lebih akurat.</div></div></div>',
-                unsafe_allow_html=True,
-            )
-            fcol1, fcol2 = st.columns(2)
-            with fcol1:
-                st.text_input("Nama Lengkap *", placeholder="Nama sesuai identitas", key="ry_nama")
-                st.date_input("Tanggal Lahir *", key="ry_tanggal")
-                st.selectbox("Jenis Kelamin (opsional)", ["— Pilih —", "Laki-laki", "Perempuan"], key="ry_gender")
-            with fcol2:
-                st.time_input("Jam Lahir (opsional, tapi disarankan)", key="ry_jam")
-                st.text_input("Kota Lahir (opsional)", placeholder="Contoh: Jakarta", key="ry_kota")
-                st.selectbox("Bahasa Laporan", ["Bahasa Indonesia", "English"], key="ry_bahasa")
-            st.write("")
-
-        st.write("")
-
-        # ── STEP 3 — Pilih Fokus Eksplorasi ──
+        # ── STEP 2 — Pilih Fokus Eksplorasi (Pilih Mode) ──
+        # Data kelahiran (tanggal/jam/kota/dll) SENGAJA tidak ditanya di sini
+        # lagi — dicicil per-titik di halaman loading, muncul lewat floating
+        # window cuma pas sistem yang lagi diproses benar-benar butuh itu.
         with st.container(key="ry_card_3"):
             st.markdown(
                 '<div class="ry-card-head">'
@@ -324,7 +289,7 @@ def render():
                 '<path d="M12 3.5 13.7 9l5.3 1.7-5.3 1.7L12 18l-1.7-5.6L5 10.7 10.3 9Z"></path>'
                 '<path d="M19 15.5 19.7 18l2.3.8-2.3.8L19 22l-.7-2.4-2.3-.8 2.3-.8Z"></path>'
                 '</svg></div>'
-                '<div><div class="ry-card-step-label">Langkah 3 dari 3</div>'
+                '<div><div class="ry-card-step-label">Langkah 2 dari 2</div>'
                 '<div class="ry-card-title">Pilih Fokus Eksplorasi</div>'
                 '<div class="ry-card-desc">Pilihan ini menentukan sistem mana yang dihitung '
                 'untuk laporanmu.</div></div></div>',
@@ -361,7 +326,7 @@ def render():
         cta_l, cta_mid, cta_r = st.columns([1.6, 1.6, 1.6])
         with cta_mid:
             st.button(
-                "Lanjut ke Ringkasan", key="btn_lanjut_form", type="primary",
+                "Mulai Proses Reveal", key="btn_lanjut_form", type="primary",
                 icon=":material/arrow_forward:", use_container_width=True,
             )
 
