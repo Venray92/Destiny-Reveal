@@ -6,6 +6,8 @@ Homepage + preview layout form. Isi/logic ditambahin pelan-pelan dari sini.
 import streamlit as st
 import streamlit.components.v1 as components
 
+from views.reveal_yourself import render as render_reveal_yourself
+
 try:
     from engine.zodiak import hitung_zodiak
     ZODIAK_ENGINE_READY = True
@@ -217,22 +219,28 @@ st.markdown(
 
     div.stButton > button[kind="primary"] {
         background: #c9683a; color: #ffffff !important; border: 2px solid #c9683a;
-        padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 16px;
+        padding: 14px 32px; border-radius: 10px; font-weight: 800; font-size: 16px;
+    }
+    div.stButton > button[kind="secondary"] {
+        background: #ffffff; color: #1c1a17 !important; border: 2px solid #e4ddd0;
+        padding: 14px 32px; border-radius: 10px; font-weight: 800; font-size: 16px;
     }
     /* Teks label tombol Streamlit dibungkus <p>, dan aturan global ".stApp p"
-       di atas lebih spesifik ke elemen <p> itu sendiri dibanding warna yang
-       diset di <button>-nya, jadi teksnya harus dipaksa putih di sini juga
-       supaya nggak balik jadi gelap/kurang kelihatan di atas background terracotta. */
+       di atas lebih spesifik ke elemen <p> itu sendiri dibanding warna/weight
+       yang diset di <button>-nya, jadi warna & ketebalan teksnya harus
+       dipaksa lagi di sini juga (bug yang sama kayak kasus tombol "Mulai
+       Eksplorasi" sebelumnya). */
     div.stButton > button[kind="primary"] p,
     div.stButton > button[kind="primary"] span,
     div.stButton > button[kind="primary"] div {
-        color: #ffffff !important;
+        color: #ffffff !important; font-weight: 800 !important;
+    }
+    div.stButton > button[kind="secondary"] p,
+    div.stButton > button[kind="secondary"] span,
+    div.stButton > button[kind="secondary"] div {
+        font-weight: 800 !important;
     }
     div.stButton > button[kind="primary"]:hover { background: #b8562f; border-color: #b8562f; }
-    div.stButton > button[kind="secondary"] {
-        background: #ffffff; color: #1c1a17 !important; border: 2px solid #e4ddd0;
-        padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 16px;
-    }
     div.stButton > button[kind="secondary"]:hover { border-color: #b8562f; color: #b8562f !important; }
 
     hr { border-color: #ece6dc !important; }
@@ -682,71 +690,7 @@ if st.session_state.dr_page == "home":
     )
 
 # ══════════════════════════════════════════════════════════════
-# HALAMAN — REVEAL YOURSELF (layout final, logic belum jalan)
+# HALAMAN — REVEAL YOURSELF (layout ngikutin mock design, logic belum jalan)
 # ══════════════════════════════════════════════════════════════
 else:
-
-    back_l, back_r = st.columns([1.6, 5.4])
-    with back_l:
-        if st.button("Kembali ke Home", key="btn_back_home", type="secondary", icon=":material/arrow_back:", use_container_width=True):
-            st.session_state.dr_page = "home"
-            st.rerun()
-
-    st.write("")
-
-    st.markdown('<p style="font-size:12.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#b8562f !important;margin-bottom:4px;">Langkah 1 dari 3</p>', unsafe_allow_html=True)
-    st.markdown('<div class="dr-section-title-wrap"><span class="dr-section-title">Verifikasi Email</span></div>', unsafe_allow_html=True)
-    st.markdown('<p style="font-size:14px;color:#6b6459 !important;margin-top:-14px;">Tidak perlu membuat akun. Cukup email untuk menyimpan & membuka hasilmu nanti.</p>', unsafe_allow_html=True)
-
-    with st.container(border=True):
-        st.text_input("Alamat Email", placeholder="nama@email.com")
-        vcol1, vcol2 = st.columns([1, 2])
-        with vcol1:
-            st.button("Kirim Kode", key="btn_send_otp", type="secondary", icon=":material/send:")
-        with vcol2:
-            st.text_input("Kode Verifikasi (6 digit)", placeholder="○ ○ ○ ○ ○ ○", label_visibility="collapsed")
-
-    st.write("")
-
-    st.markdown('<p style="font-size:12.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#b8562f !important;margin-bottom:4px;">Langkah 2 dari 3</p>', unsafe_allow_html=True)
-    st.markdown('<div class="dr-section-title-wrap"><span class="dr-section-title">Isi Data Lahir</span></div>', unsafe_allow_html=True)
-    st.markdown('<p style="font-size:14px;color:#6b6459 !important;margin-top:-14px;">3 kolom pertama wajib diisi. Sisanya opsional, namun membuat hasil BaZi & Human Design lebih akurat.</p>', unsafe_allow_html=True)
-
-    with st.container(border=True):
-        fcol1, fcol2 = st.columns(2)
-        with fcol1:
-            st.text_input("Nama Lengkap *", placeholder="Nama sesuai identitas")
-            st.date_input("Tanggal Lahir *")
-            st.selectbox("Jenis Kelamin (opsional)", ["— Pilih —", "Laki-laki", "Perempuan"])
-        with fcol2:
-            st.time_input("Jam Lahir (opsional, tapi disarankan)")
-            st.text_input("Kota Lahir (opsional)", placeholder="Contoh: Jakarta")
-            st.selectbox("Bahasa Laporan", ["Bahasa Indonesia", "English"])
-
-    st.write("")
-
-    st.markdown('<p style="font-size:12.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#b8562f !important;margin-bottom:4px;">Langkah 3 dari 3</p>', unsafe_allow_html=True)
-    st.markdown('<div class="dr-section-title-wrap"><span class="dr-section-title">Pilih Fokus Eksplorasi</span></div>', unsafe_allow_html=True)
-    st.markdown('<p style="font-size:14px;color:#6b6459 !important;margin-top:-14px;">Pilihan ini menentukan sistem mana yang dihitung untuk laporanmu.</p>', unsafe_allow_html=True)
-
-    with st.container(border=True):
-        st.radio(
-            "Mode Eksplorasi",
-            [
-                "Mode Instan — Weton, Zodiak, Shio & Numerologi",
-                "Mode Mendalam — MBTI, Big Five & Enneagram",
-                "Mode Lengkap — Semua sistem + skor kecocokan",
-            ],
-            label_visibility="collapsed",
-        )
-
-    st.write("")
-    st.button("Lanjut ke Ringkasan", key="btn_lanjut_form", type="primary", icon=":material/arrow_forward:")
-
-    st.write("")
-    st.markdown("<hr>", unsafe_allow_html=True)
-    st.markdown(
-        '<p class="dr-footer-copyright">© 2026 Destiny Reveal '
-        '<span class="dr-footer-byline">· By Zio</span></p>',
-        unsafe_allow_html=True,
-    )
+    render_reveal_yourself()
