@@ -5,6 +5,12 @@ Homepage + preview layout form. Isi/logic ditambahin pelan-pelan dari sini.
 
 import streamlit as st
 
+try:
+    from engine.zodiak import hitung_zodiak
+    ZODIAK_ENGINE_READY = True
+except ImportError:
+    ZODIAK_ENGINE_READY = False
+
 st.set_page_config(
     page_title="Destiny Reveal",
     page_icon="✨",
@@ -14,9 +20,21 @@ st.set_page_config(
 
 # ── Custom CSS ──────────────────────────────────────────────
 st.markdown(
+    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />',
+    unsafe_allow_html=True,
+)
+st.markdown(
     """
     <style>
     #MainMenu, footer, header {visibility: hidden;}
+
+    .material-symbols-outlined {
+        font-family: 'Material Symbols Outlined';
+        font-weight: normal; font-style: normal; font-size: 24px; line-height: 1;
+        letter-spacing: normal; text-transform: none; display: inline-block;
+        white-space: nowrap; word-wrap: normal; direction: ltr;
+        -webkit-font-smoothing: antialiased;
+    }
 
     .stApp { background-color: #ffffff; }
     .block-container { padding-top: 2rem; padding-bottom: 3rem; max-width: 1360px; }
@@ -39,12 +57,13 @@ st.markdown(
     .dr-hero-title {
         font-size: 58px; font-weight: 800; line-height: 1.12;
         margin: 0 0 20px 0; letter-spacing: -0.02em; color: #1c1a17 !important;
-        text-align: center;
+        text-align: left;
     }
     .dr-hero-sub {
-        font-size: 18px; line-height: 1.65; color: #5c564d !important;
-        max-width: 680px; margin: 0 auto 30px auto; text-align: center;
+        font-size: 18px; line-height: 1.75; color: #5c564d !important;
+        max-width: 680px; margin: 0 0 30px 0; text-align: left;
     }
+    .dr-hero-sub em { color: #b8562f !important; font-style: normal; font-weight: 600; }
     .dr-section-label {
         font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
         text-transform: uppercase; color: #b8562f !important; margin-bottom: 8px;
@@ -91,12 +110,19 @@ st.markdown(
     /* Kartu bulk kategori */
     .dr-bulk-card {
         padding: 22px 24px; border-radius: 16px; background: #fbf8f3;
-        border: 2px solid #ece6dc; height: 100%; box-sizing: border-box;
+        border: 2px solid #ece6dc; height: 220px; box-sizing: border-box;
+        display: flex; flex-direction: column; align-items: center; text-align: center;
     }
+    .dr-bulk-icon {
+        width: 44px; height: 44px; border-radius: 12px; background: #fdf3e7;
+        display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
+        color: #b8562f !important; flex-shrink: 0;
+    }
+    .dr-bulk-tags-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; overflow-y: auto; }
     .dr-bulk-tag {
         display: inline-block; padding: 6px 13px; border-radius: 100px;
         background: #ffffff; border: 1px solid #e4ddd0; color: #1c1a17 !important;
-        font-size: 12.5px; font-weight: 600; margin: 3px 5px 0 0;
+        font-size: 12.5px; font-weight: 600;
     }
 
     .dr-result-card {
@@ -139,6 +165,20 @@ st.markdown(
         border-radius: 8px !important; border-color: #e4ddd0 !important;
     }
 
+    /* Dropdown bahasa di nav: kecil & cream, bukan hitam */
+    .st-key-lang_switch { max-width: 130px; margin-left: auto; }
+    .st-key-lang_switch div[data-baseweb="select"] > div {
+        background: #fdf3e7 !important; border: 1.5px solid #ecddc9 !important;
+        border-radius: 100px !important; color: #8a5a2f !important;
+        min-height: 38px !important; font-weight: 600 !important;
+    }
+    .st-key-lang_switch svg { fill: #8a5a2f !important; }
+
+    /* Kontainer Contoh Laporan lebih compact */
+    .dr-report-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+    .dr-report-item { padding: 4px 0; border-bottom: 1px solid #f2ecdf; }
+    .dr-report-item:nth-last-child(-n+2) { border-bottom: none; }
+
     /* Tab (Beranda / Preview Form + Global / Mingguan) jadi pill nav modern */
     [data-testid="stTabs"] [data-baseweb="tab-list"] {
         gap: 10px !important; background: #fbf8f3; padding: 8px; border-radius: 100px;
@@ -171,34 +211,36 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# ── Data sistem lengkap (buat popover chip) ────────────────
+# ── Data sistem lengkap (buat popover chip) — urut abjad ────
+# format: (nama, arti_singkat, icon_material, aktif)
 SEMUA_SISTEM = [
-    ("Weton", "Untuk mengetahui watak bawaan lahir & hari baik menurut tradisi Jawa."),
-    ("Zodiak", "Untuk mengetahui karakter dasar dari posisi matahari saat kamu lahir."),
-    ("Shio", "Untuk mengetahui sifat & elemen bawaan dari siklus 12 hewan Tiongkok."),
-    ("BaZi", "Untuk mengetahui struktur nasib & elemen dominan dari 4 pilar waktu lahir."),
-    ("Zi Wei", "Untuk mengetahui peta 12 istana kehidupan dari astrologi bintang ungu."),
-    ("Human Design", "Untuk mengetahui tipe energi & cara alami kamu mengambil keputusan."),
-    ("Numerologi", "Untuk mengetahui jalan hidup utama dari angka lahir & nama."),
-    ("Matrix Destiny", "Untuk mengetahui peta menyeluruh: kepribadian, rezeki, cinta & karma."),
-    ("Tarot", "Untuk mengetahui arketipe jiwa & pelajaran hidup dari sudut pandang tarot."),
-    ("MBTI", "Untuk mengetahui gaya berpikir & bekerja lewat 16 tipe kepribadian."),
-    ("Big Five", "Untuk mengetahui 5 trait kepribadian yang tervalidasi riset psikologi."),
-    ("Enneagram", "Untuk mengetahui motivasi inti di balik perilakumu, dari 9 tipe dasar."),
-    ("DISC", "Untuk mengetahui gaya perilaku kerja & komunikasimu."),
-    ("Golongan Darah", "Untuk mengetahui kecenderungan sifat dari golongan darah, populer di budaya Jepang & Korea."),
-    ("Love Language", "Untuk mengetahui cara kamu paling nyaman menerima & menyampaikan kasih sayang."),
+    ("BaZi", "Untuk mengetahui struktur nasib & elemen dominan dari 4 pilar waktu lahir.", "account_tree", False),
+    ("Big Five", "Untuk mengetahui 5 trait kepribadian yang tervalidasi riset psikologi.", "insights", False),
+    ("DISC", "Untuk mengetahui gaya perilaku kerja & komunikasimu.", "groups", False),
+    ("Enneagram", "Untuk mengetahui motivasi inti di balik perilakumu, dari 9 tipe dasar.", "category", False),
+    ("Golongan Darah", "Untuk mengetahui kecenderungan sifat dari golongan darah, populer di budaya Jepang & Korea.", "bloodtype", False),
+    ("Human Design", "Untuk mengetahui tipe energi & cara alami kamu mengambil keputusan.", "hub", False),
+    ("Love Language", "Untuk mengetahui cara kamu paling nyaman menerima & menyampaikan kasih sayang.", "favorite", False),
+    ("Matrix Destiny", "Untuk mengetahui peta menyeluruh: kepribadian, rezeki, cinta & karma.", "grid_view", False),
+    ("MBTI", "Untuk mengetahui gaya berpikir & bekerja lewat 16 tipe kepribadian.", "psychology", False),
+    ("Numerologi", "Untuk mengetahui jalan hidup utama dari angka lahir & nama.", "tag", False),
+    ("Shio", "Untuk mengetahui sifat & elemen bawaan dari siklus 12 hewan Tiongkok.", "pets", False),
+    ("Tarot", "Untuk mengetahui arketipe jiwa & pelajaran hidup dari sudut pandang tarot.", "style", False),
+    ("Weton", "Untuk mengetahui watak bawaan lahir & hari baik menurut tradisi Jawa.", "calendar_today", False),
+    ("Zi Wei", "Untuk mengetahui peta 12 istana kehidupan dari astrologi bintang ungu.", "auto_awesome", False),
+    ("Zodiak", "Untuk mengetahui karakter dasar dari posisi matahari saat kamu lahir.", "star", True),
 ]
 
 # ── NAV ──────────────────────────────────────────────────────
-nav_l, nav_r = st.columns([4, 1.2])
+nav_l, nav_r = st.columns([5, 1])
 with nav_l:
     st.markdown(
         '<div style="font-size:22px;font-weight:800;color:#1c1a17;padding-top:6px;">✨ Destiny Reveal</div>',
         unsafe_allow_html=True,
     )
 with nav_r:
-    st.selectbox("Bahasa", ["🇮🇩 Indonesia", "🇬🇧 English"], label_visibility="collapsed")
+    with st.container(key="lang_switch"):
+        st.selectbox("Bahasa", ["🇮🇩 ID", "🇬🇧 EN"], label_visibility="collapsed")
 
 st.markdown("<hr style='margin-top:14px;'>", unsafe_allow_html=True)
 
@@ -210,33 +252,55 @@ tab_home, tab_form = st.tabs([":material/home: Beranda", ":material/edit_note: P
 with tab_home:
 
     # ── HERO ─────────────────────────────────────────────────
-    st.markdown('<div class="dr-center"><span class="dr-badge">✧ 15 sistem pembacaan diri, 1 laporan personal</span></div>', unsafe_allow_html=True)
-    st.markdown('<div class="dr-hero-title">Dari Weton Sampai MBTI,<br>Kenali Dirimu Lebih Dalam</div>', unsafe_allow_html=True)
+    st.markdown('<span class="dr-badge">✧ 15 sistem pembacaan diri, 1 laporan personal</span>', unsafe_allow_html=True)
+    st.markdown('<div class="dr-hero-title">Sudah Tahu Zodiakmu?<br>Tapi Sudah Tahu Weton, Shio,<br>sampai Matrix Destiny-mu?</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class="dr-hero-sub">Isi data sekali aja, langsung dapet pembacaan dari 15 sistem populer '
-        'dalam satu laporan. Bukan cuma kasih label, tapi jawab pertanyaan yang sebenarnya kamu cari: '
-        'terus gue harus ngapain?</div>',
+        '<div class="dr-hero-sub">'
+        'Cukup isi data sekali saja.<br>'
+        '15 sistem pembacaan kepribadian akan digabungkan menjadi satu laporan.<br>'
+        'Bukan sekadar label, tetapi jawaban atas pertanyaan yang paling sering muncul:<br>'
+        '<em>"Lalu, apa yang sebaiknya aku lakukan?"</em>'
+        '</div>',
         unsafe_allow_html=True,
     )
 
-    col_l, col_a, col_b, col_r = st.columns([1, 1.3, 1.3, 1])
+    col_a, col_b, col_r = st.columns([1.3, 1.3, 2.4])
     with col_a:
         st.button("Mulai Eksplorasi", key="cta_hero", type="primary", icon=":material/bolt:", use_container_width=True)
     with col_b:
         st.button("Lihat Contoh Hasil", key="cta_hero_secondary", type="secondary", icon=":material/visibility:", use_container_width=True)
 
     st.write("")
-    st.markdown('<p class="dr-center" style="font-size:12.5px;color:#9a948a !important;margin-bottom:6px;">Klik tiap sistem buat lihat artinya:</p>', unsafe_allow_html=True)
+    st.markdown('<p style="font-size:12.5px;color:#9a948a !important;margin-bottom:6px;">Klik tiap sistem untuk melihat penjelasannya:</p>', unsafe_allow_html=True)
 
     n_per_row = 5
     for i in range(0, len(SEMUA_SISTEM), n_per_row):
         chunk = SEMUA_SISTEM[i:i + n_per_row]
         cols = st.columns(n_per_row)
-        for col, (nama, arti) in zip(cols, chunk):
+        for col, (nama, arti, icon, aktif) in zip(cols, chunk):
             with col:
-                with st.popover(nama, use_container_width=True):
-                    st.markdown(f"**{nama}**")
-                    st.write(arti)
+                with st.popover(nama, use_container_width=True, icon=f":material/{icon}:"):
+                    if aktif and nama == "Zodiak":
+                        st.markdown("**✨ Zodiak (Aktif)**")
+                        st.write(
+                            "Zodiak membaca karakter dasar seseorang dari posisi matahari "
+                            "terhadap salah satu dari 12 rasi bintang saat ia lahir. Setiap "
+                            "rasi punya elemen (Api, Tanah, Udara, atau Air) yang menggambarkan "
+                            "kecenderungan dasar cara seseorang bereaksi dan mengambil keputusan."
+                        )
+                        st.markdown("**Yang bisa diketahui:** kecenderungan sifat dasar, gaya emosi, dan cara merespons situasi baru.")
+                        st.markdown("---")
+                        st.markdown("**Coba sekarang:**")
+                        tgl_coba = st.date_input("Tanggal lahir", key="zodiak_demo_date", label_visibility="collapsed")
+                        if ZODIAK_ENGINE_READY:
+                            hasil = hitung_zodiak(tgl_coba)
+                            st.success(f"Zodiakmu: **{hasil['sign']}** (elemen {hasil['element']})")
+                        else:
+                            st.info("Engine belum ter-upload ke repo. Tambahkan engine/zodiak.py dulu.")
+                    else:
+                        st.markdown(f"**{nama}**")
+                        st.write(arti)
+                        st.caption("Belum aktif — masih dalam pengembangan.")
 
     st.write("")
     st.write("")
@@ -286,10 +350,10 @@ with tab_home:
     st.markdown('<div class="dr-section-sub">Makin lengkap data yang kamu isi, makin banyak & makin akurat hasil yang kamu dapat.</div>', unsafe_allow_html=True)
 
     bulk_groups = [
-        ("📅", "Cuma dari Tanggal Lahir", ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"]),
-        ("🕐", "+ Tambah Jam Lahir", ["BaZi (4 Pilar)", "Zi Wei Dou Shu", "Human Design", "Ascendant Zodiak"]),
-        ("📍", "+ Tambah Kota Lahir", ["BaZi Akurat Penuh", "Human Design Akurat Penuh"]),
-        ("📋", "Kuesioner Terpisah", ["MBTI", "Big Five", "Enneagram", "DISC", "Golongan Darah", "Love Language"]),
+        ("calendar_month", "Cuma dari Tanggal Lahir", ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"]),
+        ("schedule", "+ Tambah Jam Lahir", ["BaZi (4 Pilar)", "Zi Wei Dou Shu", "Human Design", "Ascendant Zodiak"]),
+        ("location_on", "+ Tambah Kota Lahir", ["BaZi Akurat Penuh", "Human Design Akurat Penuh"]),
+        ("quiz", "Kuesioner Terpisah", ["MBTI", "Big Five", "Enneagram", "DISC", "Golongan Darah", "Love Language"]),
     ]
     bcols = st.columns(4, gap="medium")
     for col, (icon, title, items) in zip(bcols, bulk_groups):
@@ -297,9 +361,9 @@ with tab_home:
             tags_html = "".join(f'<span class="dr-bulk-tag">{x}</span>' for x in items)
             st.markdown(
                 f"""<div class="dr-bulk-card">
-                    <div style="font-size:20px;margin-bottom:8px;">{icon}</div>
+                    <div class="dr-bulk-icon"><span class="material-symbols-outlined">{icon}</span></div>
                     <b style="font-size:14.5px;">{title}</b>
-                    <div style="margin-top:10px;">{tags_html}</div>
+                    <div class="dr-bulk-tags-wrap" style="margin-top:10px;">{tags_html}</div>
                 </div>""",
                 unsafe_allow_html=True,
             )
@@ -331,17 +395,17 @@ with tab_home:
                 ("Life Path: 7", "Reflektif, butuh waktu sendiri sebelum ambil keputusan besar.",
                  "Kasih jeda 1 hari sebelum memutuskan hal penting, meski insting pengen langsung gas."),
             ]
-            for tag, makna, aksi in hasil_global:
-                st.markdown(
-                    f"""<div class="dr-mini-card">
-                        <span class="dr-mini-tag">{tag}</span>
-                        <div class="dr-mini-label">Makna</div>
-                        <p class="dr-mini-text">{makna}</p>
-                        <div class="dr-mini-label">Saran</div>
-                        <p class="dr-mini-text">{aksi}</p>
-                    </div>""",
-                    unsafe_allow_html=True,
-                )
+            items_html = "".join(
+                f"""<div class="dr-report-item">
+                    <span class="dr-mini-tag">{tag}</span>
+                    <div class="dr-mini-label">Makna</div>
+                    <p class="dr-mini-text">{makna}</p>
+                    <div class="dr-mini-label">Saran</div>
+                    <p class="dr-mini-text">{aksi}</p>
+                </div>"""
+                for tag, makna, aksi in hasil_global
+            )
+            st.markdown(f'<div class="dr-mini-card"><div class="dr-report-grid">{items_html}</div></div>', unsafe_allow_html=True)
             st.markdown(
                 '<p style="font-size:12.5px;color:#9a948a !important;">Ini contoh dummy untuk ilustrasi. Hasil ini dihitung sekali dan berlaku seumur hidup.</p>',
                 unsafe_allow_html=True,
