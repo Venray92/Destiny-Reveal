@@ -399,27 +399,49 @@ SEMUA_SISTEM = [
      "Sistem yang paling familiar, tapi baru terasa lengkap kalau digabung dengan sistem lain.", True),
 ]
 
-# ── NAV ──────────────────────────────────────────────────────
+# ── NAVIGASI HALAMAN ────────────────────────────────────────
+# Bukan st.tabs — st.tabs nggak bisa dipindah programatis lewat klik tombol
+# lain (misal tombol "Mulai Eksplorasi" di hero). Jadi navigasi antar
+# "halaman" (Beranda / Reveal Yourself) dipegang manual lewat
+# st.session_state, dan konten dirender bergantian pakai if/else biasa.
+if "dr_page" not in st.session_state:
+    st.session_state.dr_page = "home"
+
+# ── NAV BAR ──────────────────────────────────────────────────
 with st.container(key="nav_row"):
-    nav_l, nav_r = st.columns([5, 1])
+    nav_l, nav_home_btn, nav_reveal_btn, nav_r = st.columns([3.4, 1.3, 1.7, 1])
     with nav_l:
         st.markdown(
             '<div style="font-family:\'Fraunces\',serif;font-size:28px;font-weight:700;'
             'color:#1c1a17;letter-spacing:-0.01em;">✨ Destiny Reveal</div>',
             unsafe_allow_html=True,
         )
+    with nav_home_btn:
+        if st.button(
+            "Beranda", key="nav_btn_home", icon=":material/home:",
+            type="primary" if st.session_state.dr_page == "home" else "secondary",
+            use_container_width=True,
+        ):
+            st.session_state.dr_page = "home"
+            st.rerun()
+    with nav_reveal_btn:
+        if st.button(
+            "Reveal Yourself", key="nav_btn_reveal", icon=":material/auto_awesome:",
+            type="primary" if st.session_state.dr_page == "reveal" else "secondary",
+            use_container_width=True,
+        ):
+            st.session_state.dr_page = "reveal"
+            st.rerun()
     with nav_r:
         with st.container(key="lang_switch"):
             st.selectbox("Bahasa", ["🇮🇩 Indonesian", "🇬🇧 English"], label_visibility="collapsed")
 
 st.markdown("<hr style='margin-top:14px;'>", unsafe_allow_html=True)
 
-tab_home, tab_form = st.tabs([":material/home: Beranda", ":material/auto_awesome: Reveal Yourself"])
-
 # ══════════════════════════════════════════════════════════════
-# TAB 1 — BERANDA
+# HALAMAN — BERANDA
 # ══════════════════════════════════════════════════════════════
-with tab_home:
+if st.session_state.dr_page == "home":
 
     # ── HERO ─────────────────────────────────────────────────
     st.markdown('<div class="dr-hero-title">Ada Banyak Versi Dirimu yang Belum Kamu Kenal.</div>', unsafe_allow_html=True)
@@ -434,7 +456,9 @@ with tab_home:
 
     col_a, col_b, col_r = st.columns([1.3, 1.3, 2.4])
     with col_a:
-        st.button("Mulai Eksplorasi", key="cta_hero", type="primary", icon=":material/bolt:", use_container_width=True)
+        if st.button("Mulai Eksplorasi", key="cta_hero", type="primary", icon=":material/bolt:", use_container_width=True):
+            st.session_state.dr_page = "reveal"
+            st.rerun()
     with col_b:
         with st.container(key="cta_lihat_hasil"):
             st.button("Lihat Contoh Hasil", key="cta_hero_secondary", type="secondary", icon=":material/visibility:", use_container_width=True)
@@ -646,7 +670,9 @@ with tab_home:
     )
     cta_l, cta_mid, cta_r = st.columns([1.5, 1.4, 1.5])
     with cta_mid:
-        st.button("Mulai Eksplorasi Gratis", key="cta_footer", type="primary", icon=":material/arrow_forward:", use_container_width=True)
+        if st.button("Mulai Eksplorasi Gratis", key="cta_footer", type="primary", icon=":material/arrow_forward:", use_container_width=True):
+            st.session_state.dr_page = "reveal"
+            st.rerun()
 
     st.write("")
     st.markdown(
@@ -656,9 +682,17 @@ with tab_home:
     )
 
 # ══════════════════════════════════════════════════════════════
-# TAB 2 — REVEAL YOURSELF (layout final, logic belum jalan)
+# HALAMAN — REVEAL YOURSELF (layout final, logic belum jalan)
 # ══════════════════════════════════════════════════════════════
-with tab_form:
+else:
+
+    back_l, back_r = st.columns([1.6, 5.4])
+    with back_l:
+        if st.button("Kembali ke Home", key="btn_back_home", type="secondary", icon=":material/arrow_back:", use_container_width=True):
+            st.session_state.dr_page = "home"
+            st.rerun()
+
+    st.write("")
 
     st.markdown('<p style="font-size:12.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#b8562f !important;margin-bottom:4px;">Langkah 1 dari 3</p>', unsafe_allow_html=True)
     st.markdown('<div class="dr-section-title-wrap"><span class="dr-section-title">Verifikasi Email</span></div>', unsafe_allow_html=True)
