@@ -4,7 +4,6 @@ Homepage + preview layout form. Isi/logic ditambahin pelan-pelan dari sini.
 """
 
 import streamlit as st
-import streamlit.components.v1 as components
 
 from views.reveal_yourself import render as render_reveal_yourself
 
@@ -228,7 +227,7 @@ st.markdown(
     /* Teks label tombol Streamlit dibungkus <p>, dan aturan global ".stApp p"
        di atas lebih spesifik ke elemen <p> itu sendiri dibanding warna yang
        diset di <button>-nya, jadi warnanya harus dipaksa lagi di sini juga
-       (bug yang sama kayak kasus tombol "Mulai Eksplorasi" sebelumnya). */
+       (bug yang sama kayak kasus tombol "Mulai Reveal" sebelumnya). */
     div.stButton > button[kind="primary"] p,
     div.stButton > button[kind="primary"] span,
     div.stButton > button[kind="primary"] div {
@@ -451,7 +450,7 @@ SEMUA_SISTEM = [
 
 # ── NAVIGASI HALAMAN ────────────────────────────────────────
 # Bukan st.tabs — st.tabs nggak bisa dipindah programatis lewat klik tombol
-# lain (misal tombol "Mulai Eksplorasi" di hero). Jadi navigasi antar
+# lain (misal tombol "Mulai Reveal" di hero). Jadi navigasi antar
 # "halaman" (Beranda / Reveal Yourself) dipegang manual lewat
 # st.session_state, dan konten dirender bergantian pakai if/else biasa.
 if "dr_page" not in st.session_state:
@@ -506,40 +505,9 @@ if st.session_state.dr_page == "home":
 
     col_a, col_b, col_r = st.columns([1.3, 1.3, 2.4])
     with col_a:
-        if st.button("Mulai Eksplorasi", key="cta_hero", type="primary", icon=":material/bolt:", use_container_width=True):
+        if st.button("Mulai Reveal", key="cta_hero", type="primary", icon=":material/bolt:", use_container_width=True):
             st.session_state.dr_page = "reveal"
             st.rerun()
-    with col_b:
-        with st.container(key="cta_lihat_hasil"):
-            st.button("Lihat Contoh Hasil", key="cta_hero_secondary", type="secondary", icon=":material/visibility:", use_container_width=True)
-
-    # Tombol "Lihat Contoh Hasil" scroll otomatis ke section "Contoh Laporan
-    # Personal" di bawah (id="dr-contoh-laporan"). <script> lewat st.markdown
-    # TIDAK dieksekusi browser (perilaku standar HTML yang disisipkan lewat
-    # innerHTML, bukan soal sanitizer) — makanya harus lewat
-    # st.components.v1.html, yang jalan di iframe sungguhan lalu menjangkau
-    # dokumen induk (window.parent.document, masih same-origin) buat masang
-    # event listener + scroll. Flag di document induk mencegah listener
-    # dobel tiap Streamlit rerun.
-    components.html(
-        """
-        <script>
-        (function () {
-            var doc = window.parent.document;
-            if (doc.__dr_scroll_hooked) { return; }
-            doc.__dr_scroll_hooked = true;
-            doc.addEventListener('click', function (e) {
-                var btn = e.target.closest('.st-key-cta_lihat_hasil button');
-                if (btn) {
-                    var target = doc.getElementById('dr-contoh-laporan');
-                    if (target) { target.scrollIntoView({behavior: 'smooth', block: 'start'}); }
-                }
-            }, true);
-        })();
-        </script>
-        """,
-        height=0,
-    )
 
     st.write("")
     st.markdown('<p style="font-size:12.5px;color:#9a948a !important;margin-bottom:6px;">Klik tiap sistem untuk melihat penjelasannya:</p>', unsafe_allow_html=True)
@@ -597,8 +565,8 @@ if st.session_state.dr_page == "home":
     c1, c2, c3 = st.columns(3, gap="medium")
     steps = [
         (":material/mail:", "Verifikasi Email", "Masukkan email, dapat kode verifikasi. Tanpa akun atau password.", "dr-step-card-1"),
-        (":material/edit_note:", "Isi Data & Pilih Fokus", "Nama, tanggal & jam lahir, lalu pilih fokus eksplorasimu.", "dr-step-card-2"),
-        (":material/auto_awesome:", "Buka Hasil Lengkap", "Laporan lengkap langsung terbuka & dikirim ke email kamu.", "dr-step-card-3"),
+        (":material/auto_awesome:", "Pilih Mode & Diproses", "Pilih fokus eksplorasimu, data lain ditanya pelan-pelan sambil diproses.", "dr-step-card-2"),
+        (":material/visibility:", "Buka Hasil Lengkap", "Laporan lengkap langsung terbuka & dikirim ke email kamu.", "dr-step-card-3"),
     ]
     for idx, (col, (icon, title, desc, cls)) in enumerate(zip([c1, c2, c3], steps)):
         with col:
@@ -638,74 +606,6 @@ if st.session_state.dr_page == "home":
 
     st.write("")
 
-    # ── CONTOH LAPORAN — Global vs Mingguan ──────────────────
-    st.markdown('<div id="dr-contoh-laporan"></div>', unsafe_allow_html=True)
-    st.markdown('<div class="dr-section-title-wrap"><span class="dr-section-title">Ini yang Kamu Dapat</span></div>', unsafe_allow_html=True)
-
-    st.markdown('<div class="dr-result-card">', unsafe_allow_html=True)
-    st.markdown('<div class="dr-result-header">✨ Contoh Laporan Personal</div>', unsafe_allow_html=True)
-
-    with st.container():
-        st.markdown('<div style="padding:22px 26px 6px 26px;">', unsafe_allow_html=True)
-        tab_global, tab_mingguan = st.tabs([":material/public: Baca Global (Seumur Hidup)", ":material/calendar_month: Baca Minggu Ini"])
-
-        with tab_global:
-            hasil_global = [
-                ("Zodiak: Aries",
-                 "Sebagai zodiak api pembuka siklus, Aries membawa dorongan kuat untuk selalu jadi yang pertama bergerak. Semangat ini membuatmu cepat mengambil inisiatif, meski bertahan sampai garis akhir bukan selalu kekuatan utamamu.",
-                 "Manfaatkan ledakan energi di awal untuk memulai langkah besar, lalu kunci progresnya lewat rutinitas kecil seperti checklist mingguan, supaya semangat awal tidak padam di tengah jalan."),
-                ("Shio: Kuda",
-                 "Shio Kuda membawa jiwa bebas yang selalu ingin bergerak maju. Kamu cepat beradaptasi di lingkungan baru, tapi mudah gelisah kalau terjebak dalam rutinitas yang itu-itu saja.",
-                 "Cari ruang kerja atau aktivitas yang memberi variasi dan kebebasan bergerak, karena produktivitasmu justru meningkat saat tidak dikekang pola yang kaku."),
-                ("Weton: Jumat Legi",
-                 "Neptu 11 pada weton Jumat Legi dikenal membawa kepekaan sosial yang tinggi. Kamu mudah membaca suasana hati orang lain, dan sering jadi tempat cerita yang dipercaya.",
-                 "Jadikan kepekaan ini sebagai kekuatan penengah dalam tim atau keluarga, terutama saat ada gesekan yang butuh sudut pandang yang bisa dipercaya kedua belah pihak."),
-                ("Life Path: 7",
-                 "Angka jalan hidup 7 identik dengan sisi reflektif dan pencarian makna yang dalam. Kamu jarang mengambil keputusan besar tanpa merenungkannya lebih dulu.",
-                 "Beri diri jeda sejenak, misalnya semalam, sebelum memutuskan hal penting, meskipun dorongan untuk langsung bertindak terasa kuat."),
-            ]
-            items_html = "".join(
-                f"""<div class="dr-report-item">
-                    <span class="dr-mini-tag">{tag}</span>
-                    <div class="dr-mini-label">Makna</div>
-                    <p class="dr-mini-text">{makna}</p>
-                    <div class="dr-mini-label">Saran</div>
-                    <p class="dr-mini-text">{aksi}</p>
-                </div>"""
-                for tag, makna, aksi in hasil_global
-            )
-            st.markdown(f'<div class="dr-mini-card"><div class="dr-report-grid">{items_html}</div></div>', unsafe_allow_html=True)
-            st.markdown(
-                '<p style="font-size:12.5px;color:#9a948a !important;">Ini contoh dummy untuk ilustrasi. Hasil ini dihitung sekali dan berlaku seumur hidup.</p>',
-                unsafe_allow_html=True,
-            )
-
-        with tab_mingguan:
-            st.markdown(
-                """<div class="dr-mini-card">
-                    <span class="dr-mini-tag">Minggu Ini</span>
-                    <p class="dr-mini-text" style="margin-top:10px;">
-                        Energi Aries kamu lagi kuat di sisi eksekusi minggu ini, apalagi didukung Shio Kuda yang
-                        bikin kamu gampang gerak cepat begitu ada peluang. Tapi weton Jumat Legi kamu juga lagi
-                        nunjukin sisi sensitif ke omongan orang sekitar, jadi jangan sampai energi cepatmu bikin ada
-                        yang tersinggung karena keputusan diambil tanpa banyak ngobrol dulu.
-                    </p>
-                    <div class="dr-mini-label">Fokus Minggu Ini</div>
-                    <p class="dr-mini-text">Eksekusi ide, tapi komunikasikan dulu ke orang terdekat sebelum jalan sendiri.</p>
-                    <div class="dr-mini-label">Saran</div>
-                    <p class="dr-mini-text">Luangkan 10 menit tiap pagi buat cek rencana hari itu bareng tim/partner, biar langkah cepatmu tetap selaras sama orang lain.</p>
-                </div>""",
-                unsafe_allow_html=True,
-            )
-            st.markdown(
-                '<p style="font-size:12.5px;color:#9a948a !important;">Diperbarui otomatis tiap minggu, sesuai kombinasi hasil global kamu.</p>',
-                unsafe_allow_html=True,
-            )
-
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    st.markdown('</div>', unsafe_allow_html=True)
-
     # ── CTA PENUTUP ──────────────────────────────────────────
     # Sengaja tanpa st.write("") kosong di sini — tiap st.write("") nambah
     # elemen container-nya sendiri, dan gap antar stVerticalBlock (1rem) ikut
@@ -720,7 +620,7 @@ if st.session_state.dr_page == "home":
     )
     cta_l, cta_mid, cta_r = st.columns([1.5, 1.4, 1.5])
     with cta_mid:
-        if st.button("Mulai Eksplorasi Gratis", key="cta_footer", type="primary", icon=":material/arrow_forward:", use_container_width=True):
+        if st.button("Mulai Reveal Gratis", key="cta_footer", type="primary", icon=":material/arrow_forward:", use_container_width=True):
             st.session_state.dr_page = "reveal"
             st.rerun()
 
