@@ -632,11 +632,13 @@ with tab_home:
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-    st.write("")
-
     # ── CTA PENUTUP ──────────────────────────────────────────
-    st.markdown("<hr>", unsafe_allow_html=True)
-    st.write("")
+    # Sengaja tanpa st.write("") kosong di sini — tiap st.write("") nambah
+    # elemen container-nya sendiri, dan gap antar stVerticalBlock (1rem) ikut
+    # kekali tiap ada elemen kosong tambahan, jadi jaraknya membengkak jauh
+    # lebih besar dari yang kelihatan di kode. Jarak sekarang cuma diatur
+    # lewat margin di <hr>-nya sendiri.
+    st.markdown("<hr style='margin-top:4px;margin-bottom:20px;'>", unsafe_allow_html=True)
     st.markdown('<div class="dr-center"><span class="dr-section-title">Penasaran Sama Dirimu Sendiri?</span></div>', unsafe_allow_html=True)
     st.markdown(
         '<p class="dr-center" style="color:#6b6459 !important;font-size:15px;margin-bottom:22px;">Mulai sekarang, hasil pertama muncul dalam hitungan menit.</p>',
