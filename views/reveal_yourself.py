@@ -99,6 +99,15 @@ def _inject_style():
         .ry-card-title { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: #1c1a17 !important; margin-top: 3px; }
         .ry-card-desc { font-size: 13px; color: #6b6459 !important; margin-top: 3px; }
 
+        /* Tombol "Kirim Kode" default-nya pakai padding global button (14px 32px)
+           yang bikin tingginya 54px, jauh lebih gede dari kolom Alamat Email
+           di sebelahnya yang cuma 40px. Disamakan tingginya di sini, scoped
+           lewat container key biar tombol lain (mode, back, dst) nggak ikut. */
+        .st-key-ry_otp_btn button[kind="secondary"] {
+            height: 40px !important; min-height: 40px !important;
+            padding: 0 18px !important; font-size: 14px !important;
+        }
+
         /* OTP boxes dekoratif */
         .ry-otp-row { display: flex; gap: 8px; margin: 4px 0 14px 0; }
         .ry-otp-box {
@@ -266,10 +275,11 @@ def render():
                 st.text_input("Alamat Email", placeholder="nama@email.com", key="ry_email")
             with vcol2:
                 st.markdown('<div style="height:28px;"></div>', unsafe_allow_html=True)
-                st.button(
-                    "Kirim Kode", key="btn_send_otp", type="secondary",
-                    icon=":material/send:", use_container_width=True,
-                )
+                with st.container(key="ry_otp_btn"):
+                    st.button(
+                        "Kirim Kode", key="btn_send_otp", type="secondary",
+                        icon=":material/send:", use_container_width=True,
+                    )
             st.markdown('<div class="ry-otp-row">' + '<div class="ry-otp-box"></div>' * 6 + '</div>', unsafe_allow_html=True)
 
         st.write("")
