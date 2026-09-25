@@ -4,6 +4,7 @@ Homepage + preview layout form. Isi/logic ditambahin pelan-pelan dari sini.
 """
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 try:
     from engine.zodiak import hitung_zodiak
@@ -106,6 +107,12 @@ st.markdown(
     .stApp { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
 
     .dr-center { text-align: center; }
+    /* Footer copyright + byline — dipakai lewat class, bukan inline style,
+       karena sanitizer HTML Streamlit ternyata membuang deklarasi CSS yang
+       pakai !important di dalam atribut style="" (terbukti lewat inspeksi
+       DOM langsung: propertinya lenyap total dari outerHTML). */
+    .dr-footer-copyright { text-align: center; color: #9a948a !important; font-size: 12.5px; }
+    .dr-footer-byline { color: #d9cdb6 !important; }
 
     .dr-badge {
         display: inline-flex; align-items: center; gap: 6px;
@@ -115,7 +122,7 @@ st.markdown(
     }
     .dr-hero-title {
         font-family: 'Fraunces', serif;
-        font-size: 42px; font-weight: 700; line-height: 1.25;
+        font-size: 38px; font-weight: 700; line-height: 1.25;
         margin: 0 0 22px 0; letter-spacing: -0.01em; color: #1c1a17 !important;
         text-align: left;
     }
@@ -407,7 +414,7 @@ with st.container(key="nav_row"):
 
 st.markdown("<hr style='margin-top:14px;'>", unsafe_allow_html=True)
 
-tab_home, tab_form = st.tabs([":material/home: Beranda", ":material/edit_note: Preview Form Screening"])
+tab_home, tab_form = st.tabs([":material/home: Beranda", ":material/auto_awesome: Reveal Yourself"])
 
 # ══════════════════════════════════════════════════════════════
 # TAB 1 — BERANDA
@@ -429,7 +436,36 @@ with tab_home:
     with col_a:
         st.button("Mulai Eksplorasi", key="cta_hero", type="primary", icon=":material/bolt:", use_container_width=True)
     with col_b:
-        st.button("Lihat Contoh Hasil", key="cta_hero_secondary", type="secondary", icon=":material/visibility:", use_container_width=True)
+        with st.container(key="cta_lihat_hasil"):
+            st.button("Lihat Contoh Hasil", key="cta_hero_secondary", type="secondary", icon=":material/visibility:", use_container_width=True)
+
+    # Tombol "Lihat Contoh Hasil" scroll otomatis ke section "Contoh Laporan
+    # Personal" di bawah (id="dr-contoh-laporan"). <script> lewat st.markdown
+    # TIDAK dieksekusi browser (perilaku standar HTML yang disisipkan lewat
+    # innerHTML, bukan soal sanitizer) — makanya harus lewat
+    # st.components.v1.html, yang jalan di iframe sungguhan lalu menjangkau
+    # dokumen induk (window.parent.document, masih same-origin) buat masang
+    # event listener + scroll. Flag di document induk mencegah listener
+    # dobel tiap Streamlit rerun.
+    components.html(
+        """
+        <script>
+        (function () {
+            var doc = window.parent.document;
+            if (doc.__dr_scroll_hooked) { return; }
+            doc.__dr_scroll_hooked = true;
+            doc.addEventListener('click', function (e) {
+                var btn = e.target.closest('.st-key-cta_lihat_hasil button');
+                if (btn) {
+                    var target = doc.getElementById('dr-contoh-laporan');
+                    if (target) { target.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+                }
+            }, true);
+        })();
+        </script>
+        """,
+        height=0,
+    )
 
     st.write("")
     st.markdown('<p style="font-size:12.5px;color:#9a948a !important;margin-bottom:6px;">Klik tiap sistem untuk melihat penjelasannya:</p>', unsafe_allow_html=True)
@@ -529,6 +565,7 @@ with tab_home:
     st.write("")
 
     # ── CONTOH LAPORAN — Global vs Mingguan ──────────────────
+    st.markdown('<div id="dr-contoh-laporan"></div>', unsafe_allow_html=True)
     st.markdown('<div class="dr-section-title-wrap"><span class="dr-section-title">Ini yang Kamu Dapat</span></div>', unsafe_allow_html=True)
 
     st.markdown('<div class="dr-result-card">', unsafe_allow_html=True)
@@ -611,12 +648,13 @@ with tab_home:
 
     st.write("")
     st.markdown(
-        '<p style="text-align:center;color:#9a948a !important;font-size:12.5px;">© 2026 Destiny Reveal</p>',
+        '<p class="dr-footer-copyright">© 2026 Destiny Reveal '
+        '<span class="dr-footer-byline">· By Zio</span></p>',
         unsafe_allow_html=True,
     )
 
 # ══════════════════════════════════════════════════════════════
-# TAB 2 — PREVIEW FORM SCREENING (layout final, logic belum jalan)
+# TAB 2 — REVEAL YOURSELF (layout final, logic belum jalan)
 # ══════════════════════════════════════════════════════════════
 with tab_form:
 
@@ -668,3 +706,11 @@ with tab_form:
 
     st.write("")
     st.button("Lanjut ke Ringkasan", key="btn_lanjut_form", type="primary", icon=":material/arrow_forward:")
+
+    st.write("")
+    st.markdown("<hr>", unsafe_allow_html=True)
+    st.markdown(
+        '<p class="dr-footer-copyright">© 2026 Destiny Reveal '
+        '<span class="dr-footer-byline">· By Zio</span></p>',
+        unsafe_allow_html=True,
+    )
