@@ -59,10 +59,39 @@ st.markdown(
         color: inherit;
     }
 
-    /* Kolom Streamlit auto-stretch tinggi sesuai isi paling tinggi */
+    /* Kolom Streamlit auto-stretch tinggi sesuai isi paling tinggi.
+       Testid kolom aslinya "stColumn". stColumn sendiri sudah stretch otomatis
+       dari flexbox parent (stHorizontalBlock, align-items:stretch), tapi
+       beberapa div pembungkus DI DALAMNYA (stVerticalBlock, stLayoutWrapper,
+       stElementContainer, dst) masih perlu diregangkan manual lewat flex-grow,
+       khusus untuk kartu yang dibungkus st.container(key="drfillheight_...").
+       Pakai :has() supaya ancestor-nya ikut kebawa tanpa menyentuh kolom lain
+       di halaman yang tidak perlu tinggi seragam. */
     [data-testid="stHorizontalBlock"] { align-items: stretch !important; }
-    [data-testid="column"] { display: flex !important; flex-direction: column !important; }
-    [data-testid="column"] > div { height: 100%; }
+
+    [data-testid="stColumn"]:has([class*="drfillheight"]) {
+        display: flex !important; flex-direction: column !important;
+    }
+    [data-testid="stVerticalBlock"]:has([class*="drfillheight"]),
+    [data-testid="stLayoutWrapper"]:has([class*="drfillheight"]) {
+        display: flex !important; flex-direction: column !important;
+        flex: 1 !important; min-height: 0 !important;
+    }
+    [class*="drfillheight"] {
+        display: flex !important; flex-direction: column !important;
+        flex: 1 !important; min-height: 0 !important;
+    }
+    [class*="drfillheight"] [data-testid="stElementContainer"],
+    [class*="drfillheight"] .stMarkdown,
+    [class*="drfillheight"] .stMarkdown > div,
+    [class*="drfillheight"] [data-testid="stMarkdownContainer"] {
+        display: flex !important; flex-direction: column !important;
+        flex: 1 !important; min-height: 0 !important;
+    }
+    [class*="drfillheight"] .dr-card,
+    [class*="drfillheight"] .dr-bulk-card {
+        flex: 1 !important;
+    }
 
     .stApp { background-color: #ffffff; }
     .block-container { padding-top: 2rem; padding-bottom: 3rem; max-width: 1360px; }
@@ -379,15 +408,16 @@ with tab_home:
         (":material/edit_note:", "Isi Data & Pilih Fokus", "Nama, tanggal & jam lahir, lalu pilih fokus eksplorasimu.", "dr-step-card-2"),
         (":material/auto_awesome:", "Buka Hasil Lengkap", "Laporan lengkap langsung terbuka & dikirim ke email kamu.", "dr-step-card-3"),
     ]
-    for col, (icon, title, desc, cls) in zip([c1, c2, c3], steps):
+    for idx, (col, (icon, title, desc, cls)) in enumerate(zip([c1, c2, c3], steps)):
         with col:
-            st.markdown(
-                f"""<div class="dr-card {cls}">
-                    <b>{title}</b>
-                    <p style="font-size:13.5px;margin-top:8px;line-height:1.6;">{desc}</p>
-                </div>""",
-                unsafe_allow_html=True,
-            )
+            with st.container(key=f"drfillheight_step{idx}"):
+                st.markdown(
+                    f"""<div class="dr-card {cls}">
+                        <b>{title}</b>
+                        <p style="font-size:13.5px;margin-top:8px;line-height:1.6;">{desc}</p>
+                    </div>""",
+                    unsafe_allow_html=True,
+                )
 
     st.write("")
     st.write("")
@@ -403,17 +433,18 @@ with tab_home:
         ("quiz", "Kuesioner Terpisah", ["MBTI", "Big Five", "Enneagram", "DISC", "Golongan Darah", "Love Language"]),
     ]
     bcols = st.columns(4, gap="medium")
-    for col, (icon, title, items) in zip(bcols, bulk_groups):
+    for idx, (col, (icon, title, items)) in enumerate(zip(bcols, bulk_groups)):
         with col:
-            tags_html = "".join(f'<span class="dr-bulk-tag">{x}</span>' for x in items)
-            st.markdown(
-                f"""<div class="dr-bulk-card">
-                    <div class="dr-bulk-icon"><span class="material-symbols-outlined">{icon}</span></div>
-                    <b style="font-size:14.5px;">{title}</b>
-                    <div class="dr-bulk-tags-wrap" style="margin-top:10px;">{tags_html}</div>
-                </div>""",
-                unsafe_allow_html=True,
-            )
+            with st.container(key=f"drfillheight_bulk{idx}"):
+                tags_html = "".join(f'<span class="dr-bulk-tag">{x}</span>' for x in items)
+                st.markdown(
+                    f"""<div class="dr-bulk-card">
+                        <div class="dr-bulk-icon"><span class="material-symbols-outlined">{icon}</span></div>
+                        <b style="font-size:14.5px;">{title}</b>
+                        <div class="dr-bulk-tags-wrap" style="margin-top:10px;">{tags_html}</div>
+                    </div>""",
+                    unsafe_allow_html=True,
+                )
 
     st.write("")
     st.write("")
