@@ -21,13 +21,14 @@ st.markdown(
     .stApp { background-color: #ffffff; }
     .block-container { padding-top: 2rem; padding-bottom: 3rem; max-width: 1360px; }
 
-    /* Paksa semua teks jadi gelap — biar nggak ketelen tema gelap browser */
     .stApp, .stApp p, .stApp span, .stApp div, .stApp b, .stApp li,
     .stApp label, .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5,
     .stMarkdown, .stMarkdown p {
         color: #1c1a17;
     }
     .stApp { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+
+    .dr-center { text-align: center; }
 
     .dr-badge {
         display: inline-flex; align-items: center; gap: 6px;
@@ -36,48 +37,52 @@ st.markdown(
         margin-bottom: 22px;
     }
     .dr-hero-title {
-        font-size: 60px; font-weight: 800; line-height: 1.1;
+        font-size: 58px; font-weight: 800; line-height: 1.12;
         margin: 0 0 20px 0; letter-spacing: -0.02em; color: #1c1a17 !important;
+        text-align: center;
     }
     .dr-hero-sub {
         font-size: 18px; line-height: 1.65; color: #5c564d !important;
-        max-width: 640px; margin: 0 0 26px 0;
+        max-width: 680px; margin: 0 auto 30px auto; text-align: center;
     }
     .dr-section-label {
         font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
         text-transform: uppercase; color: #b8562f !important; margin-bottom: 8px;
+        text-align: center;
     }
     .dr-section-title {
         font-size: 30px; font-weight: 800; color: #1c1a17 !important;
-        margin: 0 0 10px 0;
+        margin: 0 0 10px 0; text-align: center;
     }
     .dr-section-sub {
-        font-size: 15px; color: #6b6459 !important; margin: 0 0 28px 0;
+        font-size: 15px; color: #6b6459 !important; margin: 0 auto 30px auto;
+        text-align: center; max-width: 560px;
     }
     .dr-card {
-        padding: 24px; border: 1px solid #ece6dc; border-radius: 16px;
-        background: #ffffff; height: 100%;
+        padding: 24px; border-radius: 16px; background: #ffffff;
+        height: 100%; box-sizing: border-box;
+        border: 2px solid #ece6dc;
     }
     .dr-card b { color: #1c1a17 !important; font-size: 15.5px; }
     .dr-card p { color: #6b6459 !important; }
 
     /* Stepper cara kerja */
-    .dr-stepper-row { display: flex; align-items: center; margin-bottom: 18px; }
+    .dr-stepper-row { display: flex; align-items: center; margin-bottom: 18px; max-width: 640px; margin-left: auto; margin-right: auto; }
     .dr-step-circle {
         width: 46px; height: 46px; border-radius: 50%; background: #b8562f;
         color: #ffffff !important; display: flex; align-items: center; justify-content: center;
         font-weight: 800; font-size: 17px; flex-shrink: 0;
     }
     .dr-step-line { flex: 1; height: 3px; background: #ecddc9; margin: 0 10px; border-radius: 3px; }
-    .dr-step-card-1 { border-width: 1px; }
-    .dr-step-card-2 { border-width: 2px; }
-    .dr-step-card-3 { border-width: 3px; border-color: #b8562f !important; }
+    .dr-step-card-1 { border-color: #ecddc9 !important; }
+    .dr-step-card-2 { border-color: #d98a5e !important; }
+    .dr-step-card-3 { border-color: #b8562f !important; }
 
     /* Chip popover (sistem kecil di hero) */
     div[data-testid="stPopover"] button {
         border-radius: 100px !important; background: #f6f1e9 !important;
-        border: none !important; font-size: 12.5px !important; font-weight: 600 !important;
-        color: #5c564d !important; padding: 4px 14px !important; min-height: 0 !important;
+        border: 1px solid #ecddc9 !important; font-size: 12.5px !important; font-weight: 600 !important;
+        color: #5c564d !important; padding: 5px 14px !important; min-height: 0 !important;
     }
     div[data-testid="stPopover"] button:hover {
         background: #ecddc9 !important; color: #8a5a2f !important;
@@ -86,7 +91,7 @@ st.markdown(
     /* Kartu bulk kategori */
     .dr-bulk-card {
         padding: 22px 24px; border-radius: 16px; background: #fbf8f3;
-        border: 1px solid #ece6dc; height: 100%;
+        border: 2px solid #ece6dc; height: 100%; box-sizing: border-box;
     }
     .dr-bulk-tag {
         display: inline-block; padding: 6px 13px; border-radius: 100px;
@@ -95,17 +100,17 @@ st.markdown(
     }
 
     .dr-result-card {
-        border: 1px solid #ece6dc; border-radius: 18px; overflow: hidden;
-        box-shadow: 0 20px 50px -22px rgba(28,26,23,0.18);
+        border: 2px solid #ecddc9; border-radius: 18px; overflow: hidden;
+        box-shadow: 0 20px 50px -22px rgba(139,90,47,0.25);
     }
     .dr-result-header {
-        padding: 18px 26px; background: #1c1a17; color: #ffffff !important;
-        font-size: 14.5px; font-weight: 700;
+        padding: 18px 26px; background: linear-gradient(135deg, #8a5a2f, #6b4226);
+        color: #ffffff !important; font-size: 14.5px; font-weight: 700;
     }
     .dr-result-header * { color: #ffffff !important; }
     .dr-mini-card {
-        padding: 16px 18px; border: 1px solid #ece6dc; border-radius: 12px;
-        margin-bottom: 12px; background: #ffffff;
+        padding: 16px 18px; border: 1px solid #ecddc9; border-radius: 12px;
+        margin-bottom: 12px; background: #fffdf9;
     }
     .dr-mini-card b { color: #1c1a17 !important; }
     .dr-mini-tag {
@@ -117,13 +122,13 @@ st.markdown(
     .dr-mini-text { font-size: 13.5px; color: #3a362f !important; line-height: 1.6; margin: 2px 0 0 0; }
 
     div.stButton > button[kind="primary"] {
-        background: #b8562f; color: #ffffff !important; border: none;
-        padding: 12px 28px; border-radius: 10px; font-weight: 700; font-size: 15px;
+        background: #b8562f; color: #ffffff !important; border: 2px solid #b8562f;
+        padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 16px;
     }
-    div.stButton > button[kind="primary"]:hover { background: #a5482a; }
+    div.stButton > button[kind="primary"]:hover { background: #a5482a; border-color: #a5482a; }
     div.stButton > button[kind="secondary"] {
-        background: #ffffff; color: #1c1a17 !important; border: 1px solid #e4ddd0;
-        padding: 12px 28px; border-radius: 10px; font-weight: 700; font-size: 15px;
+        background: #ffffff; color: #1c1a17 !important; border: 2px solid #e4ddd0;
+        padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 16px;
     }
     div.stButton > button[kind="secondary"]:hover { border-color: #b8562f; color: #b8562f !important; }
 
@@ -133,6 +138,24 @@ st.markdown(
     .stSelectbox div[data-baseweb="select"] > div {
         border-radius: 8px !important; border-color: #e4ddd0 !important;
     }
+
+    /* Tab (Beranda / Preview Form + Global / Mingguan) jadi tombol berborder */
+    [data-testid="stTabs"] button[role="tab"] {
+        border: 2px solid #e4ddd0 !important;
+        border-radius: 10px !important;
+        padding: 10px 22px !important;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        margin-right: 10px !important;
+        color: #6b6459 !important;
+    }
+    [data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
+        border-color: #b8562f !important;
+        background: #fdf3e7 !important;
+        color: #b8562f !important;
+    }
+    [data-testid="stTabs"] [data-baseweb="tab-highlight"] { display: none; }
+    [data-testid="stTabs"] [data-baseweb="tab-border"] { display: none; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -175,22 +198,23 @@ tab_home, tab_form = st.tabs(["🏠  Beranda", "📝  Preview Form Screening"])
 with tab_home:
 
     # ── HERO ─────────────────────────────────────────────────
-    st.markdown('<div class="dr-badge">✧ 13 sistem pembacaan diri, 1 laporan personal</div>', unsafe_allow_html=True)
-    st.markdown('<div class="dr-hero-title">Kenali Dirimu Lewat Weton,<br>Zodiak, sampai MBTI — Sekaligus</div>', unsafe_allow_html=True)
+    st.markdown('<div class="dr-center"><span class="dr-badge">✧ 13 sistem pembacaan diri, 1 laporan personal</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="dr-hero-title">Dari Weton Sampai MBTI,<br>Kenali Dirimu Lebih Dalam</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class="dr-hero-sub">Satu kali isi data, langsung dapat pembacaan dari 13 sistem populer. '
-        'Bukan cuma label — laporan yang jawab pertanyaan "terus aku harus ngapain?"</div>',
+        '<div class="dr-hero-sub">Isi data sekali aja, langsung dapet pembacaan dari 13 sistem populer '
+        'dalam satu laporan. Bukan cuma kasih label, tapi jawab pertanyaan yang sebenarnya kamu cari: '
+        'terus gue harus ngapain?</div>',
         unsafe_allow_html=True,
     )
 
-    col_a, col_b, col_c = st.columns([1.3, 1.3, 3])
+    col_l, col_a, col_b, col_r = st.columns([1, 1.3, 1.3, 1])
     with col_a:
         st.button("Mulai Eksplorasi", key="cta_hero", type="primary", icon=":material/bolt:", use_container_width=True)
     with col_b:
         st.button("Lihat Contoh Hasil", key="cta_hero_secondary", type="secondary", icon=":material/visibility:", use_container_width=True)
 
     st.write("")
-    st.markdown('<p style="font-size:12.5px;color:#9a948a !important;margin-bottom:6px;">Klik tiap sistem buat lihat artinya:</p>', unsafe_allow_html=True)
+    st.markdown('<p class="dr-center" style="font-size:12.5px;color:#9a948a !important;margin-bottom:6px;">Klik tiap sistem buat lihat artinya:</p>', unsafe_allow_html=True)
 
     n_per_row = 5
     for i in range(0, len(SEMUA_SISTEM), n_per_row):
@@ -244,32 +268,16 @@ with tab_home:
     st.write("")
     st.write("")
 
-    # ── 7+ CARA PANDANG — dikelompokkan per data yang diisi ──
+    # ── SATU DATA, BANYAK CARA PANDANG ────────────────────────
     st.markdown('<div class="dr-section-label">Yang Digabungkan</div>', unsafe_allow_html=True)
     st.markdown('<div class="dr-section-title">Satu Data, Banyak Cara Pandang</div>', unsafe_allow_html=True)
     st.markdown('<div class="dr-section-sub">Makin lengkap data yang kamu isi, makin banyak & makin akurat hasil yang kamu dapat.</div>', unsafe_allow_html=True)
 
     bulk_groups = [
-        (
-            ":material/calendar_month:",
-            "Cuma dari Tanggal Lahir",
-            ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"],
-        ),
-        (
-            ":material/schedule:",
-            "+ Tambah Jam Lahir",
-            ["BaZi (4 Pilar)", "Zi Wei Dou Shu", "Human Design", "Ascendant Zodiak"],
-        ),
-        (
-            ":material/location_on:",
-            "+ Tambah Kota Lahir",
-            ["BaZi Akurat Penuh", "Human Design Akurat Penuh"],
-        ),
-        (
-            ":material/quiz:",
-            "Kuesioner Terpisah",
-            ["MBTI", "Big Five", "Enneagram", "DISC"],
-        ),
+        ("📅", "Cuma dari Tanggal Lahir", ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"]),
+        ("🕐", "+ Tambah Jam Lahir", ["BaZi (4 Pilar)", "Zi Wei Dou Shu", "Human Design", "Ascendant Zodiak"]),
+        ("📍", "+ Tambah Kota Lahir", ["BaZi Akurat Penuh", "Human Design Akurat Penuh"]),
+        ("📋", "Kuesioner Terpisah", ["MBTI", "Big Five", "Enneagram", "DISC"]),
     ]
     bcols = st.columns(4, gap="medium")
     for col, (icon, title, items) in zip(bcols, bulk_groups):
@@ -277,7 +285,7 @@ with tab_home:
             tags_html = "".join(f'<span class="dr-bulk-tag">{x}</span>' for x in items)
             st.markdown(
                 f"""<div class="dr-bulk-card">
-                    <div style="font-size:20px;margin-bottom:8px;">{'📅' if 'calendar' in icon else '🕐' if 'schedule' in icon else '📍' if 'location' in icon else '📋'}</div>
+                    <div style="font-size:20px;margin-bottom:8px;">{icon}</div>
                     <b style="font-size:14.5px;">{title}</b>
                     <div style="margin-top:10px;">{tags_html}</div>
                 </div>""",
@@ -307,7 +315,7 @@ with tab_home:
                 ("Shio: Kuda", "Suka kebebasan, mudah beradaptasi di lingkungan baru.",
                  "Cari peran kerja yang fleksibel, bukan yang terlalu terkekang rutinitas kaku."),
                 ("Weton: Jumat Legi", "Neptu 11, kepekaan sosial tinggi & mudah dipercaya orang.",
-                 "Cocok jadi jembatan komunikasi dalam tim — manfaatkan buat negosiasi atau membangun relasi kerja."),
+                 "Cocok jadi jembatan komunikasi dalam tim, manfaatkan buat negosiasi atau membangun relasi kerja."),
                 ("Life Path: 7", "Reflektif, butuh waktu sendiri sebelum ambil keputusan besar.",
                  "Kasih jeda 1 hari sebelum memutuskan hal penting, meski insting pengen langsung gas."),
             ]
@@ -334,7 +342,7 @@ with tab_home:
                     <p class="dr-mini-text" style="margin-top:10px;">
                         Energi Aries kamu lagi kuat di sisi eksekusi minggu ini, apalagi didukung Shio Kuda yang
                         bikin kamu gampang gerak cepat begitu ada peluang. Tapi weton Jumat Legi kamu juga lagi
-                        nunjukin sisi sensitif ke omongan orang sekitar — jangan sampai energi cepatmu bikin ada
+                        nunjukin sisi sensitif ke omongan orang sekitar, jadi jangan sampai energi cepatmu bikin ada
                         yang tersinggung karena keputusan diambil tanpa banyak ngobrol dulu.
                     </p>
                     <div class="dr-mini-label">Fokus Minggu Ini</div>
@@ -360,15 +368,13 @@ with tab_home:
     # ── CTA PENUTUP ──────────────────────────────────────────
     st.markdown("<hr>", unsafe_allow_html=True)
     st.write("")
-    cta_l, cta_r = st.columns([3, 1.3])
-    with cta_l:
-        st.markdown('<div class="dr-section-title">Penasaran Sama Dirimu Sendiri?</div>', unsafe_allow_html=True)
-        st.markdown(
-            '<p style="color:#6b6459 !important;font-size:15px;">Mulai sekarang, hasil pertama muncul dalam hitungan menit.</p>',
-            unsafe_allow_html=True,
-        )
-    with cta_r:
-        st.write("")
+    st.markdown('<div class="dr-section-title">Penasaran Sama Dirimu Sendiri?</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<p class="dr-center" style="color:#6b6459 !important;font-size:15px;margin-bottom:22px;">Mulai sekarang, hasil pertama muncul dalam hitungan menit.</p>',
+        unsafe_allow_html=True,
+    )
+    cta_l, cta_mid, cta_r = st.columns([1.5, 1.4, 1.5])
+    with cta_mid:
         st.button("Mulai Eksplorasi Gratis", key="cta_footer", type="primary", icon=":material/arrow_forward:", use_container_width=True)
 
     st.write("")
