@@ -64,13 +64,18 @@ def _inject_style():
             margin: 0 auto 26px auto; line-height: 1.7;
         }
 
-        .ry-stepper { display: flex; align-items: center; max-width: 520px; margin: 0 auto; }
+        .ry-stepper { display: flex; align-items: flex-start; max-width: 520px; margin: 0 auto; }
+        .ry-step-unit { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
         .ry-step-dot {
             width: 38px; height: 38px; border-radius: 50%; background: #b8562f;
             color: #ffffff !important; display: flex; align-items: center; justify-content: center;
             font-weight: 800; font-size: 14.5px; flex-shrink: 0;
         }
-        .ry-step-line { flex-grow: 1; height: 3px; background: #ecddc9; margin: 0 8px; border-radius: 3px; }
+        .ry-step-label {
+            font-size: 11px; font-weight: 700; color: #6b6459 !important;
+            margin-top: 6px; text-align: center; white-space: nowrap;
+        }
+        .ry-step-line { flex-grow: 1; height: 3px; background: #ecddc9; margin: 19px 8px 0 8px; border-radius: 3px; }
 
         /* Kartu tiap langkah */
         .st-key-ry_card_1, .st-key-ry_card_2, .st-key-ry_card_3 {
@@ -89,6 +94,7 @@ def _inject_style():
            Material Symbols gagal load (mis. jaringan diblokir): teksnya
            kepotong rapi di dalam kotak, bukan meluber keluar. */
         .ry-card-icon .material-symbols-outlined { font-size: 24px; white-space: nowrap; }
+        .ry-card-icon svg { width: 24px; height: 24px; }
         .ry-card-step-label { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #b8562f !important; }
         .ry-card-title { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: #1c1a17 !important; margin-top: 3px; }
         .ry-card-desc { font-size: 13px; color: #6b6459 !important; margin-top: 3px; }
@@ -226,9 +232,14 @@ def render():
         )
         st.markdown(
             '<div class="ry-stepper">'
-            '<div class="ry-step-dot">1</div><div class="ry-step-line"></div>'
-            '<div class="ry-step-dot">2</div><div class="ry-step-line"></div>'
-            '<div class="ry-step-dot">3</div>'
+            '<div class="ry-step-unit"><div class="ry-step-dot">1</div>'
+            '<div class="ry-step-label">Verifikasi<br>Email</div></div>'
+            '<div class="ry-step-line"></div>'
+            '<div class="ry-step-unit"><div class="ry-step-dot">2</div>'
+            '<div class="ry-step-label">Isi Data<br>Lahir</div></div>'
+            '<div class="ry-step-line"></div>'
+            '<div class="ry-step-unit"><div class="ry-step-dot">3</div>'
+            '<div class="ry-step-label">Pilih Fokus<br>Eksplorasi</div></div>'
             '</div>',
             unsafe_allow_html=True,
         )
@@ -238,7 +249,12 @@ def render():
         with st.container(key="ry_card_1"):
             st.markdown(
                 '<div class="ry-card-head">'
-                '<div class="ry-card-icon"><span class="material-symbols-outlined">mail</span></div>'
+                '<div class="ry-card-icon">'
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" '
+                'stroke-linecap="round" stroke-linejoin="round">'
+                '<rect x="3" y="5" width="18" height="14" rx="2.5"></rect>'
+                '<path d="M3.5 6.5 12 13l8.5-6.5"></path>'
+                '</svg></div>'
                 '<div><div class="ry-card-step-label">Langkah 1 dari 3</div>'
                 '<div class="ry-card-title">Verifikasi Email</div>'
                 '<div class="ry-card-desc">Tidak perlu membuat akun. Cukup email untuk '
@@ -262,7 +278,13 @@ def render():
         with st.container(key="ry_card_2"):
             st.markdown(
                 '<div class="ry-card-head">'
-                '<div class="ry-card-icon"><span class="material-symbols-outlined">edit_note</span></div>'
+                '<div class="ry-card-icon">'
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" '
+                'stroke-linecap="round" stroke-linejoin="round">'
+                '<path d="M6 4h9l4 4v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"></path>'
+                '<path d="M14 4v4h4"></path>'
+                '<path d="M8.5 13h7M8.5 16.5h4.5"></path>'
+                '</svg></div>'
                 '<div><div class="ry-card-step-label">Langkah 2 dari 3</div>'
                 '<div class="ry-card-title">Isi Data Lahir</div>'
                 '<div class="ry-card-desc">3 kolom pertama wajib diisi. Sisanya opsional, namun '
@@ -286,7 +308,12 @@ def render():
         with st.container(key="ry_card_3"):
             st.markdown(
                 '<div class="ry-card-head">'
-                '<div class="ry-card-icon"><span class="material-symbols-outlined">auto_awesome</span></div>'
+                '<div class="ry-card-icon">'
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" '
+                'stroke-linecap="round" stroke-linejoin="round">'
+                '<path d="M12 3.5 13.7 9l5.3 1.7-5.3 1.7L12 18l-1.7-5.6L5 10.7 10.3 9Z"></path>'
+                '<path d="M19 15.5 19.7 18l2.3.8-2.3.8L19 22l-.7-2.4-2.3-.8 2.3-.8Z"></path>'
+                '</svg></div>'
                 '<div><div class="ry-card-step-label">Langkah 3 dari 3</div>'
                 '<div class="ry-card-title">Pilih Fokus Eksplorasi</div>'
                 '<div class="ry-card-desc">Pilihan ini menentukan sistem mana yang dihitung '
@@ -294,7 +321,7 @@ def render():
                 unsafe_allow_html=True,
             )
             if "ry_focus_mode" not in st.session_state:
-                st.session_state.ry_focus_mode = "mendalam"
+                st.session_state.ry_focus_mode = None
 
             mode_cols = st.columns(3, gap="medium")
             for col, (mode_key, title, desc, chips) in zip(mode_cols, RY_MODES):
