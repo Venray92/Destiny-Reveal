@@ -41,8 +41,12 @@ st.markdown(
     .dr-font-display { font-family: 'Fraunces', serif !important; }
     .dr-font-reading { font-family: 'Lora', serif !important; }
 
-    /* Sembunyikan panah dropdown bawaan di tombol popover chip sistem */
-    div[data-testid="stPopover"] svg { display: none !important; }
+    /* Sembunyikan panah dropdown bawaan di tombol popover chip sistem —
+       beberapa selector dipasang sekaligus karena struktur DOM-nya bisa beda
+       antar versi Streamlit */
+    div[data-testid="stPopover"] svg:not([data-testid="stIconMaterial"] svg) { display: none !important; }
+    div[data-testid="stPopover"] button svg:last-child { display: none !important; }
+    div[data-testid="stPopover"] button::after { content: none !important; }
     div[data-testid="stPopover"] button [data-testid="stIconMaterial"] { display: inline-flex !important; }
 
     /* Paksa panel popover selalu terang, apapun tema browser/sistemnya —
@@ -83,7 +87,7 @@ st.markdown(
     }
     .dr-hero-title {
         font-family: 'Fraunces', serif;
-        font-size: 54px; font-weight: 700; line-height: 1.18;
+        font-size: 42px; font-weight: 700; line-height: 1.25;
         margin: 0 0 22px 0; letter-spacing: -0.01em; color: #1c1a17 !important;
         text-align: left;
     }
@@ -307,7 +311,7 @@ with tab_home:
 
     # ── HERO ─────────────────────────────────────────────────
     st.markdown('<span class="dr-badge">✧ 15 sistem pembacaan diri, 1 laporan personal</span>', unsafe_allow_html=True)
-    st.markdown('<div class="dr-hero-title">Sudah Tahu Zodiakmu?<br>Tapi Sudah Tahu Weton, Shio,<br>sampai Matrix Destiny-mu?</div>', unsafe_allow_html=True)
+    st.markdown('<div class="dr-hero-title">Sudah Tahu Zodiakmu?<br>Itu Baru Permukaan.</div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="dr-hero-sub">'
         'Isi data sekali, 15 sistem pembacaan digabung jadi satu laporan.<br>'
@@ -430,14 +434,18 @@ with tab_home:
 
         with tab_global:
             hasil_global = [
-                ("Zodiak: Aries", "Cepat bergerak, nggak suka nunggu buat eksekusi ide.",
-                 "Manfaatkan energi awal yang kuat buat mulai proyek baru, tapi siapin sistem biar konsisten sampai selesai."),
-                ("Shio: Kuda", "Suka kebebasan, mudah beradaptasi di lingkungan baru.",
-                 "Cari peran kerja yang fleksibel, bukan yang terlalu terkekang rutinitas kaku."),
-                ("Weton: Jumat Legi", "Neptu 11, kepekaan sosial tinggi & mudah dipercaya orang.",
-                 "Cocok jadi jembatan komunikasi dalam tim, manfaatkan buat negosiasi atau membangun relasi kerja."),
-                ("Life Path: 7", "Reflektif, butuh waktu sendiri sebelum ambil keputusan besar.",
-                 "Kasih jeda 1 hari sebelum memutuskan hal penting, meski insting pengen langsung gas."),
+                ("Zodiak: Aries",
+                 "Aries dikenal sebagai zodiak dengan energi awal yang besar. Kamu cenderung bergerak cepat begitu sebuah ide muncul, dan sering merasa lebih hidup di fase memulai sesuatu yang baru dibandingkan menyelesaikannya perlahan-lahan.",
+                 "Manfaatkan dorongan awal ini untuk memulai proyek atau langkah besar, tapi imbangi dengan sistem kecil yang membuatmu tetap konsisten, misalnya checklist mingguan, supaya semangat di awal tidak berhenti di tengah jalan."),
+                ("Shio: Kuda",
+                 "Shio Kuda punya elemen yang selaras dengan kebebasan dan pergerakan. Kamu biasanya cepat beradaptasi saat berpindah lingkungan, dan mudah merasa terkekang kalau harus terus berada dalam rutinitas yang sama setiap hari.",
+                 "Cari peran kerja atau aktivitas yang memberi ruang gerak dan variasi, karena kamu justru akan lebih produktif ketika tidak dipaksa berada dalam satu pola yang kaku sepanjang waktu."),
+                ("Weton: Jumat Legi",
+                 "Weton Jumat Legi membawa neptu 11, kombinasi yang dalam tradisi Jawa dikaitkan dengan kepekaan sosial yang tinggi. Kamu cenderung mudah membaca suasana hati orang lain dan sering dipercaya sebagai tempat bercerita.",
+                 "Manfaatkan kemampuan ini sebagai jembatan komunikasi dalam tim atau keluarga, terutama saat ada gesekan yang membutuhkan penengah yang bisa dipercaya oleh kedua belah pihak."),
+                ("Life Path: 7",
+                 "Angka jalan hidup 7 dalam numerologi identik dengan sisi reflektif dan pencarian makna yang lebih dalam. Kamu biasanya butuh waktu sendiri dahulu sebelum benar-benar yakin mengambil keputusan besar.",
+                 "Beri diri kamu jeda, misalnya semalam, sebelum memutuskan hal penting, meskipun ada dorongan untuk langsung bertindak begitu insting muncul."),
             ]
             items_html = "".join(
                 f"""<div class="dr-report-item">
