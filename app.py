@@ -96,7 +96,7 @@ st.markdown(
 
     .stApp { background-color: #ffffff; }
     .block-container { padding-top: 1.5rem; padding-bottom: 2rem; max-width: 1360px; }
-    div[data-testid="stVerticalBlock"] { gap: 0.6rem !important; }
+    div[data-testid="stVerticalBlock"] { gap: 1rem !important; }
 
     .stApp, .stApp p, .stApp span, .stApp div, .stApp b, .stApp li,
     .stApp label, .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5,
@@ -201,12 +201,25 @@ st.markdown(
         background: #fdf3e7; color: #8a5a2f !important; font-size: 12.5px; font-weight: 700;
         margin-bottom: 8px;
     }
-    .dr-mini-label { font-size: 12px; font-weight: 700; color: #b8562f !important; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 8px; }
+    .dr-mini-label {
+        font-size: 12px; font-weight: 700; color: #b8562f !important; text-transform: uppercase;
+        letter-spacing: 0.04em; margin-top: 8px; display: block; width: fit-content;
+        border-bottom: 2px solid #e4a56e; padding-bottom: 2px;
+    }
     .dr-mini-text { font-family: 'Lora', serif; font-size: 13.5px; color: #3a362f !important; line-height: 1.6; margin: 2px 0 0 0; }
 
     div.stButton > button[kind="primary"] {
         background: #c9683a; color: #ffffff !important; border: 2px solid #c9683a;
         padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 16px;
+    }
+    /* Teks label tombol Streamlit dibungkus <p>, dan aturan global ".stApp p"
+       di atas lebih spesifik ke elemen <p> itu sendiri dibanding warna yang
+       diset di <button>-nya, jadi teksnya harus dipaksa putih di sini juga
+       supaya nggak balik jadi gelap/kurang kelihatan di atas background terracotta. */
+    div.stButton > button[kind="primary"] p,
+    div.stButton > button[kind="primary"] span,
+    div.stButton > button[kind="primary"] div {
+        color: #ffffff !important;
     }
     div.stButton > button[kind="primary"]:hover { background: #b8562f; border-color: #b8562f; }
     div.stButton > button[kind="secondary"] {
@@ -406,7 +419,7 @@ with tab_home:
     st.markdown(
         '<div class="dr-hero-sub">'
         'Masa lalu sudah menjadi pelajaran, saatnya kenali dirimu sepenuhnya sebelum melangkah ke depan.<br>'
-        'Satu pembacaan lengkap dari 15 sistem ini akan menunjukkan potensi, kelebihan, kelemahan, '
+        '<em>Satu pembacaan lengkap</em> dari 15 sistem ini akan menunjukkan potensi, kelebihan, kelemahan, '
         'dan langkah yang sebaiknya kamu ambil.'
         '</div>',
         unsafe_allow_html=True,
@@ -528,17 +541,17 @@ with tab_home:
         with tab_global:
             hasil_global = [
                 ("Zodiak: Aries",
-                 "Aries dikenal sebagai zodiak dengan energi awal yang besar. Kamu cenderung bergerak cepat begitu sebuah ide muncul, dan sering merasa lebih hidup di fase memulai sesuatu yang baru dibandingkan menyelesaikannya perlahan-lahan.",
-                 "Manfaatkan dorongan awal ini untuk memulai proyek atau langkah besar, tapi imbangi dengan sistem kecil yang membuatmu tetap konsisten, misalnya checklist mingguan, supaya semangat di awal tidak berhenti di tengah jalan."),
+                 "Sebagai zodiak api pembuka siklus, Aries membawa dorongan kuat untuk selalu jadi yang pertama bergerak. Semangat ini membuatmu cepat mengambil inisiatif, meski bertahan sampai garis akhir bukan selalu kekuatan utamamu.",
+                 "Manfaatkan ledakan energi di awal untuk memulai langkah besar, lalu kunci progresnya lewat rutinitas kecil seperti checklist mingguan, supaya semangat awal tidak padam di tengah jalan."),
                 ("Shio: Kuda",
-                 "Shio Kuda punya elemen yang selaras dengan kebebasan dan pergerakan. Kamu biasanya cepat beradaptasi saat berpindah lingkungan, dan mudah merasa terkekang kalau harus terus berada dalam rutinitas yang sama setiap hari.",
-                 "Cari peran kerja atau aktivitas yang memberi ruang gerak dan variasi, karena kamu justru akan lebih produktif ketika tidak dipaksa berada dalam satu pola yang kaku sepanjang waktu."),
+                 "Shio Kuda membawa jiwa bebas yang selalu ingin bergerak maju. Kamu cepat beradaptasi di lingkungan baru, tapi mudah gelisah kalau terjebak dalam rutinitas yang itu-itu saja.",
+                 "Cari ruang kerja atau aktivitas yang memberi variasi dan kebebasan bergerak, karena produktivitasmu justru meningkat saat tidak dikekang pola yang kaku."),
                 ("Weton: Jumat Legi",
-                 "Weton Jumat Legi membawa neptu 11, kombinasi yang dalam tradisi Jawa dikaitkan dengan kepekaan sosial yang tinggi. Kamu cenderung mudah membaca suasana hati orang lain dan sering dipercaya sebagai tempat bercerita.",
-                 "Manfaatkan kemampuan ini sebagai jembatan komunikasi dalam tim atau keluarga, terutama saat ada gesekan yang membutuhkan penengah yang bisa dipercaya oleh kedua belah pihak."),
+                 "Neptu 11 pada weton Jumat Legi dikenal membawa kepekaan sosial yang tinggi. Kamu mudah membaca suasana hati orang lain, dan sering jadi tempat cerita yang dipercaya.",
+                 "Jadikan kepekaan ini sebagai kekuatan penengah dalam tim atau keluarga, terutama saat ada gesekan yang butuh sudut pandang yang bisa dipercaya kedua belah pihak."),
                 ("Life Path: 7",
-                 "Angka jalan hidup 7 dalam numerologi identik dengan sisi reflektif dan pencarian makna yang lebih dalam. Kamu biasanya butuh waktu sendiri dahulu sebelum benar-benar yakin mengambil keputusan besar.",
-                 "Beri diri kamu jeda, misalnya semalam, sebelum memutuskan hal penting, meskipun ada dorongan untuk langsung bertindak begitu insting muncul."),
+                 "Angka jalan hidup 7 identik dengan sisi reflektif dan pencarian makna yang dalam. Kamu jarang mengambil keputusan besar tanpa merenungkannya lebih dulu.",
+                 "Beri diri jeda sejenak, misalnya semalam, sebelum memutuskan hal penting, meskipun dorongan untuk langsung bertindak terasa kuat."),
             ]
             items_html = "".join(
                 f"""<div class="dr-report-item">
