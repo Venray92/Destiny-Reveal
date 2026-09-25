@@ -100,24 +100,104 @@ def _inject_style():
             background: #fdf9f2;
         }
 
-        /* Radio "Pilih Fokus" -> dibikin kartu pilihan, bukan bulatan radio polos */
-        .st-key-ry_focus_radio div[data-testid="stRadio"] > div[role="radiogroup"] {
-            gap: 14px !important; flex-wrap: wrap; flex-direction: row !important;
+        /* "Pilih Fokus" -> 3 kartu mode (bukan radio native, karena label
+           radio Streamlit cuma bisa teks polos, nggak bisa dikasih daftar
+           chip sistem di dalamnya). Pilihannya tetap fungsional lewat
+           tombol "Pilih" di tiap kartu + session_state, bukan cuma dekorasi. */
+        [data-testid="stHorizontalBlock"]:has([class*="ry-mode-fill"]) { align-items: stretch !important; }
+        [data-testid="stColumn"]:has([class*="ry-mode-fill"]) {
+            display: flex !important; flex-direction: column !important;
         }
-        .st-key-ry_focus_radio div[data-testid="stRadio"] label {
-            flex: 1 1 0; min-width: 230px;
-            border: 2px solid #ecddc9 !important; border-radius: 16px !important;
-            padding: 16px 18px !important; background: #fdfaf5 !important;
-            margin: 0 !important;
+        [data-testid="stVerticalBlock"]:has([class*="ry-mode-fill"]),
+        [data-testid="stLayoutWrapper"]:has([class*="ry-mode-fill"]) {
+            display: flex !important; flex-direction: column !important;
+            flex: 1 !important; min-height: 0 !important;
         }
-        .st-key-ry_focus_radio div[data-testid="stRadio"] label:has(input:checked) {
-            border-color: #b8562f !important; background: #fff8ef !important;
-            box-shadow: 0 14px 30px -16px rgba(184,86,47,0.4);
+        [class*="ry-mode-fill"] {
+            display: flex !important; flex-direction: column !important;
+            flex: 1 !important; min-height: 0 !important;
+        }
+        /* Propagasi flex:1 harus nyambung sampai elemen kartunya sendiri —
+           kalau cuma dipasang di ry-mode-fill doang, pembungkus di antaranya
+           (stElementContainer, stMarkdown, dst) nggak ikut melar, jadi
+           tinggi kartu tetap ngikut kontennya sendiri-sendiri, bukan ke
+           kartu paling tinggi di barisnya (ini persis bug yang ketemu waktu
+           nyamain tinggi kartu step/bulk di homepage dulu). */
+        .st-key-ry_mode_instan, .st-key-ry_mode_mendalam, .st-key-ry_mode_lengkap {
+            display: flex !important; flex-direction: column !important; flex: 1 !important;
+        }
+        /* :has(.stMarkdown) supaya cuma stElementContainer pembungkus
+           kartunya yang ikut melar — punya tombol "Pilih Mode Ini" di
+           bawahnya sengaja TIDAK disentuh, biar tombol tetap ukuran
+           natural, nempel rapi di bawah kartu. */
+        .st-key-ry_mode_instan [data-testid="stElementContainer"]:has(.stMarkdown),
+        .st-key-ry_mode_mendalam [data-testid="stElementContainer"]:has(.stMarkdown),
+        .st-key-ry_mode_lengkap [data-testid="stElementContainer"]:has(.stMarkdown),
+        .st-key-ry_mode_instan .stMarkdown,
+        .st-key-ry_mode_mendalam .stMarkdown,
+        .st-key-ry_mode_lengkap .stMarkdown,
+        .st-key-ry_mode_instan .stMarkdown > div,
+        .st-key-ry_mode_mendalam .stMarkdown > div,
+        .st-key-ry_mode_lengkap .stMarkdown > div,
+        .st-key-ry_mode_instan [data-testid="stMarkdownContainer"],
+        .st-key-ry_mode_mendalam [data-testid="stMarkdownContainer"],
+        .st-key-ry_mode_lengkap [data-testid="stMarkdownContainer"] {
+            display: flex !important; flex-direction: column !important;
+            flex: 1 !important; min-height: 0 !important;
+        }
+        .ry-mode-card {
+            border: 2px solid #ecddc9; border-radius: 18px; padding: 20px 20px 16px 20px;
+            background: #fdfaf5; display: flex; flex-direction: column; gap: 10px;
+            flex-grow: 1;
+        }
+        .ry-mode-card-active {
+            border-color: #b8562f; background: #fff8ef;
+            box-shadow: 0 16px 34px -18px rgba(184,86,47,0.45);
+        }
+        .ry-mode-title { font-weight: 700; font-size: 15.5px; color: #1c1a17 !important; }
+        .ry-mode-desc { font-size: 12.5px; color: #6b6459 !important; line-height: 1.55; }
+        .ry-mode-chips { display: flex; flex-wrap: wrap; gap: 6px; flex-grow: 1; align-content: flex-start; }
+        .ry-mode-chip {
+            display: inline-block; padding: 5px 12px; border-radius: 100px;
+            background: #ffffff; border: 1px solid #e4ddd0; color: #1c1a17 !important;
+            font-size: 11.5px; font-weight: 600; white-space: nowrap;
+        }
+        .st-key-ry_mode_instan div.stButton > button,
+        .st-key-ry_mode_mendalam div.stButton > button,
+        .st-key-ry_mode_lengkap div.stButton > button {
+            margin-top: 12px;
         }
         </style>
         """,
         unsafe_allow_html=True,
     )
+
+
+# 15 sistem dibagi jadi 3 mode. "Instan" = cukup tanggal lahir, "Mendalam" =
+# nambah kuesioner buat kenal karakter, "Lengkap" = semua 15 sistem sekaligus
+# (samain kategori yang udah ada di homepage, section "Satu Data, Banyak Cara
+# Pandang", biar konsisten).
+RY_MODES = [
+    (
+        "instan", "Mode Instan",
+        "Cepat, cukup dari tanggal lahir.",
+        ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"],
+    ),
+    (
+        "mendalam", "Mode Mendalam",
+        "Tambah kuesioner buat kenal karaktermu lebih jauh.",
+        ["MBTI", "Big Five", "Enneagram", "DISC", "Golongan Darah", "Love Language"],
+    ),
+    (
+        "lengkap", "Mode Lengkap",
+        "Semua sistem sekaligus, paling menyeluruh.",
+        [
+            "Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny", "BaZi",
+            "Zi Wei", "Human Design", "MBTI", "Big Five", "Enneagram", "DISC",
+            "Golongan Darah", "Love Language", "Tarot",
+        ],
+    ),
+]
 
 
 def render():
@@ -213,17 +293,31 @@ def render():
                 'untuk laporanmu.</div></div></div>',
                 unsafe_allow_html=True,
             )
-            with st.container(key="ry_focus_radio"):
-                st.radio(
-                    "Mode Eksplorasi",
-                    [
-                        "Mode Instan — Weton, Zodiak, Shio & Numerologi",
-                        "Mode Mendalam — MBTI, Big Five & Enneagram",
-                        "Mode Lengkap — Semua sistem + skor kecocokan",
-                    ],
-                    label_visibility="collapsed",
-                    key="ry_focus",
-                )
+            if "ry_focus_mode" not in st.session_state:
+                st.session_state.ry_focus_mode = "mendalam"
+
+            mode_cols = st.columns(3, gap="medium")
+            for col, (mode_key, title, desc, chips) in zip(mode_cols, RY_MODES):
+                with col:
+                    with st.container(key=f"ry_mode_{mode_key}"):
+                        active = st.session_state.ry_focus_mode == mode_key
+                        chips_html = "".join(f'<span class="ry-mode-chip">{c}</span>' for c in chips)
+                        st.markdown(
+                            f'<div class="ry-mode-fill ry-mode-card{" ry-mode-card-active" if active else ""}">'
+                            f'<div class="ry-mode-title">{title}</div>'
+                            f'<div class="ry-mode-desc">{desc}</div>'
+                            f'<div class="ry-mode-chips">{chips_html}</div>'
+                            f'</div>',
+                            unsafe_allow_html=True,
+                        )
+                        if st.button(
+                            "Terpilih ✓" if active else "Pilih Mode Ini",
+                            key=f"btn_mode_{mode_key}",
+                            type="primary" if active else "secondary",
+                            use_container_width=True,
+                        ):
+                            st.session_state.ry_focus_mode = mode_key
+                            st.rerun()
             st.write("")
 
         st.write("")
