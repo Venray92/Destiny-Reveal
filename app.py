@@ -331,12 +331,21 @@ st.markdown(
     .st-key-lang_switch svg { fill: #8a5a2f !important; }
 
     /* Daftar opsi dropdown (portal terpisah) — paksa terang, ikut dark-mode
-       kalau tidak dipaksa, sama seperti kasus panel popover */
+       kalau tidak dipaksa, sama seperti kasus panel popover.
+       BUG YANG DIPERBAIKI: sebelumnya "overflow: hidden !important" di sini
+       bikin daftar opsi yang lebih panjang dari tinggi panel (mis. dropdown
+       Tahun yang isinya ~95 opsi) KEPOTONG dan NGGAK BISA discroll turun
+       buat lihat opsi selanjutnya — user cuma bisa lihat beberapa opsi
+       teratas. Sekarang diganti "overflow-y: auto" + "max-height" biar
+       daftarnya beneran bisa discroll turun-atas sesuai isi (border-radius
+       tetap kepakai di container-nya sendiri jadi sudut tetap membulat).*/
     div[role="listbox"] {
         background-color: #ffffff !important;
         border: 1.5px solid #ecddc9 !important;
         border-radius: 12px !important;
-        overflow: hidden !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        max-height: 260px !important;
         box-shadow: 0 12px 30px -10px rgba(28,26,23,0.18) !important;
     }
     div[role="listbox"] * { color: #1c1a17 !important; }
