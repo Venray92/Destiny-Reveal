@@ -381,6 +381,40 @@ def render():
             '</div>',
             unsafe_allow_html=True,
         )
+        # PENTING — 2 lapis bug yang kekonfirmasi langsung lewat inspeksi DOM
+        # (bukan tebakan):
+        # 1) Streamlit/React makai ULANG elemen DOM kartu-teks yang sama
+        #    antar titik (cuma isi teksnya yang di-patch), jadi animasi CSS
+        #    clip-path yang udah kelar di titik sebelumnya TIDAK otomatis
+        #    restart pas titik baru mulai.
+        # 2) components.html JUGA kena masalah yang sama: kalau isi
+        #    <script>-nya PERSIS SAMA tiap titik, iframe-nya ikut dipakai
+        #    ulang (nggak reload), jadi script restart itu sendiri cuma
+        #    kejalan SEKALI aja di titik pertama, nggak pernah jalan lagi.
+        # Makanya di titik #2 ini kode di dalam iframe SENGAJA dikasih
+        # komentar unik (nomor+nama titik) biar srcdoc-nya beda tiap kali,
+        # maksa iframe-nya reload & script restart-nya beneran kejalan
+        # ulang tiap titik baru.
+        components.html(
+            f"""
+            <script>
+            // ry-point-marker:{idx}:{current}
+            function ryRestartRevealAnim() {{
+                try {{
+                    var doc = window.parent.document;
+                    var els = doc.querySelectorAll('.ry-load-card, .ry-load-text-box');
+                    els.forEach(function (el) {{
+                        el.style.animation = 'none';
+                        void el.offsetWidth;
+                        el.style.animation = '';
+                    }});
+                }} catch (e) {{}}
+            }}
+            requestAnimationFrame(function () {{ requestAnimationFrame(ryRestartRevealAnim); }});
+            </script>
+            """,
+            height=0,
+        )
         time.sleep(ANIM_SECONDS)
         if current not in st.session_state.loading_results:
             st.session_state.loading_results[current] = {"placeholder": True}
