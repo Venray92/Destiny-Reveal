@@ -52,3 +52,34 @@ def card_image_for_system(system):
     if not relative_path:
         return None
     return card_image_data_uri(relative_path)
+
+
+@st.cache_data(show_spinner=False)
+def card_image_bytes(relative_path: str):
+    """Sama kayak card_image_data_uri, tapi return raw bytes (bukan data URI
+    base64) — dipakai buat tombol download (st.download_button butuh bytes
+    mentah, bukan string data URI)."""
+    path = ASSETS_ROOT / relative_path
+    if not path.is_file():
+        return None
+    return path.read_bytes()
+
+
+def card_image_bytes_for_system(system):
+    """Shortcut: system name -> raw bytes gambar kartunya, atau None kalau
+    belum ada gambarnya."""
+    relative_path = SYSTEM_CARD_IMAGE.get(system)
+    if not relative_path:
+        return None
+    return card_image_bytes(relative_path)
+
+
+def card_filename_for_system(system):
+    """Nama file yang enak dibaca buat tombol download, contoh:
+    'kartu-zodiak-leo.png'."""
+    relative_path = SYSTEM_CARD_IMAGE.get(system)
+    if not relative_path:
+        return f"kartu-{system.lower().replace(' ', '-')}.png"
+    stem = relative_path.rsplit("/", 1)[-1]
+    folder = relative_path.split("/", 1)[0]
+    return f"kartu-{folder}-{stem}"
