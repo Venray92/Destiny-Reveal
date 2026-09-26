@@ -30,13 +30,16 @@ import time
 import streamlit as st
 import streamlit.components.v1 as components
 
+from content.interpretations.matrix_destiny import MATRIX_DESTINY_CONTENT
 from content.result_builder import build_display_data
+from engine.matrix_destiny import NAMA_ARKETIPE
 from utils.card_images import (
     card_filename_for_system,
     card_image_bytes_for_system,
     card_image_for_system,
 )
 from utils.date_format import format_tanggal_ddmmyyyy
+from utils.matrix_destiny_diagram import render_octagram_svg
 
 EXAMPLE_POINTS = ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"]
 OPEN_ANIM_SECONDS = 1.1
@@ -398,6 +401,73 @@ def _inject_style():
         .rp-detail-empty { font-size: 13.5px; color: #6b6459 !important; line-height: 1.7;
             font-style: italic; }
 
+        /* Badge kecil buat data tambahan (elemen Shio, modality/planet
+           Zodiak, Pancasuda Weton) — ditaruh di bawah PR Kecil, di dalam
+           kolom teks yang sama. */
+        .rp-supp-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+        .rp-supp-badge { display: inline-flex; flex-direction: column; gap: 1px;
+            padding: 7px 14px; border-radius: 12px; background: #fdf3e7;
+            border: 1px solid #ecddc9; }
+        .rp-supp-badge-label { font-size: 9.5px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.05em; color: #a8916a !important; }
+        .rp-supp-badge-value { font-size: 13px; font-weight: 700; color: #1c1a17 !important; }
+
+        /* Grid angka tambahan (Numerologi lengkap) */
+        .rp-supp-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 10px; margin-top: 2px; }
+        .rp-supp-stat { padding: 10px 12px; border-radius: 12px; background: #fdf9f2;
+            border: 1px solid #f0e6d5; text-align: center; }
+        .rp-supp-stat-label { font-size: 10px; font-weight: 700; color: #a8916a !important;
+            text-transform: uppercase; letter-spacing: 0.04em; }
+        .rp-supp-stat-value { font-size: 20px; font-weight: 800; color: #b8562f !important;
+            font-family: 'Fraunces', serif; margin-top: 2px; }
+
+        /* Section full-width tambahan buat Matrix Destiny (octagram + chakra) */
+        .rp-md-extra { max-width: 900px; margin: 26px auto 0 auto; padding: 26px 28px;
+            border-radius: 20px; background: #fffaf2; border: 1.5px solid #f0e6d5; }
+        .rp-md-extra-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700;
+            color: #1c1a17 !important; margin-bottom: 4px; text-align: center; }
+        .rp-md-extra-desc { font-size: 12px; color: #8a7f6d !important; text-align: center;
+            margin-bottom: 18px; }
+        .rp-md-legend { display: flex; justify-content: center; gap: 20px; margin-top: 10px;
+            flex-wrap: wrap; }
+        .rp-md-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11.5px;
+            color: #6b6459 !important; }
+        .rp-md-legend-dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+        .rp-md-stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px; margin-top: 20px; }
+        .rp-md-stat { padding: 12px 14px; border-radius: 14px; background: #ffffff;
+            border: 1px solid #ecddc9; text-align: center; }
+        .rp-md-stat-label { font-size: 10px; font-weight: 700; color: #a8916a !important;
+            text-transform: uppercase; letter-spacing: 0.04em; }
+        .rp-md-stat-value { font-size: 19px; font-weight: 800; color: #1c1a17 !important;
+            font-family: 'Fraunces', serif; margin-top: 2px; }
+        .rp-md-chakra-title { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 700;
+            color: #1c1a17 !important; margin: 24px 0 10px 0; text-align: center; }
+        table.rp-md-chakra { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+        table.rp-md-chakra th { background: #fdf3e7; color: #8a5a2f !important; font-weight: 800;
+            padding: 8px 10px; text-align: center; border-bottom: 2px solid #ecddc9; }
+        table.rp-md-chakra td { padding: 8px 10px; text-align: center; border-bottom: 1px solid #f0e6d5;
+            color: #3a352c !important; }
+        table.rp-md-chakra td:first-child, table.rp-md-chakra th:first-child {
+            text-align: left; font-weight: 700; color: #1c1a17 !important; }
+
+        /* Baris penjelasan arti tiap angka, di dalam st.expander (dilipat
+           default biar halaman nggak kepanjangan). */
+        .rp-md-arti-row { display: flex; align-items: baseline; gap: 10px;
+            padding: 9px 0; border-bottom: 1px solid #f0e6d5; }
+        .rp-md-arti-row:last-child { border-bottom: none; }
+        .rp-md-arti-label { flex: 0 0 190px; font-size: 12px; font-weight: 700;
+            color: #8a5a2f !important; }
+        .rp-md-arti-value { flex: 0 0 28px; font-size: 13px; font-weight: 800;
+            color: #b8562f !important; }
+        .rp-md-arti-desc { font-size: 12.5px; color: #3a352c !important; }
+        .st-key-rp_md_arti_wrap { max-width: 900px; margin: 12px auto 0 auto; }
+        .st-key-rp_md_arti_wrap [data-testid="stExpander"] {
+            border-radius: 16px !important; border: 1.5px solid #f0e6d5 !important;
+            background: #fffaf2 !important;
+        }
+
         /* Kontainer grid amplop: satu baris yang bisa discroll ke samping
            (bukan wrap tiap 5 kolom lagi), supaya siap nampung sampai 15
            amplop nanti tanpa desain berubah. */
@@ -426,6 +496,20 @@ def _inject_style():
         }
         .rp-sent-row { display: flex; align-items: center; justify-content: center; gap: 7px;
             margin-top: 6px; font-size: 12px; color: #8a9a8c !important; }
+
+        /* Floating window (st.dialog) di halaman ini — dipaksa terang +
+           font kontras jelas, bug CSS dark-mode yang sama kayak sebelumnya
+           di dialog "Lengkapi Data" (loadingpage.py). Dialog "Buka Semua
+           Amplop?" belum kena fix ini sebelumnya karena style-nya cuma
+           diinjeksi lokal per halaman, bukan global. */
+        [data-testid="stDialog"],
+        [data-testid="stDialog"] > div {
+            background-color: #fffaf2 !important;
+        }
+        [data-testid="stDialog"] * {
+            color: #1c1a17 !important;
+        }
+        [data-testid="stDialog"] button[kind="primary"] * { color: #ffffff !important; }
         </style>
         """,
         unsafe_allow_html=True,
@@ -545,6 +629,186 @@ def _render_burst(system):
     )
 
 
+def _render_supplementary_badges(system, raw_result):
+    """
+    Badge kecil buat data tambahan yang barusan ditambahkan ke engine
+    (elemen Wu Xing Shio, modality+ruling planet Zodiak, Pancasuda Weton,
+    4 angka nama Numerologi) — ditaruh di bawah "PR Kecil Buat Kamu".
+    Return None kalau sistemnya nggak punya data tambahan (biar caller
+    nggak nambah div kosong).
+    """
+    if not raw_result:
+        return None
+
+    if system == "Shio":
+        elemen = raw_result.get("elemen")
+        if not elemen:
+            return None
+        return (
+            '<div class="rp-supp-badges">'
+            '<div class="rp-supp-badge"><span class="rp-supp-badge-label">Elemen Wu Xing</span>'
+            f'<span class="rp-supp-badge-value">{elemen}</span></div>'
+            '</div>'
+        )
+
+    if system == "Zodiak":
+        modality = raw_result.get("modality")
+        planet = raw_result.get("ruling_planet")
+        if not modality and not planet:
+            return None
+        badges = []
+        if modality:
+            badges.append(
+                '<div class="rp-supp-badge"><span class="rp-supp-badge-label">Modality</span>'
+                f'<span class="rp-supp-badge-value">{modality}</span></div>'
+            )
+        if planet:
+            badges.append(
+                '<div class="rp-supp-badge"><span class="rp-supp-badge-label">Planet Penguasa</span>'
+                f'<span class="rp-supp-badge-value">{planet}</span></div>'
+            )
+        return '<div class="rp-supp-badges">' + "".join(badges) + '</div>'
+
+    if system == "Weton":
+        pancasuda = raw_result.get("pancasuda")
+        if not pancasuda:
+            return None
+        return (
+            '<div class="rp-supp-badges">'
+            '<div class="rp-supp-badge"><span class="rp-supp-badge-label">Pancasuda</span>'
+            f'<span class="rp-supp-badge-value">{pancasuda["nama"]}</span></div>'
+            '</div>'
+            f'<p class="rp-detail-p" style="margin-top:6px;">{pancasuda["arti"]}</p>'
+        )
+
+    if system == "Numerologi":
+        keys = ("expression", "soul_urge", "personality", "birthday")
+        labels = {
+            "expression": "Expression", "soul_urge": "Soul Urge",
+            "personality": "Personality", "birthday": "Birthday",
+        }
+        if not all(k in raw_result for k in keys):
+            # Data lama (cuma life_path, belum ada nama) -- jangan
+            # nampilin grid kosong.
+            return None
+        stats = "".join(
+            '<div class="rp-supp-stat">'
+            f'<div class="rp-supp-stat-label">{labels[k]}</div>'
+            f'<div class="rp-supp-stat-value">{raw_result[k]}</div></div>'
+            for k in keys
+        )
+        return (
+            '<div><div class="rp-detail-label">Angka Numerologi Lainnya</div>'
+            f'<div class="rp-supp-stat-grid">{stats}</div></div>'
+        )
+
+    return None
+
+
+def _render_matrix_destiny_extra(raw_result):
+    """
+    Section full-width TAMBAHAN buat Matrix Destiny -- octagram (Personal
+    Square + Ancestral Square) + Love/Money/Purpose + tabel 7 Chakra.
+    Ditaruh di LUAR kolom kartu+teks (rp_detail_outer_) biar dapet lebar
+    penuh, soalnya diagram & tabelnya nggak muat kalau dipepetin ke
+    setengah kolom.
+    """
+    if not raw_result or "personal_square" not in raw_result:
+        return
+
+    ps = raw_result["personal_square"]
+    asq = raw_result["ancestral_square"]
+    lm = raw_result["love_money"]
+    purpose = raw_result["purpose"]
+    chakra = raw_result["chakra"]
+
+    svg = render_octagram_svg(ps, asq)
+
+    stat_defs = [
+        ("Love Point", lm["love"]), ("Money Point", lm["money"]), ("Balance Point", lm["balance"]),
+        ("Personal Purpose", purpose["personal"]), ("Social Purpose", purpose["social"]),
+        ("Main Destiny", purpose["main_destiny"]),
+    ]
+    stats_html = "".join(
+        f'<div class="rp-md-stat"><div class="rp-md-stat-label">{label}</div>'
+        f'<div class="rp-md-stat-value">{value}</div></div>'
+        for label, value in stat_defs
+    )
+
+    chakra_rows = [
+        ("Sahasrara (Mahkota)", "sahasrara"), ("Ajna (Alis)", "ajna"),
+        ("Vishuddha (Tenggorokan)", "vishuddha"), ("Anahata (Jantung)", "anahata"),
+        ("Manipura (Pusar)", "manipura"), ("Svadhisthana (Sakral)", "svadhisthana"),
+        ("Muladhara (Akar)", "muladhara"),
+    ]
+    chakra_html = "".join(
+        f'<tr><td>{label}</td><td>{chakra[key]["physics"]}</td>'
+        f'<td>{chakra[key]["energy"]}</td><td>{chakra[key]["emotions"]}</td></tr>'
+        for label, key in chakra_rows
+    )
+
+    st.markdown(
+        '<div class="rp-md-extra">'
+        '<div class="rp-md-extra-title">Peta Matrix Destiny Lengkap</div>'
+        '<div class="rp-md-extra-desc">Personal Square (garis coklat) &amp; Ancestral Square '
+        '(garis emas) — 8 titik di sekeliling usia 0&ndash;70, ketemu di Titik Pusat (Inti Jiwa) '
+        'di tengah.</div>'
+        f'{svg}'
+        '<div class="rp-md-legend">'
+        '<div class="rp-md-legend-item"><span class="rp-md-legend-dot" style="background:#b8562f;"></span>'
+        'Personal Square (Karakter, Spiritual, Material, Karma)</div>'
+        '<div class="rp-md-legend-item"><span class="rp-md-legend-dot" style="background:#c9a227;"></span>'
+        'Ancestral Square (Garis Leluhur)</div>'
+        '</div>'
+        f'<div class="rp-md-stat-row">{stats_html}</div>'
+        '<div class="rp-md-chakra-title">Tabel 7 Chakra / Health Card</div>'
+        '<table class="rp-md-chakra"><thead><tr>'
+        '<th>Chakra</th><th>Physics</th><th>Energy</th><th>Emotions</th>'
+        f'</tr></thead><tbody>{chakra_html}</tbody></table>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
+    # Penjelasan arti tiap angka -- DILIPAT (st.expander) biar halaman nggak
+    # kepanjangan, tapi tetap ada buat yang penasaran kenapa angkanya segitu.
+    titik_arti = [
+        ("Karakter Luar · Usia 0", ps["a"]),
+        ("Garis Kakek (Ibu) · Usia 10", asq["f"]),
+        ("Spiritual / Ibu · Usia 20", ps["b"]),
+        ("Garis Kakek (Ayah) · Usia 30", asq["g"]),
+        ("Material / Ayah · Usia 40", ps["c"]),
+        ("Garis Nenek (Ayah) · Usia 50", asq["i"]),
+        ("Karmic Tail · Usia 60", ps["d"]),
+        ("Garis Nenek (Ibu) · Usia 70", asq["h"]),
+        ("Titik Pusat (Inti Jiwa)", ps["e"]),
+        ("Love Point", lm["love"]),
+        ("Money Point", lm["money"]),
+        ("Balance Point", lm["balance"]),
+        ("Personal Purpose", purpose["personal"]),
+        ("Social Purpose", purpose["social"]),
+        ("Main Destiny", purpose["main_destiny"]),
+    ]
+
+    def _arti_singkat(nilai):
+        konten = MATRIX_DESTINY_CONTENT.get(nilai)
+        if konten:
+            return konten["title"]
+        return NAMA_ARKETIPE.get(nilai, "-")
+
+    arti_rows_html = "".join(
+        '<div class="rp-md-arti-row">'
+        f'<span class="rp-md-arti-label">{label}</span>'
+        f'<span class="rp-md-arti-value">{nilai}</span>'
+        f'<span class="rp-md-arti-desc">{_arti_singkat(nilai)}</span>'
+        '</div>'
+        for label, nilai in titik_arti
+    )
+
+    with st.container(key="rp_md_arti_wrap"):
+        with st.expander("Apa Arti Tiap Angka di Peta Ini?"):
+            st.markdown(arti_rows_html, unsafe_allow_html=True)
+
+
 def _render_detail(system):
     data = _result_for(system)
     st.markdown(
@@ -603,6 +867,7 @@ def _render_detail(system):
                         use_container_width=True,
                     )
         with st.container(key=f"rp_detail_text_wrap_{system}"):
+            supplementary = _render_supplementary_badges(system, raw_result) or ""
             st.markdown(
                 '<div class="rp-detail-text">'
                 f'<span class="rp-detail-chip">{data["chip"]}</span>'
@@ -614,9 +879,13 @@ def _render_detail(system):
                 f'<div class="rp-detail-quote"><p>&ldquo;{data["quote"]}&rdquo;</p></div>'
                 f'<div><div class="rp-detail-label">{data["p3_label"]}</div>'
                 f'<p class="rp-detail-p">{data["p3"]}</p></div>'
+                f'{supplementary}'
                 '</div>',
                 unsafe_allow_html=True,
             )
+
+    if system == "Matrix Destiny":
+        _render_matrix_destiny_extra(raw_result)
 
 
 @st.dialog("Buka Semua Amplop?", dismissible=False)
@@ -828,7 +1097,17 @@ def render():
                 "loading_data", "reveal_opened", "reveal_order", "reveal_opening",
                 "reveal_visible", "reveal_open_all_queue", "reveal_confirm_open_all",
                 "ry_focus_mode", "ry_step1_done", "ry_step3_done", "ry_email",
+                # Widget key dialog "Lengkapi Data" (tanggal/jam/kota lahir,
+                # golongan darah) — kalau nggak ikut direset, dropdown-nya
+                # bakal masih nunjukkin pilihan lama pas user reveal orang
+                # lain, padahal loading_data-nya udah kosong.
+                "dlg_tgl_bulan", "dlg_tgl_tahun", "dlg_tgl_hari_terakhir",
+                "dlg_nama_lengkap", "dlg_jam_lahir", "dlg_kota_lahir", "dlg_golongan_darah",
             ):
+                st.session_state.pop(k, None)
+            # Key selectbox "Tanggal" dibuat dinamis (dlg_tgl_hari_<bulan>_<tahun>),
+            # jadi ikut disapu semua biar nggak ada sisa state kombinasi lama.
+            for k in [k for k in st.session_state.keys() if k.startswith("dlg_tgl_hari_")]:
                 st.session_state.pop(k, None)
             st.rerun()
     with back_r:

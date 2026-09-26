@@ -11,9 +11,25 @@ Logic submit (OTP, simpan ke Supabase, dst) masih belum jalan — itu next step
 terpisah, bukan bagian dari revisi visual ini.
 """
 
+import random
+import string
+
 import streamlit as st
 
 from settings import TESTING_MODE
+
+
+def _demo_referral_code() -> str:
+    """
+    Kode referal DEMO/placeholder buat preview UI aja — belum ada backend
+    user/akun beneran (masih TESTING_MODE), jadi belum bisa generate kode
+    referal unik per user sungguhan. Di-generate sekali per sesi biar nggak
+    ganti-ganti tiap rerun, BUKAN disimpan permanen ke mana pun.
+    """
+    if "ry_referral_code_demo" not in st.session_state:
+        chars = string.ascii_uppercase + string.digits
+        st.session_state.ry_referral_code_demo = "".join(random.choices(chars, k=8))
+    return st.session_state.ry_referral_code_demo
 
 
 def _inject_style():
@@ -176,6 +192,33 @@ def _inject_style():
         .st-key-ry_mode_lengkap div.stButton > button {
             margin-top: 12px;
         }
+
+        /* Kolom Referal — di bawah Verifikasi Email */
+        .ry-referral-divider {
+            border-top: 1px dashed #ecddc9; margin: 16px 0 12px 0;
+        }
+        .ry-referral-label {
+            display: flex; align-items: center; gap: 6px; font-size: 12.5px;
+            font-weight: 700; color: #8a5a2f !important; margin-bottom: 8px;
+        }
+        .ry-referral-mine {
+            display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+            margin-top: 10px; padding: 10px 14px; border-radius: 12px;
+            background: #fff8ef; border: 1px solid #f0dcc0;
+        }
+        .ry-referral-mine-label {
+            font-size: 11px; font-weight: 700; color: #8a5a2f !important;
+            text-transform: uppercase; letter-spacing: 0.04em;
+        }
+        .ry-referral-mine-code {
+            font-family: monospace; font-size: 15px; font-weight: 800;
+            letter-spacing: 0.06em; color: #b8562f !important;
+            background: #ffffff; border: 1px solid #e4ddd0; border-radius: 8px;
+            padding: 3px 10px;
+        }
+        .ry-referral-mine-hint {
+            font-size: 11.5px; color: #6b6459 !important; flex-basis: 100%;
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -306,6 +349,39 @@ def render():
                         st.session_state.ry_step1_done = True
                         st.rerun()
             st.markdown('<div class="ry-otp-row">' + '<div class="ry-otp-box"></div>' * 6 + '</div>', unsafe_allow_html=True)
+
+            # ── Kolom Referal — DI BAWAH Verifikasi Email ──
+            # Catatan implementasi: ini baru UI/preview aja (belum ada logic
+            # generate kode unik per user asli, belum ada tracking pemakaian
+            # atau hitung komisi 10-20%) — sengaja ditahan sampai OTP email +
+            # akun/database user beneran udah jalan (lihat progress-notes /
+            # memory project buat detail keputusannya).
+            st.markdown(
+                '<div class="ry-referral-divider"></div>'
+                '<div class="ry-referral-label">'
+                '<span class="material-symbols-outlined" style="font-size:16px;">redeem</span>'
+                '<span>Punya Kode Referal dari Teman?</span></div>',
+                unsafe_allow_html=True,
+            )
+            st.text_input(
+                "Kode Referal", placeholder="Contoh: A1B2C3D4",
+                key="ry_referral_input", label_visibility="collapsed",
+            )
+
+            if st.session_state.get("ry_step1_done"):
+                # Preview "kode referal milik kamu sendiri" — cuma tampil
+                # setelah langkah verifikasi (disimulasikan lewat tombol
+                # "Kirim Kode" di TESTING_MODE ini), buat kasih gambaran
+                # tampilan akhirnya nanti kalau user beneran udah terverifikasi.
+                demo_code = _demo_referral_code()
+                st.markdown(
+                    '<div class="ry-referral-mine">'
+                    '<span class="ry-referral-mine-label">Kode Referal Kamu</span>'
+                    f'<span class="ry-referral-mine-code">{demo_code}</span>'
+                    '<span class="ry-referral-mine-hint">Bagikan ke teman — kamu dapat 10&ndash;20% '
+                    'dari total pembayaran mereka.</span></div>',
+                    unsafe_allow_html=True,
+                )
 
         st.write("")
 

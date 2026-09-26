@@ -50,11 +50,15 @@ NEEDS_TANGGAL = {
 NEEDS_JAM = {"BaZi", "Zi Wei", "Human Design"}
 NEEDS_KOTA = {"BaZi", "Human Design"}
 NEEDS_GOLDA = {"Golongan Darah"}
+# Numerologi versi lengkap (Expression/Soul Urge/Personality Number) butuh
+# nama lengkap (sesuai nama lahir) selain tanggal lahir.
+NEEDS_NAMA = {"Numerologi"}
 # belum ada kuesionernya — dilewati dulu (lihat catatan keterbatasan di atas)
 NEEDS_KUESIONER_BELUM_ADA = {"MBTI", "Big Five", "Enneagram", "DISC", "Love Language"}
 
 FIELD_LABEL = {
     "tanggal_lahir": "Masukkan Tanggal Lahir",
+    "nama_lengkap": "Masukkan Nama Lengkap",
     "jam_lahir": "Masukkan Jam Lahir",
     "kota_lahir": "Masukkan Kota Lahir",
     "golongan_darah": "Masukkan Golongan Darah",
@@ -91,6 +95,8 @@ def _missing_field_for(system):
     needs_tanggal = system in NEEDS_TANGGAL or system in NEEDS_KUESIONER_BELUM_ADA
     if needs_tanggal and "tanggal_lahir" not in data:
         return "tanggal_lahir"
+    if system in NEEDS_NAMA and "nama_lengkap" not in data:
+        return "nama_lengkap"
     if system in NEEDS_JAM and "jam_lahir" not in data:
         return "jam_lahir"
     if system in NEEDS_KOTA and "kota_lahir" not in data:
@@ -197,6 +203,16 @@ def _ask_field_dialog(field):
             )
         st.session_state.dlg_tgl_hari_terakhir = hari
         value = date(tahun, bulan, hari)
+    elif field == "nama_lengkap":
+        st.markdown(
+            '<div style="font-size:12.5px;color:#6b6459;margin:-4px 0 10px 0;">'
+            'Pakai nama lahir lengkap kamu — dipakai buat hitung Numerologi versi lengkap.</div>',
+            unsafe_allow_html=True,
+        )
+        value = st.text_input(
+            "Nama Lengkap", placeholder="Contoh: Steven Wu",
+            key="dlg_nama_lengkap", label_visibility="collapsed",
+        ).strip()
     elif field == "jam_lahir":
         value = st.time_input("Jam Lahir", key="dlg_jam_lahir", label_visibility="collapsed")
     elif field == "kota_lahir":
@@ -212,9 +228,12 @@ def _ask_field_dialog(field):
 
     if st.button("Lanjutkan", key="dlg_lanjut", type="primary",
                   icon=":material/arrow_forward:", use_container_width=True):
-        st.session_state.loading_data[field] = value
-        st.session_state.loading_phase = "animating"
-        st.rerun()
+        if field == "nama_lengkap" and not value:
+            st.warning("Nama lengkap belum diisi.", icon=":material/error:")
+        else:
+            st.session_state.loading_data[field] = value
+            st.session_state.loading_phase = "animating"
+            st.rerun()
 
 
 def _render_input_summary():
