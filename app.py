@@ -9,12 +9,6 @@ from views.reveal_yourself import render as render_reveal_yourself
 from views.loadingpage import render as render_loading
 from views.revealpage import render as render_result
 
-try:
-    from engine.zodiak import hitung_zodiak
-    ZODIAK_ENGINE_READY = True
-except ImportError:
-    ZODIAK_ENGINE_READY = False
-
 st.set_page_config(
     page_title="Destiny Reveal",
     page_icon="✨",
@@ -493,34 +487,6 @@ with st.container(key="nav_row"):
             st.selectbox("Bahasa", ["🇮🇩 Indonesian", "🇬🇧 English"], label_visibility="collapsed")
 
 st.markdown("<hr style='margin-top:14px;'>", unsafe_allow_html=True)
-
-# ── TESTING SEMENTARA (HAPUS NANTI) ─────────────────────────
-# 2 tombol dummy biar loading page & reveal/hasil page bisa dites langsung
-# tanpa harus isi email + pilih mode + nunggu proses beneran tiap kali.
-# Dikasih di expander collapsed di atas semua halaman (bukan sidebar, karena
-# toggle sidebar bawaan Streamlit ikut ke-hide sama CSS "header {visibility:
-# hidden}" di atas, jadi nggak bisa dibuka user).
-with st.expander("🧪 Testing sementara (hapus nanti)", expanded=False):
-    dbg_l, dbg_r = st.columns(2)
-    with dbg_l:
-        if st.button("Test → Loading Page", key="dbg_go_loading", use_container_width=True):
-            st.session_state.ry_focus_mode = st.session_state.get("ry_focus_mode") or "instan"
-            for k in ("loading_points", "loading_idx", "loading_phase",
-                      "loading_results", "loading_data",
-                      "reveal_opened", "reveal_order", "reveal_opening"):
-                st.session_state.pop(k, None)
-            st.session_state.dr_page = "loading"
-            st.rerun()
-    with dbg_r:
-        if st.button("Test → Reveal/Hasil Page", key="dbg_go_result", use_container_width=True):
-            if not st.session_state.get("loading_results"):
-                st.session_state.loading_results = {
-                    "Zodiak": {"placeholder": True},
-                    "Shio": {"placeholder": True},
-                    "Weton": {"placeholder": True},
-                }
-            st.session_state.dr_page = "result"
-            st.rerun()
 
 # ══════════════════════════════════════════════════════════════
 # HALAMAN — BERANDA
