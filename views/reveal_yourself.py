@@ -357,11 +357,14 @@ def render():
                     st.warning("Pilih salah satu mode eksplorasi dulu ya sebelum lanjut.")
                 else:
                     st.session_state.ry_step3_done = True
-                    # reset progress loading tiap kali mulai proses baru (biar
-                    # nggak nyangkut ke sisa sesi lama kalau user balik lagi
-                    # ke sini abis reveal_yourself.py atau ganti mode)
+                    # reset progress loading & progress amplop reveal tiap kali
+                    # mulai proses baru (biar nggak nyangkut ke sisa sesi lama
+                    # kalau user balik lagi ke sini abis reveal_yourself.py,
+                    # ganti mode, atau abis buka semua amplop di result page
+                    # sebelumnya)
                     for k in ("loading_points", "loading_idx", "loading_phase",
-                              "loading_results", "loading_data"):
+                              "loading_results", "loading_data",
+                              "reveal_opened", "reveal_order", "reveal_opening"):
                         st.session_state.pop(k, None)
                     st.session_state.dr_page = "loading"
                     st.rerun()
