@@ -24,7 +24,7 @@ from content.interpretations.shio import SHIO_CONTENT
 from content.interpretations.weton import WETON_CONTENT
 from content.interpretations.zodiak import ZODIAK_CONTENT
 from engine.matrix_destiny import hitung_matrix_destiny
-from engine.numerologi import hitung_life_path
+from engine.numerologi import hitung_numerologi_lengkap
 from engine.shio import hitung_shio
 from engine.weton import hitung_weton
 from engine.zodiak import hitung_zodiak
@@ -59,7 +59,14 @@ def compute_raw_result(system: str, loading_data: dict) -> dict:
         if system == "Weton":
             return hitung_weton(tanggal_lahir)
         if system == "Numerologi":
-            return {"life_path": hitung_life_path(tanggal_lahir)}
+            nama_lengkap = loading_data.get("nama_lengkap")
+            if not nama_lengkap:
+                # Fallback kalau field nama entah kenapa belum keisi —
+                # tetap kasih Life Path Number aja daripada nge-placeholder
+                # semua (life_path nggak butuh nama).
+                from engine.numerologi import hitung_life_path
+                return {"life_path": hitung_life_path(tanggal_lahir)}
+            return hitung_numerologi_lengkap(tanggal_lahir, nama_lengkap)
         if system == "Matrix Destiny":
             return hitung_matrix_destiny(tanggal_lahir)
     except ValueError:
