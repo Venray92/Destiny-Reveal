@@ -33,6 +33,7 @@ import time
 import streamlit as st
 import streamlit.components.v1 as components
 
+from utils.card_images import card_image_for_system
 from views.reveal_yourself import RY_MODES
 
 # ── Kebutuhan data per sistem ────────────────────────────────
@@ -358,12 +359,18 @@ def render():
 
     elif st.session_state.loading_phase == "animating":
         _render_dots(points, idx, waiting=False)
+        image_uri = card_image_for_system(current)
+        card_art_inner = (
+            f'<img src="{image_uri}" alt="Kartu {current}" '
+            'style="width:100%;height:100%;object-fit:cover;">'
+            if image_uri else ""
+        )
         st.markdown(
             f'<div class="ry-load-card-wrap" style="--ry-anim-s:{ANIM_SECONDS}s;">'
             '<div style="font-size:11px;font-weight:800;letter-spacing:0.08em;'
             f'text-transform:uppercase;color:#b8562f;">✓ {current} — sedang diproses</div>'
             '<div class="ry-load-card" style="--ry-anim-s:' + str(ANIM_SECONDS) + 's;">'
-            '<div class="ry-load-card-inner"><div class="ry-load-card-art"></div></div>'
+            f'<div class="ry-load-card-inner"><div class="ry-load-card-art">{card_art_inner}</div></div>'
             '</div>'
             # Blur tiap baris SENGAJA gradasi (bukan rata) — makin ke bawah
             # makin tebal, biar menjelang ~85% tinggi kotak udah nggak

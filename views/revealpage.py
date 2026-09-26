@@ -26,6 +26,8 @@ import time
 import streamlit as st
 import streamlit.components.v1 as components
 
+from utils.card_images import card_image_for_system
+
 EXAMPLE_POINTS = ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"]
 OPEN_ANIM_SECONDS = 1.1
 
@@ -153,18 +155,18 @@ DUMMY_RESULTS = {
               "target berikutnya. Kebiasaan ini akan membuat perjalananmu terasa lebih ringan.",
     },
     "Matrix Destiny": {
-        "tagline": "✧ Sang Penjaga",
+        "tagline": "✧ The Partners",
         "chip": "MATRIX DESTINY",
-        "title": "Sang Penjaga — Fondasi bagi Orang-Orang di Sekitarmu",
+        "title": "The Partners — Fondasi bagi Orang-Orang di Sekitarmu",
         "p1_label": "Siapa Kamu",
         "p1": "Dalam pembacaan Matrix Destiny, susunan titik dari tanggal lahirmu membentuk arketipe "
-              "Sang Penjaga, sosok yang secara alami jadi tempat bersandar bagi keluarga maupun "
+              "The Partners, sosok yang secara alami jadi tempat bersandar bagi keluarga maupun "
               "teman dekat. Kehadiranmu memberi rasa aman, bahkan tanpa kamu perlu berkata banyak.",
         "p2_label": "Kekuatan & yang Perlu Dijaga",
         "p2": "Kesetiaanmu pada orang-orang terdekat jarang tergoyahkan, dan itu membuatmu jadi sosok "
               "yang bisa diandalkan dalam situasi sulit sekalipun. Namun karena terbiasa menjaga "
               "orang lain, kamu kadang lupa bahwa dirimu sendiri juga butuh dijaga oleh seseorang.",
-        "quote": "Sang Penjaga sejati juga tahu kapan waktunya untuk diam-diam dijaga balik.",
+        "quote": "The Partners sejati juga tahu kapan waktunya untuk diam-diam dijaga balik.",
         "p3_label": "PR Kecil Buat Kamu",
         "p3": "Izinkan satu orang terdekatmu untuk benar-benar membantumu minggu ini, tanpa buru-buru "
               "menolak dengan alasan bahwa kamu bisa mengurus semuanya sendiri.",
@@ -443,11 +445,22 @@ def _render_detail(system):
         )
         return
 
+    image_uri = card_image_for_system(system)
+    if image_uri:
+        card_art = (
+            f'<img src="{image_uri}" alt="Kartu {system}" '
+            'style="width:100%;height:100%;object-fit:cover;border-radius:11px;">'
+        )
+    else:
+        # Fallback ke ikon lama kalau sistem ini belum punya file gambar
+        # kartu di assets/cards/ (misal sistem yang belum digarap).
+        card_art = _big_icon(system)
+
     st.markdown(
         '<div class="rp-detail">'
         '<div class="rp-detail-card-wrap">'
         '<div class="rp-detail-card"><div class="rp-detail-card-inner">'
-        f'<div class="rp-detail-card-art">{_big_icon(system)}</div>'
+        f'<div class="rp-detail-card-art">{card_art}</div>'
         '</div></div>'
         f'<div class="rp-detail-tagline">{data["tagline"]}</div>'
         '</div>'
