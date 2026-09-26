@@ -27,7 +27,7 @@ SHIO_CONTENT = {
                  "jauh lagi.",
         "p3_label": "PR Kecil Buat Kamu",
         "p3": "Coba beri satu orang yang selama ini kamu ragukan kesempatan untuk membuktikan "
-              "dirinya minggu ini, tanpa langsung menilai dari kecurigaanmu.",
+              "dirinya, tanpa langsung menilai dari kecurigaanmu.",
     },
     "Kerbau": {
         "tagline": "🐂 Shio Kerbau",
@@ -46,7 +46,7 @@ SHIO_CONTENT = {
         "quote": "Keteguhan itu berharga, tapi kebesaran hati untuk berubah pikiran juga tanda "
                  "kekuatan.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba dengarkan satu pendapat yang berbeda dari caramu biasa melakukan "
+        "p3": "Coba dengarkan satu pendapat yang berbeda dari caramu biasa melakukan "
               "sesuatu, dan pertimbangkan dengan pikiran terbuka sebelum menolaknya.",
     },
     "Macan": {
@@ -66,7 +66,7 @@ SHIO_CONTENT = {
         "quote": "Keberanian yang matang tahu kapan harus menyerang dan kapan harus menunggu waktu "
                  "yang tepat.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Sebelum mengambil keputusan besar minggu ini, coba beri jeda satu hari untuk "
+        "p3": "Sebelum mengambil keputusan besar, coba beri jeda satu hari untuk "
               "memikirkannya ulang, alih-alih langsung bertindak seperti biasanya.",
     },
     "Kelinci": {
@@ -86,7 +86,7 @@ SHIO_CONTENT = {
         "quote": "Menjaga kedamaian itu baik, tapi bukan berarti kamu harus selalu mengalah pada "
                  "dirimu sendiri.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Ketika ada sesuatu yang mengganggumu minggu ini, coba sampaikan dengan lembut kepada "
+        "p3": "Ketika ada sesuatu yang mengganggumu, coba sampaikan dengan lembut kepada "
               "orang yang bersangkutan, alih-alih memilih diam demi menghindari konflik.",
     },
     "Naga": {
@@ -126,8 +126,8 @@ SHIO_CONTENT = {
         "quote": "Ketenangan yang bijak akan lebih bermakna kalau sesekali dibagikan, bukan hanya "
                  "disimpan sendiri.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Coba sampaikan satu pemikiran atau analisismu secara terbuka kepada orang terdekat "
-              "minggu ini, alih-alih hanya memendamnya dalam kepala.",
+        "p3": "Coba sampaikan satu pemikiran atau analisismu secara terbuka kepada orang terdekat, "
+              "alih-alih hanya memendamnya dalam kepala.",
     },
     "Kuda": {
         "tagline": "🐴 Shio Kuda",
@@ -146,8 +146,8 @@ SHIO_CONTENT = {
         "quote": "Kebebasan sejati justru terasa lebih utuh ketika kamu berani berkomitmen pada apa "
                  "yang benar-benar penting.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Pilih satu komitmen yang sudah kamu buat, lalu jaga konsistensinya selama satu minggu "
-              "penuh tanpa tergoda beralih ke hal baru yang lain.",
+        "p3": "Pilih satu komitmen yang sudah kamu buat, lalu jaga konsistensinya "
+              "tanpa tergoda beralih ke hal baru yang lain.",
     },
     "Kambing": {
         "tagline": "🐐 Shio Kambing",
@@ -166,7 +166,7 @@ SHIO_CONTENT = {
         "quote": "Pendapat orang lain penting, tapi keyakinanmu pada dirimu sendiri jauh lebih "
                  "penting lagi.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Coba ambil satu keputusan kecil minggu ini berdasarkan penilaianmu sendiri, tanpa "
+        "p3": "Coba ambil satu keputusan kecil berdasarkan penilaianmu sendiri, tanpa "
               "meminta persetujuan orang lain terlebih dulu.",
     },
     "Monyet": {
@@ -186,7 +186,7 @@ SHIO_CONTENT = {
         "quote": "Kecerdasan akan lebih terasa hasilnya kalau difokuskan pada satu arah dalam satu "
                  "waktu.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba kurangi jumlah hal yang kamu kerjakan sekaligus, dan fokuskan energi "
+        "p3": "Coba kurangi jumlah hal yang kamu kerjakan sekaligus, dan fokuskan energi "
               "pada satu atau dua hal yang paling penting bagimu.",
     },
     "Ayam": {
@@ -205,7 +205,7 @@ SHIO_CONTENT = {
               "maksudmu sebenarnya baik.",
         "quote": "Kejujuran akan lebih mudah diterima kalau disampaikan dengan sedikit lebih lembut.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Sebelum menyampaikan kritik minggu ini, coba pikirkan dulu cara penyampaian yang lebih "
+        "p3": "Sebelum menyampaikan kritik, coba pikirkan dulu cara penyampaian yang lebih "
               "lembut, tanpa mengubah kejujuran dari isi pesannya.",
     },
     "Anjing": {
@@ -225,7 +225,7 @@ SHIO_CONTENT = {
         "quote": "Kewaspadaan itu penting, tapi jangan sampai membuatmu kehilangan ketenangan di "
                  "masa sekarang.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Ketika muncul kekhawatiran tentang sesuatu yang belum terjadi minggu ini, coba tanyakan "
+        "p3": "Ketika muncul kekhawatiran tentang sesuatu yang belum terjadi, coba tanyakan "
               "pada diri sendiri seberapa besar kemungkinannya benar-benar terjadi, sebelum "
               "membiarkan kekhawatiran itu menguasai pikiranmu.",
     },
@@ -246,7 +246,7 @@ SHIO_CONTENT = {
         "quote": "Kebaikan hati akan lebih aman kalau disertai sedikit kehati-hatian dalam memilih "
                  "kepada siapa kamu memberikannya.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba perhatikan lebih saksama pola perlakuan orang-orang di sekitarmu, dan "
+        "p3": "Coba perhatikan lebih saksama pola perlakuan orang-orang di sekitarmu, dan "
               "beri batasan yang wajar kepada mereka yang selama ini hanya memanfaatkan kebaikanmu.",
     },
 }

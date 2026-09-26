@@ -26,7 +26,7 @@ NUMEROLOGI_CONTENT = {
         "quote": "Menjadi pemimpin yang baik juga berarti tahu kapan harus mengikuti arahan orang "
                  "lain.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba biarkan satu keputusan kecil diambil oleh orang lain di sekitarmu, "
+        "p3": "Coba biarkan satu keputusan kecil diambil oleh orang lain di sekitarmu, "
               "dan lihat bagaimana rasanya melepaskan kendali sejenak.",
     },
     2: {
@@ -45,7 +45,7 @@ NUMEROLOGI_CONTENT = {
               "jadi terabaikan.",
         "quote": "Kerja sama yang sehat juga memberi ruang bagi kebutuhanmu sendiri untuk didengar.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Coba sampaikan satu pendapat yang berbeda dari mayoritas minggu ini, meski itu berarti "
+        "p3": "Coba sampaikan satu pendapat yang berbeda dari mayoritas, meski itu berarti "
               "sedikit mengganggu keharmonisan yang biasa kamu jaga.",
     },
     3: {
@@ -65,8 +65,8 @@ NUMEROLOGI_CONTENT = {
         "quote": "Kreativitas akan lebih berbuah kalau kamu memberi satu ide waktu yang cukup untuk "
                  "benar-benar tumbuh.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Pilih satu ide kreatif yang sudah lama kamu simpan, lalu wujudkan sampai selesai minggu "
-              "ini sebelum berpindah memikirkan ide yang lain.",
+        "p3": "Pilih satu ide kreatif yang sudah lama kamu simpan, lalu wujudkan sampai selesai "
+              "sebelum berpindah memikirkan ide yang lain.",
     },
     4: {
         "tagline": "✦ Angka Hidup 4",
@@ -85,7 +85,7 @@ NUMEROLOGI_CONTENT = {
         "quote": "Fondasi yang kuat tetap butuh sedikit ruang untuk menyesuaikan diri dengan "
                  "perubahan.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Ketika rencana minggu ini berubah mendadak, coba hadapi dengan tenang dan cari cara "
+        "p3": "Ketika rencana berubah mendadak, coba hadapi dengan tenang dan cari cara "
               "baru menyesuaikan diri, alih-alih merasa terganggu karena keluar dari jadwal.",
     },
     5: {
@@ -105,8 +105,8 @@ NUMEROLOGI_CONTENT = {
         "quote": "Kebebasan akan terasa lebih bermakna kalau sesekali kamu memberi ruang bagi "
                  "komitmen untuk tumbuh.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Pilih satu komitmen yang sudah kamu buat, lalu pertahankan konsistensinya selama satu "
-              "minggu penuh tanpa tergoda mencari variasi baru.",
+        "p3": "Pilih satu komitmen yang sudah kamu buat, lalu pertahankan konsistensinya "
+              "tanpa tergoda mencari variasi baru.",
     },
     6: {
         "tagline": "✦ Angka Hidup 6",
@@ -125,7 +125,7 @@ NUMEROLOGI_CONTENT = {
         "quote": "Merawat orang lain akan lebih berkelanjutan kalau kamu juga merawat dirimu "
                  "sendiri.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Luangkan satu waktu khusus minggu ini yang benar-benar untuk mengurus kebutuhanmu "
+        "p3": "Luangkan satu waktu khusus yang benar-benar untuk mengurus kebutuhanmu "
               "sendiri, tanpa merasa bersalah karena tidak sedang mengurus orang lain.",
     },
     7: {
@@ -145,8 +145,8 @@ NUMEROLOGI_CONTENT = {
         "quote": "Perenungan yang dalam akan lebih bermakna kalau sesekali kamu bagikan hasilnya "
                  "kepada orang lain.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Coba ajak satu orang terdekatmu berdiskusi tentang sesuatu yang sedang kamu pikirkan "
-              "minggu ini, alih-alih memprosesnya sendirian seperti biasa.",
+        "p3": "Coba ajak satu orang terdekatmu berdiskusi tentang sesuatu yang sedang kamu pikirkan, "
+              "alih-alih memprosesnya sendirian seperti biasa.",
     },
     8: {
         "tagline": "✦ Angka Hidup 8",
@@ -184,7 +184,7 @@ NUMEROLOGI_CONTENT = {
         "quote": "Kepedulian besar tetap perlu disertai penerimaan bahwa tidak semua orang akan "
                  "sebaik yang kamu harapkan.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Ketika kecewa terhadap sikap seseorang minggu ini, coba terima bahwa itu bukan "
+        "p3": "Ketika kecewa terhadap sikap seseorang, coba terima bahwa itu bukan "
               "cerminan dari kebaikanmu sendiri, dan lanjutkan tanpa membawa kekecewaan itu terlalu "
               "lama.",
     },
@@ -207,7 +207,7 @@ NUMEROLOGI_CONTENT = {
         "quote": "Intuisi yang tajam akan lebih membawa kebaikan kalau kamu juga menjaga "
                  "ketenanganmu sendiri.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Ketika merasa kewalahan oleh perasaan minggu ini, coba luangkan waktu sendirian "
+        "p3": "Ketika merasa kewalahan oleh perasaan, coba luangkan waktu sendirian "
               "sejenak untuk menenangkan pikiran, sebelum memutuskan langkah selanjutnya.",
     },
     22: {
@@ -228,7 +228,7 @@ NUMEROLOGI_CONTENT = {
         "quote": "Membangun sesuatu yang besar tetap butuh jeda, supaya kamu tidak habis sebelum "
                  "mimpimu benar-benar selesai.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Pecah satu tujuan besarmu menjadi langkah-langkah kecil minggu ini, dan izinkan "
+        "p3": "Pecah satu tujuan besarmu menjadi langkah-langkah kecil, dan izinkan "
               "dirimu merasa cukup setelah menyelesaikan satu langkah kecil itu.",
     },
     33: {
@@ -250,7 +250,7 @@ NUMEROLOGI_CONTENT = {
         "quote": "Membimbing orang lain akan lebih berkelanjutan kalau kamu juga mengizinkan dirimu "
                  "dibimbing dan didukung.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba terima bantuan atau dukungan dari orang lain tanpa langsung "
+        "p3": "Coba terima bantuan atau dukungan dari orang lain tanpa langsung "
               "menolaknya dengan alasan bisa mengurus semuanya sendiri.",
     },
 }

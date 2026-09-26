@@ -32,7 +32,7 @@ MATRIX_DESTINY_CONTENT = {
                  "benar menyelesaikannya.",
         "p3_label": "PR Kecil Buat Kamu",
         "p3": "Pilih satu hal yang baru saja kamu mulai, lalu berkomitmenlah menyelesaikan tahap "
-              "pertamanya secara penuh sebelum memulai hal baru yang lain minggu ini.",
+              "pertamanya secara penuh sebelum memulai hal baru yang lain.",
     },
     2: {
         "tagline": "✧ The Listener",
@@ -51,7 +51,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Mendengarkan orang lain itu berharga, tapi suaramu sendiri juga layak untuk "
                  "didengar.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba ceritakan satu hal yang sedang kamu rasakan kepada orang terdekat, "
+        "p3": "Coba ceritakan satu hal yang sedang kamu rasakan kepada orang terdekat, "
               "alih-alih hanya menjadi pendengar seperti biasanya.",
     },
     3: {
@@ -71,7 +71,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Imajinasi yang luas akan lebih bermakna kalau satu idenya benar-benar diwujudkan "
                  "sampai tuntas.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Pilih satu ide yang paling ingin kamu wujudkan minggu ini, lalu curahkan perhatianmu "
+        "p3": "Pilih satu ide yang paling ingin kamu wujudkan, lalu curahkan perhatianmu "
               "sepenuhnya di situ tanpa tergoda memikirkan ide lain.",
     },
     4: {
@@ -91,7 +91,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Kepemimpinan yang kuat juga membuka ruang bagi orang lain untuk berpendapat "
                  "berbeda.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba tanyakan secara terbuka pendapat orang lain sebelum mengambil "
+        "p3": "Coba tanyakan secara terbuka pendapat orang lain sebelum mengambil "
               "keputusan, dan tunjukkan bahwa pendapat berbeda darimu tetap diterima dengan baik.",
     },
     5: {
@@ -111,7 +111,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Mengajar orang lain akan lebih bermakna kalau kamu juga terus memberi ruang untuk "
                  "belajar bagi dirimu sendiri.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, luangkan waktu untuk mempelajari sesuatu yang baru untuk dirimu sendiri, "
+        "p3": "Luangkan waktu untuk mempelajari sesuatu yang baru untuk dirimu sendiri, "
               "bukan untuk diajarkan kepada orang lain.",
     },
     6: {
@@ -128,7 +128,7 @@ MATRIX_DESTINY_CONTENT = {
               "orang lain, kamu kadang lupa bahwa dirimu sendiri juga butuh dijaga oleh seseorang.",
         "quote": "The Partners sejati juga tahu kapan waktunya untuk diam-diam dijaga balik.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Izinkan satu orang terdekatmu untuk benar-benar membantumu minggu ini, tanpa buru-buru "
+        "p3": "Izinkan satu orang terdekatmu untuk benar-benar membantumu, tanpa buru-buru "
               "menolak dengan alasan bahwa kamu bisa mengurus semuanya sendiri.",
     },
     7: {
@@ -148,7 +148,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Tidak semua hal dalam hidup perlu ditaklukkan, sebagian cukup dinikmati apa "
                  "adanya.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba nikmati satu aktivitas tanpa menjadikannya ajang untuk bersaing atau "
+        "p3": "Coba nikmati satu aktivitas tanpa menjadikannya ajang untuk bersaing atau "
               "membuktikan sesuatu kepada siapa pun.",
     },
     8: {
@@ -168,7 +168,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Keseimbangan yang sehat kadang juga berarti berani memilih satu sisi dengan "
                  "mantap.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Ketika dihadapkan pada satu pilihan minggu ini, coba ambil sikap yang tegas, alih-alih "
+        "p3": "Ketika dihadapkan pada satu pilihan, coba ambil sikap yang tegas, alih-alih "
               "terus mencari jalan tengah yang menyenangkan semua pihak.",
     },
     9: {
@@ -188,7 +188,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Kesendirian itu berharga, tapi jangan sampai membuatmu menutup pintu bagi orang "
                  "yang ingin membantumu.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba hubungi satu orang yang sudah lama tidak kamu ajak bicara, dan "
+        "p3": "Coba hubungi satu orang yang sudah lama tidak kamu ajak bicara, dan "
               "biarkan dirimu terbuka pada kehadiran mereka.",
     },
     10: {
@@ -208,7 +208,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Menerima perubahan itu baik, tapi kamu juga punya kendali untuk mengarahkan roda "
                  "itu berputar ke arah yang kamu inginkan.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba ambil satu langkah aktif untuk mengarahkan sesuatu yang selama ini "
+        "p3": "Coba ambil satu langkah aktif untuk mengarahkan sesuatu yang selama ini "
               "hanya kamu terima begitu saja sebagai keadaan yang tak bisa diubah.",
     },
     11: {
@@ -228,7 +228,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Keberanian sejati juga tahu kapan saatnya meminta bantuan, bukan menghadapi "
                  "semuanya sendirian.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Ketika menghadapi tantangan besar minggu ini, coba minta pendapat atau bantuan dari "
+        "p3": "Ketika menghadapi tantangan besar, coba minta pendapat atau bantuan dari "
               "orang lain terlebih dulu, sebelum memutuskan untuk menghadapinya sendirian.",
     },
     12: {
@@ -248,7 +248,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Berkorban untuk orang lain itu mulia, tapi dirimu sendiri juga berhak diperjuangkan "
                  "dengan cara yang sama.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba tolak satu permintaan yang sebenarnya memberatkanmu, dan utamakan "
+        "p3": "Coba tolak satu permintaan yang sebenarnya memberatkanmu, dan utamakan "
               "kebutuhanmu sendiri untuk sekali itu.",
     },
     13: {
@@ -268,7 +268,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Bertransformasi itu kekuatan, tapi memberi waktu bagi orang lain untuk mengikutimu "
                  "juga bagian dari kebaikan.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Sebelum membuat perubahan besar minggu ini, coba ceritakan dulu rencanamu kepada orang "
+        "p3": "Sebelum membuat perubahan besar, coba ceritakan dulu rencanamu kepada orang "
               "terdekat, supaya mereka tidak merasa tertinggal begitu saja.",
     },
     14: {
@@ -289,7 +289,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Eksperimen yang cerdik akan lebih bermakna kalau sesekali kamu berpegang teguh pada "
                  "satu arah yang jelas.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Pilih satu metode atau cara kerja minggu ini, lalu jalani secara konsisten tanpa "
+        "p3": "Pilih satu metode atau cara kerja, lalu jalani secara konsisten tanpa "
               "terus-menerus mengganti pendekatan di tengah jalan.",
     },
     15: {
@@ -310,7 +310,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Mengenal sisi gelap dirimu itu penting, tapi jangan sampai kamu lupa mengenal sisi "
                  "terangmu juga.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba tuliskan satu hal baik tentang dirimu setiap hari, sebagai imbangan "
+        "p3": "Coba tuliskan satu hal baik tentang dirimu setiap hari, sebagai imbangan "
               "dari kebiasaanmu merenungkan kekuranganmu.",
     },
     16: {
@@ -330,7 +330,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Bangkit dari kehancuran itu kekuatan besar, tapi belajar mencegahnya terulang juga "
                  "bagian dari kebijaksanaan.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba kenali satu pola yang selama ini berulang kali membuatmu jatuh, dan "
+        "p3": "Coba kenali satu pola yang selama ini berulang kali membuatmu jatuh, dan "
               "pikirkan satu langkah kecil untuk mencegahnya terulang.",
     },
     17: {
@@ -349,7 +349,7 @@ MATRIX_DESTINY_CONTENT = {
               "perhatian serius, bukan sekadar dilihat dari sisi positifnya saja.",
         "quote": "Harapan yang sehat tetap perlu berpijak pada kenyataan yang ada.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Ketika menghadapi masalah minggu ini, coba akui dulu bagian yang sulit secara jujur, "
+        "p3": "Ketika menghadapi masalah, coba akui dulu bagian yang sulit secara jujur, "
               "sebelum mencari sisi positif dari keadaan tersebut.",
     },
     18: {
@@ -369,7 +369,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Menjaga misteri itu menarik, tapi keintiman sejati butuh sedikit keterbukaan juga.",
         "p3_label": "PR Kecil Buat Kamu",
         "p3": "Coba bagikan satu hal pribadi yang biasanya kamu simpan sendiri kepada orang yang "
-              "kamu percaya minggu ini.",
+              "kamu percaya.",
     },
     19: {
         "tagline": "✧ The Joy",
@@ -388,7 +388,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Membawa kebahagiaan bagi orang lain itu indah, tapi kesedihanmu sendiri juga "
                  "berhak diakui.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Ketika sedang tidak baik-baik saja minggu ini, coba akui itu secara terbuka kepada "
+        "p3": "Ketika sedang tidak baik-baik saja, coba akui itu secara terbuka kepada "
               "orang terdekat, alih-alih menutupinya dengan senyuman seperti biasa.",
     },
     20: {
@@ -409,7 +409,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Terus berkembang itu baik, tapi sesekali berhenti sejenak untuk menikmati apa yang "
                  "sudah kamu pahami juga penting.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba berhenti sejenak dari mencari pemahaman baru, dan syukuri apa yang "
+        "p3": "Coba berhenti sejenak dari mencari pemahaman baru, dan syukuri apa yang "
               "sudah kamu sadari sejauh ini.",
     },
     21: {
@@ -429,7 +429,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Pencapaian besar akan terasa lebih bermakna kalau kamu sempat berhenti sejenak "
                  "untuk merayakannya.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba rayakan satu pencapaian yang sudah kamu raih, sekecil apa pun itu, "
+        "p3": "Coba rayakan satu pencapaian yang sudah kamu raih, sekecil apa pun itu, "
               "sebelum langsung mengejar target berikutnya.",
     },
     22: {
@@ -450,7 +450,7 @@ MATRIX_DESTINY_CONTENT = {
         "quote": "Melihat gambaran besar itu bijaksana, tapi jangan sampai membuatmu melewatkan "
                  "detail kecil yang ada di depan mata.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba fokus menyelesaikan satu hal kecil dan spesifik sampai tuntas, tanpa "
+        "p3": "Coba fokus menyelesaikan satu hal kecil dan spesifik sampai tuntas, tanpa "
               "langsung memikirkan bagaimana hal itu berhubungan dengan gambaran besar hidupmu.",
     },
 }

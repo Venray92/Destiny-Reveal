@@ -59,7 +59,7 @@ WETON_CONTENT = {
         "quote": "Semangat besar akan lebih membawa hasil kalau disertai kesabaran menunggu waktu "
                  "yang tepat.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba beri ruang pada orang lain untuk bergerak dengan kecepatan mereka "
+        "p3": "Coba beri ruang pada orang lain untuk bergerak dengan kecepatan mereka "
               "sendiri, tanpa terburu-buru mendorong mereka menyamai temponu.",
     },
     "Pon": {
@@ -80,7 +80,7 @@ WETON_CONTENT = {
         "quote": "Pertimbangan yang matang itu penting, tapi ada kalanya keberanian mengambil "
                  "keputusan lebih berarti dari kesempurnaan pertimbangan itu sendiri.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Ketika dihadapkan pada satu keputusan kecil minggu ini, coba beri batas waktu untuk "
+        "p3": "Ketika dihadapkan pada satu keputusan kecil, coba beri batas waktu untuk "
               "menimbang, lalu putuskan sebelum batas waktu itu habis, alih-alih terus menunda.",
     },
     "Wage": {
@@ -100,7 +100,7 @@ WETON_CONTENT = {
         "quote": "Kemandirian itu kekuatan, tapi meminta bantuan pada saat yang tepat juga bukan "
                  "tanda kelemahan.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba minta bantuan pada satu hal kecil yang sebenarnya bisa kamu tangani "
+        "p3": "Coba minta bantuan pada satu hal kecil yang sebenarnya bisa kamu tangani "
               "sendiri, dan rasakan bahwa membiarkan orang lain membantu juga bisa terasa "
               "menenangkan.",
     },
@@ -122,7 +122,7 @@ WETON_CONTENT = {
         "quote": "Kepekaan itu anugerah, tapi kamu juga berhak menjaga jarak dari energi yang tidak "
                  "membuatmu nyaman.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Ketika merasa energimu terkuras oleh suasana atau orang lain minggu ini, coba luangkan "
+        "p3": "Ketika merasa energimu terkuras oleh suasana atau orang lain, coba luangkan "
               "waktu sendiri sejenak untuk memulihkan diri sebelum melanjutkan aktivitas.",
     },
 }

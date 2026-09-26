@@ -33,7 +33,7 @@ ZODIAK_CONTENT = {
         "quote": "Keberanian akan terasa jauh lebih berarti kalau disertai dengan kesabaran untuk "
                  "menyelesaikannya.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba pilih satu hal kecil yang sempat kamu tinggalkan setengah jalan, lalu "
+        "p3": "Coba pilih satu hal kecil yang sempat kamu tinggalkan setengah jalan, lalu "
               "selesaikan sampai tuntas sebelum memulai hal baru yang lain. Rasakan bedanya ketika kamu "
               "benar-benar menuntaskan sesuatu, bukan cuma memulainya.",
     },
@@ -56,9 +56,9 @@ ZODIAK_CONTENT = {
         "quote": "Stabilitas itu berharga, tapi sesekali membiarkan diri berubah juga bagian dari "
                  "tumbuh.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Coba lakukan satu hal kecil yang berbeda dari kebiasaanmu minggu ini, sesuatu yang "
+        "p3": "Coba lakukan satu hal kecil yang berbeda dari kebiasaanmu, sesuatu yang "
               "sebenarnya sudah lama ingin kamu coba tapi selalu ditunda. Tidak perlu besar, cukup "
-              "cukup untuk membuktikan pada dirimu sendiri bahwa perubahan kecil itu aman.",
+              "untuk membuktikan pada dirimu sendiri bahwa perubahan kecil itu aman.",
     },
     "Gemini": {
         "tagline": "☉ Matahari di Gemini",
@@ -79,7 +79,7 @@ ZODIAK_CONTENT = {
                  "menjelajah dan mulai mendalami.",
         "p3_label": "PR Kecil Buat Kamu",
         "p3": "Pilih satu proyek atau kebiasaan yang sudah lama ingin kamu kuasai, lalu fokuskan "
-              "waktumu di situ selama satu minggu penuh tanpa berpindah ke hal lain. Lihat seberapa "
+              "waktumu di situ secara konsisten tanpa berpindah ke hal lain. Lihat seberapa "
               "jauh kamu bisa berkembang kalau perhatianmu tidak terpecah.",
     },
     "Cancer": {
@@ -100,7 +100,7 @@ ZODIAK_CONTENT = {
         "quote": "Melindungi orang lain itu indah, tapi jangan sampai lupa melindungi perasaanmu "
                  "sendiri juga.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Ketika ada perasaan yang mengganjal minggu ini, coba tuliskan atau ceritakan langsung "
+        "p3": "Ketika ada perasaan yang mengganjal, coba tuliskan atau ceritakan langsung "
               "kepada orang yang bersangkutan, alih-alih memendamnya sendirian sampai berlarut-larut.",
     },
     "Leo": {
@@ -121,7 +121,7 @@ ZODIAK_CONTENT = {
               "bukan hanya diarahkan.",
         "quote": "Kepemimpinan yang paling kuat adalah yang tahu kapan harus diam dan mendengarkan.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Minggu ini, coba sekali saja menahan diri untuk tidak langsung memberi solusi ketika "
+        "p3": "Coba sekali saja menahan diri untuk tidak langsung memberi solusi ketika "
               "ada teman yang bercerita tentang masalahnya. Dengarkan saja sampai selesai. Kamu "
               "mungkin akan terkejut, karena terkadang orang hanya butuh didengar, bukan diarahkan, "
               "dan hal kecil ini justru akan membuat mereka semakin percaya padamu sebagai sosok "
@@ -146,7 +146,7 @@ ZODIAK_CONTENT = {
         "quote": "Kesempurnaan itu indah untuk dikejar, tapi jangan sampai membuatmu lupa menghargai "
                  "kemajuan yang sudah ada.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Sebelum tidur minggu ini, coba tuliskan satu hal kecil yang sudah kamu kerjakan dengan "
+        "p3": "Sebelum tidur, coba tuliskan satu hal kecil yang sudah kamu kerjakan dengan "
               "baik hari itu, tanpa langsung memikirkan apa yang masih kurang darinya.",
     },
     "Libra": {
@@ -168,7 +168,7 @@ ZODIAK_CONTENT = {
         "quote": "Keseimbangan yang sesungguhnya juga mencakup memberi ruang bagi keinginanmu "
                  "sendiri, bukan hanya orang lain.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Ketika dihadapkan pada satu pilihan kecil minggu ini, coba ambil keputusan sendiri "
+        "p3": "Ketika dihadapkan pada satu pilihan kecil, coba ambil keputusan sendiri "
               "tanpa bertanya pendapat orang lain terlebih dulu, lalu perhatikan bagaimana rasanya "
               "mempercayai penilaianmu sendiri.",
     },
@@ -191,8 +191,8 @@ ZODIAK_CONTENT = {
         "quote": "Kedalaman perasaanmu adalah kekuatan, tapi kepercayaan juga butuh ruang untuk "
                  "tumbuh.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Coba bagikan satu hal yang biasanya kamu simpan sendiri kepada orang yang kamu percaya "
-              "minggu ini, sekecil apa pun itu, dan lihat bagaimana keterbukaan itu bisa mempererat "
+        "p3": "Coba bagikan satu hal yang biasanya kamu simpan sendiri kepada orang yang kamu percaya, "
+              "sekecil apa pun itu, dan lihat bagaimana keterbukaan itu bisa mempererat "
               "hubungan kalian.",
     },
     "Sagittarius": {
@@ -214,7 +214,7 @@ ZODIAK_CONTENT = {
         "quote": "Kebebasan akan terasa lebih indah kalau kamu juga memikirkan perasaan orang yang "
                  "kamu ajak bicara.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Sebelum menyampaikan pendapat yang cukup blak-blakan minggu ini, coba jeda sebentar dan "
+        "p3": "Sebelum menyampaikan pendapat yang cukup blak-blakan, coba jeda sebentar dan "
               "pikirkan bagaimana perasaan orang yang mendengarnya, tanpa harus mengubah kejujuranmu.",
     },
     "Capricorn": {
@@ -235,7 +235,7 @@ ZODIAK_CONTENT = {
         "quote": "Kesuksesan yang dibangun perlahan tetap butuh jeda untuk dinikmati di sepanjang "
                  "jalan.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Luangkan satu waktu khusus minggu ini yang benar-benar bebas dari pekerjaan atau "
+        "p3": "Luangkan satu waktu khusus yang benar-benar bebas dari pekerjaan atau "
               "target, dan gunakan waktu itu untuk hal yang murni menyenangkan bagimu.",
     },
     "Aquarius": {
@@ -257,7 +257,7 @@ ZODIAK_CONTENT = {
                  "sisi personalmu.",
         "p3_label": "PR Kecil Buat Kamu",
         "p3": "Coba ceritakan satu perasaan pribadi, bukan hanya pendapat atau ide, kepada orang "
-              "terdekatmu minggu ini, dan biarkan mereka melihat sisi dirimu yang biasanya kamu jaga "
+              "terdekatmu, dan biarkan mereka melihat sisi dirimu yang biasanya kamu jaga "
               "rapat-rapat.",
     },
     "Pisces": {
@@ -278,7 +278,7 @@ ZODIAK_CONTENT = {
         "quote": "Merasakan perasaan orang lain itu indah, asal kamu tidak sampai kehilangan "
                  "perasaanmu sendiri di dalamnya.",
         "p3_label": "PR Kecil Buat Kamu",
-        "p3": "Ketika merasa terbawa suasana hati orang lain minggu ini, coba tanyakan pada diri "
+        "p3": "Ketika merasa terbawa suasana hati orang lain, coba tanyakan pada diri "
               "sendiri, 'ini perasaanku atau perasaan mereka?', sebelum memutuskan apa yang perlu "
               "kamu lakukan.",
     },
