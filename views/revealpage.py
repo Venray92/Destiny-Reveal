@@ -39,7 +39,7 @@ from utils.card_images import (
     card_image_for_system,
 )
 from utils.date_format import format_tanggal_ddmmyyyy
-from utils.matrix_destiny_diagram import render_octagram_svg
+from utils.matrix_destiny_diagram import render_octagram_svg_with_tooltips
 
 EXAMPLE_POINTS = ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"]
 OPEN_ANIM_SECONDS = 1.1
@@ -452,6 +452,27 @@ def _inject_style():
         table.rp-md-chakra td:first-child, table.rp-md-chakra th:first-child {
             text-align: left; font-weight: 700; color: #1c1a17 !important; }
 
+        /* Hover zone + tooltip custom di atas tiap titik octagram, biar
+           angkanya nggak cuma keliatan tapi langsung kejelasin artinya
+           pas mouse lewat (nggak perlu buka expander di bawah). */
+        .md-diagram-wrap { position: relative; margin: 0 auto; }
+        .md-hz { position: absolute; transform: translate(-50%, -50%);
+            display: flex; align-items: center; justify-content: center; cursor: help; z-index: 5; }
+        .md-hz .md-tip { visibility: hidden; opacity: 0; position: absolute; bottom: 132%;
+            background: #fffaf2; border: 1.5px solid #c9a227; border-radius: 12px;
+            padding: 10px 13px; width: 172px; text-align: left; pointer-events: none;
+            box-shadow: 0 10px 26px rgba(28,26,23,0.16);
+            transition: opacity .15s ease, visibility .15s ease; z-index: 40; }
+        .md-hz:hover .md-tip { visibility: visible; opacity: 1; }
+        .md-hz.md-align-mid .md-tip { left: 50%; transform: translateX(-50%); }
+        .md-hz.md-align-left .md-tip { right: 0; left: auto; }
+        .md-hz.md-align-right .md-tip { left: 0; }
+        .md-hz.md-center .md-tip { bottom: auto; top: 132%; }
+        .md-tip-title { display: block; font-family: 'Fraunces', serif; font-weight: 700;
+            font-size: 12px; color: #8a5a2f !important; margin-bottom: 3px; }
+        .md-tip-body { display: block; font-family: 'Inter', sans-serif; font-size: 11.5px;
+            line-height: 1.45; color: #3a352c !important; }
+
         /* Baris penjelasan arti tiap angka, di dalam st.expander (dilipat
            default biar halaman nggak kepanjangan). */
         .rp-md-arti-row { display: flex; align-items: baseline; gap: 10px;
@@ -722,7 +743,29 @@ def _render_matrix_destiny_extra(raw_result):
     purpose = raw_result["purpose"]
     chakra = raw_result["chakra"]
 
-    svg = render_octagram_svg(ps, asq)
+    def _arti_singkat(nilai):
+        konten = MATRIX_DESTINY_CONTENT.get(nilai)
+        if konten:
+            return konten["title"]
+        return NAMA_ARKETIPE.get(nilai, "-")
+
+    # Label singkat per titik -- dipakai bareng buat tooltip diagram DAN
+    # baris "Apa Arti Tiap Angka" di bawah (satu sumber data, dua tampilan).
+    _label_titik = {
+        "a": "Karakter Luar · Usia 0", "f": "Garis Kakek (Ibu) · Usia 10",
+        "b": "Spiritual / Ibu · Usia 20", "g": "Garis Kakek (Ayah) · Usia 30",
+        "c": "Material / Ayah · Usia 40", "i": "Garis Nenek (Ayah) · Usia 50",
+        "d": "Karmic Tail · Usia 60", "h": "Garis Nenek (Ibu) · Usia 70",
+        "e": "Titik Pusat (Inti Jiwa)",
+    }
+    titik_semua = dict(ps)
+    titik_semua.update(asq)
+    tooltip_info = {
+        kode: {"label": label, "nilai": titik_semua[kode], "arti": _arti_singkat(titik_semua[kode])}
+        for kode, label in _label_titik.items()
+    }
+
+    svg = render_octagram_svg_with_tooltips(ps, asq, tooltip_info)
 
     stat_defs = [
         ("Love Point", lm["love"]), ("Money Point", lm["money"]), ("Balance Point", lm["balance"]),
@@ -788,12 +831,6 @@ def _render_matrix_destiny_extra(raw_result):
         ("Social Purpose", purpose["social"]),
         ("Main Destiny", purpose["main_destiny"]),
     ]
-
-    def _arti_singkat(nilai):
-        konten = MATRIX_DESTINY_CONTENT.get(nilai)
-        if konten:
-            return konten["title"]
-        return NAMA_ARKETIPE.get(nilai, "-")
 
     arti_rows_html = "".join(
         '<div class="rp-md-arti-row">'
