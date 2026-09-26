@@ -30,6 +30,7 @@ KETERBATASAN per revisi ini (sengaja, biar jelas bukan tersembunyi):
   dst) masih placeholder karena enginenya sendiri belum dibangun.
 """
 
+import calendar
 import time
 from datetime import date
 
@@ -38,6 +39,7 @@ import streamlit.components.v1 as components
 
 from content.result_builder import compute_raw_result
 from utils.card_images import card_image_for_system
+from utils.date_format import BULAN_NAMES_ID, format_tanggal_ddmmyyyy
 from views.reveal_yourself import RY_MODES
 
 # ── Kebutuhan data per sistem ────────────────────────────────
@@ -147,17 +149,54 @@ def _ask_field_dialog(field):
         unsafe_allow_html=True,
     )
     if field == "tanggal_lahir":
-        # PENTING: min_value/max_value HARUS diisi eksplisit. Kalau tidak,
-        # Streamlit otomatis membatasi rentang tanggal ke +-10 tahun dari
-        # hari ini (default bawaan st.date_input), jadi HAMPIR SEMUA user
-        # asli (siapa pun yang lahir sebelum ~10 tahun lalu) tidak akan bisa
-        # memasukkan tanggal lahirnya sendiri -- ditemukan lewat tes
-        # end-to-end beneran di browser, bukan cuma baca kode.
-        value = st.date_input(
-            "Tanggal Lahir", key="dlg_tanggal_lahir", label_visibility="collapsed",
-            min_value=date(1930, 1, 1), max_value=date.today(),
-            value=date(2000, 1, 1),
+        # Dropdown 3 bagian (Tanggal / Bulan / Tahun), BUKAN st.date_input
+        # segmen ketik manual lagi — soalnya lebih gampang dipakai (nggak
+        # perlu ngetik, bulan otomatis dibatasi cuma 1-12 jadi nggak bisa
+        # salah ketik angka di luar itu) dan urutannya persis dd/mm/yyyy
+        # (konvensi umum Indonesia).
+        #
+        # Opsi tanggal (hari) DIHITUNG ULANG tiap kali bulan/tahun berubah
+        # (lewat calendar.monthrange), jadi user nggak akan bisa milih
+        # tanggal yang nggak valid (mis. 30 Februari). Key selectbox hari
+        # sengaja dibuat DINAMIS per kombinasi bulan+tahun (bukan key
+        # tetap) supaya Streamlit nggak error "default value is not part
+        # of options" kalau user ganti ke bulan yang jumlah harinya lebih
+        # sedikit dari tanggal yang lagi kepilih sebelumnya.
+        st.markdown(
+            '<div style="display:flex;align-items:center;gap:6px;font-size:12.5px;'
+            'font-weight:700;color:#8a5a2f;margin:-4px 0 10px 0;">'
+            '<span style="font-size:15px;">&#128197;</span>'
+            '<span>Urutan: Tanggal / Bulan / Tahun — contoh: 05/12/1992</span></div>',
+            unsafe_allow_html=True,
         )
+        this_year = date.today().year
+        tahun_options = list(range(this_year, 1929, -1))  # descending, this_year..1930
+
+        col_d, col_m, col_y = st.columns(3)
+        with col_m:
+            bulan = st.selectbox(
+                "Bulan", options=list(range(1, 13)),
+                format_func=lambda m: BULAN_NAMES_ID[m - 1],
+                key="dlg_tgl_bulan", label_visibility="collapsed",
+            )
+        with col_y:
+            default_tahun_idx = tahun_options.index(2000) if 2000 in tahun_options else 0
+            tahun = st.selectbox(
+                "Tahun", options=tahun_options, index=default_tahun_idx,
+                key="dlg_tgl_tahun", label_visibility="collapsed",
+            )
+        max_hari = calendar.monthrange(tahun, bulan)[1]
+        hari_options = list(range(1, max_hari + 1))
+        hari_diinginkan = st.session_state.get("dlg_tgl_hari_terakhir", 1)
+        hari_default = min(hari_diinginkan, max_hari)
+        with col_d:
+            hari = st.selectbox(
+                "Tanggal", options=hari_options,
+                index=hari_options.index(hari_default),
+                key=f"dlg_tgl_hari_{bulan}_{tahun}", label_visibility="collapsed",
+            )
+        st.session_state.dlg_tgl_hari_terakhir = hari
+        value = date(tahun, bulan, hari)
     elif field == "jam_lahir":
         value = st.time_input("Jam Lahir", key="dlg_jam_lahir", label_visibility="collapsed")
     elif field == "kota_lahir":
@@ -178,10 +217,32 @@ def _ask_field_dialog(field):
         st.rerun()
 
 
+def _render_input_summary():
+    """
+    Ringkasan data yang udah diisi user (tanggal lahir dkk), ditampilkan di
+    bawah judul "Sedang Membaca Dirimu..." biar user bisa cek ulang
+    input-nya nggak salah ketik/pilih sebelum nunggu proses selesai.
+    """
+    data = st.session_state.get("loading_data", {})
+    tanggal_str = format_tanggal_ddmmyyyy(data.get("tanggal_lahir"))
+    if not tanggal_str:
+        return
+    st.markdown(
+        '<div style="text-align:center;margin-top:8px;">'
+        f'<span class="ry-load-input-summary">&#128197; Tanggal Kamu: <b>{tanggal_str}</b></span>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
+
 def _inject_style():
     st.markdown(
         """
         <style>
+        .ry-load-input-summary { display: inline-flex; align-items: center; gap: 8px;
+            padding: 6px 16px; border-radius: 100px; background: #f9f4ec; border: 1px solid #ecddc9;
+            font-size: 12.5px; color: #6b6459 !important; }
+        .ry-load-input-summary b { color: #1c1a17 !important; font-weight: 800; }
         .ry-load-dot-row { display: flex; flex-wrap: wrap; align-items: flex-start;
             justify-content: center; gap: 10px; row-gap: 22px; max-width: 900px;
             margin: 0 auto; }
@@ -324,6 +385,7 @@ def render():
             '</div>',
             unsafe_allow_html=True,
         )
+        _render_input_summary()
         st.write("")
         _render_dots(points, idx, waiting=False)
         _final_dialog()
@@ -340,6 +402,7 @@ def render():
         '</div>',
         unsafe_allow_html=True,
     )
+    _render_input_summary()
     st.write("")
 
     # ── STATE MACHINE per titik ──

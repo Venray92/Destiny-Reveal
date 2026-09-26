@@ -36,6 +36,7 @@ from utils.card_images import (
     card_image_bytes_for_system,
     card_image_for_system,
 )
+from utils.date_format import format_tanggal_ddmmyyyy
 
 EXAMPLE_POINTS = ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"]
 OPEN_ANIM_SECONDS = 1.1
@@ -270,6 +271,10 @@ def _inject_style():
         .rp-h1 { margin: 0; font-size: 32px; font-weight: 700; color: #1c1a17;
             max-width: 640px; line-height: 1.25; }
         .rp-sub { margin: 0; font-size: 14px; color: #6b6459; max-width: 520px; line-height: 1.7; }
+        .rp-input-summary { display: inline-flex; align-items: center; gap: 8px; margin-top: 2px;
+            padding: 6px 16px; border-radius: 100px; background: #f9f4ec; border: 1px solid #ecddc9;
+            font-size: 12.5px; color: #6b6459 !important; }
+        .rp-input-summary b { color: #1c1a17 !important; font-weight: 800; }
 
         .rp-trophy-row { display: flex; align-items: flex-start; justify-content: center;
             flex-wrap: wrap; max-width: 760px; margin: 0 auto 4px auto; }
@@ -394,6 +399,12 @@ def _inject_style():
             gap: 16px !important;
             padding: 4px 4px 14px 4px !important;
             scroll-behavior: smooth;
+            /* Rata tengah selama amplopnya belum sampai penuh 1 baris (mis.
+               baru 5 dari kapasitas 15) — begitu amplop lebih banyak dari
+               lebar layar, overflow-x: auto di atas tetap bikin bisa
+               discroll, browser otomatis pakai flex-start begitu konten
+               melebihi lebar container jadi nggak kepotong di awal. */
+            justify-content: center;
         }
         div[class*="st-key-rp_envelope_scroll"] [data-testid="stColumn"] {
             flex: 0 0 168px !important;
@@ -663,6 +674,19 @@ def render():
         '</div>',
         unsafe_allow_html=True,
     )
+
+    # Ringkasan data yang diinput user (tanggal lahir), biar dia bisa cek
+    # ulang input-nya nggak salah ketik sebelum baca hasil.
+    tanggal_lahir = st.session_state.get("loading_data", {}).get("tanggal_lahir")
+    tanggal_str = format_tanggal_ddmmyyyy(tanggal_lahir)
+    if tanggal_str:
+        st.markdown(
+            '<div style="text-align:center;margin-top:10px;">'
+            f'<span class="rp-input-summary">&#128197; Tanggal Kamu: <b>{tanggal_str}</b></span>'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+
     st.write("")
     _render_trophy_row(points)
     st.write("")
@@ -775,7 +799,10 @@ def render():
             )
 
     st.write("")
-    back_l, back_mid, back_r = st.columns([1.6, 1.6, 1.6])
+    # Reveal Lagi mentok kiri, Kembali ke Home mentok kanan (bukan
+    # berdekatan di tengah lagi) — kolom tengah sengaja dikosongkan cuma
+    # buat jadi spacer/jarak.
+    back_l, _back_spacer, back_r = st.columns([1.4, 2.2, 1.4])
     with back_l:
         if st.button(
             "Reveal Lagi", key="btn_reveal_again",
@@ -793,7 +820,7 @@ def render():
             ):
                 st.session_state.pop(k, None)
             st.rerun()
-    with back_mid:
+    with back_r:
         if st.button(
             "Kembali ke Home", key="btn_back_home_from_result",
             type="secondary", icon=":material/arrow_back:", use_container_width=True,

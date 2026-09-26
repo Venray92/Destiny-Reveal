@@ -71,7 +71,7 @@ def _inject_style():
         /* Kartu tiap langkah */
         .st-key-ry_card_1, .st-key-ry_card_3 {
             background: #ffffff; border: 2px solid #f0e6d5; border-radius: 22px;
-            padding: 28px 32px 24px 32px; box-shadow: 0 22px 55px -30px rgba(139,90,47,0.28);
+            padding: 28px 32px 34px 32px; box-shadow: 0 22px 55px -30px rgba(139,90,47,0.28);
             margin-bottom: 4px;
         }
         .ry-card-head { display: flex; gap: 18px; align-items: flex-start; margin-bottom: 6px; }
@@ -99,11 +99,11 @@ def _inject_style():
             padding: 0 18px !important; font-size: 14px !important;
         }
 
-        /* OTP boxes dekoratif — margin-bottom sengaja 0, jarak ke tepi bawah
-           kartu sekarang cukup dari padding-bottom kartunya sendiri (lihat
-           .st-key-ry_card_1 di atas), biar nggak dobel dan bikin gap-nya
-           malah kegedean. */
-        .ry-otp-row { display: flex; gap: 8px; margin: 4px 0 0 0; }
+        /* OTP boxes dekoratif — jarak ke tepi bawah kartu datang dari
+           kombinasi margin-top di sini + padding-bottom kartu (lihat
+           .st-key-ry_card_1 di atas). Sengaja dibuat generous (bukan cuma
+           beberapa px) biar gap-nya kelihatan jelas, bukan cuma teori. */
+        .ry-otp-row { display: flex; gap: 8px; margin: 10px 0 0 0; }
         .ry-otp-box {
             width: 42px; height: 46px; border: 1.5px solid #ecddc9; border-radius: 10px;
             background: #fdf9f2;
