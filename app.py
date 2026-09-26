@@ -506,7 +506,8 @@ with st.expander("🧪 Testing sementara (hapus nanti)", expanded=False):
         if st.button("Test → Loading Page", key="dbg_go_loading", use_container_width=True):
             st.session_state.ry_focus_mode = st.session_state.get("ry_focus_mode") or "instan"
             for k in ("loading_points", "loading_idx", "loading_phase",
-                      "loading_results", "loading_data"):
+                      "loading_results", "loading_data",
+                      "reveal_opened", "reveal_order", "reveal_opening"):
                 st.session_state.pop(k, None)
             st.session_state.dr_page = "loading"
             st.rerun()
