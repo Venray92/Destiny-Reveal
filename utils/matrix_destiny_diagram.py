@@ -156,3 +156,93 @@ def render_octagram_svg(personal_square: dict, ancestral_square: dict, width: in
 
     parts.append("</svg>")
     return "".join(parts)
+
+
+def _tip_align(theta):
+    """
+    Nentuin arah bukaan tooltip (bukan text-anchor label) -- KEBALIKAN
+    dari _anchor_untuk, soalnya tujuannya beda: label boleh nyembur keluar
+    kotak (menjauhi tengah), tapi tooltip harus tetep di DALAM lebar
+    kontainer, jadi titik yang deket tepi kanan tooltip-nya harus mekar
+    ke KIRI (bukan ke kanan), begitu juga sebaliknya.
+    """
+    cos_t = math.cos(theta)
+    if cos_t > 0.35:
+        return "md-align-left"   # titik di sisi kanan -> tooltip mekar ke kiri
+    if cos_t < -0.35:
+        return "md-align-right"  # titik di sisi kiri -> tooltip mekar ke kanan
+    return "md-align-mid"
+
+
+def _hover_zone_html(x_pct, y_pct, zone_px, align_class, info):
+    label = info.get("label", "")
+    nilai = info.get("nilai", "")
+    arti = info.get("arti", "")
+    judul = f"{label} &middot; Angka {nilai}" if label else f"Angka {nilai}"
+    return (
+        f'<div class="md-hz {align_class}" '
+        f'style="left:{x_pct:.2f}%;top:{y_pct:.2f}%;width:{zone_px:.0f}px;height:{zone_px:.0f}px;">'
+        '<div class="md-tip">'
+        f'<span class="md-tip-title">{judul}</span>'
+        f'<span class="md-tip-body">{arti}</span>'
+        '</div></div>'
+    )
+
+
+def render_octagram_svg_with_tooltips(personal_square: dict, ancestral_square: dict,
+                                       tooltip_info: dict, width: int = 520) -> str:
+    """
+    Sama kayak render_octagram_svg(), TAPI ditambah layer "hover zone"
+    transparan tepat di atas tiap titik (posisinya dihitung ulang pakai
+    theta yang SAMA biar presisi nempel), isinya tooltip custom (bukan
+    tooltip bawaan browser) yang muncul lewat CSS :hover.
+
+    Args:
+        tooltip_info: dict {kode_titik: {"label": str, "nilai": int, "arti": str}}
+                      buat 9 kode (a,b,c,d,e,f,g,h,i). Kalau salah satu kode
+                      nggak ada di dict, hover zone-nya tetap dibikin tapi
+                      isi tooltip-nya cuma nampilin nilai angkanya doang.
+
+    Returns:
+        str: markup gabungan (div wrapper + svg + hover zones), siap ditaruh
+        di st.markdown(unsafe_allow_html=True). CSS-nya (.md-diagram-wrap,
+        .md-hz, .md-tip, dst) ditaruh terpisah di _inject_style() halaman
+        yang makai, BUKAN di sini, biar palet warnanya gampang disesuaikan
+        per-halaman tanpa ubah file ini.
+    """
+    svg = render_octagram_svg(personal_square, ancestral_square, width=width)
+
+    size = width
+    cx = cy = size / 2
+    r = size * 0.27
+    r_point = size * 0.045
+    zone_px = max(r_point * 2 + 16, 30)
+
+    titik_nilai = dict(personal_square)
+    titik_nilai.update(ancestral_square)
+
+    total = len(_TITIK_URUTAN)
+    zones_html = []
+    for idx, (kode, _usia, label) in enumerate(_TITIK_URUTAN):
+        th = _theta(idx, total)
+        x_pct = (cx + r * math.cos(th)) / size * 100
+        y_pct = (cy + r * math.sin(th)) / size * 100
+        info = dict(tooltip_info.get(kode, {}))
+        info.setdefault("label", label)
+        info.setdefault("nilai", titik_nilai.get(kode, "-"))
+        zones_html.append(_hover_zone_html(x_pct, y_pct, zone_px, _tip_align(th), info))
+
+    # Titik pusat (E) -- selalu di tengah persis (50%, 50%), tooltip dibuka
+    # ke BAWAH (bukan ngikut aturan atas/bawah default) biar nggak numpuk
+    # sama titik-titik lain yang posisinya di atas dia.
+    info_e = dict(tooltip_info.get("e", {}))
+    info_e.setdefault("label", "Titik Pusat (Inti Jiwa)")
+    info_e.setdefault("nilai", titik_nilai.get("e", "-"))
+    zones_html.append(_hover_zone_html(50.0, 50.0, r_point * 2 + 18, "md-align-mid md-center", info_e))
+
+    return (
+        '<div class="md-diagram-wrap">'
+        f'{svg}'
+        f'{"".join(zones_html)}'
+        '</div>'
+    )
