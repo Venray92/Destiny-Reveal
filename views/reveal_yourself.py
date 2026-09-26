@@ -13,6 +13,8 @@ terpisah, bukan bagian dari revisi visual ini.
 
 import streamlit as st
 
+from settings import TESTING_MODE
+
 
 def _inject_style():
     st.markdown(
@@ -69,7 +71,7 @@ def _inject_style():
         /* Kartu tiap langkah */
         .st-key-ry_card_1, .st-key-ry_card_3 {
             background: #ffffff; border: 2px solid #f0e6d5; border-radius: 22px;
-            padding: 28px 32px 8px 32px; box-shadow: 0 22px 55px -30px rgba(139,90,47,0.28);
+            padding: 28px 32px 24px 32px; box-shadow: 0 22px 55px -30px rgba(139,90,47,0.28);
             margin-bottom: 4px;
         }
         .ry-card-head { display: flex; gap: 18px; align-items: flex-start; margin-bottom: 6px; }
@@ -97,8 +99,11 @@ def _inject_style():
             padding: 0 18px !important; font-size: 14px !important;
         }
 
-        /* OTP boxes dekoratif */
-        .ry-otp-row { display: flex; gap: 8px; margin: 4px 0 14px 0; }
+        /* OTP boxes dekoratif — margin-bottom sengaja 0, jarak ke tepi bawah
+           kartu sekarang cukup dari padding-bottom kartunya sendiri (lihat
+           .st-key-ry_card_1 di atas), biar nggak dobel dan bikin gap-nya
+           malah kegedean. */
+        .ry-otp-row { display: flex; gap: 8px; margin: 4px 0 0 0; }
         .ry-otp-box {
             width: 42px; height: 46px; border: 1.5px solid #ecddc9; border-radius: 10px;
             background: #fdf9f2;
@@ -235,7 +240,11 @@ def render():
         # NOTE: belum ada logic verifikasi OTP asli, jadi utk dot 1 dipakai
         # proxy "sudah klik Kirim Kode" (ry_step1_done) — bukan email valid
         # betulan, cuma penanda visual sampai OTP asli dibikin.
-        step1_done = bool(st.session_state.get("ry_step1_done"))
+        # TESTING_MODE: langkah 1 & 2 ditampilkan visualnya tetap, tapi
+        # dianggap "selesai" tanpa harus beneran diisi/diklik user — cuma
+        # buat testing sementara sampai OTP asli & mode lain siap (lihat
+        # settings.py).
+        step1_done = bool(st.session_state.get("ry_step1_done")) or TESTING_MODE
         step2_done = bool(st.session_state.get("ry_focus_mode"))
         step3_done = bool(st.session_state.get("ry_step3_done"))
 
@@ -320,7 +329,11 @@ def render():
                 unsafe_allow_html=True,
             )
             if "ry_focus_mode" not in st.session_state:
-                st.session_state.ry_focus_mode = None
+                # TESTING_MODE: default langsung ke "instan" (satu-satunya
+                # mode yang enginenya lengkap sekarang), biar user nggak
+                # wajib klik pilih mode dulu buat lanjut. Tetap bisa
+                # diganti manual kalau mau coba mode lain.
+                st.session_state.ry_focus_mode = "instan" if TESTING_MODE else None
 
             mode_cols = st.columns(3, gap="medium")
             for col, (mode_key, title, desc, chips) in zip(mode_cols, RY_MODES):
@@ -364,7 +377,9 @@ def render():
                     # sebelumnya)
                     for k in ("loading_points", "loading_idx", "loading_phase",
                               "loading_results", "loading_data",
-                              "reveal_opened", "reveal_order", "reveal_opening"):
+                              "reveal_opened", "reveal_order", "reveal_opening",
+                              "reveal_visible", "reveal_open_all_queue",
+                              "reveal_confirm_open_all"):
                         st.session_state.pop(k, None)
                     st.session_state.dr_page = "loading"
                     st.rerun()

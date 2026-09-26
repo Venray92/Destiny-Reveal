@@ -100,47 +100,43 @@ def _missing_field_for(system):
 
 @st.dialog("Reveal Selesai", dismissible=False)
 def _final_dialog():
+    """
+    Floating window paywall di akhir proses loading.
+
+    BELUM ada integrasi payment gateway asli (Midtrans/Xendit dkk) — ini
+    SENGAJA cuma 1 tombol "Bypass Payment" buat kebutuhan testing (lihat
+    settings.py, TESTING_MODE). Begitu payment gateway beneran siap,
+    tombol ini diganti jadi UI pembayaran asli, TIDAK ada auto-lanjut JS
+    kayak dialog sebelumnya, karena ini gerbang (gate) — harus benar-benar
+    diklik/dibayar, bukan dilewati otomatis.
+    """
     st.markdown(
         '<div style="text-align:center;padding:6px 0 4px 0;">'
         '<div style="font-size:38px;margin-bottom:10px;">&#10024;</div>'
         '<div style="font-family:\'Fraunces\',serif;font-size:19px;font-weight:800;'
         'color:#1c1a17;letter-spacing:0.01em;line-height:1.4;">'
         'SEMUA DATA DIRIMU<br>SUDAH DIREVEAL</div>'
+        '<div style="font-size:13px;color:#6b6459;margin-top:8px;">'
+        'Bayar sekali buat buka laporan lengkapnya.</div>'
         '</div>',
         unsafe_allow_html=True,
     )
     st.write("")
+    st.button(
+        "Bayar Sekarang", key="btn_pay_real", type="secondary",
+        icon=":material/lock:", use_container_width=True, disabled=True,
+    )
+    st.markdown(
+        '<div style="text-align:center;font-size:11px;color:#c9c2b4;margin:2px 0 10px 0;">'
+        'Payment gateway asli belum terpasang — pakai tombol testing di bawah dulu.</div>',
+        unsafe_allow_html=True,
+    )
     if st.button(
-        "REVEAL YOURSELF", key="btn_final_reveal", type="primary",
-        icon=":material/auto_awesome:", use_container_width=True,
+        "Bypass Payment", key="btn_bypass_payment", type="primary",
+        icon=":material/bolt:", use_container_width=True,
     ):
         st.session_state.dr_page = "result"
         st.rerun()
-    st.markdown(
-        '<div style="text-align:center;font-size:11.5px;color:#9a948a;margin-top:10px;">'
-        'Kalau tidak diklik, otomatis lanjut dalam beberapa detik.</div>',
-        unsafe_allow_html=True,
-    )
-    # Auto-lanjut kalau user nggak klik tombolnya — nyari tombol primary DI
-    # DALAM dialog ini lewat DOM (sama origin, jadi window.parent.document
-    # bisa diakses), lalu diklik beneran lewat JS setelah 5 detik. Dipilih
-    # cara ini (bukan time.sleep di Python) supaya tombolnya TETAP bisa
-    # diklik manual kapan aja selama proses ini berjalan (nggak nge-block
-    # script servernya kayak time.sleep biasa).
-    components.html(
-        """
-        <script>
-        setTimeout(function () {
-            try {
-                var doc = window.parent.document;
-                var btn = doc.querySelector('[data-testid="stDialog"] button[kind="primary"]');
-                if (btn) { btn.click(); }
-            } catch (e) {}
-        }, 5000);
-        </script>
-        """,
-        height=0,
-    )
 
 
 @st.dialog("Lengkapi Data", dismissible=False)

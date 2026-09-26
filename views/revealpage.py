@@ -13,9 +13,8 @@ KETERBATASAN per revisi ini (sengaja, biar jelas bukan ditutup-tutupi):
   digabung dengan kamus konten di content/interpretations/ lewat
   content/result_builder.py — bukan dummy placeholder lagi.
 - DUMMY_RESULTS di bawah ini TETAP disimpan sebagai fallback contoh, dipakai
-  cuma kalau hasil aslinya belum ada di session_state (misalnya lewat tombol
-  debug "Test → Reveal/Hasil Page" di app.py yang loncat langsung ke sini
-  tanpa melalui alur loading beneran).
+  cuma kalau hasil aslinya belum ada di session_state (mis. sesi lompat ke
+  halaman ini tanpa melalui alur loading beneran).
 - Sistem lain di luar 5 itu (BaZi, Zi Wei, Human Design, MBTI, Big Five,
   Enneagram, DISC, Golongan Darah, Love Language, Tarot) belum punya
   engine/konten — amplopnya tetap bisa dibuka tapi isinya jujur bilang
@@ -203,6 +202,13 @@ def _result_for(system):
     return _dummy_for(system)
 
 
+def _env_col_key(system):
+    """Key kontainer per-amplop, dipakai buat target CSS lebar-tetap dan
+    target JS auto-scroll (nama sistem bisa ada spasi, mis. 'Matrix
+    Destiny', jadi diganti underscore biar aman dipakai di selector)."""
+    return f"env_col_{system.replace(' ', '_')}"
+
+
 def _seal_icon(system):
     return SEAL_ICONS.get(system, DEFAULT_ICON)
 
@@ -231,6 +237,14 @@ def _ensure_state():
         # ngereset status "sudah dibuka" (jadi animasi burst nggak
         # keulang kalau dibuka lagi).
         st.session_state.reveal_visible = set()
+    if "reveal_open_all_queue" not in st.session_state:
+        # Antrean sistem yang masih perlu dibuka otomatis berurutan lewat
+        # tombol "Buka Semua Amplop". Dikosongkan lagi begitu antreannya habis.
+        st.session_state.reveal_open_all_queue = []
+    if "reveal_confirm_open_all" not in st.session_state:
+        # Flag buat nampilin floating window konfirmasi ("Iya"/"Tidak")
+        # sebelum proses buka-semua beneran mulai.
+        st.session_state.reveal_confirm_open_all = False
 
 
 def _points():
@@ -371,6 +385,22 @@ def _inject_style():
         .rp-detail-empty { font-size: 13.5px; color: #6b6459 !important; line-height: 1.7;
             font-style: italic; }
 
+        /* Kontainer grid amplop: satu baris yang bisa discroll ke samping
+           (bukan wrap tiap 5 kolom lagi), supaya siap nampung sampai 15
+           amplop nanti tanpa desain berubah. */
+        div[class*="st-key-rp_envelope_scroll"] [data-testid="stHorizontalBlock"] {
+            flex-wrap: nowrap !important;
+            overflow-x: auto !important;
+            gap: 16px !important;
+            padding: 4px 4px 14px 4px !important;
+            scroll-behavior: smooth;
+        }
+        div[class*="st-key-rp_envelope_scroll"] [data-testid="stColumn"] {
+            flex: 0 0 168px !important;
+            width: 168px !important;
+            min-width: 168px !important;
+        }
+
         .rp-cta-hint { text-align: center; font-size: 12.5px; color: #a8916a; margin-top: 18px; }
         .rp-cta-row div.stButton > button {
             border-radius: 100px !important; font-weight: 700 !important; font-size: 13.5px !important;
@@ -466,6 +496,7 @@ def _render_burst(system):
     # jalan tidak otomatis restart. Marker unik per sistem+timestamp
     # memaksa iframe components.html reload tiap kali, jadi animasi
     # bintangnya beneran jalan ulang dari awal setiap amplop yang dibuka.
+    col_key = _env_col_key(system)
     components.html(
         f"""
         <script>
@@ -479,6 +510,13 @@ def _render_burst(system):
                     void el.offsetWidth;
                     el.style.animation = '';
                 }});
+                // Selama mode "Buka Semua Amplop", grid amplop bisa discroll
+                // ke samping — pastikan amplop yang lagi dianimasikan tetap
+                // kelihatan dengan auto-scroll container-nya ke posisi ini.
+                var target = doc.querySelector('div[class*="st-key-{col_key}"]');
+                if (target) {{
+                    target.scrollIntoView({{behavior: 'smooth', inline: 'center', block: 'nearest'}});
+                }}
             }} catch (e) {{}}
         }}
         requestAnimationFrame(function () {{ requestAnimationFrame(rpRestartBurst); }});
@@ -561,9 +599,52 @@ def _render_detail(system):
             )
 
 
+@st.dialog("Buka Semua Amplop?", dismissible=False)
+def _confirm_open_all_dialog():
+    """
+    Floating window konfirmasi SEBELUM proses "Buka Semua Amplop" beneran
+    jalan. Sengaja dibikin sebagai @st.dialog kustom (bukan st.warning /
+    st.toast bawaan Streamlit) sesuai permintaan, dengan tombol "Iya"/"Tidak"
+    sendiri.
+    """
+    st.markdown(
+        '<p style="font-size:13.5px;color:#3a352c;line-height:1.7;margin:2px 0 18px 0;">'
+        'Semua amplop yang belum dibuka akan terbuka otomatis satu per satu. '
+        'Kalau kamu scroll ke bawah setelah ini, hasil lengkapnya bakal langsung '
+        'muncul banyak sekaligus. Yakin mau lanjut?</p>',
+        unsafe_allow_html=True,
+    )
+    yes_col, no_col = st.columns(2)
+    with yes_col:
+        confirm = st.button(
+            "Iya, buka semua", key="btn_confirm_open_all_yes",
+            type="primary", use_container_width=True,
+        )
+    with no_col:
+        cancel = st.button(
+            "Tidak", key="btn_confirm_open_all_no",
+            type="secondary", use_container_width=True,
+        )
+    if confirm:
+        points = _points()
+        opened = st.session_state.reveal_opened
+        queue = [s for s in points if s not in opened]
+        st.session_state.reveal_confirm_open_all = False
+        if queue:
+            st.session_state.reveal_opening = queue.pop(0)
+            st.session_state.reveal_open_all_queue = queue
+        st.rerun()
+    if cancel:
+        st.session_state.reveal_confirm_open_all = False
+        st.rerun()
+
+
 def render():
     _ensure_state()
     _inject_style()
+
+    if st.session_state.reveal_confirm_open_all:
+        _confirm_open_all_dialog()
 
     points = _points()
     if not points:
@@ -589,29 +670,64 @@ def render():
     opening = st.session_state.reveal_opening
     opened = st.session_state.reveal_opened
 
-    # ── Grid amplop, maksimal 5 kolom per baris ──
-    for row_start in range(0, len(points), 5):
-        row_points = points[row_start:row_start + 5]
-        cols = st.columns(len(row_points))
-        for col, system in zip(cols, row_points):
+    # ── Tombol "Buka Semua Amplop" — cuma muncul kalau masih ada amplop
+    # yang belum dibuka, dan nggak lagi di tengah proses buka-satu/buka-semua.
+    # SENGAJA pakai st.empty() sebagai placeholder yang selalu dipanggil
+    # tiap render, lalu diisi ATAU di-.empty()-kan secara eksplisit —
+    # soalnya kalau blok kondisional ini kadang nulis widget kadang nggak
+    # tanpa placeholder yang dikosongkan secara eksplisit, Streamlit nggak
+    # otomatis membersihkan widget lama di slot itu (nggak ada "delta"
+    # yang dikirim buat run yang kondisinya False), jadi tombolnya
+    # keliatan "nyangkut"/nggak ilang meski kondisinya sudah false.
+    # Ketauan lewat testing Playwright: tombol ini masih keliatan padahal
+    # env lagi di-generate secara berurutan lewat "Buka Semua Amplop". ──
+    belum_dibuka = [s for s in points if s not in opened]
+    open_all_slot = st.empty()
+    if belum_dibuka and not opening and not st.session_state.reveal_open_all_queue:
+        with open_all_slot.container():
+            oa_l, oa_mid, oa_r = st.columns([1, 1.6, 1])
+            with oa_mid:
+                if st.button(
+                    "Buka Semua Amplop", key="btn_open_all",
+                    type="secondary", icon=":material/mark_email_read:", use_container_width=True,
+                ):
+                    st.session_state.reveal_confirm_open_all = True
+                    st.rerun()
+            st.write("")
+    else:
+        open_all_slot.empty()
+
+    # ── Grid amplop: satu baris yang bisa discroll ke samping (bukan wrap
+    # per 5 kolom lagi), supaya siap nampung sampai 15 amplop nanti ──
+    with st.container(key="rp_envelope_scroll"):
+        cols = st.columns(len(points))
+        for col, system in zip(cols, points):
             with col:
-                if system in opened:
-                    _render_opened_badge(system, system in st.session_state.reveal_visible)
-                elif opening == system:
-                    _render_burst(system)
-                else:
-                    _render_closed_envelope(system)
+                with st.container(key=_env_col_key(system)):
+                    if system in opened:
+                        _render_opened_badge(system, system in st.session_state.reveal_visible)
+                    elif opening == system:
+                        _render_burst(system)
+                    else:
+                        _render_closed_envelope(system)
 
     # Amplop yang lagi dibuka: proses animasinya di sini, SETELAH grid
     # ke-render (biar burst-nya sempat tampil ke user dulu sebelum pindah
-    # state), baru pindah ke status "sudah dibuka" dan rerun.
+    # state), baru pindah ke status "sudah dibuka" dan rerun. Kalau lagi
+    # jalan mode "Buka Semua Amplop", begitu satu amplop selesai animasinya,
+    # amplop berikutnya di antrean langsung dipop dan mulai dianimasikan di
+    # rerun yang sama — jadi berjalan berurutan tanpa perlu klik lagi.
     if opening:
         time.sleep(OPEN_ANIM_SECONDS)
         st.session_state.reveal_opened.add(opening)
         st.session_state.reveal_visible.add(opening)  # otomatis tampil begitu dibuka
         if opening not in st.session_state.reveal_order:
             st.session_state.reveal_order.append(opening)
-        st.session_state.reveal_opening = None
+        queue = st.session_state.reveal_open_all_queue
+        if queue:
+            st.session_state.reveal_opening = queue.pop(0)
+        else:
+            st.session_state.reveal_opening = None
         st.rerun()
 
     # ── Detail hasil yang sudah dibuka DAN lagi ditampilkan (bukan
@@ -660,6 +776,23 @@ def render():
 
     st.write("")
     back_l, back_mid, back_r = st.columns([1.6, 1.6, 1.6])
+    with back_l:
+        if st.button(
+            "Reveal Lagi", key="btn_reveal_again",
+            type="secondary", icon=":material/refresh:", use_container_width=True,
+        ):
+            # Reset total buat mulai reveal orang lain dari awal — beda dari
+            # "Kembali ke Home" karena langsung balik ke halaman Reveal
+            # Yourself, dan ikut ngereset step email/mode-nya juga.
+            st.session_state.dr_page = "reveal"
+            for k in (
+                "loading_points", "loading_idx", "loading_phase", "loading_results",
+                "loading_data", "reveal_opened", "reveal_order", "reveal_opening",
+                "reveal_visible", "reveal_open_all_queue", "reveal_confirm_open_all",
+                "ry_focus_mode", "ry_step1_done", "ry_step3_done", "ry_email",
+            ):
+                st.session_state.pop(k, None)
+            st.rerun()
     with back_mid:
         if st.button(
             "Kembali ke Home", key="btn_back_home_from_result",
@@ -669,7 +802,7 @@ def render():
             for k in (
                 "loading_points", "loading_idx", "loading_phase", "loading_results",
                 "loading_data", "reveal_opened", "reveal_order", "reveal_opening",
-                "reveal_visible",
+                "reveal_visible", "reveal_open_all_queue", "reveal_confirm_open_all",
             ):
                 st.session_state.pop(k, None)
             st.rerun()
