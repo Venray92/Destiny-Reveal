@@ -188,6 +188,14 @@ def _dummy_for(system):
     return DUMMY_RESULTS.get(system)
 
 
+def _raw_result_for(system):
+    """Hasil MENTAH (dari engine, sebelum digabung kamus konten) buat satu
+    sistem — dipakai buat milih gambar kartu yang SESUAI hasil beneran
+    (lihat utils/card_images.card_relative_path_for_result), bukan cuma
+    data siap-tampil (_result_for) yang isinya paragraf/teks."""
+    return st.session_state.get("loading_results", {}).get(system)
+
+
 def _result_for(system):
     """
     Data siap-tampil buat satu sistem: pakai hasil perhitungan ASLI kalau
@@ -196,7 +204,7 @@ def _result_for(system):
     hasil asli tersimpan (mis. loncat lewat tombol debug "Test →
     Reveal/Hasil Page").
     """
-    raw_result = st.session_state.get("loading_results", {}).get(system)
+    raw_result = _raw_result_for(system)
     data = build_display_data(system, raw_result)
     if data:
         return data
@@ -558,8 +566,9 @@ def _render_detail(system):
         )
         return
 
-    image_uri = card_image_for_system(system)
-    image_bytes = card_image_bytes_for_system(system)
+    raw_result = _raw_result_for(system)
+    image_uri = card_image_for_system(system, raw_result)
+    image_bytes = card_image_bytes_for_system(system, raw_result)
     if image_uri:
         card_art = (
             f'<img src="{image_uri}" alt="Kartu {system}" '
@@ -587,7 +596,7 @@ def _render_detail(system):
                     st.download_button(
                         "Simpan Gambar Kartu",
                         data=image_bytes,
-                        file_name=card_filename_for_system(system),
+                        file_name=card_filename_for_system(system, raw_result),
                         mime="image/png",
                         key=f"dl_card_{system}",
                         icon=":material/download:",
@@ -682,7 +691,9 @@ def render():
     if tanggal_str:
         st.markdown(
             '<div style="text-align:center;margin-top:10px;">'
-            f'<span class="rp-input-summary">&#128197; Tanggal Kamu: <b>{tanggal_str}</b></span>'
+            f'<span class="rp-input-summary"><span class="material-symbols-outlined" '
+            'style="font-size:15px;vertical-align:-2px;">calendar_month</span> '
+            f'Tanggal Kamu: <b>{tanggal_str}</b></span>'
             '</div>',
             unsafe_allow_html=True,
         )

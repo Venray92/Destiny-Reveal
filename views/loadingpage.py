@@ -165,7 +165,7 @@ def _ask_field_dialog(field):
         st.markdown(
             '<div style="display:flex;align-items:center;gap:6px;font-size:12.5px;'
             'font-weight:700;color:#8a5a2f;margin:-4px 0 10px 0;">'
-            '<span style="font-size:15px;">&#128197;</span>'
+            '<span class="material-symbols-outlined" style="font-size:16px;">calendar_month</span>'
             '<span>Urutan: Tanggal / Bulan / Tahun — contoh: 05/12/1992</span></div>',
             unsafe_allow_html=True,
         )
@@ -229,7 +229,9 @@ def _render_input_summary():
         return
     st.markdown(
         '<div style="text-align:center;margin-top:8px;">'
-        f'<span class="ry-load-input-summary">&#128197; Tanggal Kamu: <b>{tanggal_str}</b></span>'
+        f'<span class="ry-load-input-summary"><span class="material-symbols-outlined" '
+        'style="font-size:15px;vertical-align:-2px;">calendar_month</span> '
+        f'Tanggal Kamu: <b>{tanggal_str}</b></span>'
         '</div>',
         unsafe_allow_html=True,
     )
@@ -432,7 +434,18 @@ def render():
 
     elif st.session_state.loading_phase == "animating":
         _render_dots(points, idx, waiting=False)
-        image_uri = card_image_for_system(current)
+        # Hitung hasil ASLI-nya DULUAN (sebelum kartu teaser dirender),
+        # bukan nunggu sampai animasi selesai — biar gambar kartu yang
+        # ditampilin (walau masih blur/teaser) sudah PASTI sesuai hasil
+        # perhitungan yang bakal ditampilkan nanti di halaman hasil, bukan
+        # kartu contoh generik yang beda-beda tiap sistem (bug yang sudah
+        # diperbaiki, lihat utils/card_images.py).
+        if current not in st.session_state.loading_results:
+            st.session_state.loading_results[current] = compute_raw_result(
+                current, st.session_state.loading_data,
+            )
+        current_raw_result = st.session_state.loading_results[current]
+        image_uri = card_image_for_system(current, current_raw_result)
         card_art_inner = (
             f'<img src="{image_uri}" alt="Kartu {current}" '
             'style="width:100%;height:100%;object-fit:cover;">'
@@ -496,10 +509,7 @@ def render():
             height=0,
         )
         time.sleep(ANIM_SECONDS)
-        if current not in st.session_state.loading_results:
-            st.session_state.loading_results[current] = compute_raw_result(
-                current, st.session_state.loading_data,
-            )
+        # (hasil sudah dihitung di atas, sebelum kartu teaser dirender)
         st.session_state.loading_idx += 1
         st.session_state.loading_phase = "need_check"
         st.rerun()
