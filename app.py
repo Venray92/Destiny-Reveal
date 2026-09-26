@@ -301,19 +301,22 @@ st.markdown(
        Bintang kiri-kanan dipasang lewat ::before/::after (dekorasi, dipindah dari
        badge hero yang sudah dihapus) supaya tidak perlu elemen HTML tambahan. */
     .st-key-lang_switch {
-        max-width: 250px; margin-left: auto; margin-right: 4px;
-        position: relative; padding: 0 24px;
+        max-width: 100%; width: 100%; margin-left: auto; margin-right: 0;
+        position: relative; padding: 0 18px;
     }
     .st-key-lang_switch::before,
     .st-key-lang_switch::after {
-        content: "✧"; color: #b8562f; font-size: 15px;
+        content: "✧"; color: #b8562f; font-size: 13px;
         position: absolute; top: 50%; transform: translateY(-50%);
         line-height: 1;
     }
-    .st-key-lang_switch::before { left: 2px; }
-    .st-key-lang_switch::after { right: 2px; }
+    .st-key-lang_switch::before { left: 0px; }
+    .st-key-lang_switch::after { right: 0px; }
     .st-key-lang_switch [class*="react-aria-ComboBox"] input {
-        font-size: 13.5px !important;
+        font-size: 12.5px !important;
+        white-space: nowrap !important;
+        overflow: visible !important;
+        text-overflow: unset !important;
     }
     .st-key-lang_switch div[data-baseweb="select"] > div,
     .st-key-lang_switch [class*="react-aria-ComboBox"] > div {
@@ -321,9 +324,11 @@ st.markdown(
         border-radius: 100px !important; color: #8a5a2f !important;
         min-height: 40px !important; font-weight: 700 !important;
         box-shadow: 0 1px 3px rgba(184,86,47,0.08) !important;
+        min-width: 0 !important;
     }
     .st-key-lang_switch [class*="react-aria-ComboBox"] input {
         color: #8a5a2f !important; font-weight: 700 !important; background: transparent !important;
+        min-width: 0 !important;
     }
     .st-key-lang_switch div[data-baseweb="select"] > div:hover,
     .st-key-lang_switch [class*="react-aria-ComboBox"] > div:hover {
@@ -460,7 +465,7 @@ if "dr_page" not in st.session_state:
 
 # ── NAV BAR ──────────────────────────────────────────────────
 with st.container(key="nav_row"):
-    nav_l, nav_home_btn, nav_reveal_btn, nav_r = st.columns([3.4, 1.3, 1.7, 1])
+    nav_l, nav_home_btn, nav_reveal_btn, nav_r = st.columns([2.7, 1.3, 1.7, 1.9])
     with nav_l:
         st.markdown(
             '<div style="font-family:\'Fraunces\',serif;font-size:28px;font-weight:700;'
@@ -488,6 +493,33 @@ with st.container(key="nav_row"):
             st.selectbox("Bahasa", ["🇮🇩 Indonesian", "🇬🇧 English"], label_visibility="collapsed")
 
 st.markdown("<hr style='margin-top:14px;'>", unsafe_allow_html=True)
+
+# ── TESTING SEMENTARA (HAPUS NANTI) ─────────────────────────
+# 2 tombol dummy biar loading page & reveal/hasil page bisa dites langsung
+# tanpa harus isi email + pilih mode + nunggu proses beneran tiap kali.
+# Dikasih di expander collapsed di atas semua halaman (bukan sidebar, karena
+# toggle sidebar bawaan Streamlit ikut ke-hide sama CSS "header {visibility:
+# hidden}" di atas, jadi nggak bisa dibuka user).
+with st.expander("🧪 Testing sementara (hapus nanti)", expanded=False):
+    dbg_l, dbg_r = st.columns(2)
+    with dbg_l:
+        if st.button("Test → Loading Page", key="dbg_go_loading", use_container_width=True):
+            st.session_state.ry_focus_mode = st.session_state.get("ry_focus_mode") or "instan"
+            for k in ("loading_points", "loading_idx", "loading_phase",
+                      "loading_results", "loading_data"):
+                st.session_state.pop(k, None)
+            st.session_state.dr_page = "loading"
+            st.rerun()
+    with dbg_r:
+        if st.button("Test → Reveal/Hasil Page", key="dbg_go_result", use_container_width=True):
+            if not st.session_state.get("loading_results"):
+                st.session_state.loading_results = {
+                    "Zodiak": {"placeholder": True},
+                    "Shio": {"placeholder": True},
+                    "Weton": {"placeholder": True},
+                }
+            st.session_state.dr_page = "result"
+            st.rerun()
 
 # ══════════════════════════════════════════════════════════════
 # HALAMAN — BERANDA
