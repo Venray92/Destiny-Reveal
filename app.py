@@ -6,6 +6,8 @@ Homepage + preview layout form. Isi/logic ditambahin pelan-pelan dari sini.
 import streamlit as st
 
 from views.reveal_yourself import render as render_reveal_yourself
+from views.loadingpage import render as render_loading
+from views.revealpage import render as render_result
 
 try:
     from engine.zodiak import hitung_zodiak
@@ -632,7 +634,19 @@ if st.session_state.dr_page == "home":
     )
 
 # ══════════════════════════════════════════════════════════════
-# HALAMAN — REVEAL YOURSELF (layout ngikutin mock design, logic belum jalan)
+# HALAMAN — REVEAL YOURSELF (Verifikasi Email + Pilih Mode)
+# ══════════════════════════════════════════════════════════════
+elif st.session_state.dr_page == "reveal":
+    render_reveal_yourself()
+
+# ══════════════════════════════════════════════════════════════
+# HALAMAN — LOADING (proses per-titik, floating window minta data)
+# ══════════════════════════════════════════════════════════════
+elif st.session_state.dr_page == "loading":
+    render_loading()
+
+# ══════════════════════════════════════════════════════════════
+# HALAMAN — HASIL AKHIR (stub, belum dibuat penuh)
 # ══════════════════════════════════════════════════════════════
 else:
-    render_reveal_yourself()
+    render_result()
