@@ -14,9 +14,11 @@ Kalau tanggal lahir di luar rentang 1945-2020, dilempar ValueError
 (sengaja, bukan ditebak/diekstrapolasi) — tambahkan dulu tanggal Imleknya
 di _TANGGAL_IMLEK kalau butuh cover tahun di luar rentang ini.
 
-Scope saat ini: nama shio aja (Tikus, Kerbau, dst). BELUM termasuk elemen
-Wu Xing (Kayu/Api/Tanah/Logam/Air, siklus 2 tahun) — gambar kartu yang
-sudah ada juga cuma dibedakan per-hewan, bukan per-elemen.
+Selain nama shio, juga menghitung elemen Wu Xing (5 elemen: Logam/Air/
+Kayu/Api/Tanah, siklus 2 tahun) dari digit terakhir TAHUN SHIO (tahun
+setelah dikoreksi cutover Imlek — bukan tahun kalender mentah, karena
+kalau lahir sebelum Imlek shio-nya ikut tahun sebelumnya, elemennya juga
+ikut tahun itu).
 """
 
 from datetime import date
@@ -57,13 +59,27 @@ def _shio_dari_tahun(tahun: int) -> str:
     return _URUTAN_SHIO[(tahun - 1900) % 12]
 
 
+# Digit terakhir tahun shio -> elemen Wu Xing (siklus 2 tahun per elemen).
+_ELEMEN_DARI_DIGIT_TERAKHIR = {
+    0: "Logam", 1: "Logam",
+    2: "Air", 3: "Air",
+    4: "Kayu", 5: "Kayu",
+    6: "Api", 7: "Api",
+    8: "Tanah", 9: "Tanah",
+}
+
+
+def _elemen_dari_tahun(tahun: int) -> str:
+    return _ELEMEN_DARI_DIGIT_TERAKHIR[tahun % 10]
+
+
 def hitung_shio(tanggal_lahir: date) -> dict:
     """
     Args:
         tanggal_lahir (date): tanggal lahir user
 
     Returns:
-        dict: {"shio": str}
+        dict: {"shio": str, "elemen": str}
 
     Raises:
         ValueError: kalau tahun lahir di luar rentang data Imlek yang
@@ -81,4 +97,7 @@ def hitung_shio(tanggal_lahir: date) -> dict:
     sudah_lewat_imlek = (tanggal_lahir.month, tanggal_lahir.day) >= (bulan_imlek, tanggal_imlek)
 
     tahun_shio = tahun if sudah_lewat_imlek else tahun - 1
-    return {"shio": _shio_dari_tahun(tahun_shio)}
+    return {
+        "shio": _shio_dari_tahun(tahun_shio),
+        "elemen": _elemen_dari_tahun(tahun_shio),
+    }

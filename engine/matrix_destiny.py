@@ -1,19 +1,26 @@
 """
-Engine: Matrix Destiny (Peta Takdir)
-Menghitung TITIK INTI (arketipe utama, skala 1-22) dari tanggal lahir.
+Engine: Matrix Destiny (Peta Takdir) — metode resmi Natalia Ladini (versi
+Rusia, bukan versi Eropa/Amerika — sudah dikonfirmasi Stev ini yang mau
+diikuti, rujukan https://matrix-destiny.com/).
 
-CATATAN PENTING (sudah dibahas & jadi keputusan scope awal):
-Sistem Matrix Destiny versi lengkap (kursus aslinya) punya 8 titik di
-octagon (inti, sosial, fisik, spiritual, garis cinta, garis uang, ekor
-karma, garis leluhur) -- TAPI rumus buat 7 titik selain titik inti beda
-antar sumber/kursus, nggak ada satu versi baku yang diakui semua orang.
-Karena itu ENGINE INI SENGAJA CUMA MENGHITUNG TITIK INTI DULU. 7 titik
-lainnya BELUM diimplementasikan -- nunggu ada sumber/kursus spesifik yang
-mau dijadikan acuan resmi.
+Menghitung 8 titik Personal Square + Ancestral Square + Love/Money/Balance
++ Purpose, PLUS tabel 7 Chakra/Health Card — semuanya tervalidasi manual
+(cocok persis sama screenshot hasil matrix-destiny.com yang dikasih Stev,
+lihat memory project /areas/matrix-destiny-formula.md untuk detail rumus &
+contoh hitungan 5 Des 1992).
 
-Rumus titik inti: jumlahin SEMUA digit tanggal+bulan+tahun lahir jadi
-satu, terus jumlahin terus sampai hasilnya <=22 (BUKAN direduksi sampai 1
-digit kayak numerologi biasa -- kalau hasilnya 22, tetap 22).
+GANTI dari revisi sebelumnya: dulu titik_inti dihitung pakai shortcut
+(jumlah semua digit tanggal+bulan+tahun sekaligus) — TERBUKTI beda dari
+metode resmi di atas (contoh 5 Des 1992: shortcut = 11 "The Brave", metode
+resmi = 13 "The Transformation"). Sekarang titik_inti = Titik E (Center /
+Inti Jiwa), dihitung lewat Personal Square sesuai metode resmi.
+
+Nama arketipe (NAMA_ARKETIPE) SENGAJA BUKAN nama asli 22 Major Arcana
+Tarot (The Magician, The Fool, dst) — dipakai nama orisinal biar nggak
+dianggap menjiplak filosofi/branding matrix-destiny.com atau tarot,
+walaupun urutan makna & nomornya (1-22) tetap mengikuti pembacaan yang
+sama. Nama file gambar kartu di assets/cards/matrix_destiny/ juga
+mengikuti nama orisinal ini.
 """
 
 from datetime import date
@@ -38,17 +45,81 @@ def _reduce_ke_1_22(n: int) -> int:
     return n
 
 
+def _chakra_row(physics: int, energy: int) -> dict:
+    return {
+        "physics": physics,
+        "energy": energy,
+        "emotions": _reduce_ke_1_22(physics + energy),
+    }
+
+
 def hitung_matrix_destiny(tanggal_lahir: date) -> dict:
     """
     Args:
         tanggal_lahir (date): tanggal lahir user
 
     Returns:
-        dict: {"titik_inti": int, "nama_arketipe": str}
-        titik_inti dalam skala 1-22, nama_arketipe nama Inggrisnya
-        (cocok sama nama file gambar kartu).
+        dict berisi:
+        - titik_inti, nama_arketipe: Titik E (Center/Inti Jiwa), dipakai
+          buat pilih kartu utama & konten interpretasi (key content dict
+          masih 1-22, nggak berubah).
+        - personal_square: {a, b, c, d, e} (Hari/Bulan/Tahun/Karmic Tail/Center)
+        - ancestral_square: {f, g, h, i} (garis leluhur)
+        - love_money: {love, money, balance}
+        - purpose: {sky, earth, personal, male_line, female_line, social, main_destiny}
+        - chakra: {sahasrara, ajna, vishuddha, anahata, manipura, svadhisthana,
+          muladhara} masing-masing {physics, energy, emotions}
     """
-    semua_digit = f"{tanggal_lahir.day}{tanggal_lahir.month}{tanggal_lahir.year}"
-    total = sum(int(d) for d in semua_digit)
-    titik_inti = _reduce_ke_1_22(total)
-    return {"titik_inti": titik_inti, "nama_arketipe": NAMA_ARKETIPE[titik_inti]}
+    a = _reduce_ke_1_22(tanggal_lahir.day)
+    b = tanggal_lahir.month
+    c = _reduce_ke_1_22(sum(int(d) for d in str(tanggal_lahir.year)))
+    d = _reduce_ke_1_22(a + b + c)
+    e = _reduce_ke_1_22(a + b + c + d)  # Center / Inti Jiwa
+
+    f = _reduce_ke_1_22(a + b)
+    g = _reduce_ke_1_22(b + c)
+    i_ = _reduce_ke_1_22(c + d)
+    h = _reduce_ke_1_22(a + d)
+
+    love = _reduce_ke_1_22(e + d)
+    money = _reduce_ke_1_22(e + c)
+    balance = _reduce_ke_1_22(love + money)
+
+    sky = _reduce_ke_1_22(b + d)
+    earth = _reduce_ke_1_22(a + c)
+    personal_purpose = _reduce_ke_1_22(sky + earth)
+
+    male_line = _reduce_ke_1_22(f + i_)
+    female_line = _reduce_ke_1_22(g + h)
+    social_purpose = _reduce_ke_1_22(male_line + female_line)
+
+    main_destiny = _reduce_ke_1_22(personal_purpose + social_purpose)
+
+    vishuddha = _chakra_row(_reduce_ke_1_22(e + a), _reduce_ke_1_22(e + c))
+    chakra = {
+        "sahasrara": _chakra_row(a, b),
+        "ajna": _chakra_row(a, _reduce_ke_1_22(g + e)),
+        "vishuddha": vishuddha,
+        "anahata": _chakra_row(
+            _reduce_ke_1_22(vishuddha["physics"] + e),
+            _reduce_ke_1_22(vishuddha["energy"] + e),
+        ),
+        "manipura": _chakra_row(e, e),
+        "svadhisthana": _chakra_row(_reduce_ke_1_22(e + c), _reduce_ke_1_22(e + d)),
+        "muladhara": _chakra_row(c, d),
+    }
+
+    titik_inti = e
+    return {
+        "titik_inti": titik_inti,
+        "nama_arketipe": NAMA_ARKETIPE[titik_inti],
+        "personal_square": {"a": a, "b": b, "c": c, "d": d, "e": e},
+        "ancestral_square": {"f": f, "g": g, "h": h, "i": i_},
+        "love_money": {"love": love, "money": money, "balance": balance},
+        "purpose": {
+            "sky": sky, "earth": earth, "personal": personal_purpose,
+            "male_line": male_line, "female_line": female_line,
+            "social": social_purpose, "main_destiny": main_destiny,
+        },
+        "chakra": chakra,
+    }

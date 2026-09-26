@@ -22,6 +22,21 @@ _NEPTU_PASARAN = {"Legi": 5, "Pahing": 9, "Pon": 7, "Wage": 4, "Kliwon": 8}
 _ACUAN_TANGGAL = date(1945, 8, 17)
 _ACUAN_PASARAN_INDEX = _PASARAN.index("Legi")  # = 0
 
+# Pancasuda INDIVIDU (bukan versi jodoh/mitra yang pakai neptu gabungan 2
+# orang) — rumus: Neptu Sendiri mod 5. Acuan tervalidasi dari Stev.
+_PANCASUDA = {
+    1: ("Sri", "Murah rejeki, selamat, dan dicintai lingkungan sekitar."),
+    2: ("Lungguh", "Berpotensi mendapat kedudukan, jabatan, atau kehormatan."),
+    3: ("Gedhong", "Dikelilingi materi/harta, berbakat makmur dan berkecukupan."),
+    4: ("Loro", "Menguji kesabaran fisik/mental, menempa kehati-hatian."),
+    0: ("Pati", "Penuh prihatin/perjuangan keras di awal menuju kematangan."),
+}
+
+
+def _hitung_pancasuda(neptu: int) -> dict:
+    nama, arti = _PANCASUDA[neptu % 5]
+    return {"nama": nama, "arti": arti}
+
 
 def hitung_weton(tanggal_lahir: date) -> dict:
     """
@@ -29,7 +44,7 @@ def hitung_weton(tanggal_lahir: date) -> dict:
         tanggal_lahir (date): tanggal lahir user
 
     Returns:
-        dict: {"hari": str, "pasaran": str, "neptu": int}
+        dict: {"hari": str, "pasaran": str, "neptu": int, "pancasuda": {"nama", "arti"}}
     """
     # Python: Senin=0 ... Minggu=6 -- urutannya sudah cocok sama _HARI.
     hari = _HARI[tanggal_lahir.weekday()]
@@ -40,4 +55,7 @@ def hitung_weton(tanggal_lahir: date) -> dict:
 
     neptu = _NEPTU_HARI[hari] + _NEPTU_PASARAN[pasaran]
 
-    return {"hari": hari, "pasaran": pasaran, "neptu": neptu}
+    return {
+        "hari": hari, "pasaran": pasaran, "neptu": neptu,
+        "pancasuda": _hitung_pancasuda(neptu),
+    }
