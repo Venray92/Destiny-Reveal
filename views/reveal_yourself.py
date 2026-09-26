@@ -325,10 +325,21 @@ def render():
         st.write("")
         cta_l, cta_mid, cta_r = st.columns([1.6, 1.6, 1.6])
         with cta_mid:
-            st.button(
+            if st.button(
                 "Mulai Proses Reveal", key="btn_lanjut_form", type="primary",
                 icon=":material/arrow_forward:", use_container_width=True,
-            )
+            ):
+                if not st.session_state.get("ry_focus_mode"):
+                    st.warning("Pilih salah satu mode eksplorasi dulu ya sebelum lanjut.")
+                else:
+                    # reset progress loading tiap kali mulai proses baru (biar
+                    # nggak nyangkut ke sisa sesi lama kalau user balik lagi
+                    # ke sini abis reveal_yourself.py atau ganti mode)
+                    for k in ("loading_points", "loading_idx", "loading_phase",
+                              "loading_results", "loading_data"):
+                        st.session_state.pop(k, None)
+                    st.session_state.dr_page = "loading"
+                    st.rerun()
 
         st.write("")
         st.markdown(
