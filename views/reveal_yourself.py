@@ -230,18 +230,37 @@ def render():
         )
         # Stepper ini preview PERJALANAN penuh, bukan cuma langkah di halaman
         # ini — titik ke-3 ("Hasil Reveal") kejadiannya di halaman loading &
-        # reveal berikutnya, jadi sengaja ditampilin dim/upcoming.
+        # reveal berikutnya. Tiap dot berubah coklat (selesai) begitu langkah
+        # itu betul-betul kelar; sebelum itu tetap dim (upcoming).
+        # NOTE: belum ada logic verifikasi OTP asli, jadi utk dot 1 dipakai
+        # proxy "sudah klik Kirim Kode" (ry_step1_done) — bukan email valid
+        # betulan, cuma penanda visual sampai OTP asli dibikin.
+        step1_done = bool(st.session_state.get("ry_step1_done"))
+        step2_done = bool(st.session_state.get("ry_focus_mode"))
+        step3_done = bool(st.session_state.get("ry_step3_done"))
+
+        def _dot_classes(done):
+            if done:
+                return "ry-step-dot", "ry-step-label"
+            return "ry-step-dot ry-step-dot-upcoming", "ry-step-label ry-step-label-upcoming"
+
+        d1_cls, l1_cls = _dot_classes(step1_done)
+        d2_cls, l2_cls = _dot_classes(step2_done)
+        d3_cls, l3_cls = _dot_classes(step3_done)
+        line1_bg = "#b8562f" if step1_done else "#ecddc9"
+        line2_bg = "#b8562f" if step2_done else "#ecddc9"
+
         st.markdown(
-            '<div class="ry-stepper">'
-            '<div class="ry-step-unit"><div class="ry-step-dot">1</div>'
-            '<div class="ry-step-label">Verifikasi<br>Email</div></div>'
-            '<div class="ry-step-line"></div>'
-            '<div class="ry-step-unit"><div class="ry-step-dot">2</div>'
-            '<div class="ry-step-label">Pilih<br>Mode</div></div>'
-            '<div class="ry-step-line" style="background:#ecddc9;"></div>'
-            '<div class="ry-step-unit"><div class="ry-step-dot ry-step-dot-upcoming">3</div>'
-            '<div class="ry-step-label ry-step-label-upcoming">Hasil<br>Reveal</div></div>'
-            '</div>',
+            f'<div class="ry-stepper">'
+            f'<div class="ry-step-unit"><div class="{d1_cls}">1</div>'
+            f'<div class="{l1_cls}">Verifikasi<br>Email</div></div>'
+            f'<div class="ry-step-line" style="background:{line1_bg};"></div>'
+            f'<div class="ry-step-unit"><div class="{d2_cls}">2</div>'
+            f'<div class="{l2_cls}">Pilih<br>Mode</div></div>'
+            f'<div class="ry-step-line" style="background:{line2_bg};"></div>'
+            f'<div class="ry-step-unit"><div class="{d3_cls}">3</div>'
+            f'<div class="{l3_cls}">Hasil<br>Reveal</div></div>'
+            f'</div>',
             unsafe_allow_html=True,
         )
         st.write("")
@@ -268,10 +287,15 @@ def render():
             with vcol2:
                 st.markdown('<div style="height:28px;"></div>', unsafe_allow_html=True)
                 with st.container(key="ry_otp_btn"):
-                    st.button(
+                    if st.button(
                         "Kirim Kode", key="btn_send_otp", type="secondary",
                         icon=":material/send:", use_container_width=True,
-                    )
+                    ):
+                        # Belum ada logic OTP asli (next step terpisah) — ini
+                        # cuma dipakai sebagai penanda "langkah 1 selesai" utk
+                        # stepper di atas, biar dot 1 berubah coklat.
+                        st.session_state.ry_step1_done = True
+                        st.rerun()
             st.markdown('<div class="ry-otp-row">' + '<div class="ry-otp-box"></div>' * 6 + '</div>', unsafe_allow_html=True)
 
         st.write("")
@@ -332,6 +356,7 @@ def render():
                 if not st.session_state.get("ry_focus_mode"):
                     st.warning("Pilih salah satu mode eksplorasi dulu ya sebelum lanjut.")
                 else:
+                    st.session_state.ry_step3_done = True
                     # reset progress loading tiap kali mulai proses baru (biar
                     # nggak nyangkut ke sisa sesi lama kalau user balik lagi
                     # ke sini abis reveal_yourself.py atau ganti mode)
