@@ -31,6 +31,7 @@ KETERBATASAN per revisi ini (sengaja, biar jelas bukan tersembunyi):
 import time
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 from views.reveal_yourself import RY_MODES
 
@@ -75,7 +76,13 @@ def _ensure_state():
 
 def _missing_field_for(system):
     data = st.session_state.loading_data
-    if system in NEEDS_TANGGAL and "tanggal_lahir" not in data:
+    # Sistem yang kuesionernya belum ada (MBTI dkk) tetap butuh data DASAR
+    # (tanggal lahir) biar titiknya nggak dilewat diam-diam tanpa nanya
+    # apa-apa — biar urutannya jelas: titik pertama di mode manapun selalu
+    # nanya tanggal lahir dulu, titik berikutnya yang butuh data sama
+    # otomatis nggak nanya lagi.
+    needs_tanggal = system in NEEDS_TANGGAL or system in NEEDS_KUESIONER_BELUM_ADA
+    if needs_tanggal and "tanggal_lahir" not in data:
         return "tanggal_lahir"
     if system in NEEDS_JAM and "jam_lahir" not in data:
         return "jam_lahir"
@@ -84,6 +91,51 @@ def _missing_field_for(system):
     if system in NEEDS_GOLDA and "golongan_darah" not in data:
         return "golongan_darah"
     return None
+
+
+@st.dialog("Reveal Selesai", dismissible=False)
+def _final_dialog():
+    st.markdown(
+        '<div style="text-align:center;padding:6px 0 4px 0;">'
+        '<div style="font-size:38px;margin-bottom:10px;">&#10024;</div>'
+        '<div style="font-family:\'Fraunces\',serif;font-size:19px;font-weight:800;'
+        'color:#1c1a17;letter-spacing:0.01em;line-height:1.4;">'
+        'SEMUA DATA DIRIMU<br>SUDAH DIREVEAL</div>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    st.write("")
+    if st.button(
+        "REVEAL YOURSELF", key="btn_final_reveal", type="primary",
+        icon=":material/auto_awesome:", use_container_width=True,
+    ):
+        st.session_state.dr_page = "result"
+        st.rerun()
+    st.markdown(
+        '<div style="text-align:center;font-size:11.5px;color:#9a948a;margin-top:10px;">'
+        'Kalau tidak diklik, otomatis lanjut dalam beberapa detik.</div>',
+        unsafe_allow_html=True,
+    )
+    # Auto-lanjut kalau user nggak klik tombolnya — nyari tombol primary DI
+    # DALAM dialog ini lewat DOM (sama origin, jadi window.parent.document
+    # bisa diakses), lalu diklik beneran lewat JS setelah 5 detik. Dipilih
+    # cara ini (bukan time.sleep di Python) supaya tombolnya TETAP bisa
+    # diklik manual kapan aja selama proses ini berjalan (nggak nge-block
+    # script servernya kayak time.sleep biasa).
+    components.html(
+        """
+        <script>
+        setTimeout(function () {
+            try {
+                var doc = window.parent.document;
+                var btn = doc.querySelector('[data-testid="stDialog"] button[kind="primary"]');
+                if (btn) { btn.click(); }
+            } catch (e) {}
+        }, 5000);
+        </script>
+        """,
+        height=0,
+    )
 
 
 @st.dialog("Lengkapi Data", dismissible=False)
@@ -141,6 +193,14 @@ def _inject_style():
         .ry-load-label { font-size: 10.5px; font-weight: 700; margin-top: 7px; text-align: center; }
         @keyframes ry-spin { to { transform: rotate(360deg); } }
 
+        /* Rantai/garis penghubung antar dot, senada sama stepper di halaman
+           Reveal Yourself — brown kalau titik kiri udah selesai, dim kalau
+           belum. margin-top disamain ke tengah lingkaran dot (23px = setengah
+           tinggi dot 46px). */
+        .ry-load-chain { width: 26px; height: 3px; border-radius: 3px; margin-top: 23px; flex-shrink: 0; }
+        .ry-load-chain-upcoming { background: #ecddc9; }
+        .ry-load-chain-done { background: #b8562f; }
+
         .ry-load-card-wrap { display: flex; flex-direction: column; align-items: center; gap: 20px;
             margin-top: 32px; }
         .ry-load-card {
@@ -152,13 +212,16 @@ def _inject_style():
         .ry-load-card-inner { width: 100%; height: 100%; border-radius: 14px; padding: 3px;
             background: linear-gradient(155deg, #fdf0c8, #c9a227); }
         .ry-load-card-art { width: 100%; height: 100%; border-radius: 12px; overflow: hidden;
-            background: linear-gradient(150deg, #e9c9a6, #c9683a 55%, #8a5a2f); filter: blur(14px); opacity: 0.9; }
+            background: linear-gradient(150deg, #e9c9a6, #c9683a 55%, #8a5a2f); filter: blur(7px); opacity: 0.9; }
         .ry-load-text-box { width: 100%; max-width: 560px; background: #fdfaf5;
             border: 2px solid #f0e6d5; border-radius: 20px; padding: 26px 30px;
             display: flex; flex-direction: column; align-items: center; gap: 10px;
             animation: ry-reveal var(--ry-anim-s) ease-out forwards;
         }
-        .ry-load-line { border-radius: 6px; background: #e8e0d2; filter: blur(3px); }
+        /* Tiap baris tulisan punya filter:blur(...) sendiri lewat inline
+           style (lihat _ANIM_LINES di Python) biar blur-nya gradasi makin
+           tebal ke bawah — bukan rata semua kayak sebelumnya. */
+        .ry-load-line { border-radius: 6px; background: #e8e0d2; }
         @keyframes ry-reveal {
             from { clip-path: inset(0 0 100% 0); }
             to { clip-path: inset(0 0 0% 0); }
@@ -166,6 +229,28 @@ def _inject_style():
         .ry-load-waiting-box { width: 240px; height: 340px; border-radius: 18px;
             border: 2px dashed #ecddc9; background: #fdfaf5; display: flex;
             align-items: center; justify-content: center; color: #c9c2b4; }
+
+        /* Floating window (st.dialog) — dipaksa terang + font kontras jelas,
+           soalnya di dark mode wrapper dialognya kebawa background gelap
+           default browser/OS (bug CSS dark-mode yang sama kayak sebelumnya
+           di halaman lain). */
+        [data-testid="stDialog"],
+        [data-testid="stDialog"] > div {
+            background-color: #fffaf2 !important;
+        }
+        [data-testid="stDialog"] * {
+            color: #1c1a17 !important;
+        }
+        [data-testid="stDialog"] input,
+        [data-testid="stDialog"] [data-baseweb="select"] > div,
+        [data-testid="stDialog"] [class*="react-aria-TextField"] > div,
+        [data-testid="stDialog"] [class*="react-aria-ComboBox"] > div,
+        [data-testid="stDialog"] [data-testid="stDateInputField"],
+        [data-testid="stDialog"] [data-testid="stTimeInputTimeDisplay"] {
+            background-color: #ffffff !important;
+            border-color: #e4ddd0 !important;
+        }
+        [data-testid="stDialog"] button[kind="primary"] * { color: #ffffff !important; }
         </style>
         """,
         unsafe_allow_html=True,
@@ -196,6 +281,10 @@ def _render_dots(points, idx, waiting=False):
             f'<div class="ry-load-dot-unit">{dot}'
             f'<div class="ry-load-label" style="color:{label_color} !important;">{system}</div></div>'
         )
+        if i < total - 1:
+            # Rantai antar titik jadi coklat kalau titik di kirinya udah kelar.
+            chain_cls = "ry-load-chain-done" if i < idx else "ry-load-chain-upcoming"
+            dots_html.append(f'<div class="ry-load-chain {chain_cls}"></div>')
     dots_html.append("</div>")
     st.markdown("".join(dots_html), unsafe_allow_html=True)
 
@@ -216,8 +305,17 @@ def render():
         return
 
     if idx >= total:
-        st.session_state.dr_page = "result"
-        st.rerun()
+        st.markdown(
+            '<div style="text-align:center;">'
+            '<div style="font-family:\'Fraunces\',serif;font-size:30px;font-weight:700;color:#1c1a17;margin-bottom:8px;">'
+            'Sedang Membaca Dirimu...</div>'
+            '<div style="font-size:14.5px;color:#6b6459;">Semua titik selesai diproses.</div>'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+        st.write("")
+        _render_dots(points, idx, waiting=False)
+        _final_dialog()
         return
 
     current = points[idx]
@@ -235,15 +333,20 @@ def render():
 
     # ── STATE MACHINE per titik ──
     if st.session_state.loading_phase == "need_check":
-        if current in NEEDS_KUESIONER_BELUM_ADA:
-            # kuesionernya belum dibuat — dilewati, hasil placeholder
-            st.session_state.loading_results[current] = {"placeholder": True, "skipped": True}
-            st.session_state.loading_phase = "animating"
-            st.rerun()
+        # Urutan dicek data DULU, baru status kuesioner — biar titik apapun
+        # yang kena giliran duluan (termasuk MBTI dkk yang kuesionernya
+        # belum ada) tetap nanya data dasar (tanggal lahir) sekali di
+        # floating window. Titik berikutnya yang butuh data sama otomatis
+        # skip nanya lagi karena udah kesimpen di loading_data.
+        missing = _missing_field_for(current)
+        if missing:
+            st.session_state.loading_phase = "asking"
         else:
-            missing = _missing_field_for(current)
-            st.session_state.loading_phase = "asking" if missing else "animating"
-            st.rerun()
+            if current in NEEDS_KUESIONER_BELUM_ADA:
+                # kuesionernya belum dibuat — dilewati, hasil placeholder
+                st.session_state.loading_results[current] = {"placeholder": True, "skipped": True}
+            st.session_state.loading_phase = "animating"
+        st.rerun()
 
     elif st.session_state.loading_phase == "asking":
         _render_dots(points, idx, waiting=True)
@@ -262,15 +365,18 @@ def render():
             '<div class="ry-load-card" style="--ry-anim-s:' + str(ANIM_SECONDS) + 's;">'
             '<div class="ry-load-card-inner"><div class="ry-load-card-art"></div></div>'
             '</div>'
+            # Blur tiap baris SENGAJA gradasi (bukan rata) — makin ke bawah
+            # makin tebal, biar menjelang ~85% tinggi kotak udah nggak
+            # kebaca sama sekali (efek "teaser", cuma judul yang agak jelas).
             '<div class="ry-load-text-box" style="--ry-anim-s:' + str(ANIM_SECONDS) + 's;">'
-            '<div class="ry-load-line" style="width:200px;height:17px;margin-bottom:4px;"></div>'
-            '<div class="ry-load-line" style="width:460px;height:12px;"></div>'
-            '<div class="ry-load-line" style="width:430px;height:12px;"></div>'
-            '<div class="ry-load-line" style="width:480px;height:12px;"></div>'
-            '<div class="ry-load-line" style="width:300px;height:12px;margin-bottom:8px;"></div>'
-            '<div class="ry-load-line" style="width:160px;height:14px;margin-top:4px;"></div>'
-            '<div class="ry-load-line" style="width:440px;height:12px;"></div>'
-            '<div class="ry-load-line" style="width:400px;height:12px;"></div>'
+            '<div class="ry-load-line" style="width:200px;height:17px;margin-bottom:4px;filter:blur(0.5px);"></div>'
+            '<div class="ry-load-line" style="width:460px;height:12px;filter:blur(1.5px);"></div>'
+            '<div class="ry-load-line" style="width:430px;height:12px;filter:blur(2.5px);"></div>'
+            '<div class="ry-load-line" style="width:480px;height:12px;filter:blur(3.5px);"></div>'
+            '<div class="ry-load-line" style="width:300px;height:12px;margin-bottom:8px;filter:blur(4.5px);"></div>'
+            '<div class="ry-load-line" style="width:160px;height:14px;margin-top:4px;filter:blur(6px);"></div>'
+            '<div class="ry-load-line" style="width:440px;height:12px;filter:blur(8px);"></div>'
+            '<div class="ry-load-line" style="width:400px;height:12px;filter:blur(10px);"></div>'
             '</div>'
             '</div>',
             unsafe_allow_html=True,
