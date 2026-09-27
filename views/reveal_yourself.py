@@ -232,17 +232,17 @@ def _inject_style():
 RY_MODES = [
     (
         "instan", "Mode Instan",
-        "Cepat, cukup dari tanggal lahir.",
+        "Cepat, cukup dari tanggal lahir & nama lengkap.",
         ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"],
     ),
     (
         "mendalam", "Mode Mendalam",
-        "Tambah kuesioner buat kenal karaktermu lebih jauh.",
+        "Kuesioner kepribadian & golongan darah — sebagian masih segera hadir.",
         ["MBTI", "Big Five", "Enneagram", "DISC", "Golongan Darah", "Love Language"],
     ),
     (
         "lengkap", "Mode Lengkap",
-        "Semua sistem sekaligus, paling menyeluruh.",
+        "Semua 15 sistem sekaligus, paling lengkap (sebagian masih segera hadir).",
         [
             "Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny", "BaZi",
             "Zi Wei", "Human Design", "MBTI", "Big Five", "Enneagram", "DISC",
@@ -455,7 +455,17 @@ def render():
                               "loading_results", "loading_data",
                               "reveal_opened", "reveal_order", "reveal_opening",
                               "reveal_visible", "reveal_open_all_queue",
-                              "reveal_confirm_open_all"):
+                              "reveal_confirm_open_all", "final_ready",
+                              # Widget key dialog "Lengkapi Data" — jaga-jaga
+                              # kalau user nyasar ke sini tanpa lewat "Kembali
+                              # ke Home"/"Reveal Lagi" dulu (mis. via nav bar),
+                              # biar tanggal/nama nggak nyangkut dari sesi
+                              # reveal sebelumnya.
+                              "dlg_tgl_bulan", "dlg_tgl_tahun", "dlg_tgl_hari_terakhir",
+                              "dlg_nama_lengkap", "dlg_jam_lahir", "dlg_kota_lahir",
+                              "dlg_golongan_darah"):
+                        st.session_state.pop(k, None)
+                    for k in [k for k in st.session_state.keys() if k.startswith("dlg_tgl_hari_")]:
                         st.session_state.pop(k, None)
                     st.session_state.dr_page = "loading"
                     st.rerun()

@@ -68,6 +68,15 @@ FIELD_LABEL = {
 }
 
 ANIM_SECONDS = 5
+# Jeda diam setelah 1 kartu titik selesai reveal-in, sebelum pindah ke
+# titik berikutnya — biar transisinya nggak kerasa hentakan/jolt.
+PAUSE_BETWEEN_POINTS_SECONDS = 2
+# Jeda diam setelah titik TERAKHIR selesai, sebelum floating window
+# payment (_final_dialog) muncul — dipisah dari PAUSE_BETWEEN_POINTS_SECONDS
+# karena ini cuma dipakai SEKALI di akhir, dijaga lewat flag
+# session_state.final_ready biar nggak keulang tiap rerun selama dialog
+# masih kebuka (lihat render()).
+FINAL_PAUSE_SECONDS = 3
 
 
 def _mode_points(mode_key):
@@ -86,6 +95,7 @@ def _ensure_state():
         st.session_state.loading_phase = "need_check"
         st.session_state.loading_results = {}
         st.session_state.loading_data = {}  # tanggal_lahir, jam_lahir, kota_lahir, golongan_darah
+        st.session_state.final_ready = False
 
 
 def _points_need_nama():
@@ -170,19 +180,29 @@ def _final_dialog():
     harga_pendek = f"{PRICE_PENDEK:,.0f}".replace(",", ".")
     harga_panjang = f"{PRICE_PANJANG:,.0f}".replace(",", ".")
 
+    # ── Kotak "Versi Pendek" vs "Versi Lengkap" DIPAKSA sama tinggi ──
+    # Sebelumnya masing2 cuma <div style="height:100%"> polos di dalam
+    # kolom Streamlit — tapi height:100% nggak ngaruh kalau parent
+    # (stColumn/stVerticalBlock/stElementContainer) sendiri nggak diregangkan
+    # (stretch) dulu secara eksplisit. Reuse teknik "drfillheight" yang udah
+    # ada di app.py (kelasnya match lewat [class*="drfillheight"], CSS-nya
+    # global jadi kepakai juga di sini): tiap kotak dibungkus
+    # st.container(key="drfillheight_tier_...") + div-nya sendiri dikasih
+    # flex:1 biar beneran ngisi penuh tinggi kolom yang udah di-stretch.
     col_pendek, col_panjang = st.columns(2)
     with col_pendek:
-        st.markdown(
-            '<div style="border:1.5px solid #ecddc9;border-radius:14px;padding:14px 12px;'
-            'background:#fdfaf5;height:100%;">'
-            '<div style="font-size:11px;font-weight:800;letter-spacing:0.04em;'
-            'text-transform:uppercase;color:#8a5a2f;">Versi Pendek</div>'
-            f'<div style="font-size:17px;font-weight:800;color:#1c1a17;margin-top:2px;">Rp {harga_pendek}</div>'
-            '<div style="font-size:11.5px;color:#6b6459;margin-top:6px;line-height:1.5;">'
-            'Mendapatkan semua hasil inti (siapa diri kamu, kekuatan pada dirimu, dan PR '
-            'apa yg harus dikerjakan).</div></div>',
-            unsafe_allow_html=True,
-        )
+        with st.container(key="drfillheight_tier_pendek"):
+            st.markdown(
+                '<div class="dr-card" style="border:1.5px solid #ecddc9;border-radius:14px;'
+                'padding:14px 12px;background:#fdfaf5;box-sizing:border-box;text-align:left;">'
+                '<div style="font-size:11px;font-weight:800;letter-spacing:0.04em;'
+                'text-transform:uppercase;color:#8a5a2f;">Versi Pendek</div>'
+                f'<div style="font-size:17px;font-weight:800;color:#1c1a17;margin-top:2px;">Rp {harga_pendek}</div>'
+                '<div style="font-size:11.5px;color:#6b6459;margin-top:6px;line-height:1.5;">'
+                'Mendapatkan semua hasil inti (siapa diri kamu, kekuatan pada dirimu, dan PR '
+                'apa yg harus dikerjakan).</div></div>',
+                unsafe_allow_html=True,
+            )
         st.write("")
         if st.button(
             "Bypass (Pendek)", key="btn_bypass_pendek",
@@ -192,18 +212,19 @@ def _final_dialog():
             st.session_state.dr_page = "result"
             st.rerun()
     with col_panjang:
-        st.markdown(
-            '<div style="border:1.5px solid #e4a56e;border-radius:14px;padding:14px 12px;'
-            'background:#fff8ef;height:100%;">'
-            '<div style="font-size:11px;font-weight:800;letter-spacing:0.04em;'
-            'text-transform:uppercase;color:#b8562f;">Versi Lengkap</div>'
-            f'<div style="font-size:17px;font-weight:800;color:#1c1a17;margin-top:2px;">Rp {harga_panjang}</div>'
-            '<div style="font-size:11.5px;color:#6b6459;margin-top:6px;line-height:1.5;">'
-            'Mendapatkan semua hasil inti, plus insight Karir, Asmara, Keuangan &amp; '
-            'Kesehatan buat tiap sistem — langsung kebuka semua amplop tanpa perlu bayar '
-            'satu-satu lagi.</div></div>',
-            unsafe_allow_html=True,
-        )
+        with st.container(key="drfillheight_tier_panjang"):
+            st.markdown(
+                '<div class="dr-card" style="border:1.5px solid #e4a56e;border-radius:14px;'
+                'padding:14px 12px;background:#fff8ef;box-sizing:border-box;text-align:left;">'
+                '<div style="font-size:11px;font-weight:800;letter-spacing:0.04em;'
+                'text-transform:uppercase;color:#b8562f;">Versi Lengkap</div>'
+                f'<div style="font-size:17px;font-weight:800;color:#1c1a17;margin-top:2px;">Rp {harga_panjang}</div>'
+                '<div style="font-size:11.5px;color:#6b6459;margin-top:6px;line-height:1.5;">'
+                'Mendapatkan semua hasil inti, plus insight Karir, Asmara, Keuangan &amp; '
+                'Kesehatan buat tiap sistem — langsung kebuka semua amplop tanpa perlu bayar '
+                'satu-satu lagi.</div></div>',
+                unsafe_allow_html=True,
+            )
         st.write("")
         if st.button(
             "Bypass (Lengkap)", key="btn_bypass_panjang",
@@ -279,7 +300,7 @@ def _render_nama_input():
         unsafe_allow_html=True,
     )
     return st.text_input(
-        "Nama Lengkap", placeholder="Contoh: Steven Wu (min. 4 huruf, tanpa angka)",
+        "Nama Lengkap", placeholder="Contoh: Budi Santoso (min. 4 huruf, tanpa angka)",
         key="dlg_nama_lengkap", label_visibility="collapsed",
     ).strip()
 
@@ -542,6 +563,15 @@ def render():
         _render_input_summary()
         st.write("")
         _render_dots(points, idx, waiting=False)
+        if not st.session_state.get("final_ready"):
+            st.markdown(
+                '<div style="text-align:center;margin-top:22px;font-size:13px;'
+                'color:#8a5a2f;font-style:italic;">Menyusun laporan akhir...</div>',
+                unsafe_allow_html=True,
+            )
+            time.sleep(FINAL_PAUSE_SECONDS)
+            st.session_state.final_ready = True
+            st.rerun()
         _final_dialog()
         return
 
@@ -673,6 +703,13 @@ def render():
             height=0,
         )
         time.sleep(ANIM_SECONDS)
+        # Jeda TAMBAHAN setelah kartu ini selesai reveal-in (animasi
+        # clip-path-nya udah kelar penuh), biar kartu yang udah jadi sempat
+        # "diam" dulu sebentar sebelum digantikan kartu titik berikutnya —
+        # mengurangi kesan hentakan/jolt pas transisi (dilaporkan Stev:
+        # pergantian kartu kerasa kayak ada hentakan kalau langsung diganti
+        # sedetik itu juga).
+        time.sleep(PAUSE_BETWEEN_POINTS_SECONDS)
         # (hasil sudah dihitung di atas, sebelum kartu teaser dirender)
         st.session_state.loading_idx += 1
         st.session_state.loading_phase = "need_check"

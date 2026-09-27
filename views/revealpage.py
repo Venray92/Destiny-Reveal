@@ -1191,11 +1191,12 @@ def _upgrade_dialog(system):
     harga_selisih = f"{PRICE_UPGRADE_SELISIH:,.0f}".replace(",", ".")
     st.markdown(
         '<div style="text-align:center;padding:4px 0 2px 0;">'
-        f'<div style="font-family:\'Fraunces\',serif;font-size:18px;font-weight:800;'
-        f'color:#1c1a17;line-height:1.4;">Buka Insight {system}</div>'
+        '<div style="font-family:\'Fraunces\',serif;font-size:18px;font-weight:800;'
+        'color:#1c1a17;line-height:1.4;">Buka Semua Insight</div>'
         '<div style="font-size:13px;color:#6b6459;margin-top:8px;line-height:1.6;">'
         'Bagian Karir, Asmara, Keuangan &amp; Kesehatan cuma ada di Versi Lengkap. '
-        f'Bayar selisihnya (Rp {harga_selisih}) buat buka insight ini.</div></div>',
+        f'Bayar selisihnya (Rp {harga_selisih}) buat buka insight ini di SEMUA amplop '
+        'sekaligus, bukan cuma yang ini.</div></div>',
         unsafe_allow_html=True,
     )
     st.write("")
@@ -1212,7 +1213,10 @@ def _upgrade_dialog(system):
         "Bypass Payment", key=f"btn_bypass_upgrade_{system}", type="primary",
         icon=":material/bolt:", use_container_width=True,
     ):
-        st.session_state.domain_unlocked.add(system)
+        # Bayar upgrade SEKALI = buka insight domain buat SEMUA amplop yang
+        # ada (bukan cuma amplop yang diklik) — sesuai instruksi Stev, bukan
+        # per-sistem lagi kayak sebelumnya.
+        st.session_state.domain_unlocked.update(_points())
         st.session_state.show_upgrade_dialog = None
         st.rerun()
 
@@ -1483,6 +1487,7 @@ def render():
                 "loading_data", "reveal_opened", "reveal_order", "reveal_opening",
                 "reveal_visible", "reveal_open_all_queue", "reveal_confirm_open_all",
                 "ry_focus_mode", "ry_step1_done", "ry_step3_done", "ry_email",
+                "final_ready",
                 # Widget key dialog "Lengkapi Data" (tanggal/jam/kota lahir,
                 # golongan darah) — kalau nggak ikut direset, dropdown-nya
                 # bakal masih nunjukkin pilihan lama pas user reveal orang
@@ -1506,6 +1511,17 @@ def render():
                 "loading_points", "loading_idx", "loading_phase", "loading_results",
                 "loading_data", "reveal_opened", "reveal_order", "reveal_opening",
                 "reveal_visible", "reveal_open_all_queue", "reveal_confirm_open_all",
+                "final_ready",
+                # Sama kayak "Reveal Lagi" — widget key dialog "Lengkapi Data"
+                # (tanggal/nama/jam/kota lahir, golongan darah) HARUS ikut
+                # direset di sini juga, soalnya sebelumnya cuma "Reveal Lagi"
+                # yang bersihin ini, jadi kalau user lewat "Kembali ke Home"
+                # dulu baru mulai reveal baru, tanggal/nama yang lama masih
+                # nyangkut di dropdown/kolomnya (bug yang dilaporkan Stev).
+                "dlg_tgl_bulan", "dlg_tgl_tahun", "dlg_tgl_hari_terakhir",
+                "dlg_nama_lengkap", "dlg_jam_lahir", "dlg_kota_lahir", "dlg_golongan_darah",
             ):
+                st.session_state.pop(k, None)
+            for k in [k for k in st.session_state.keys() if k.startswith("dlg_tgl_hari_")]:
                 st.session_state.pop(k, None)
             st.rerun()
