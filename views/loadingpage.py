@@ -31,13 +31,14 @@ KETERBATASAN per revisi ini (sengaja, biar jelas bukan tersembunyi):
 """
 
 import calendar
+import textwrap
 import time
 from datetime import date
 
 import streamlit as st
 import streamlit.components.v1 as components
 
-from content.result_builder import compute_raw_result
+from content.result_builder import build_display_data, compute_raw_result
 from settings import PRICE_PANJANG, PRICE_PENDEK
 from utils.card_images import card_image_for_system
 from utils.date_format import BULAN_NAMES_ID, format_tanggal_ddmmyyyy
@@ -179,8 +180,7 @@ def _final_dialog():
             f'<div style="font-size:17px;font-weight:800;color:#1c1a17;margin-top:2px;">Rp {harga_pendek}</div>'
             '<div style="font-size:11.5px;color:#6b6459;margin-top:6px;line-height:1.5;">'
             'Mendapatkan semua hasil inti (siapa diri kamu, kekuatan pada dirimu, dan PR '
-            'apa yg harus dikerjakan). Insight Karir/Asmara/dll bisa dibuka belakangan '
-            'per-amplop.</div></div>',
+            'apa yg harus dikerjakan).</div></div>',
             unsafe_allow_html=True,
         )
         st.write("")
@@ -389,7 +389,7 @@ def _inject_style():
             flex-shrink: 0; width: 74px; }
         .ry-load-dot { width: 46px; height: 46px; border-radius: 50%; display: flex;
             align-items: center; justify-content: center; font-weight: 800; font-size: 14px;
-            flex-shrink: 0; }
+            flex-shrink: 0; transition: background-color 0.25s ease, border-color 0.25s ease; }
         .ry-load-dot-done { background: #b8562f; color: #ffffff !important; }
         .ry-load-dot-upcoming { background: #f9f4ec; border: 2px solid #ecddc9; color: #c9c2b4 !important; }
         .ry-load-dot-active-ring { width: 58px; height: 58px; border-radius: 50%;
@@ -413,7 +413,13 @@ def _inject_style():
         .ry-load-chain-done { background: #b8562f; }
 
         .ry-load-card-wrap { display: flex; flex-direction: column; align-items: center; gap: 20px;
-            margin-top: 32px; }
+            margin-top: 32px;
+            /* Fade-in halus tiap kali titik baru mulai — biar transisi
+               antar titik nggak kerasa "hentakan"/nge-jolt pas kartu lama
+               digantikan kartu baru secara instan (DOM-nya dipakai ulang
+               oleh Streamlit, lihat catatan restart-animasi di bawah). */
+            animation: ry-fadein 0.5s ease;
+        }
         .ry-load-card {
             width: 240px; height: 340px; border-radius: 18px; padding: 6px;
             background: linear-gradient(155deg, #f3d488, #c9a227 45%, #8a6a12 55%, #f3d488);
@@ -426,16 +432,25 @@ def _inject_style():
             background: linear-gradient(150deg, #e9c9a6, #c9683a 55%, #8a5a2f); filter: blur(3.5px); opacity: 0.9; }
         .ry-load-text-box { width: 100%; max-width: 560px; background: #fdfaf5;
             border: 2px solid #f0e6d5; border-radius: 20px; padding: 26px 30px;
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
+            display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
             animation: ry-reveal var(--ry-anim-s) ease-out forwards;
         }
-        /* Tiap baris tulisan punya filter:blur(...) sendiri lewat inline
-           style (lihat _ANIM_LINES di Python) biar blur-nya gradasi makin
-           tebal ke bawah — bukan rata semua kayak sebelumnya. */
-        .ry-load-line { border-radius: 6px; background: #e8e0d2; }
+        /* Teaser sekarang pakai TEKS ASLI (bukan bar kosong lagi) — judul
+           di atas kebaca jelas, tiap paragraf di bawahnya punya
+           filter:blur(...) sendiri lewat inline style (gradasi makin
+           tebal ke bawah, lihat blur_steps di Python), bukan indikator
+           persen. */
+        .ry-load-teaser-title { font-family: 'Fraunces', serif; font-size: 15.5px; font-weight: 700;
+            color: #8a5a2f; margin: 0 0 4px 0; text-align: left; }
+        .ry-load-line-text { margin: 0; font-size: 13px; line-height: 1.65; color: #3a352c;
+            text-align: left; }
         @keyframes ry-reveal {
             from { clip-path: inset(0 0 100% 0); }
             to { clip-path: inset(0 0 0% 0); }
+        }
+        @keyframes ry-fadein {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .ry-load-waiting-box { width: 240px; height: 340px; border-radius: 18px;
             border: 2px dashed #ecddc9; background: #fdfaf5; display: flex;
@@ -588,6 +603,27 @@ def render():
             'style="width:100%;height:100%;object-fit:cover;">'
             if image_uri else ""
         )
+
+        # ── Teaser teks PAKAI TEKS ASLI (bukan bar kosong lagi) — cuma
+        # baris paling atas yang kebaca jelas, sisanya diblur progresif
+        # makin ke bawah makin tebal sampai nggak kebaca sama sekali.
+        # SENGAJA bukan indikator persen (sempat diusulkan, tapi
+        # dibatalkan) — cuma teks asli + blur gradasi. Sumber teksnya
+        # paragraf "Kekuatan & yang Perlu Dijaga" (p2), fallback ke p1
+        # kalau p2 nggak ada, dan ke teks generik kalau sistemnya belum
+        # punya konten sama sekali (mis. kuesioner yang belum dibangun).
+        display_data = build_display_data(current, current_raw_result) or {}
+        teaser_title = display_data.get("title") or current
+        teaser_body = display_data.get("p2") or display_data.get("p1") or (
+            f"Sedang menghitung insight {current}mu..."
+        )
+        wrapped_lines = textwrap.wrap(teaser_body, width=56)[:8] or [teaser_body]
+        blur_steps = [0, 0.8, 2, 3.5, 5.2, 7, 9, 11]
+        lines_html = "".join(
+            f'<p class="ry-load-line-text" style="filter:blur({blur_steps[min(i, len(blur_steps) - 1)]}px);">{line}</p>'
+            for i, line in enumerate(wrapped_lines)
+        )
+
         st.markdown(
             f'<div class="ry-load-card-wrap" style="--ry-anim-s:{ANIM_SECONDS}s;">'
             '<div style="font-size:11px;font-weight:800;letter-spacing:0.08em;'
@@ -595,18 +631,9 @@ def render():
             '<div class="ry-load-card" style="--ry-anim-s:' + str(ANIM_SECONDS) + 's;">'
             f'<div class="ry-load-card-inner"><div class="ry-load-card-art">{card_art_inner}</div></div>'
             '</div>'
-            # Blur tiap baris SENGAJA gradasi (bukan rata) — makin ke bawah
-            # makin tebal, biar menjelang ~85% tinggi kotak udah nggak
-            # kebaca sama sekali (efek "teaser", cuma judul yang agak jelas).
             '<div class="ry-load-text-box" style="--ry-anim-s:' + str(ANIM_SECONDS) + 's;">'
-            '<div class="ry-load-line" style="width:200px;height:17px;margin-bottom:4px;filter:blur(0.5px);"></div>'
-            '<div class="ry-load-line" style="width:460px;height:12px;filter:blur(1.5px);"></div>'
-            '<div class="ry-load-line" style="width:430px;height:12px;filter:blur(2.5px);"></div>'
-            '<div class="ry-load-line" style="width:480px;height:12px;filter:blur(3.5px);"></div>'
-            '<div class="ry-load-line" style="width:300px;height:12px;margin-bottom:8px;filter:blur(4.5px);"></div>'
-            '<div class="ry-load-line" style="width:160px;height:14px;margin-top:4px;filter:blur(6px);"></div>'
-            '<div class="ry-load-line" style="width:440px;height:12px;filter:blur(8px);"></div>'
-            '<div class="ry-load-line" style="width:400px;height:12px;filter:blur(10px);"></div>'
+            f'<div class="ry-load-teaser-title">{teaser_title}</div>'
+            f'{lines_html}'
             '</div>'
             '</div>',
             unsafe_allow_html=True,
