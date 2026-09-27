@@ -1,14 +1,23 @@
 """
-Halaman Tutorial — daftar semua sistem pembacaan (chip) beserta ikon,
-penjelasan singkat, dan apa yang bisa didapatkan dari tiap sistem.
-
-Kontennya REUSE dari data SEMUA_SISTEM yang sudah ada di app.py (dipakai
-juga buat popover chip di homepage) — bukan konten baru, cuma ditampilkan
-lengkap di satu halaman biar user nggak perlu klik satu-satu buat baca
-semua penjelasannya.
+Halaman Tutorial — sekarang dipecah jadi 2 tab (per instruksi Stev,
+27 Sep 2026):
+- Tab 1 "Kenalan Sistemnya": daftar semua sistem pembacaan (chip) beserta
+  ikon, penjelasan singkat, dan apa yang bisa didapatkan — REUSE dari data
+  SEMUA_SISTEM yang sudah ada di app.py (dipakai juga buat popover chip di
+  homepage), bukan konten baru.
+- Tab 2 "Alur & Pilihan": penjelasan alur dari awal (Verifikasi Email)
+  sampai akhir (pilih Versi Pendek/Lengkap), sekalian nyebutin pilihan apa
+  aja yang tersedia di tiap langkah (mode Instan/Mendalam/Lengkap, tier
+  laporan Pendek/Lengkap) — REUSE data dari RY_MODES (reveal_yourself.py)
+  dan PRICE_PENDEK/PRICE_PANJANG/PRICE_UPGRADE_SELISIH (settings.py) biar
+  harga & pilihan yang ditampilkan selalu sinkron sama yang beneran jalan
+  di app, bukan angka/teks yang diketik ulang manual dan gampang basi.
 """
 
 import streamlit as st
+
+from settings import PRICE_PANJANG, PRICE_PENDEK, PRICE_UPGRADE_SELISIH
+from views.reveal_yourself import RY_MODES
 
 
 def _inject_style():
@@ -45,20 +54,36 @@ def _inject_style():
         .tp-card-topik span { color: #b8562f !important; }
         .tp-card-ajakan { font-size: 12px; color: #8a5a2f !important; font-style: italic;
             margin-top: 12px; padding-top: 10px; border-top: 1px dashed #ecddc9; }
+
+        /* ── Tab 2: alur & pilihan ── */
+        .tp-flow-step { display: flex; gap: 16px; padding: 20px 0; border-bottom: 1px solid #f0e6d5; }
+        .tp-flow-step:last-of-type { border-bottom: none; }
+        .tp-flow-num { width: 36px; height: 36px; border-radius: 50%; background: #b8562f;
+            color: #ffffff !important; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 15px; flex-shrink: 0; }
+        .tp-flow-title { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 700;
+            color: #1c1a17 !important; margin-bottom: 4px; }
+        .tp-flow-desc { font-size: 13.5px; color: #5c564d !important; line-height: 1.65;
+            margin-bottom: 10px; }
+        .tp-opt-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+        .tp-opt-card { flex: 1 1 220px; min-width: 200px; border: 1.5px solid #ecddc9;
+            border-radius: 12px; padding: 12px 14px; background: #fdfaf5; }
+        .tp-opt-title { font-size: 12.5px; font-weight: 800; color: #8a5a2f !important;
+            text-transform: uppercase; letter-spacing: 0.03em; }
+        .tp-opt-price { font-size: 15px; font-weight: 800; color: #1c1a17 !important; margin: 2px 0 6px 0; }
+        .tp-opt-desc { font-size: 12.5px; color: #6b6459 !important; line-height: 1.55; }
+        .tp-opt-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+        .tp-opt-chip { font-size: 10.5px; font-weight: 700; color: #8a5a2f !important;
+            background: #fdf3e7; border: 1px solid #ecddc9; border-radius: 100px; padding: 3px 9px; }
+        .tp-note { font-size: 12px; color: #9a948a !important; font-style: italic; margin-top: 14px; }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
 
-def render(semua_sistem):
-    """
-    semua_sistem: list of tuple (nama, icon_material, apa_ini, topik_list,
-    ajakan, aktif) — sama persis struktur SEMUA_SISTEM di app.py, dilempar
-    dari sana biar datanya cuma didefinisikan sekali di satu tempat.
-    """
-    _inject_style()
-
+def _render_chip_directory(semua_sistem):
+    """Tab 1 — isi persis konten lama (daftar 15 sistem/chip)."""
     st.markdown(
         '<div class="tp-header">'
         '<span class="tp-badge">&#10022; Panduan Baca Hasil</span>'
@@ -103,8 +128,129 @@ def render(semua_sistem):
     cta_l, cta_mid, cta_r = st.columns([1.5, 1.4, 1.5])
     with cta_mid:
         if st.button(
-            "Mulai Reveal Sekarang", key="tp_cta_reveal",
+            "Mulai Reveal Sekarang", key="tp_cta_reveal_tab1",
             type="primary", icon=":material/bolt:", use_container_width=True,
         ):
             st.session_state.dr_page = "reveal"
             st.rerun()
+
+
+def _render_flow_guide():
+    """Tab 2 — alur reveal dari awal (Verifikasi Email) sampai akhir
+    (pilih Versi Pendek/Lengkap), plus pilihan yang tersedia di tiap
+    langkah. Data mode & harga di-reuse dari RY_MODES/settings.py biar
+    nggak ada 2 sumber kebenaran yang bisa beda sendiri-sendiri."""
+    st.markdown(
+        '<div class="tp-header">'
+        '<span class="tp-badge">&#10022; Panduan Alur</span>'
+        '<h1 class="tp-h1 rp-serif">Begini Alurnya, dari Awal sampai Akhir</h1>'
+        '<p class="tp-sub">5 langkah, kira-kira 3-5 menit — nggak perlu bikin akun, '
+        'dan progresmu otomatis kesimpen kalau halaman ke-refresh.</p>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
+    harga_pendek = f"{PRICE_PENDEK:,.0f}".replace(",", ".")
+    harga_panjang = f"{PRICE_PANJANG:,.0f}".replace(",", ".")
+    harga_selisih = f"{PRICE_UPGRADE_SELISIH:,.0f}".replace(",", ".")
+
+    mode_opts_html = "".join(
+        '<div class="tp-opt-card">'
+        f'<div class="tp-opt-title">{title}</div>'
+        f'<div class="tp-opt-desc">{desc}</div>'
+        '<div class="tp-opt-chips">'
+        + "".join(f'<span class="tp-opt-chip">{chip}</span>' for chip in chips)
+        + '</div></div>'
+        for _key, title, desc, chips in RY_MODES
+    )
+
+    steps_html = (
+        '<div class="tp-flow-step">'
+        '<div class="tp-flow-num">1</div>'
+        '<div style="flex:1;">'
+        '<div class="tp-flow-title">Verifikasi Email</div>'
+        '<div class="tp-flow-desc">Cukup masukin email buat nyimpen & buka hasil nanti — '
+        'nggak perlu bikin akun/password. Kalau ada kode referal dari teman, bisa dimasukin '
+        'di sini juga (opsional).</div>'
+        '</div></div>'
+
+        '<div class="tp-flow-step">'
+        '<div class="tp-flow-num">2</div>'
+        '<div style="flex:1;">'
+        '<div class="tp-flow-title">Pilih Fokus Eksplorasi (Mode)</div>'
+        '<div class="tp-flow-desc">Pilihan ini menentukan sistem mana yang dihitung untuk '
+        'laporanmu:</div>'
+        f'<div class="tp-opt-row">{mode_opts_html}</div>'
+        '</div></div>'
+
+        '<div class="tp-flow-step">'
+        '<div class="tp-flow-num">3</div>'
+        '<div style="flex:1;">'
+        '<div class="tp-flow-title">Proses Reveal (Loading per Titik)</div>'
+        '<div class="tp-flow-desc">Tiap sistem di mode yang kamu pilih diproses satu per satu '
+        '(kalau perlu data tambahan seperti tanggal lahir, bakal ditanya sekali lewat jendela '
+        'kecil, dipakai ulang buat titik lain yang butuh data sama). Proses ini nggak bisa '
+        'di-skip, tapi kalau halamannya ke-refresh nggak perlu ulang dari awal — lanjut dari '
+        'titik terakhir.</div>'
+        '</div></div>'
+
+        '<div class="tp-flow-step">'
+        '<div class="tp-flow-num">4</div>'
+        '<div style="flex:1;">'
+        '<div class="tp-flow-title">Hasil Reveal (Buka Amplop)</div>'
+        '<div class="tp-flow-desc">Semua titik yang udah diproses muncul sebagai amplop '
+        'tersegel. Bisa dibuka satu-satu, atau langsung "Buka Semua Amplop" sekaligus kalau '
+        'nggak sabar.</div>'
+        '</div></div>'
+
+        '<div class="tp-flow-step">'
+        '<div class="tp-flow-num">5</div>'
+        '<div style="flex:1;">'
+        '<div class="tp-flow-title">Pilih Versi Laporan</div>'
+        '<div class="tp-flow-desc">Sebelum amplop kebuka, pilih dulu versi laporannya:</div>'
+        '<div class="tp-opt-row">'
+        '<div class="tp-opt-card">'
+        '<div class="tp-opt-title">Versi Pendek</div>'
+        f'<div class="tp-opt-price">Rp {harga_pendek}</div>'
+        '<div class="tp-opt-desc">Semua hasil inti — siapa diri kamu, kekuatan pada dirimu, '
+        'dan PR apa yang harus dikerjakan.</div>'
+        '</div>'
+        '<div class="tp-opt-card">'
+        '<div class="tp-opt-title">Versi Lengkap</div>'
+        f'<div class="tp-opt-price">Rp {harga_panjang}</div>'
+        '<div class="tp-opt-desc">Semua hasil inti, plus insight Karir, Asmara, Keuangan & '
+        'Kesehatan buat tiap sistem — langsung kebuka semua amplop tanpa perlu bayar satu-satu '
+        'lagi.</div>'
+        '</div>'
+        '</div>'
+        f'<div class="tp-note">Sudah kadung ambil Versi Pendek? Masih bisa upgrade belakangan '
+        f'per-amplop dengan bayar selisihnya (Rp {harga_selisih}) — begitu bayar, insight '
+        'tambahan itu langsung kebuka di SEMUA amplop sekaligus, bukan cuma yang lagi dibuka.</div>'
+        '</div></div>'
+    )
+    st.markdown(steps_html, unsafe_allow_html=True)
+
+    st.write("")
+    cta_l, cta_mid, cta_r = st.columns([1.5, 1.4, 1.5])
+    with cta_mid:
+        if st.button(
+            "Mulai Reveal Sekarang", key="tp_cta_reveal_tab2",
+            type="primary", icon=":material/bolt:", use_container_width=True,
+        ):
+            st.session_state.dr_page = "reveal"
+            st.rerun()
+
+
+def render(semua_sistem):
+    """
+    semua_sistem: list of tuple (nama, icon_material, apa_ini, topik_list,
+    ajakan, aktif) — sama persis struktur SEMUA_SISTEM di app.py, dilempar
+    dari sana biar datanya cuma didefinisikan sekali di satu tempat.
+    """
+    _inject_style()
+
+    tab1, tab2 = st.tabs(["📖 Kenalan Sistemnya", "🧭 Alur & Pilihan"])
+    with tab1:
+        _render_chip_directory(semua_sistem)
+    with tab2:
+        _render_flow_guide()
