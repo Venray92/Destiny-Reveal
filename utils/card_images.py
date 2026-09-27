@@ -33,6 +33,11 @@ SYSTEM_CARD_IMAGE_FALLBACK = {
     "Weton": "weton/legi.png",
     "Numerologi": "numerologi/8.png",
     "Matrix Destiny": "matrix_destiny/06_the_partners.png",
+    "MBTI": "mbti/intj.png",
+    "Big Five": "big_five/openness.png",
+    "Enneagram": "enneagram/1.png",
+    "DISC": "disc/d.png",
+    "Love Language": "love_language/words_of_affirmation.png",
 }
 
 
@@ -81,6 +86,27 @@ def card_relative_path_for_result(system: str, raw_result: dict | None):
             return None
         slug = nama_arketipe.lower().replace(" ", "_")
         return f"matrix_destiny/{titik_inti:02d}_{slug}.png"
+
+    # ── 5 sistem kuesioner Mode Mendalam ──
+    if system == "MBTI":
+        tipe = raw_result.get("tipe")
+        return f"mbti/{tipe.lower()}.png" if tipe else None
+
+    if system == "Big Five":
+        slug = raw_result.get("dominant_slug")
+        return f"big_five/{slug}.png" if slug else None
+
+    if system == "Enneagram":
+        tipe = raw_result.get("tipe")
+        return f"enneagram/{tipe}.png" if tipe else None
+
+    if system == "DISC":
+        tipe = raw_result.get("tipe")
+        return f"disc/{tipe.lower()}.png" if tipe else None
+
+    if system == "Love Language":
+        slug = raw_result.get("primary_slug")
+        return f"love_language/{slug}.png" if slug else None
 
     return None
 
