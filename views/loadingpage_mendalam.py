@@ -113,6 +113,111 @@ def _reset_and_go_home():
     st.rerun()
 
 
+def _inject_mendalam_css():
+    """
+    CSS revisi (27 Sep 2026, ronde 3 -- per feedback UI Stev):
+    - Tiap soal dibungkus kartu bordered sendiri (bukan nyampur jadi satu
+      list panjang tanpa pemisah).
+    - Radio bulatan bawaan browser DIGANTI jadi chip pill modern (warna
+      senada sama palet situs -- tan/terracotta, BUKAN oren bawaan
+      Streamlit), bulatan native-nya disembunyikan lewat CSS struktural
+      (gak gantung ke nama class emotion yang gampang berubah versi).
+    - Tombol submit form (st.form_submit_button) balut Streamlit ngasih
+      warna merah/oren bawaan (kind="primaryFormSubmit") karena CSS global
+      di app.py cuma nargetin kind="primary" biasa (bukan form submit) --
+      disamain manual di sini biar konsisten & gak lebar penuh 1 baris.
+    - Judul dialog floating window dirata-tengah.
+    """
+    st.markdown(
+        """
+        <style>
+        /* --- Kartu per pertanyaan --- */
+        div[class*="st-key-mdq_"] {
+            border: 1.5px solid #ece6dc !important;
+            border-radius: 14px !important;
+            background: #fdfcfa !important;
+            padding: 18px 20px 16px 20px !important;
+            margin-bottom: 12px !important;
+            transition: border-color .15s ease;
+        }
+        div[class*="st-key-mdq_"]:hover {
+            border-color: #e4c9a6 !important;
+        }
+
+        /* --- Radio jadi chip modern (bukan bulatan lama) --- */
+        div[data-testid="stRadioGroup"] {
+            display: flex !important; flex-wrap: wrap !important;
+            gap: 8px !important; margin-top: 6px !important;
+        }
+        label[data-testid="stRadioOption"] {
+            display: inline-flex !important; align-items: center !important;
+            justify-content: center !important;
+            padding: 9px 18px !important; margin: 0 !important;
+            border: 1.5px solid #ecddc9 !important; border-radius: 10px !important;
+            background: #ffffff !important; cursor: pointer !important;
+            transition: all .15s ease !important;
+        }
+        /* sembunyikan bulatan radio native -- ambil struktural (child
+           pertama non-markdown), bukan nama class emotion-cache */
+        label[data-testid="stRadioOption"] > div > div:not([data-testid]) {
+            display: none !important;
+        }
+        label[data-testid="stRadioOption"] div[data-testid="stMarkdownContainer"] p {
+            margin: 0 !important; font-size: 13.5px !important;
+            color: #5c564d !important; font-weight: 500 !important;
+        }
+        label[data-testid="stRadioOption"]:hover {
+            border-color: #b8562f !important;
+        }
+        label[data-testid="stRadioOption"][data-selected="true"] {
+            background: #ecddc9 !important; border-color: #b8562f !important;
+        }
+        label[data-testid="stRadioOption"][data-selected="true"]
+            div[data-testid="stMarkdownContainer"] p {
+            color: #8a5a2f !important; font-weight: 700 !important;
+        }
+
+        /* --- Tombol submit form (Lanjut / Submit) --- */
+        /* Streamlit ngasih nama class "st-key-FormSubmitter-..." otomatis ke
+           elementContainer pembungkus tombol form_submit_button -- dipakai
+           di sini (bukan cuma div stFormSubmitButton) karena container
+           luarnya itu yang nentuin lebar penuh 1 baris, bukan tombolnya
+           sendiri. */
+        div[class*="st-key-FormSubmitter-"] {
+            width: 100% !important; display: flex !important;
+            justify-content: center !important; margin-top: 8px !important;
+        }
+        div[data-testid="stFormSubmitButton"] {
+            display: flex !important; justify-content: center !important;
+        }
+        div[data-testid="stFormSubmitButton"] > button {
+            background: #c9683a !important; border: 2px solid #c9683a !important;
+            width: auto !important; min-width: 200px !important;
+            padding: 10px 30px !important; border-radius: 100px !important;
+        }
+        div[data-testid="stFormSubmitButton"] > button:hover {
+            background: #b8562f !important; border-color: #b8562f !important;
+        }
+        div[data-testid="stFormSubmitButton"] > button p,
+        div[data-testid="stFormSubmitButton"] > button span,
+        div[data-testid="stFormSubmitButton"] > button div {
+            color: #ffffff !important;
+        }
+
+        /* --- Judul dialog floating window rata tengah --- */
+        /* h2[slot="title"] Streamlit defaultnya display:flex (buat sejajar
+           sama tombol close), jadi text-align aja gak cukup -- butuh
+           justify-content di flex containernya juga. */
+        div[data-testid="stDialog"] h2[slot="title"] {
+            width: 100% !important; text-align: center !important;
+            justify-content: center !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def _anti_leave_banner():
     st.markdown(
         '<div style="background:#fff3e0;border:1.5px solid #e4a56e;border-radius:12px;'
@@ -177,15 +282,33 @@ def _intro_dialog(systems):
 # diharapkan engine/*_scoring.py — lihat docstring tiap engine), atau None
 # kalau belum dipilih.
 
-def _render_yesno_question(q, num):
+def _question_heading(num, text):
+    """Badge nomor bulat + teks pertanyaan, dipakai semua renderer biar
+    konsisten & lebih elegan (ganti angka polos '1. ...' sebelumnya).
+
+    Revisi (per feedback Stev): teks soal SEBELUMNYA pakai font display
+    'Fraunces' (serif) tebal (700) di ukuran kecil (15.5px) -- kombinasi
+    itu yang bikin susah dibaca buat kalimat panjang. Diganti pakai font
+    dasar situs ('Plus Jakarta Sans', sans-serif, via .stApp, jadi TANPA
+    override font-family di sini) + weight lebih ringan (600) + ukuran
+    lebih besar (16.5px) + line-height lebih lega (1.65)."""
     st.markdown(
-        f'<div style="font-family:\'Fraunces\',serif;font-size:16.5px;font-weight:700;'
-        f'color:#1c1a17;line-height:1.5;margin-bottom:6px;">{num}. {q["text"]}</div>',
+        '<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:4px;">'
+        '<div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;'
+        'background:#f6f1e9;border:1.5px solid #ecddc9;color:#8a5a2f;font-size:12px;'
+        'font-weight:700;display:flex;align-items:center;justify-content:center;'
+        f'margin-top:2px;">{num}</div>'
+        '<div style="font-size:16.5px;font-weight:600;'
+        f'color:#1c1a17;line-height:1.65;">{text}</div></div>',
         unsafe_allow_html=True,
     )
+
+
+def _render_yesno_question(system, q, num):
+    _question_heading(num, q["text"])
     val = st.radio(
         f"jawaban_{q['id']}", options=["Setuju", "Tidak Setuju"], index=None,
-        key=f"md_w_{q['id']}", horizontal=True, label_visibility="collapsed",
+        key=f"md_w_{system}_{q['id']}", horizontal=True, label_visibility="collapsed",
     )
     if val == "Setuju":
         return True
@@ -194,55 +317,43 @@ def _render_yesno_question(q, num):
     return None
 
 
-def _render_scale_question(q, num):
-    st.markdown(
-        f'<div style="font-family:\'Fraunces\',serif;font-size:16.5px;font-weight:700;'
-        f'color:#1c1a17;line-height:1.5;margin-bottom:2px;">{num}. {q["text"]}</div>'
-        '<div style="font-size:11px;color:#8a5a2f;margin-bottom:6px;">'
-        '1 = Sangat Tidak Setuju &nbsp;·&nbsp; 5 = Sangat Setuju</div>',
-        unsafe_allow_html=True,
+def _render_scale_question(system, q, num):
+    _question_heading(
+        num,
+        f'{q["text"]}<br><span style="font-family:inherit;font-weight:500;font-size:11px;'
+        'color:#8a5a2f;">1 = Sangat Tidak Setuju &nbsp;·&nbsp; 5 = Sangat Setuju</span>',
     )
     return st.radio(
         f"skor_{q['id']}", options=[1, 2, 3, 4, 5],
         format_func=lambda i: f"{i} — {BIG_FIVE_SCALE_LABELS[i]}",
-        index=None, key=f"md_w_{q['id']}", horizontal=True,
+        index=None, key=f"md_w_{system}_{q['id']}", horizontal=True,
         label_visibility="collapsed",
     )
 
 
-def _render_disc_question(q, num):
-    st.markdown(
-        f'<div style="font-family:\'Fraunces\',serif;font-size:16.5px;font-weight:700;'
-        f'color:#1c1a17;line-height:1.5;margin-bottom:6px;">{num}. Pilih SATU kata yang '
-        'PALING menggambarkan dirimu sehari-hari:</div>',
-        unsafe_allow_html=True,
-    )
+def _render_disc_question(system, q, num):
+    _question_heading(num, "Pilih SATU kata yang PALING menggambarkan dirimu sehari-hari:")
     return st.radio(
         f"pilihan_{q['id']}", options=["A", "B", "C", "D"],
         format_func=lambda letter: q["options"][letter],
-        index=None, key=f"md_w_{q['id']}", horizontal=True,
+        index=None, key=f"md_w_{system}_{q['id']}", horizontal=True,
         label_visibility="collapsed",
     )
 
 
-def _render_love_language_question(q, num):
-    st.markdown(
-        f'<div style="font-family:\'Fraunces\',serif;font-size:16.5px;font-weight:700;'
-        f'color:#1c1a17;line-height:1.5;margin-bottom:8px;">{num}. Baca kedua pernyataan '
-        'berikut, lalu pilih yang paling menggambarkan dirimu:</div>',
-        unsafe_allow_html=True,
-    )
+def _render_love_language_question(system, q, num):
+    _question_heading(num, "Baca kedua pernyataan berikut, lalu pilih yang paling menggambarkan dirimu:")
     for letter in ("A", "B"):
         st.markdown(
             '<div style="border:1.5px solid #ecddc9;border-radius:12px;'
-            'padding:10px 14px;background:#fdfaf5;margin-bottom:6px;font-size:13px;'
+            'padding:10px 14px;background:#fdfaf5;margin:6px 0 6px 36px;font-size:13px;'
             f'color:#1c1a17;line-height:1.5;"><b>{letter}.</b> {q[letter]["text"]}</div>',
             unsafe_allow_html=True,
         )
     return st.radio(
         f"pilihan_{q['id']}", options=["A", "B"],
         format_func=lambda letter: f"Pilih Pernyataan {letter}",
-        index=None, key=f"md_w_{q['id']}", horizontal=True,
+        index=None, key=f"md_w_{system}_{q['id']}", horizontal=True,
         label_visibility="collapsed",
     )
 
@@ -287,15 +398,18 @@ def _render_batch_phase(systems, sys_idx, current_system, bank):
     )
     _anti_leave_banner()
 
+    is_last_group = (group_idx + 1 == total_groups)
+    btn_label = "Submit" if is_last_group else "Lanjut"
+    btn_icon = ":material/check_circle:" if is_last_group else ":material/arrow_forward:"
+
     renderer = QUESTION_RENDERERS[current_system]
     with st.form(key=f"md_form_{current_system}_{group_idx}"):
         collected = {}
         for local_i, q in enumerate(group):
-            collected[q["id"]] = renderer(q, start_num + local_i)
-            st.write("")
+            with st.container(key=f"mdq_{current_system}_{q['id']}"):
+                collected[q["id"]] = renderer(current_system, q, start_num + local_i)
         submitted = st.form_submit_button(
-            "Lanjut", type="primary", use_container_width=True,
-            icon=":material/arrow_forward:",
+            btn_label, type="primary", use_container_width=False, icon=btn_icon,
         )
 
     if not submitted:
@@ -303,9 +417,10 @@ def _render_batch_phase(systems, sys_idx, current_system, bank):
 
     missing = [qid for qid, val in collected.items() if val is None]
     if missing:
-        st.error(
-            f"Masih ada {len(missing)} dari {len(group)} soal di grup ini yang belum "
-            "dijawab — lengkapi dulu semuanya sebelum lanjut."
+        st.toast(
+            f"Masih ada {len(missing)} soal yang belum dijawab di grup ini — "
+            "lengkapi dulu semuanya sebelum lanjut.",
+            icon="⚠️",
         )
         return
 
@@ -332,28 +447,31 @@ def _render_batch_phase(systems, sys_idx, current_system, bank):
     st.rerun()
 
 
-@st.dialog("Satu Sistem Selesai!", dismissible=False)
+@st.dialog("Satu Sistem Selesai! 🎉", dismissible=False)
 def _system_confirm_dialog(current_system, next_system):
     st.markdown(
-        f'<div style="font-size:14px;color:#1c1a17;line-height:1.6;margin-bottom:14px;">'
-        f'Selamat, kuesioner <b>{current_system}</b> sudah selesai kamu jawab semua — '
-        f'jawabanmu sudah diproses.<br><br>'
-        f'Selanjutnya: kuesioner <b>{next_system}</b>. Apakah kamu siap lanjut sekarang?'
+        '<div style="text-align:center;">'
+        '<div style="width:56px;height:56px;border-radius:50%;background:#fdf3e7;'
+        'border:1.5px solid #e4a56e;display:flex;align-items:center;justify-content:center;'
+        'margin:0 auto 14px auto;">'
+        '<span class="material-symbols-outlined" style="font-size:28px;color:#b8562f;">'
+        'task_alt</span></div>'
+        f'<div style="font-size:14.5px;color:#1c1a17;line-height:1.65;margin-bottom:6px;">'
+        f'Kuesioner <b>{current_system}</b> udah kelar kamu jawab semua, dan jawabanmu '
+        'langsung diproses diam-diam di balik layar 👀</div>'
+        '<div style="font-size:13.5px;color:#6b6459;line-height:1.6;">'
+        f'Sekarang tarik napas sebentar — abis ini giliran <b>{next_system}</b> yang '
+        'nunggu buat digali.</div>'
         '</div>',
         unsafe_allow_html=True,
     )
-    col_batal, col_lanjut = st.columns(2)
-    with col_batal:
-        if st.button("Batal", key="md_confirm_batal", use_container_width=True,
-                      icon=":material/close:"):
-            _reset_and_go_home()
-    with col_lanjut:
-        if st.button("Lanjut", key="md_confirm_lanjut", type="primary",
-                      use_container_width=True, icon=":material/arrow_forward:"):
-            st.session_state.md_sys_idx += 1
-            st.session_state.md_group_idx = 0
-            st.session_state.md_phase = "batch"
-            st.rerun()
+    st.write("")
+    if st.button("Selanjutnya", key="md_confirm_lanjut", type="primary",
+                  use_container_width=True, icon=":material/arrow_forward:"):
+        st.session_state.md_sys_idx += 1
+        st.session_state.md_group_idx = 0
+        st.session_state.md_phase = "batch"
+        st.rerun()
 
 
 def _render_system_confirm_phase(systems, sys_idx, current_system):
@@ -396,6 +514,7 @@ def _render_final_screen(systems):
 def render():
     _ensure_state()
     _inject_style()
+    _inject_mendalam_css()
 
     systems = _quiz_systems()
     phase = st.session_state.md_phase
