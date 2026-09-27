@@ -76,6 +76,62 @@ SEAL_ICONS = {
         '<circle cx="14" cy="13" r="1.3" fill="#fdf3e7" stroke="none"></circle>'
         '<circle cx="20" cy="4" r="1.3" fill="#fdf3e7" stroke="none"></circle></svg>'
     ),
+    # ── 5 sistem baru (Ronde 4 — BaZi dkk) — icon baru, gaya sama (stroke
+    # tipis, viewBox 24x24) biar konsisten sama 5 icon di atas ──
+    "BaZi": (
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fdf3e7" '
+        'stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="8"></circle>'
+        '<path d="M12 4a4 4 0 0 1 0 8 4 4 0 0 0 0 8"></path>'
+        '<circle cx="12" cy="8" r="1.1" fill="#fdf3e7" stroke="none"></circle>'
+        '<circle cx="12" cy="16" r="1.1" fill="#fdf3e7" stroke="none"></circle></svg>'
+    ),
+    "Zi Wei": (
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fdf3e7" '
+        'stroke-width="1.5" stroke-linejoin="round"><path d="M12 3l1.9 4.6 5 .4-3.8 3.3 1.2 4.9L12 '
+        '13.8l-4.3 2.2 1.2-4.9L5.1 7.9l5-.4L12 3Z"></path></svg>'
+    ),
+    "Human Design": (
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fdf3e7" '
+        'stroke-width="1.5" stroke-linejoin="round"><path d="M12 3l7 4v10l-7 4-7-4V7l7-4Z"></path>'
+        '<circle cx="12" cy="12" r="2.6"></circle></svg>'
+    ),
+    "MBTI": (
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fdf3e7" '
+        'stroke-width="1.5" stroke-linejoin="round"><path d="M12 2l2.2 8.1L20 12l-5.8 1.9L12 22l-2.2-8.1L4 12l5.8-1.9L12 2Z">'
+        '</path></svg>'
+    ),
+    "Big Five": (
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fdf3e7" '
+        'stroke-width="1.5" stroke-linejoin="round"><path d="M12 3l7 5-2.7 8h-8.6L5 8l7-5Z"></path>'
+        '</svg>'
+    ),
+    "Enneagram": (
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fdf3e7" '
+        'stroke-width="1.4" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle>'
+        '<path d="M12 5l6 10H6L12 5Z"></path></svg>'
+    ),
+    "DISC": (
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fdf3e7" '
+        'stroke-width="1.5" stroke-linejoin="round"><path d="M12 3l9 9-9 9-9-9 9-9Z"></path>'
+        '<path d="M3 12h18M12 3v18"></path></svg>'
+    ),
+    "Love Language": (
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fdf3e7" '
+        'stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-9.5-9'
+        'C1 7.8 2.8 4.5 6 4c2-.3 3.9.8 6 3.2C14.1 4.8 16 3.7 18 4c3.2.5 5 3.8 3.5 7-2.5 4.6-9.5 9-9.5 9Z">'
+        '</path></svg>'
+    ),
+    "Golongan Darah": (
+        '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fdf3e7" '
+        'stroke-width="1.5" stroke-linejoin="round"><path d="M12 3C9 8 5 12.5 5 16a7 7 0 0 0 14 0'
+        'c0-3.5-4-8-7-13Z"></path></svg>'
+    ),
+    "Tarot": (
+        '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fdf3e7" '
+        'stroke-width="1.4" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2">'
+        '</rect><path d="M12 8.3l1 2.2 2.4.3-1.7 1.6.4 2.4-2.1-1.1-2.1 1.1.4-2.4-1.7-1.6 2.4-.3 1-2.2Z" '
+        'fill="#fdf3e7" stroke="none"></path></svg>'
+    ),
 }
 DEFAULT_ICON = (
     '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fdf3e7" '
@@ -670,7 +726,16 @@ def _inject_style():
 
         /* Kontainer grid amplop: satu baris yang bisa discroll ke samping
            (bukan wrap tiap 5 kolom lagi), supaya siap nampung sampai 15
-           amplop nanti tanpa desain berubah. */
+           amplop nanti tanpa desain berubah. Border + background di
+           KONTAINER LUAR (bukan cuma di baris amplop-nya) biar user
+           langsung ngeh ini area yang bisa digeser kanan/kiri, bukan cuma
+           amplop yang kepotong di ujung layar. */
+        div[class*="st-key-rp_envelope_scroll"] {
+            border: 1.5px solid #ecddc9 !important;
+            border-radius: 20px !important;
+            background: #fdfaf5 !important;
+            padding: 6px 2px !important;
+        }
         div[class*="st-key-rp_envelope_scroll"] [data-testid="stHorizontalBlock"] {
             flex-wrap: nowrap !important;
             overflow-x: auto !important;
@@ -879,6 +944,23 @@ def _render_supplementary_badges(system, raw_result):
             f'<span class="rp-supp-badge-value">{pancasuda["nama"]}</span></div>'
             '</div>'
             f'<p class="rp-detail-p" style="margin-top:6px;">{pancasuda["arti"]}</p>'
+        )
+
+    if system in ("Zi Wei", "Human Design"):
+        # Kedua sistem ini butuh jam lahir buat dihitung -- kalau user
+        # milih perkiraan waktu (bukan jam pasti) di form intake Mode
+        # Lengkap, kasih tau di sini biar user paham hasilnya bisa kurang
+        # presisi (bukan disembunyikan diam-diam).
+        if not st.session_state.get("loading_data", {}).get("jam_lahir_estimasi"):
+            return None
+        return (
+            '<div class="rp-supp-badges">'
+            '<div class="rp-supp-badge"><span class="rp-supp-badge-label">Jam Lahir</span>'
+            '<span class="rp-supp-badge-value">Estimasi</span></div>'
+            '</div>'
+            '<p class="rp-detail-p" style="margin-top:6px;">Hasil ini dihitung dari perkiraan '
+            'jam lahir, bukan jam pasti -- bisa jadi kurang presisi dibanding kalau jam '
+            'lahirnya diisi persis.</p>'
         )
 
     if system == "Numerologi":

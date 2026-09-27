@@ -473,7 +473,11 @@ def render():
                               "dlg_golongan_darah",
                               # progress kuesioner Mode Mendalam (loading page 2)
                               "md_sys_idx", "md_group_idx", "md_answers",
-                              "md_phase", "md_final_ready"):
+                              "md_phase", "md_final_ready",
+                              # progress form intake + animasi Mode Lengkap (loading page 3)
+                              "lengkap_phase", "lengkap_bio_idx",
+                              "lengkap_jam_opsi", "lengkap_jam_manual",
+                              "lengkap_kota", "lengkap_golda", "lengkap_submit"):
                         st.session_state.pop(k, None)
                     for k in [k for k in st.session_state.keys() if k.startswith("dlg_tgl_hari_")]:
                         st.session_state.pop(k, None)
@@ -481,12 +485,15 @@ def render():
                         st.session_state.pop(k, None)
                     # Mode Mendalam pakai halaman loading TERPISAH (loading page 2,
                     # kuesioner per-sistem + per-grup-10-soal) — bukan loadingpage.py
-                    # yang cuma buat data tanggal lahir dkk. Mode Instan/Lengkap masih
-                    # lewat loadingpage.py seperti biasa (chaining Mode Lengkap ke
-                    # loading page 2 belum dikerjakan, masih pending — lihat
-                    # progress-notes).
+                    # yang cuma buat data tanggal lahir dkk. Mode Lengkap (loading page 3)
+                    # pakai form intake sekaligus di awal + animasi 10 titik data, lalu
+                    # lepas ke loading page 2 buat 5 sistem kuesioner (lihat
+                    # views/loadingpage_lengkap.py). Mode Instan masih lewat
+                    # loadingpage.py biasa.
                     if st.session_state.ry_focus_mode == "mendalam":
                         st.session_state.dr_page = "loading_mendalam"
+                    elif st.session_state.ry_focus_mode == "lengkap":
+                        st.session_state.dr_page = "loading_lengkap"
                     else:
                         st.session_state.dr_page = "loading"
                     st.rerun()

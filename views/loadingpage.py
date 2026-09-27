@@ -568,6 +568,192 @@ def _dots_html(points, idx, waiting=False):
     return "".join(dots_html)
 
 
+def _animate_point(points, idx, header_html):
+    """
+    Render kartu teaser 1 titik (idx dari points), hitung hasil ASLI-nya
+    (compute_raw_result, disimpan ke loading_results), lalu tunggu
+    ANIM_SECONDS + PAUSE_BETWEEN_POINTS_SECONDS.
+
+    DIEKSTRAK (27 Sep 2026, batch Loading Page 3/Mode Lengkap) dari isi
+    branch "animating" di render() di bawah — SAMA PERSIS isinya, cuma
+    dipindah jadi fungsi sendiri biar bisa dipakai ULANG oleh
+    views/loadingpage_lengkap.py (Mode Lengkap butuh animasi titik yang
+    SAMA PERSIS buat 10 sistem berbasis data, sebelum lanjut ke kuesioner)
+    tanpa nyalin ulang ~150 baris kode delicate (3 lapis fix hentakan/kedip
+    dkk, lihat catatan di bawah). TIDAK ADA perubahan behavior/tampilan
+    dari versi sebelumnya, murni pemindahan kode.
+    """
+    total = len(points)
+    current = points[idx]
+    # Hitung hasil ASLI-nya DULUAN (sebelum kartu teaser dirender),
+    # bukan nunggu sampai animasi selesai — biar gambar kartu yang
+    # ditampilin (walau masih blur/teaser) sudah PASTI sesuai hasil
+    # perhitungan yang bakal ditampilkan nanti di halaman hasil, bukan
+    # kartu contoh generik yang beda-beda tiap sistem (bug yang sudah
+    # diperbaiki, lihat utils/card_images.py).
+    if current not in st.session_state.loading_results:
+        st.session_state.loading_results[current] = compute_raw_result(
+            current, st.session_state.loading_data,
+        )
+    current_raw_result = st.session_state.loading_results[current]
+    image_uri = card_image_for_system(current, current_raw_result)
+    card_art_inner = (
+        f'<img src="{image_uri}" alt="Kartu {current}" '
+        'style="width:100%;height:100%;object-fit:cover;">'
+        if image_uri else ""
+    )
+
+    # ── Teaser teks PAKAI TEKS ASLI (bukan bar kosong lagi) — cuma
+    # baris paling atas yang kebaca jelas, sisanya diblur progresif
+    # makin ke bawah makin tebal sampai nggak kebaca sama sekali.
+    # SENGAJA bukan indikator persen (sempat diusulkan, tapi
+    # dibatalkan) — cuma teks asli + blur gradasi. Sumber teksnya
+    # paragraf "Kekuatan & yang Perlu Dijaga" (p2), fallback ke p1
+    # kalau p2 nggak ada, dan ke teks generik kalau sistemnya belum
+    # punya konten sama sekali (mis. kuesioner yang belum dibangun).
+    display_data = build_display_data(current, current_raw_result) or {}
+    teaser_title = display_data.get("title") or current
+    teaser_body = display_data.get("p2") or display_data.get("p1") or (
+        f"Sedang menghitung insight {current}mu..."
+    )
+    wrapped_lines = textwrap.wrap(teaser_body, width=56)[:8] or [teaser_body]
+    blur_steps = [0, 0.8, 2, 3.5, 5.2, 7, 9, 11]
+    lines_html = "".join(
+        f'<p class="ry-load-line-text" style="filter:blur({blur_steps[min(i, len(blur_steps) - 1)]}px);">{line}</p>'
+        for i, line in enumerate(wrapped_lines)
+    )
+
+    st.markdown(
+        header_html
+        + _dots_html(points, idx, waiting=False)
+        + f'<div class="ry-load-card-wrap" style="--ry-anim-s:{ANIM_SECONDS}s;">'
+        '<div style="font-size:11px;font-weight:800;letter-spacing:0.08em;'
+        f'text-transform:uppercase;color:#b8562f;">✓ {current} — sedang diproses</div>'
+        f'<div class="ry-load-card" data-point-idx="{idx}" style="--ry-anim-s:' + str(ANIM_SECONDS) + 's;">'
+        f'<div class="ry-load-card-inner"><div class="ry-load-card-art">{card_art_inner}</div></div>'
+        '</div>'
+        f'<div class="ry-load-text-box" data-point-idx="{idx}" style="--ry-anim-s:' + str(ANIM_SECONDS) + 's;">'
+        f'<div class="ry-load-teaser-title">{teaser_title}</div>'
+        f'{lines_html}'
+        '</div>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    # BUG YANG DIPERBAIKI (27 Sep 2026, rekaman video Stev nunjukin
+    # kartu titik baru "flash" full terbuka sekilas dulu baru tiba-tiba
+    # blank total, baru pelan-pelan direveal ulang — bukan cuma
+    # "kedip", beneran nge-jolt drastis):
+    #
+    # 3 lapis root cause yang KEKONFIRMASI langsung lewat inspeksi DOM
+    # (dites: tag elemen kartu titik-1 dengan marker custom, cek lagi
+    # setelah pindah titik-2 — hasilnya SAMA OBJECT DOM, cuma
+    # attribute/isinya yang di-patch, bukan dibuat ulang):
+    # 1) Streamlit/React makai ULANG elemen DOM kartu+text-box yang
+    #    sama persis antar titik (cuma konten yang di-patch in-place).
+    # 2) Animasi CSS (clip-path reveal) yang udah kelar di titik
+    #    SEBELUMNYA nge-persist ("forwards" fill-mode) di elemen itu
+    #    dan TETAP menang/override apapun rule CSS statis lain SAMPAI
+    #    animasinya beneran di-disable eksplisit — jadi begitu konten
+    #    titik BARU di-patch masuk, kartu itu SEMPAT kelihatan full
+    #    terbuka dulu (masih mewarisi status "selesai" dari titik
+    #    lama), padahal isinya udah titik baru.
+    # 3) Trik reset lama (iframe components.html dengan komentar unik
+    #    per titik biar reload) BARU jalan beberapa frame KEMUDIAN
+    #    (iframe baru butuh waktu dibuat+dimuat), jadi ada window nyata
+    #    dimana user lihat "kartu baru full terbuka -> tiba-tiba di-reset
+    #    ke tertutup -> pelan-pelan kebuka lagi" — itu yang kerasa jolt.
+    #
+    # FIX: pasang SATU iframe PERSISTEN (srcdoc-nya SENGAJA statis/sama
+    # tiap titik, BUKAN dikasih komentar unik lagi) yang isinya cuma
+    # masang MutationObserver SEKALI di awal, mengamati atribut
+    # data-point-idx di kartu/text-box (di-set di HTML atas). Karena
+    # srcdoc-nya sama, Streamlit TIDAK reload iframe-nya tiap titik
+    # (beda dari sebelumnya) — jadi observer-nya tetap hidup dari titik
+    # pertama sampai terakhir. Callback MutationObserver jalan sebagai
+    # microtask SEGERA setelah DOM di-patch, SEBELUM browser sempat
+    # nge-paint frame berikutnya — jadi reset animasinya kejadian
+    # duluan sebelum sempat kelihatan "flash" kartu lama yang masih
+    # terbuka.
+    # ── Ghost floating-window (st.dialog "Lengkapi Data") yang kedip
+    # sekilas di titik-titik SETELAH titik pertama (dilaporkan Stev,
+    # 27 Sep 2026 — "kedipannya kaya kedipan floating windows") ──
+    # DIBUKTIKAN lewat log server (loading_phase/missing dicatat tiap
+    # rerun): dari sisi Python, dialog "Lengkapi Data" CUMA dipanggil
+    # SEKALI (titik pertama, pas datanya beneran belum ada) — titik
+    # ke-2 dst selalu missing=None, dialognya TIDAK dipanggil lagi.
+    # TAPI dari sisi browser, elemen [data-testid="stDialog"] yang
+    # ISINYA SAMA PERSIS (dialog titik-1 yang udah kelar) kedetect
+    # nongol lagi sekilas (~0.4 detik) pas titik lain lagi animating —
+    # ini murni artefak sisi Streamlit-nya sendiri (DOM dialog lama
+    # ke-cache/nyangkut, sempat ke-render ulang pas rerun besar),
+    # BUKAN dialog baru yang beneran diminta app.
+    #
+    # FIX: karena iframe ini CUMA hidup selama fase "animating" (fase
+    # dimana TIDAK ADA dialog yang seharusnya muncul sama sekali —
+    # dialog data cuma legit di fase "asking" di titik pertama, dan
+    # dialog payment cuma legit di layar akhir setelah SEMUA titik
+    # kelar, keduanya di luar fase "animating" jadi iframe ini otomatis
+    # sudah dilepas Streamlit sebelum keduanya render) — SELAMA iframe
+    # ini hidup, floating window apapun yang nongol sudah pasti ghost,
+    # aman langsung dipaksa disembunyikan tanpa perlu cek fase lagi.
+    components.html(
+        """
+        <script>
+        (function () {
+            var doc = window.parent.document;
+            var lastIdx = {};
+            function resetAnim(el) {
+                if (!el) return;
+                var pid = el.getAttribute('data-point-idx');
+                var key = el.className;
+                if (lastIdx[key] === pid) return;
+                lastIdx[key] = pid;
+                el.style.animation = 'none';
+                void el.offsetWidth;
+                el.style.animation = '';
+            }
+            function killGhostDialogs() {
+                var dlgs = doc.querySelectorAll('[data-testid="stDialog"]');
+                dlgs.forEach(function (d) {
+                    d.style.setProperty('display', 'none', 'important');
+                });
+            }
+            function checkAll() {
+                resetAnim(doc.querySelector('.ry-load-card'));
+                resetAnim(doc.querySelector('.ry-load-text-box'));
+                killGhostDialogs();
+            }
+            if (window.parent.__ryObserver) {
+                // Observer sebelumnya udah kepasang (iframe ini dipakai
+                // ulang, bukan baru) — cukup jalanin cek sekali buat
+                // titik yang baru masuk, observer lamanya tetap jalan.
+                checkAll();
+                return;
+            }
+            var mo = new MutationObserver(function () { checkAll(); });
+            try {
+                mo.observe(doc.body, {
+                    attributes: true, childList: true, subtree: true,
+                });
+                window.parent.__ryObserver = mo;
+            } catch (e) {}
+            checkAll();
+        })();
+        </script>
+        """,
+        height=0,
+    )
+    time.sleep(ANIM_SECONDS)
+    # Jeda TAMBAHAN setelah kartu ini selesai reveal-in (animasi
+    # clip-path-nya udah kelar penuh), biar kartu yang udah jadi sempat
+    # "diam" dulu sebentar sebelum digantikan kartu titik berikutnya —
+    # mengurangi kesan hentakan/jolt pas transisi (dilaporkan Stev:
+    # pergantian kartu kerasa kayak ada hentakan kalau langsung diganti
+    # sedetik itu juga).
+    time.sleep(PAUSE_BETWEEN_POINTS_SECONDS)
+    # (hasil sudah dihitung di atas, sebelum kartu teaser dirender)
+
+
 def render():
     _ensure_state()
     _inject_style()
@@ -672,173 +858,7 @@ def render():
         _ask_field_dialog(missing)
 
     elif st.session_state.loading_phase == "animating":
-        # Hitung hasil ASLI-nya DULUAN (sebelum kartu teaser dirender),
-        # bukan nunggu sampai animasi selesai — biar gambar kartu yang
-        # ditampilin (walau masih blur/teaser) sudah PASTI sesuai hasil
-        # perhitungan yang bakal ditampilkan nanti di halaman hasil, bukan
-        # kartu contoh generik yang beda-beda tiap sistem (bug yang sudah
-        # diperbaiki, lihat utils/card_images.py).
-        if current not in st.session_state.loading_results:
-            st.session_state.loading_results[current] = compute_raw_result(
-                current, st.session_state.loading_data,
-            )
-        current_raw_result = st.session_state.loading_results[current]
-        image_uri = card_image_for_system(current, current_raw_result)
-        card_art_inner = (
-            f'<img src="{image_uri}" alt="Kartu {current}" '
-            'style="width:100%;height:100%;object-fit:cover;">'
-            if image_uri else ""
-        )
-
-        # ── Teaser teks PAKAI TEKS ASLI (bukan bar kosong lagi) — cuma
-        # baris paling atas yang kebaca jelas, sisanya diblur progresif
-        # makin ke bawah makin tebal sampai nggak kebaca sama sekali.
-        # SENGAJA bukan indikator persen (sempat diusulkan, tapi
-        # dibatalkan) — cuma teks asli + blur gradasi. Sumber teksnya
-        # paragraf "Kekuatan & yang Perlu Dijaga" (p2), fallback ke p1
-        # kalau p2 nggak ada, dan ke teks generik kalau sistemnya belum
-        # punya konten sama sekali (mis. kuesioner yang belum dibangun).
-        display_data = build_display_data(current, current_raw_result) or {}
-        teaser_title = display_data.get("title") or current
-        teaser_body = display_data.get("p2") or display_data.get("p1") or (
-            f"Sedang menghitung insight {current}mu..."
-        )
-        wrapped_lines = textwrap.wrap(teaser_body, width=56)[:8] or [teaser_body]
-        blur_steps = [0, 0.8, 2, 3.5, 5.2, 7, 9, 11]
-        lines_html = "".join(
-            f'<p class="ry-load-line-text" style="filter:blur({blur_steps[min(i, len(blur_steps) - 1)]}px);">{line}</p>'
-            for i, line in enumerate(wrapped_lines)
-        )
-
-        st.markdown(
-            header_html
-            + _dots_html(points, idx, waiting=False)
-            + f'<div class="ry-load-card-wrap" style="--ry-anim-s:{ANIM_SECONDS}s;">'
-            '<div style="font-size:11px;font-weight:800;letter-spacing:0.08em;'
-            f'text-transform:uppercase;color:#b8562f;">✓ {current} — sedang diproses</div>'
-            f'<div class="ry-load-card" data-point-idx="{idx}" style="--ry-anim-s:' + str(ANIM_SECONDS) + 's;">'
-            f'<div class="ry-load-card-inner"><div class="ry-load-card-art">{card_art_inner}</div></div>'
-            '</div>'
-            f'<div class="ry-load-text-box" data-point-idx="{idx}" style="--ry-anim-s:' + str(ANIM_SECONDS) + 's;">'
-            f'<div class="ry-load-teaser-title">{teaser_title}</div>'
-            f'{lines_html}'
-            '</div>'
-            '</div>',
-            unsafe_allow_html=True,
-        )
-        # BUG YANG DIPERBAIKI (27 Sep 2026, rekaman video Stev nunjukin
-        # kartu titik baru "flash" full terbuka sekilas dulu baru tiba-tiba
-        # blank total, baru pelan-pelan direveal ulang — bukan cuma
-        # "kedip", beneran nge-jolt drastis):
-        #
-        # 3 lapis root cause yang KEKONFIRMASI langsung lewat inspeksi DOM
-        # (dites: tag elemen kartu titik-1 dengan marker custom, cek lagi
-        # setelah pindah titik-2 — hasilnya SAMA OBJECT DOM, cuma
-        # attribute/isinya yang di-patch, bukan dibuat ulang):
-        # 1) Streamlit/React makai ULANG elemen DOM kartu+text-box yang
-        #    sama persis antar titik (cuma konten yang di-patch in-place).
-        # 2) Animasi CSS (clip-path reveal) yang udah kelar di titik
-        #    SEBELUMNYA nge-persist ("forwards" fill-mode) di elemen itu
-        #    dan TETAP menang/override apapun rule CSS statis lain SAMPAI
-        #    animasinya beneran di-disable eksplisit — jadi begitu konten
-        #    titik BARU di-patch masuk, kartu itu SEMPAT kelihatan full
-        #    terbuka dulu (masih mewarisi status "selesai" dari titik
-        #    lama), padahal isinya udah titik baru.
-        # 3) Trik reset lama (iframe components.html dengan komentar unik
-        #    per titik biar reload) BARU jalan beberapa frame KEMUDIAN
-        #    (iframe baru butuh waktu dibuat+dimuat), jadi ada window nyata
-        #    dimana user lihat "kartu baru full terbuka -> tiba-tiba di-reset
-        #    ke tertutup -> pelan-pelan kebuka lagi" — itu yang kerasa jolt.
-        #
-        # FIX: pasang SATU iframe PERSISTEN (srcdoc-nya SENGAJA statis/sama
-        # tiap titik, BUKAN dikasih komentar unik lagi) yang isinya cuma
-        # masang MutationObserver SEKALI di awal, mengamati atribut
-        # data-point-idx di kartu/text-box (di-set di HTML atas). Karena
-        # srcdoc-nya sama, Streamlit TIDAK reload iframe-nya tiap titik
-        # (beda dari sebelumnya) — jadi observer-nya tetap hidup dari titik
-        # pertama sampai terakhir. Callback MutationObserver jalan sebagai
-        # microtask SEGERA setelah DOM di-patch, SEBELUM browser sempat
-        # nge-paint frame berikutnya — jadi reset animasinya kejadian
-        # duluan sebelum sempat kelihatan "flash" kartu lama yang masih
-        # terbuka.
-        # ── Ghost floating-window (st.dialog "Lengkapi Data") yang kedip
-        # sekilas di titik-titik SETELAH titik pertama (dilaporkan Stev,
-        # 27 Sep 2026 — "kedipannya kaya kedipan floating windows") ──
-        # DIBUKTIKAN lewat log server (loading_phase/missing dicatat tiap
-        # rerun): dari sisi Python, dialog "Lengkapi Data" CUMA dipanggil
-        # SEKALI (titik pertama, pas datanya beneran belum ada) — titik
-        # ke-2 dst selalu missing=None, dialognya TIDAK dipanggil lagi.
-        # TAPI dari sisi browser, elemen [data-testid="stDialog"] yang
-        # ISINYA SAMA PERSIS (dialog titik-1 yang udah kelar) kedetect
-        # nongol lagi sekilas (~0.4 detik) pas titik lain lagi animating —
-        # ini murni artefak sisi Streamlit-nya sendiri (DOM dialog lama
-        # ke-cache/nyangkut, sempat ke-render ulang pas rerun besar),
-        # BUKAN dialog baru yang beneran diminta app.
-        #
-        # FIX: karena iframe ini CUMA hidup selama fase "animating" (fase
-        # dimana TIDAK ADA dialog yang seharusnya muncul sama sekali —
-        # dialog data cuma legit di fase "asking" di titik pertama, dan
-        # dialog payment cuma legit di layar akhir setelah SEMUA titik
-        # kelar, keduanya di luar fase "animating" jadi iframe ini otomatis
-        # sudah dilepas Streamlit sebelum keduanya render) — SELAMA iframe
-        # ini hidup, floating window apapun yang nongol sudah pasti ghost,
-        # aman langsung dipaksa disembunyikan tanpa perlu cek fase lagi.
-        components.html(
-            """
-            <script>
-            (function () {
-                var doc = window.parent.document;
-                var lastIdx = {};
-                function resetAnim(el) {
-                    if (!el) return;
-                    var pid = el.getAttribute('data-point-idx');
-                    var key = el.className;
-                    if (lastIdx[key] === pid) return;
-                    lastIdx[key] = pid;
-                    el.style.animation = 'none';
-                    void el.offsetWidth;
-                    el.style.animation = '';
-                }
-                function killGhostDialogs() {
-                    var dlgs = doc.querySelectorAll('[data-testid="stDialog"]');
-                    dlgs.forEach(function (d) {
-                        d.style.setProperty('display', 'none', 'important');
-                    });
-                }
-                function checkAll() {
-                    resetAnim(doc.querySelector('.ry-load-card'));
-                    resetAnim(doc.querySelector('.ry-load-text-box'));
-                    killGhostDialogs();
-                }
-                if (window.parent.__ryObserver) {
-                    // Observer sebelumnya udah kepasang (iframe ini dipakai
-                    // ulang, bukan baru) — cukup jalanin cek sekali buat
-                    // titik yang baru masuk, observer lamanya tetap jalan.
-                    checkAll();
-                    return;
-                }
-                var mo = new MutationObserver(function () { checkAll(); });
-                try {
-                    mo.observe(doc.body, {
-                        attributes: true, childList: true, subtree: true,
-                    });
-                    window.parent.__ryObserver = mo;
-                } catch (e) {}
-                checkAll();
-            })();
-            </script>
-            """,
-            height=0,
-        )
-        time.sleep(ANIM_SECONDS)
-        # Jeda TAMBAHAN setelah kartu ini selesai reveal-in (animasi
-        # clip-path-nya udah kelar penuh), biar kartu yang udah jadi sempat
-        # "diam" dulu sebentar sebelum digantikan kartu titik berikutnya —
-        # mengurangi kesan hentakan/jolt pas transisi (dilaporkan Stev:
-        # pergantian kartu kerasa kayak ada hentakan kalau langsung diganti
-        # sedetik itu juga).
-        time.sleep(PAUSE_BETWEEN_POINTS_SECONDS)
-        # (hasil sudah dihitung di atas, sebelum kartu teaser dirender)
+        _animate_point(points, idx, header_html)
         st.session_state.loading_idx += 1
         st.session_state.loading_phase = "need_check"
         st.rerun()
