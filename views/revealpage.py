@@ -33,6 +33,7 @@ import streamlit.components.v1 as components
 from content.interpretations.matrix_destiny import MATRIX_DESTINY_CONTENT
 from content.result_builder import build_display_data
 from engine.matrix_destiny import NAMA_ARKETIPE
+from settings import PRICE_UPGRADE_SELISIH
 from utils.card_images import (
     card_filename_for_system,
     card_image_bytes_for_system,
@@ -80,6 +81,52 @@ DEFAULT_ICON = (
     '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fdf3e7" '
     'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
     '<circle cx="12" cy="12" r="7"></circle></svg>'
+)
+
+# ── Icon "keren/elegan" buat 4 domain insight (Karir/Asmara/Keuangan/
+# Kesehatan) — SENGAJA dibikin gaya stroke tipis yang sama persis kayak
+# SEAL_ICONS di atas (bukan emoji) biar konsisten sama identitas visual
+# yang udah di-ACC sebelumnya. Pakai currentColor supaya warnanya ngikut
+# CSS pemanggilnya (gold #b8562f di summary expander).
+DOMAIN_ORDER = ["karir", "asmara", "keuangan", "kesehatan"]
+DOMAIN_LABEL = {"karir": "Karir", "asmara": "Asmara", "keuangan": "Keuangan", "kesehatan": "Kesehatan"}
+DOMAIN_ICON = {
+    "karir": (
+        '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" '
+        'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'
+        '<rect x="3" y="7.5" width="18" height="12.5" rx="2.2"></rect>'
+        '<path d="M8.5 7.5V5.8a1.8 1.8 0 0 1 1.8-1.8h3.4a1.8 1.8 0 0 1 1.8 1.8v1.7"></path>'
+        '<path d="M3 13h18"></path></svg>'
+    ),
+    "asmara": (
+        '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" '
+        'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'
+        '<path d="M12 20s-7-4.35-9.5-8.5C.7 8 2 4.5 5.5 4c2-.3 3.7.8 4.5 2.2C10.8 4.8 12.5 3.7 14.5 4 '
+        'c3.5.5 4.8 4 3 7.5C19 15.65 12 20 12 20Z"></path></svg>'
+    ),
+    "keuangan": (
+        '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" '
+        'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'
+        '<ellipse cx="12" cy="6.2" rx="7.7" ry="2.7"></ellipse>'
+        '<path d="M4.3 6.2v5.4c0 1.5 3.4 2.7 7.7 2.7s7.7-1.2 7.7-2.7V6.2"></path>'
+        '<path d="M4.3 11.6V17c0 1.5 3.4 2.7 7.7 2.7s7.7-1.2 7.7-2.7v-5.4"></path></svg>'
+    ),
+    "kesehatan": (
+        '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" '
+        'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'
+        '<path d="M3 12.5h3.6l1.7-5.6 3.2 11.2 1.7-5.6h6.8"></path></svg>'
+    ),
+}
+CHEVRON_ICON = (
+    '<svg class="rp-exp-chevron" viewBox="0 0 24 24" width="15" height="15" fill="none" '
+    'stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">'
+    '<path d="M6 9l6 6 6-6"></path></svg>'
+)
+LOCK_ICON_SMALL = (
+    '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" '
+    'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'
+    '<rect x="5" y="10.5" width="14" height="9.5" rx="2"></rect>'
+    '<path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg>'
 )
 
 # ── Konten dummy 5 sistem contoh ──
@@ -221,6 +268,22 @@ def _env_col_key(system):
     return f"env_col_{system.replace(' ', '_')}"
 
 
+def _anchor_id(system):
+    """ID anchor HTML buat 1 sistem, dipakai jump-nav (href="#...") DAN
+    target-nya (pas sistem itu dirender). Sama pola replace-spasi kayak
+    _env_col_key, biar konsisten & aman dipakai di selector/URL fragment."""
+    return f"rp-anchor-{system.replace(' ', '_')}"
+
+
+def _domain_unlocked_for(system):
+    """True kalau insight domain (Karir/Asmara/Keuangan/Kesehatan) buat
+    sistem ini boleh ditampilkan kebuka: tier laporan udah 'panjang' dari
+    awal, ATAU user udah upgrade/bayar selisihnya khusus buat sistem ini."""
+    if st.session_state.get("report_tier") == "panjang":
+        return True
+    return system in st.session_state.get("domain_unlocked", set())
+
+
 def _seal_icon(system):
     return SEAL_ICONS.get(system, DEFAULT_ICON)
 
@@ -257,6 +320,21 @@ def _ensure_state():
         # Flag buat nampilin floating window konfirmasi ("Iya"/"Tidak")
         # sebelum proses buka-semua beneran mulai.
         st.session_state.reveal_confirm_open_all = False
+    # Tier laporan (pendek/panjang) — dipilih user di floating window paywall
+    # loadingpage.py (_final_dialog). Fallback ke "panjang" kalau entah
+    # kenapa halaman ini diakses tanpa lewat gate itu (mis. tombol debug
+    # "Test -> Reveal/Hasil Page"), biar amplop nggak keliatan
+    # terkunci-semua tanpa konteks buat yang lagi ngetes langsung di sini.
+    if "report_tier" not in st.session_state:
+        st.session_state.report_tier = "panjang"
+    if "domain_unlocked" not in st.session_state:
+        # Set sistem yang expander insight-nya sudah di-upgrade/dibayar
+        # satu-satu (cuma relevan kalau report_tier == "pendek").
+        st.session_state.domain_unlocked = set()
+    if "show_upgrade_dialog" not in st.session_state:
+        # Nama sistem yang lagi minta floating window upgrade dibuka, atau
+        # None kalau nggak ada.
+        st.session_state.show_upgrade_dialog = None
 
 
 def _points():
@@ -400,6 +478,81 @@ def _inject_style():
             line-height: 1.6; font-family: 'Fraunces', serif; }
         .rp-detail-empty { font-size: 13.5px; color: #6b6459 !important; line-height: 1.7;
             font-style: italic; }
+
+        /* ── Expander native <details>/<summary> — dipilih SENGAJA daripada
+           st.expander bawaan Streamlit, karena buka/tutupnya murni CSS/HTML
+           di browser (nggak minta Python rerun sama sekali), jadi nggak ada
+           potensi "kedip"/nge-refresh kayak yang kerasa di transisi loading
+           page. Struktur lama (Siapa Kamu/Kekuatan/PR) pakai ini dengan
+           atribut `open` sehingga default KEBUKA; expander insight domain
+           (Karir/Asmara/dll) pakai versi tanpa `open` (default TERTUTUP). */
+        details.rp-exp { border: 1.5px solid #ecddc9; border-radius: 14px; margin-top: 4px;
+            background: #fffaf2; overflow: hidden; }
+        details.rp-exp > summary { cursor: pointer; list-style: none; padding: 12px 16px;
+            font-weight: 700; font-size: 13px; color: #8a5a2f !important; display: flex;
+            align-items: center; gap: 8px; user-select: none; }
+        details.rp-exp > summary::-webkit-details-marker { display: none; }
+        details.rp-exp > summary::marker { content: ""; }
+        details.rp-exp > summary .rp-exp-chevron { margin-left: auto; flex-shrink: 0;
+            transition: transform 0.18s ease; color: #b8562f !important; }
+        details.rp-exp[open] > summary .rp-exp-chevron { transform: rotate(180deg); }
+        details.rp-exp > summary .rp-exp-icon { display: flex; flex-shrink: 0; color: #b8562f !important; }
+        details.rp-exp > .rp-exp-body { padding: 2px 16px 18px 16px; display: flex;
+            flex-direction: column; gap: 14px; border-top: 1px dashed #ecddc9; margin-top: 2px;
+            padding-top: 14px; }
+
+        /* Sub-bagian domain (Karir/Asmara/Keuangan/Kesehatan) di dalam
+           expander insight, satu per domain. */
+        .rp-domain-item { display: flex; flex-direction: column; gap: 4px; }
+        .rp-domain-item-head { display: flex; align-items: center; gap: 8px; }
+        .rp-domain-item-head .rp-exp-icon { color: #b8562f !important; }
+        .rp-domain-item-label { font-size: 12px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.04em; color: #8a5a2f !important; }
+        .rp-domain-item p { margin: 0; font-size: 13px; line-height: 1.7; color: #3a352c !important; }
+
+        /* Header "terkunci" versi pendek — tampilannya SAMA kayak
+           summary details di atas (biar konsisten), tapi ini tombol
+           Streamlit beneran (bukan <details>) karena klik-nya harus
+           munculin floating window upgrade lewat Python. */
+        div[class*="st-key-rp_domain_lock_"] div.stButton > button {
+            width: 100% !important; justify-content: flex-start !important; text-align: left !important;
+            border: 1.5px solid #ecddc9 !important; border-radius: 14px !important;
+            background: #fffaf2 !important; color: #8a5a2f !important; font-weight: 700 !important;
+            font-size: 13px !important; padding: 12px 16px !important; margin-top: 4px !important;
+        }
+        div[class*="st-key-rp_domain_lock_"] div.stButton > button:hover {
+            border-color: #e4a56e !important; background: #fff3e0 !important;
+        }
+
+        /* ── Sticky jump-nav antar amplop (desktop) — position:fixed nempel
+           ke viewport (bukan ke alur kolom Streamlit yang lebarnya terbatas
+           & center), plus scroll-behavior:smooth global biar transisi klik
+           -> lompat ke section itu keliatan mulus, bukan loncat kasar.
+           Murni CSS/HTML, nggak ada JS. Disembunyikan di layar sempit
+           (mobile) dulu — versi floating-button mobile nanti menyusul. ──*/
+        html { scroll-behavior: smooth; }
+        .rp-jumpnav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%);
+            z-index: 999; display: flex; flex-direction: column; gap: 6px;
+            background: #fffaf2; border: 1.5px solid #ecddc9; border-radius: 16px;
+            padding: 10px; box-shadow: 0 18px 40px -20px rgba(139,90,47,0.35); }
+        .rp-jumpnav a { display: flex; align-items: center; gap: 7px; padding: 7px 12px;
+            border-radius: 100px; font-size: 11.5px; font-weight: 700; color: #8a5a2f !important;
+            text-decoration: none !important; white-space: nowrap; }
+        .rp-jumpnav a:hover { background: #fdf3e7; }
+        .rp-jumpnav a .rp-jumpnav-dot { width: 6px; height: 6px; border-radius: 50%;
+            background: #e4a56e; flex-shrink: 0; }
+        @media (max-width: 900px) {
+            .rp-jumpnav { display: none; }
+        }
+        /* Halaman ini pakai layout="wide" (max-width 1360px, lihat app.py),
+           jadi kontennya bisa mepet ke tepi kanan dan ketiban rp-jumpnav
+           yang position:fixed. Reservasi ruang kanan khusus di halaman ini
+           aja (bukan ubah .block-container global) supaya teks nggak
+           kepotong di bawah nav. Cuma aktif di lebar yang sama dengan nav
+           ditampilkan. */
+        @media (min-width: 901px) {
+            div[data-testid="stAppViewContainer"] .block-container { padding-right: 190px; }
+        }
 
         /* Badge kecil buat data tambahan (elemen Shio, modality/planet
            Zodiak, Pancasuda Weton) — ditaruh di bawah PR Kecil, di dalam
@@ -881,6 +1034,7 @@ def _render_matrix_destiny_extra(raw_result):
 
 def _render_detail(system):
     data = _result_for(system)
+    st.markdown(f'<div id="{_anchor_id(system)}"></div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="rp-detail-hint"><div class="rp-detail-hint-line"></div>'
         f'<div class="rp-detail-hint-text">Hasil {system}</div></div>',
@@ -938,10 +1092,19 @@ def _render_detail(system):
                     )
         with st.container(key=f"rp_detail_text_wrap_{system}"):
             supplementary = _render_supplementary_badges(system, raw_result) or ""
+            # ── Struktur lama (Siapa Kamu/Kekuatan/Kutipan/PR) dibungkus
+            # <details open> — native HTML, defaultnya KEBUKA begitu amplop
+            # dibuka, tapi tetap bisa dilipat user lewat klik summary-nya.
+            # Ini BUKAN st.expander Streamlit (yang minta rerun Python tiap
+            # toggle) — details/summary murni ditangani browser, jadi
+            # buka/tutupnya instan tanpa kedip/refresh sama sekali. ──
             st.markdown(
                 '<div class="rp-detail-text">'
                 f'<span class="rp-detail-chip">{data["chip"]}</span>'
                 f'<h2 class="rp-detail-title rp-serif">{data["title"]}</h2>'
+                '<details class="rp-exp" open>'
+                '<summary>Ringkasan Karaktermu' + CHEVRON_ICON + '</summary>'
+                '<div class="rp-exp-body">'
                 f'<div><div class="rp-detail-label">{data["p1_label"]}</div>'
                 f'<p class="rp-detail-p">{data["p1"]}</p></div>'
                 f'<div><div class="rp-detail-label">{data["p2_label"]}</div>'
@@ -950,12 +1113,92 @@ def _render_detail(system):
                 f'<div><div class="rp-detail-label">{data["p3_label"]}</div>'
                 f'<p class="rp-detail-p">{data["p3"]}</p></div>'
                 f'{supplementary}'
+                '</div></details>'
                 '</div>',
                 unsafe_allow_html=True,
             )
 
+            # ── Insight domain (Karir/Asmara/Keuangan/Kesehatan) — cuma
+            # muncul kalau kamus kontennya udah ada (Fase A: baru Zodiak).
+            # Sistem lain belum ditambahin apa-apa di sini dulu (jujur
+            # belum ada, bukan dikarang placeholder), nyusul Fase B. ──
+            domains = data.get("domains")
+            if domains:
+                if _domain_unlocked_for(system):
+                    domain_body = "".join(
+                        '<div class="rp-domain-item">'
+                        '<div class="rp-domain-item-head">'
+                        f'<span class="rp-exp-icon">{DOMAIN_ICON[key]}</span>'
+                        f'<span class="rp-domain-item-label">{DOMAIN_LABEL[key]}</span>'
+                        '</div>'
+                        f'<p>{domains[key]}</p>'
+                        '</div>'
+                        for key in DOMAIN_ORDER if key in domains
+                    )
+                    st.markdown(
+                        '<details class="rp-exp">'
+                        '<summary><span class="rp-exp-icon">' + DOMAIN_ICON["karir"] + '</span>'
+                        'Insight Karir, Asmara, Keuangan &amp; Kesehatan' + CHEVRON_ICON + '</summary>'
+                        f'<div class="rp-exp-body">{domain_body}</div>'
+                        '</details>',
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    with st.container(key=f"rp_domain_lock_{system}"):
+                        if st.button(
+                            "Insight Karir, Asmara, Keuangan & Kesehatan  🔒",
+                            key=f"btn_domain_lock_{system}",
+                            use_container_width=True,
+                        ):
+                            st.session_state.show_upgrade_dialog = system
+                            st.rerun()
+
     if system == "Matrix Destiny":
         _render_matrix_destiny_extra(raw_result)
+
+    if st.session_state.get("show_upgrade_dialog") == system:
+        _upgrade_dialog(system)
+
+
+@st.dialog("Upgrade ke Versi Lengkap?")
+def _upgrade_dialog(system):
+    """
+    Floating window upsell — muncul kalau user (yang beli Versi Pendek)
+    klik header terkunci "Insight Karir, Asmara, Keuangan & Kesehatan" di
+    satu amplop. BEDA dari _final_dialog di loadingpage.py (gerbang wajib,
+    dismissible=False): ini upsell OPSIONAL di tengah baca laporan, jadi
+    boleh ditutup tanpa bayar (dismissible default True).
+
+    Belum ada payment gateway asli — sama kayak paywall utama, cuma ada
+    tombol "Bypass Payment" buat testing (lihat settings.py, TESTING_MODE).
+    """
+    harga_selisih = f"{PRICE_UPGRADE_SELISIH:,.0f}".replace(",", ".")
+    st.markdown(
+        '<div style="text-align:center;padding:4px 0 2px 0;">'
+        f'<div style="font-family:\'Fraunces\',serif;font-size:18px;font-weight:800;'
+        f'color:#1c1a17;line-height:1.4;">Buka Insight {system}</div>'
+        '<div style="font-size:13px;color:#6b6459;margin-top:8px;line-height:1.6;">'
+        'Bagian Karir, Asmara, Keuangan &amp; Kesehatan cuma ada di Versi Lengkap. '
+        f'Bayar selisihnya (Rp {harga_selisih}) buat buka insight ini.</div></div>',
+        unsafe_allow_html=True,
+    )
+    st.write("")
+    st.button(
+        "Bayar Sekarang", key=f"btn_pay_upgrade_{system}", type="secondary",
+        icon=":material/lock:", use_container_width=True, disabled=True,
+    )
+    st.markdown(
+        '<div style="text-align:center;font-size:11px;color:#c9c2b4;margin:2px 0 10px 0;">'
+        'Payment gateway asli belum terpasang — pakai tombol testing di bawah dulu.</div>',
+        unsafe_allow_html=True,
+    )
+    if st.button(
+        "Bypass Payment", key=f"btn_bypass_upgrade_{system}", type="primary",
+        icon=":material/bolt:", use_container_width=True,
+    ):
+        st.session_state.domain_unlocked.add(system)
+        st.session_state.show_upgrade_dialog = None
+        st.rerun()
 
 
 @st.dialog("Buka Semua Amplop?", dismissible=False)
@@ -1012,6 +1255,20 @@ def render():
             st.session_state.dr_page = "reveal"
             st.rerun()
         return
+
+    # ── Sticky jump-nav ke amplop yang sudah kebuka & ditampilkan ──
+    # Anchor targetnya ditulis nanti pas _render_detail(system) masing2
+    # dipanggil, tapi berhubung ini semua satu output HTML yang sama (satu
+    # kali render script), urutan taruh <nav>-nya duluan di sini nggak
+    # masalah — link href="#..." tetap nemu target-nya begitu halaman
+    # selesai di-render browser.
+    nav_systems = [s for s in st.session_state.reveal_order if s in st.session_state.reveal_visible]
+    if nav_systems:
+        nav_items = "".join(
+            f'<a href="#{_anchor_id(s)}"><span class="rp-jumpnav-dot"></span>{s}</a>'
+            for s in nav_systems
+        )
+        st.markdown(f'<div class="rp-jumpnav">{nav_items}</div>', unsafe_allow_html=True)
 
     st.markdown(
         '<div class="rp-header">'

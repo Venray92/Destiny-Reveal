@@ -38,6 +38,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from content.result_builder import compute_raw_result
+from settings import PRICE_PANJANG, PRICE_PENDEK
 from utils.card_images import card_image_for_system
 from utils.date_format import BULAN_NAMES_ID, format_tanggal_ddmmyyyy
 from views.reveal_yourself import RY_MODES
@@ -112,11 +113,17 @@ def _final_dialog():
     Floating window paywall di akhir proses loading.
 
     BELUM ada integrasi payment gateway asli (Midtrans/Xendit dkk) — ini
-    SENGAJA cuma 1 tombol "Bypass Payment" buat kebutuhan testing (lihat
+    SENGAJA cuma tombol "Bypass Payment" buat kebutuhan testing (lihat
     settings.py, TESTING_MODE). Begitu payment gateway beneran siap,
     tombol ini diganti jadi UI pembayaran asli, TIDAK ada auto-lanjut JS
     kayak dialog sebelumnya, karena ini gerbang (gate) — harus benar-benar
     diklik/dibayar, bukan dilewati otomatis.
+
+    Sekarang ada 2 pilihan tier (Versi Pendek vs Versi Panjang) — harga di
+    PRICE_PENDEK/PRICE_PANJANG (settings.py) MASIH DUMMY, nunggu angka
+    final. Pilihan disimpan ke session_state.report_tier, dipakai
+    revealpage.py buat nentuin expander insight domain (Karir/Asmara/dll)
+    kebuka langsung atau kekunci per-amplop.
     """
     st.markdown(
         '<div style="text-align:center;padding:6px 0 4px 0;">'
@@ -125,26 +132,63 @@ def _final_dialog():
         'color:#1c1a17;letter-spacing:0.01em;line-height:1.4;">'
         'SEMUA DATA DIRIMU<br>SUDAH DIREVEAL</div>'
         '<div style="font-size:13px;color:#6b6459;margin-top:8px;">'
-        'Bayar sekali buat buka laporan lengkapnya.</div>'
+        'Pilih versi laporan buat buka hasil lengkapnya.</div>'
         '</div>',
         unsafe_allow_html=True,
     )
     st.write("")
-    st.button(
-        "Bayar Sekarang", key="btn_pay_real", type="secondary",
-        icon=":material/lock:", use_container_width=True, disabled=True,
-    )
+
+    harga_pendek = f"{PRICE_PENDEK:,.0f}".replace(",", ".")
+    harga_panjang = f"{PRICE_PANJANG:,.0f}".replace(",", ".")
+
+    col_pendek, col_panjang = st.columns(2)
+    with col_pendek:
+        st.markdown(
+            '<div style="border:1.5px solid #ecddc9;border-radius:14px;padding:14px 12px;'
+            'background:#fdfaf5;height:100%;">'
+            '<div style="font-size:11px;font-weight:800;letter-spacing:0.04em;'
+            'text-transform:uppercase;color:#8a5a2f;">Versi Pendek</div>'
+            f'<div style="font-size:17px;font-weight:800;color:#1c1a17;margin-top:2px;">Rp {harga_pendek}</div>'
+            '<div style="font-size:11.5px;color:#6b6459;margin-top:6px;line-height:1.5;">'
+            '5 hasil sistem inti (Siapa Kamu, Kekuatan, PR). Insight Karir/Asmara/dll '
+            'bisa dibuka belakangan per-amplop.</div></div>',
+            unsafe_allow_html=True,
+        )
+        st.write("")
+        if st.button(
+            "Bypass (Pendek)", key="btn_bypass_pendek",
+            type="secondary", icon=":material/bolt:", use_container_width=True,
+        ):
+            st.session_state.report_tier = "pendek"
+            st.session_state.dr_page = "result"
+            st.rerun()
+    with col_panjang:
+        st.markdown(
+            '<div style="border:1.5px solid #e4a56e;border-radius:14px;padding:14px 12px;'
+            'background:#fff8ef;height:100%;">'
+            '<div style="font-size:11px;font-weight:800;letter-spacing:0.04em;'
+            'text-transform:uppercase;color:#b8562f;">Versi Lengkap</div>'
+            f'<div style="font-size:17px;font-weight:800;color:#1c1a17;margin-top:2px;">Rp {harga_panjang}</div>'
+            '<div style="font-size:11.5px;color:#6b6459;margin-top:6px;line-height:1.5;">'
+            'Semua hasil inti + insight Karir, Asmara, Keuangan &amp; Kesehatan langsung '
+            'kebuka semua amplop.</div></div>',
+            unsafe_allow_html=True,
+        )
+        st.write("")
+        if st.button(
+            "Bypass (Lengkap)", key="btn_bypass_panjang",
+            type="primary", icon=":material/bolt:", use_container_width=True,
+        ):
+            st.session_state.report_tier = "panjang"
+            st.session_state.dr_page = "result"
+            st.rerun()
+
     st.markdown(
-        '<div style="text-align:center;font-size:11px;color:#c9c2b4;margin:2px 0 10px 0;">'
-        'Payment gateway asli belum terpasang — pakai tombol testing di bawah dulu.</div>',
+        '<div style="text-align:center;font-size:11px;color:#c9c2b4;margin:10px 0 2px 0;">'
+        'Payment gateway asli belum terpasang — kedua tombol di atas masih tombol testing. '
+        'Harga di kartu juga masih dummy, nunggu angka final.</div>',
         unsafe_allow_html=True,
     )
-    if st.button(
-        "Bypass Payment", key="btn_bypass_payment", type="primary",
-        icon=":material/bolt:", use_container_width=True,
-    ):
-        st.session_state.dr_page = "result"
-        st.rerun()
 
 
 @st.dialog("Lengkapi Data", dismissible=False)
