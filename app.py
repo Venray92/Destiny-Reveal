@@ -296,8 +296,21 @@ st.markdown(
        Bintang kiri-kanan dipasang lewat ::before/::after (dekorasi, dipindah dari
        badge hero yang sudah dihapus) supaya tidak perlu elemen HTML tambahan. */
     .st-key-lang_switch {
-        max-width: 100%; width: 100%; margin-left: auto; margin-right: 0;
+        max-width: 100%; width: fit-content; margin-left: auto; margin-right: 0;
         position: relative; padding: 0 14px;
+    }
+    /* Wrapper Streamlit bawaan (stSelectbox) defaultnya width:100% ngikut
+       kolom nav yang lebih lebar dari perlu, jadi pill-nya nyisa ruang
+       kosong di kanan. Dipaksa fit-content + rata kanan biar pill-nya
+       beneran nempel pas sama tulisannya, bukan ngambang di tengah area
+       kosong. */
+    .st-key-lang_switch div[data-testid="stSelectbox"] {
+        width: 168px !important; max-width: 168px !important; flex: 0 0 auto !important;
+        margin-left: auto !important; margin-right: 0 !important;
+    }
+    .st-key-lang_switch [class*="react-aria-ComboBox"],
+    .st-key-lang_switch [class*="react-aria-ComboBox"] > div {
+        width: 100% !important;
     }
     .st-key-lang_switch::before,
     .st-key-lang_switch::after {
@@ -479,7 +492,7 @@ if "dr_page" not in st.session_state:
 # ── NAV BAR ──────────────────────────────────────────────────
 with st.container(key="nav_row"):
     nav_l, nav_home_btn, nav_reveal_btn, nav_tutorial_btn, nav_r = st.columns(
-        [2.2, 0.95, 1.35, 1.05, 1.5]
+        [2.5, 0.95, 1.35, 1.05, 1.15]
     )
     with nav_l:
         st.markdown(
