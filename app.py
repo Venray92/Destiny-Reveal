@@ -296,8 +296,8 @@ st.markdown(
        Bintang kiri-kanan dipasang lewat ::before/::after (dekorasi, dipindah dari
        badge hero yang sudah dihapus) supaya tidak perlu elemen HTML tambahan. */
     .st-key-lang_switch {
-        max-width: 100%; width: fit-content; margin-left: auto; margin-right: 0;
-        position: relative; padding: 0 14px;
+        max-width: 100%; width: 100%; margin-left: auto; margin-right: 0;
+        position: relative; padding: 0 14px; box-sizing: border-box;
     }
     /* Wrapper Streamlit bawaan (stSelectbox) defaultnya width:100% ngikut
        kolom nav yang lebih lebar dari perlu, jadi pill-nya nyisa ruang
@@ -305,7 +305,7 @@ st.markdown(
        beneran nempel pas sama tulisannya, bukan ngambang di tengah area
        kosong. */
     .st-key-lang_switch div[data-testid="stSelectbox"] {
-        width: 168px !important; max-width: 168px !important; flex: 0 0 auto !important;
+        width: 100% !important; max-width: 168px !important; flex: 0 0 auto !important;
         margin-left: auto !important; margin-right: 0 !important;
     }
     .st-key-lang_switch [class*="react-aria-ComboBox"],
