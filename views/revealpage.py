@@ -514,14 +514,20 @@ def _inject_style():
            summary details di atas (biar konsisten), tapi ini tombol
            Streamlit beneran (bukan <details>) karena klik-nya harus
            munculin floating window upgrade lewat Python. */
+        /* Redup selama masih terkunci — cuma expander SATU ini yang dibikin
+           lebih pudar (opacity + warna abu-abu) daripada expander lain di
+           kartu yang sama (Ringkasan Karaktermu tetap terang normal).
+           Begitu di-unlock, ini digantikan versi <details> di atas yang
+           terang seperti semula (nggak ada perubahan di situ). */
         div[class*="st-key-rp_domain_lock_"] div.stButton > button {
             width: 100% !important; justify-content: flex-start !important; text-align: left !important;
-            border: 1.5px solid #ecddc9 !important; border-radius: 14px !important;
-            background: #fffaf2 !important; color: #8a5a2f !important; font-weight: 700 !important;
+            border: 1.5px solid #e4ddd0 !important; border-radius: 14px !important;
+            background: #f3efe6 !important; color: #a89f8f !important; font-weight: 700 !important;
             font-size: 13px !important; padding: 12px 16px !important; margin-top: 4px !important;
+            opacity: 0.6 !important; filter: grayscale(0.4); transition: opacity 0.15s ease;
         }
         div[class*="st-key-rp_domain_lock_"] div.stButton > button:hover {
-            border-color: #e4a56e !important; background: #fff3e0 !important;
+            opacity: 0.85 !important; border-color: #e4a56e !important; background: #fff3e0 !important;
         }
 
         /* ── Sticky jump-nav antar amplop (desktop) — position:fixed nempel
@@ -530,7 +536,17 @@ def _inject_style():
            -> lompat ke section itu keliatan mulus, bukan loncat kasar.
            Murni CSS/HTML, nggak ada JS. Disembunyikan di layar sempit
            (mobile) dulu — versi floating-button mobile nanti menyusul. ──*/
-        html { scroll-behavior: smooth; }
+        /* scroll-behavior:smooth di banyak selector sekaligus — Streamlit
+           bisa taruh scrollbar beneran di container yang BUKAN <html>
+           (mis. [data-testid="stAppViewContainer"] atau .main), jadi kalau
+           cuma diset di html doang, klik nav bisa keliatan lompat instan
+           (bukan animasi) karena container yang beneran scroll-nya nggak
+           kena rule ini. Klik nav sendiri tetap dipaksa smooth juga lewat
+           JS (scrollIntoView) di bawah, ini cuma lapis tambahan/fallback. */
+        html, body,
+        [data-testid="stAppViewContainer"], [data-testid="stMain"], .main {
+            scroll-behavior: smooth;
+        }
         .rp-jumpnav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%);
             z-index: 999; display: flex; flex-direction: column; gap: 6px;
             background: #fffaf2; border: 1.5px solid #ecddc9; border-radius: 16px;
@@ -1138,7 +1154,7 @@ def _render_detail(system):
                     st.markdown(
                         '<details class="rp-exp">'
                         '<summary><span class="rp-exp-icon">' + DOMAIN_ICON["karir"] + '</span>'
-                        'Insight Karir, Asmara, Keuangan &amp; Kesehatan' + CHEVRON_ICON + '</summary>'
+                        'Insight Karir, Asmara, Keuangan &amp; Kesehatan pada dirimu' + CHEVRON_ICON + '</summary>'
                         f'<div class="rp-exp-body">{domain_body}</div>'
                         '</details>',
                         unsafe_allow_html=True,
@@ -1146,7 +1162,7 @@ def _render_detail(system):
                 else:
                     with st.container(key=f"rp_domain_lock_{system}"):
                         if st.button(
-                            "Insight Karir, Asmara, Keuangan & Kesehatan  🔒",
+                            "Insight Karir, Asmara, Keuangan & Kesehatan pada dirimu  🔒",
                             key=f"btn_domain_lock_{system}",
                             use_container_width=True,
                         ):
@@ -1269,6 +1285,38 @@ def render():
             for s in nav_systems
         )
         st.markdown(f'<div class="rp-jumpnav">{nav_items}</div>', unsafe_allow_html=True)
+        # ── Fix klik nav "lompat" instan (bukan scroll animasi) — native
+        # anchor href="#..." browser SEHARUSNYA ikut scroll-behavior:smooth
+        # dari CSS, tapi kalau container yang beneran scroll bukan <html>
+        # (umum di app Streamlit yang dibungkus banyak wrapper), itu nggak
+        # kepakai. Fix-nya: intercept klik-nya lewat JS, panggil
+        # scrollIntoView({behavior:'smooth'}) manual ke target anchor-nya,
+        # yang selalu jalan animasinya apapun elemen yang beneran scroll. ──
+        components.html(
+            f"""
+            <script>
+            // rp-jumpnav-marker:{len(nav_systems)}:{time.time()}
+            function rpBindJumpNav() {{
+                try {{
+                    var doc = window.parent.document;
+                    var links = doc.querySelectorAll('.rp-jumpnav a');
+                    links.forEach(function (a) {{
+                        a.addEventListener('click', function (e) {{
+                            var id = a.getAttribute('href').slice(1);
+                            var target = doc.getElementById(id);
+                            if (target) {{
+                                e.preventDefault();
+                                target.scrollIntoView({{behavior: 'smooth', block: 'start'}});
+                            }}
+                        }});
+                    }});
+                }} catch (err) {{}}
+            }}
+            requestAnimationFrame(function () {{ requestAnimationFrame(rpBindJumpNav); }});
+            </script>
+            """,
+            height=0,
+        )
 
     st.markdown(
         '<div class="rp-header">'
@@ -1282,15 +1330,26 @@ def render():
 
     # Ringkasan data yang diinput user (tanggal lahir), biar dia bisa cek
     # ulang input-nya nggak salah ketik sebelum baca hasil.
-    tanggal_lahir = st.session_state.get("loading_data", {}).get("tanggal_lahir")
-    tanggal_str = format_tanggal_ddmmyyyy(tanggal_lahir)
-    if tanggal_str:
+    input_data = st.session_state.get("loading_data", {})
+    tanggal_str = format_tanggal_ddmmyyyy(input_data.get("tanggal_lahir"))
+    nama_input = input_data.get("nama_lengkap")
+    if tanggal_str or nama_input:
+        badges = []
+        if tanggal_str:
+            badges.append(
+                '<span class="rp-input-summary"><span class="material-symbols-outlined" '
+                'style="font-size:15px;vertical-align:-2px;">calendar_month</span> '
+                f'Tanggal Kamu: <b>{tanggal_str}</b></span>'
+            )
+        if nama_input:
+            badges.append(
+                '<span class="rp-input-summary"><span class="material-symbols-outlined" '
+                'style="font-size:15px;vertical-align:-2px;">badge</span> '
+                f'Nama Kamu: <b>{nama_input}</b></span>'
+            )
         st.markdown(
-            '<div style="text-align:center;margin-top:10px;">'
-            f'<span class="rp-input-summary"><span class="material-symbols-outlined" '
-            'style="font-size:15px;vertical-align:-2px;">calendar_month</span> '
-            f'Tanggal Kamu: <b>{tanggal_str}</b></span>'
-            '</div>',
+            '<div style="text-align:center;margin-top:10px;display:flex;gap:8px;'
+            f'justify-content:center;flex-wrap:wrap;">{"".join(badges)}</div>',
             unsafe_allow_html=True,
         )
 

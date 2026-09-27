@@ -60,6 +60,7 @@ NEEDS_KUESIONER_BELUM_ADA = {"MBTI", "Big Five", "Enneagram", "DISC", "Love Lang
 FIELD_LABEL = {
     "tanggal_lahir": "Masukkan Tanggal Lahir",
     "nama_lengkap": "Masukkan Nama Lengkap",
+    "tanggal_lahir_dan_nama": "Lengkapi Data Dasar",
     "jam_lahir": "Masukkan Jam Lahir",
     "kota_lahir": "Masukkan Kota Lahir",
     "golongan_darah": "Masukkan Golongan Darah",
@@ -86,6 +87,14 @@ def _ensure_state():
         st.session_state.loading_data = {}  # tanggal_lahir, jam_lahir, kota_lahir, golongan_darah
 
 
+def _points_need_nama():
+    """True kalau SALAH SATU titik di mode yang lagi jalan butuh nama
+    lengkap (skr cuma Numerologi) — dipakai buat mutusin apa nama harus
+    ikut ditanya di dialog pertama (bareng tanggal lahir), bukan ditunda
+    sampai titik yang beneran butuh nama kena giliran."""
+    return any(s in NEEDS_NAMA for s in st.session_state.get("loading_points", []))
+
+
 def _missing_field_for(system):
     data = st.session_state.loading_data
     # Sistem yang kuesionernya belum ada (MBTI dkk) tetap butuh data DASAR
@@ -95,6 +104,12 @@ def _missing_field_for(system):
     # otomatis nggak nanya lagi.
     needs_tanggal = system in NEEDS_TANGGAL or system in NEEDS_KUESIONER_BELUM_ADA
     if needs_tanggal and "tanggal_lahir" not in data:
+        # Kalau mode ini bakal ketemu titik yang butuh nama (mis. Numerologi)
+        # di titik manapun, nama-nya SEKALIAN ditanya bareng tanggal di
+        # dialog pertama ini juga — bukan nunggu sampai titik Numerologi
+        # kena giliran (biar user nggak diinterupsi lagi di tengah jalan).
+        if _points_need_nama() and "nama_lengkap" not in data:
+            return "tanggal_lahir_dan_nama"
         return "tanggal_lahir"
     if system in NEEDS_NAMA and "nama_lengkap" not in data:
         return "nama_lengkap"
@@ -104,6 +119,19 @@ def _missing_field_for(system):
         return "kota_lahir"
     if system in NEEDS_GOLDA and "golongan_darah" not in data:
         return "golongan_darah"
+    return None
+
+
+def _validate_nama(nama):
+    """Return pesan error (string) kalau nama nggak valid, None kalau
+    valid. Syarat: minimal 4 huruf, nggak boleh ada angka."""
+    nama = (nama or "").strip()
+    if not nama:
+        return "Nama lengkap belum diisi."
+    if len(nama) < 4:
+        return "Nama lengkap minimal 4 huruf."
+    if any(ch.isdigit() for ch in nama):
+        return "Nama lengkap tidak boleh mengandung angka."
     return None
 
 
@@ -150,8 +178,9 @@ def _final_dialog():
             'text-transform:uppercase;color:#8a5a2f;">Versi Pendek</div>'
             f'<div style="font-size:17px;font-weight:800;color:#1c1a17;margin-top:2px;">Rp {harga_pendek}</div>'
             '<div style="font-size:11.5px;color:#6b6459;margin-top:6px;line-height:1.5;">'
-            '5 hasil sistem inti (Siapa Kamu, Kekuatan, PR). Insight Karir/Asmara/dll '
-            'bisa dibuka belakangan per-amplop.</div></div>',
+            'Mendapatkan semua hasil inti (siapa diri kamu, kekuatan pada dirimu, dan PR '
+            'apa yg harus dikerjakan). Insight Karir/Asmara/dll bisa dibuka belakangan '
+            'per-amplop.</div></div>',
             unsafe_allow_html=True,
         )
         st.write("")
@@ -170,8 +199,9 @@ def _final_dialog():
             'text-transform:uppercase;color:#b8562f;">Versi Lengkap</div>'
             f'<div style="font-size:17px;font-weight:800;color:#1c1a17;margin-top:2px;">Rp {harga_panjang}</div>'
             '<div style="font-size:11.5px;color:#6b6459;margin-top:6px;line-height:1.5;">'
-            'Semua hasil inti + insight Karir, Asmara, Keuangan &amp; Kesehatan langsung '
-            'kebuka semua amplop.</div></div>',
+            'Mendapatkan semua hasil inti, plus insight Karir, Asmara, Keuangan &amp; '
+            'Kesehatan buat tiap sistem — langsung kebuka semua amplop tanpa perlu bayar '
+            'satu-satu lagi.</div></div>',
             unsafe_allow_html=True,
         )
         st.write("")
@@ -191,6 +221,69 @@ def _final_dialog():
     )
 
 
+def _render_tanggal_inputs():
+    """Dropdown 3 bagian (Tanggal / Bulan / Tahun), BUKAN st.date_input
+    segmen ketik manual lagi — soalnya lebih gampang dipakai (nggak
+    perlu ngetik, bulan otomatis dibatasi cuma 1-12 jadi nggak bisa
+    salah ketik angka di luar itu) dan urutannya persis dd/mm/yyyy
+    (konvensi umum Indonesia). Dipisah jadi fungsi sendiri karena dipakai
+    di dua tempat: dialog tanggal-saja DAN dialog gabungan tanggal+nama."""
+    st.markdown(
+        '<div style="display:flex;align-items:center;gap:6px;font-size:12.5px;'
+        'font-weight:700;color:#8a5a2f;margin:-4px 0 10px 0;">'
+        '<span class="material-symbols-outlined" style="font-size:16px;">calendar_month</span>'
+        '<span>Urutan: Tanggal / Bulan / Tahun — contoh: 05/12/1992</span></div>',
+        unsafe_allow_html=True,
+    )
+    this_year = date.today().year
+    tahun_options = list(range(this_year, 1929, -1))  # descending, this_year..1930
+
+    col_d, col_m, col_y = st.columns(3)
+    with col_m:
+        bulan = st.selectbox(
+            "Bulan", options=list(range(1, 13)),
+            format_func=lambda m: BULAN_NAMES_ID[m - 1],
+            key="dlg_tgl_bulan", label_visibility="collapsed",
+        )
+    with col_y:
+        default_tahun_idx = tahun_options.index(2000) if 2000 in tahun_options else 0
+        tahun = st.selectbox(
+            "Tahun", options=tahun_options, index=default_tahun_idx,
+            key="dlg_tgl_tahun", label_visibility="collapsed",
+        )
+    # Opsi tanggal (hari) DIHITUNG ULANG tiap kali bulan/tahun berubah
+    # (lewat calendar.monthrange), jadi user nggak akan bisa milih
+    # tanggal yang nggak valid (mis. 30 Februari). Key selectbox hari
+    # sengaja dibuat DINAMIS per kombinasi bulan+tahun (bukan key
+    # tetap) supaya Streamlit nggak error "default value is not part
+    # of options" kalau user ganti ke bulan yang jumlah harinya lebih
+    # sedikit dari tanggal yang lagi kepilih sebelumnya.
+    max_hari = calendar.monthrange(tahun, bulan)[1]
+    hari_options = list(range(1, max_hari + 1))
+    hari_diinginkan = st.session_state.get("dlg_tgl_hari_terakhir", 1)
+    hari_default = min(hari_diinginkan, max_hari)
+    with col_d:
+        hari = st.selectbox(
+            "Tanggal", options=hari_options,
+            index=hari_options.index(hari_default),
+            key=f"dlg_tgl_hari_{bulan}_{tahun}", label_visibility="collapsed",
+        )
+    st.session_state.dlg_tgl_hari_terakhir = hari
+    return date(tahun, bulan, hari)
+
+
+def _render_nama_input():
+    st.markdown(
+        '<div style="font-size:12.5px;color:#6b6459;margin:-4px 0 10px 0;">'
+        'Pakai nama lahir lengkap kamu — dipakai buat hitung Numerologi versi lengkap.</div>',
+        unsafe_allow_html=True,
+    )
+    return st.text_input(
+        "Nama Lengkap", placeholder="Contoh: Steven Wu (min. 4 huruf, tanpa angka)",
+        key="dlg_nama_lengkap", label_visibility="collapsed",
+    ).strip()
+
+
 @st.dialog("Lengkapi Data", dismissible=False)
 def _ask_field_dialog(field):
     st.markdown(
@@ -198,65 +291,16 @@ def _ask_field_dialog(field):
         f'color:#1c1a17;margin-bottom:14px;">{FIELD_LABEL[field]}</div>',
         unsafe_allow_html=True,
     )
+    tanggal_value = None
+    nama_value = None
     if field == "tanggal_lahir":
-        # Dropdown 3 bagian (Tanggal / Bulan / Tahun), BUKAN st.date_input
-        # segmen ketik manual lagi — soalnya lebih gampang dipakai (nggak
-        # perlu ngetik, bulan otomatis dibatasi cuma 1-12 jadi nggak bisa
-        # salah ketik angka di luar itu) dan urutannya persis dd/mm/yyyy
-        # (konvensi umum Indonesia).
-        #
-        # Opsi tanggal (hari) DIHITUNG ULANG tiap kali bulan/tahun berubah
-        # (lewat calendar.monthrange), jadi user nggak akan bisa milih
-        # tanggal yang nggak valid (mis. 30 Februari). Key selectbox hari
-        # sengaja dibuat DINAMIS per kombinasi bulan+tahun (bukan key
-        # tetap) supaya Streamlit nggak error "default value is not part
-        # of options" kalau user ganti ke bulan yang jumlah harinya lebih
-        # sedikit dari tanggal yang lagi kepilih sebelumnya.
-        st.markdown(
-            '<div style="display:flex;align-items:center;gap:6px;font-size:12.5px;'
-            'font-weight:700;color:#8a5a2f;margin:-4px 0 10px 0;">'
-            '<span class="material-symbols-outlined" style="font-size:16px;">calendar_month</span>'
-            '<span>Urutan: Tanggal / Bulan / Tahun — contoh: 05/12/1992</span></div>',
-            unsafe_allow_html=True,
-        )
-        this_year = date.today().year
-        tahun_options = list(range(this_year, 1929, -1))  # descending, this_year..1930
-
-        col_d, col_m, col_y = st.columns(3)
-        with col_m:
-            bulan = st.selectbox(
-                "Bulan", options=list(range(1, 13)),
-                format_func=lambda m: BULAN_NAMES_ID[m - 1],
-                key="dlg_tgl_bulan", label_visibility="collapsed",
-            )
-        with col_y:
-            default_tahun_idx = tahun_options.index(2000) if 2000 in tahun_options else 0
-            tahun = st.selectbox(
-                "Tahun", options=tahun_options, index=default_tahun_idx,
-                key="dlg_tgl_tahun", label_visibility="collapsed",
-            )
-        max_hari = calendar.monthrange(tahun, bulan)[1]
-        hari_options = list(range(1, max_hari + 1))
-        hari_diinginkan = st.session_state.get("dlg_tgl_hari_terakhir", 1)
-        hari_default = min(hari_diinginkan, max_hari)
-        with col_d:
-            hari = st.selectbox(
-                "Tanggal", options=hari_options,
-                index=hari_options.index(hari_default),
-                key=f"dlg_tgl_hari_{bulan}_{tahun}", label_visibility="collapsed",
-            )
-        st.session_state.dlg_tgl_hari_terakhir = hari
-        value = date(tahun, bulan, hari)
+        tanggal_value = _render_tanggal_inputs()
     elif field == "nama_lengkap":
-        st.markdown(
-            '<div style="font-size:12.5px;color:#6b6459;margin:-4px 0 10px 0;">'
-            'Pakai nama lahir lengkap kamu — dipakai buat hitung Numerologi versi lengkap.</div>',
-            unsafe_allow_html=True,
-        )
-        value = st.text_input(
-            "Nama Lengkap", placeholder="Contoh: Steven Wu",
-            key="dlg_nama_lengkap", label_visibility="collapsed",
-        ).strip()
+        nama_value = _render_nama_input()
+    elif field == "tanggal_lahir_dan_nama":
+        tanggal_value = _render_tanggal_inputs()
+        st.write("")
+        nama_value = _render_nama_input()
     elif field == "jam_lahir":
         value = st.time_input("Jam Lahir", key="dlg_jam_lahir", label_visibility="collapsed")
     elif field == "kota_lahir":
@@ -272,8 +316,27 @@ def _ask_field_dialog(field):
 
     if st.button("Lanjutkan", key="dlg_lanjut", type="primary",
                   icon=":material/arrow_forward:", use_container_width=True):
-        if field == "nama_lengkap" and not value:
-            st.warning("Nama lengkap belum diisi.", icon=":material/error:")
+        if field == "tanggal_lahir_dan_nama":
+            err = _validate_nama(nama_value)
+            if err:
+                st.warning(err, icon=":material/error:")
+            else:
+                st.session_state.loading_data["tanggal_lahir"] = tanggal_value
+                st.session_state.loading_data["nama_lengkap"] = nama_value
+                st.session_state.loading_phase = "animating"
+                st.rerun()
+        elif field == "tanggal_lahir":
+            st.session_state.loading_data[field] = tanggal_value
+            st.session_state.loading_phase = "animating"
+            st.rerun()
+        elif field == "nama_lengkap":
+            err = _validate_nama(nama_value)
+            if err:
+                st.warning(err, icon=":material/error:")
+            else:
+                st.session_state.loading_data[field] = nama_value
+                st.session_state.loading_phase = "animating"
+                st.rerun()
         else:
             st.session_state.loading_data[field] = value
             st.session_state.loading_phase = "animating"
@@ -288,14 +351,25 @@ def _render_input_summary():
     """
     data = st.session_state.get("loading_data", {})
     tanggal_str = format_tanggal_ddmmyyyy(data.get("tanggal_lahir"))
-    if not tanggal_str:
+    nama = data.get("nama_lengkap")
+    if not tanggal_str and not nama:
         return
+    badges = []
+    if tanggal_str:
+        badges.append(
+            '<span class="ry-load-input-summary"><span class="material-symbols-outlined" '
+            'style="font-size:15px;vertical-align:-2px;">calendar_month</span> '
+            f'Tanggal Kamu: <b>{tanggal_str}</b></span>'
+        )
+    if nama:
+        badges.append(
+            '<span class="ry-load-input-summary"><span class="material-symbols-outlined" '
+            'style="font-size:15px;vertical-align:-2px;">badge</span> '
+            f'Nama Kamu: <b>{nama}</b></span>'
+        )
     st.markdown(
-        '<div style="text-align:center;margin-top:8px;">'
-        f'<span class="ry-load-input-summary"><span class="material-symbols-outlined" '
-        'style="font-size:15px;vertical-align:-2px;">calendar_month</span> '
-        f'Tanggal Kamu: <b>{tanggal_str}</b></span>'
-        '</div>',
+        '<div style="text-align:center;margin-top:8px;display:flex;gap:8px;'
+        f'justify-content:center;flex-wrap:wrap;">{"".join(badges)}</div>',
         unsafe_allow_html=True,
     )
 
