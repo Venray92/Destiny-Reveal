@@ -185,6 +185,10 @@ st.markdown(
         background: #ffffff; border: 1px solid #e4ddd0; color: #1c1a17 !important;
         font-size: 12.5px; font-weight: 600;
     }
+    .dr-bulk-note {
+        margin-top: 10px; font-size: 11px; color: #8a5a2f !important;
+        font-style: italic; line-height: 1.4;
+    }
 
     .dr-result-card {
         border: 2px solid #ecddc9; border-radius: 18px; overflow: hidden;
@@ -627,23 +631,46 @@ if st.session_state.dr_page == "home":
     # ── SATU DATA, BANYAK CARA PANDANG ────────────────────────
     st.markdown('<div class="dr-section-title-wrap"><span class="dr-section-title">Satu Data, Banyak Cara Pandang</span></div>', unsafe_allow_html=True)
 
+    # SENGAJA disamain persis (isi + urutan) sama RY_MODES di
+    # views/reveal_yourself.py (mode Lengkap) biar tatanan 2 halaman ini
+    # konsisten — sistem yang dipromosiin di sini harus bisa beneran
+    # dipilih user di halaman Reveal Yourself, gak ada yang nyasar
+    # (per diskusi 27 Sep 2026: "Ascendant Zodiak" dihapus krn gak pernah
+    # ada di RY_MODES, "Tarot" & "Love Language" ditambahin krn kelewat,
+    # "BaZi/Human Design Akurat Penuh" digabung jadi catatan tambahan di
+    # kartu +Jam Lahir, bukan kartu duplikat terpisah).
     bulk_groups = [
-        ("calendar_month", "Tanggal Lahir & Nama Lengkap", ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"]),
-        ("schedule", "+ Tambah Jam Lahir", ["BaZi (4 Pilar)", "Zi Wei Dou Shu", "Human Design", "Ascendant Zodiak"]),
-        ("location_on", "+ Tambah Kota Lahir", ["BaZi Akurat Penuh", "Human Design Akurat Penuh"]),
-        ("quiz", "Kuesioner Terpisah", ["MBTI", "Big Five", "Enneagram", "DISC", "Golongan Darah", "Love Language"]),
+        ("calendar_month", "Tanggal Lahir & Nama Lengkap", ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"], None),
+        ("schedule", "+ Tambah Jam Lahir", ["BaZi", "Zi Wei Dou Shu", "Human Design"], "BaZi & Human Design makin akurat kalau ditambah kota lahir."),
+        ("quiz", "Kuesioner", ["MBTI", "Big Five", "Enneagram", "DISC", "Love Language"], None),
+        ("water_drop", "Input Langsung", ["Golongan Darah"], None),
+        ("casino", "Acak", ["Tarot"], None),
     ]
-    bcols = st.columns(4, gap="medium")
-    for idx, (col, (icon, title, items)) in enumerate(zip(bcols, bulk_groups)):
+    bcols = st.columns(5, gap="medium")
+    for idx, (col, (icon, title, items, note)) in enumerate(zip(bcols, bulk_groups)):
         with col:
             with st.container(key=f"drfillheight_bulk{idx}"):
                 tags_html = "".join(f'<span class="dr-bulk-tag">{x}</span>' for x in items)
+                note_html = (
+                    f'<div class="dr-bulk-note">{note}</div>' if note else ""
+                )
+                # Digabung lewat concatenation (BUKAN f-string multi-baris
+                # kayak sebelumnya) — kalau note_html kosong ("") dan
+                # ditaruh di baris sendiri di f-string, baris itu jadi
+                # cuma whitespace doang, ke-anggap "baris kosong" sama
+                # parser markdown Streamlit, jadi HTML block-nya keputus
+                # duluan SEBELUM closing </div> — akibatnya </div> penutup
+                # kartu kebaca sebagai teks literal (bukan tag beneran).
+                # Concatenation biasa nggak punya masalah ini karena semua
+                # nyambung jadi SATU baris string, gak ada baris kosong
+                # sama sekali di HTML akhirnya.
                 st.markdown(
-                    f"""<div class="dr-bulk-card">
-                        <div class="dr-bulk-icon"><span class="material-symbols-outlined">{icon}</span></div>
-                        <b style="font-size:14.5px;">{title}</b>
-                        <div class="dr-bulk-tags-wrap" style="margin-top:10px;">{tags_html}</div>
-                    </div>""",
+                    '<div class="dr-bulk-card">'
+                    f'<div class="dr-bulk-icon"><span class="material-symbols-outlined">{icon}</span></div>'
+                    f'<b style="font-size:14.5px;">{title}</b>'
+                    f'<div class="dr-bulk-tags-wrap" style="margin-top:10px;">{tags_html}</div>'
+                    f'{note_html}'
+                    '</div>',
                     unsafe_allow_html=True,
                 )
 
