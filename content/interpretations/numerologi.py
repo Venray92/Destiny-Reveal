@@ -45,6 +45,39 @@ NUMEROLOGI_CONTENT = {
               "bertanya pendapat rekan kerja atau teman sebelum langsung menetapkan arah, meski kamu "
               "sudah punya gambaran jelas di kepala. Kebiasaan kecil ini akan membuat orang lain "
               "merasa lebih dihargai dan dilibatkan dalam proses yang kamu pimpin.",
+        "domains": {
+            "karir": "Jiwa kepemimpinanmu membuatmu cocok merintis sesuatu dari nol, entah itu "
+                     "membangun tim baru, memulai usaha sendiri, atau memimpin proyek yang belum "
+                     "punya cetak biru jelas. Kamu tidak takut jadi orang pertama yang mengambil "
+                     "langkah, dan itu membuatmu dipercaya memegang posisi yang butuh inisiatif "
+                     "tinggi. Namun dorongan untuk selalu memimpin bisa membuatmu sulit menerima "
+                     "posisi sebagai anggota tim biasa, kamu merasa gelisah kalau tidak punya kendali "
+                     "penuh atas arah sebuah proyek. Kamu juga berisiko dianggap terlalu dominan oleh "
+                     "atasan atau rekan kerja yang sama-sama punya ambisi memimpin. *PR: Ambil satu "
+                     "peran sebagai anggota tim biasa minggu ini, dan biarkan orang lain memimpin "
+                     "arahnya.*",
+            "asmara": "Dalam hubungan, kepercayaan dirimu membuat pasangan merasa aman karena kamu "
+                      "jelas tahu apa yang kamu mau dan berani mengambil langkah pertama. Namun "
+                      "dorongan untuk selalu memegang kendali bisa membuat pasangan merasa "
+                      "keputusan-keputusan penting dalam hubungan selalu diarahkan olehmu, jarang "
+                      "benar-benar jadi keputusan berdua. Kamu perlu belajar bahwa hubungan yang sehat "
+                      "adalah kepemimpinan bergilir, bukan satu pihak yang selalu di depan. "
+                      "*PR: Biarkan pasanganmu yang memutuskan satu rencana kencan berikutnya, tanpa "
+                      "kamu ikut campur mengarahkan.*",
+            "keuangan": "Soal keuangan, semangat merintismu membuatmu berani memulai usaha sendiri "
+                        "atau sumber penghasilan baru yang belum pernah kamu coba. Kamu percaya diri "
+                        "dengan kemampuanmu menghasilkan uang dari nol. Namun dorongan untuk selalu "
+                        "mengendalikan sendiri urusan finansial bisa membuatmu enggan berbagi "
+                        "keputusan keuangan dengan pasangan atau partner bisnis, bahkan saat "
+                        "keputusan bersama sebenarnya lebih tepat. *PR: Diskusikan satu keputusan "
+                        "finansial dengan orang lain minggu ini sebelum memutuskan sendiri.*",
+            "kesehatan": "Energi dan dorongan untuk selalu bergerak maju membuatmu jarang diam, tapi "
+                         "ini juga bisa membuatmu memaksakan diri terus produktif tanpa memberi tubuh "
+                         "waktu istirahat yang layak. Kamu tipe yang sulit menerima keterbatasan "
+                         "fisik, merasa harus tetap kuat memimpin meski sedang tidak fit. *PR: Kalau "
+                         "tubuhmu memberi sinyal lelah minggu ini, izinkan diri berhenti tanpa merasa "
+                         "gagal.*",
+        },
     },
     2: {
         "tagline": "✦ Angka Hidup 2",
@@ -78,6 +111,29 @@ NUMEROLOGI_CONTENT = {
               "menyampaikan kebutuhanmu secara jelas namun tetap lembut, misalnya dengan kalimat "
               "\"aku sebenarnya lebih nyaman kalau...\", supaya kebutuhanmu tersampaikan tanpa harus "
               "memaksakan atau mengorbankan gaya komunikasimu yang halus.",
+        "domains": {
+            "karir": "Kemampuanmu bekerja sama membuatmu jadi perekat tim yang efektif, kamu jago "
+                     "menjembatani perbedaan pendapat antar rekan kerja dan menjaga suasana kerja "
+                     "tetap kondusif. Namun kebiasaan mengalah demi menjaga keharmonisan bisa membuat "
+                     "kontribusimu kurang terlihat, kamu jarang mengambil kredit atas ide yang "
+                     "sebenarnya berasal darimu. *PR: Klaim satu ide atau kontribusimu secara terbuka "
+                     "di depan tim minggu ini.*",
+            "asmara": "Dalam hubungan, kepekaanmu terhadap perasaan pasangan membuat hubungan terasa "
+                      "hangat dan saling memahami. Namun kecenderungan menghindari konflik bisa "
+                      "membuatmu memendam ketidaknyamanan sampai menumpuk, dan pasangan tidak pernah "
+                      "benar-benar tahu ada yang mengganjal di hatimu. *PR: Sampaikan satu "
+                      "ketidaknyamanan kecil ke pasangan minggu ini, sebelum itu membesar.*",
+            "keuangan": "Soal keuangan, sifat kooperatifmu membuatmu nyaman mengelola keuangan "
+                        "bersama, entah dengan pasangan atau keluarga, dan kamu jarang egois soal "
+                        "uang. Namun kebiasaan mendahulukan kebutuhan orang lain bisa membuat "
+                        "tabunganmu sendiri sering tertunda. *PR: Sisihkan dana untuk tujuan "
+                        "finansialmu sendiri sebelum membantu orang lain bulan ini.*",
+            "kesehatan": "Kepekaan emosionalmu membuatmu mudah menyerap suasana hati orang di "
+                         "sekitarmu, dan ini bisa jadi beban tersembunyi kalau tidak dikelola. Kamu "
+                         "butuh ruang untuk melepaskan emosi yang kamu tampung dari orang lain. "
+                         "*PR: Cari satu cara melepaskan beban emosional minggu ini, seperti menulis "
+                         "jurnal.*",
+        },
     },
     3: {
         "tagline": "✦ Angka Hidup 3",
@@ -110,6 +166,27 @@ NUMEROLOGI_CONTENT = {
               "sebelum berpindah memikirkan ide yang lain. Kamu bisa membuat target sederhana, "
               "misalnya menyelesaikan satu bagian kecil dari ide itu setiap minggu, supaya "
               "prosesnya terasa ringan tapi tetap membawamu maju menuju penyelesaian yang utuh.",
+        "domains": {
+            "karir": "Kreativitas dan kepiawaian komunikasimu membuatmu unggul di bidang konten, "
+                     "desain, marketing, atau apa pun yang butuh ide segar dan cara penyampaian "
+                     "menarik. Namun energi ekspresifmu yang melompat dari satu ide ke ide lain bisa "
+                     "membuat portofolio kerjamu terlihat banyak tapi kurang mendalam. *PR: "
+                     "Tuntaskan satu proyek kreatif yang sudah lama tertunda sebelum memulai yang "
+                     "baru.*",
+            "asmara": "Dalam asmara, kamu membawa keceriaan dan kehidupan ke dalam hubungan, "
+                      "pasanganmu jarang merasa bosan karena caramu bicara yang hidup dan penuh warna. "
+                      "Namun kamu bisa mengalihkan pembicaraan serius dengan candaan, membuat "
+                      "pasangan merasa perasaannya tidak ditanggapi. *PR: Dengarkan satu keluhan "
+                      "pasangan minggu ini tanpa membelokkannya jadi lelucon.*",
+            "keuangan": "Soal keuangan, kreativitasmu bisa jadi sumber penghasilan lewat karya atau "
+                        "ide orisinal, tapi kebiasaan mengikuti dorongan spontan bisa membuat "
+                        "pengeluaranmu untuk hal-hal impulsif jadi tidak terkontrol. *PR: Beri jeda "
+                        "satu hari sebelum membeli sesuatu yang bukan kebutuhan pokok minggu ini.*",
+            "kesehatan": "Pikiranmu yang terus mencari ide baru bisa membuat kepalamu sulit "
+                         "benar-benar istirahat, dan kebutuhan validasi atas karyamu bisa memicu "
+                         "kecemasan saat responsnya tidak sesuai harapan. *PR: Lakukan satu aktivitas "
+                         "kreatif minggu ini semata untuk dirimu sendiri, tanpa niat membagikannya.*",
+        },
     },
     4: {
         "tagline": "✦ Angka Hidup 4",
@@ -143,6 +220,27 @@ NUMEROLOGI_CONTENT = {
               "juga dirimu untuk sesekali membiarkan sesuatu berjalan tanpa rencana detail terlebih "
               "dulu, sebagai cara membuktikan pada dirimu sendiri bahwa fleksibilitas juga bisa "
               "membawa hasil yang baik.",
+        "domains": {
+            "karir": "Kedisiplinan dan sukamu pada sistem yang jelas membuatmu cocok di peran "
+                     "operasional, finance, atau manajemen proyek yang butuh ketelitian jangka "
+                     "panjang. Namun kekakuanmu pada proses yang 'benar' bisa membuatmu lambat "
+                     "beradaptasi saat perusahaan atau tim butuh perubahan mendadak. *PR: Terima satu "
+                     "perubahan rencana kerja minggu ini tanpa merasa terganggu.*",
+            "asmara": "Dalam hubungan, keteguhan dan tanggung jawabmu membuat pasangan merasa aman "
+                      "karena tahu kamu akan selalu ada dan menepati janji. Namun kebutuhanmu akan "
+                      "struktur bisa membuat hubungan terasa kaku kalau pasangan lebih spontan. "
+                      "*PR: Ikuti satu rencana spontan pasanganmu minggu ini tanpa menyusun jadwal "
+                      "detail dulu.*",
+            "keuangan": "Soal keuangan, kedisiplinanmu membuat tabunganmu cenderung stabil dan "
+                        "terencana, kamu jarang tergoda pengeluaran impulsif. Namun kekakuan pada "
+                        "rencana lama bisa membuatmu melewatkan peluang investasi baru yang di luar "
+                        "kebiasaanmu. *PR: Pelajari satu instrumen keuangan baru minggu ini yang "
+                        "belum pernah kamu coba.*",
+            "kesehatan": "Rutinitas yang teratur membuat kesehatanmu relatif terjaga, tapi kebutuhan "
+                         "akan kepastian bisa memicu kecemasan saat situasi keluar dari rencana. "
+                         "*PR: Latih satu momen tanpa jadwal ketat minggu ini, dan rasakan bahwa "
+                         "kamu tetap baik-baik saja.*",
+        },
     },
     5: {
         "tagline": "✦ Angka Hidup 5",
@@ -176,6 +274,37 @@ NUMEROLOGI_CONTENT = {
               "untuk bertahan pada satu hal selama jangka waktu tertentu, misalnya tiga bulan, sebelum "
               "menilai apakah kamu benar-benar ingin berpindah atau ternyata konsistensi itu membawa "
               "hasil yang lebih memuaskan dari yang kamu kira.",
+        "domains": {
+            "karir": "Keluwesanmu membuatmu cocok di pekerjaan yang dinamis dan penuh variasi, seperti "
+                     "sales lapangan, event, atau peran yang mengharuskanmu bertemu banyak orang baru. "
+                     "Namun kecenderungan mudah bosan bisa membuatmu berpindah pekerjaan sebelum "
+                     "benar-benar menuai hasil. *PR: Komit menyelesaikan satu proyek yang sedang "
+                     "berjalan sebelum memulai yang baru.*",
+            "asmara": "Dalam asmara, energi dan rasa ingin tahumu membuat hubungan terasa seru dan "
+                      "jarang membosankan, kamu suka mengajak pasangan mencoba hal baru bersama, "
+                      "entah tempat baru, hobi baru, atau sekadar rencana dadakan yang membuat "
+                      "hubungan terasa hidup. Namun rasa takut terjebak dalam rutinitas bisa membuatmu "
+                      "ragu berkomitmen serius, karena komitmen terasa seperti kehilangan kebebasan. "
+                      "Pasangan mungkin merasa tidak yakin seberapa jauh mereka bisa mengandalkan "
+                      "keseriusanmu, terutama kalau kamu sering menghindari pembicaraan soal masa "
+                      "depan hubungan kalian. *PR: Ajak pasanganmu bicara terbuka soal satu rencana "
+                      "jangka panjang minggu ini, tanpa menghindar seperti biasanya.*",
+            "keuangan": "Soal uang, sifat spontanmu membuatmu tidak ragu membelanjakan untuk "
+                        "pengalaman baru, entah jalan-jalan, kelas baru, atau mencoba sesuatu yang "
+                        "belum pernah kamu lakukan, karena kamu percaya hidup harus dinikmati bukan "
+                        "cuma ditabung untuk masa depan yang belum pasti. Namun kebiasaan ini bisa "
+                        "membuat tabunganmu jarang benar-benar bertambah, karena begitu ada uang "
+                        "lebih, dorongan untuk segera menggunakannya untuk hal baru selalu muncul "
+                        "lebih dulu dibanding niat menabung. *PR: Buat rekening tabungan terpisah yang "
+                        "auto-debet setiap gajian, supaya kamu tidak sempat tergoda memakainya.*",
+            "kesehatan": "Energimu yang tinggi membuatmu jarang diam, dan itu bagus untuk kebugaran "
+                         "fisik, tapi gaya hidupmu yang serba cepat dan berpindah-pindah bisa membuat "
+                         "pola makan dan tidurmu jadi tidak teratur, kamu mungkin sering melewatkan "
+                         "waktu makan atau begadang karena terlalu asyik dengan aktivitas baru. "
+                         "Ketidaktetapan jadwal ini, kalau dibiarkan terus, bisa berdampak ke stamina "
+                         "jangka panjangmu. *PR: Tetapkan satu jam tidur yang konsisten selama seminggu "
+                         "ke depan, meski hari-harimu terasa berbeda-beda.*",
+        },
     },
     6: {
         "tagline": "✦ Angka Hidup 6",
@@ -208,6 +337,36 @@ NUMEROLOGI_CONTENT = {
               "membuat jadwal sederhana untuk waktu pribadi ini, dan perlakukan itu sepenting janji "
               "dengan orang lain, supaya kamu tidak mudah membatalkannya demi mengurus kebutuhan "
               "orang lain lebih dulu.",
+        "domains": {
+            "karir": "Sisi pengasuhmu membuatmu cocok di peran yang berhubungan langsung dengan "
+                     "kesejahteraan orang lain, seperti manajemen tim, HR, pendidikan, atau layanan "
+                     "yang butuh empati tinggi. Rekan kerja merasa diperhatikan olehmu, bukan hanya "
+                     "dinilai dari performa. Namun kebiasaan mengurus urusan orang lain bisa membuatmu "
+                     "kelebihan beban kerja, kamu sulit menolak permintaan tolong meski di luar "
+                     "tanggung jawabmu, dan itu bisa membuat kontribusimu sendiri kurang diakui "
+                     "karena energimu habis membantu tugas orang lain. *PR: Tolak satu permintaan "
+                     "tolong yang di luar tanggung jawabmu di kantor minggu ini.*",
+            "asmara": "Dalam hubungan, kepedulianmu membuat pasangan merasa benar-benar diurus dan "
+                      "diperhatikan, kamu selalu memikirkan kenyamanannya lebih dulu. Namun kebiasaan "
+                      "mengutamakan orang lain ini bisa membuat kebutuhan emosionalmu sendiri jarang "
+                      "tersampaikan, sampai pasangan tidak benar-benar tahu apa yang membuatmu bahagia "
+                      "atau lelah. Kamu perlu belajar bahwa menerima perhatian sama pentingnya dengan "
+                      "memberi perhatian. *PR: Minta satu hal yang kamu butuhkan dari pasanganmu "
+                      "minggu ini, bukan menunggu dia menebaknya sendiri.*",
+            "keuangan": "Soal keuangan, rasa tanggung jawabmu terhadap keluarga membuatmu rela "
+                        "mengorbankan kebutuhanmu sendiri demi kesejahteraan orang terdekat. Ini mulia, "
+                        "tapi kalau berlebihan bisa membuat rencana finansial pribadimu sendiri "
+                        "tertunda terus-menerus, kamu selalu jadi pihak yang membantu, jarang jadi "
+                        "pihak yang dibantu. *PR: Sisihkan satu pos tabungan khusus untuk dirimu "
+                        "sendiri sebelum membantu kebutuhan orang lain bulan ini.*",
+            "kesehatan": "Kebiasaan mengurus orang lain sebelum diri sendiri bisa membuatmu "
+                         "mengabaikan kelelahanmu sendiri sampai benar-benar terasa berat. Kamu tipe "
+                         "yang baru istirahat kalau semua urusan orang lain sudah beres, padahal itu "
+                         "jarang benar-benar terjadi. Kelelahan yang ditumpuk ini bisa berdampak pada "
+                         "stamina dan daya tahan tubuhmu dalam jangka panjang. *PR: Jadwalkan satu "
+                         "waktu istirahat wajib minggu ini yang tidak bisa digeser oleh urusan orang "
+                         "lain.*",
+        },
     },
     7: {
         "tagline": "✦ Angka Hidup 7",
@@ -241,6 +400,32 @@ NUMEROLOGI_CONTENT = {
               "batas waktu untuk merenungkan sesuatu, misalnya satu atau dua hari, sebelum akhirnya "
               "memutuskan untuk bertindak, supaya perenungan tidak berubah menjadi penundaan yang "
               "berlarut-larut.",
+        "domains": {
+            "karir": "Kedalaman analisismu membuatmu unggul di bidang riset, strategi, atau apa pun "
+                     "yang butuh pemahaman mendalam sebelum bertindak, kamu jarang membuat keputusan "
+                     "dangkal. Namun kebiasaan memproses semuanya sendirian bisa membuat tim kesulitan "
+                     "memahami arah pikiranmu, dan kontribusimu yang sebenarnya berharga jadi kurang "
+                     "terlihat karena kamu jarang membagikannya secara terbuka. *PR: Bagikan satu "
+                     "insight atau analisismu secara terbuka di rapat tim minggu ini.*",
+            "asmara": "Dalam hubungan, kedalaman perasaanmu membuat cinta yang kamu berikan terasa "
+                      "sungguh-sungguh, bukan sekadar permukaan. Namun kebutuhanmu akan waktu sendiri "
+                      "bisa membuat pasangan merasa dijauhi, terutama kalau kamu jarang menjelaskan "
+                      "bahwa itu caramu memulihkan energi, bukan tanda ada yang salah dengan "
+                      "hubungan. *PR: Jelaskan ke pasanganmu kenapa kamu butuh waktu sendiri, alih-"
+                      "alih membiarkannya menebak-nebak sendiri.*",
+            "keuangan": "Soal keuangan, kecenderunganmu meriset mendalam sebelum memutuskan membuatmu "
+                        "jarang terjebak investasi yang tidak kamu pahami sepenuhnya. Namun analisis "
+                        "yang berlebihan bisa membuatmu kehilangan momentum, peluang bagus yang "
+                        "sebenarnya sudah cukup jelas bisa terlewat karena kamu masih terus "
+                        "mempertimbangkan. *PR: Tetapkan tenggat waktu satu minggu untuk memutuskan "
+                        "satu peluang finansial yang sedang kamu pertimbangkan.*",
+            "kesehatan": "Kebutuhanmu akan waktu sendiri untuk merenung sebenarnya sehat untuk "
+                         "kesehatan mentalmu, tapi kalau berlebihan bisa membuatmu terisolasi dari "
+                         "dukungan sosial yang sebenarnya kamu butuhkan. Pikiranmu yang terus "
+                         "menganalisis juga bisa membuat sulit benar-benar rileks. *PR: Ajak satu "
+                         "orang terdekat berdiskusi tentang sesuatu yang sedang kamu pikirkan minggu "
+                         "ini, alih-alih memprosesnya sendirian.*",
+        },
     },
     8: {
         "tagline": "✦ Angka Hidup 8",
@@ -272,6 +457,32 @@ NUMEROLOGI_CONTENT = {
               "juga bisa menyisihkan waktu khusus setiap minggu untuk terhubung dengan orang-orang "
               "terdekat, tanpa membahas pekerjaan atau target apa pun, sebagai cara menjaga "
               "keseimbangan antara pencapaian dan hubungan personal.",
+        "domains": {
+            "karir": "Naluri manajerialmu membuatmu cocok memegang posisi yang berhubungan dengan "
+                     "pengelolaan sumber daya, keuangan, atau kepemimpinan berorientasi hasil. Kamu "
+                     "berpikir realistis dan cepat melihat cara membuat sesuatu lebih efisien. Namun "
+                     "fokusmu yang terlalu besar pada hasil terukur bisa membuatmu kurang menghargai "
+                     "proses atau usaha kecil rekan kerja yang belum menunjukkan angka konkret. "
+                     "*PR: Apresiasi satu usaha rekan kerja minggu ini, meski hasilnya belum "
+                     "terlihat maksimal.*",
+            "asmara": "Dalam hubungan, tanggung jawab dan keandalanmu membuat pasangan merasa aman "
+                      "secara praktis. Namun kecenderungan mengukur segalanya lewat hasil bisa membuat "
+                      "hubunganmu terasa seperti proyek yang harus 'berhasil', sampai kamu lupa "
+                      "menikmati momen sederhana bersama pasangan tanpa target apa pun. *PR: "
+                      "Luangkan satu waktu berkualitas dengan pasangan minggu ini tanpa membahas "
+                      "rencana atau target apa pun.*",
+            "keuangan": "Soal keuangan, kamu punya naluri bisnis kuat dan disiplin mengelola uang "
+                        "secara terstruktur, ini membuat kondisi finansialmu cenderung sehat. Namun "
+                        "fokus berlebihan pada pencapaian materi bisa membuatmu terus merasa kurang, "
+                        "selalu ada target lebih besar untuk dikejar sampai lupa menikmati hasil yang "
+                        "sudah dicapai. *PR: Rayakan satu pencapaian finansial kecil minggu ini "
+                        "sebelum menetapkan target baru.*",
+            "kesehatan": "Fokus tinggi pada hasil dan produktivitas bisa membuatmu mengabaikan sinyal "
+                         "kelelahan tubuh, kamu terus bekerja sampai target tercapai meski tubuh sudah "
+                         "minta istirahat. Ini kalau dibiarkan bisa berdampak pada stamina jangka "
+                         "panjang. *PR: Tetapkan satu waktu istirahat wajib minggu ini yang tidak "
+                         "bisa digeser demi mengejar target.*",
+        },
     },
     9: {
         "tagline": "✦ Angka Hidup 9",
@@ -305,6 +516,30 @@ NUMEROLOGI_CONTENT = {
               "lama. Kamu juga bisa melatih diri menetapkan batas yang wajar dalam memberi, supaya "
               "kepedulian besarmu tetap berkelanjutan tanpa membuatmu kehabisan energi untuk dirimu "
               "sendiri.",
+        "domains": {
+            "karir": "Kepedulianmu terhadap dampak yang lebih luas membuatmu cocok di bidang layanan "
+                     "sosial, pendidikan, atau pekerjaan apa pun yang punya makna melampaui gaji "
+                     "semata. Kamu bekerja bukan cuma demi diri sendiri, tapi demi dampak yang bisa "
+                     "kamu berikan. Namun idealismemu bisa membuatmu kecewa berat kalau lingkungan "
+                     "kerja ternyata lebih fokus pada keuntungan daripada nilai yang kamu junjung. "
+                     "*PR: Cari satu proyek kecil di tempat kerja yang sejalan dengan nilai "
+                     "pribadimu, meski di luar deskripsi tugas resmi.*",
+            "asmara": "Dalam hubungan, kebesaran hatimu membuatmu mudah memaafkan dan jarang menyimpan "
+                      "dendam terhadap pasangan. Namun sisi idealis ini bisa membuatmu berharap "
+                      "pasangan selalu bersikap sebaik yang kamu bayangkan, dan kecewa berat saat "
+                      "kenyataan tidak sesuai harapan itu. *PR: Terima satu kekurangan pasanganmu apa "
+                      "adanya minggu ini, tanpa berharap dia berubah sesuai idealismemu.*",
+            "keuangan": "Soal keuangan, kedermawananmu membuatmu senang membantu orang lain secara "
+                        "finansial, kamu percaya kebaikan akan berputar kembali. Namun ini bisa "
+                        "membuatmu memberi tanpa memperhatikan batas kemampuanmu sendiri, sampai "
+                        "kondisi finansial pribadimu ikut terganggu. *PR: Tetapkan batas jelas soal "
+                        "berapa banyak yang bisa kamu bantu bulan ini.*",
+            "kesehatan": "Empati yang luas membuatmu mudah menyerap kesedihan dunia, dari berita "
+                         "buruk sampai masalah orang yang bahkan tidak kamu kenal, dan ini bisa "
+                         "menguras energi emosionalmu tanpa disadari. *PR: Batasi konsumsi berita "
+                         "berat minggu ini, dan gantikan dengan aktivitas yang mengisi ulang "
+                         "energimu.*",
+        },
     },
     11: {
         "tagline": "✦ Angka Hidup 11 (Master Number)",
@@ -340,6 +575,28 @@ NUMEROLOGI_CONTENT = {
               "bisa melatih diri dengan kebiasaan sederhana seperti menulis jurnal atau meditasi "
               "singkat setiap hari, supaya kepekaan yang besar dalam dirimu tetap jadi kekuatan, "
               "bukan beban yang menguras energimu.",
+        "domains": {
+            "karir": "Intuisimu yang tajam membuatmu unggul di pekerjaan yang butuh visi dan "
+                     "kepekaan membaca tren atau kebutuhan orang lain sebelum orang lain "
+                     "menyadarinya, seperti riset, konseling, atau bidang kreatif yang inspiratif. "
+                     "Namun kepekaan besar ini bisa membuatmu mudah kewalahan oleh tekanan atau "
+                     "politik kantor yang penuh emosi. *PR: Setelah situasi kerja yang menguras "
+                     "energi minggu ini, beri diri waktu memulihkan diri sebelum lanjut ke tugas "
+                     "berikutnya.*",
+            "asmara": "Dalam hubungan, kepekaanmu membuatmu bisa merasakan apa yang dibutuhkan "
+                      "pasangan bahkan sebelum diucapkan, dan itu membuat hubunganmu terasa dalam. "
+                      "Namun kepekaan ini bisa membuatmu terlalu mudah menyerap kecemasan pasangan "
+                      "sebagai bebanmu sendiri. *PR: Dampingi pasanganmu yang sedang emosi minggu "
+                      "ini tanpa sepenuhnya ikut larut dalam perasaan itu.*",
+            "keuangan": "Firasat finansialmu kadang membantu melihat peluang yang belum terlihat "
+                        "jelas secara data. Namun keputusan finansialmu bisa mudah terpengaruh "
+                        "suasana hati harian. *PR: Buat anggaran tetap bulanan yang tidak berubah "
+                        "mengikuti mood, dan patuhi itu minggu ini.*",
+            "kesehatan": "Kepekaan batinmu bisa membuatmu menyerap tekanan dari lingkungan sekitar "
+                         "sebagai stresmu sendiri, berdampak pada kualitas tidur dan energi harian. "
+                         "*PR: Lakukan satu ritual menenangkan pikiran setiap malam minggu ini, "
+                         "seperti meditasi singkat.*",
+        },
     },
     22: {
         "tagline": "✦ Angka Hidup 22 (Master Number)",
@@ -375,6 +632,29 @@ NUMEROLOGI_CONTENT = {
               "melatih diri mendelegasikan sebagian tanggung jawab kepada orang lain yang kamu "
               "percaya, supaya beban besar yang kamu pikul tidak sepenuhnya bertumpu di pundakmu "
               "sendiri.",
+        "domains": {
+            "karir": "Kombinasi visi besar dan ketekunanmu membuatmu cocok memegang proyek jangka "
+              "panjang yang butuh perencanaan matang sekaligus eksekusi nyata, seperti membangun "
+              "institusi, bisnis, atau sistem yang berdampak luas. Orang-orang percaya rencanamu "
+              "bukan sekadar angan-angan. Namun standar tinggi yang kamu tetapkan bisa membuatmu "
+              "menanggung terlalu banyak tanggung jawab sendirian, karena merasa hanya kamu yang "
+              "benar-benar paham gambaran besarnya. *PR: Delegasikan satu bagian dari proyek "
+              "besarmu ke rekan yang kamu percaya minggu ini.*",
+            "asmara": "Dalam hubungan, kamu membawa visi jangka panjang yang serius, pasangan merasa "
+                      "ada masa depan yang jelas bersamamu. Namun fokusmu pada membangun sesuatu yang "
+                      "besar bisa membuatmu lupa menikmati momen kecil sehari-hari bersama pasangan. "
+                      "*PR: Nikmati satu momen sederhana bersama pasangan minggu ini tanpa membahas "
+                      "rencana jangka panjang apa pun.*",
+            "keuangan": "Visimu soal kekayaan biasanya besar dan terencana matang, kamu sanggup "
+                        "bekerja jangka panjang demi hasil besar. Namun ekspektasi yang begitu tinggi "
+                        "bisa membuatmu jarang merasa cukup, selalu ada target lebih besar untuk "
+                        "dikejar. *PR: Rayakan satu pencapaian finansial yang sudah kamu raih minggu "
+                        "ini, sebelum menetapkan target baru.*",
+            "kesehatan": "Beban ekspektasi yang kamu tetapkan sendiri bisa membuatmu jarang merasa "
+                         "puas dan terus mendorong diri tanpa jeda, berisiko memicu kelelahan kronis "
+                         "dalam jangka panjang. *PR: Pecah satu tujuan besarmu jadi langkah kecil "
+                         "minggu ini, dan izinkan diri merasa cukup setelah satu langkah selesai.*",
+        },
     },
     33: {
         "tagline": "✦ Angka Hidup 33 (Master Number)",
@@ -409,5 +689,28 @@ NUMEROLOGI_CONTENT = {
               "untuk secara terbuka bercerita saat kamu sendiri sedang menghadapi kesulitan, supaya "
               "orang-orang yang kamu bimbing selama ini juga punya kesempatan membalas kebaikan yang "
               "sudah kamu berikan.",
+        "domains": {
+            "karir": "Kemampuanmu membuat orang lain merasa didukung membuatmu cocok di bidang "
+                     "pengajaran, konseling, mentoring, atau kepemimpinan yang berfokus pada "
+                     "pengembangan orang lain. Rekan kerja mencarimu bukan cuma untuk pekerjaan, "
+                     "tapi juga untuk bimbingan. Namun kecenderungan selalu memberi bisa membuatmu "
+                     "kurang memperjuangkan kepentinganmu sendiri di tempat kerja, seperti promosi "
+                     "atau pengakuan. *PR: Ajukan satu hal yang selama ini kamu perjuangkan diam-"
+                     "diam untuk orang lain, tapi belum untuk dirimu sendiri.*",
+            "asmara": "Dalam hubungan, kasih sayangmu yang tanpa syarat membuat pasangan merasa "
+                      "didukung penuh dalam berkembang. Namun kecenderungan selalu jadi pihak yang "
+                      "memberi bisa membuatmu lupa bahwa kamu juga berhak menerima dukungan yang sama "
+                      "besarnya dari pasangan. *PR: Terima bantuan atau dukungan dari pasanganmu "
+                      "minggu ini tanpa langsung menolaknya.*",
+            "keuangan": "Soal keuangan, kepedulianmu pada orang lain bisa membuatmu sering membantu "
+                        "secara finansial tanpa mengharap imbalan. Namun kalau berlebihan, ini bisa "
+                        "membuat kondisi finansialmu sendiri terganggu karena kamu jarang menagih "
+                        "kembali atau meminta bantuan balik. *PR: Tetapkan batas jelas soal bantuan "
+                        "finansial yang bisa kamu berikan bulan ini.*",
+            "kesehatan": "Kebiasaan selalu jadi pihak yang memberi dukungan emosional bisa menguras "
+                         "energimu tanpa disadari, terutama karena kamu jarang secara terbuka "
+                         "mengakui saat sedang lelah. *PR: Ceritakan ke satu orang terdekat soal "
+                         "kesulitan yang sedang kamu hadapi minggu ini, alih-alih memendamnya sendiri.*",
+        },
     },
 }

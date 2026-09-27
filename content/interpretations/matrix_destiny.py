@@ -54,6 +54,29 @@ MATRIX_DESTINY_CONTENT = {
               "dengan dirimu sendiri: setiap kali ide baru muncul di tengah proses, catat dulu di "
               "tempat terpisah, dan kembali fokus pada yang sedang berjalan. Cara ini membantu energi "
               "awalmu tersalurkan tanpa mengorbankan penyelesaian yang sudah dimulai.",
+        "domains": {
+            "karir": "Keberanianmu memulai membuatmu cocok merintis proyek baru, membuka cabang, atau "
+                     "posisi yang butuh inisiatif tinggi tanpa arahan detail. Atasan menyukai "
+                     "keberanianmu mengangkat tangan lebih dulu. Namun energi awal yang besar sering "
+                     "tidak dibarengi kesabaran menyelesaikan sampai tuntas, sehingga rekam jejakmu "
+                     "bisa terlihat penuh proyek yang dimulai tapi jarang benar-benar selesai. "
+                     "*PR: Selesaikan satu proyek yang sudah lama tertunda sebelum memulai yang baru "
+                     "minggu ini.*",
+            "asmara": "Dalam asmara, kamu berani mengambil langkah pertama dan membawa kesegaran ke "
+                      "dalam hubungan, jarang membiarkan sesuatu terasa monoton. Namun semangat awal "
+                      "yang menggebu bisa memudar begitu hubungan memasuki fase yang lebih tenang dan "
+                      "membutuhkan komitmen jangka panjang. *PR: Rawat satu kebiasaan kecil bersama "
+                      "pasangan secara konsisten minggu ini, meski terasa kurang 'baru'.*",
+            "keuangan": "Soal uang, kamu berani memulai usaha atau sumber penghasilan baru tanpa "
+                        "banyak keraguan. Namun semangat awal ini bisa membuatmu punya banyak proyek "
+                        "finansial setengah jalan yang belum benar-benar membuahkan hasil. *PR: "
+                        "Fokuskan satu sumber penghasilan yang sudah kamu mulai sampai benar-benar "
+                        "stabil, sebelum memulai yang baru.*",
+            "kesehatan": "Energimu untuk memulai hal baru termasuk rutinitas sehat, tapi konsistensi "
+                         "sering jadi tantangan, kamu semangat di minggu pertama lalu kehilangan "
+                         "momentum setelahnya. *PR: Pilih satu rutinitas sehat sederhana dan jalani "
+                         "konsisten selama dua minggu penuh tanpa berganti.*",
+        },
     },
     2: {
         "tagline": "✧ The Listener",
@@ -87,6 +110,24 @@ MATRIX_DESTINY_CONTENT = {
               "mengakui saat kamu sedang lelah atau butuh dukungan, alih-alih terus menahannya sendiri "
               "sambil tetap mendengarkan cerita orang lain. Orang-orang yang benar-benar peduli "
               "padamu akan senang mendapat kesempatan untuk balas mendengarkanmu.",
+        "domains": {
+            "karir": "Kemampuan mendengarkanmu membuatmu unggul di layanan pelanggan, HR, konseling, "
+                     "atau peran yang butuh memahami kebutuhan orang lain secara mendalam. Namun "
+                     "kebiasaan lebih banyak mendengar daripada bicara bisa membuat kontribusi dan "
+                     "idemu sendiri kurang terlihat di rapat. *PR: Sampaikan satu pendapatmu secara "
+                     "aktif di rapat berikutnya, bukan hanya menyimak.*",
+            "asmara": "Dalam hubungan, kamu pendengar yang membuat pasangan merasa benar-benar "
+                      "dipahami. Namun kebutuhanmu sendiri sering tidak tersampaikan karena kamu "
+                      "terbiasa memprioritaskan cerita pasangan. *PR: Ceritakan satu hal yang kamu "
+                      "rasakan ke pasangan minggu ini, tanpa menunggu ditanya.*",
+            "keuangan": "Soal keuangan, sifatmu yang sabar membuatmu jarang tergesa mengambil "
+                        "keputusan finansial. Namun kamu bisa terlalu banyak mendengarkan saran orang "
+                        "lain sampai kehilangan kepercayaan pada penilaianmu sendiri. *PR: Ambil satu "
+                        "keputusan finansial kecil berdasarkan penilaianmu sendiri minggu ini.*",
+            "kesehatan": "Menjadi tempat curhat banyak orang bisa membuatmu menyerap beban emosional "
+                         "orang lain tanpa disadari, menumpuk jadi kelelahan mental. *PR: Cari satu "
+                         "cara melepaskan beban itu minggu ini, seperti journaling atau curhat balik.*",
+        },
     },
     3: {
         "tagline": "✧ The Creator",
@@ -120,6 +161,24 @@ MATRIX_DESTINY_CONTENT = {
               "untuk ide yang kamu pilih itu, dan tahan godaan untuk memulai ide baru sebelum target "
               "itu tercapai. Kamu akan terkejut melihat betapa jauh satu ide bisa berkembang kalau "
               "diberi fokus penuh.",
+        "domains": {
+            "karir": "Kreativitasmu membuatmu unggul di bidang inovasi, desain, atau riset dan "
+                     "pengembangan, tempat orisinalitas dihargai. Namun terlalu banyak ide sekaligus "
+                     "bisa membuat eksekusimu terasa berantakan di mata atasan yang mengharapkan "
+                     "fokus. *PR: Pilih satu ide untuk benar-benar dieksekusi sampai selesai minggu "
+                     "ini, tunda ide lain dulu.*",
+            "asmara": "Dalam hubungan, imajinasimu membuat momen bersama pasangan terasa unik dan "
+                      "tidak biasa. Namun kamu bisa terlalu sibuk dengan duniamu sendiri sampai lupa "
+                      "hadir sepenuhnya untuk pasangan. *PR: Luangkan satu waktu penuh perhatian "
+                      "bersama pasangan minggu ini, tanpa memikirkan ide atau proyek lain.*",
+            "keuangan": "Soal keuangan, kreativitasmu bisa jadi sumber penghasilan lewat karya "
+                        "orisinal. Namun terlalu banyak proyek finansial setengah jalan bisa membuat "
+                        "penghasilanmu tidak stabil. *PR: Fokuskan satu sumber penghasilan kreatif "
+                        "sampai benar-benar menghasilkan sebelum memulai yang baru.*",
+            "kesehatan": "Pikiranmu yang penuh ide bisa membuat kepala sulit istirahat, bahkan saat "
+                         "tidur. *PR: Tuliskan semua ide yang muncul di malam hari ke buku catatan, "
+                         "supaya pikiranmu bisa benar-benar berhenti sebelum tidur minggu ini.*",
+        },
     },
     4: {
         "tagline": "✧ The Ruler",
@@ -152,6 +211,23 @@ MATRIX_DESTINY_CONTENT = {
               "Latih dirimu untuk diam sejenak setelah bertanya, memberi ruang bagi orang lain untuk "
               "benar-benar menyampaikan pandangannya, alih-alih langsung menyela dengan "
               "keputusanmu sendiri.",
+        "domains": {
+            "karir": "Wibawa dan ketegasanmu membuatmu cocok memimpin tim atau mengambil keputusan "
+                     "cepat di situasi krisis. Namun ketegasan yang terlalu dominan bisa membuat "
+                     "rekan kerja sungkan menyampaikan pendapat berbeda. *PR: Tanyakan pendapat dua "
+                     "rekan kerja sebelum mengambil satu keputusan penting minggu ini.*",
+            "asmara": "Dalam hubungan, kamu memberi rasa aman lewat ketegasan dan kejelasan arah. "
+                      "Namun dominasimu dalam mengambil keputusan bisa membuat pasangan merasa "
+                      "pendapatnya kurang didengar. *PR: Biarkan pasanganmu memutuskan satu hal dalam "
+                      "hubungan kalian minggu ini tanpa kamu ikut mengarahkan.*",
+            "keuangan": "Soal keuangan, ketegasanmu membuatmu cepat mengambil keputusan finansial "
+                        "tanpa berlarut-larut ragu. Namun ini bisa membuatmu kurang mempertimbangkan "
+                        "masukan orang lain yang sebenarnya berharga. *PR: Diskusikan satu keputusan "
+                        "finansial dengan orang terdekat sebelum memutuskan sendiri minggu ini.*",
+            "kesehatan": "Kebiasaan selalu tampil kuat dan tegas bisa membuatmu enggan mengakui saat "
+                         "tubuh atau mentalmu butuh istirahat. *PR: Izinkan diri terlihat lelah "
+                         "sesekali minggu ini, tanpa merasa itu tanda kelemahan.*",
+        },
     },
     5: {
         "tagline": "✧ The Teacher",
@@ -184,6 +260,23 @@ MATRIX_DESTINY_CONTENT = {
               "bukan untuk diajarkan kepada orang lain. Pilih satu topik yang murni menarik minatmu "
               "sendiri, tanpa memikirkan apakah nantinya kamu akan mengajarkan hal itu kepada siapa "
               "pun. Nikmati proses belajar itu sebagai hadiah untuk dirimu sendiri.",
+        "domains": {
+            "karir": "Kesabaran membimbingmu membuatmu cocok di pengajaran, pelatihan, atau peran "
+                     "senior yang mengembangkan anggota tim junior. Namun kamu bisa terlalu sibuk "
+                     "mengurus perkembangan orang lain sampai perkembangan kariermu sendiri tertunda. "
+                     "*PR: Ajukan satu rencana pengembangan diri untuk kariermu sendiri minggu ini.*",
+            "asmara": "Dalam hubungan, kamu sabar membimbing pasangan bertumbuh, tapi ini bisa "
+                      "membuat dinamika terasa seperti guru-murid, bukan dua pihak yang setara. "
+                      "*PR: Minta pasanganmu mengajarkan atau menunjukkan sesuatu ke kamu minggu ini, "
+                      "biarkan posisinya berbalik.*",
+            "keuangan": "Soal keuangan, kamu senang berbagi ilmu finansial ke orang lain, tapi kadang "
+                        "lupa menerapkan nasihat yang sama untuk dirimu sendiri. *PR: Terapkan satu "
+                        "nasihat keuangan yang selama ini kamu berikan ke orang lain, untuk dirimu "
+                        "sendiri minggu ini.*",
+            "kesehatan": "Fokus membantu orang lain berkembang bisa membuatmu lupa menjaga "
+                         "kesehatanmu sendiri. *PR: Jadwalkan satu waktu belajar atau aktivitas murni "
+                         "untuk dirimu sendiri minggu ini, tanpa niat mengajarkannya ke siapa pun.*",
+        },
     },
     6: {
         "tagline": "✧ The Partners",
@@ -213,6 +306,23 @@ MATRIX_DESTINY_CONTENT = {
               "menolak dengan alasan bahwa kamu bisa mengurus semuanya sendiri. Mulai dengan berbagi "
               "satu kekhawatiran kecil kepada orang yang kamu percaya, dan biarkan mereka menjadi "
               "fondasi bagimu, sebagaimana kamu selama ini menjadi fondasi bagi mereka.",
+        "domains": {
+            "karir": "Stabilitas dan kesetiaanmu membuatmu rekan kerja andalan yang bisa dipercaya "
+                     "dalam jangka panjang. Namun kamu jarang meminta pengakuan atas kontribusimu "
+                     "sendiri, sehingga bisa terlewat untuk promosi. *PR: Sampaikan satu kontribusi "
+                     "pentingmu ke atasan minggu ini, tanpa menunggu ditanya.*",
+            "asmara": "Dalam hubungan, kamu adalah fondasi yang membuat pasangan merasa aman dan "
+                      "stabil. Namun kamu jarang menunjukkan kerentanan, sampai pasangan tidak tahu "
+                      "kalau kamu juga butuh disokong. *PR: Bagikan satu kekhawatiranmu ke pasangan "
+                      "minggu ini, biarkan dia yang menjagamu kali ini.*",
+            "keuangan": "Soal keuangan, kamu bertanggung jawab menjaga stabilitas finansial keluarga "
+                        "atau kelompok. Namun kamu jarang mengalokasikan sesuatu murni untuk "
+                        "kebutuhanmu sendiri. *PR: Sisihkan satu pos finansial khusus untuk dirimu "
+                        "sendiri bulan ini.*",
+            "kesehatan": "Kebiasaan selalu jadi sosok kuat membuatmu enggan mengakui saat lelah, "
+                         "beban emosional bisa menumpuk tanpa terlihat dari luar. *PR: Izinkan satu "
+                         "orang membantumu minggu ini, tanpa buru-buru menolak.*",
+        },
     },
     7: {
         "tagline": "✧ The Conqueror",
@@ -245,6 +355,25 @@ MATRIX_DESTINY_CONTENT = {
               "membuktikan sesuatu kepada siapa pun. Pilih sesuatu yang murni untuk kesenangan, "
               "seperti hobi santai atau waktu bersama keluarga, dan sadari setiap kali dorongan untuk "
               "'menang' muncul, lalu dengan sengaja lepaskan dorongan itu untuk sesaat.",
+        "domains": {
+            "karir": "Daya juangmu membuatmu unggul di lingkungan kompetitif dan penuh tekanan, kamu "
+                     "jarang menyerah menghadapi target sulit. Namun kecenderungan memandang segalanya "
+                     "sebagai kompetisi bisa membuat kolaborasi tim terasa seperti perlombaan yang "
+                     "melelahkan rekan kerja. *PR: Selesaikan satu proyek tim minggu ini tanpa "
+                     "menjadikannya ajang unjuk siapa yang paling berjasa.*",
+            "asmara": "Dalam hubungan, semangat juangmu membuatmu berusaha keras memperjuangkan "
+                      "hubungan saat ada masalah. Namun kebiasaan memandang segalanya sebagai "
+                      "'menang-kalah' bisa membuat perselisihan kecil terasa seperti pertarungan. "
+                      "*PR: Selesaikan satu perselisihan dengan pasangan minggu ini tanpa mencari "
+                      "siapa yang benar.*",
+            "keuangan": "Soal keuangan, semangat juangmu membuatmu gigih mengejar target penghasilan. "
+                        "Namun kamu bisa terlalu memaksakan diri bekerja lebih keras dari yang "
+                        "sebenarnya perlu. *PR: Evaluasi apakah target finansialmu bulan ini realistis "
+                        "tanpa mengorbankan waktu istirahat.*",
+            "kesehatan": "Dorongan untuk terus menaklukkan tantangan bisa membuatmu sulit benar-benar "
+                         "rileks, selalu ada 'medan pertempuran' baru. *PR: Nikmati satu aktivitas "
+                         "santai minggu ini tanpa menjadikannya ajang bersaing dengan siapa pun.*",
+        },
     },
     8: {
         "tagline": "✧ The Balance",
@@ -276,6 +405,23 @@ MATRIX_DESTINY_CONTENT = {
               "terus mencari jalan tengah yang menyenangkan semua pihak. Latih diri dengan memberi "
               "batas waktu untuk menimbang, misalnya satu hari, lalu putuskan sebelum waktu itu habis, "
               "meski keputusan itu berarti tidak semua pihak akan merasa puas sepenuhnya.",
+        "domains": {
+            "karir": "Kebijaksanaanmu membuatmu cocok jadi penengah atau mediator antar divisi. Namun "
+                     "kebiasaan menimbang terlalu lama bisa membuatmu terlihat lambat mengambil "
+                     "keputusan di mata atasan yang butuh respons cepat. *PR: Ambil satu keputusan "
+                     "kerja dalam waktu maksimal satu hari minggu ini.*",
+            "asmara": "Dalam hubungan, kamu adil dan jarang memihak buta pada pendapatmu sendiri, "
+                      "membuat pasangan merasa didengar. Namun kehati-hatian ini bisa membuatmu sulit "
+                      "menyuarakan apa yang benar-benar kamu inginkan. *PR: Sampaikan satu keinginanmu "
+                      "secara tegas ke pasangan minggu ini.*",
+            "keuangan": "Soal keuangan, sikap seimbangmu membuatmu jarang gegabah, tapi kamu bisa "
+                        "melewatkan peluang bagus karena terlalu lama menimbang. *PR: Tetapkan tenggat "
+                        "waktu satu minggu untuk memutuskan satu peluang finansial yang sedang "
+                        "kamu pertimbangkan.*",
+            "kesehatan": "Kebiasaan terus menimbang berbagai kemungkinan bisa membuat pikiranmu sulit "
+                         "benar-benar beristirahat. *PR: Tetapkan satu jam setiap malam untuk berhenti "
+                         "memikirkan keputusan apa pun minggu ini.*",
+        },
     },
     9: {
         "tagline": "✧ The Hermit",
@@ -306,6 +452,25 @@ MATRIX_DESTINY_CONTENT = {
               "biarkan dirimu terbuka pada kehadiran mereka. Latih juga dirimu untuk sesekali "
               "membagikan apa yang sedang kamu renungkan kepada orang lain, alih-alih menyimpannya "
               "sepenuhnya untuk dirimu sendiri.",
+        "domains": {
+            "karir": "Kemandirian dan konsentrasimu membuatmu cocok di riset, analisis, atau peran "
+                     "individual contributor yang butuh fokus mendalam tanpa banyak gangguan. Namun "
+                     "kamu bisa terlalu jarang berkolaborasi, sampai idemu yang sebenarnya bagus tidak "
+                     "tersampaikan ke tim. *PR: Bagikan satu hasil pemikiranmu ke tim secara terbuka "
+                     "minggu ini.*",
+            "asmara": "Dalam hubungan, kebutuhanmu akan waktu sendiri sebenarnya sehat, tapi kalau "
+                      "tidak dijelaskan bisa membuat pasangan merasa dijauhi. *PR: Jelaskan ke "
+                      "pasanganmu kenapa kamu butuh waktu sendiri minggu ini, alih-alih membiarkannya "
+                      "menebak.*",
+            "keuangan": "Soal keuangan, kamu mengandalkan penilaianmu sendiri dan jarang butuh "
+                        "validasi orang lain. Namun ini bisa membuatmu melewatkan masukan berharga "
+                        "dari sudut pandang berbeda. *PR: Diskusikan satu rencana finansial dengan "
+                        "orang lain minggu ini, bukan memutuskan sendirian.*",
+            "kesehatan": "Waktu sendirimu penting untuk memulihkan energi, tapi terlalu sering "
+                         "menyendiri bisa membuatmu terisolasi dari dukungan sosial yang kamu "
+                         "butuhkan. *PR: Hubungi satu orang yang sudah lama tidak kamu ajak bicara "
+                         "minggu ini.*",
+        },
     },
     10: {
         "tagline": "✧ The Wheel",
@@ -338,6 +503,26 @@ MATRIX_DESTINY_CONTENT = {
               "hanya kamu terima begitu saja sebagai keadaan yang tak bisa diubah. Pilih satu area "
               "dalam hidupmu yang selama ini kamu anggap sudah \"pasti begitu\", dan cari tahu "
               "apakah sebenarnya ada langkah kecil yang bisa kamu ambil untuk mengubah arahnya.",
+        "domains": {
+            "karir": "Ketangguhanmu menghadapi perubahan membuatmu cocok bertahan di industri yang "
+                     "dinamis atau saat perusahaan mengalami restrukturisasi. Namun sikap menerima "
+                     "yang terlalu pasif bisa membuatmu kurang berusaha mengarahkan kariermu sendiri "
+                     "ke arah yang benar-benar kamu inginkan. *PR: Ambil satu langkah aktif untuk "
+                     "kariermu minggu ini, alih-alih menunggu keadaan berubah dengan sendirinya.*",
+            "asmara": "Dalam hubungan, kamu tidak mudah terguncang oleh naik turunnya hubungan, dan "
+                      "itu membuat pasangan merasa tenang. Namun penerimaan yang terlalu pasif bisa "
+                      "membuatmu kurang berjuang mempertahankan hubungan yang sebenarnya masih bisa "
+                      "diperbaiki. *PR: Ambil satu langkah aktif memperbaiki satu hal dalam hubunganmu "
+                      "minggu ini.*",
+            "keuangan": "Soal keuangan, kamu menerima naik turunnya kondisi finansial dengan tenang. "
+                        "Namun ini bisa membuatmu pasrah pada keadaan tanpa berusaha lebih aktif "
+                        "mengubah arah finansialmu. *PR: Cari tahu satu langkah kecil yang bisa kamu "
+                        "ambil untuk mengarahkan kondisi finansialmu minggu ini.*",
+            "kesehatan": "Penerimaanmu terhadap perubahan membuatmu cepat bangkit dari kemunduran "
+                         "kesehatan. Namun sikap pasrah ini bisa membuatmu kurang proaktif menjaga "
+                         "kesehatan sebelum masalah muncul. *PR: Lakukan satu pemeriksaan atau langkah "
+                         "pencegahan kesehatan yang selama ini kamu tunda.*",
+        },
     },
     11: {
         "tagline": "✧ The Brave",
@@ -368,6 +553,26 @@ MATRIX_DESTINY_CONTENT = {
               "dirimu untuk mengenali tanda-tanda saat sebuah situasi sudah terlalu besar untuk "
               "dihadapi sendiri, dan jangan ragu melibatkan orang lain sebelum keadaan menjadi lebih "
               "sulit dari yang seharusnya.",
+        "domains": {
+            "karir": "Keberanianmu menghadapi situasi sulit membuatmu cocok di peran yang butuh "
+                     "ketegasan saat krisis, seperti manajemen krisis atau posisi yang mengharuskan "
+                     "keputusan cepat di bawah tekanan. Namun keberanian yang besar bisa membuatmu "
+                     "meremehkan risiko atau enggan meminta bantuan tim saat sebenarnya dibutuhkan. "
+                     "*PR: Minta pendapat rekan kerja sebelum menghadapi satu tantangan besar minggu "
+                     "ini sendirian.*",
+            "asmara": "Dalam hubungan, keberanianmu membuat pasangan merasa terlindungi saat "
+                      "menghadapi masalah bersama. Namun kebiasaan menghadapi semuanya sendirian bisa "
+                      "membuat pasangan merasa tidak dilibatkan dalam masalah yang sebenarnya juga "
+                      "memengaruhi hubungan kalian. *PR: Libatkan pasanganmu dalam satu masalah yang "
+                      "biasanya kamu hadapi sendirian minggu ini.*",
+            "keuangan": "Soal keuangan, kamu berani mengambil risiko finansial yang bagi orang lain "
+                        "terasa menakutkan. Namun keberanian ini bisa membuatmu meremehkan risiko yang "
+                        "sebenarnya perlu dipertimbangkan matang. *PR: Riset lebih dalam sebelum "
+                        "mengambil satu keputusan finansial berisiko minggu ini.*",
+            "kesehatan": "Kebiasaan menghadapi semuanya sendirian tanpa mengeluh bisa membuatmu "
+                         "menunda mencari bantuan medis sampai kondisinya sudah cukup serius. *PR: "
+                         "Kalau ada keluhan kesehatan yang kamu abaikan, periksakan diri minggu ini.*",
+        },
     },
     12: {
         "tagline": "✧ The Sacrifice",
@@ -398,6 +603,25 @@ MATRIX_DESTINY_CONTENT = {
               "kebutuhanmu sendiri untuk sekali itu. Latih diri untuk mengenali batas kemampuanmu, "
               "dan ingat bahwa berkata \"tidak\" pada satu permintaan tidak mengurangi ketulusanmu "
               "dalam membantu orang lain di lain waktu.",
+        "domains": {
+            "karir": "Kerelaan berkorbanmu membuatmu jadi rekan kerja yang mudah diandalkan untuk "
+                     "membantu, cocok di pelayanan sosial atau peran yang berdampak langsung pada "
+                     "kesejahteraan orang lain. Namun kamu bisa terlalu sering mengalah soal jam "
+                     "kerja atau bebanmu sendiri demi membantu tim. *PR: Tolak satu tugas tambahan "
+                     "yang di luar tanggung jawabmu minggu ini.*",
+            "asmara": "Dalam hubungan, kamu mengutamakan kebahagiaan pasangan bahkan di atas "
+                      "kebutuhanmu sendiri. Namun kalau berlebihan, ini bisa membuatmu kehilangan "
+                      "bagian dari dirimu sendiri dalam hubungan itu. *PR: Utamakan satu "
+                      "keinginanmu sendiri di atas keinginan pasangan untuk sekali ini minggu ini.*",
+            "keuangan": "Soal keuangan, kamu rela mengorbankan kebutuhanmu demi membantu keluarga "
+                        "atau orang terdekat secara finansial. Namun ini bisa membuat kondisi "
+                        "finansialmu sendiri terganggu. *PR: Tetapkan batas jelas soal bantuan "
+                        "finansial yang bisa kamu berikan bulan ini.*",
+            "kesehatan": "Kebiasaan mendahulukan orang lain bisa membuatmu mengabaikan kebutuhan "
+                         "istirahat atau kesehatanmu sendiri sampai benar-benar kelelahan. *PR: "
+                         "Jadwalkan satu waktu khusus untuk dirimu sendiri minggu ini, tanpa bisa "
+                         "diganggu urusan membantu orang lain.*",
+        },
     },
     13: {
         "tagline": "✧ The Transformation",
@@ -430,6 +654,25 @@ MATRIX_DESTINY_CONTENT = {
               "terdekat, supaya mereka tidak merasa tertinggal begitu saja. Beri mereka waktu untuk "
               "bertanya dan memahami alasan di balik perubahan yang kamu rencanakan, supaya "
               "transformasimu terasa seperti perjalanan bersama, bukan kejutan yang tiba-tiba.",
+        "domains": {
+            "karir": "Kemampuanmu bertransformasi membuatmu tangguh menghadapi pergantian karier atau "
+                     "restrukturisasi besar. Namun perubahan arah yang terlalu sering bisa membuat "
+                     "atasan atau rekan kerja kesulitan mengikuti arah kariermu. *PR: Ceritakan "
+                     "rencana perubahan besar dalam kariermu ke atasan sebelum benar-benar mengambil "
+                     "langkah minggu ini.*",
+            "asmara": "Dalam hubungan, kamu berani mengubah pola lama yang tidak lagi sehat. Namun "
+                      "perubahan yang terlalu sering bisa membuat pasangan merasa sulit mengikuti "
+                      "versi dirimu yang terus bergeser. *PR: Ceritakan ke pasanganmu satu perubahan "
+                      "besar yang sedang kamu pikirkan, sebelum benar-benar melakukannya minggu ini.*",
+            "keuangan": "Soal keuangan, kamu berani mengubah strategi finansial besar-besaran kalau "
+                        "merasa arah lama sudah tidak sesuai. Namun perubahan yang terlalu sering bisa "
+                        "membuat rencana jangka panjangmu tidak pernah benar-benar matang. *PR: "
+                        "Pertahankan satu strategi finansial minimal tiga bulan sebelum menggantinya "
+                        "lagi.*",
+            "kesehatan": "Perubahan besar dalam hidup, meski sehat bagimu, bisa jadi beban stres yang "
+                         "tidak terlihat kalau terjadi terlalu sering berturut-turut. *PR: Beri diri "
+                         "jeda istirahat minggu ini sebelum memulai transisi besar berikutnya.*",
+        },
     },
     14: {
         "tagline": "✧ The Alchemist",
@@ -462,6 +705,25 @@ MATRIX_DESTINY_CONTENT = {
               "terus-menerus mengganti pendekatan di tengah jalan. Beri dirimu batas waktu tertentu "
               "untuk bertahan pada satu metode sebelum menilai apakah metode itu perlu diganti, "
               "supaya kecerdikanmu bereksperimen tetap terarah menuju hasil yang jelas.",
+        "domains": {
+            "karir": "Kecerdikanmu meramu solusi dari keterbatasan membuatmu unggul di proyek dengan "
+                     "sumber daya terbatas atau situasi mendesak. Namun kebiasaan terus bereksperimen "
+                     "bisa membuat rekan kerja sulit mengikuti metode kerjamu yang terus berubah. "
+                     "*PR: Tetap pada satu pendekatan kerja untuk satu proyek penuh minggu ini, tanpa "
+                     "mengganti di tengah jalan.*",
+            "asmara": "Dalam hubungan, kreativitasmu membuat cara mengekspresikan cinta terasa unik "
+                      "dan tidak monoton. Namun kebiasaan terus mengubah pendekatan bisa membuat "
+                      "pasangan bingung menebak apa yang benar-benar kamu inginkan dari hubungan. "
+                      "*PR: Pertahankan satu cara komunikasi yang sudah terbukti baik dengan pasangan "
+                      "minggu ini, tanpa mengubahnya lagi.*",
+            "keuangan": "Soal keuangan, kecerdikanmu membuatmu jago mencari solusi kreatif saat dana "
+                        "terbatas. Namun terlalu sering berganti strategi investasi bisa membuat "
+                        "hasilnya tidak maksimal. *PR: Pertahankan satu strategi finansial minimal "
+                        "sebulan sebelum menilai perlu diganti atau tidak.*",
+            "kesehatan": "Kebiasaan terus mencoba metode baru juga berlaku untuk urusan kesehatan, "
+                         "kamu sering berganti pola makan atau olahraga sebelum melihat hasil nyata. "
+                         "*PR: Konsisten pada satu metode sehat selama dua minggu penuh minggu ini.*",
+        },
     },
     15: {
         "tagline": "✧ The Shadow",
@@ -493,6 +755,24 @@ MATRIX_DESTINY_CONTENT = {
               "dari kebiasaanmu merenungkan kekuranganmu. Latih diri untuk memberi perhatian yang "
               "sama besarnya pada sisi terangmu, seperti perhatian yang selama ini kamu berikan pada "
               "sisi gelapmu, supaya pemahaman dirimu terasa lebih utuh dan seimbang.",
+        "domains": {
+            "karir": "Kejujuran menghadapi sisi sulit dirimu membuatmu punya empati mendalam untuk "
+                     "membantu rekan kerja yang sedang berjuang, cocok di konseling atau HR. Namun "
+                     "fokus berlebihan pada kekurangan diri bisa membuatmu terlalu keras menilai "
+                     "kinerjamu sendiri. *PR: Catat satu pencapaian kerja yang sudah kamu raih minggu "
+                     "ini, sebagai imbangan dari evaluasi diri yang keras.*",
+            "asmara": "Dalam hubungan, kejujuranmu soal perasaan sulit membuat keintiman terasa nyata "
+                      "dan mendalam. Namun terlalu fokus pada masalah atau kekurangan bisa membuatmu "
+                      "lupa mengapresiasi sisi baik dari hubunganmu. *PR: Sebutkan satu hal baik dari "
+                      "hubunganmu ke pasangan minggu ini.*",
+            "keuangan": "Soal keuangan, kejujuranmu soal kondisi finansial yang sulit membuatmu tidak "
+                        "menghindar dari masalah uang. Namun kamu bisa terlalu fokus pada kekurangan "
+                        "finansial sampai lupa mengapresiasi progres yang sudah dicapai. *PR: Catat "
+                        "satu progres finansial positif yang sudah kamu capai bulan ini.*",
+            "kesehatan": "Kebiasaan merenungkan sisi gelap diri bisa memicu pola pikir yang terlalu "
+                         "keras pada diri sendiri, berdampak pada kesehatan mental. *PR: Tuliskan satu "
+                         "hal baik tentang dirimu setiap hari minggu ini.*",
+        },
     },
     16: {
         "tagline": "✧ The Collapse",
@@ -523,6 +803,24 @@ MATRIX_DESTINY_CONTENT = {
               "pikirkan satu langkah kecil untuk mencegahnya terulang. Tuliskan pola itu secara "
               "jujur, dan diskusikan dengan orang yang kamu percaya untuk mendapat perspektif baru "
               "tentang bagaimana cara mencegahnya, bukan sekadar cara bangkit setelahnya.",
+        "domains": {
+            "karir": "Ketangguhanmu bangkit dari kegagalan membuatmu inspiratif di lingkungan kerja "
+                     "yang penuh tekanan. Namun pola berulang jatuh-bangkit bisa membuatmu kelelahan "
+                     "kalau tidak mengevaluasi apa yang berulang kali membawamu ke titik itu. *PR: "
+                     "Identifikasi satu pola kerja yang selama ini berulang kali membuatmu kewalahan "
+                     "minggu ini.*",
+            "asmara": "Dalam hubungan, kamu tangguh melewati masa-masa sulit bersama pasangan. Namun "
+                      "kalau pola konflik yang sama terus berulang, kamu perlu berhenti sejenak "
+                      "mengevaluasi akar masalahnya, bukan hanya jago berdamai setelahnya. *PR: "
+                      "Diskusikan dengan pasangan pola konflik yang selama ini berulang minggu ini.*",
+            "keuangan": "Soal keuangan, kamu terbukti bisa bangkit dari kondisi finansial yang sempat "
+                        "terpuruk. Namun kalau pola kehabisan uang terus berulang, penting untuk "
+                        "mengevaluasi kebiasaan yang menyebabkannya. *PR: Catat satu kebiasaan "
+                        "finansial yang selama ini berulang kali membuatmu kesulitan.*",
+            "kesehatan": "Siklus jatuh-bangkit yang berulang bisa menguras stamina fisik dan mental "
+                         "dalam jangka panjang kalau tidak dicegah dari akarnya. *PR: Evaluasi satu "
+                         "kebiasaan kesehatan yang selalu jadi penyebab kamu 'jatuh' minggu ini.*",
+        },
     },
     17: {
         "tagline": "✧ The Hope",
@@ -553,6 +851,25 @@ MATRIX_DESTINY_CONTENT = {
               "sebelum mencari sisi positif dari keadaan tersebut. Latih diri untuk mengatakan "
               "\"ini memang berat\" terlebih dulu sebelum menawarkan harapan, supaya orang lain "
               "merasa perasaannya benar-benar didengar, bukan langsung dialihkan ke sisi positif.",
+        "domains": {
+            "karir": "Optimismemu membuatmu efektif memotivasi tim di masa-masa sulit, cocok jadi "
+                     "pemimpin yang menjaga moral tim tetap tinggi. Namun harapan yang terlalu besar "
+                     "bisa membuatmu mengabaikan masalah nyata yang butuh perhatian serius. *PR: Akui "
+                     "satu masalah kerja secara jujur ke tim minggu ini, sebelum menawarkan solusi "
+                     "positif.*",
+            "asmara": "Dalam hubungan, optimismemu membuat pasangan merasa lebih ringan menghadapi "
+                      "masalah. Namun kamu bisa terlalu cepat melompat ke 'pasti baik-baik saja' tanpa "
+                      "benar-benar memvalidasi kesedihan pasangan. *PR: Validasi satu perasaan sulit "
+                      "pasanganmu minggu ini sebelum menawarkan sisi positifnya.*",
+            "keuangan": "Soal keuangan, optimismemu membuatmu yakin kondisi finansial akan membaik, "
+                        "membantu kamu tetap semangat menabung. Namun ini bisa membuatmu mengabaikan "
+                        "masalah finansial nyata yang butuh tindakan konkret. *PR: Hadapi satu masalah "
+                        "finansial yang selama ini kamu abaikan dengan alasan 'nanti juga membaik'.*",
+            "kesehatan": "Optimismemu membantu pemulihan mental, tapi bisa juga membuatmu menunda "
+                         "menangani gejala kesehatan yang sebenarnya butuh perhatian serius. *PR: "
+                         "Periksakan satu keluhan kesehatan yang selama ini kamu anggap 'pasti nanti "
+                         "sembuh sendiri'.*",
+        },
     },
     18: {
         "tagline": "✧ The Mystery",
@@ -583,6 +900,25 @@ MATRIX_DESTINY_CONTENT = {
               "kamu percaya. Mulailah dari hal yang terasa aman untuk dibagikan, dan perhatikan "
               "bagaimana keterbukaan kecil itu justru bisa mempererat hubungan, bukan membuatmu "
               "kehilangan kendali atas privasimu.",
+        "domains": {
+            "karir": "Kemampuanmu menjaga kerahasiaan membuatmu dipercaya memegang informasi "
+                     "sensitif di tempat kerja. Namun sikap tertutup bisa membuat atasan atau rekan "
+                     "kerja sulit menilai kemampuanmu secara utuh, karena kamu jarang menunjukkan "
+                     "pencapaian secara terbuka. *PR: Bagikan satu pencapaian kerjamu secara terbuka "
+                     "ke tim minggu ini.*",
+            "asmara": "Dalam hubungan, sisi misteriusmu membuat pasangan penasaran dan tertarik lebih "
+                      "jauh. Namun kalau terlalu lama tertutup, hubungan bisa berhenti di permukaan, "
+                      "karena pasangan tidak pernah benar-benar tahu isi pikiranmu. *PR: Bagikan satu "
+                      "hal pribadi yang biasanya kamu simpan sendiri ke pasangan minggu ini.*",
+            "keuangan": "Soal keuangan, kamu jarang membicarakan kondisi finansialmu secara terbuka "
+                        "dengan siapa pun, bahkan orang terdekat. Ini bisa membuatmu kesulitan "
+                        "mendapat masukan yang berharga. *PR: Bicarakan kondisi finansialmu secara "
+                        "terbuka dengan satu orang yang kamu percaya minggu ini.*",
+            "kesehatan": "Kebiasaan menyimpan segalanya sendiri, termasuk soal kesehatan, bisa "
+                         "membuatmu menunda mencari bantuan sampai kondisinya sudah cukup berat. *PR: "
+                         "Ceritakan satu keluhan kesehatan yang selama ini kamu simpan sendiri ke "
+                         "orang terdekat minggu ini.*",
+        },
     },
     19: {
         "tagline": "✧ The Joy",
@@ -612,6 +948,24 @@ MATRIX_DESTINY_CONTENT = {
               "orang terdekat, alih-alih menutupinya dengan senyuman seperti biasa. Latih diri "
               "untuk membiarkan orang lain melihat sisi rapuhmu sesekali, karena itu justru akan "
               "membuat kebahagiaan yang kamu bagikan terasa lebih tulus dan manusiawi.",
+        "domains": {
+            "karir": "Energi positifmu mencairkan suasana kerja yang tegang dan menjaga semangat tim "
+                     "tetap tinggi saat menghadapi tekanan. Namun kebiasaan selalu tampil ceria bisa "
+                     "membuat rekan kerja tidak menyadari saat kamu sendiri sedang kesulitan di "
+                     "pekerjaan. *PR: Sampaikan satu kesulitan kerja yang selama ini kamu tutupi "
+                     "dengan candaan ke atasan atau rekan minggu ini.*",
+            "asmara": "Dalam hubungan, keceriaanmu membuat hubungan terasa ringan dan menyenangkan. "
+                      "Namun kebiasaan menyembunyikan kesedihan di balik senyuman bisa membuat "
+                      "pasangan tidak pernah benar-benar tahu kapan kamu butuh dukungan. *PR: Akui "
+                      "satu kesedihan yang selama ini kamu tutupi ke pasangan minggu ini.*",
+            "keuangan": "Soal keuangan, optimismemu membuatmu tetap tenang meski kondisi finansial "
+                        "sedang tidak ideal. Namun ini bisa membuatmu menutupi masalah finansial "
+                        "nyata dari orang terdekat yang sebenarnya bisa membantu. *PR: Bicarakan satu "
+                        "masalah finansial yang selama ini kamu sembunyikan dengan sikap ceria.*",
+            "kesehatan": "Kebiasaan menyembunyikan kesedihan bisa membuat masalah kesehatan mental "
+                         "tidak tertangani karena kamu jarang menunjukkan tanda butuh bantuan. *PR: "
+                         "Akui satu perasaan yang tidak baik-baik saja ke orang terdekat minggu ini.*",
+        },
     },
     20: {
         "tagline": "✧ The Awakening",
@@ -643,6 +997,26 @@ MATRIX_DESTINY_CONTENT = {
               "sudah kamu sadari sejauh ini. Tuliskan tiga hal penting yang sudah kamu pelajari "
               "tentang dirimu sendiri selama setahun terakhir, dan luangkan waktu untuk benar-benar "
               "menghargai perjalanan itu sebelum melangkah mencari pemahaman berikutnya.",
+        "domains": {
+            "karir": "Keterbukaanmu untuk terus belajar membuatmu berkembang pesat secara profesional, "
+                     "kamu jarang stagnan pada satu cara kerja. Namun kamu bisa terus merasa belum "
+                     "cukup kompeten, sampai lupa mengakui seberapa jauh kariermu sudah berkembang. "
+                     "*PR: Akui satu pencapaian kariermu minggu ini, alih-alih langsung mencari hal "
+                     "baru untuk dipelajari.*",
+            "asmara": "Dalam hubungan, kamu terus bertumbuh dan berubah, membuat hubungan terasa "
+                      "dinamis. Namun perubahan cara pandangmu yang terus-menerus bisa membuat "
+                      "pasangan kesulitan mengikuti versi dirimu yang baru. *PR: Ceritakan satu "
+                      "perubahan cara pandangmu ke pasangan minggu ini, supaya dia ikut memahami "
+                      "prosesnya.*",
+            "keuangan": "Soal keuangan, keterbukaanmu belajar hal baru membuatmu terus memperbarui "
+                        "cara mengelola uang. Namun kamu bisa terus mengganti strategi sebelum "
+                        "strategi lama benar-benar menunjukkan hasilnya. *PR: Pertahankan satu "
+                        "strategi finansial minimal tiga bulan sebelum mengevaluasi ulang.*",
+            "kesehatan": "Proses penyadaran yang terus-menerus bisa membuatmu belum sempat menikmati "
+                         "stabilitas sebelum berpindah ke fase pertumbuhan berikutnya, memicu "
+                         "kelelahan mental. *PR: Syukuri satu hal yang sudah kamu pahami tentang "
+                         "dirimu minggu ini, tanpa langsung mencari pemahaman baru.*",
+        },
     },
     21: {
         "tagline": "✧ The Achievement",
@@ -673,6 +1047,23 @@ MATRIX_DESTINY_CONTENT = {
               "sebelum langsung mengejar target berikutnya. Luangkan waktu khusus untuk benar-benar "
               "menikmati hasil kerja kerasmu, entah dengan merayakannya bersama orang terdekat atau "
               "sekadar memberi dirimu jeda sebelum kembali mengejar target baru.",
+        "domains": {
+            "karir": "Ambisimu membuatmu unggul di lingkungan kompetitif dan terus melampaui standar "
+                     "yang ada. Namun dorongan untuk terus mencapai lebih banyak bisa membuatmu sulit "
+                     "puas, bahkan setelah pencapaian besar sekalipun. *PR: Rayakan satu pencapaian "
+                     "kerja minggu ini sebelum menetapkan target berikutnya.*",
+            "asmara": "Dalam hubungan, ambisimu bisa menular, membuat pasangan ikut terdorong "
+                      "berkembang. Namun fokus berlebihan pada pencapaian bisa membuatmu mengorbankan "
+                      "waktu berkualitas bersama pasangan. *PR: Luangkan satu waktu khusus bersama "
+                      "pasangan minggu ini tanpa membahas target atau pencapaian apa pun.*",
+            "keuangan": "Soal keuangan, ambisimu membuatmu terus mengejar penghasilan lebih besar. "
+                        "Namun kamu bisa jarang merasa cukup, terus menunda menikmati hasil kerja "
+                        "kerasmu. *PR: Belanjakan satu hal untuk menikmati hasil kerja kerasmu minggu "
+                        "ini, tanpa merasa bersalah.*",
+            "kesehatan": "Dorongan untuk terus mencapai lebih banyak bisa membuatmu mengorbankan "
+                         "waktu istirahat demi mengejar target berikutnya. *PR: Tetapkan satu waktu "
+                         "istirahat wajib minggu ini yang tidak bisa digeser demi target apa pun.*",
+        },
     },
     22: {
         "tagline": "✧ The Unity",
@@ -703,5 +1094,26 @@ MATRIX_DESTINY_CONTENT = {
               "langsung memikirkan bagaimana hal itu berhubungan dengan gambaran besar hidupmu. "
               "Latih diri untuk memberi perhatian penuh pada tugas kecil yang ada di depanmu saat "
               "ini juga, sebagai imbangan dari kebiasaanmu selalu berpikir jangka panjang dan luas.",
+        "domains": {
+            "karir": "Kemampuanmu melihat gambaran besar membuatmu cocok di perencanaan strategis atau "
+                     "peran kepemimpinan jangka panjang. Namun fokus yang begitu luas bisa membuatmu "
+                     "kurang teliti pada detail operasional sehari-hari yang sebenarnya juga penting. "
+                     "*PR: Selesaikan satu tugas kecil dan spesifik sampai tuntas minggu ini, tanpa "
+                     "langsung memikirkan gambaran besarnya.*",
+            "asmara": "Dalam hubungan, kebijaksanaanmu membuatmu bisa menerima kontradiksi dan "
+                      "ketidaksempurnaan pasangan dengan lapang dada. Namun cara pandang yang begitu "
+                      "luas bisa membuatmu kurang hadir pada momen-momen kecil sehari-hari bersama "
+                      "pasangan. *PR: Nikmati satu momen kecil bersama pasangan minggu ini tanpa "
+                      "memikirkan makna besarnya bagi hubungan kalian.*",
+            "keuangan": "Soal keuangan, kamu bisa melihat bagaimana berbagai keputusan finansial "
+                        "kecil saling berhubungan menuju tujuan besar. Namun ini bisa membuatmu "
+                        "kurang memperhatikan detail pengeluaran harian yang sebenarnya juga "
+                        "berpengaruh. *PR: Catat detail pengeluaran hari ini secara spesifik, tanpa "
+                        "langsung menghubungkannya ke rencana besar.*",
+            "kesehatan": "Fokus pada gambaran besar hidup bisa membuatmu mengabaikan sinyal kecil dari "
+                         "tubuhmu yang sebenarnya butuh perhatian sekarang juga. *PR: Perhatikan satu "
+                         "keluhan fisik kecil minggu ini dan tangani langsung, tanpa menunggu jadi "
+                         "besar.*",
+        },
     },
 }

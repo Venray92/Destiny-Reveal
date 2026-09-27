@@ -63,22 +63,42 @@ ZODIAK_CONTENT = {
               "penyelesaian yang sudah dimulai.",
         "domains": {
             "karir": "Kamu bersinar di proyek rintisan atau posisi yang butuh orang berani ambil "
-                     "langkah pertama, tapi begitu proyeknya masuk fase rutin dan repetitif, semangatmu "
-                     "gampang kendur. Rekan kerja kadang was-was menyerahkan tugas jangka panjang "
-                     "kepadamu karena melihat pola ini. *PR: minta satu rekan pegang bagian "
-                     "follow-up/detail administratif, biar energimu tetap di bagian yang kamu kuasai.*",
-            "asmara": "Kamu jujur dan langsung soal perasaan, bikin pasangan tahu persis posisinya. "
-                      "Tapi kesabaranmu diuji kalau hubungan terasa monoton — kamu butuh hal baru "
-                      "supaya percikan itu tetap ada. *PR: sebelum menganggap hubungan membosankan, "
-                      "coba dulu ajak pasangan bikin \"hal baru\" bareng, bukan langsung mundur.*",
+                     "langkah pertama, misalnya buka lini bisnis baru, jadi orang pertama yang "
+                     "menawarkan ide di rapat, atau memimpin tim yang baru dibentuk dari nol. Tapi "
+                     "begitu proyeknya masuk fase rutin dan repetitif, semangatmu gampang kendur, dan "
+                     "kamu bisa kehilangan minat tepat di fase yang justru paling menentukan hasil "
+                     "akhirnya. Rekan kerja kadang was-was menyerahkan tugas jangka panjang kepadamu "
+                     "karena sudah melihat pola ini berulang kali, meski mereka tahu betul kamu adalah "
+                     "orang paling tepat untuk memulai sesuatu dari nol. *PR: minta satu rekan pegang "
+                     "bagian follow-up/detail administratif dari proyekmu, biar energimu tetap "
+                     "tersalur ke bagian yang benar-benar kamu kuasai.*",
+            "asmara": "Kamu jujur dan langsung soal perasaan, bikin pasangan tahu persis posisinya "
+                      "tanpa perlu menebak-nebak, dan itu jadi kekuatan besar buat hubungan yang jujur. "
+                      "Tapi kesabaranmu diuji kalau hubungan terasa monoton, kamu butuh hal baru "
+                      "supaya percikan itu tetap ada, dan kalau tidak ada, kamu bisa jadi gelisah atau "
+                      "mulai mencari-cari kesalahan kecil dalam hubungan yang sebenarnya baik-baik "
+                      "saja. Pasanganmu mungkin merasa harus terus menciptakan kejutan supaya kamu "
+                      "tetap tertarik, padahal hubungan yang matang juga butuh momen-momen tenang. "
+                      "*PR: sebelum menganggap hubungan membosankan, coba dulu ajak pasangan bikin "
+                      "\"hal baru\" bareng, bukan langsung mundur atau mencari yang lain.*",
             "keuangan": "Kamu gampang tergoda beli sesuatu yang baru dan menarik perhatian saat itu "
-                        "juga, tanpa banyak mikir jangka panjang. Ini bikin belanja impulsif jadi "
-                        "kebiasaan yang sering bikin kaget pas cek saldo di akhir bulan. *PR: kasih "
-                        "jeda 24 jam sebelum beli barang di atas nominal tertentu.*",
+                        "juga, tanpa banyak mikir jangka panjang, karena dorongan untuk segera "
+                        "memiliki sesuatu yang kamu inginkan terasa begitu kuat. Ini bikin belanja "
+                        "impulsif jadi kebiasaan yang sering bikin kaget pas cek saldo di akhir bulan, "
+                        "apalagi kalau kamu sedang dalam mood yang sedang tinggi dan merasa layak "
+                        "\"reward diri sendiri\". Kamu juga cenderung tidak sabar menunggu diskon "
+                        "atau promo, lebih memilih beli sekarang meski harganya belum tentu paling "
+                        "murah. *PR: kasih jeda 24 jam sebelum beli barang di atas nominal tertentu, "
+                        "supaya dorongan awal itu sempat mereda dulu.*",
             "kesehatan": "Energimu besar dan butuh disalurkan lewat gerak fisik yang intens, kalau "
-                         "nggak malah jadi gelisah. Risikonya, kamu sering terburu-buru tanpa "
-                         "pemanasan cukup, jadi rawan cedera otot/sendi. *PR: biasakan pemanasan 5 "
-                         "menit sebelum olahraga, sekecil apa pun rasanya buang-buang waktu.*",
+                         "nggak malah jadi gelisah, susah diam, atau gampang emosi tanpa sebab yang "
+                         "jelas. Risikonya, kamu sering terburu-buru tanpa pemanasan cukup saat "
+                         "olahraga atau aktivitas fisik lainnya, jadi rawan cedera otot atau sendi, "
+                         "terutama di bagian kepala dan wajah yang jadi titik lemah khas Aries. Kamu "
+                         "juga tipe yang memaksakan diri tetap aktif meski tubuh sudah memberi sinyal "
+                         "lelah, karena tidak suka merasa \"kalah\" oleh keterbatasan fisik sendiri. "
+                         "*PR: biasakan pemanasan 5 menit sebelum olahraga, sekecil apa pun rasanya "
+                         "buang-buang waktu.*",
         },
     },
     "Taurus": {
@@ -117,22 +137,39 @@ ZODIAK_CONTENT = {
               "aman.",
         "domains": {
             "karir": "Kamu unggul di posisi yang butuh konsistensi dan hasil tahan lama, bukan proyek "
-                     "yang berubah arah tiap minggu. Sisi kerasnya, kamu bisa lambat beradaptasi kalau "
-                     "perusahaan tiba-tiba ganti sistem kerja atau arah bisnis. *PR: coba anggap "
-                     "perubahan sebagai versi baru dari stabilitas, bukan ancaman terhadapnya.*",
+                     "yang berubah arah tiap minggu, dan atasan biasanya menaruh kepercayaan besar "
+                     "padamu untuk hal-hal yang butuh ketekunan bertahun-tahun. Sisi kerasnya, kamu "
+                     "bisa lambat beradaptasi kalau perusahaan tiba-tiba ganti sistem kerja atau arah "
+                     "bisnis, dan perubahan mendadak itu bisa terasa seperti ancaman, bukan sekadar "
+                     "penyesuaian biasa. Kamu juga cenderung menunda mengajukan diri untuk peran baru "
+                     "yang sebenarnya kamu sanggup, karena lebih nyaman di posisi yang sudah kamu "
+                     "kuasai. *PR: coba anggap perubahan sebagai versi baru dari stabilitas, bukan "
+                     "ancaman terhadapnya.*",
             "asmara": "Kesetiaanmu jarang goyah begitu berkomitmen, dan pasanganmu merasa aman "
-                      "karenanya. Tapi kamu bisa terlalu lama bertahan di hubungan yang sebenarnya "
-                      "sudah tidak sehat, cuma karena benci perubahan. *PR: sesekali tanya diri "
-                      "sendiri, ini bertahan karena cinta atau karena takut berubah?*",
+                      "karenanya, karena kamu bukan tipe yang gampang tergoda pindah hati begitu "
+                      "keadaan sedikit sulit. Tapi kamu bisa terlalu lama bertahan di hubungan yang "
+                      "sebenarnya sudah tidak sehat, cuma karena benci perubahan dan merasa lebih "
+                      "aman dengan yang sudah dikenal, meski itu berarti mengorbankan kebahagiaanmu "
+                      "sendiri. Kamu juga bisa keras kepala soal cara menunjukkan cinta, padahal "
+                      "pasangan mungkin butuh bentuk perhatian yang sedikit berbeda dari biasanya. "
+                      "*PR: sesekali tanya diri sendiri, ini bertahan karena cinta atau karena takut "
+                      "berubah?*",
             "keuangan": "Kamu cukup baik menabung, tapi juga suka memanjakan diri dengan hal-hal yang "
-                        "terasa nyaman — makanan enak, barang berkualitas, pengalaman menyenangkan. "
-                        "Kalau tidak dijaga, pengeluaran \"kenyamanan\" ini bisa menggerus tabungan "
-                        "pelan-pelan. *PR: catat khusus pos \"kenyamanan diri\" tiap bulan biar "
-                        "kelihatan totalnya.*",
+                        "terasa nyaman, makanan enak, barang berkualitas, pengalaman menyenangkan, "
+                        "karena bagimu kenyamanan fisik adalah investasi yang sama pentingnya dengan "
+                        "uang di rekening. Kalau tidak dijaga, pengeluaran \"kenyamanan\" ini bisa "
+                        "menggerus tabungan pelan-pelan tanpa kamu sadari, karena masing-masing "
+                        "pembelian terasa kecil dan wajar. Kamu juga cenderung enggan menjual atau "
+                        "melepas aset lama meski sudah tidak terlalu berguna, karena merasa sayang "
+                        "atau terikat secara emosional. *PR: catat khusus pos \"kenyamanan diri\" tiap "
+                        "bulan biar kelihatan totalnya.*",
             "kesehatan": "Kamu suka menikmati makanan enak dan gaya hidup santai, yang enak tapi bisa "
-                         "berujung kurang gerak kalau dibiarkan terus. Area leher dan tenggorokan "
-                         "cenderung jadi titik lemahmu. *PR: pasang jadwal jalan kaki/olahraga ringan "
-                         "rutin, bukan cuma pas mood.*",
+                         "berujung kurang gerak kalau dibiarkan terus, apalagi kalau rutinitas "
+                         "harianmu memang tidak banyak menuntut aktivitas fisik. Area leher dan "
+                         "tenggorokan cenderung jadi titik lemahmu, dan kamu mungkin baru sadar ada "
+                         "yang salah setelah masalahnya cukup mengganggu, karena kamu jarang proaktif "
+                         "memeriksakan diri selagi masih merasa baik-baik saja. *PR: pasang jadwal "
+                         "jalan kaki/olahraga ringan rutin, bukan cuma pas mood.*",
         },
     },
     "Gemini": {
@@ -171,21 +208,35 @@ ZODIAK_CONTENT = {
               "berlangsung.",
         "domains": {
             "karir": "Kamu jago di peran yang butuh komunikasi lintas tim atau menangani banyak hal "
-                     "sekaligus, tapi bisa keteteran menyelesaikan satu proyek besar sampai tuntas "
-                     "karena gampang tergoda tugas baru yang lebih menarik. *PR: sebelum terima "
-                     "tanggung jawab baru, selesaikan dulu satu yang sedang jalan sampai kelar.*",
+                     "sekaligus, dan atasan biasanya senang punya kamu di tim karena selalu bisa "
+                     "diandalkan menjembatani informasi antar divisi. Tapi bisa keteteran "
+                     "menyelesaikan satu proyek besar sampai tuntas karena gampang tergoda tugas baru "
+                     "yang lebih menarik, dan kamu bisa punya banyak pekerjaan setengah jalan di saat "
+                     "yang sama. Rekan kerja mungkin melihatmu sebagai sosok multitasking, tapi juga "
+                     "sedikit ragu soal seberapa dalam kamu benar-benar menguasai satu bidang tertentu. "
+                     "*PR: sebelum terima tanggung jawab baru, selesaikan dulu satu yang sedang jalan "
+                     "sampai kelar.*",
             "asmara": "Kamu butuh obrolan yang hidup dan bervariasi supaya hubungan terasa segar, dan "
-                      "gampang bosan kalau komunikasi jadi datar. Risikonya, kamu bisa terlihat kurang "
-                      "serius di mata pasangan yang butuh kepastian. *PR: sesekali dengarkan cerita "
-                      "pasangan sampai habis tanpa buru-buru ganti topik.*",
-            "keuangan": "Kamu suka coba banyak hal baru — hobi, gadget, langganan aplikasi — yang kalau "
+                      "gampang bosan kalau komunikasi jadi datar atau itu-itu saja setiap harinya. "
+                      "Risikonya, kamu bisa terlihat kurang serius di mata pasangan yang butuh "
+                      "kepastian, karena kamu sering mengalihkan topik berat dengan candaan atau "
+                      "obrolan ringan. Pasangan mungkin merasa sulit benar-benar tahu isi hatimu, "
+                      "karena kamu lebih nyaman berbicara tentang ide dibanding perasaan yang lebih "
+                      "dalam. *PR: sesekali dengarkan cerita pasangan sampai habis tanpa buru-buru "
+                      "ganti topik.*",
+            "keuangan": "Kamu suka coba banyak hal baru, hobi, gadget, langganan aplikasi, yang kalau "
                         "dikumpulkan ternyata menggerus budget cukup banyak, apalagi kalau separuhnya "
-                        "cuma dipakai sebentar lalu ditinggal. *PR: review langganan/hobi yang jarang "
-                        "dipakai tiap 3 bulan, hentikan yang sudah tidak relevan.*",
+                        "cuma dipakai sebentar lalu ditinggal begitu minatmu beralih ke hal lain. Kamu "
+                        "juga jarang benar-benar mengecek total pengeluaran kecil-kecil ini secara "
+                        "keseluruhan, karena masing-masing terasa remeh saat dibeli satu per satu. "
+                        "*PR: review langganan/hobi yang jarang dipakai tiap 3 bulan, hentikan yang "
+                        "sudah tidak relevan.*",
             "kesehatan": "Pikiranmu jarang berhenti bergerak dari satu topik ke topik lain, yang bagus "
-                         "buat kreativitas tapi melelahkan buat sistem sarafmu kalau terus-menerus. "
-                         "*PR: sisihkan 10 menit tiap malam buat journaling atau duduk diam tanpa "
-                         "gadget, biar pikiran benar-benar istirahat.*",
+                         "buat kreativitas tapi melelahkan buat sistem sarafmu kalau terus-menerus "
+                         "tanpa jeda. Kamu juga cenderung susah tidur nyenyak karena kepala masih "
+                         "sibuk memikirkan banyak hal saat seharusnya sudah waktunya istirahat. *PR: "
+                         "sisihkan 10 menit tiap malam buat journaling atau duduk diam tanpa gadget, "
+                         "biar pikiran benar-benar istirahat.*",
         },
     },
     "Cancer": {
@@ -222,20 +273,35 @@ ZODIAK_CONTENT = {
               "sudah tidak relevan lagi, dengan cara menuliskannya dan secara sadar memutuskan untuk "
               "tidak membawanya lagi ke hubungan yang sedang berjalan sekarang.",
         "domains": {
-            "karir": "Kamu unggul di peran yang butuh empati — memperhatikan kesejahteraan tim, "
-                     "menjaga suasana kerja tetap hangat. Risikonya, kritik terhadap pekerjaanmu bisa "
-                     "terasa seperti serangan pribadi. *PR: latih diri memisahkan \"kerjaanku dikritik\" "
-                     "dari \"aku sebagai orang dikritik\".*",
-            "asmara": "Kamu pasangan yang penuh perhatian dan protektif, tapi kadang sikap "
+            "karir": "Kamu unggul di peran yang butuh empati, memperhatikan kesejahteraan tim, "
+                     "menjaga suasana kerja tetap hangat, dan rekan-rekan biasanya merasa nyaman "
+                     "bercerita masalah pribadi maupun pekerjaan denganmu. Risikonya, kritik terhadap "
+                     "pekerjaanmu bisa terasa seperti serangan pribadi, dan kamu bisa terbawa perasaan "
+                     "berhari-hari hanya karena satu masukan kecil dari atasan. Kamu juga cenderung "
+                     "menyimpan kekecewaan soal keputusan kerja yang menurutmu tidak adil, meski tidak "
+                     "selalu menunjukkannya secara terbuka. *PR: latih diri memisahkan \"kerjaanku "
+                     "dikritik\" dari \"aku sebagai orang dikritik\".*",
+            "asmara": "Kamu pasangan yang penuh perhatian dan protektif, selalu memastikan orang yang "
+                      "kamu sayangi merasa aman dan diperhatikan dalam segala hal. Tapi kadang sikap "
                       "protektifmu berubah jadi posesif tanpa disadari, atau kamu diam-diam ngambek "
-                      "tanpa bilang apa masalahnya. *PR: kalau ada yang mengganjal, bilang langsung, "
-                      "jangan biarkan pasangan menebak-nebak lewat sikap dingin.*",
-            "keuangan": "Kamu rajin menabung untuk keluarga atau rumah, tapi gampang belanja impulsif "
-                        "saat mood sedang turun sebagai bentuk menghibur diri sendiri. *PR: kalau lagi "
-                        "sedih dan pengen belanja, tunda dulu satu hari — cek lagi apa benar butuh.*",
-            "kesehatan": "Perasaanmu yang naik-turun sering berdampak ke perutmu — gampang mual/perih "
-                         "pas lagi stres atau cemas. *PR: jaga jam makan tetap teratur meski lagi "
-                         "banyak pikiran, jangan sampai telat atau lupa makan sama sekali.*",
+                      "tanpa bilang apa masalahnya, berharap pasangan bisa menebak sendiri apa yang "
+                      "salah. Pola ini bisa membuat pasangan merasa bingung dan sering salah "
+                      "menafsirkan suasana hatimu yang naik turun. *PR: kalau ada yang mengganjal, "
+                      "bilang langsung, jangan biarkan pasangan menebak-nebak lewat sikap dingin.*",
+            "keuangan": "Kamu rajin menabung untuk keluarga atau rumah, dan biasanya punya rencana "
+                        "yang cukup matang soal masa depan finansial orang-orang yang kamu sayangi. "
+                        "Tapi gampang belanja impulsif saat mood sedang turun sebagai bentuk menghibur "
+                        "diri sendiri, entah lewat makanan, barang kesukaan, atau hal-hal kecil yang "
+                        "memberi rasa nyaman sesaat. Kebiasaan ini kalau tidak disadari bisa "
+                        "menumpuk jadi pengeluaran yang cukup besar dalam sebulan. *PR: kalau lagi "
+                        "sedih dan pengen belanja, tunda dulu satu hari, cek lagi apa benar butuh.*",
+            "kesehatan": "Perasaanmu yang naik-turun sering berdampak ke perutmu, gampang mual atau "
+                         "perih pas lagi stres atau cemas, karena secara fisik kamu memang cukup "
+                         "sensitif terhadap tekanan emosional. Kamu juga cenderung memendam kekhawatiran "
+                         "sampai berdampak ke pola tidur, sering terbangun malam hari karena pikiran "
+                         "yang terus berputar soal orang-orang yang kamu khawatirkan. *PR: jaga jam "
+                         "makan tetap teratur meski lagi banyak pikiran, jangan sampai telat atau lupa "
+                         "makan sama sekali.*",
         },
     },
     "Leo": {
@@ -272,24 +338,34 @@ ZODIAK_CONTENT = {
               "menyampaikan pendapatmu sendiri, supaya orang lain merasa dilibatkan, bukan hanya "
               "diarahkan.",
         "domains": {
-            "karir": "Panggung adalah tempatmu bersinar — presentasi di depan klien, memimpin "
-                     "proyek, atau posisi yang hasil kerjanya langsung terlihat dan diakui. Namun "
+            "karir": "Panggung adalah tempatmu bersinar, presentasi di depan klien, memimpin proyek, "
+                     "atau posisi yang hasil kerjanya langsung terlihat dan diakui banyak orang. Namun "
                      "kesabaranmu diuji saat harus menjalani proses yang lambat atau kerja di balik "
-                     "layar tanpa apresiasi langsung. *PR: sekali sebulan, ambil satu tugas yang "
-                     "hasilnya baru kelihatan lama — latih kesabaran menjalani prosesnya.*",
+                     "layar tanpa apresiasi langsung, dan kamu bisa kehilangan motivasi kalau merasa "
+                     "usahamu tidak diperhatikan. Kamu juga cenderung ingin selalu jadi yang paling "
+                     "menonjol dalam tim, sampai kadang lupa memberi ruang bagi rekan lain untuk "
+                     "bersinar juga. *PR: sekali sebulan, ambil satu tugas yang hasilnya baru "
+                     "kelihatan lama, latih kesabaran menjalani prosesnya.*",
             "asmara": "Kamu mencintai dengan totalitas dan setia, tidak setengah-setengah kalau sudah "
-                      "berkomitmen. Tapi kamu juga butuh diakui secara terbuka, dan kalau merasa itu "
-                      "tidak datang, kamu bisa jadi posesif atau menuntut lebih dari kapasitas "
-                      "pasangan. *PR: sebelum menuntut perhatian, tanya dulu apa yang sedang dia "
-                      "butuhkan saat itu.*",
-            "keuangan": "Kamu cenderung royal, terutama untuk hal yang menunjang citra diri — "
-                        "penampilan, pengalaman, hadiah untuk orang tersayang. Bisa jadi jebakan kalau "
-                        "tidak diimbangi kebiasaan menabung. *PR: sisihkan minimal 10% penghasilan "
-                        "otomatis sebelum uang itu sempat kamu pegang.*",
-            "kesehatan": "Energimu besar tapi gampang habis kalau terus dipaksa tanpa jeda — kamu "
-                         "tipe yang baru berhenti setelah benar-benar kehabisan tenaga. *PR: jadwalkan "
-                         "satu hari penuh tanpa agenda setiap minggu, dan benar-benar patuhi jadwal "
-                         "itu.*",
+                      "berkomitmen, dan pasanganmu tahu betul kamu akan memperjuangkan hubungan "
+                      "dengan sepenuh hati. Tapi kamu juga butuh diakui secara terbuka, dan kalau "
+                      "merasa itu tidak datang, kamu bisa jadi posesif atau menuntut lebih dari "
+                      "kapasitas pasangan untuk terus-menerus memujimu. Kebutuhan akan pengakuan ini "
+                      "bisa membuat hubungan terasa berat sebelah, seolah semuanya harus berpusat "
+                      "padamu. *PR: sebelum menuntut perhatian, tanya dulu apa yang sedang dia butuhkan "
+                      "saat itu.*",
+            "keuangan": "Kamu cenderung royal, terutama untuk hal yang menunjang citra diri, "
+                        "penampilan, pengalaman, hadiah untuk orang tersayang, karena bagimu tampil "
+                        "maksimal itu penting. Bisa jadi jebakan kalau tidak diimbangi kebiasaan "
+                        "menabung, terutama kalau kamu sering membeli sesuatu demi menjaga gengsi di "
+                        "depan orang lain, bukan karena benar-benar butuh. *PR: sisihkan minimal 10% "
+                        "penghasilan otomatis sebelum uang itu sempat kamu pegang.*",
+            "kesehatan": "Energimu besar tapi gampang habis kalau terus dipaksa tanpa jeda, kamu tipe "
+                         "yang baru berhenti setelah benar-benar kehabisan tenaga, karena tidak suka "
+                         "merasa \"kalah\" oleh rasa lelah. Bagian jantung dan punggung cenderung jadi "
+                         "titik lemahmu kalau kamu terus memaksakan diri tampil prima tanpa istirahat "
+                         "yang cukup. *PR: jadwalkan satu hari penuh tanpa agenda setiap minggu, dan "
+                         "benar-benar patuhi jadwal itu.*",
         },
     },
     "Virgo": {
@@ -327,21 +403,34 @@ ZODIAK_CONTENT = {
               "perlahan membantumu melihat kemajuanmu sendiri dengan lebih adil, bukan hanya "
               "berfokus pada apa yang belum sempurna.",
         "domains": {
-            "karir": "Ketelitianmu jadi aset besar di pekerjaan yang butuh akurasi tinggi — QA, "
-                     "analisis data, penyusunan rencana rinci. Tapi standar tinggi ke diri sendiri "
-                     "bisa berujung burnout kalau tidak direm. *PR: tetapkan batas \"cukup baik\" "
-                     "untuk tugas kecil, simpan energi maksimal buat yang benar-benar penting.*",
-            "asmara": "Kamu menunjukkan cinta lewat tindakan praktis — bantuin beresin masalah, "
-                      "memperhatikan detail kebutuhan pasangan. Sayangnya ini kadang ditangkap "
-                      "sebagai \"banyak protes\" atau terlalu mengoreksi. *PR: sesekali puji dulu "
-                      "sebelum kasih masukan perbaikan.*",
-            "keuangan": "Kamu rapi mencatat pengeluaran dan cenderung hemat, tapi bisa terlalu pelit "
-                        "ke diri sendiri sampai jarang menikmati hasil kerja keras. *PR: alokasikan "
-                        "budget kecil khusus \"untuk senang-senang\" tiap bulan, tanpa rasa bersalah.*",
+            "karir": "Ketelitianmu jadi aset besar di pekerjaan yang butuh akurasi tinggi, QA, "
+                     "analisis data, penyusunan rencana rinci, dan atasan biasanya menaruh "
+                     "kepercayaan besar padamu untuk hal-hal yang tidak boleh salah sedikit pun. Tapi "
+                     "standar tinggi ke diri sendiri bisa berujung burnout kalau tidak direm, karena "
+                     "kamu jarang merasa hasil kerjamu sudah cukup baik meski orang lain sudah "
+                     "memujinya. Kamu juga bisa terlalu lama memeriksa ulang sesuatu yang sebenarnya "
+                     "sudah selesai, sampai kehilangan waktu untuk mengerjakan hal lain yang sama "
+                     "pentingnya. *PR: tetapkan batas \"cukup baik\" untuk tugas kecil, simpan energi "
+                     "maksimal buat yang benar-benar penting.*",
+            "asmara": "Kamu menunjukkan cinta lewat tindakan praktis, bantuin beresin masalah, "
+                      "memperhatikan detail kebutuhan pasangan yang bahkan mereka sendiri belum "
+                      "sadari. Sayangnya ini kadang ditangkap sebagai \"banyak protes\" atau terlalu "
+                      "mengoreksi, karena caramu peduli sering dibungkus dalam bentuk kritik atau "
+                      "saran perbaikan. Pasangan mungkin merasa tidak pernah cukup baik di matamu, "
+                      "padahal maksudmu sebenarnya ingin membantu supaya semuanya berjalan lebih baik. "
+                      "*PR: sesekali puji dulu sebelum kasih masukan perbaikan.*",
+            "keuangan": "Kamu rapi mencatat pengeluaran dan cenderung hemat, tahu persis ke mana "
+                        "uangmu pergi setiap bulan, dan jarang terkejut dengan tagihan yang tidak "
+                        "terduga. Tapi bisa terlalu pelit ke diri sendiri sampai jarang menikmati "
+                        "hasil kerja keras, merasa bersalah setiap kali mengeluarkan uang untuk "
+                        "sesuatu yang sifatnya murni kesenangan. *PR: alokasikan budget kecil khusus "
+                        "\"untuk senang-senang\" tiap bulan, tanpa rasa bersalah.*",
             "kesehatan": "Kecenderungan overthinking dan mengkritik diri sendiri sering muncul sebagai "
-                         "gejala fisik — sakit kepala, perut tegang, susah rileks. *PR: latih "
-                         "self-compassion sederhana: bicara ke diri sendiri seperti kamu bicara ke "
-                         "sahabat yang sedang berjuang.*",
+                         "gejala fisik, sakit kepala, perut tegang, susah rileks, karena pikiranmu "
+                         "jarang benar-benar berhenti mengevaluasi. Sistem pencernaanmu cenderung jadi "
+                         "titik lemah kalau kamu terus-menerus menyimpan kecemasan soal kesempurnaan. "
+                         "*PR: latih self-compassion sederhana, bicara ke diri sendiri seperti kamu "
+                         "bicara ke sahabat yang sedang berjuang.*",
         },
     },
     "Libra": {
@@ -379,21 +468,31 @@ ZODIAK_CONTENT = {
               "seperti memilih film yang akan ditonton atau tempat yang akan dikunjungi, sebelum "
               "melangkah ke keputusan yang lebih besar dan berdampak jangka panjang.",
         "domains": {
-            "karir": "Kamu unggul di peran diplomasi dan menjaga hubungan antar pihak — negosiasi, "
-                     "kerja sama lintas tim, klien. Tapi kamu bisa lambat ambil keputusan sendiri, "
-                     "sering menunggu persetujuan orang lain dulu. *PR: sekali dalam seminggu, "
-                     "ambil satu keputusan kerja sendiri tanpa polling pendapat tim dulu.*",
-            "asmara": "Kamu romantis dan mencari hubungan yang seimbang, tapi takut konflik bikin "
-                      "kamu menunda ngomongin masalah yang sebenarnya sudah lama mengganjal. *PR: "
-                      "coba sampaikan satu ketidaknyamanan kecil langsung saat itu terjadi, jangan "
-                      "ditimbun.*",
+            "karir": "Kamu unggul di peran diplomasi dan menjaga hubungan antar pihak, negosiasi, "
+                     "kerja sama lintas tim, klien, karena kamu jago melihat kepentingan semua sisi "
+                     "sekaligus. Tapi kamu bisa lambat ambil keputusan sendiri, sering menunggu "
+                     "persetujuan orang lain dulu sebelum benar-benar yakin melangkah, sampai "
+                     "kesempatan yang seharusnya bisa kamu ambil justru diambil orang lain lebih dulu. "
+                     "*PR: sekali dalam seminggu, ambil satu keputusan kerja sendiri tanpa polling "
+                     "pendapat tim dulu.*",
+            "asmara": "Kamu romantis dan mencari hubungan yang seimbang, selalu berusaha memastikan "
+                      "kedua belah pihak merasa adil diperlakukan. Tapi takut konflik bikin kamu "
+                      "menunda ngomongin masalah yang sebenarnya sudah lama mengganjal, sampai "
+                      "akhirnya menumpuk jadi kekecewaan yang lebih besar dari yang seharusnya. "
+                      "Pasangan mungkin tidak pernah tahu ada yang salah sampai kamu benar-benar "
+                      "meledak. *PR: coba sampaikan satu ketidaknyamanan kecil langsung saat itu "
+                      "terjadi, jangan ditimbun.*",
             "keuangan": "Kamu suka barang dan pengalaman yang estetik, yang kalau tidak dikontrol bisa "
-                        "menggerus budget demi tampilan/suasana yang indah. *PR: sebelum beli barang "
-                        "dekoratif, tanya apakah ini kebutuhan atau cuma pengen terlihat bagus.*",
+                        "menggerus budget demi tampilan atau suasana yang indah, karena bagimu "
+                        "keindahan visual punya nilai tersendiri yang sulit diabaikan. *PR: sebelum "
+                        "beli barang dekoratif, tanya apakah ini kebutuhan atau cuma pengen terlihat "
+                        "bagus.*",
             "kesehatan": "Kebiasaan menimbang-nimbang terlalu lama dan memendam konflik bisa memicu "
-                         "stres kronis tanpa kamu sadari sumbernya. *PR: coba olahraga yang "
-                         "menstabilkan seperti yoga atau jalan santai rutin, bukan cuma pas capek "
-                         "pikiran.*",
+                         "stres kronis tanpa kamu sadari sumbernya, karena kamu terus memikirkan "
+                         "berbagai kemungkinan tanpa pernah benar-benar melepaskannya. Area ginjal "
+                         "dan punggung bawah cenderung jadi titik lemah kalau ketegangan ini "
+                         "dibiarkan menumpuk lama. *PR: coba olahraga yang menstabilkan seperti yoga "
+                         "atau jalan santai rutin, bukan cuma pas capek pikiran.*",
         },
     },
     "Scorpio": {
@@ -431,21 +530,31 @@ ZODIAK_CONTENT = {
               "membebani dirimu sendiri, bukan orang yang membuatmu kecewa.",
         "domains": {
             "karir": "Fokus dan daya tahanmu bikin kamu unggul di proyek rumit yang butuh riset "
-                     "mendalam atau kerja krisis. Tapi kamu susah delegasi/percaya rekan kerja pegang "
-                     "bagian penting. *PR: coba delegasikan satu tugas kecil ke rekan kerja, biar "
-                     "terbiasa melepas kontrol sedikit demi sedikit.*",
-            "asmara": "Kesetiaanmu kuat begitu percaya pada seseorang, tapi kecemburuan dan "
-                      "kebutuhan mengontrol informasi soal dirimu bisa bikin pasangan merasa hubungan "
-                      "berat sebelah. *PR: coba ceritakan satu hal personal yang biasa kamu tutup "
-                      "rapat, ke pasangan yang sudah lama kamu percaya.*",
-            "keuangan": "Kamu diam-diam sangat perhitungan dan strategis soal uang, tapi juga bisa "
-                        "ambil risiko besar (investasi agresif) tanpa cerita ke orang terdekat. *PR: "
-                        "sebelum ambil keputusan finansial besar sendirian, diskusikan dulu dengan "
-                        "satu orang yang kamu percaya.*",
+                     "mendalam atau kerja krisis, jenis pekerjaan yang membuat banyak orang lain "
+                     "menyerah sebelum benar-benar memahami masalahnya. Tapi kamu susah delegasi atau "
+                     "percaya rekan kerja pegang bagian penting, karena merasa hanya kamu yang benar-"
+                     "benar bisa mengerjakannya dengan standar yang kamu inginkan. Ini bisa membuatmu "
+                     "kelebihan beban kerja tanpa disadari orang lain di sekitarmu. *PR: coba "
+                     "delegasikan satu tugas kecil ke rekan kerja, biar terbiasa melepas kontrol "
+                     "sedikit demi sedikit.*",
+            "asmara": "Kesetiaanmu kuat begitu percaya pada seseorang, dan kamu akan memperjuangkan "
+                      "hubungan itu dengan intensitas yang jarang dimiliki orang lain. Tapi kecemburuan "
+                      "dan kebutuhan mengontrol informasi soal dirimu bisa bikin pasangan merasa "
+                      "hubungan berat sebelah, karena kamu tahu banyak tentang mereka tapi jarang "
+                      "membuka diri secara setara. *PR: coba ceritakan satu hal personal yang biasa "
+                      "kamu tutup rapat, ke pasangan yang sudah lama kamu percaya.*",
+            "keuangan": "Kamu diam-diam sangat perhitungan dan strategis soal uang, punya rencana "
+                        "jangka panjang yang jarang kamu bagikan ke orang lain. Tapi juga bisa ambil "
+                        "risiko besar seperti investasi agresif tanpa cerita ke orang terdekat, "
+                        "karena kamu lebih nyaman mengambil keputusan besar sendirian daripada "
+                        "mendengar pendapat yang berbeda. *PR: sebelum ambil keputusan finansial "
+                        "besar sendirian, diskusikan dulu dengan satu orang yang kamu percaya.*",
             "kesehatan": "Kamu cenderung memendam stres secara internal, yang lama-lama bisa "
-                         "termanifestasi jadi ketegangan fisik atau gangguan tidur. *PR: cari satu "
-                         "outlet rutin buat melepas emosi — olahraga intens, journaling, atau curhat "
-                         "ke orang terpercaya.*",
+                         "termanifestasi jadi ketegangan fisik atau gangguan tidur, karena kamu jarang "
+                         "menunjukkan tanda-tanda sedang kewalahan ke orang lain. Area reproduksi dan "
+                         "sistem eliminasi cenderung jadi titik lemah kalau emosi yang terpendam "
+                         "dibiarkan menumpuk terlalu lama. *PR: cari satu outlet rutin buat melepas "
+                         "emosi, olahraga intens, journaling, atau curhat ke orang terpercaya.*",
         },
     },
     "Sagittarius": {
@@ -481,22 +590,29 @@ ZODIAK_CONTENT = {
               "sebagai cara membuktikan bahwa kebebasan yang kamu junjung tinggi tetap bisa berjalan "
               "beriringan dengan tanggung jawab.",
         "domains": {
-            "karir": "Kamu cocok kerja yang variatif atau melibatkan eksplorasi/perjalanan, dan cepat "
-                     "gerah di lingkungan kantor yang kaku dan monoton. *PR: kalau terjebak rutinitas "
-                     "kaku, cari cara kecil menambah variasi ke tugas sehari-hari, alih-alih langsung "
-                     "resign.*",
+            "karir": "Kamu cocok kerja yang variatif atau melibatkan eksplorasi dan perjalanan, dan "
+                     "cepat gerah di lingkungan kantor yang kaku dan monoton, merasa terkurung kalau "
+                     "harus duduk di meja yang sama setiap hari mengerjakan hal yang itu-itu saja. "
+                     "*PR: kalau terjebak rutinitas kaku, cari cara kecil menambah variasi ke tugas "
+                     "sehari-hari, alih-alih langsung resign.*",
             "asmara": "Kamu butuh ruang bebas dalam hubungan dan takut merasa dikekang, yang kadang "
-                      "bikin pasangan ragu seberapa jauh mereka bisa mengandalkanmu. *PR: coba komit "
-                      "ke satu hal kecil dan tepati konsisten, buktikan kebebasan tetap bisa jalan "
-                      "bareng tanggung jawab.*",
-            "keuangan": "Kamu royal untuk pengalaman — traveling, hobi baru, hal-hal yang memperluas "
-                        "pandangan — dibanding barang, tapi kurang planning jangka panjang seperti "
-                        "dana darurat. *PR: sisihkan satu pos khusus dana darurat sebelum uangnya "
-                        "\"terpakai\" buat pengalaman baru.*",
-            "kesehatan": "Kamu aktif dan suka olahraga luar ruang, tapi rasa percaya diri berlebih "
-                         "bisa bikin kamu kurang hati-hati dan rawan cedera, atau malas checkup rutin "
-                         "karena merasa selalu fit. *PR: jadwalkan medical checkup rutin walau merasa "
-                         "baik-baik saja.*",
+                      "bikin pasangan ragu seberapa jauh mereka bisa mengandalkanmu untuk komitmen "
+                      "jangka panjang. Kejujuranmu yang blak-blakan soal kebutuhan ini sebenarnya "
+                      "bagus, tapi kalau tidak diimbangi kepastian, pasangan bisa merasa hubungan "
+                      "kalian tidak punya arah yang jelas. *PR: coba komit ke satu hal kecil dan "
+                      "tepati konsisten, buktikan kebebasan tetap bisa jalan bareng tanggung jawab.*",
+            "keuangan": "Kamu royal untuk pengalaman, traveling, hobi baru, hal-hal yang memperluas "
+                        "pandangan, dibanding barang, karena bagimu pengalaman jauh lebih berharga "
+                        "dari kepemilikan. Tapi kurang planning jangka panjang seperti dana darurat, "
+                        "karena kamu lebih fokus pada kesempatan yang ada sekarang daripada "
+                        "kemungkinan yang belum terjadi. *PR: sisihkan satu pos khusus dana darurat "
+                        "sebelum uangnya \"terpakai\" buat pengalaman baru.*",
+            "kesehatan": "Kamu aktif dan suka olahraga luar ruang, tubuhmu terasa paling hidup saat "
+                         "sedang bergerak dan menjelajah. Tapi rasa percaya diri berlebih bisa bikin "
+                         "kamu kurang hati-hati dan rawan cedera, atau malas checkup rutin karena "
+                         "merasa selalu fit dan tidak butuh diperiksa. Area pinggul dan paha "
+                         "cenderung jadi titik lemah kalau kamu terlalu memaksakan aktivitas fisik. "
+                         "*PR: jadwalkan medical checkup rutin walau merasa baik-baik saja.*",
         },
     },
     "Capricorn": {
@@ -532,19 +648,28 @@ ZODIAK_CONTENT = {
               "memikirkan target berikutnya. Kebiasaan ini akan membantu perjalanan panjangmu terasa "
               "lebih ringan dan bermakna.",
         "domains": {
-            "karir": "Kedisiplinanmu bikin kamu unggul di posisi kepemimpinan jangka panjang, tapi "
-                     "kamu rawan burnout karena terus-menerus mengejar target berikutnya tanpa jeda. "
-                     "*PR: tetapkan satu hari kerja per minggu yang benar-benar batasi jam lembur.*",
-            "asmara": "Kamu serius dan bertanggung jawab dalam hubungan, tapi fokus berlebih ke karir "
-                      "bisa bikin quality time sama pasangan jadi korban pertama yang dikorbankan. "
-                      "*PR: kunci satu jadwal tetap tiap minggu khusus buat pasangan, jangan sampai "
-                      "digeser demi kerjaan.*",
-            "keuangan": "Kamu disiplin menabung dan merencanakan jangka panjang, tapi kadang terlalu "
-                        "pelit menikmati hasil kerja kerasmu sendiri. *PR: alokasikan dana kecil "
-                        "khusus buat menikmati pencapaian begitu satu target besar tercapai.*",
+            "karir": "Kedisiplinanmu bikin kamu unggul di posisi kepemimpinan jangka panjang, dan "
+                     "atasan mempercayaimu memegang tanggung jawab besar karena tahu kamu tidak akan "
+                     "lari dari komitmen. Tapi kamu rawan burnout karena terus-menerus mengejar target "
+                     "berikutnya tanpa jeda, merasa belum pantas istirahat sebelum semua target "
+                     "tercapai. *PR: tetapkan satu hari kerja per minggu yang benar-benar batasi jam "
+                     "lembur.*",
+            "asmara": "Kamu serius dan bertanggung jawab dalam hubungan, jarang main-main soal "
+                      "komitmen dan selalu memikirkan masa depan jangka panjang bersama pasangan. Tapi "
+                      "fokus berlebih ke karir bisa bikin quality time sama pasangan jadi korban "
+                      "pertama yang dikorbankan, sampai pasangan merasa selalu berada di urutan kedua "
+                      "setelah pekerjaanmu. *PR: kunci satu jadwal tetap tiap minggu khusus buat "
+                      "pasangan, jangan sampai digeser demi kerjaan.*",
+            "keuangan": "Kamu disiplin menabung dan merencanakan jangka panjang, punya visi yang jelas "
+                        "soal ke mana arah finansialmu dalam sepuluh atau dua puluh tahun ke depan. "
+                        "Tapi kadang terlalu pelit menikmati hasil kerja kerasmu sendiri, terus "
+                        "menunda kesenangan demi target yang lebih besar lagi. *PR: alokasikan dana "
+                        "kecil khusus buat menikmati pencapaian begitu satu target besar tercapai.*",
             "kesehatan": "Tekanan yang terus-menerus kamu pikul rawan bermuara ke stres kronis atau "
-                         "ketegangan di tulang dan sendi. *PR: jadikan istirahat sebagai jadwal wajib "
-                         "di kalender, bukan hal opsional yang gampang dibatalkan.*",
+                         "ketegangan di tulang dan sendi, terutama area lutut dan tulang yang jadi "
+                         "titik lemah khas Capricorn kalau beban dipikul terlalu lama tanpa jeda. *PR: "
+                         "jadikan istirahat sebagai jadwal wajib di kalender, bukan hal opsional yang "
+                         "gampang dibatalkan.*",
         },
     },
     "Aquarius": {
@@ -581,20 +706,29 @@ ZODIAK_CONTENT = {
               "merasa sedih atau khawatir, alih-alih langsung mengalihkan pembicaraan ke topik yang "
               "lebih abstrak dan aman secara emosional.",
         "domains": {
-            "karir": "Kamu unggul di pekerjaan yang butuh inovasi dan cara pandang baru, tapi kurang "
-                     "cocok di lingkungan yang sangat kaku aturan dan hierarkis. *PR: kalau terjebak "
-                     "sistem kaku, cari satu celah kecil buat menyalurkan ide inovatifmu tanpa "
-                     "melanggar aturan besar.*",
-            "asmara": "Kamu butuh pasangan yang menghargai kebebasan berpikirmu, tapi kamu sendiri "
-                      "susah menunjukkan sisi emosional/vulnerable, bikin hubungan terasa kurang "
-                      "intim. *PR: coba ungkapkan satu perasaan (bukan ide/pendapat) ke pasangan "
-                      "secara langsung.*",
+            "karir": "Kamu unggul di pekerjaan yang butuh inovasi dan cara pandang baru, sering jadi "
+                     "orang yang mengusulkan pendekatan berbeda saat orang lain masih terpaku pada "
+                     "cara lama. Tapi kurang cocok di lingkungan yang sangat kaku aturan dan "
+                     "hierarkis, karena kamu merasa terkekang harus mengikuti prosedur yang menurutmu "
+                     "sudah tidak relevan lagi. *PR: kalau terjebak sistem kaku, cari satu celah kecil "
+                     "buat menyalurkan ide inovatifmu tanpa melanggar aturan besar.*",
+            "asmara": "Kamu butuh pasangan yang menghargai kebebasan berpikirmu dan tidak menuntutmu "
+                      "jadi orang yang konvensional. Tapi kamu sendiri susah menunjukkan sisi "
+                      "emosional atau vulnerable, bikin hubungan terasa kurang intim, karena kamu "
+                      "lebih nyaman membicarakan ide dan konsep dibanding perasaan yang lebih dalam. "
+                      "*PR: coba ungkapkan satu perasaan, bukan ide atau pendapat, ke pasangan secara "
+                      "langsung.*",
             "keuangan": "Kamu cenderung belanja untuk gadget, hal-hal unik, atau donasi ke isu sosial "
-                        "yang kamu pedulikan, tapi kurang perhatian ke tabungan konvensional. *PR: "
-                        "buat 1 rekening terpisah khusus tabungan yang tidak kamu sentuh sama sekali.*",
+                        "yang kamu pedulikan, karena bagimu mendukung sesuatu yang bermakna lebih "
+                        "penting dari sekadar menabung. Tapi kurang perhatian ke tabungan konvensional, "
+                        "sampai kondisi finansial jangka panjangmu jadi kurang terencana. *PR: buat 1 "
+                        "rekening terpisah khusus tabungan yang tidak kamu sentuh sama sekali.*",
             "kesehatan": "Pikiranmu sering terlalu aktif menjelang tidur, banyak ide berputar yang "
-                         "bikin susah benar-benar rileks. *PR: jadwalkan digital detox rutin sebelum "
-                         "tidur, minimal 30 menit tanpa layar.*",
+                         "bikin susah benar-benar rileks, karena otakmu terus memproses konsep dan "
+                         "kemungkinan baru bahkan saat tubuh sudah lelah. Sistem sirkulasi dan "
+                         "pergelangan kaki cenderung jadi titik lemah kalau ketegangan mental ini "
+                         "dibiarkan menumpuk. *PR: jadwalkan digital detox rutin sebelum tidur, "
+                         "minimal 30 menit tanpa layar.*",
         },
     },
     "Pisces": {
@@ -630,22 +764,30 @@ ZODIAK_CONTENT = {
               "dengan mengenali kapan saatnya membantu orang lain, dan kapan saatnya memprioritaskan "
               "pemulihan emosimu sendiri terlebih dulu.",
         "domains": {
-            "karir": "Kamu unggul di bidang kreatif atau pekerjaan yang butuh empati (konseling, "
-                     "seni, layanan), tapi kurang cocok di lingkungan yang sangat kompetitif dan "
-                     "keras. *PR: kalau lingkungan kerja terasa terlalu keras, cari komunitas kecil "
-                     "di dalamnya yang suportif buat jadi tempat berlindung.*",
-            "asmara": "Kamu pasangan yang romantis dan memberi tanpa pamrih, tapi ini juga bikin kamu "
-                      "rawan dimanfaatkan karena susah bilang tidak. *PR: latih satu kalimat "
-                      "penolakan sederhana yang bisa kamu pakai kapan saja tanpa rasa bersalah "
-                      "berlebihan.*",
+            "karir": "Kamu unggul di bidang kreatif atau pekerjaan yang butuh empati, konseling, seni, "
+                     "layanan, karena kamu bisa memahami kebutuhan orang lain lebih dalam dari "
+                     "sekadar apa yang mereka ucapkan. Tapi kurang cocok di lingkungan yang sangat "
+                     "kompetitif dan keras, karena suasana yang penuh persaingan bisa membuatmu "
+                     "kehilangan semangat atau merasa tidak nyaman berkepanjangan. *PR: kalau "
+                     "lingkungan kerja terasa terlalu keras, cari komunitas kecil di dalamnya yang "
+                     "suportif buat jadi tempat berlindung.*",
+            "asmara": "Kamu pasangan yang romantis dan memberi tanpa pamrih, selalu berusaha "
+                      "memenuhi kebutuhan pasangan bahkan sebelum diminta. Tapi ini juga bikin kamu "
+                      "rawan dimanfaatkan karena susah bilang tidak, apalagi kalau pasangan tahu "
+                      "betapa mudahnya kamu berkorban demi orang yang kamu sayangi. *PR: latih satu "
+                      "kalimat penolakan sederhana yang bisa kamu pakai kapan saja tanpa rasa "
+                      "bersalah berlebihan.*",
             "keuangan": "Kamu gampang lupa budget karena mengikuti suasana hati, dan rawan dipinjami "
-                        "atau dimanfaatkan orang lain secara finansial karena susah menolak. *PR: "
-                        "tetapkan batas jelas berapa yang boleh dipinjamkan tanpa mengganggu "
-                        "kebutuhanmu sendiri.*",
-            "kesehatan": "Kamu gampang menyerap energi/emosi orang di sekitarmu sampai kelelahan "
-                         "tanpa sadar sumbernya, dan cenderung lari ke dunia hiburan (tidur, "
-                         "nonton, scroll medsos) buat kabur dari masalah. *PR: sisihkan waktu sendirian "
-                         "rutin buat \"recharge\", dan kenali kapan istirahat berubah jadi menghindar.*",
+                        "atau dimanfaatkan orang lain secara finansial karena susah menolak permintaan "
+                        "tolong, bahkan dari orang yang sebenarnya kurang tulus. *PR: tetapkan batas "
+                        "jelas berapa yang boleh dipinjamkan tanpa mengganggu kebutuhanmu sendiri.*",
+            "kesehatan": "Kamu gampang menyerap energi atau emosi orang di sekitarmu sampai kelelahan "
+                         "tanpa sadar sumbernya, dan cenderung lari ke dunia hiburan, tidur, nonton, "
+                         "scroll medsos, buat kabur dari masalah yang terasa terlalu berat untuk "
+                         "dihadapi langsung. Area kaki dan sistem imun cenderung jadi titik lemah "
+                         "kalau kelelahan emosional ini dibiarkan menumpuk. *PR: sisihkan waktu "
+                         "sendirian rutin buat \"recharge\", dan kenali kapan istirahat berubah jadi "
+                         "menghindar.*",
         },
     },
 }

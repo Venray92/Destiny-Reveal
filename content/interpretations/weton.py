@@ -62,6 +62,46 @@ WETON_CONTENT = {
               "benar-benar kehabisan energi. Kamu juga bisa membuat kebiasaan sederhana: setiap kali "
               "selesai menenangkan orang lain, tanyakan pada dirimu sendiri satu hal yang kamu "
               "butuhkan saat itu juga, lalu penuhi, sekecil apa pun itu.",
+        "domains": {
+            "karir": "Ketenanganmu adalah aset berharga di dunia kerja, kamu cocok di peran yang butuh "
+                     "kesabaran ekstra, seperti customer service, mediasi, HR, atau posisi apa pun yang "
+                     "mengharuskan menjaga hubungan baik dengan banyak pihak sekaligus. Rekan kerja "
+                     "merasa aman berdiskusi denganmu karena kamu jarang bereaksi berlebihan meski "
+                     "situasinya sedang tegang. Namun kebiasaan mendahulukan ketenangan tim di atas "
+                     "kepentinganmu sendiri bisa membuatmu jadi tempat sampah keluhan tanpa "
+                     "penghargaan yang seimbang, dan kamu jarang mengajukan diri untuk hal-hal yang "
+                     "sebenarnya jadi hakmu, seperti promosi atau pengakuan atas jasamu meredam "
+                     "banyak konflik di belakang layar. *PR: Sampaikan satu pencapaianmu yang selama "
+                     "ini kamu diamkan ke atasan minggu ini.*",
+            "asmara": "Dalam hubungan, ketenanganmu membuat pasangan merasa punya tempat berlabuh yang "
+                      "aman, kamu jarang membuat drama dan selalu berusaha memahami sudut pandangnya "
+                      "lebih dulu sebelum bereaksi. Ini membuat hubunganmu terasa stabil dan nyaman "
+                      "dalam jangka panjang. Namun kebiasaan mengalah demi menjaga kedamaian bisa "
+                      "membuat kebutuhan emosionalmu sendiri jarang tersampaikan, sampai pasangan tidak "
+                      "benar-benar tahu apa yang membuatmu bahagia atau kecewa. Lama-lama, ini bisa "
+                      "membuatmu merasa sendirian meski berada dalam hubungan, karena kamu selalu jadi "
+                      "yang memberi ruang, jarang menerima. *PR: Ceritakan satu hal yang kamu butuhkan "
+                      "dari pasanganmu minggu ini, tanpa dibungkus permintaan maaf.*",
+            "keuangan": "Soal keuangan, sifat tenangmu membuatmu jarang mengambil keputusan finansial "
+                        "yang gegabah, kamu lebih suka mempertimbangkan matang-matang sebelum "
+                        "mengeluarkan uang untuk sesuatu yang besar. Kamu juga cenderung dermawan pada "
+                        "keluarga atau teman yang sedang kesulitan. Namun kebiasaan mendahulukan "
+                        "kebutuhan orang lain bisa membuat rencana keuanganmu sendiri sering "
+                        "tertunda, kamu lebih siap membantu orang lain daripada menabung untuk "
+                        "tujuanmu sendiri. Penting untukmu belajar bahwa menjaga kondisi finansialmu "
+                        "sendiri tetap sehat bukan berarti kamu pelit atau tidak peduli pada orang "
+                        "lain. *PR: Sisihkan dana untuk tujuan finansialmu sendiri sebelum membantu "
+                        "orang lain bulan ini, bukan sesudahnya.*",
+            "kesehatan": "Karena kamu terbiasa jadi tempat orang lain berkeluh kesah, tanpa sadar kamu "
+                         "menyerap banyak beban emosional yang sebenarnya bukan milikmu. Ini bisa "
+                         "menumpuk jadi kelelahan mental yang tidak terlihat dari luar, karena kamu "
+                         "tetap tampak tenang meski di dalam sedang penuh. Kamu perlu punya ruang "
+                         "khusus untuk melepaskan beban itu, bukan sekadar menampungnya terus-menerus. "
+                         "Kesehatan fisikmu juga bisa terdampak kalau kelelahan emosional ini "
+                         "dibiarkan, misalnya lewat gangguan tidur atau energi yang cepat habis "
+                         "meski aktivitas fisikmu tidak berat. *PR: Cari satu orang atau cara untuk "
+                         "'curhat balik' minggu ini, bukan hanya jadi pendengar seperti biasanya.*",
+        },
     },
     "Pahing": {
         "tagline": "☾ Pasaran Pahing",
@@ -98,6 +138,43 @@ WETON_CONTENT = {
               "juga kesabaran dengan memberi jeda satu atau dua hari sebelum menilai sebuah rencana "
               "sebagai gagal, karena hasil besar kadang memang butuh waktu lebih lama dari yang kamu "
               "harapkan.",
+        "domains": {
+            "karir": "Ambisimu yang besar membuatmu cocok mengejar posisi kepemimpinan atau peran yang "
+                     "menuntut hasil nyata dan terukur, seperti target sales, manajemen proyek, atau "
+                     "wirausaha. Kamu tidak takut kerja keras demi mencapai apa yang kamu inginkan, "
+                     "dan semangat ini sering membuatmu naik jabatan lebih cepat dari rekan seangkatan. "
+                     "Namun ketidaksabaranmu bisa membuatmu terburu-buru mengambil keputusan penting "
+                     "sebelum semua data terkumpul, dan kekecewaan terhadap hasil yang belum "
+                     "maksimal bisa membuatmu terlalu keras menilai kinerja diri sendiri maupun tim. "
+                     "*PR: Beri tim atau proyekmu jeda satu minggu tambahan sebelum menilai hasilnya "
+                     "sebagai kurang memuaskan.*",
+            "asmara": "Dalam hubungan, energimu yang menggebu membuat hubungan terasa hidup dan penuh "
+                      "semangat, kamu tidak suka hubungan yang terasa datar dan selalu ingin "
+                      "mengajak pasangan berkembang bersama. Namun ketidaksabaranmu bisa membuatmu "
+                      "cepat kecewa kalau pasangan tidak bergerak secepat yang kamu harapkan, entah "
+                      "dalam mengambil keputusan bersama atau menyelesaikan masalah. Kamu perlu belajar "
+                      "bahwa ritme setiap orang berbeda, dan memaksakan kecepatanmu justru bisa membuat "
+                      "pasangan merasa tertekan dan kurang dihargai prosesnya sendiri. *PR: Tanyakan "
+                      "ke pasanganmu ritme yang nyaman buatnya dalam mengambil keputusan bersama, dan "
+                      "hormati itu minggu ini.*",
+            "keuangan": "Soal keuangan, semangat dan ambisimu membuatmu berani mengejar penghasilan "
+                        "lebih besar, entah lewat kerja keras ekstra, usaha sampingan, atau investasi "
+                        "yang agresif. Kamu jarang puas dengan hasil yang biasa-biasa saja. Namun "
+                        "ketidaksabaran untuk cepat melihat hasil bisa membuatmu tergoda mengambil "
+                        "keputusan finansial berisiko tinggi tanpa riset yang cukup, hanya karena "
+                        "ingin cepat kaya atau cepat melihat pertumbuhan. Kesabaran dalam membangun "
+                        "kekayaan justru sering jadi kunci yang lebih penting dari kecepatan semata. "
+                        "*PR: Sebelum mengambil peluang investasi baru, riset dulu selama satu minggu "
+                        "penuh tanpa terburu-buru memutuskan.*",
+            "kesehatan": "Energimu yang tinggi membuatmu jarang lelah secara fisik, tapi ambisi yang "
+                         "terus mendorongmu bergerak bisa membuatmu lupa memberi tubuh waktu istirahat "
+                         "yang cukup. Kamu tipe yang sulit berhenti sebelum target tercapai, bahkan "
+                         "kalau itu berarti mengorbankan jam tidur atau pola makan yang teratur. "
+                         "Tekanan yang kamu ciptakan sendiri demi mengejar hasil terbaik juga bisa "
+                         "memicu stres yang berdampak ke kesehatan jangka panjang kalau tidak "
+                         "diimbangi jeda yang cukup. *PR: Tetapkan satu waktu istirahat wajib setiap "
+                         "hari minggu ini, yang tidak bisa digeser apa pun alasannya.*",
+        },
     },
     "Pon": {
         "tagline": "☾ Pasaran Pon",
@@ -133,6 +210,43 @@ WETON_CONTENT = {
               "nongkrong, sebelum kamu terapkan pada keputusan yang lebih besar. Ingatkan juga dirimu "
               "bahwa keputusan yang \"cukup baik\" dan diambil tepat waktu, seringkali lebih "
               "berharga daripada keputusan \"sempurna\" yang datang terlambat.",
+        "domains": {
+            "karir": "Kebijaksanaanmu membuatmu cocok di peran yang butuh diplomasi dan pandangan "
+                     "netral, seperti manajemen tim lintas divisi, konsultasi, atau posisi yang "
+                     "menuntut kamu menjembatani kepentingan berbagai pihak. Rekan kerja "
+                     "mempercayaimu untuk mengambil keputusan yang adil bagi semua orang. Namun "
+                     "kebiasaan menimbang semua sisi terlalu lama bisa membuatmu terlihat lambat "
+                     "mengambil keputusan di mata atasan, terutama di situasi yang butuh respons "
+                     "cepat. Kamu juga cenderung menghindari posisi yang memaksamu memihak salah satu "
+                     "sisi secara tegas, meski kadang situasi memang menuntut ketegasan seperti itu. "
+                     "*PR: Ambil satu keputusan kerja minggu ini dalam waktu maksimal satu hari, tanpa "
+                     "menimbang berlarut-larut.*",
+            "asmara": "Dalam hubungan, kebijaksanaanmu membuat pasangan merasa didengar dan dipahami "
+                      "dari berbagai sudut pandang, kamu jarang menghakimi buru-buru dan selalu "
+                      "berusaha adil dalam menilai situasi. Namun kehati-hatian ini bisa membuatmu "
+                      "sulit mengambil sikap tegas soal apa yang benar-benar kamu inginkan dari "
+                      "hubungan, kamu lebih sering menyesuaikan diri demi keharmonisan daripada "
+                      "menyuarakan kebutuhanmu sendiri. Pasangan mungkin merasa kesulitan menebak "
+                      "keinginanmu yang sesungguhnya, karena kamu terlalu sering mempertimbangkan "
+                      "perasaannya di atas perasaanmu sendiri. *PR: Sampaikan satu keinginanmu secara "
+                      "tegas ke pasangan minggu ini, tanpa embel-embel 'terserah kamu aja'.*",
+            "keuangan": "Soal keuangan, sikap hati-hatimu membuatmu jarang terjebak keputusan "
+                        "finansial impulsif, kamu selalu mempertimbangkan berbagai opsi sebelum "
+                        "benar-benar memutuskan. Kestabilan ini membuat kondisi finansialmu cenderung "
+                        "aman dalam jangka panjang. Namun kebiasaan menimbang terlalu lama bisa "
+                        "membuatmu melewatkan peluang investasi yang sebenarnya sudah cukup jelas "
+                        "menguntungkan, karena kamu masih terus mempertimbangkan kemungkinan lain "
+                        "yang belum tentu lebih baik. *PR: Tetapkan tenggat waktu maksimal satu minggu "
+                        "untuk memutuskan satu peluang finansial yang sedang kamu pertimbangkan.*",
+            "kesehatan": "Ketenangan dan sikap tidak terburu-buru membuatmu relatif jarang stres "
+                         "berlebihan menghadapi tekanan sehari-hari. Namun kebiasaan terus menimbang "
+                         "berbagai kemungkinan bisa membuat pikiranmu sulit benar-benar beristirahat, "
+                         "kamu terus memikirkan berbagai skenario bahkan untuk hal-hal yang sebenarnya "
+                         "sudah selesai atau tidak lagi relevan. Kamu perlu belajar melepaskan proses "
+                         "berpikir itu di waktu-waktu tertentu, supaya pikiranmu benar-benar dapat "
+                         "jeda. *PR: Coba tetapkan satu jam setiap malam khusus untuk berhenti "
+                         "memikirkan keputusan apa pun, dan benar-benar rileks.*",
+        },
     },
     "Wage": {
         "tagline": "☾ Pasaran Wage",
@@ -170,6 +284,44 @@ WETON_CONTENT = {
               "sendiri. Perhatikan juga bagaimana perasaanmu setelah menerima bantuan itu; kemungkinan "
               "besar kamu akan sadar bahwa membuka diri sedikit tidak mengurangi kemandirianmu sama "
               "sekali.",
+        "domains": {
+            "karir": "Kemandirianmu adalah aset besar di dunia kerja, kamu bisa dipercaya memegang "
+                     "tanggung jawab tanpa perlu diawasi ketat, dan ini membuatmu cocok di peran "
+                     "individual contributor tingkat tinggi, freelance, atau posisi yang butuh "
+                     "inisiatif tanpa arahan detail. Atasan tahu kalau tugas diserahkan padamu, "
+                     "hasilnya akan tetap baik meski tanpa pengawasan ketat. Namun keengananmu meminta "
+                     "bantuan bisa membuatmu kesulitan sendiri saat beban kerja sebenarnya sudah "
+                     "berlebihan, dan kamu jarang mendelegasikan meski itu akan membuat pekerjaan lebih "
+                     "efisien. *PR: Delegasikan satu tugas ke rekan kerja minggu ini, meski kamu yakin "
+                     "bisa mengerjakannya sendiri lebih cepat.*",
+            "asmara": "Dalam hubungan, kemandirianmu membuat pasangan merasa tidak perlu terus-"
+                      "menerus mengkhawatirkanmu, kamu bisa berdiri di atas kaki sendiri secara "
+                      "emosional maupun praktis. Namun kebiasaan memendam kesulitan sendiri bisa "
+                      "membuat pasangan merasa jauh darimu, mereka ingin dilibatkan dalam masalahmu "
+                      "tapi kamu jarang membuka pintu itu sampai benar-benar terpaksa. Keintiman yang "
+                      "sehat justru butuh keterbukaan yang lebih sering, bukan hanya saat keadaan "
+                      "sudah darurat. *PR: Ceritakan satu kesulitan kecil yang sedang kamu hadapi ke "
+                      "pasanganmu minggu ini, sebelum itu jadi terlalu berat untuk ditanggung "
+                      "sendiri.*",
+            "keuangan": "Soal keuangan, kemandirianmu membuatmu terbiasa mengatur uangmu sendiri "
+                        "tanpa banyak bergantung pada bantuan orang lain, dan kamu cenderung punya "
+                        "rencana yang jelas untuk mencapai tujuan finansialmu sendiri. Namun sikap "
+                        "ini bisa membuatmu enggan mencari nasihat finansial dari orang lain, meski "
+                        "masukan dari sudut pandang berbeda kadang bisa membuka peluang yang belum "
+                        "kamu pertimbangkan. Kamu juga cenderung menanggung semua beban finansial "
+                        "keluarga sendirian tanpa membagi tanggung jawab, meski itu sebenarnya di luar "
+                        "kapasitasmu. *PR: Diskusikan satu rencana finansial dengan orang yang kamu "
+                        "percaya minggu ini, bukan cuma memutuskan sendirian.*",
+            "kesehatan": "Kebiasaan menyelesaikan masalah sendirian membuatmu jarang meminta bantuan "
+                         "profesional, termasuk soal kesehatan, sampai kondisinya benar-benar tidak "
+                         "tertahankan. Kamu tipe yang akan terus mencoba mengatasi sendiri sebelum "
+                         "akhirnya menyerah dan mencari bantuan, padahal deteksi dan penanganan dini "
+                         "biasanya jauh lebih ringan. Beban yang kamu pendam sendirian, baik fisik "
+                         "maupun mental, juga bisa menumpuk tanpa disadari sampai berdampak pada "
+                         "energi dan staminamu sehari-hari. *PR: Kalau ada keluhan kesehatan yang "
+                         "sudah kamu tunda beberapa waktu, periksakan diri minggu ini, jangan ditangani "
+                         "sendiri lagi.*",
+        },
     },
     "Kliwon": {
         "tagline": "☾ Pasaran Kliwon",
@@ -206,5 +358,43 @@ WETON_CONTENT = {
               "dari orang lain. Menetapkan batasan yang sehat, misalnya membatasi waktu bersama orang "
               "yang energinya terasa berat, juga akan membantu kepekaanmu tetap jadi kekuatan, bukan "
               "beban.",
+        "domains": {
+            "karir": "Intuisimu yang tajam membuatmu unggul di pekerjaan yang butuh kepekaan membaca "
+                     "situasi atau orang, seperti konseling, HR, riset pasar, atau peran apa pun yang "
+                     "mengharuskan kamu memahami kebutuhan orang lain lebih dari yang mereka ucapkan. "
+                     "Rekan kerja sering merasa kamu 'mengerti' masalah mereka lebih cepat dari yang "
+                     "mereka jelaskan sendiri. Namun kepekaan ini bisa membuatmu mudah menyerap "
+                     "tekanan dari lingkungan kerja yang penuh konflik atau kompetisi, dan itu bisa "
+                     "menguras energimu lebih cepat dibanding rekan lain yang tidak sesensitif dirimu. "
+                     "*PR: Setelah rapat atau interaksi kerja yang berat minggu ini, beri diri lima "
+                     "menit untuk 'melepaskan' energi itu sebelum lanjut ke tugas berikutnya.*",
+            "asmara": "Dalam hubungan, kepekaanmu membuatmu bisa merasakan perubahan suasana hati "
+                      "pasangan bahkan sebelum diucapkan, dan ini membuat pasangan merasa benar-benar "
+                      "dipahami. Kamu juga punya kedalaman emosional yang membuat hubunganmu terasa "
+                      "bermakna, bukan sekadar permukaan. Namun kepekaan yang besar ini bisa membuatmu "
+                      "terlalu mudah menyerap kecemasan atau masalah pasangan sebagai bebanmu sendiri, "
+                      "sampai sulit membedakan mana emosimu dan mana emosinya. Kamu perlu menjaga "
+                      "batasan emosional yang sehat supaya empati tidak berubah jadi kelelahan. "
+                      "*PR: Ketika pasanganmu sedang emosi minggu ini, coba dampingi tanpa "
+                      "sepenuhnya ikut larut dalam perasaan itu.*",
+            "keuangan": "Soal keuangan, intuisimu kadang membantumu merasakan peluang atau risiko "
+                        "yang belum tentu terlihat jelas secara data, semacam firasat yang sering "
+                        "terbukti benar. Namun kepekaan emosionalmu bisa membuat keputusan "
+                        "finansialmu mudah terpengaruh suasana hati, kamu bisa berbelanja lebih "
+                        "banyak saat sedang sedih untuk menghibur diri, atau menahan diri berlebihan "
+                        "saat sedang cemas tanpa alasan finansial yang jelas. Penting untukmu punya "
+                        "sistem yang tidak bergantung pada mood harian dalam mengatur uang. *PR: Buat "
+                        "anggaran tetap bulanan yang tidak berubah mengikuti suasana hatimu, dan "
+                        "patuhi itu minggu ini.*",
+            "kesehatan": "Kepekaanmu terhadap energi sekitar membuatmu rentan menyerap stres orang "
+                         "lain sebagai stresmu sendiri, ini bisa berdampak nyata ke kesehatan fisik "
+                         "seperti gangguan tidur, sakit kepala, atau kelelahan yang datang tanpa "
+                         "sebab jelas. Kamu butuh ritual pemulihan yang konsisten untuk 'membersihkan' "
+                         "energi yang kamu serap sepanjang hari, entah lewat meditasi, journaling, "
+                         "atau sekadar waktu sendiri dalam diam. Mengabaikan kebutuhan ini dalam "
+                         "jangka panjang bisa membuat kepekaanmu yang sebenarnya adalah kekuatan justru "
+                         "jadi sumber kelelahan kronis. *PR: Lakukan satu ritual 'membersihkan energi' "
+                         "sederhana setiap malam minggu ini, meski hanya lima menit.*",
+        },
     },
 }
