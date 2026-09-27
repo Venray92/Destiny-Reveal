@@ -437,11 +437,21 @@ def _inject_style():
         .rp-md-stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
             gap: 10px; margin-top: 20px; }
         .rp-md-stat { padding: 12px 14px; border-radius: 14px; background: #ffffff;
-            border: 1px solid #ecddc9; text-align: center; }
+            border: 1px solid #ecddc9; text-align: center; position: relative; cursor: help; }
         .rp-md-stat-label { font-size: 10px; font-weight: 700; color: #a8916a !important;
             text-transform: uppercase; letter-spacing: 0.04em; }
         .rp-md-stat-value { font-size: 19px; font-weight: 800; color: #1c1a17 !important;
             font-family: 'Fraunces', serif; margin-top: 2px; }
+        .rp-md-stat-tip { visibility: hidden; opacity: 0; position: absolute; bottom: 112%;
+            left: 50%; transform: translateX(-50%); width: 190px; background: #fffaf2;
+            border: 1.5px solid #c9a227; border-radius: 12px; padding: 10px 12px;
+            font-family: 'Inter', sans-serif; font-size: 11px; line-height: 1.45; font-weight: 400;
+            color: #3a352c !important; text-transform: none; letter-spacing: normal;
+            box-shadow: 0 10px 26px rgba(28,26,23,0.16); pointer-events: none; z-index: 30;
+            transition: opacity .15s ease, visibility .15s ease; }
+        .rp-md-stat:hover .rp-md-stat-tip { visibility: visible; opacity: 1; }
+        .rp-md-stat-left .rp-md-stat-tip { left: 0; transform: none; }
+        .rp-md-stat-right .rp-md-stat-tip { left: auto; right: 0; transform: none; }
         .rp-md-chakra-title { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 700;
             color: #1c1a17 !important; margin: 24px 0 10px 0; text-align: center; }
         table.rp-md-chakra { width: 100%; border-collapse: collapse; font-size: 12.5px; }
@@ -767,15 +777,38 @@ def _render_matrix_destiny_extra(raw_result):
 
     svg = render_octagram_svg_with_tooltips(ps, asq, tooltip_info)
 
+    # Arti singkat tiap metrik -- dipakai buat tooltip hover di kartu stat
+    # (kartu ini plain div, bukan SVG, jadi hover-nya lebih sederhana:
+    # cukup nested div + CSS :hover, nggak perlu hitung posisi persen kayak
+    # di octagram).
+    _stat_arti = {
+        "Love Point": "Menunjukkan caramu memberi dan menerima cinta -- kedekatan emosional "
+                      "dengan pasangan atau orang-orang terdekat dalam hidupmu.",
+        "Money Point": "Menunjukkan pola pikirmu soal uang -- cara kamu mencari, mengelola, dan "
+                       "memandang rezeki dalam hidup sehari-hari.",
+        "Balance Point": "Titik keseimbangan antara urusan hati (Love Point) dan materi (Money "
+                          "Point) -- seberapa selaras kedua sisi itu dalam hidupmu.",
+        "Personal Purpose": "Tujuan hidup versi dirimu sendiri -- apa yang bikin kamu merasa "
+                             "\"ini memang jalanku\", terlepas dari pendapat orang lain.",
+        "Social Purpose": "Peran dan kontribusi yang kamu bawa ke lingkungan sosial atau "
+                           "masyarakat sekitarmu -- bagaimana kamu berdampak bagi orang lain.",
+        "Main Destiny": "Gabungan Personal Purpose dan Social Purpose -- arah besar takdir "
+                         "hidupmu secara keseluruhan, titik temu antara jalanmu sendiri dan "
+                         "perananmu bagi sekitar.",
+    }
     stat_defs = [
         ("Love Point", lm["love"]), ("Money Point", lm["money"]), ("Balance Point", lm["balance"]),
         ("Personal Purpose", purpose["personal"]), ("Social Purpose", purpose["social"]),
         ("Main Destiny", purpose["main_destiny"]),
     ]
+    _n_stat = len(stat_defs)
     stats_html = "".join(
-        f'<div class="rp-md-stat"><div class="rp-md-stat-label">{label}</div>'
-        f'<div class="rp-md-stat-value">{value}</div></div>'
-        for label, value in stat_defs
+        f'<div class="rp-md-stat rp-md-stat-{"left" if idx == 0 else "right" if idx == _n_stat - 1 else "mid"}">'
+        f'<div class="rp-md-stat-label">{label}</div>'
+        f'<div class="rp-md-stat-value">{value}</div>'
+        f'<div class="rp-md-stat-tip">{_stat_arti.get(label, "")}</div>'
+        '</div>'
+        for idx, (label, value) in enumerate(stat_defs)
     )
 
     chakra_rows = [
