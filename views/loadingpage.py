@@ -527,6 +527,23 @@ def _inject_style():
             border-color: #e4ddd0 !important;
         }
         [data-testid="stDialog"] button[kind="primary"] * { color: #ffffff !important; }
+
+        /* st.error/st.warning/st.info/st.success (dipakai buat pesan validasi
+           soal kuesioner belum lengkap, dst) — BUG CSS DARK-MODE YANG SAMA
+           kayak stDialog di atas: widget-nya ikut skema warna dark-mode
+           browser/OS (background jadi item pekat, teks susah kebaca),
+           bukan tema terang brand. Dipaksa terang + border/warna senada
+           sama .ry-load warning box (oranye) yang udah dipakai di tempat
+           lain (mis. _anti_leave_banner di loadingpage_mendalam.py). */
+        [data-testid="stAlert"], [data-testid="stAlertContainer"] {
+            background-color: #fff3e0 !important;
+            border: 1.5px solid #e4a56e !important;
+            border-radius: 12px !important;
+        }
+        [data-testid="stAlert"] *, [data-testid="stAlertContainer"] * {
+            color: #8a5a2f !important;
+            fill: #8a5a2f !important;
+        }
         </style>
         """,
         unsafe_allow_html=True,
