@@ -364,17 +364,23 @@ def _ask_field_dialog(field):
             st.rerun()
 
 
-def _render_input_summary():
+def _input_summary_html():
     """
     Ringkasan data yang udah diisi user (tanggal lahir dkk), ditampilkan di
     bawah judul "Sedang Membaca Dirimu..." biar user bisa cek ulang
     input-nya nggak salah ketik/pilih sebelum nunggu proses selesai.
+
+    Return HTML string (BUKAN langsung st.markdown) — dipanggil bareng
+    header/dots/kartu dalam SATU st.markdown gabungan (lihat catatan
+    "kenapa digabung" di render()), biar semuanya nyampe ke browser
+    sebagai satu potongan DOM, bukan elemen-elemen terpisah yang bisa
+    ke-update nggak bareng.
     """
     data = st.session_state.get("loading_data", {})
     tanggal_str = format_tanggal_ddmmyyyy(data.get("tanggal_lahir"))
     nama = data.get("nama_lengkap")
     if not tanggal_str and not nama:
-        return
+        return ""
     badges = []
     if tanggal_str:
         badges.append(
@@ -388,10 +394,9 @@ def _render_input_summary():
             'style="font-size:15px;vertical-align:-2px;">badge</span> '
             f'Nama Kamu: <b>{nama}</b></span>'
         )
-    st.markdown(
+    return (
         '<div style="text-align:center;margin-top:8px;display:flex;gap:8px;'
-        f'justify-content:center;flex-wrap:wrap;">{"".join(badges)}</div>',
-        unsafe_allow_html=True,
+        f'justify-content:center;flex-wrap:wrap;">{"".join(badges)}</div>'
     )
 
 
@@ -504,7 +509,10 @@ def _inject_style():
     )
 
 
-def _render_dots(points, idx, waiting=False):
+def _dots_html(points, idx, waiting=False):
+    """Return HTML string dot-row (BUKAN langsung st.markdown) — lihat
+    catatan di _input_summary_html() soal kenapa ini digabung jadi satu
+    potongan HTML sama header/kartu, bukan dipanggil terpisah lagi."""
     total = len(points)
     dots_html = ['<div class="ry-load-dot-row">']
     for i, system in enumerate(points):
@@ -533,7 +541,7 @@ def _render_dots(points, idx, waiting=False):
             chain_cls = "ry-load-chain-done" if i < idx else "ry-load-chain-upcoming"
             dots_html.append(f'<div class="ry-load-chain {chain_cls}"></div>')
     dots_html.append("</div>")
-    st.markdown("".join(dots_html), unsafe_allow_html=True)
+    return "".join(dots_html)
 
 
 def render():
@@ -557,12 +565,12 @@ def render():
             '<div style="font-family:\'Fraunces\',serif;font-size:30px;font-weight:700;color:#1c1a17;margin-bottom:8px;">'
             'Sedang Membaca Dirimu...</div>'
             '<div style="font-size:14.5px;color:#6b6459;">Semua titik selesai diproses.</div>'
-            '</div>',
+            '</div>'
+            f'{_input_summary_html()}'
+            '<div style="height:16px;"></div>'
+            f'{_dots_html(points, idx, waiting=False)}',
             unsafe_allow_html=True,
         )
-        _render_input_summary()
-        st.write("")
-        _render_dots(points, idx, waiting=False)
         if not st.session_state.get("final_ready"):
             st.markdown(
                 '<div style="text-align:center;margin-top:22px;font-size:13px;'
@@ -577,20 +585,41 @@ def render():
 
     current = points[idx]
 
-    st.markdown(
+    # ── Header ("Sedang Membaca Dirimu...") + ringkasan input — DIGABUNG
+    # jadi satu string HTML bareng dots/kartu di bawah (bukan dipanggil
+    # st.markdown terpisah lagi kayak sebelumnya). ──
+    # BUG YANG DIPERBAIKI (27 Sep 2026, dilaporkan Stev sebagai "hentakan"/
+    # "kedip" pas ganti titik, kejadian random di titik manapun — sudah
+    # dibuktikan lewat rekaman + pengukuran, BUKAN cuma tebakan): Streamlit
+    # ngirim tiap st.markdown/komponen sebagai elemen ("delta") TERPISAH ke
+    # browser saat itu juga diproses, BUKAN nunggu semua elemen di satu
+    # rerun selesai baru dikirim bareng. Header+dot-row (teks kecil, cepat
+    # sampai) sebelumnya dipanggil LEWAT st.markdown SENDIRI, sedangkan
+    # kartu di bawahnya (isinya gambar base64 ~2MB, lebih berat/lambat
+    # sampai) lewat st.markdown TERPISAH lagi. Akibatnya ada window
+    # (~0.5-0.7 detik, terukur lewat Playwright) dimana header/dot udah
+    # nunjuk ke titik BARU tapi kartu di bawahnya masih nampilin titik LAMA
+    # — begitu kartu akhirnya nyusul ganti, itu yang kerasa sebagai
+    # hentakan. Fix-nya: gabung header+summary+dots+kartu jadi SATU
+    # st.markdown (satu delta), biar browser nge-patch semuanya BARENG,
+    # bukan kepisah-pisah kayak sebelumnya.
+    header_html = (
         '<div style="text-align:center;">'
         '<div style="font-family:\'Fraunces\',serif;font-size:30px;font-weight:700;color:#1c1a17;margin-bottom:8px;">'
         'Sedang Membaca Dirimu...</div>'
         f'<div style="font-size:14.5px;color:#6b6459;">Titik {idx + 1} dari {total} sedang diproses '
         '— jangan tutup halaman ini ya.</div>'
-        '</div>',
-        unsafe_allow_html=True,
+        '</div>'
+        f'{_input_summary_html()}'
+        '<div style="height:16px;"></div>'
     )
-    _render_input_summary()
-    st.write("")
 
     # ── STATE MACHINE per titik ──
     if st.session_state.loading_phase == "need_check":
+        # Fase ini nggak nampilin apa-apa ke user (langsung rerun ke fase
+        # berikutnya), jadi header nggak perlu dirender di sini — biar
+        # nggak sempat kelihatan sekilas dengan dots/kartu titik LAMA yang
+        # belum sempat diganti (bakal langsung ketimpa rerun berikutnya).
         # Urutan dicek data DULU, baru status kuesioner — biar titik apapun
         # yang kena giliran duluan (termasuk MBTI dkk yang kuesionernya
         # belum ada) tetap nanya data dasar (tanggal lahir) sekali di
@@ -607,15 +636,18 @@ def render():
         st.rerun()
 
     elif st.session_state.loading_phase == "asking":
-        _render_dots(points, idx, waiting=True)
-        st.markdown('<div class="ry-load-card-wrap">', unsafe_allow_html=True)
-        st.markdown('<div class="ry-load-waiting-box">Menunggu data...</div>', unsafe_allow_html=True)
-        st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown(
+            header_html
+            + _dots_html(points, idx, waiting=True)
+            + '<div class="ry-load-card-wrap">'
+            '<div class="ry-load-waiting-box">Menunggu data...</div>'
+            '</div>',
+            unsafe_allow_html=True,
+        )
         missing = _missing_field_for(current)
         _ask_field_dialog(missing)
 
     elif st.session_state.loading_phase == "animating":
-        _render_dots(points, idx, waiting=False)
         # Hitung hasil ASLI-nya DULUAN (sebelum kartu teaser dirender),
         # bukan nunggu sampai animasi selesai — biar gambar kartu yang
         # ditampilin (walau masih blur/teaser) sudah PASTI sesuai hasil
@@ -655,7 +687,9 @@ def render():
         )
 
         st.markdown(
-            f'<div class="ry-load-card-wrap" style="--ry-anim-s:{ANIM_SECONDS}s;">'
+            header_html
+            + _dots_html(points, idx, waiting=False)
+            + f'<div class="ry-load-card-wrap" style="--ry-anim-s:{ANIM_SECONDS}s;">'
             '<div style="font-size:11px;font-weight:800;letter-spacing:0.08em;'
             f'text-transform:uppercase;color:#b8562f;">✓ {current} — sedang diproses</div>'
             '<div class="ry-load-card" style="--ry-anim-s:' + str(ANIM_SECONDS) + 's;">'
