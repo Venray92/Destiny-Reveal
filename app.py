@@ -8,6 +8,7 @@ import streamlit as st
 from views.reveal_yourself import render as render_reveal_yourself
 from views.loadingpage import render as render_loading
 from views.revealpage import render as render_result
+from views.tutorialpage import render as render_tutorial
 
 st.set_page_config(
     page_title="Destiny Reveal",
@@ -296,7 +297,7 @@ st.markdown(
        badge hero yang sudah dihapus) supaya tidak perlu elemen HTML tambahan. */
     .st-key-lang_switch {
         max-width: 100%; width: 100%; margin-left: auto; margin-right: 0;
-        position: relative; padding: 0 18px;
+        position: relative; padding: 0 14px;
     }
     .st-key-lang_switch::before,
     .st-key-lang_switch::after {
@@ -355,6 +356,15 @@ st.markdown(
 
     /* Nav: sejajarkan logo & dropdown bahasa secara vertikal */
     .st-key-nav_row [data-testid="stHorizontalBlock"] { align-items: center !important; }
+
+    /* Tombol nav (Home/Reveal Yourself/Tutorial) dipendekin biar pas sama
+       tulisannya aja — sebelumnya ikut style tombol CTA global (padding
+       14px 32px, font 18px) yang kebesaran buat nav bar, apalagi sekarang
+       ada 1 tombol tambahan (Tutorial) yang perlu tempat. */
+    .st-key-nav_row div.stButton > button {
+        padding: 8px 16px !important; font-size: 13.5px !important;
+        border-radius: 8px !important; min-height: 0 !important; white-space: nowrap !important;
+    }
 
     /* Kontainer Contoh Laporan lebih compact */
     .dr-report-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
@@ -468,7 +478,9 @@ if "dr_page" not in st.session_state:
 
 # ── NAV BAR ──────────────────────────────────────────────────
 with st.container(key="nav_row"):
-    nav_l, nav_home_btn, nav_reveal_btn, nav_r = st.columns([2.7, 1.3, 1.7, 1.9])
+    nav_l, nav_home_btn, nav_reveal_btn, nav_tutorial_btn, nav_r = st.columns(
+        [2.2, 0.95, 1.35, 1.05, 1.5]
+    )
     with nav_l:
         st.markdown(
             '<div style="font-family:\'Fraunces\',serif;font-size:28px;font-weight:700;'
@@ -490,6 +502,14 @@ with st.container(key="nav_row"):
             use_container_width=True,
         ):
             st.session_state.dr_page = "reveal"
+            st.rerun()
+    with nav_tutorial_btn:
+        if st.button(
+            "Tutorial", key="nav_btn_tutorial", icon=":material/menu_book:",
+            type="primary" if st.session_state.dr_page == "tutorial" else "secondary",
+            use_container_width=True,
+        ):
+            st.session_state.dr_page = "tutorial"
             st.rerun()
     with nav_r:
         with st.container(key="lang_switch"):
@@ -595,7 +615,7 @@ if st.session_state.dr_page == "home":
     st.markdown('<div class="dr-section-title-wrap"><span class="dr-section-title">Satu Data, Banyak Cara Pandang</span></div>', unsafe_allow_html=True)
 
     bulk_groups = [
-        ("calendar_month", "Cuma dari Tanggal Lahir", ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"]),
+        ("calendar_month", "Tanggal Lahir & Nama Lengkap", ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"]),
         ("schedule", "+ Tambah Jam Lahir", ["BaZi (4 Pilar)", "Zi Wei Dou Shu", "Human Design", "Ascendant Zodiak"]),
         ("location_on", "+ Tambah Kota Lahir", ["BaZi Akurat Penuh", "Human Design Akurat Penuh"]),
         ("quiz", "Kuesioner Terpisah", ["MBTI", "Big Five", "Enneagram", "DISC", "Golongan Darah", "Love Language"]),
@@ -646,6 +666,12 @@ if st.session_state.dr_page == "home":
 # ══════════════════════════════════════════════════════════════
 elif st.session_state.dr_page == "reveal":
     render_reveal_yourself()
+
+# ══════════════════════════════════════════════════════════════
+# HALAMAN — TUTORIAL (penjelasan semua sistem/chip)
+# ══════════════════════════════════════════════════════════════
+elif st.session_state.dr_page == "tutorial":
+    render_tutorial(SEMUA_SISTEM)
 
 # ══════════════════════════════════════════════════════════════
 # HALAMAN — LOADING (proses per-titik, floating window minta data)
