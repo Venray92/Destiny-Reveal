@@ -12,10 +12,19 @@ Dipakai oleh:
   siap-render (tagline, chip, title, p1, p2, quote, p3, dst — struktur yang
   sama seperti DUMMY_RESULTS lama).
 
-Sistem lain (BaZi, Zi Wei, Human Design, Golongan Darah, MBTI dkk,
-Tarot, ...) belum masuk sini karena enginenya sendiri belum dibangun
-(lihat progress-notes.md) -- compute_raw_result() akan selalu balikin
+Sistem lain (BaZi, Zi Wei, Human Design, Golongan Darah, Tarot, ...) belum
+masuk sini karena enginenya sendiri belum dibangun (lihat
+progress-notes.md) -- compute_raw_result() akan selalu balikin
 {"placeholder": True} untuk sistem-sistem itu.
+
+5 sistem KUESIONER Mode Mendalam (MBTI, Big Five, Enneagram, DISC, Love
+Language) enginenya SUDAH ada (engine/mbti.py dkk) tapi butuh JAWABAN
+user, bukan tanggal lahir -- makanya dipanggil lewat fungsi TERPISAH,
+compute_quiz_raw_result(), dari views/loadingpage_mendalam.py (bukan
+compute_raw_result() yang di atas, yang emang khusus data tanggal lahir).
+Kamus konten paragraf (karir/asmara/dll) buat 5 sistem ini BELUM ditulis
+-- build_display_data() makanya masih balikin None buat kelimanya,
+sama kayak sistem lain yang belum ada kamus kontennya.
 """
 
 from content.interpretations.matrix_destiny import MATRIX_DESTINY_CONTENT
@@ -23,11 +32,41 @@ from content.interpretations.numerologi import NUMEROLOGI_CONTENT
 from content.interpretations.shio import SHIO_CONTENT
 from content.interpretations.weton import WETON_CONTENT
 from content.interpretations.zodiak import ZODIAK_CONTENT
+from engine.big_five_scoring import score_big_five
+from engine.disc_scoring import score_disc
+from engine.enneagram_scoring import score_enneagram
+from engine.love_language_scoring import score_love_language
 from engine.matrix_destiny import hitung_matrix_destiny
+from engine.mbti_scoring import score_mbti
 from engine.numerologi import hitung_numerologi_lengkap
 from engine.shio import hitung_shio
 from engine.weton import hitung_weton
 from engine.zodiak import hitung_zodiak
+
+# Sistem kuesioner Mode Mendalam -> fungsi scoring engine masing2.
+QUIZ_SCORERS = {
+    "MBTI": score_mbti,
+    "Big Five": score_big_five,
+    "Enneagram": score_enneagram,
+    "DISC": score_disc,
+    "Love Language": score_love_language,
+}
+
+
+def compute_quiz_raw_result(system: str, answers: dict) -> dict:
+    """
+    Hitung hasil MENTAH salah satu dari 5 sistem kuesioner Mode Mendalam,
+    dari jawaban user (answers = {question_id: jawaban}, format jawaban
+    beda2 per sistem -- lihat docstring tiap engine/*.py).
+
+    Returns:
+        dict mentah persis balikan engine/<system>.py, atau
+        {"placeholder": True} kalau system bukan salah satu dari 5 ini.
+    """
+    scorer = QUIZ_SCORERS.get(system)
+    if not scorer:
+        return {"placeholder": True}
+    return scorer(answers)
 
 # Sistem yang sudah punya engine + kamus konten lengkap (berbasis tanggal
 # lahir saja, tidak butuh jam/kota/kuesioner).
