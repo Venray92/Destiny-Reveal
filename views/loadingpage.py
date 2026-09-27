@@ -450,6 +450,26 @@ def _inject_style():
             width: 240px; height: 340px; border-radius: 18px; padding: 6px;
             background: linear-gradient(155deg, #f3d488, #c9a227 45%, #8a6a12 55%, #f3d488);
             box-shadow: 0 20px 40px -18px rgba(139,90,47,0.45);
+            /* clip-path STATIS (bukan cuma lewat animasi) disamain persis
+               sama keyframe "from" ry-reveal di bawah — BUG YANG
+               DIPERBAIKI (27 Sep 2026, kekonfirmasi lewat rekaman video
+               Stev: kartu titik BARU sempet kelihatan FULL TERBUKA
+               sekilas dulu, baru tiba-tiba blank total, baru pelan-pelan
+               kebuka lagi — bukan cuma "kedip" biasa, kartu lama beneran
+               "flash" full sebelum di-reset). Root cause: DOM kartu
+               dipakai ulang Streamlit antar titik (cuma konten yang
+               di-patch), jadi begitu HTML titik baru masuk, elemennya
+               masih mewarisi clip-path HASIL AKHIR animasi titik
+               SEBELUMNYA (0% = full terbuka, ke-persist lewat
+               animation-fill-mode:forwards) SAMPAI trik JS restart di
+               bawah beneran jalan (E2 requestAnimationFrame, telat
+               1-2 frame). Window itu yang bikin konten baru sempet
+               "flash" full duluan sebelum di-reset ke tertutup buat
+               direveal ulang. Fix: paksa clip-path mulai TERTUTUP
+               dari HTML/CSS-nya sendiri (bukan nunggu animasi/JS),
+               jadi begitu konten titik baru di-patch ke DOM, LANGSUNG
+               ketutup — nggak ada window buat "flash" muncul duluan. */
+            clip-path: inset(0 0 100% 0);
             animation: ry-reveal var(--ry-anim-s) ease-out forwards;
         }
         .ry-load-card-inner { width: 100%; height: 100%; border-radius: 14px; padding: 3px;
@@ -459,6 +479,10 @@ def _inject_style():
         .ry-load-text-box { width: 100%; max-width: 560px; background: #fdfaf5;
             border: 2px solid #f0e6d5; border-radius: 20px; padding: 26px 30px;
             display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
+            /* Sama kayak .ry-load-card di atas — clip-path statis biar
+               nggak sempet "flash" nunjukin teks titik lama/baru full
+               sebelum direset animasinya. */
+            clip-path: inset(0 0 100% 0);
             animation: ry-reveal var(--ry-anim-s) ease-out forwards;
         }
         /* Teaser sekarang pakai TEKS ASLI (bukan bar kosong lagi) — judul
@@ -692,46 +716,116 @@ def render():
             + f'<div class="ry-load-card-wrap" style="--ry-anim-s:{ANIM_SECONDS}s;">'
             '<div style="font-size:11px;font-weight:800;letter-spacing:0.08em;'
             f'text-transform:uppercase;color:#b8562f;">✓ {current} — sedang diproses</div>'
-            '<div class="ry-load-card" style="--ry-anim-s:' + str(ANIM_SECONDS) + 's;">'
+            f'<div class="ry-load-card" data-point-idx="{idx}" style="--ry-anim-s:' + str(ANIM_SECONDS) + 's;">'
             f'<div class="ry-load-card-inner"><div class="ry-load-card-art">{card_art_inner}</div></div>'
             '</div>'
-            '<div class="ry-load-text-box" style="--ry-anim-s:' + str(ANIM_SECONDS) + 's;">'
+            f'<div class="ry-load-text-box" data-point-idx="{idx}" style="--ry-anim-s:' + str(ANIM_SECONDS) + 's;">'
             f'<div class="ry-load-teaser-title">{teaser_title}</div>'
             f'{lines_html}'
             '</div>'
             '</div>',
             unsafe_allow_html=True,
         )
-        # PENTING — 2 lapis bug yang kekonfirmasi langsung lewat inspeksi DOM
-        # (bukan tebakan):
-        # 1) Streamlit/React makai ULANG elemen DOM kartu-teks yang sama
-        #    antar titik (cuma isi teksnya yang di-patch), jadi animasi CSS
-        #    clip-path yang udah kelar di titik sebelumnya TIDAK otomatis
-        #    restart pas titik baru mulai.
-        # 2) components.html JUGA kena masalah yang sama: kalau isi
-        #    <script>-nya PERSIS SAMA tiap titik, iframe-nya ikut dipakai
-        #    ulang (nggak reload), jadi script restart itu sendiri cuma
-        #    kejalan SEKALI aja di titik pertama, nggak pernah jalan lagi.
-        # Makanya di titik #2 ini kode di dalam iframe SENGAJA dikasih
-        # komentar unik (nomor+nama titik) biar srcdoc-nya beda tiap kali,
-        # maksa iframe-nya reload & script restart-nya beneran kejalan
-        # ulang tiap titik baru.
+        # BUG YANG DIPERBAIKI (27 Sep 2026, rekaman video Stev nunjukin
+        # kartu titik baru "flash" full terbuka sekilas dulu baru tiba-tiba
+        # blank total, baru pelan-pelan direveal ulang — bukan cuma
+        # "kedip", beneran nge-jolt drastis):
+        #
+        # 3 lapis root cause yang KEKONFIRMASI langsung lewat inspeksi DOM
+        # (dites: tag elemen kartu titik-1 dengan marker custom, cek lagi
+        # setelah pindah titik-2 — hasilnya SAMA OBJECT DOM, cuma
+        # attribute/isinya yang di-patch, bukan dibuat ulang):
+        # 1) Streamlit/React makai ULANG elemen DOM kartu+text-box yang
+        #    sama persis antar titik (cuma konten yang di-patch in-place).
+        # 2) Animasi CSS (clip-path reveal) yang udah kelar di titik
+        #    SEBELUMNYA nge-persist ("forwards" fill-mode) di elemen itu
+        #    dan TETAP menang/override apapun rule CSS statis lain SAMPAI
+        #    animasinya beneran di-disable eksplisit — jadi begitu konten
+        #    titik BARU di-patch masuk, kartu itu SEMPAT kelihatan full
+        #    terbuka dulu (masih mewarisi status "selesai" dari titik
+        #    lama), padahal isinya udah titik baru.
+        # 3) Trik reset lama (iframe components.html dengan komentar unik
+        #    per titik biar reload) BARU jalan beberapa frame KEMUDIAN
+        #    (iframe baru butuh waktu dibuat+dimuat), jadi ada window nyata
+        #    dimana user lihat "kartu baru full terbuka -> tiba-tiba di-reset
+        #    ke tertutup -> pelan-pelan kebuka lagi" — itu yang kerasa jolt.
+        #
+        # FIX: pasang SATU iframe PERSISTEN (srcdoc-nya SENGAJA statis/sama
+        # tiap titik, BUKAN dikasih komentar unik lagi) yang isinya cuma
+        # masang MutationObserver SEKALI di awal, mengamati atribut
+        # data-point-idx di kartu/text-box (di-set di HTML atas). Karena
+        # srcdoc-nya sama, Streamlit TIDAK reload iframe-nya tiap titik
+        # (beda dari sebelumnya) — jadi observer-nya tetap hidup dari titik
+        # pertama sampai terakhir. Callback MutationObserver jalan sebagai
+        # microtask SEGERA setelah DOM di-patch, SEBELUM browser sempat
+        # nge-paint frame berikutnya — jadi reset animasinya kejadian
+        # duluan sebelum sempat kelihatan "flash" kartu lama yang masih
+        # terbuka.
+        # ── Ghost floating-window (st.dialog "Lengkapi Data") yang kedip
+        # sekilas di titik-titik SETELAH titik pertama (dilaporkan Stev,
+        # 27 Sep 2026 — "kedipannya kaya kedipan floating windows") ──
+        # DIBUKTIKAN lewat log server (loading_phase/missing dicatat tiap
+        # rerun): dari sisi Python, dialog "Lengkapi Data" CUMA dipanggil
+        # SEKALI (titik pertama, pas datanya beneran belum ada) — titik
+        # ke-2 dst selalu missing=None, dialognya TIDAK dipanggil lagi.
+        # TAPI dari sisi browser, elemen [data-testid="stDialog"] yang
+        # ISINYA SAMA PERSIS (dialog titik-1 yang udah kelar) kedetect
+        # nongol lagi sekilas (~0.4 detik) pas titik lain lagi animating —
+        # ini murni artefak sisi Streamlit-nya sendiri (DOM dialog lama
+        # ke-cache/nyangkut, sempat ke-render ulang pas rerun besar),
+        # BUKAN dialog baru yang beneran diminta app.
+        #
+        # FIX: karena iframe ini CUMA hidup selama fase "animating" (fase
+        # dimana TIDAK ADA dialog yang seharusnya muncul sama sekali —
+        # dialog data cuma legit di fase "asking" di titik pertama, dan
+        # dialog payment cuma legit di layar akhir setelah SEMUA titik
+        # kelar, keduanya di luar fase "animating" jadi iframe ini otomatis
+        # sudah dilepas Streamlit sebelum keduanya render) — SELAMA iframe
+        # ini hidup, floating window apapun yang nongol sudah pasti ghost,
+        # aman langsung dipaksa disembunyikan tanpa perlu cek fase lagi.
         components.html(
-            f"""
+            """
             <script>
-            // ry-point-marker:{idx}:{current}
-            function ryRestartRevealAnim() {{
-                try {{
-                    var doc = window.parent.document;
-                    var els = doc.querySelectorAll('.ry-load-card, .ry-load-text-box');
-                    els.forEach(function (el) {{
-                        el.style.animation = 'none';
-                        void el.offsetWidth;
-                        el.style.animation = '';
-                    }});
-                }} catch (e) {{}}
-            }}
-            requestAnimationFrame(function () {{ requestAnimationFrame(ryRestartRevealAnim); }});
+            (function () {
+                var doc = window.parent.document;
+                var lastIdx = {};
+                function resetAnim(el) {
+                    if (!el) return;
+                    var pid = el.getAttribute('data-point-idx');
+                    var key = el.className;
+                    if (lastIdx[key] === pid) return;
+                    lastIdx[key] = pid;
+                    el.style.animation = 'none';
+                    void el.offsetWidth;
+                    el.style.animation = '';
+                }
+                function killGhostDialogs() {
+                    var dlgs = doc.querySelectorAll('[data-testid="stDialog"]');
+                    dlgs.forEach(function (d) {
+                        d.style.setProperty('display', 'none', 'important');
+                    });
+                }
+                function checkAll() {
+                    resetAnim(doc.querySelector('.ry-load-card'));
+                    resetAnim(doc.querySelector('.ry-load-text-box'));
+                    killGhostDialogs();
+                }
+                if (window.parent.__ryObserver) {
+                    // Observer sebelumnya udah kepasang (iframe ini dipakai
+                    // ulang, bukan baru) — cukup jalanin cek sekali buat
+                    // titik yang baru masuk, observer lamanya tetap jalan.
+                    checkAll();
+                    return;
+                }
+                var mo = new MutationObserver(function () { checkAll(); });
+                try {
+                    mo.observe(doc.body, {
+                        attributes: true, childList: true, subtree: true,
+                    });
+                    window.parent.__ryObserver = mo;
+                } catch (e) {}
+                checkAll();
+            })();
             </script>
             """,
             height=0,
