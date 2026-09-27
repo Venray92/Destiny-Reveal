@@ -14,6 +14,14 @@ rendering.
 REVISI (26 Sep 2026 malam): isi p1/p2/p3 diperpanjang 2-3x lipat dari versi
 sebelumnya (per instruksi Stev), supaya laporannya terasa lebih bernilai
 dan aplikatif, bukan cuma label singkat.
+
+REVISI (27 Sep 2026): tiap entri ditambahin key "domains" (karir, asmara,
+keuangan, kesehatan) — Fase A dari fitur tiering Versi Pendek/Panjang, lihat
+views/revealpage.py (_domain_unlocked_for, DOMAIN_ORDER dkk) dan
+views/loadingpage.py (_final_dialog). SENGAJA baru Zodiak yang diisi dulu
+sebagai bukti alur (mekanisme lock/unlock + expander), 4 sistem lain
+(Shio/Weton/Numerologi/Matrix Destiny) belum punya "domains" sama sekali
+-- ini Fase B yang masih pending, BUKAN bug/kelupaan.
 """
 
 ZODIAK_CONTENT = {
@@ -53,6 +61,25 @@ ZODIAK_CONTENT = {
               "sesuatu, tuliskan dulu ide itu di catatan terpisah, dan kembali fokus menyelesaikan "
               "yang sedang berjalan. Dengan begitu, semangat awalmu tetap tersalurkan tanpa mengorbankan "
               "penyelesaian yang sudah dimulai.",
+        "domains": {
+            "karir": "Kamu bersinar di proyek rintisan atau posisi yang butuh orang berani ambil "
+                     "langkah pertama, tapi begitu proyeknya masuk fase rutin dan repetitif, semangatmu "
+                     "gampang kendur. Rekan kerja kadang was-was menyerahkan tugas jangka panjang "
+                     "kepadamu karena melihat pola ini. *PR: minta satu rekan pegang bagian "
+                     "follow-up/detail administratif, biar energimu tetap di bagian yang kamu kuasai.*",
+            "asmara": "Kamu jujur dan langsung soal perasaan, bikin pasangan tahu persis posisinya. "
+                      "Tapi kesabaranmu diuji kalau hubungan terasa monoton — kamu butuh hal baru "
+                      "supaya percikan itu tetap ada. *PR: sebelum menganggap hubungan membosankan, "
+                      "coba dulu ajak pasangan bikin \"hal baru\" bareng, bukan langsung mundur.*",
+            "keuangan": "Kamu gampang tergoda beli sesuatu yang baru dan menarik perhatian saat itu "
+                        "juga, tanpa banyak mikir jangka panjang. Ini bikin belanja impulsif jadi "
+                        "kebiasaan yang sering bikin kaget pas cek saldo di akhir bulan. *PR: kasih "
+                        "jeda 24 jam sebelum beli barang di atas nominal tertentu.*",
+            "kesehatan": "Energimu besar dan butuh disalurkan lewat gerak fisik yang intens, kalau "
+                         "nggak malah jadi gelisah. Risikonya, kamu sering terburu-buru tanpa "
+                         "pemanasan cukup, jadi rawan cedera otot/sendi. *PR: biasakan pemanasan 5 "
+                         "menit sebelum olahraga, sekecil apa pun rasanya buang-buang waktu.*",
+        },
     },
     "Taurus": {
         "tagline": "☉ Matahari di Taurus",
@@ -88,6 +115,25 @@ ZODIAK_CONTENT = {
               "belum pernah kamu coba. Perhatikan perasaanmu setelahnya, dan gunakan pengalaman itu "
               "sebagai bukti kecil bahwa keluar dari rutinitas tidak selalu berarti kehilangan rasa "
               "aman.",
+        "domains": {
+            "karir": "Kamu unggul di posisi yang butuh konsistensi dan hasil tahan lama, bukan proyek "
+                     "yang berubah arah tiap minggu. Sisi kerasnya, kamu bisa lambat beradaptasi kalau "
+                     "perusahaan tiba-tiba ganti sistem kerja atau arah bisnis. *PR: coba anggap "
+                     "perubahan sebagai versi baru dari stabilitas, bukan ancaman terhadapnya.*",
+            "asmara": "Kesetiaanmu jarang goyah begitu berkomitmen, dan pasanganmu merasa aman "
+                      "karenanya. Tapi kamu bisa terlalu lama bertahan di hubungan yang sebenarnya "
+                      "sudah tidak sehat, cuma karena benci perubahan. *PR: sesekali tanya diri "
+                      "sendiri, ini bertahan karena cinta atau karena takut berubah?*",
+            "keuangan": "Kamu cukup baik menabung, tapi juga suka memanjakan diri dengan hal-hal yang "
+                        "terasa nyaman — makanan enak, barang berkualitas, pengalaman menyenangkan. "
+                        "Kalau tidak dijaga, pengeluaran \"kenyamanan\" ini bisa menggerus tabungan "
+                        "pelan-pelan. *PR: catat khusus pos \"kenyamanan diri\" tiap bulan biar "
+                        "kelihatan totalnya.*",
+            "kesehatan": "Kamu suka menikmati makanan enak dan gaya hidup santai, yang enak tapi bisa "
+                         "berujung kurang gerak kalau dibiarkan terus. Area leher dan tenggorokan "
+                         "cenderung jadi titik lemahmu. *PR: pasang jadwal jalan kaki/olahraga ringan "
+                         "rutin, bukan cuma pas mood.*",
+        },
     },
     "Gemini": {
         "tagline": "☉ Matahari di Gemini",
@@ -123,6 +169,24 @@ ZODIAK_CONTENT = {
               "menetapkan waktu khusus setiap minggu yang benar-benar didedikasikan untuk satu topik "
               "itu saja, dan menahan diri untuk tidak beralih ke minat baru selama waktu tersebut "
               "berlangsung.",
+        "domains": {
+            "karir": "Kamu jago di peran yang butuh komunikasi lintas tim atau menangani banyak hal "
+                     "sekaligus, tapi bisa keteteran menyelesaikan satu proyek besar sampai tuntas "
+                     "karena gampang tergoda tugas baru yang lebih menarik. *PR: sebelum terima "
+                     "tanggung jawab baru, selesaikan dulu satu yang sedang jalan sampai kelar.*",
+            "asmara": "Kamu butuh obrolan yang hidup dan bervariasi supaya hubungan terasa segar, dan "
+                      "gampang bosan kalau komunikasi jadi datar. Risikonya, kamu bisa terlihat kurang "
+                      "serius di mata pasangan yang butuh kepastian. *PR: sesekali dengarkan cerita "
+                      "pasangan sampai habis tanpa buru-buru ganti topik.*",
+            "keuangan": "Kamu suka coba banyak hal baru — hobi, gadget, langganan aplikasi — yang kalau "
+                        "dikumpulkan ternyata menggerus budget cukup banyak, apalagi kalau separuhnya "
+                        "cuma dipakai sebentar lalu ditinggal. *PR: review langganan/hobi yang jarang "
+                        "dipakai tiap 3 bulan, hentikan yang sudah tidak relevan.*",
+            "kesehatan": "Pikiranmu jarang berhenti bergerak dari satu topik ke topik lain, yang bagus "
+                         "buat kreativitas tapi melelahkan buat sistem sarafmu kalau terus-menerus. "
+                         "*PR: sisihkan 10 menit tiap malam buat journaling atau duduk diam tanpa "
+                         "gadget, biar pikiran benar-benar istirahat.*",
+        },
     },
     "Cancer": {
         "tagline": "☉ Matahari di Cancer",
@@ -157,6 +221,22 @@ ZODIAK_CONTENT = {
               "Kamu juga bisa melatih diri untuk melepaskan satu kekecewaan lama yang sebenarnya "
               "sudah tidak relevan lagi, dengan cara menuliskannya dan secara sadar memutuskan untuk "
               "tidak membawanya lagi ke hubungan yang sedang berjalan sekarang.",
+        "domains": {
+            "karir": "Kamu unggul di peran yang butuh empati — memperhatikan kesejahteraan tim, "
+                     "menjaga suasana kerja tetap hangat. Risikonya, kritik terhadap pekerjaanmu bisa "
+                     "terasa seperti serangan pribadi. *PR: latih diri memisahkan \"kerjaanku dikritik\" "
+                     "dari \"aku sebagai orang dikritik\".*",
+            "asmara": "Kamu pasangan yang penuh perhatian dan protektif, tapi kadang sikap "
+                      "protektifmu berubah jadi posesif tanpa disadari, atau kamu diam-diam ngambek "
+                      "tanpa bilang apa masalahnya. *PR: kalau ada yang mengganjal, bilang langsung, "
+                      "jangan biarkan pasangan menebak-nebak lewat sikap dingin.*",
+            "keuangan": "Kamu rajin menabung untuk keluarga atau rumah, tapi gampang belanja impulsif "
+                        "saat mood sedang turun sebagai bentuk menghibur diri sendiri. *PR: kalau lagi "
+                        "sedih dan pengen belanja, tunda dulu satu hari — cek lagi apa benar butuh.*",
+            "kesehatan": "Perasaanmu yang naik-turun sering berdampak ke perutmu — gampang mual/perih "
+                         "pas lagi stres atau cemas. *PR: jaga jam makan tetap teratur meski lagi "
+                         "banyak pikiran, jangan sampai telat atau lupa makan sama sekali.*",
+        },
     },
     "Leo": {
         "tagline": "☉ Matahari di Leo",
@@ -191,6 +271,26 @@ ZODIAK_CONTENT = {
               "pemimpin. Latih juga dirimu untuk sesekali bertanya \"menurutmu bagaimana?\" sebelum "
               "menyampaikan pendapatmu sendiri, supaya orang lain merasa dilibatkan, bukan hanya "
               "diarahkan.",
+        "domains": {
+            "karir": "Panggung adalah tempatmu bersinar — presentasi di depan klien, memimpin "
+                     "proyek, atau posisi yang hasil kerjanya langsung terlihat dan diakui. Namun "
+                     "kesabaranmu diuji saat harus menjalani proses yang lambat atau kerja di balik "
+                     "layar tanpa apresiasi langsung. *PR: sekali sebulan, ambil satu tugas yang "
+                     "hasilnya baru kelihatan lama — latih kesabaran menjalani prosesnya.*",
+            "asmara": "Kamu mencintai dengan totalitas dan setia, tidak setengah-setengah kalau sudah "
+                      "berkomitmen. Tapi kamu juga butuh diakui secara terbuka, dan kalau merasa itu "
+                      "tidak datang, kamu bisa jadi posesif atau menuntut lebih dari kapasitas "
+                      "pasangan. *PR: sebelum menuntut perhatian, tanya dulu apa yang sedang dia "
+                      "butuhkan saat itu.*",
+            "keuangan": "Kamu cenderung royal, terutama untuk hal yang menunjang citra diri — "
+                        "penampilan, pengalaman, hadiah untuk orang tersayang. Bisa jadi jebakan kalau "
+                        "tidak diimbangi kebiasaan menabung. *PR: sisihkan minimal 10% penghasilan "
+                        "otomatis sebelum uang itu sempat kamu pegang.*",
+            "kesehatan": "Energimu besar tapi gampang habis kalau terus dipaksa tanpa jeda — kamu "
+                         "tipe yang baru berhenti setelah benar-benar kehabisan tenaga. *PR: jadwalkan "
+                         "satu hari penuh tanpa agenda setiap minggu, dan benar-benar patuhi jadwal "
+                         "itu.*",
+        },
     },
     "Virgo": {
         "tagline": "☉ Matahari di Virgo",
@@ -226,6 +326,23 @@ ZODIAK_CONTENT = {
               "ini secara konsisten selama beberapa minggu, dan perhatikan bagaimana kebiasaan ini "
               "perlahan membantumu melihat kemajuanmu sendiri dengan lebih adil, bukan hanya "
               "berfokus pada apa yang belum sempurna.",
+        "domains": {
+            "karir": "Ketelitianmu jadi aset besar di pekerjaan yang butuh akurasi tinggi — QA, "
+                     "analisis data, penyusunan rencana rinci. Tapi standar tinggi ke diri sendiri "
+                     "bisa berujung burnout kalau tidak direm. *PR: tetapkan batas \"cukup baik\" "
+                     "untuk tugas kecil, simpan energi maksimal buat yang benar-benar penting.*",
+            "asmara": "Kamu menunjukkan cinta lewat tindakan praktis — bantuin beresin masalah, "
+                      "memperhatikan detail kebutuhan pasangan. Sayangnya ini kadang ditangkap "
+                      "sebagai \"banyak protes\" atau terlalu mengoreksi. *PR: sesekali puji dulu "
+                      "sebelum kasih masukan perbaikan.*",
+            "keuangan": "Kamu rapi mencatat pengeluaran dan cenderung hemat, tapi bisa terlalu pelit "
+                        "ke diri sendiri sampai jarang menikmati hasil kerja keras. *PR: alokasikan "
+                        "budget kecil khusus \"untuk senang-senang\" tiap bulan, tanpa rasa bersalah.*",
+            "kesehatan": "Kecenderungan overthinking dan mengkritik diri sendiri sering muncul sebagai "
+                         "gejala fisik — sakit kepala, perut tegang, susah rileks. *PR: latih "
+                         "self-compassion sederhana: bicara ke diri sendiri seperti kamu bicara ke "
+                         "sahabat yang sedang berjuang.*",
+        },
     },
     "Libra": {
         "tagline": "☉ Matahari di Libra",
@@ -261,6 +378,23 @@ ZODIAK_CONTENT = {
               "mempercayai penilaianmu sendiri. Kamu bisa mulai dari keputusan yang risikonya kecil, "
               "seperti memilih film yang akan ditonton atau tempat yang akan dikunjungi, sebelum "
               "melangkah ke keputusan yang lebih besar dan berdampak jangka panjang.",
+        "domains": {
+            "karir": "Kamu unggul di peran diplomasi dan menjaga hubungan antar pihak — negosiasi, "
+                     "kerja sama lintas tim, klien. Tapi kamu bisa lambat ambil keputusan sendiri, "
+                     "sering menunggu persetujuan orang lain dulu. *PR: sekali dalam seminggu, "
+                     "ambil satu keputusan kerja sendiri tanpa polling pendapat tim dulu.*",
+            "asmara": "Kamu romantis dan mencari hubungan yang seimbang, tapi takut konflik bikin "
+                      "kamu menunda ngomongin masalah yang sebenarnya sudah lama mengganjal. *PR: "
+                      "coba sampaikan satu ketidaknyamanan kecil langsung saat itu terjadi, jangan "
+                      "ditimbun.*",
+            "keuangan": "Kamu suka barang dan pengalaman yang estetik, yang kalau tidak dikontrol bisa "
+                        "menggerus budget demi tampilan/suasana yang indah. *PR: sebelum beli barang "
+                        "dekoratif, tanya apakah ini kebutuhan atau cuma pengen terlihat bagus.*",
+            "kesehatan": "Kebiasaan menimbang-nimbang terlalu lama dan memendam konflik bisa memicu "
+                         "stres kronis tanpa kamu sadari sumbernya. *PR: coba olahraga yang "
+                         "menstabilkan seperti yoga atau jalan santai rutin, bukan cuma pas capek "
+                         "pikiran.*",
+        },
     },
     "Scorpio": {
         "tagline": "☉ Matahari di Scorpio",
@@ -295,6 +429,24 @@ ZODIAK_CONTENT = {
               "hubungan kalian. Latih juga dirimu untuk melepaskan satu kekecewaan lama secara sadar, "
               "dengan mengingatkan diri sendiri bahwa memegang kemarahan terlalu lama hanya akan "
               "membebani dirimu sendiri, bukan orang yang membuatmu kecewa.",
+        "domains": {
+            "karir": "Fokus dan daya tahanmu bikin kamu unggul di proyek rumit yang butuh riset "
+                     "mendalam atau kerja krisis. Tapi kamu susah delegasi/percaya rekan kerja pegang "
+                     "bagian penting. *PR: coba delegasikan satu tugas kecil ke rekan kerja, biar "
+                     "terbiasa melepas kontrol sedikit demi sedikit.*",
+            "asmara": "Kesetiaanmu kuat begitu percaya pada seseorang, tapi kecemburuan dan "
+                      "kebutuhan mengontrol informasi soal dirimu bisa bikin pasangan merasa hubungan "
+                      "berat sebelah. *PR: coba ceritakan satu hal personal yang biasa kamu tutup "
+                      "rapat, ke pasangan yang sudah lama kamu percaya.*",
+            "keuangan": "Kamu diam-diam sangat perhitungan dan strategis soal uang, tapi juga bisa "
+                        "ambil risiko besar (investasi agresif) tanpa cerita ke orang terdekat. *PR: "
+                        "sebelum ambil keputusan finansial besar sendirian, diskusikan dulu dengan "
+                        "satu orang yang kamu percaya.*",
+            "kesehatan": "Kamu cenderung memendam stres secara internal, yang lama-lama bisa "
+                         "termanifestasi jadi ketegangan fisik atau gangguan tidur. *PR: cari satu "
+                         "outlet rutin buat melepas emosi — olahraga intens, journaling, atau curhat "
+                         "ke orang terpercaya.*",
+        },
     },
     "Sagittarius": {
         "tagline": "☉ Matahari di Sagittarius",
@@ -328,6 +480,24 @@ ZODIAK_CONTENT = {
               "Kamu juga bisa melatih diri untuk menepati satu komitmen kecil secara konsisten, "
               "sebagai cara membuktikan bahwa kebebasan yang kamu junjung tinggi tetap bisa berjalan "
               "beriringan dengan tanggung jawab.",
+        "domains": {
+            "karir": "Kamu cocok kerja yang variatif atau melibatkan eksplorasi/perjalanan, dan cepat "
+                     "gerah di lingkungan kantor yang kaku dan monoton. *PR: kalau terjebak rutinitas "
+                     "kaku, cari cara kecil menambah variasi ke tugas sehari-hari, alih-alih langsung "
+                     "resign.*",
+            "asmara": "Kamu butuh ruang bebas dalam hubungan dan takut merasa dikekang, yang kadang "
+                      "bikin pasangan ragu seberapa jauh mereka bisa mengandalkanmu. *PR: coba komit "
+                      "ke satu hal kecil dan tepati konsisten, buktikan kebebasan tetap bisa jalan "
+                      "bareng tanggung jawab.*",
+            "keuangan": "Kamu royal untuk pengalaman — traveling, hobi baru, hal-hal yang memperluas "
+                        "pandangan — dibanding barang, tapi kurang planning jangka panjang seperti "
+                        "dana darurat. *PR: sisihkan satu pos khusus dana darurat sebelum uangnya "
+                        "\"terpakai\" buat pengalaman baru.*",
+            "kesehatan": "Kamu aktif dan suka olahraga luar ruang, tapi rasa percaya diri berlebih "
+                         "bisa bikin kamu kurang hati-hati dan rawan cedera, atau malas checkup rutin "
+                         "karena merasa selalu fit. *PR: jadwalkan medical checkup rutin walau merasa "
+                         "baik-baik saja.*",
+        },
     },
     "Capricorn": {
         "tagline": "☉ Matahari di Capricorn",
@@ -361,6 +531,21 @@ ZODIAK_CONTENT = {
               "melatih diri merayakan pencapaian kecil begitu berhasil, alih-alih langsung berpindah "
               "memikirkan target berikutnya. Kebiasaan ini akan membantu perjalanan panjangmu terasa "
               "lebih ringan dan bermakna.",
+        "domains": {
+            "karir": "Kedisiplinanmu bikin kamu unggul di posisi kepemimpinan jangka panjang, tapi "
+                     "kamu rawan burnout karena terus-menerus mengejar target berikutnya tanpa jeda. "
+                     "*PR: tetapkan satu hari kerja per minggu yang benar-benar batasi jam lembur.*",
+            "asmara": "Kamu serius dan bertanggung jawab dalam hubungan, tapi fokus berlebih ke karir "
+                      "bisa bikin quality time sama pasangan jadi korban pertama yang dikorbankan. "
+                      "*PR: kunci satu jadwal tetap tiap minggu khusus buat pasangan, jangan sampai "
+                      "digeser demi kerjaan.*",
+            "keuangan": "Kamu disiplin menabung dan merencanakan jangka panjang, tapi kadang terlalu "
+                        "pelit menikmati hasil kerja kerasmu sendiri. *PR: alokasikan dana kecil "
+                        "khusus buat menikmati pencapaian begitu satu target besar tercapai.*",
+            "kesehatan": "Tekanan yang terus-menerus kamu pikul rawan bermuara ke stres kronis atau "
+                         "ketegangan di tulang dan sendi. *PR: jadikan istirahat sebagai jadwal wajib "
+                         "di kalender, bukan hal opsional yang gampang dibatalkan.*",
+        },
     },
     "Aquarius": {
         "tagline": "☉ Matahari di Aquarius",
@@ -395,6 +580,22 @@ ZODIAK_CONTENT = {
               "rapat-rapat. Latihan ini bisa dimulai dari hal kecil, seperti mengakui saat kamu "
               "merasa sedih atau khawatir, alih-alih langsung mengalihkan pembicaraan ke topik yang "
               "lebih abstrak dan aman secara emosional.",
+        "domains": {
+            "karir": "Kamu unggul di pekerjaan yang butuh inovasi dan cara pandang baru, tapi kurang "
+                     "cocok di lingkungan yang sangat kaku aturan dan hierarkis. *PR: kalau terjebak "
+                     "sistem kaku, cari satu celah kecil buat menyalurkan ide inovatifmu tanpa "
+                     "melanggar aturan besar.*",
+            "asmara": "Kamu butuh pasangan yang menghargai kebebasan berpikirmu, tapi kamu sendiri "
+                      "susah menunjukkan sisi emosional/vulnerable, bikin hubungan terasa kurang "
+                      "intim. *PR: coba ungkapkan satu perasaan (bukan ide/pendapat) ke pasangan "
+                      "secara langsung.*",
+            "keuangan": "Kamu cenderung belanja untuk gadget, hal-hal unik, atau donasi ke isu sosial "
+                        "yang kamu pedulikan, tapi kurang perhatian ke tabungan konvensional. *PR: "
+                        "buat 1 rekening terpisah khusus tabungan yang tidak kamu sentuh sama sekali.*",
+            "kesehatan": "Pikiranmu sering terlalu aktif menjelang tidur, banyak ide berputar yang "
+                         "bikin susah benar-benar rileks. *PR: jadwalkan digital detox rutin sebelum "
+                         "tidur, minimal 30 menit tanpa layar.*",
+        },
     },
     "Pisces": {
         "tagline": "☉ Matahari di Pisces",
@@ -428,5 +629,23 @@ ZODIAK_CONTENT = {
               "kamu lakukan. Kamu juga bisa melatih diri menetapkan batasan yang sehat, misalnya "
               "dengan mengenali kapan saatnya membantu orang lain, dan kapan saatnya memprioritaskan "
               "pemulihan emosimu sendiri terlebih dulu.",
+        "domains": {
+            "karir": "Kamu unggul di bidang kreatif atau pekerjaan yang butuh empati (konseling, "
+                     "seni, layanan), tapi kurang cocok di lingkungan yang sangat kompetitif dan "
+                     "keras. *PR: kalau lingkungan kerja terasa terlalu keras, cari komunitas kecil "
+                     "di dalamnya yang suportif buat jadi tempat berlindung.*",
+            "asmara": "Kamu pasangan yang romantis dan memberi tanpa pamrih, tapi ini juga bikin kamu "
+                      "rawan dimanfaatkan karena susah bilang tidak. *PR: latih satu kalimat "
+                      "penolakan sederhana yang bisa kamu pakai kapan saja tanpa rasa bersalah "
+                      "berlebihan.*",
+            "keuangan": "Kamu gampang lupa budget karena mengikuti suasana hati, dan rawan dipinjami "
+                        "atau dimanfaatkan orang lain secara finansial karena susah menolak. *PR: "
+                        "tetapkan batas jelas berapa yang boleh dipinjamkan tanpa mengganggu "
+                        "kebutuhanmu sendiri.*",
+            "kesehatan": "Kamu gampang menyerap energi/emosi orang di sekitarmu sampai kelelahan "
+                         "tanpa sadar sumbernya, dan cenderung lari ke dunia hiburan (tidur, "
+                         "nonton, scroll medsos) buat kabur dari masalah. *PR: sisihkan waktu sendirian "
+                         "rutin buat \"recharge\", dan kenali kapan istirahat berubah jadi menghindar.*",
+        },
     },
 }
