@@ -7,6 +7,7 @@ import streamlit as st
 
 from views.reveal_yourself import render as render_reveal_yourself
 from views.loadingpage import render as render_loading
+from views.loadingpage_lengkap import render as render_loading_lengkap
 from views.loadingpage_mendalam import render as render_loading_mendalam
 from views.revealpage import render as render_result
 from views.tutorialpage import render as render_tutorial
@@ -726,6 +727,14 @@ elif st.session_state.dr_page == "loading":
 # ══════════════════════════════════════════════════════════════
 elif st.session_state.dr_page == "loading_mendalam":
     render_loading_mendalam()
+
+# ══════════════════════════════════════════════════════════════
+# HALAMAN — LOADING PAGE 3 (Mode Lengkap: semua 15 sistem, form
+# intake sekaligus di awal + animasi 10 titik data, lalu lepas ke
+# Loading Page 2 buat 5 sistem kuesioner)
+# ══════════════════════════════════════════════════════════════
+elif st.session_state.dr_page == "loading_lengkap":
+    render_loading_lengkap()
 
 # ══════════════════════════════════════════════════════════════
 # HALAMAN — HASIL AKHIR (stub, belum dibuat penuh)
