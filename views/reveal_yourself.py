@@ -470,11 +470,25 @@ def render():
                               # reveal sebelumnya.
                               "dlg_tgl_bulan", "dlg_tgl_tahun", "dlg_tgl_hari_terakhir",
                               "dlg_nama_lengkap", "dlg_jam_lahir", "dlg_kota_lahir",
-                              "dlg_golongan_darah"):
+                              "dlg_golongan_darah",
+                              # progress kuesioner Mode Mendalam (loading page 2)
+                              "md_sys_idx", "md_group_idx", "md_answers",
+                              "md_phase", "md_final_ready"):
                         st.session_state.pop(k, None)
                     for k in [k for k in st.session_state.keys() if k.startswith("dlg_tgl_hari_")]:
                         st.session_state.pop(k, None)
-                    st.session_state.dr_page = "loading"
+                    for k in [k for k in st.session_state.keys() if k.startswith("md_w_")]:
+                        st.session_state.pop(k, None)
+                    # Mode Mendalam pakai halaman loading TERPISAH (loading page 2,
+                    # kuesioner per-sistem + per-grup-10-soal) — bukan loadingpage.py
+                    # yang cuma buat data tanggal lahir dkk. Mode Instan/Lengkap masih
+                    # lewat loadingpage.py seperti biasa (chaining Mode Lengkap ke
+                    # loading page 2 belum dikerjakan, masih pending — lihat
+                    # progress-notes).
+                    if st.session_state.ry_focus_mode == "mendalam":
+                        st.session_state.dr_page = "loading_mendalam"
+                    else:
+                        st.session_state.dr_page = "loading"
                     st.rerun()
 
         st.write("")
