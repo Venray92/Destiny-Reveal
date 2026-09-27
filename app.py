@@ -7,6 +7,7 @@ import streamlit as st
 
 from views.reveal_yourself import render as render_reveal_yourself
 from views.loadingpage import render as render_loading
+from views.loadingpage_mendalam import render as render_loading_mendalam
 from views.revealpage import render as render_result
 from views.tutorialpage import render as render_tutorial
 
@@ -718,6 +719,13 @@ elif st.session_state.dr_page == "tutorial":
 # ══════════════════════════════════════════════════════════════
 elif st.session_state.dr_page == "loading":
     render_loading()
+
+# ══════════════════════════════════════════════════════════════
+# HALAMAN — LOADING PAGE 2 (Mode Mendalam: kuesioner MBTI/Big Five/
+# Enneagram/DISC/Love Language, 1 soal per layar)
+# ══════════════════════════════════════════════════════════════
+elif st.session_state.dr_page == "loading_mendalam":
+    render_loading_mendalam()
 
 # ══════════════════════════════════════════════════════════════
 # HALAMAN — HASIL AKHIR (stub, belum dibuat penuh)
