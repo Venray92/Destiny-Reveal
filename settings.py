@@ -14,6 +14,16 @@ TESTING_MODE = True selama fase ini:
 Matikan (set ke False) begitu OTP email asli, mode Mendalam/Lengkap, dan
 payment gateway beneran sudah siap dipasang — jangan hapus flag-nya,
 cukup ganti nilainya, biar gampang dites bolak-balik.
+
+Harga di bawah ini (PRICE_*) SEMUA MASIH DUMMY/PLACEHOLDER buat keperluan
+testing tiering "Versi Pendek" vs "Versi Panjang" — belum ada keputusan
+bisnis final soal nominalnya, JANGAN dianggap harga beneran sampai
+dikonfirmasi.
 """
 
 TESTING_MODE = True
+
+# Dummy/placeholder — ganti begitu ada angka final dari Stev.
+PRICE_PENDEK = 15000
+PRICE_PANJANG = 29000
+PRICE_UPGRADE_SELISIH = PRICE_PANJANG - PRICE_PENDEK
