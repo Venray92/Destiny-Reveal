@@ -237,16 +237,23 @@ RY_MODES = [
     ),
     (
         "mendalam", "Mode Mendalam",
-        "Kuesioner kepribadian & golongan darah — sebagian masih segera hadir.",
-        ["MBTI", "Big Five", "Enneagram", "DISC", "Golongan Darah", "Love Language"],
+        "Kuesioner kepribadian — sebagian masih segera hadir.",
+        # Golongan Darah SENGAJA dipindah ke Mode Lengkap aja (bukan kuesioner
+        # beneran, cuma input pilihan A/B/AB/O — beda kelompok data sama
+        # MBTI dkk) — per keputusan Stev 27 Sep 2026.
+        ["MBTI", "Big Five", "Enneagram", "DISC", "Love Language"],
     ),
     (
         "lengkap", "Mode Lengkap",
         "Semua 15 sistem sekaligus, paling lengkap (sebagian masih segera hadir).",
+        # Urutan SENGAJA disamain sama urutan kelompok data di halaman Home
+        # ("Satu Data, Banyak Cara Pandang") biar tatanan 2 halaman konsisten:
+        # A) tanggal+nama -> B) +jam lahir -> D) kuesioner -> E) input
+        # langsung -> F) acak.
         [
             "Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny", "BaZi",
             "Zi Wei", "Human Design", "MBTI", "Big Five", "Enneagram", "DISC",
-            "Golongan Darah", "Love Language", "Tarot",
+            "Love Language", "Golongan Darah", "Tarot",
         ],
     ),
 ]
