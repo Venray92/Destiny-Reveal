@@ -593,6 +593,27 @@ def _inject_style():
         label[data-testid="stRadioOption"]:has(input:checked) [data-testid="stMarkdownContainer"] p {
             color: #b8562f !important;
         }
+
+        /* Tombol "Lanjut"/"Submit" di kuesioner (views/loadingpage_mendalam.py)
+           -- SEBELUMNYA solid oren (type="primary" polos), diganti cream
+           senada tema halaman kuesioner (warning banner, kotak radio, dst
+           semua cream + border tipis). Discope KHUSUS lewat key
+           "md_submit_btn_row" (dibungkus st.container di pemanggilnya)
+           supaya TIDAK ikut ubah tombol primary lain di halaman manapun. */
+        div[class*="st-key-md_submit_btn_row"] button[kind^="primary"] {
+            background: #fdf3e7 !important;
+            border: 1.5px solid #e4a56e !important;
+            box-shadow: none !important;
+        }
+        div[class*="st-key-md_submit_btn_row"] button[kind^="primary"] p,
+        div[class*="st-key-md_submit_btn_row"] button[kind^="primary"] span,
+        div[class*="st-key-md_submit_btn_row"] button[kind^="primary"] div {
+            color: #b8562f !important;
+        }
+        div[class*="st-key-md_submit_btn_row"] button[kind^="primary"]:hover {
+            background: #fff3e0 !important;
+            border-color: #b8562f !important;
+        }
         </style>
         """,
         unsafe_allow_html=True,

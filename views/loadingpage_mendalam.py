@@ -362,10 +362,18 @@ def _incomplete_answers_dialog(missing_count, group_total):
         unsafe_allow_html=True,
     )
     st.write("")
-    st.button(
+    # BUG FIX (28 Sep 2026): tombol ini SEBELUMNYA cuma st.button() polos
+    # tanpa st.rerun() di handler-nya -- klik-nya ke-detect Streamlit
+    # (rerun otomatis jalan), TAPI dialog st.dialog TIDAK auto-close cuma
+    # gara-gara rerun terjadi tanpa manggil ulang fungsi dialognya. Semua
+    # dialog LAIN di file ini (_intro_dialog, _system_confirm_dialog, dst)
+    # selalu eksplisit st.rerun() di dalam blok `if st.button(...)`-nya buat
+    # nutup dialog -- pola yang sama dipakai di sini sekarang.
+    if st.button(
         "Kembali ke Kuesioner", key="md_missing_ok", type="primary",
         use_container_width=True, icon=":material/edit:",
-    )
+    ):
+        st.rerun()
 
 
 def _render_batch_phase(systems, sys_idx, current_system, bank):
