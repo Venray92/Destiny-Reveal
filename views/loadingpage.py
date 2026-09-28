@@ -730,6 +730,36 @@ def _animate_point(points, idx, header_html):
                 el.style.animation = '';
             }
             function killGhostDialogs() {
+                // BUG BARU YANG DIKETEMUKAN (28 Sep 2026 pagi, dilaporkan
+                // Stev di Mode Lengkap: floating window kuesioner/payment
+                // rusak -- muncul sebagai blok biasa DI BAWAH konten,
+                // bukan ngambang di tengah layar): observer ini disimpen
+                // di window.parent (bukan di iframe-nya sendiri) SUPAYA
+                // nggak pasang ulang tiap titik, TAPI itu artinya begitu
+                // observer ini kepasang, dia HIDUP TERUS SELAMANYA --
+                // nggak otomatis mati pas Mode Lengkap pindah dari fase
+                // animasi bio (halaman ini) ke halaman kuesioner
+                // (loadingpage_mendalam.py). Akibatnya observer LAMA ini
+                // masih jalan pas dialog LEGIT (intro kuesioner/"siap
+                // lanjut?"/payment akhir) muncul di halaman baru, dan
+                // langsung di-display:none-in paksa karena dikira ghost
+                // dialog juga -- padahal itu dialog asli yang seharusnya
+                // ngambang normal.
+                //
+                // FIX: cuma anggap "masih di fase animasi" kalau kartu
+                // titiknya (.ry-load-card / .ry-load-text-box) MASIH ada
+                // di DOM. Begitu itu nggak ketemu lagi (pindah halaman),
+                // observer ini langsung disconnect + hapus referensinya
+                // sendiri -- self-cleanup, biar dialog di halaman
+                // berikutnya nggak pernah kesentuh lagi.
+                if (!doc.querySelector('.ry-load-card') &&
+                    !doc.querySelector('.ry-load-text-box')) {
+                    if (window.parent.__ryObserver) {
+                        try { window.parent.__ryObserver.disconnect(); } catch (e) {}
+                        delete window.parent.__ryObserver;
+                    }
+                    return;
+                }
                 var dlgs = doc.querySelectorAll('[data-testid="stDialog"]');
                 dlgs.forEach(function (d) {
                     d.style.setProperty('display', 'none', 'important');
