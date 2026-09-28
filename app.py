@@ -219,27 +219,11 @@ st.markdown(
     }
     .dr-mini-text { font-family: 'Lora', serif; font-size: 13.5px; color: #3a362f !important; line-height: 1.6; margin: 2px 0 0 0; }
 
-    /* BUG BARU YANG DIKETEMUKAN (28 Sep 2026 pagi, dilaporkan Stev lewat
-       screenshot kuesioner -- tombol "Lanjut" di halaman soal masih merah
-       default Streamlit #FF4B4B): selector `button[kind="primary"]`
-       SEBELUMNYA cuma nangkep st.button biasa. Tombol submit soal
-       kuesioner dirender lewat st.form_submit_button(), dan Streamlit
-       ngasih atribut kind YANG BEDA buat itu -- "primaryFormSubmit" /
-       "secondaryFormSubmit" (dikonfirmasi langsung lewat inspeksi DOM
-       Playwright: <button kind="primaryFormSubmit" ...>), BUKAN
-       "primary"/"secondary" polos -- jadi CSS lama `[kind="primary"]`
-       nggak pernah kena tombol submit form manapun di seluruh app
-       (termasuk "Lanjut" di tiap grup soal kuesioner). Fix: pakai
-       selector "dimulai dengan" ([kind^="primary"] / [kind^="secondary"])
-       biar dua-duanya (tombol biasa DAN form-submit) ke-cover sekaligus,
-       nggak perlu tau persis 2 variasi nama kind-nya. */
-    div.stButton > button[kind^="primary"],
-    div[data-testid="stFormSubmitButton"] button[kind^="primary"] {
+    div.stButton > button[kind="primary"] {
         background: #c9683a; color: #ffffff !important; border: 2px solid #c9683a;
         padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 18px;
     }
-    div.stButton > button[kind^="secondary"],
-    div[data-testid="stFormSubmitButton"] button[kind^="secondary"] {
+    div.stButton > button[kind="secondary"] {
         background: #ffffff; color: #1c1a17 !important; border: 2px solid #e4ddd0;
         padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 18px;
     }
@@ -247,22 +231,13 @@ st.markdown(
        di atas lebih spesifik ke elemen <p> itu sendiri dibanding warna yang
        diset di <button>-nya, jadi warnanya harus dipaksa lagi di sini juga
        (bug yang sama kayak kasus tombol "Mulai Reveal" sebelumnya). */
-    div.stButton > button[kind^="primary"] p,
-    div.stButton > button[kind^="primary"] span,
-    div.stButton > button[kind^="primary"] div,
-    div[data-testid="stFormSubmitButton"] button[kind^="primary"] p,
-    div[data-testid="stFormSubmitButton"] button[kind^="primary"] span,
-    div[data-testid="stFormSubmitButton"] button[kind^="primary"] div {
+    div.stButton > button[kind="primary"] p,
+    div.stButton > button[kind="primary"] span,
+    div.stButton > button[kind="primary"] div {
         color: #ffffff !important;
     }
-    div.stButton > button[kind^="primary"]:hover,
-    div[data-testid="stFormSubmitButton"] button[kind^="primary"]:hover {
-        background: #b8562f; border-color: #b8562f;
-    }
-    div.stButton > button[kind^="secondary"]:hover,
-    div[data-testid="stFormSubmitButton"] button[kind^="secondary"]:hover {
-        border-color: #b8562f; color: #b8562f !important;
-    }
+    div.stButton > button[kind="primary"]:hover { background: #b8562f; border-color: #b8562f; }
+    div.stButton > button[kind="secondary"]:hover { border-color: #b8562f; color: #b8562f !important; }
 
     hr { border-color: #ece6dc !important; }
 
