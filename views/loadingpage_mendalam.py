@@ -337,6 +337,37 @@ def _header_html(systems, sys_idx, current_system, start_num, end_num, total_q,
     )
 
 
+@st.dialog("Belum Lengkap", dismissible=True)
+def _incomplete_answers_dialog(missing_count, group_total):
+    """Revisi (28 Sep 2026 sore, instruksi Stev poin 1): SEBELUMNYA
+    peringatan "masih ada soal belum dijawab" pakai st.error() (kotak
+    oranye nempel di halaman) -- sekarang dipindah jadi floating window
+    (@st.dialog), SAMA gaya desainnya kayak floating window lain di
+    kuesioner ini (dismissible=True karena ini cuma notice, bukan
+    keputusan wajib kayak _jam_fallback_dialog/_intro_dialog)."""
+    st.markdown(
+        '<div style="text-align:center;padding:4px 0 2px 0;">'
+        '<div style="width:52px;height:52px;border-radius:50%;background:#fff3e0;'
+        'border:1.5px solid #e4a56e;display:flex;align-items:center;justify-content:center;'
+        'margin:0 auto 14px auto;">'
+        '<span class="material-symbols-outlined" style="font-size:26px;color:#b8562f;">'
+        'error</span></div>'
+        '<div style="font-family:\'Fraunces\',serif;font-size:18px;font-weight:800;'
+        'color:#1c1a17;margin-bottom:8px;">Masih Ada yang Kosong</div>'
+        f'<div style="font-size:13.5px;color:#6b6459;line-height:1.7;max-width:320px;'
+        f'margin:0 auto;">Masih ada <b style="color:#1c1a17;">{missing_count} dari '
+        f'{group_total} soal</b> di grup ini yang belum kamu jawab — lengkapi dulu '
+        'semuanya sebelum lanjut ke soal berikutnya.</div>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    st.write("")
+    st.button(
+        "Oke, Lengkapi Dulu", key="md_missing_ok", type="primary",
+        use_container_width=True, icon=":material/edit:",
+    )
+
+
 def _render_batch_phase(systems, sys_idx, current_system, bank):
     groups = _system_groups(bank)
     group_idx = st.session_state.md_group_idx
@@ -345,6 +376,7 @@ def _render_batch_phase(systems, sys_idx, current_system, bank):
     total_q = len(bank)
     start_num = group_idx * BATCH_SIZE + 1
     end_num = start_num + len(group) - 1
+    is_last_group = group_idx + 1 == total_groups
 
     st.markdown(
         _header_html(systems, sys_idx, current_system, start_num, end_num, total_q,
@@ -354,26 +386,37 @@ def _render_batch_phase(systems, sys_idx, current_system, bank):
     _anti_leave_banner()
     _render_testing_bypass_button(systems, sys_idx)
 
+    # Revisi (28 Sep 2026 sore, instruksi Stev poin 3): grup soal TERAKHIR
+    # tiap sistem (bukan cuma sistem terakhir keseluruhan) labelnya "Submit"
+    # (bukan "Lanjut" lagi) -- lebih jelas nunjukkin ini penutup 1 sistem
+    # penuh, sama berlaku buat MBTI, Big Five, Enneagram, DISC, Love
+    # Language (semua lewat fungsi yang sama ini).
+    btn_label = "Submit" if is_last_group else "Lanjut"
+    btn_icon = ":material/check_circle:" if is_last_group else ":material/arrow_forward:"
+
     renderer = QUESTION_RENDERERS[current_system]
     with st.form(key=f"md_form_{current_system}_{group_idx}"):
         collected = {}
         for local_i, q in enumerate(group):
             collected[q["id"]] = renderer(q, start_num + local_i)
             st.write("")
-        submitted = st.form_submit_button(
-            "Lanjut", type="primary", use_container_width=True,
-            icon=":material/arrow_forward:",
-        )
+        # Revisi (28 Sep 2026 sore, instruksi Stev poin 2): tombol
+        # SEBELUMNYA use_container_width=True (selebar form, kelewat
+        # lebar) -- dipersempit lewat kolom tengah, sama pola kayak tombol
+        # "Buka Semua Amplop" di revealpage.py. Warna tetap ikut tema
+        # (type="primary", udah kena CSS brand global di app.py).
+        btn_l, btn_mid, btn_r = st.columns([1, 1.1, 1])
+        with btn_mid:
+            submitted = st.form_submit_button(
+                btn_label, type="primary", use_container_width=True, icon=btn_icon,
+            )
 
     if not submitted:
         return
 
     missing = [qid for qid, val in collected.items() if val is None]
     if missing:
-        st.error(
-            f"Masih ada {len(missing)} dari {len(group)} soal di grup ini yang belum "
-            "dijawab — lengkapi dulu semuanya sebelum lanjut."
-        )
+        _incomplete_answers_dialog(len(missing), len(group))
         return
 
     st.session_state.md_answers.setdefault(current_system, {}).update(collected)
@@ -401,14 +444,27 @@ def _render_batch_phase(systems, sys_idx, current_system, bank):
 
 @st.dialog("Satu Sistem Selesai!", dismissible=False)
 def _system_confirm_dialog(current_system, next_system):
+    # Revisi (28 Sep 2026 sore, instruksi Stev poin 4): desain & alignment
+    # dipercantik -- SEBELUMNYA cuma paragraf rata-kiri polos, sekarang
+    # ikon lingkaran + judul serif + deskripsi center-align, senada sama
+    # gaya floating window lain yang udah "elegan" (mis. _upgrade_dialog
+    # di revealpage.py).
     st.markdown(
-        f'<div style="font-size:14px;color:#1c1a17;line-height:1.6;margin-bottom:14px;">'
-        f'Selamat, kuesioner <b>{current_system}</b> sudah selesai kamu jawab semua — '
-        f'jawabanmu sudah diproses.<br><br>'
-        f'Selanjutnya: kuesioner <b>{next_system}</b>. Apakah kamu siap lanjut sekarang?'
-        '</div>',
+        '<div style="text-align:center;padding:4px 0 6px 0;">'
+        '<div style="width:56px;height:56px;border-radius:50%;background:#fdf3e7;'
+        'border:1.5px solid #ecddc9;display:flex;align-items:center;justify-content:center;'
+        'margin:0 auto 14px auto;">'
+        '<span class="material-symbols-outlined" style="font-size:28px;color:#b8562f;">'
+        'task_alt</span></div>'
+        f'<div style="font-family:\'Fraunces\',serif;font-size:19px;font-weight:800;'
+        f'color:#1c1a17;margin-bottom:8px;">Kuesioner {current_system} Selesai!</div>'
+        '<div style="font-size:13.5px;color:#6b6459;line-height:1.7;max-width:340px;'
+        'margin:0 auto;">Semua jawabanmu sudah diproses. Selanjutnya kamu lanjut ke '
+        f'kuesioner <b style="color:#1c1a17;">{next_system}</b>. Siap lanjut sekarang?'
+        '</div></div>',
         unsafe_allow_html=True,
     )
+    st.write("")
     col_batal, col_lanjut = st.columns(2)
     with col_batal:
         if st.button("Batal", key="md_confirm_batal", use_container_width=True,
