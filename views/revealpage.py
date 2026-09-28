@@ -742,12 +742,24 @@ def _inject_style():
             gap: 16px !important;
             padding: 4px 4px 14px 4px !important;
             scroll-behavior: smooth;
-            /* Rata tengah selama amplopnya belum sampai penuh 1 baris (mis.
-               baru 5 dari kapasitas 15) — begitu amplop lebih banyak dari
-               lebar layar, overflow-x: auto di atas tetap bikin bisa
-               discroll, browser otomatis pakai flex-start begitu konten
-               melebihi lebar container jadi nggak kepotong di awal. */
-            justify-content: center;
+            /* BUG YANG DIPERBAIKI (28 Sep 2026 sore, dilaporkan Stev --
+               Mode Lengkap 15 amplop: slider dimentokin ke kiri, tapi
+               masih ada amplop yang kepotong setengah & GAK BISA digeser
+               ke kiri lagi biar kelihatan penuh): asumsi di komentar lama
+               di atas (browser otomatis ganti ke flex-start pas konten
+               overflow) TERNYATA SALAH -- `justify-content: center` pada
+               flexbox yang overflow itu bug klasik CSS: kontennya TETAP
+               dipaksa center, jadi separuh amplop di ujung KIRI ke-geser
+               sampai posisi negatif yang gak kejangkau scrollLeft:0 sama
+               sekali (scroll udah "mentok" padahal masih ada yang
+               ketutupan/kepotong, sama seperti yang dilaporkan).
+               FIX: `justify-content: safe center` (CSS Box Alignment,
+               didukung Chrome/Edge 105+, Firefox 91+, Safari 16.4+) --
+               tetap center kalau amplopnya muat, TAPI begitu overflow,
+               browser otomatis fallback ke start alignment SUPAYA ujung
+               kontennya selalu kejangkau full lewat scroll, gak ada lagi
+               yang kepotong & gak bisa digeser. */
+            justify-content: safe center;
         }
         div[class*="st-key-rp_envelope_scroll"] [data-testid="stColumn"] {
             flex: 0 0 168px !important;

@@ -363,7 +363,7 @@ def _incomplete_answers_dialog(missing_count, group_total):
     )
     st.write("")
     st.button(
-        "Oke, Lengkapi Dulu", key="md_missing_ok", type="primary",
+        "Kembali ke Kuesioner", key="md_missing_ok", type="primary",
         use_container_width=True, icon=":material/edit:",
     )
 
@@ -405,11 +405,19 @@ def _render_batch_phase(systems, sys_idx, current_system, bank):
         # lebar) -- dipersempit lewat kolom tengah, sama pola kayak tombol
         # "Buka Semua Amplop" di revealpage.py. Warna tetap ikut tema
         # (type="primary", udah kena CSS brand global di app.py).
-        btn_l, btn_mid, btn_r = st.columns([1, 1.1, 1])
-        with btn_mid:
-            submitted = st.form_submit_button(
-                btn_label, type="primary", use_container_width=True, icon=btn_icon,
-            )
+        # Revisi (28 Sep 2026 sore, instruksi Stev poin 2 ronde 2): warna
+        # solid oren tombol ini kerasa nabrak sama tema halaman kuesioner
+        # yang lebih ke cream (warning banner, kotak radio, dst semua
+        # cream + border tipis, bukan solid oren) -- diganti jadi cream
+        # senada, TAPI dikasih key khusus (md_submit_btn_row) biar CSS-nya
+        # cuma nempel di tombol INI doang, gak ikut ubah tombol primary
+        # lain di halaman/halaman lain (mis. "Mulai Proses Reveal").
+        with st.container(key="md_submit_btn_row"):
+            btn_l, btn_mid, btn_r = st.columns([1, 1.1, 1])
+            with btn_mid:
+                submitted = st.form_submit_button(
+                    btn_label, type="primary", use_container_width=True, icon=btn_icon,
+                )
 
     if not submitted:
         return
