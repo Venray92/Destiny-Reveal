@@ -38,6 +38,11 @@ SYSTEM_CARD_IMAGE_FALLBACK = {
     "Enneagram": "enneagram/1.png",
     "DISC": "disc/d.png",
     "Love Language": "love_language/words_of_affirmation.png",
+    "BaZi": "bazi/jia.png",
+    "Zi Wei": "ziwei/ziwei.png",
+    "Human Design": "human_design/generator.png",
+    "Golongan Darah": "golongan_darah/o.png",
+    "Tarot": "tarot/00_fool.png",
 }
 
 
@@ -107,6 +112,34 @@ def card_relative_path_for_result(system: str, raw_result: dict | None):
     if system == "Love Language":
         slug = raw_result.get("primary_slug")
         return f"love_language/{slug}.png" if slug else None
+
+    # ── 5 sistem non-kuesioner Mode Lengkap (Kelompok B/E/F) ──
+    if system == "BaZi":
+        day_master = raw_result.get("day_master")
+        return f"bazi/{day_master}.png" if day_master else None
+
+    if system == "Zi Wei":
+        bintang = raw_result.get("bintang")
+        return f"ziwei/{bintang}.png" if bintang else None
+
+    if system == "Human Design":
+        tipe_slug = raw_result.get("tipe_slug")
+        return f"human_design/{tipe_slug}.png" if tipe_slug else None
+
+    if system == "Golongan Darah":
+        golda = raw_result.get("golongan_darah")
+        return f"golongan_darah/{golda.lower()}.png" if golda else None
+
+    if system == "Tarot":
+        kartu = raw_result.get("kartu")
+        if not kartu:
+            return None
+        from engine.engine__tarot import TAROT_MAJOR_ARCANA
+        try:
+            idx = TAROT_MAJOR_ARCANA.index(kartu)
+        except ValueError:
+            return None
+        return f"tarot/{idx:02d}_{kartu}.png"
 
     return None
 
