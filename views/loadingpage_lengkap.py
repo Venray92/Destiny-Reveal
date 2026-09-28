@@ -152,10 +152,33 @@ def _jam_fallback_dialog():
 
 
 def _render_intake_form():
+    # BUG YANG DIPERBAIKI (28 Sep 2026, dilaporkan Stev sebagai "kotak
+    # kosong nyangkut di atas form"): SEBELUMNYA div pembungkus kartu
+    # dibuka lewat st.markdown('<div class="lengkap-intake-card">') dan
+    # baru DITUTUP lewat st.markdown('</div>') di paling bawah, jauh
+    # setelah semua widget Streamlit lain (selectbox, text_input, dst) di
+    # antaranya. Ini TIDAK bekerja seperti div HTML biasa di halaman
+    # statis — Streamlit ngirim TIAP panggilan st.markdown() sebagai
+    # fragment HTML TERPISAH yang di-render/parse browser SENDIRI-SENDIRI,
+    # jadi tag <div> yang dibuka di satu panggilan otomatis DITUTUP
+    # SENDIRI oleh browser di akhir fragment ITU JUGA (karena nggak ada
+    # apa-apa lagi di dalam fragment yang sama) -- hasilnya div itu
+    # ke-render KOSONG (cuma keliatan padding-nya doang, kotak kosong
+    # ngambang), sementara semua konten (judul, form, dst) yang
+    # "harusnya" ada di dalamnya sebenarnya jadi elemen-elemen TERPISAH
+    # yang cuma kebetulan tampil di bawahnya karena alur dokumen normal,
+    # bukan beneran nested di dalam div itu.
+    #
+    # FIX: pakai st.container(key=...) BENERAN (bukan div HTML manual)
+    # buat bungkus semua widget di dalam satu blok `with` -- container
+    # Streamlit ini beneran satu elemen DOM utuh yang membungkus semua
+    # childnya, jadi CSS lewat class .st-key-<key> kena ke satu kotak
+    # yang benar-benar berisi semua konten di dalamnya, bukan kotak
+    # kosong terpisah.
     st.markdown(
         """
         <style>
-        .lengkap-intake-card { max-width: 620px; margin: 30px auto; background: #fffaf2;
+        .st-key-lengkap_intake_card { max-width: 620px; margin: 30px auto; background: #fffaf2;
             border: 2px solid #f0e6d5; border-radius: 22px; padding: 34px 36px; }
         .lengkap-intake-title { font-family: 'Fraunces', serif; font-size: 27px; font-weight: 800;
             color: #1c1a17; text-align: center; margin-bottom: 6px; }
@@ -169,74 +192,74 @@ def _render_intake_form():
         """,
         unsafe_allow_html=True,
     )
-    st.markdown('<div class="lengkap-intake-card">', unsafe_allow_html=True)
-    st.markdown('<div class="lengkap-intake-title">Lengkapi Data Dirimu</div>', unsafe_allow_html=True)
-    st.markdown(
-        '<div class="lengkap-intake-sub">Isi semua data di bawah sekali saja. Setelah ini, '
-        'semua 15 sistem akan langsung diproses tanpa perlu tanya-tanya lagi di tengah '
-        'jalan.</div>',
-        unsafe_allow_html=True,
-    )
 
-    st.markdown(
-        '<div class="lengkap-intake-section-label">'
-        '<span class="material-symbols-outlined" style="font-size:16px;">calendar_month</span>'
-        'Tanggal Lahir dan Nama (Wajib)</div>',
-        unsafe_allow_html=True,
-    )
-    tanggal_value = _render_tanggal_inputs()
-    st.write("")
-    nama_value = _render_nama_input()
-
-    st.markdown(
-        '<div class="lengkap-intake-section-label">'
-        '<span class="material-symbols-outlined" style="font-size:16px;">schedule</span>'
-        'Jam Lahir (Opsional, untuk BaZi, Zi Wei dan Human Design)</div>',
-        unsafe_allow_html=True,
-    )
-    st.markdown(
-        '<div class="lengkap-intake-hint">Tidak tahu jam pastinya? Tidak masalah, pilih '
-        'perkiraan di bawah ini. Hasilnya tetap dihitung, hanya akan ditandai sebagai '
-        '"estimasi".</div>',
-        unsafe_allow_html=True,
-    )
-    jam_opsi = st.selectbox(
-        "Jam Lahir", JAM_OPSI_LIST, key="lengkap_jam_opsi", label_visibility="collapsed",
-    )
-    jam_manual_value = None
-    if jam_opsi == JAM_OPSI_MANUAL:
-        jam_manual_value = st.time_input(
-            "Jam Lahir Pasti", key="lengkap_jam_manual", label_visibility="collapsed",
+    with st.container(key="lengkap_intake_card"):
+        st.markdown('<div class="lengkap-intake-title">Lengkapi Data Dirimu</div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="lengkap-intake-sub">Isi semua data di bawah sekali saja. Setelah ini, '
+            'semua 15 sistem akan langsung diproses tanpa perlu tanya-tanya lagi di tengah '
+            'jalan.</div>',
+            unsafe_allow_html=True,
         )
 
-    st.markdown(
-        '<div class="lengkap-intake-section-label">'
-        '<span class="material-symbols-outlined" style="font-size:16px;">location_on</span>'
-        'Kota Lahir (Opsional, untuk Akurasi Human Design)</div>',
-        unsafe_allow_html=True,
-    )
-    kota_value = st.text_input(
-        "Kota Lahir", placeholder="Contoh: Jakarta (kosongkan jika tidak tahu)",
-        key="lengkap_kota", label_visibility="collapsed",
-    ).strip()
+        st.markdown(
+            '<div class="lengkap-intake-section-label">'
+            '<span class="material-symbols-outlined" style="font-size:16px;">calendar_month</span>'
+            'Tanggal Lahir dan Nama (Wajib)</div>',
+            unsafe_allow_html=True,
+        )
+        tanggal_value = _render_tanggal_inputs()
+        st.write("")
+        nama_value = _render_nama_input()
 
-    st.markdown(
-        '<div class="lengkap-intake-section-label">'
-        '<span class="material-symbols-outlined" style="font-size:16px;">water_drop</span>'
-        'Golongan Darah (Opsional)</div>',
-        unsafe_allow_html=True,
-    )
-    golda_opsi = st.selectbox(
-        "Golongan Darah", GOLDA_OPSI_LIST, index=4,
-        key="lengkap_golda", label_visibility="collapsed",
-    )
+        st.markdown(
+            '<div class="lengkap-intake-section-label">'
+            '<span class="material-symbols-outlined" style="font-size:16px;">schedule</span>'
+            'Jam Lahir (Opsional, untuk BaZi, Zi Wei dan Human Design)</div>',
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            '<div class="lengkap-intake-hint">Tidak tahu jam pastinya? Tidak masalah, pilih '
+            'perkiraan di bawah ini. Hasilnya tetap dihitung, hanya akan ditandai sebagai '
+            '"estimasi".</div>',
+            unsafe_allow_html=True,
+        )
+        jam_opsi = st.selectbox(
+            "Jam Lahir", JAM_OPSI_LIST, key="lengkap_jam_opsi", label_visibility="collapsed",
+        )
+        jam_manual_value = None
+        if jam_opsi == JAM_OPSI_MANUAL:
+            jam_manual_value = st.time_input(
+                "Jam Lahir Pasti", key="lengkap_jam_manual", label_visibility="collapsed",
+            )
 
-    st.write("")
-    submitted = st.button(
-        "Mulai Proses Reveal", key="lengkap_submit", type="primary",
-        icon=":material/arrow_forward:", use_container_width=True,
-    )
-    st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="lengkap-intake-section-label">'
+            '<span class="material-symbols-outlined" style="font-size:16px;">location_on</span>'
+            'Kota Lahir (Opsional, untuk Akurasi Human Design)</div>',
+            unsafe_allow_html=True,
+        )
+        kota_value = st.text_input(
+            "Kota Lahir", placeholder="Contoh: Jakarta (kosongkan jika tidak tahu)",
+            key="lengkap_kota", label_visibility="collapsed",
+        ).strip()
+
+        st.markdown(
+            '<div class="lengkap-intake-section-label">'
+            '<span class="material-symbols-outlined" style="font-size:16px;">water_drop</span>'
+            'Golongan Darah (Opsional)</div>',
+            unsafe_allow_html=True,
+        )
+        golda_opsi = st.selectbox(
+            "Golongan Darah", GOLDA_OPSI_LIST, index=4,
+            key="lengkap_golda", label_visibility="collapsed",
+        )
+
+        st.write("")
+        submitted = st.button(
+            "Mulai Proses Reveal", key="lengkap_submit", type="primary",
+            icon=":material/arrow_forward:", use_container_width=True,
+        )
 
     if not submitted:
         return
@@ -280,9 +303,29 @@ def render():
     _ensure_state()
     _inject_style()
 
+    # BUG YANG DIPERBAIKI (28 Sep 2026 siang, dilaporkan Stev lewat 2
+    # screenshot -- kartu/teks form "Lengkapi Data Dirimu" masih nyangkut
+    # kebawa ke layar animasi titik/scan di bawahnya, padahal fase sudah
+    # pindah): akar masalahnya SAMA PERSIS kayak bug tombol "Buka Semua
+    # Amplop" yang udah pernah diperbaiki di revealpage.py (lihat komentar
+    # di sana) -- _render_intake_form() sebelumnya dipanggil LANGSUNG tanpa
+    # placeholder st.empty() yang dikosongkan eksplisit begitu fase pindah.
+    # Streamlit TIDAK otomatis membersihkan widget lama di slot itu kalau
+    # kondisinya jadi False tanpa ada sinyal "delta kosong" yang dikirim ke
+    # slot yang sama -- jadi container form (beserta semua widget di
+    # dalamnya) bisa nyangkut/ke-render ulang di rerun berikutnya walau
+    # phase-nya udah bukan "intake" lagi.
+    #
+    # FIX: taruh SATU st.empty() placeholder tetap (posisi ini selalu
+    # dipanggil di rerun manapun, apapun fasenya), isi kalau fase == intake,
+    # ATAU eksplisit di-.empty()-kan kalau bukan -- persis pola yang sudah
+    # terbukti jalan di revealpage.py punya "belum_dibuka".
+    intake_slot = st.empty()
     if st.session_state.lengkap_phase == "intake":
-        _render_intake_form()
+        with intake_slot.container():
+            _render_intake_form()
         return
+    intake_slot.empty()
 
     if st.session_state.lengkap_phase == "jam_fallback":
         # Kartu/dots belum ada apa-apanya buat ditampilin di titik ini

@@ -527,6 +527,72 @@ def _inject_style():
             border-color: #e4ddd0 !important;
         }
         [data-testid="stDialog"] button[kind="primary"] * { color: #ffffff !important; }
+
+        /* st.error/st.warning/st.info/st.success (dipakai buat pesan validasi
+           soal kuesioner belum lengkap, dst) — BUG CSS DARK-MODE YANG SAMA
+           kayak stDialog di atas: widget-nya ikut skema warna dark-mode
+           browser/OS (background jadi item pekat, teks susah kebaca),
+           bukan tema terang brand. Dipaksa terang + border/warna senada
+           sama .ry-load warning box (oranye) yang udah dipakai di tempat
+           lain (mis. _anti_leave_banner di loadingpage_mendalam.py). */
+        [data-testid="stAlert"], [data-testid="stAlertContainer"] {
+            background-color: #fff3e0 !important;
+            border: 1.5px solid #e4a56e !important;
+            border-radius: 12px !important;
+        }
+        [data-testid="stAlert"] *, [data-testid="stAlertContainer"] * {
+            color: #8a5a2f !important;
+            fill: #8a5a2f !important;
+        }
+
+        /* BUG YANG DIPERBAIKI LAGI (28 Sep 2026 siang, dilaporkan Stev lewat
+           screenshot -- CSS ini sempat ada tapi HILANG lagi setelah file
+           di-upload ulang ke versi lama): opsi jawaban st.radio (dipakai di
+           kuesioner Mode Mendalam/Lengkap, views/loadingpage_mendalam.py)
+           SEHARUSNYA tampil sebagai kotak berbingkai yang bisa diklik
+           (kayak pill/segmented button), BUKAN bulatan radio polos bawaan
+           Streamlit. Ditaruh di sini (_inject_style bersama, bukan CSS
+           lokal per halaman) SUPAYA otomatis kepakai di Mode Mendalam
+           MAUPUN Mode Lengkap sekaligus -- keduanya lewat halaman kuesioner
+           yang sama (loadingpage_mendalam.py import _inject_style dari
+           sini). Selector pakai [data-testid="..."] & posisi structural
+           (bukan nama class st-emotion-cache-* yang acak/berubah tiap versi
+           Streamlit), biar CSS ini stabil dipakai lintas rerun. */
+        div[data-testid="stRadioGroup"] {
+            gap: 10px !important;
+            row-gap: 10px !important;
+        }
+        label[data-testid="stRadioOption"] {
+            border: 1.5px solid #ecddc9 !important;
+            border-radius: 12px !important;
+            padding: 10px 18px !important;
+            background: #fffaf2 !important;
+            transition: border-color 0.15s ease, background 0.15s ease;
+        }
+        label[data-testid="stRadioOption"]:hover {
+            border-color: #e4a56e !important;
+        }
+        label[data-testid="stRadioOption"]:has(input:checked) {
+            border-color: #b8562f !important;
+            background: #fdf3e7 !important;
+        }
+        /* Sembunyikan bulatan radio native bawaan (dot indicator) -- di
+           mock/screenshot yang di-ACC, kotaknya polos isi teks doang,
+           tanpa bulatan di sampingnya. Ini elemen PERTAMA di dalam wrapper
+           div (sebelum div teks stMarkdownContainer), jadi aman ditarget
+           lewat posisi structural. */
+        label[data-testid="stRadioOption"] > div > div:first-child {
+            display: none !important;
+        }
+        label[data-testid="stRadioOption"] [data-testid="stMarkdownContainer"] p {
+            color: #1c1a17 !important;
+            font-weight: 600 !important;
+            font-size: 13.5px !important;
+            margin: 0 !important;
+        }
+        label[data-testid="stRadioOption"]:has(input:checked) [data-testid="stMarkdownContainer"] p {
+            color: #b8562f !important;
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -713,6 +779,35 @@ def _animate_point(points, idx, header_html):
                 el.style.animation = '';
             }
             function killGhostDialogs() {
+                // BUG YANG DIPERBAIKI (28 Sep 2026 pagi, dilaporkan Stev di
+                // Mode Lengkap: floating window kuesioner/payment rusak --
+                // muncul sebagai blok biasa DI BAWAH konten, bukan ngambang
+                // di tengah layar): observer ini disimpen di window.parent
+                // (bukan di iframe-nya sendiri) SUPAYA nggak pasang ulang
+                // tiap titik, TAPI itu artinya begitu observer ini kepasang,
+                // dia HIDUP TERUS SELAMANYA -- nggak otomatis mati pas Mode
+                // Lengkap pindah dari fase animasi bio (halaman ini) ke
+                // halaman kuesioner (loadingpage_mendalam.py). Akibatnya
+                // observer LAMA ini masih jalan pas dialog LEGIT (intro
+                // kuesioner/"siap lanjut?"/payment akhir) muncul di halaman
+                // baru, dan langsung di-display:none-in paksa karena
+                // dikira ghost dialog juga -- padahal itu dialog asli yang
+                // seharusnya ngambang normal.
+                //
+                // FIX: cuma anggap "masih di fase animasi" kalau kartu
+                // titiknya (.ry-load-card / .ry-load-text-box) MASIH ada
+                // di DOM. Begitu itu nggak ketemu lagi (pindah halaman),
+                // observer ini langsung disconnect + hapus referensinya
+                // sendiri -- self-cleanup, biar dialog di halaman
+                // berikutnya nggak pernah kesentuh lagi.
+                if (!doc.querySelector('.ry-load-card') &&
+                    !doc.querySelector('.ry-load-text-box')) {
+                    if (window.parent.__ryObserver) {
+                        try { window.parent.__ryObserver.disconnect(); } catch (e) {}
+                        delete window.parent.__ryObserver;
+                    }
+                    return;
+                }
                 var dlgs = doc.querySelectorAll('[data-testid="stDialog"]');
                 dlgs.forEach(function (d) {
                     d.style.setProperty('display', 'none', 'important');
