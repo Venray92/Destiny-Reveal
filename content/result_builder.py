@@ -25,15 +25,11 @@ walau datanya sudah ada. Batch ini nyambungin SEMUANYA.
 """
 
 from content.interpretations.big_five import BIG_FIVE_CONTENT
-from content.interpretations.content_interpretations__bazi import BAZI_CONTENT
-from content.interpretations.content_interpretations__golongan_darah import (
-    GOLONGAN_DARAH_CONTENT,
-)
-from content.interpretations.content_interpretations__human_design import (
-    HUMAN_DESIGN_CONTENT,
-)
-from content.interpretations.content_interpretations__tarot import TAROT_CONTENT
-from content.interpretations.content_interpretations__ziwei import ZIWEI_CONTENT
+from content.interpretations.bazi import BAZI_CONTENT
+from content.interpretations.golongan_darah import GOLONGAN_DARAH_CONTENT
+from content.interpretations.human_design import HUMAN_DESIGN_CONTENT
+from content.interpretations.tarot import TAROT_CONTENT
+from content.interpretations.ziwei import ZIWEI_CONTENT
 from content.interpretations.disc import DISC_CONTENT
 from content.interpretations.enneagram import ENNEAGRAM_CONTENT
 from content.interpretations.love_language import LOVE_LANGUAGE_CONTENT
