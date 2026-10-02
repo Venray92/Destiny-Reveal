@@ -516,7 +516,18 @@ div[data-testid="stVerticalBlock"].st-key-dhexplore_card_premium:hover {
 .stApp .dh-footer-bottom em { font-style: italic; }
 
 
-/* ── MEGA MENU "Jelajahi" (UI4) ───────────────────────────────── */
+/* ── NAV: link Home & Tutorial = anchor smooth-scroll (di halaman Home) ── */
+.stApp a.dh-nav-link {
+    display: block; text-align: center; padding: 6px 14px; border-radius: 100px;
+    font-size: 13.5px; font-weight: 600; color: var(--dh-text-dark); text-decoration: none !important;
+    cursor: pointer; transition: background .15s, color .15s;
+}
+.stApp a.dh-nav-link:hover { background: #FBF4EA; color: #D97706; }
+/* Tombol pemicu modal (tersembunyi) + iframe jembatan klik */
+.st-key-dh_modal_trigger_wrap { position: absolute !important; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none; }
+#dh-top.dh-anchor { scroll-margin-top: 400px; }
+
+/* ── MEGA MENU "Jelajahi" (kompak, UI5) ───────────────────────── */
 /* Trigger aktif (panel kebuka) = pill krem + panah naik */
 .st-key-dhnavbar .st-key-dhnav_links div[data-testid="stPopover"] button[aria-expanded="true"] {
     background: #FBF4EA !important; color: #D97706 !important;
@@ -525,109 +536,137 @@ div[data-testid="stVerticalBlock"].st-key-dhexplore_card_premium:hover {
 .st-key-dhnavbar .st-key-dhnav_links button[data-testid="stPopoverButton"] div[aria-hidden="true"] { transition: transform .2s ease; }
 .st-key-dhnavbar .st-key-dhnav_links button[data-testid="stPopoverButton"][aria-expanded="true"] div[aria-hidden="true"] { transform: rotate(180deg); }
 
-/* Panel: floating, center di bawah navbar */
+/* Panel: floating, center di bawah navbar. NB: popover dirender di portal
+   (di luar .stApp), jadi selector-nya TANPA prefix .stApp. */
 div[data-testid="stPopoverBody"]:has(.dh-mega) {
     position: fixed !important; top: 76px !important; left: 50% !important; right: auto !important;
-    transform: translateX(-50%) !important; width: min(940px, 94vw) !important; max-width: none !important; max-height: none !important;
-    padding: 22px 24px !important; border-radius: 20px !important; border: 1.5px solid var(--dh-border) !important;
-    box-shadow: 0 24px 60px -20px rgba(45,42,38,0.28) !important; background: #fff !important; overflow: visible !important;
+    transform: translateX(-50%) !important; width: min(660px, 94vw) !important; max-width: none !important;
+    max-height: none !important; padding: 20px 24px !important; border-radius: 20px !important;
+    border: 1.5px solid var(--dh-border) !important; box-shadow: 0 24px 60px -20px rgba(45,42,38,0.28) !important;
+    background: #fff !important; overflow: visible !important;
 }
-.dh-mega { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.dh-mega-col { display: flex; flex-direction: column; gap: 4px; }
+div[data-testid="stPopoverBody"]:has(.dh-mega) [data-testid="stMarkdownContainer"] { margin-bottom: 0 !important; }
+.dh-mega { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.dh-mega-col { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .dh-mega-col-title {
-    display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800;
-    letter-spacing: 0.06em; color: var(--dh-text-dark); padding: 0 12px 8px 12px;
+    display: flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 800;
+    letter-spacing: 0.05em; color: #C25E00; padding: 0 4px 8px 4px; margin-bottom: 6px;
+    border-bottom: 1px solid #EADFD0;
 }
-.dh-mega-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--dh-success); }
-.dh-mega-col-title.koin .dh-mega-dot { background: #D97706; }
-.dh-mega-col-title.lain .dh-mega-dot { background: #8B5CF6; }
+.dh-mega-emoji { font-size: 14px; line-height: 1; font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif; }
 a.dh-mega-item {
-    display: flex; flex-direction: column; gap: 2px; padding: 9px 12px; border-radius: 12px;
+    display: flex; flex-direction: column; gap: 1px; padding: 6px 10px; border-radius: 10px;
     border: 1px solid transparent; text-decoration: none !important; cursor: pointer;
     transition: background .15s ease, border-color .15s ease;
 }
-a.dh-mega-item:hover { background: #FDF3E0; border-color: #EBCFA6; }
-.dh-mega-title { font-size: 13px; font-weight: 700; color: #4A4640; transition: color .15s ease; }
-.dh-mega-sub { font-size: 11.5px; color: #A39B8E; line-height: 1.4; }
+a.dh-mega-item:hover, a.dh-mega-item.hl { background: #FDF3E0; border-color: #EBCFA6; }
+.dh-mega-title { font-size: 14px; font-weight: 600; line-height: 1.3; color: #3A3631; transition: color .15s ease; }
+.dh-mega-sub { font-size: 11px; line-height: 1.3; color: #9A9285; }
 a.dh-mega-item:hover .dh-mega-title { color: #B2552C; }
 .dh-mega-foot {
-    display: flex; align-items: center; gap: 8px; margin-top: 6px; padding: 10px 12px 0 12px;
-    border-top: 1px solid var(--dh-border); font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; gap: 6px; margin-top: 4px; padding: 8px 10px 0 10px;
+    border-top: 1px solid #EADFD0; font-size: 12px; font-weight: 700;
 }
-.dh-mega-foot a { color: var(--dh-text-muted); text-decoration: none !important; cursor: pointer; transition: color .15s; }
-.dh-mega-foot a:hover { color: #D97706; }
+.dh-mega-foot a { white-space: nowrap; color: #C25E00; text-decoration: none !important; cursor: pointer; transition: color .15s; }
+.dh-mega-foot a:hover { color: #8F4400; }
 .dh-mega-foot i { color: #CFC6B8; font-style: normal; }
 
-/* ── MODAL "Reveal Dirimu" (UI4) ──────────────────────────────── */
-div[data-testid="stDialog"] { background: rgba(0,0,0,0.5) !important; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-div[data-testid="stDialog"] div[role="dialog"] {
-    background: var(--dh-bg) !important; border-radius: 24px !important; border: 1px solid var(--dh-border);
-    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.45); width: min(760px, 94vw) !important;
+/* ── MODAL — ATURAN GLOBAL: SEMUA st.dialog WAJIB LIGHT THEME ───────
+   Streamlit ngikutin dark-mode OS/browser -> kotak dialog jadi gelap. Dipaksa
+   putih + color-scheme light. Dialog = [stDialog] > div (overlay = stDialog). */
+[data-testid="stDialog"] { background: rgba(0,0,0,0.5) !important; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color-scheme: light; }
+[data-testid="stDialog"] > div {
+    background: #FFFFFF !important; color: #2D2A26; border-radius: 24px !important;
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.45); width: min(720px, 94vw) !important; max-width: 720px !important;
 }
-/* judul native disembunyiin, diganti header custom (eyebrow + title + sub) */
-div[data-testid="stDialog"] h2 { display: none !important; }
-div[data-testid="stDialog"] [data-testid="stDialogCloseButton"], div[data-testid="stDialog"] button[aria-label="Close"] { color: var(--dh-text-muted); }
-.dh-modal-head { text-align: left; margin-bottom: 18px; }
-.dh-modal-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; color: var(--dh-primary); margin-bottom: 8px; }
-.dh-modal-title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; color: var(--dh-text-dark); }
-.dh-modal-sub { font-size: 13.5px; color: var(--dh-text-muted); margin-top: 6px; }
+[data-testid="stDialog"] section[role="dialog"] { background: transparent !important; }
+[data-testid="stDialog"] h2 { display: none !important; }  /* judul native diganti header custom */
+[data-testid="stDialog"] button[aria-label="Close"] { color: var(--dh-text-muted) !important; }
+[data-testid="stDialog"] [data-testid="stWidgetLabel"], [data-testid="stDialog"] [data-testid="stWidgetLabel"] * {
+    color: #2D2A26 !important; font-size: 11.5px !important; font-weight: 700 !important;
+}
+[data-testid="stDialog"] input, [data-testid="stDialog"] [data-baseweb="select"] *, [data-testid="stDialog"] [data-testid="stDateInputField"],
+[data-testid="stDialog"] [data-testid="stTimeInputTimeDisplay"], [data-testid="stDialog"] [data-testid="stTimeInputTimeDisplay"] * {
+    color: #2D2A26 !important; font-size: 13px !important;
+}
+[data-testid="stDialog"] input::placeholder { color: #A9A295 !important; opacity: 1; }
+[data-testid="stDialog"] [data-baseweb="input"], [data-testid="stDialog"] [data-baseweb="select"] > div,
+[data-testid="stDialog"] [data-testid="stDateInputField"], [data-testid="stDialog"] [data-testid="stTimeInputTimeDisplay"] {
+    background: #fff !important; border-radius: 10px !important; border: 1.5px solid var(--dh-border) !important; transition: border-color .2s ease;
+}
+[data-testid="stDialog"] [data-baseweb="input"]:hover, [data-testid="stDialog"] [data-baseweb="select"] > div:hover,
+[data-testid="stDialog"] [data-baseweb="input"]:focus-within, [data-testid="stDialog"] [data-testid="stDateInputField"]:hover,
+[data-testid="stDialog"] [data-testid="stTimeInputTimeDisplay"]:hover { border-color: #E8A06E !important; }
+[data-testid="stDialog"] [data-baseweb="input"] > div { background: transparent !important; }
+[data-testid="stDialog"] [data-testid="stVerticalBlock"] { gap: 0.6rem !important; }
+
+/* ── MODAL "Reveal Dirimu" ────────────────────────────────────── */
+.dh-modal-head { text-align: center; margin-bottom: 12px; }
+.dh-modal-eyebrow { font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em; color: var(--dh-primary); margin-bottom: 4px; }
+.dh-modal-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--dh-text-dark); line-height: 1.2; }
+.dh-modal-sub { font-family: 'Lora', serif; font-size: 12.5px; color: var(--dh-text-muted); margin-top: 4px; }
+/* 2 section = kartu krem bergaris tipis */
+[data-testid="stDialog"] [class*="st-key-dhmodal_sec"] {
+    background: #FAF6EF; border: 1px solid var(--dh-border); border-radius: 16px; padding: 14px 16px 14px 16px;
+}
+[data-testid="stDialog"] [class*="st-key-dhmodal_sec"] [data-testid="stMarkdownContainer"] { margin-bottom: 0 !important; }
 .dh-modal-section {
-    display: flex; align-items: center; gap: 10px; margin: 14px 0 10px 0; padding-top: 14px;
-    border-top: 1px solid var(--dh-border); font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; color: var(--dh-text-dark);
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--dh-border);
+    font-size: 11.5px; font-weight: 800; letter-spacing: 0.04em; color: var(--dh-text-dark);
 }
-.dh-modal-section em {
-    font-style: normal; font-size: 10px; font-weight: 800; letter-spacing: 0; color: var(--dh-primary-dark);
-    background: #FBEBDD; border-radius: 100px; padding: 3px 10px;
-}
-.dh-modal-hint { font-size: 12.5px; color: var(--dh-text-muted); margin-bottom: 10px; }
-/* Input: hover/focus = border oranye lembut */
-div[data-testid="stDialog"] [data-baseweb="input"], div[data-testid="stDialog"] [data-baseweb="select"] > div {
-    background: #fff !important; border-radius: 12px !important; border: 1.5px solid var(--dh-border) !important; transition: border-color .2s ease;
-}
-div[data-testid="stDialog"] [data-baseweb="input"]:hover, div[data-testid="stDialog"] [data-baseweb="select"] > div:hover,
-div[data-testid="stDialog"] [data-baseweb="input"]:focus-within { border-color: #E8A06E !important; }
-div[data-testid="stDialog"] [data-baseweb="input"] > div { background: transparent !important; }
+.dh-modal-section em { font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 0; color: var(--dh-primary); }
+.dh-modal-hint { font-size: 11.5px; color: var(--dh-text-muted); margin-top: 2px; }
 
 /* Kartu mode: container = kartu, tombol transparan nutupin seluruh kartu */
-div[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] {
-    position: relative; background: #fff; border: 1.5px solid var(--dh-border); border-radius: 16px;
-    padding: 16px 16px 14px 16px; gap: 0 !important; height: 100%; box-sizing: border-box;
+[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] {
+    position: relative; background: #FFFFFF; border: 1px solid var(--dh-border); border-radius: 14px;
+    padding: 12px 12px 10px 12px; gap: 0 !important; height: 100%; box-sizing: border-box;
     transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
 }
-div[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] [data-testid="stElementContainer"] { position: static !important; }
-div[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"]:hover {
-    border-color: #D97706; box-shadow: 0 8px 22px rgba(217,119,6,0.14); transform: translateY(-2px);
+[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] [data-testid="stElementContainer"] { position: static !important; }
+[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] [data-testid="stMarkdownContainer"] { margin-bottom: 0 !important; }
+[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"]:hover {
+    border-color: #D97706; box-shadow: 0 8px 20px rgba(217,119,6,0.14); transform: translateY(-2px);
 }
-div[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"]:has(.dh-mm-sel) {
-    border: 2.5px solid var(--dh-primary); box-shadow: 0 6px 18px rgba(200,98,53,0.16); padding: 15px 15px 13px 15px;
+[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"]:has(.dh-mm-sel) {
+    border: 2px solid var(--dh-primary); box-shadow: 0 6px 16px rgba(200,98,53,0.16); padding: 11px 11px 9px 11px;
 }
-div[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] [class*="st-key-dhmodal_pick_"] { position: absolute !important; inset: 0; z-index: 3; margin: 0 !important; }
-div[data-testid="stDialog"] [class*="st-key-dhmodal_pick_"] button, div[data-testid="stDialog"] [class*="st-key-dhmodal_pick_"] div.stButton {
-    width: 100% !important; height: 100% !important; opacity: 0; cursor: pointer; border-radius: 16px !important;
+[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] [class*="st-key-dhmodal_pick_"] { position: absolute !important; inset: 0; z-index: 3; margin: 0 !important; }
+[data-testid="stDialog"] [class*="st-key-dhmodal_pick_"] button, [data-testid="stDialog"] [class*="st-key-dhmodal_pick_"] div.stButton {
+    width: 100% !important; height: 100% !important; opacity: 0; cursor: pointer; border-radius: 14px !important;
 }
-.dh-mm-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; min-height: 20px; }
-.dh-mm-tag { font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: var(--dh-text-muted); }
-.dh-mm-badge { font-size: 9.5px; font-weight: 800; color: #fff; background: var(--dh-primary); border-radius: 100px; padding: 3px 9px; }
-.dh-mm-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--dh-text-dark); transition: color .2s ease; }
-div[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"]:hover .dh-mm-title, .dh-mm-sel .dh-mm-title { color: var(--dh-primary); }
-.dh-mm-systems { font-size: 11.5px; color: var(--dh-text-muted); line-height: 1.5; margin: 6px 0 10px 0; }
-.dh-mm-need { font-size: 11px; font-weight: 700; color: var(--dh-text-dark); margin-bottom: 10px; }
-.dh-mm-foot { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--dh-border); padding-top: 10px; font-size: 11px; }
+.dh-mm { display: flex; flex-direction: column; min-height: 188px; }
+.dh-mm-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 8px; min-height: 18px; }
+.dh-mm-tag { font-size: 10px; font-weight: 800; letter-spacing: 0.06em; color: var(--dh-primary-dark); }
+.dh-mm-pill { font-size: 8.5px; font-weight: 700; color: #5E7E5A; background: #EEF3EC; border: 1px solid #DCE6D8; border-radius: 100px; padding: 2px 7px; white-space: nowrap; }
+.dh-mm-ribbon {
+    position: absolute; top: -2px; right: -2px; font-size: 8.5px; font-weight: 800; color: #fff;
+    background: var(--dh-primary); border-radius: 0 13px 0 8px; padding: 3px 10px;
+}
+.dh-mm-title { font-family: 'Playfair Display', serif; font-size: 14.5px; font-weight: 700; color: var(--dh-text-dark); margin-bottom: 8px; transition: color .2s ease; }
+[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"]:hover .dh-mm-title, .dh-mm-sel .dh-mm-title { color: var(--dh-primary); }
+.dh-mm-list { list-style: none; margin: 0 0 10px 0; padding: 0; flex: 1; }
+.dh-mm-list li { font-size: 11.5px; line-height: 1.55; color: #3A3631; }
+.dh-mm-list li::before { content: "•"; margin-right: 6px; color: var(--dh-text-muted); }
+.dh-mm-list li i { font-style: normal; font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif; }
+.dh-mm-desc { flex: 1; font-size: 10.5px; line-height: 1.5; color: var(--dh-text-muted); margin-bottom: 10px; }
+.dh-mm-desc b { font-weight: 600; color: #3A3631; }
+.dh-mm-foot { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--dh-border); padding-top: 8px; font-size: 10.5px; }
 .dh-mm-foot b { color: var(--dh-primary-dark); }
 .dh-mm-foot span { color: var(--dh-text-muted); }
 .dh-modal-info {
-    margin: 14px 0 16px 0; padding: 11px 14px; border-radius: 12px; background: #EEF3EC;
-    color: #5E7E5A; font-size: 12.5px; font-weight: 600;
+    margin-top: 2px; padding: 9px 12px; border-radius: 10px; background: #FFFFFF; border: 1px solid var(--dh-border);
+    color: #3A3631; font-size: 11.5px;
 }
 /* CTA modal */
-div[data-testid="stDialog"] div.stButton > button[kind="primary"] {
+[data-testid="stDialog"] div.stButton > button[kind="primary"] {
     background: var(--dh-primary) !important; border-color: var(--dh-primary) !important; color: #fff !important;
-    border-radius: 100px !important; height: 50px; font-weight: 700 !important;
+    border-radius: 100px !important; height: 46px; font-weight: 700 !important;
     transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
 }
-div[data-testid="stDialog"] div.stButton > button[kind="primary"]:hover {
+[data-testid="stDialog"] div.stButton > button[kind="primary"]:hover {
     background: var(--dh-primary-dark) !important; box-shadow: 0 10px 24px rgba(200,98,53,0.35); transform: translateY(-1px);
 }
-div[data-testid="stDialog"] div.stButton > button[kind="primary"] p { color: #fff !important; }
-#dh-top.dh-anchor { scroll-margin-top: 400px; }
-div[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] [data-testid="stMarkdownContainer"] { margin-bottom: 0 !important; }
+[data-testid="stDialog"] div.stButton > button[kind="primary"] * { color: #fff !important; }
+.st-key-dhnavbar [data-testid="stMarkdownContainer"] p { margin: 0 !important; }
