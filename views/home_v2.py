@@ -57,6 +57,21 @@ NODE_COLOR = {
     "Tarot": "#991B1B",
 }
 
+# Mapping kategori filter -> sistem yang tetap menyala (sisanya diredupkan).
+# None = semua menyala.
+CATEGORY_SYSTEMS = {
+    "Semua 15 Sistem": None,
+    "Astrologi & Kosmik": {"Zodiak", "Numerologi"},
+    "Kearifan Nusantara & Timur": {"Golongan Darah", "Shio", "Weton", "Zi Wei", "BaZi"},
+    "Psikologi Modern": {"Love Language", "DISC", "Enneagram", "Big Five", "MBTI"},
+    "Energi & Intuisi": {"Human Design", "Tarot", "Matrix Destiny"},
+}
+
+
+def _set_category(name):
+    st.session_state.dh_cat = name
+
+
 _CELESTIAL_IMG_PATH = Path(__file__).resolve().parent.parent / "assets" / "images" / "celestial_harmony.jpg"
 
 
@@ -89,7 +104,7 @@ def render_navbar(current_page):
                 )
             with links_col:
                 with st.container(key="dhnav_links"):
-                    l1, d1, l2, d2, l3, d3, l4 = st.columns([2, 0.4, 2, 0.4, 2, 0.4, 2.4])
+                    l1, d1, l2, d2, l3, d3, l4 = st.columns([2, 0.4, 2, 0.4, 2, 0.4, 3.4])
                     with l1:
                         if st.button("Home", key="dhnav_home", use_container_width=True):
                             _go("home")
@@ -106,7 +121,7 @@ def render_navbar(current_page):
                     with d3:
                         st.markdown('<div class="dh-nav-sep"></div>', unsafe_allow_html=True)
                     with l4:
-                        with st.popover("Jelajahi ▾", use_container_width=True):
+                        with st.popover("🔮 Jelajahi", use_container_width=True):
                             st.markdown("**Gratis**")
                             st.caption("Ramalan Harian · Tarot 1 Kartu · Preview Zodiak")
                             st.markdown("**Premium**")
@@ -200,12 +215,20 @@ def _render_matrix_diagram(sistem_lookup):
         unsafe_allow_html=True,
     )
 
-    chips = ["Semua 15 Sistem", "Astrologi & Kosmik", "Kearifan Nusantara & Timur", "Psikologi Modern", "Energi & Intuisi"]
-    chip_html = "".join(
-        f'<span class="dh-filter-chip{" active" if i == 0 else ""}">{c}</span>'
-        for i, c in enumerate(chips)
-    )
-    st.markdown(f'<div class="dh-filter-row">{chip_html}</div>', unsafe_allow_html=True)
+    if "dh_cat" not in st.session_state:
+        st.session_state.dh_cat = "Semua 15 Sistem"
+    active_cat = st.session_state.dh_cat
+    lit = CATEGORY_SYSTEMS.get(active_cat)
+
+    # Chip filter = st.button beneran (state di session_state), bukan span statis
+    with st.container(key="dhfilter_row"):
+        fcols = st.columns(len(CATEGORY_SYSTEMS))
+        for col, name in zip(fcols, CATEGORY_SYSTEMS):
+            with col:
+                st.button(
+                    name, key=f"dhfilter_{name}", on_click=_set_category, args=(name,),
+                    type="primary" if name == active_cat else "secondary",
+                )
 
     n = len(NODE_ORDER)
     radius = 42
@@ -218,13 +241,17 @@ def _render_matrix_diagram(sistem_lookup):
         positions.append((top, left))
         nama = NODE_ORDER[i][0]
         warna = NODE_COLOR.get(nama, "#C86235")
+        dim_css = (
+            f'.st-key-dhnode_{i} {{ opacity: 0.25; filter: grayscale(1); }}'
+            f'.dh-matrix-lines line:nth-child({i + 1}) {{ opacity: 0.25; }}'
+        ) if (lit is not None and nama not in lit) else ''
         label_above = top < 46  # node separuh atas: label di atas ikon
         flip_css = (
             f'.st-key-dhnode_{i} .dh-matrix-node-label {{ position: absolute; bottom: 100%;'
             f' left: 50%; transform: translateX(-50%); margin: 0 0 4px 0; }}'
         ) if label_above else ''
         pos_css.append(
-            flip_css +
+            dim_css + flip_css +
             f'.st-key-dhnode_{i} {{ top: {top:.2f}%; left: {left:.2f}%; }}'
             f'.st-key-dhnode_{i} div[data-testid="stPopover"] button {{'
             f' background: {warna} !important; border-color: {warna} !important; }}'
@@ -294,10 +321,12 @@ def _render_explore():
     ec1, ec2, ec3 = st.columns(3, gap="medium")
 
     def _item(title, sub, right):
+        # Seluruh kotak = link dummy (href fragmen kosong yang gak ada target-nya,
+        # biar klik gak lompat ke atas halaman). Ganti href kalau fiturnya udah jadi.
         return (
-            '<div class="dh-explore-item"><div>'
+            '<a href="#dh-soon" class="dh-explore-item"><div>'
             f'<div class="dh-explore-item-title">{title}</div>'
-            f'<div class="dh-explore-item-sub">{sub}</div></div>{right}</div>'
+            f'<div class="dh-explore-item-sub">{sub}</div></div>{right}</a>'
         )
 
     arrow = '<span class="dh-explore-item-arrow">→</span>'
@@ -358,8 +387,7 @@ def _render_explore():
         with st.container(key="dhexplore_card_lainnya"):
             st.markdown(
                 _head("✨", "#f3eefc", "LAINNYA", "Referral, wawasan &amp; bantuan pengguna")
-                + _item("🎁 Program Referral &amp; Affiliate", "Komisi 10-30% + Bonus Milestone VIP", arrow).replace(
-                    'class="dh-explore-item"', 'class="dh-explore-item highlight"')
+                + _item("🎁 Program Referral &amp; Affiliate", "Komisi 10-30% + Bonus Milestone VIP", arrow)
                 + _item("Tutorial", "Panduan pakai website &amp; cara baca hasil", arrow)
                 + _item("Blog", "Artikel tentang self-discovery &amp; potensi diri", arrow)
                 + _item("FAQ &amp; Bantuan", "Pertanyaan yang sering ditanya", arrow),
@@ -412,7 +440,7 @@ def _render_dataflow():
         items_html = "".join(f"<li>{it}</li>" for it in items)
         wide = " wide" if idx == len(groups) - 1 else ""
         cards_html += (
-            f'<div class="dh-flow-card{wide}">'
+            f'<a href="#dh-soon" class="dh-flow-card{wide}">'
             '<div class="dh-flow-head">'
             f'<div class="dh-flow-icon"><span class="material-symbols-outlined">{icon}</span></div>'
             f'<span class="dh-flow-tag">{tag}</span></div>'
@@ -420,7 +448,7 @@ def _render_dataflow():
             f'<div class="dh-flow-desc">{desc}</div>'
             f'<ul class="dh-flow-list">{items_html}</ul>'
             f'<div class="dh-flow-foot"><span>{foot}</span><span>→</span></div>'
-            '</div>'
+            '</a>'
         )
     st.markdown(f'<div class="dh-flow-grid">{cards_html}</div>', unsafe_allow_html=True)
 
