@@ -134,7 +134,7 @@ def card_relative_path_for_result(system: str, raw_result: dict | None):
         kartu = raw_result.get("kartu")
         if not kartu:
             return None
-        from engine.engine__tarot import TAROT_MAJOR_ARCANA
+        from engine.tarot import TAROT_MAJOR_ARCANA
         try:
             idx = TAROT_MAJOR_ARCANA.index(kartu)
         except ValueError:
