@@ -1,0 +1,312 @@
+/* ══════════════════════════════════════════════════════════════
+   HOME V2 — design baru (ref: ui baru/1-6.png, font dan warna.txt)
+   Semua class dinamespace "dh-" (Destiny Home v2) biar GAK bentrok
+   sama class lama (.dr-*) yang masih dipakai halaman lain (loading,
+   reveal, tutorial). Palet & font SENGAJA beda dari .dr-* lama,
+   khusus buat Home v2 ini.
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+    --dh-bg: #FAF7F2;
+    --dh-bg-alt: #F5EEE3;
+    --dh-primary: #C86235;
+    --dh-primary-dark: #B2552C;
+    --dh-text-dark: #2D2A26;
+    --dh-text-muted: #8B8378;
+    --dh-border: #E8E0D5;
+    --dh-card: #FFFFFF;
+    --dh-success: #7A9B76;
+    --dh-warning-bg: #FDF6E3;
+}
+
+.dh-font-headline { font-family: 'Playfair Display', 'Lora', Georgia, serif; }
+.dh-font-sub { font-family: 'Lora', Georgia, serif; }
+.dh-font-body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
+
+/* ── NAVBAR (floating pill, dipakai di SEMUA halaman) ─────────────
+   Container key = class beneran yang nempel ke DOM (.st-key-xxx),
+   bukan markdown div open/close terpisah — itu gak kebungkus (lihat
+   docs/bugs-fixed.md). */
+.st-key-dhnav_wrap { padding: 10px 0 18px 0; }
+.st-key-dhnavbar {
+    background: var(--dh-card); border: 1.5px solid var(--dh-border);
+    border-radius: 100px; padding: 10px 14px 10px 22px;
+    box-shadow: 0 10px 30px -16px rgba(45,42,38,0.18);
+}
+.st-key-dhnavbar div.stButton > button { border-radius: 100px !important; }
+.dh-navbar-logo {
+    font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700;
+    color: var(--dh-text-dark); white-space: nowrap; display: flex; align-items: center; gap: 6px;
+}
+.dh-navbar-logo .dh-spark { color: var(--dh-primary); }
+.st-key-dhnav_cta div.stButton > button[kind="primary"] {
+    background: var(--dh-primary) !important; border-color: var(--dh-primary) !important;
+    font-weight: 700 !important; font-size: 13px !important;
+}
+.st-key-dhnav_cta div.stButton > button[kind="primary"]:hover {
+    background: var(--dh-primary-dark) !important; border-color: var(--dh-primary-dark) !important;
+}
+.st-key-dhnav_links div.stButton > button {
+    background: transparent !important; border: none !important; padding: 4px 2px !important;
+    font-size: 13.5px !important; font-weight: 600 !important; color: var(--dh-text-dark) !important;
+    min-height: 0 !important; box-shadow: none !important;
+}
+.st-key-dhnav_links div.stButton > button:hover { color: var(--dh-primary) !important; }
+.st-key-dhnav_links div.stButton > button p { font-weight: 600 !important; }
+
+/* ── HERO ─────────────────────────────────────────────────────── */
+.dh-hero { text-align: center; padding: 34px 0 10px 0; }
+.dh-hero-badge {
+    display: inline-flex; align-items: center; gap: 7px; padding: 7px 16px;
+    border: 1px solid var(--dh-border); border-radius: 100px; background: var(--dh-card);
+    font-size: 12.5px; color: var(--dh-text-muted); margin-bottom: 26px;
+}
+.dh-hero-title {
+    font-family: 'Playfair Display', serif; font-weight: 700; font-size: 44px;
+    line-height: 1.25; color: var(--dh-text-dark); max-width: 760px; margin: 0 auto 20px auto;
+}
+.dh-hero-sub {
+    font-family: 'Lora', serif; font-size: 16.5px; line-height: 1.75; color: var(--dh-text-muted);
+    max-width: 640px; margin: 0 auto 30px auto;
+}
+.dh-hero-caption { font-size: 12.5px; color: var(--dh-text-muted); margin-top: 16px; }
+
+/* Semua tombol primary/secondary di Home discope lewat 1 root key
+   (.st-key-dh_home_root), biar gak bocor ke halaman lain. */
+.st-key-dh_home_root div.stButton > button[kind="primary"] {
+    background: var(--dh-primary) !important; border-color: var(--dh-primary) !important;
+    border-radius: 100px !important; font-weight: 700 !important;
+}
+.st-key-dh_home_root div.stButton > button[kind="primary"]:hover {
+    background: var(--dh-primary-dark) !important; border-color: var(--dh-primary-dark) !important;
+}
+.st-key-dh_home_root div.stButton > button[kind="secondary"] {
+    border-radius: 100px !important; border-color: var(--dh-border) !important;
+    color: var(--dh-text-dark) !important; font-weight: 700 !important; background: var(--dh-card) !important;
+}
+.st-key-dh_home_root div.stButton > button[kind="secondary"]:hover {
+    border-color: var(--dh-primary) !important; color: var(--dh-primary) !important;
+}
+
+/* Tombol sekunder hero ("Lihat 15 Sistem Matrix") — plain <a>, bukan
+   st.button, jadi class CSS biasa nempel langsung. */
+a.dh-btn-anchor-secondary {
+    display: flex !important; align-items: center !important; justify-content: center !important;
+    height: 42px !important; width: 100% !important; padding: 0 18px !important; box-sizing: border-box !important;
+    border-radius: 100px !important; border: 1.5px solid var(--dh-border) !important;
+    color: var(--dh-text-dark) !important; font-weight: 700 !important; font-size: 14px !important;
+    background: var(--dh-card) !important; text-decoration: none !important;
+}
+a.dh-btn-anchor-secondary:hover { border-color: var(--dh-primary) !important; color: var(--dh-primary) !important; }
+
+/* ── HERO IMAGE CARD ──────────────────────────────────────────── */
+.dh-hero-card {
+    position: relative; max-width: 980px; margin: 30px auto 0 auto; border-radius: 22px;
+    overflow: hidden; min-height: 300px; border: 1.5px solid var(--dh-border);
+    background:
+        radial-gradient(circle at 50% 42%, rgba(253,246,227,0.12) 0%, transparent 38%),
+        linear-gradient(135deg, #5b544a 0%, #857a68 38%, #a89a82 60%, #6b6054 100%);
+    display: flex; align-items: flex-end;
+}
+.dh-hero-card svg { position: absolute; top: 14%; left: 50%; transform: translateX(-50%); opacity: 0.85; }
+.dh-hero-card-overlay {
+    position: relative; z-index: 2; padding: 26px 34px 30px 34px; max-width: 560px;
+}
+.dh-hero-card-badge {
+    display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 100px;
+    background: rgba(253,246,227,0.92); color: var(--dh-primary-dark); font-size: 11.5px; font-weight: 700;
+    letter-spacing: 0.03em; margin-bottom: 14px;
+}
+.dh-hero-card-title { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; color: #fffaf2; line-height: 1.4; margin-bottom: 8px; }
+.dh-hero-card-sub { font-size: 12.5px; color: #e8ddc9; line-height: 1.55; }
+
+/* ── SECTION SHELL ────────────────────────────────────────────── */
+/* Scope ke st.container(key=...) beneran (lihat home_v2.py render()),
+   bukan markdown div open/close — itu gak kebungkus di DOM. */
+.st-key-dh_section_explore,
+.st-key-dh_section_testimonials { padding: 56px 0; }
+.st-key-dh_section_dataflow,
+.st-key-dh_section_finalcta {
+    padding: 56px 0; background: var(--dh-bg-alt);
+    border-top: 1px solid var(--dh-border); border-bottom: 1px solid var(--dh-border);
+}
+.dh-section-head { text-align: center; margin-bottom: 34px; }
+.dh-section-title {
+    font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700;
+    color: var(--dh-text-dark); line-height: 1.3; margin-bottom: 8px;
+}
+.dh-section-sub { font-family: 'Lora', serif; font-size: 14.5px; color: var(--dh-text-muted); }
+
+/* ── MATRIX DIAGRAM ───────────────────────────────────────────── */
+.dh-filter-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
+.dh-filter-chip {
+    display: inline-flex; align-items: center; padding: 8px 18px; border-radius: 100px;
+    font-size: 12.5px; font-weight: 700; border: 1.5px solid var(--dh-border);
+    background: var(--dh-card); color: var(--dh-text-dark);
+}
+.dh-filter-chip.active { background: var(--dh-primary); border-color: var(--dh-primary); color: #fff; }
+
+/* Wrapper container BENERAN (st.container key) jadi positioning
+   context-nya langsung — bukan div markdown terpisah, karena HTML
+   mentah dari satu st.markdown TIDAK membungkus elemen Streamlit lain
+   yang dirender terpisah (setiap pemanggilan jadi node DOM sendiri). */
+.st-key-dhmatrix_wrap {
+    position: relative; width: 100%; max-width: 640px; aspect-ratio: 1 / 1;
+    margin: 30px auto 0 auto; box-sizing: border-box;
+}
+.st-key-dhmatrix_wrap::before {
+    content: ""; position: absolute; inset: 8%; border-radius: 50%;
+    border: 1.5px dashed var(--dh-border); pointer-events: none;
+}
+.dh-matrix-center {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 27%; aspect-ratio: 1/1; border-radius: 50%; border: 2.5px solid var(--dh-primary);
+    background: var(--dh-card); display: flex; flex-direction: column; align-items: center;
+    justify-content: center; text-align: center; z-index: 3;
+}
+.dh-matrix-center b { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--dh-primary-dark); }
+.dh-matrix-center span { font-size: 8.5px; color: var(--dh-text-muted); margin-top: 3px; padding: 0 8px; line-height: 1.3; }
+
+.dh-matrix-node-label { font-size: 10px; font-weight: 700; color: var(--dh-text-dark); line-height: 1.2; text-align: center; margin-top: 4px; }
+
+/* Tiap node = st.container(key=f"dhnode_{i}") — posisinya di-absolute-kan
+   lewat rule per-node yang di-generate Python (top/left %), lihat
+   views/home_v2.py. Container-nya SENDIRI yang jadi positioned box +
+   flex column (ikon di atas, label di bawah), karena HTML mentah dari
+   st.markdown terpisah TIDAK membungkus widget Streamlit lain (lihat
+   docs/bugs-fixed.md). */
+[class*="st-key-dhnode_"] {
+    position: absolute !important; transform: translate(-50%, -50%); z-index: 2;
+    width: 68px !important; display: flex !important; flex-direction: column !important;
+    align-items: center !important;
+}
+[class*="st-key-dhnode_"] div[data-testid="stPopover"] { display: flex; justify-content: center; }
+[class*="st-key-dhnode_"] div[data-testid="stPopover"] button {
+    width: 38px !important; height: 38px !important; border-radius: 50% !important;
+    padding: 0 !important; display: flex !important; align-items: center !important;
+    justify-content: center !important; min-height: 0 !important;
+    box-shadow: 0 6px 14px -8px rgba(45,42,38,0.35) !important;
+}
+[class*="st-key-dhnode_"] div[data-testid="stPopover"] button span[data-testid="stIconMaterial"] {
+    font-size: 17px !important;
+}
+/* Label tombol popover ("&nbsp;") disembunyikan, cuma ikon yang kelihatan */
+[class*="st-key-dhnode_"] div[data-testid="stPopover"] button p { display: none !important; }
+
+.st-key-dhmatrix_card {
+    background: var(--dh-card); border: 1.5px solid var(--dh-border); border-radius: 22px;
+    padding: 30px; max-width: 760px; margin: 0 auto;
+}
+
+.st-key-dhmatrix_wrap [data-testid="stPopoverBody"] { width: 260px; }
+.dh-matrix-caption { text-align: center; font-size: 12px; color: var(--dh-text-muted); margin-top: 18px; }
+
+/* ── SOCIAL PROOF COUNTER ─────────────────────────────────────── */
+.dh-proof-bar {
+    text-align: center; padding: 14px 0; border-top: 1px solid var(--dh-border);
+    border-bottom: 1px solid var(--dh-border); font-size: 13px; color: var(--dh-text-dark); font-weight: 600;
+}
+.dh-proof-dot { color: var(--dh-success); margin-right: 6px; }
+
+/* ── EXPLORE SECTION (3 kolom) ────────────────────────────────── */
+.dh-explore-card {
+    background: var(--dh-card); border: 1.5px solid var(--dh-border); border-radius: 18px;
+    padding: 24px 24px 20px 24px; height: 100%; box-sizing: border-box; position: relative;
+}
+.dh-explore-card-badge {
+    position: absolute; top: 18px; right: -1px; background: var(--dh-primary); color: #fff;
+    font-size: 9.5px; font-weight: 800; letter-spacing: 0.04em; padding: 4px 12px 4px 14px;
+    border-radius: 100px 0 0 100px;
+}
+.dh-explore-head { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.dh-explore-icon {
+    width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center;
+    justify-content: center; font-size: 16px; flex-shrink: 0;
+}
+.dh-explore-title { font-weight: 800; font-size: 14.5px; color: var(--dh-text-dark); }
+.dh-explore-subtitle { font-size: 11.5px; color: var(--dh-text-muted); }
+.dh-explore-item {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 11px 0; border-bottom: 1px solid var(--dh-bg-alt);
+}
+.dh-explore-item:last-of-type { border-bottom: none; }
+.dh-explore-item-title { font-size: 13px; font-weight: 700; color: var(--dh-text-dark); }
+.dh-explore-item-sub { font-size: 11px; color: var(--dh-text-muted); margin-top: 2px; }
+.dh-explore-item-arrow { color: var(--dh-text-muted); flex-shrink: 0; }
+.dh-explore-item.highlight { background: var(--dh-warning-bg); margin: 0 -12px; padding: 11px 12px; border-radius: 10px; border-bottom: none; }
+.dh-explore-foot { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--dh-border); }
+
+[class*="st-key-dhexplore_col_"] div.stButton > button[kind="secondary"],
+[class*="st-key-dhexplore_col_"] div.stButton > button[kind="primary"] {
+    border-radius: 100px !important; font-size: 13px !important; padding: 9px 18px !important;
+    min-height: 0 !important;
+}
+
+/* ── DATA FLOW CARDS (redesign dr-bulk-card lama, namespace baru) ─ */
+.dh-flow-card {
+    background: var(--dh-card); border: 1.5px solid var(--dh-border); border-radius: 16px;
+    padding: 22px; height: 100%; box-sizing: border-box;
+}
+.dh-flow-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+.dh-flow-icon {
+    width: 36px; height: 36px; border-radius: 10px; background: var(--dh-warning-bg);
+    display: flex; align-items: center; justify-content: center; font-size: 17px; color: var(--dh-primary);
+}
+.dh-flow-tag { font-size: 10.5px; font-weight: 700; color: var(--dh-primary); }
+.dh-flow-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 16px; color: var(--dh-text-dark); margin-bottom: 6px; }
+.dh-flow-desc { font-size: 12.5px; color: var(--dh-text-muted); line-height: 1.55; margin-bottom: 12px; }
+.dh-flow-list { list-style: none; padding: 0; margin: 0 0 14px 0; }
+.dh-flow-list li { font-size: 13px; color: var(--dh-text-dark); padding: 3px 0; }
+.dh-flow-list li::before { content: "•"; color: var(--dh-primary); font-weight: 900; margin-right: 8px; }
+.dh-flow-foot {
+    border-top: 1px solid var(--dh-bg-alt); padding-top: 10px; font-size: 11px;
+    color: var(--dh-text-muted); font-style: italic; display: flex; justify-content: space-between; align-items: center;
+}
+
+.dh-flow-banner {
+    display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;
+    background: var(--dh-card); border: 1.5px solid var(--dh-border); border-radius: 16px;
+    padding: 22px 26px; margin-top: 22px;
+}
+.dh-flow-banner b { font-size: 15px; color: var(--dh-text-dark); display: block; margin-bottom: 4px; }
+.dh-flow-banner span { font-size: 12.5px; color: var(--dh-text-muted); }
+
+/* ── TESTIMONIALS ─────────────────────────────────────────────── */
+.dh-testi-card {
+    background: var(--dh-card); border: 1.5px solid var(--dh-border); border-radius: 16px;
+    padding: 24px; height: 100%; box-sizing: border-box;
+}
+.dh-testi-quote-mark { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--dh-primary); line-height: 1; margin-bottom: 6px; }
+.dh-testi-text { font-family: 'Lora', serif; font-style: italic; font-size: 13.5px; color: var(--dh-text-dark); line-height: 1.6; margin-bottom: 16px; }
+.dh-testi-foot { display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--dh-bg-alt); padding-top: 14px; }
+.dh-testi-avatar {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--dh-warning-bg); color: var(--dh-primary-dark);
+    display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12.5px; flex-shrink: 0;
+}
+.dh-testi-name { font-size: 12.5px; font-weight: 700; color: var(--dh-text-dark); }
+.dh-testi-role { font-size: 11px; color: var(--dh-text-muted); }
+
+/* ── FINAL CTA ────────────────────────────────────────────────── */
+.dh-finalcta { text-align: center; padding: 60px 0; }
+.dh-finalcta-eyebrow {
+    font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; color: var(--dh-primary);
+    text-transform: uppercase; margin-bottom: 10px;
+}
+.dh-finalcta-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--dh-text-dark); margin-bottom: 10px; }
+.dh-finalcta-sub { font-family: 'Lora', serif; font-size: 14.5px; color: var(--dh-text-muted); margin-bottom: 26px; }
+.dh-finalcta-caption { font-size: 12px; color: var(--dh-text-muted); margin-top: 12px; }
+
+/* ── FOOTER ───────────────────────────────────────────────────── */
+.dh-footer { padding: 42px 0 20px 0; }
+.dh-footer-brand { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--dh-text-dark); margin-bottom: 8px; }
+.dh-footer-tagline { font-size: 12.5px; color: var(--dh-text-muted); margin-bottom: 10px; }
+.dh-footer-note { font-size: 11px; color: var(--dh-text-muted); font-style: italic; line-height: 1.5; }
+.dh-footer-col-title { font-size: 11px; font-weight: 800; letter-spacing: 0.05em; color: var(--dh-text-dark); margin-bottom: 12px; }
+.dh-footer-link { display: block; font-size: 12.5px; color: var(--dh-text-muted); padding: 5px 0; }
+.dh-footer-link.highlight { color: var(--dh-primary); font-weight: 700; }
+.dh-footer-bottom {
+    margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--dh-border);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-size: 11.5px; color: var(--dh-text-muted);
+}
+.dh-footer-bottom em { font-style: italic; }
