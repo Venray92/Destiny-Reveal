@@ -1,0 +1,49 @@
+"""Konten Matrix Destiny (22 arketipe) — tiap entri di file terpisah. Lihat docs/formula-notes.md."""
+
+from .titik_01_the_beginner import TITIK01_THE_BEGINNER_CONTENT
+from .titik_02_the_listener import TITIK02_THE_LISTENER_CONTENT
+from .titik_03_the_creator import TITIK03_THE_CREATOR_CONTENT
+from .titik_04_the_ruler import TITIK04_THE_RULER_CONTENT
+from .titik_05_the_teacher import TITIK05_THE_TEACHER_CONTENT
+from .titik_06_the_partners import TITIK06_THE_PARTNERS_CONTENT
+from .titik_07_the_conqueror import TITIK07_THE_CONQUEROR_CONTENT
+from .titik_08_the_balance import TITIK08_THE_BALANCE_CONTENT
+from .titik_09_the_hermit import TITIK09_THE_HERMIT_CONTENT
+from .titik_10_the_wheel import TITIK10_THE_WHEEL_CONTENT
+from .titik_11_the_brave import TITIK11_THE_BRAVE_CONTENT
+from .titik_12_the_sacrifice import TITIK12_THE_SACRIFICE_CONTENT
+from .titik_13_the_transformation import TITIK13_THE_TRANSFORMATION_CONTENT
+from .titik_14_the_alchemist import TITIK14_THE_ALCHEMIST_CONTENT
+from .titik_15_the_shadow import TITIK15_THE_SHADOW_CONTENT
+from .titik_16_the_collapse import TITIK16_THE_COLLAPSE_CONTENT
+from .titik_17_the_hope import TITIK17_THE_HOPE_CONTENT
+from .titik_18_the_mystery import TITIK18_THE_MYSTERY_CONTENT
+from .titik_19_the_joy import TITIK19_THE_JOY_CONTENT
+from .titik_20_the_awakening import TITIK20_THE_AWAKENING_CONTENT
+from .titik_21_the_achievement import TITIK21_THE_ACHIEVEMENT_CONTENT
+from .titik_22_the_unity import TITIK22_THE_UNITY_CONTENT
+
+MATRIX_DESTINY_CONTENT = {
+    1: TITIK01_THE_BEGINNER_CONTENT,
+    2: TITIK02_THE_LISTENER_CONTENT,
+    3: TITIK03_THE_CREATOR_CONTENT,
+    4: TITIK04_THE_RULER_CONTENT,
+    5: TITIK05_THE_TEACHER_CONTENT,
+    6: TITIK06_THE_PARTNERS_CONTENT,
+    7: TITIK07_THE_CONQUEROR_CONTENT,
+    8: TITIK08_THE_BALANCE_CONTENT,
+    9: TITIK09_THE_HERMIT_CONTENT,
+    10: TITIK10_THE_WHEEL_CONTENT,
+    11: TITIK11_THE_BRAVE_CONTENT,
+    12: TITIK12_THE_SACRIFICE_CONTENT,
+    13: TITIK13_THE_TRANSFORMATION_CONTENT,
+    14: TITIK14_THE_ALCHEMIST_CONTENT,
+    15: TITIK15_THE_SHADOW_CONTENT,
+    16: TITIK16_THE_COLLAPSE_CONTENT,
+    17: TITIK17_THE_HOPE_CONTENT,
+    18: TITIK18_THE_MYSTERY_CONTENT,
+    19: TITIK19_THE_JOY_CONTENT,
+    20: TITIK20_THE_AWAKENING_CONTENT,
+    21: TITIK21_THE_ACHIEVEMENT_CONTENT,
+    22: TITIK22_THE_UNITY_CONTENT,
+}
