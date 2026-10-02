@@ -14,6 +14,7 @@ di mock cuma contoh kondisi SUDAH login).
 
 import base64
 import math
+from datetime import date
 from functools import lru_cache
 from pathlib import Path
 
@@ -91,6 +92,159 @@ def _go(page):
 
 
 # ══════════════════════════════════════════════════════════════
+# MEGA MENU "Jelajahi" (isi panel dropdown navbar)
+# ══════════════════════════════════════════════════════════════
+def _mega_item(title, sub):
+    # href dummy (fragmen yg gak ada target-nya, biar klik gak lompat ke atas).
+    # Ganti href kalau halaman/fiturnya udah jadi.
+    return (
+        '<a href="#dh-soon" class="dh-mega-item">'
+        f'<span class="dh-mega-title">{title}</span>'
+        f'<span class="dh-mega-sub">{sub}</span></a>'
+    )
+
+
+def _mega_menu_html():
+    gratis = "".join([
+        _mega_item("Ramalan Harian", "Pilih Zodiak atau Shio (1× per hari)"),
+        _mega_item("Tarot 1 Kartu", "Tarik 1 kartu sinkronisitas hari ini"),
+        _mega_item("Preview Zodiak", "Kelebihan &amp; kekurangan elemenmu"),
+        _mega_item("Streak &amp; Reward", "Klaim 1 koin gratis tiap 5 hari"),
+    ])
+    koin = "".join([
+        _mega_item("Tarot 3 Kartu (1 Koin)", "Masa Lalu, Kini, Masa Depan"),
+        _mega_item("Tarot 5 Kartu (2 Koin)", "Situasi, Rintangan, Saran &amp; Hasil"),
+        _mega_item("Celtic Cross (3 Koin)", "10 Posisi Tebaran Komprehensif"),
+        _mega_item("Cek Kecocokan (3 Koin)", "Bandingkan 2 orang (Weton &amp; Zodiak)"),
+        _mega_item("Weekly (3 Koin) / Monthly (5 Koin)", "Prediksi berkala &amp; timing eksekusi"),
+        '<div class="dh-mega-foot"><a href="#dh-soon">🪙 Koin</a><i>·</i>'
+        '<a href="#dh-soon">⭐ VIP</a><i>·</i><a href="#dh-soon">💰 List Harga</a></div>',
+    ])
+    lain = "".join([
+        _mega_item("Program Referral", "Komisi 10-30% + Bonus VIP"),
+        _mega_item("Tutorial", "Panduan pakai 15 sistem"),
+        _mega_item("Blog", "Artikel self-discovery terkini"),
+        _mega_item("FAQ &amp; Bantuan", "Pertanyaan yang sering ditanyakan"),
+        _mega_item("Contact", "Bantuan tim Destiny Reveal"),
+        _mega_item("Tentang Kami", "Kisah di balik Destiny Reveal"),
+    ])
+    def col(cls, title, body):
+        return (f'<div class="dh-mega-col"><div class="dh-mega-col-title {cls}">'
+                f'<span class="dh-mega-dot"></span>{title}</div>{body}</div>')
+    return (
+        '<div class="dh-mega">'
+        + col("gratis", "GRATIS", gratis)
+        + col("koin", "PAKAI KOIN &amp; VIP", koin)
+        + col("lain", "LAINNYA", lain)
+        + '</div>'
+    )
+
+
+# ══════════════════════════════════════════════════════════════
+# MODAL "Reveal Dirimu" — dibuka dari nav "Reveal" & semua tombol
+# "Mulai Reveal Takdirku". CTA-nya nerusin ke halaman Reveal (verifikasi
+# email) dgn mode terpilih udah ke-set (ry_focus_mode).
+# ══════════════════════════════════════════════════════════════
+# (key = ry_focus_mode di reveal_yourself.py, label, sistem, tag, koin, foot, info)
+MODAL_MODES = [
+    ("instan", "MODE 1", "5 Sistem Kelahiran", "Zodiak, Shio, Weton, Numerologi, Matrix Destiny",
+     "Tanpa Kuesioner", "1 Koin", "Proses Cepat", "",
+     "Mode 1: Berbasis data lahir mutlak. Tidak perlu kuesioner, langsung lanjut ke verifikasi &amp; cetak biru."),
+    ("mendalam", "MODE 2", "5 Sistem Psikologi", "MBTI, Big Five, Enneagram, DISC, Love Language",
+     "Perlu Kuesioner", "2 Koin", "Psikologi Jiwa", "",
+     "Mode 2: Berbasis kuesioner singkat. Kamu akan diminta menjawab beberapa soal setelah verifikasi."),
+    ("lengkap", "MODE 3", "15 Sistem Sekaligus", "Semua sistem kelahiran, psikologi, Tarot &amp; lainnya",
+     "Terlengkap", "5 Koin", "Semua Terbuka", "Terlengkap",
+     "Mode 3: Gabungan data lahir &amp; kuesioner. Seluruh 15 sistem dibuka dalam satu laporan."),
+]
+_GOLDA_OPTIONS = ["A", "B", "AB", "O", "Belum tahu"]
+
+
+def _modal_pick_mode(key):
+    st.session_state.dh_modal_mode = key
+
+
+@st.dialog("Reveal Dirimu", width="large")
+def _reveal_modal():
+    mode = st.session_state.get("dh_modal_mode", "instan")
+
+    st.markdown(
+        '<div class="dh-modal-head">'
+        '<div class="dh-modal-eyebrow">LANGKAH AWAL · PENEMUAN DIRI</div>'
+        '<div class="dh-modal-title">Reveal Dirimu</div>'
+        '<div class="dh-modal-sub">Isi tanggal lahir dan tentukan mode pembacaan yang kamu inginkan.</div>'
+        '</div>'
+        '<div class="dh-modal-section"><span>TANGGAL LAHIR &amp; IDENTITAS DASAR</span>'
+        '<em>Wajib</em></div>',
+        unsafe_allow_html=True,
+    )
+    st.text_input("Nama Lengkap / Panggilan", placeholder="Contoh: Rina Anggraini", key="dhm_nama")
+    c1, c2 = st.columns(2)
+    with c1:
+        st.date_input(
+            "Tanggal Lahir", value=None, min_value=date(1900, 1, 1), max_value=date.today(),
+            format="DD/MM/YYYY", key="dhm_tgl",
+        )
+    with c2:
+        st.time_input("Jam Lahir (Opsional)", value=None, key="dhm_jam")
+    c3, c4 = st.columns(2)
+    with c3:
+        st.text_input("Kota Lahir (Opsional)", placeholder="Contoh: Jakarta", key="dhm_kota")
+    with c4:
+        st.selectbox(
+            "Golongan Darah", _GOLDA_OPTIONS, index=None,
+            placeholder="Pilih golongan darah", key="dhm_golda",
+        )
+
+    st.markdown(
+        '<div class="dh-modal-section"><span>PILIH MODE PEMBACAAN TAKDIR</span></div>'
+        '<div class="dh-modal-hint">Pilih cakupan sistem yang ingin kamu ungkap hari ini:</div>',
+        unsafe_allow_html=True,
+    )
+    mcols = st.columns(3, gap="small")
+    info = ""
+    for col, (key, tag, title, systems, need, coin, foot, badge, msg) in zip(mcols, MODAL_MODES):
+        selected = key == mode
+        if selected:
+            info = msg
+        with col:
+            with st.container(key=f"dhmodal_mode_{key}"):
+                badge_html = f'<span class="dh-mm-badge">{badge}</span>' if badge else ""
+                st.markdown(
+                    f'<div class="dh-mm{" dh-mm-sel" if selected else ""}">'
+                    f'<div class="dh-mm-top"><span class="dh-mm-tag">{tag}</span>{badge_html}</div>'
+                    f'<div class="dh-mm-title">{title}</div>'
+                    f'<div class="dh-mm-systems">{systems}</div>'
+                    f'<div class="dh-mm-need">{need}</div>'
+                    f'<div class="dh-mm-foot"><b>{coin}</b><span>{foot}</span></div>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
+                # tombol transparan nutupin seluruh kartu -> kartu utuh bisa diklik
+                st.button(f"Pilih {title}", key=f"dhmodal_pick_{key}",
+                          on_click=_modal_pick_mode, args=(key,))
+    st.markdown(f'<div class="dh-modal-info">✓ {info}</div>', unsafe_allow_html=True)
+
+    if st.button("Lanjut ke Verifikasi & Buka Hasil →", key="dhmodal_cta", type="primary",
+                 use_container_width=True):
+        nama = (st.session_state.get("dhm_nama") or "").strip()
+        tgl = st.session_state.get("dhm_tgl")
+        if not nama or not tgl:
+            st.error("Isi Nama dan Tanggal Lahir dulu ya (bagian yang bertanda Wajib).")
+        else:
+            jam = st.session_state.get("dhm_jam")
+            st.session_state.dh_modal_data = {
+                "nama": nama, "tgl_lahir": tgl,
+                "jam_lahir": jam.strftime("%H:%M") if jam else "",
+                "kota_lahir": (st.session_state.get("dhm_kota") or "").strip(),
+                "golongan_darah": st.session_state.get("dhm_golda") or "",
+            }
+            st.session_state.ry_focus_mode = mode
+            st.session_state.dr_page = "reveal"
+            st.rerun()
+
+
+# ══════════════════════════════════════════════════════════════
 # NAVBAR — dipakai di SEMUA halaman (dipanggil dari app.py)
 # ══════════════════════════════════════════════════════════════
 def render_navbar(current_page):
@@ -112,7 +266,7 @@ def render_navbar(current_page):
                         st.markdown('<div class="dh-nav-sep"></div>', unsafe_allow_html=True)
                     with l2:
                         if st.button("Reveal", key="dhnav_reveal", use_container_width=True):
-                            _go("reveal")
+                            _reveal_modal()
                     with d2:
                         st.markdown('<div class="dh-nav-sep"></div>', unsafe_allow_html=True)
                     with l3:
@@ -122,12 +276,7 @@ def render_navbar(current_page):
                         st.markdown('<div class="dh-nav-sep"></div>', unsafe_allow_html=True)
                     with l4:
                         with st.popover("🔮 Jelajahi", use_container_width=True):
-                            st.markdown("**Gratis**")
-                            st.caption("Ramalan Harian · Tarot 1 Kartu · Preview Zodiak")
-                            st.markdown("**Premium**")
-                            st.caption("Tarot Spreads · Cek Kecocokan · Deep Blueprint")
-                            if st.button("Lihat Tutorial Lengkap", key="dhnav_jelajahi_tutorial"):
-                                _go("tutorial")
+                            st.markdown(_mega_menu_html(), unsafe_allow_html=True)
             with right_col:
                 with st.container(key="dhnav_right"):
                     lb, cb = st.columns(2)
@@ -140,7 +289,7 @@ def render_navbar(current_page):
                                 "Mulai Reveal Takdirku →", key="dhnav_cta_btn", type="primary",
                                 icon=":material/bolt:",
                             ):
-                                _go("reveal")
+                                _reveal_modal()
 
 
 # ══════════════════════════════════════════════════════════════
@@ -170,7 +319,7 @@ def _render_hero():
                 "Mulai Reveal Takdirku →", key="dhhero_cta", type="primary",
                 icon=":material/bolt:", use_container_width=True,
             ):
-                _go("reveal")
+                _reveal_modal()
     with c2:
         st.markdown(
             '<a href="#dh-matrix" class="dh-btn-anchor-secondary">Lihat 15 Sistem Matrix</a>',
@@ -310,6 +459,7 @@ def _render_social_proof():
 # EXPLORE SECTION
 # ══════════════════════════════════════════════════════════════
 def _render_explore():
+    st.markdown('<div id="dh-explore" class="dh-anchor"></div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="dh-section-head">'
         '<div class="dh-section-title">Jelajahi Destiny Reveal</div>'
@@ -402,6 +552,7 @@ def _render_explore():
 # DATA FLOW ("Satu Data, Banyak Cara Pandang")
 # ══════════════════════════════════════════════════════════════
 def _render_dataflow():
+    st.markdown('<div id="dh-dataflow" class="dh-anchor"></div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="dh-section-head">'
         '<div class="dh-section-title">Satu Data, Banyak Cara Pandang</div>'
@@ -539,18 +690,15 @@ def _render_footer():
         '<div class="dh-footer-note">Satu portal terpadu untuk 15 sistem refleksi jiwa '
         'dan peta takdir holistik.</div></div>'
         '<div><div class="dh-footer-col-title">NAVIGASI</div>'
-        '<span class="dh-footer-link">Home</span><span class="dh-footer-link">Reveal</span>'
-        '<span class="dh-footer-link">Tutorial</span><span class="dh-footer-link">Blog</span></div>'
+        '<a href="#dh-top" class="dh-footer-link">Home</a><a href="#dh-matrix" class="dh-footer-link">Reveal</a>'
+        '<a href="#dh-dataflow" class="dh-footer-link">Tutorial</a><a href="#dh-soon" class="dh-footer-link">Blog</a></div>'
         '<div><div class="dh-footer-col-title">FITUR</div>'
-        '<span class="dh-footer-link">Ramalan Harian</span>'
-        '<span class="dh-footer-link">Tarot 1 Kartu</span>'
-        '<span class="dh-footer-link">Tarot Spreads Multi-Kartu</span>'
-        '<span class="dh-footer-link">Cek Kecocokan</span>'
-        '<span class="dh-footer-link highlight">🎁 Program Referral</span>'
-        '<span class="dh-footer-link">Daftar Harga &amp; VIP</span></div>'
+        '<a href="#dh-explore" class="dh-footer-link">Ramalan Harian</a><a href="#dh-explore" class="dh-footer-link">Tarot 1 Kartu</a>'
+        '<a href="#dh-explore" class="dh-footer-link">Tarot Spreads Multi-Kartu</a><a href="#dh-explore" class="dh-footer-link">Cek Kecocokan</a>'
+        '<a href="#dh-explore" class="dh-footer-link highlight">🎁 Program Referral</a><a href="#dh-explore" class="dh-footer-link">Daftar Harga &amp; VIP</a></div>'
         '<div><div class="dh-footer-col-title">BANTUAN</div>'
-        '<span class="dh-footer-link">FAQ</span><span class="dh-footer-link">Contact</span>'
-        '<span class="dh-footer-link">Privacy Policy</span><span class="dh-footer-link">Terms of Service</span></div>'
+        '<a href="#dh-soon" class="dh-footer-link">FAQ</a><a href="#dh-soon" class="dh-footer-link">Contact</a>'
+        '<a href="#dh-soon" class="dh-footer-link">Privacy Policy</a><a href="#dh-soon" class="dh-footer-link">Terms of Service</a></div>'
         '</div>'
         '<div class="dh-footer-bottom">'
         '<span>© 2026 Destiny Reveal · By Zio</span>'
@@ -571,6 +719,7 @@ def render(semua_sistem_list):
     # Root container: 1 key buat scope SEMUA css tombol (primary/secondary
     # pill) di Home, biar gak bocor ke halaman lain (reveal/tutorial/dll).
     with st.container(key="dh_home_root"):
+        st.markdown('<div id="dh-top" class="dh-anchor"></div>', unsafe_allow_html=True)
         _render_hero()
 
         with st.container(key="dh_section_matrix"):
