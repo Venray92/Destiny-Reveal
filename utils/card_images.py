@@ -1,19 +1,12 @@
 """
 Util buat load kartu simbol (assets/cards/...) sebagai data URI base64,
-supaya bisa langsung dipasang ke tag <img> lewat st.markdown(unsafe_allow_html=True)
-tanpa perlu hosting file kartu secara terpisah.
+supaya bisa langsung dipasang ke tag <img> lewat st.markdown(unsafe_allow_html=True).
 
 Dipakai bareng oleh loadingpage.py (kartu blur, versi "teaser") dan
 revealpage.py (kartu jelas/full, versi hasil akhir).
 
-BUG YANG DIPERBAIKI (26 Sep 2026): versi sebelumnya cuma punya SATU gambar
-tetap per KATEGORI sistem (SYSTEM_CARD_IMAGE, misal "Zodiak" -> selalu
-"leo.png"), padahal tiap kategori itu punya banyak kemungkinan hasil
-(12 zodiak, 12 shio, 5 pasaran weton, 12 angka numerologi, 22 arketipe
-matrix destiny). Akibatnya gambar kartu yang muncul SELALU sama nggak
-peduli hasil perhitungan aslinya apa (mis. teks bilang "Sagittarius" tapi
-kartunya tetap gambar Leo). Sekarang dipilih dari hasil MENTAH (raw_result
-dari content/result_builder.compute_raw_result) lewat
+Bug-fix: lihat docs/bugs-fixed.md.
+"""
 `card_relative_path_for_result()`, bukan dari nama kategori doang.
 """
 
