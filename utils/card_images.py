@@ -7,8 +7,7 @@ revealpage.py (kartu jelas/full, versi hasil akhir).
 
 Bug-fix: lihat docs/bugs-fixed.md.
 """
-`card_relative_path_for_result()`, bukan dari nama kategori doang.
-"""
+
 
 import base64
 from pathlib import Path
