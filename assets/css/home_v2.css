@@ -85,7 +85,12 @@
     font-size: 13.5px !important; font-weight: 600 !important; color: var(--dh-text-dark) !important;
     min-height: 0 !important; box-shadow: none !important;
 }
-.st-key-dhnav_links div.stButton > button:hover { color: var(--dh-primary) !important; }
+.st-key-dhnavbar .st-key-dhnav_links div.stButton > button { transition: background .15s, color .15s; border-radius: 100px !important; padding: 6px 14px !important; }
+.st-key-dhnavbar .st-key-dhnav_links div.stButton > button:hover,
+.st-key-dhnavbar .st-key-dhnav_links div[data-testid="stPopover"] button:hover {
+    background: #FBF4EA !important; color: #D97706 !important;
+}
+.st-key-dhnavbar .st-key-dhnav_links div.stButton > button:hover p { color: #D97706 !important; }
 .st-key-dhnav_links div.stButton > button p { font-weight: 600 !important; }
 /* "Jelajahi ▾" — trigger popover, JANGAN punya pill background sendiri,
    biar nyatu polos kayak item nav lain. */
@@ -94,7 +99,15 @@
     font-size: 13.5px !important; font-weight: 600 !important; color: var(--dh-text-dark) !important;
     min-height: 0 !important; box-shadow: none !important;
 }
-.st-key-dhnav_links div[data-testid="stPopover"] button:hover { color: var(--dh-primary) !important; }
+.st-key-dhnav_links div[data-testid="stPopover"] button:hover { color: #D97706 !important; }
+.st-key-dhnavbar .st-key-dhnav_links div[data-testid="stPopover"] button { border-radius: 100px !important; padding: 6px 12px !important; transition: background .15s, color .15s; }
+.st-key-dhnavbar .st-key-dhnav_links div[data-testid="stPopover"] button:hover p { color: #D97706 !important; }
+.st-key-dhnavbar .st-key-dhnav_links div[data-testid="stPopover"] button p { white-space: nowrap !important; overflow: visible !important; text-overflow: clip !important; }
+/* Chevron dropdown di "Jelajahi": app.css nyembunyiin panah popover secara global
+   (buat chip lain), di sini dimunculin lagi khusus nav. */
+.st-key-dhnavbar .st-key-dhnav_links button[data-testid="stPopoverButton"] div[aria-hidden="true"] {
+    display: flex !important; color: var(--dh-text-muted); margin-left: 2px;
+}
 
 /* ── HERO ─────────────────────────────────────────────────────── */
 .stApp .dh-hero {
@@ -115,6 +128,15 @@
     max-width: 640px; margin: 0 auto 30px auto;
 }
 .stApp .dh-hero-caption { font-size: 12.5px; color: var(--dh-text-muted); margin-top: 16px; }
+
+/* Tombol CTA hero (primary) disamain tinggi 48px dengan tombol sekunder */
+.st-key-dhhero_cta_primary div.stButton > button {
+    height: 48px !important; min-height: 48px !important; padding: 0 1.5rem !important;
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    white-space: nowrap !important;
+}
+/* Smooth scroll buat anchor (#dh-matrix): scroller aslinya container Streamlit, bukan <html> */
+html, body, [data-testid="stMain"], section.main, [data-testid="stAppViewContainer"] { scroll-behavior: smooth; }
 
 /* Semua tombol primary/secondary di Home discope lewat 1 root key
    (.st-key-dh_home_root), biar gak bocor ke halaman lain. */
@@ -137,8 +159,9 @@
 /* Tombol sekunder hero ("Lihat 15 Sistem Matrix") — plain <a>, bukan
    st.button, jadi class CSS biasa nempel langsung. */
 .stApp a.dh-btn-anchor-secondary {
-    display: flex !important; align-items: center !important; justify-content: center !important;
-    height: 42px !important; width: 100% !important; padding: 0 18px !important; box-sizing: border-box !important;
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    height: 48px !important; width: 100% !important; padding: 0 1.5rem !important; box-sizing: border-box !important;
+    white-space: nowrap !important;
     border-radius: 100px !important; border: 1.5px solid var(--dh-border) !important;
     color: var(--dh-text-dark) !important; font-weight: 700 !important; font-size: 14px !important;
     background: var(--dh-card) !important; text-decoration: none !important;
@@ -199,7 +222,16 @@
 .stApp .dh-section-sub { font-family: 'Lora', serif; font-size: 14.5px; color: var(--dh-text-muted); }
 
 /* ── MATRIX DIAGRAM ───────────────────────────────────────────── */
-.stApp .dh-filter-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
+.st-key-dhfilter_row { margin-bottom: 30px; }
+.st-key-dhfilter_row [data-testid="stHorizontalBlock"] { justify-content: center !important; flex-wrap: wrap !important; gap: 10px !important; }
+.st-key-dhfilter_row [data-testid="stColumn"] { flex: 0 0 auto !important; width: auto !important; min-width: 0 !important; }
+.st-key-dh_home_root .st-key-dhfilter_row div.stButton > button {
+    height: 38px !important; min-height: 38px !important; padding: 0 18px !important; font-size: 12.5px !important;
+    font-weight: 700 !important; white-space: nowrap !important; box-shadow: none !important;
+    transition: background .15s, color .15s, border-color .15s;
+}
+.st-key-dh_home_root .st-key-dhfilter_row div.stButton > button[kind="primary"] { color: #fff !important; }
+.st-key-dh_home_root .st-key-dhfilter_row div.stButton > button[kind="primary"] p { color: #fff !important; }
 .stApp .dh-filter-chip {
     display: inline-flex; align-items: center; padding: 8px 18px; border-radius: 100px;
     font-size: 12.5px; font-weight: 700; border: 1.5px solid var(--dh-border);
@@ -250,6 +282,7 @@
     /* titik tengah IKON (bukan tengah ikon+label) tepat di koordinat radial,
        biar garis dashed berujung pas di pusat lingkaran ikon */
     position: absolute !important; transform: translate(-50%, -19px); z-index: 2;
+    transition: opacity .25s ease, filter .25s ease;
     width: 68px !important; display: flex !important; flex-direction: column !important;
     align-items: center !important;
 }
@@ -315,20 +348,23 @@ div[class*="st-key-dhexplore_card"] [data-testid="stElementContainer"] { positio
 }
 .stApp .dh-explore-title { font-weight: 800; font-size: 14.5px; color: var(--dh-text-dark); }
 .stApp .dh-explore-subtitle { font-size: 11.5px; color: var(--dh-text-muted); }
-.stApp .dh-explore-item {
+.stApp a.dh-explore-item {
     display: flex; align-items: center; justify-content: space-between; gap: 10px;
     padding: 11px 12px; margin-bottom: 8px; border-radius: 10px;
-    background: var(--dh-bg-alt);
+    background: #FAF6EF; border: 1px solid transparent; cursor: pointer;
+    text-decoration: none !important; transition: background .15s, border-color .15s;
 }
-.stApp .dh-explore-item-title { font-size: 13px; font-weight: 700; color: var(--dh-text-dark); }
+.stApp a.dh-explore-item:hover { background: #FDF3E0; border-color: #EBCFA6; }
+.stApp a.dh-explore-item:hover .dh-explore-item-title { color: var(--dh-primary); }
+.stApp a.dh-explore-item:hover .dh-explore-item-arrow { color: var(--dh-primary); }
+.stApp .dh-explore-item-title { font-size: 13px; font-weight: 700; color: var(--dh-text-dark); transition: color .15s; }
 .stApp .dh-explore-item-sub { font-size: 11px; color: var(--dh-text-muted); margin-top: 2px; }
-.stApp .dh-explore-item-arrow { color: var(--dh-text-muted); flex-shrink: 0; }
+.stApp .dh-explore-item-arrow { color: var(--dh-text-muted); flex-shrink: 0; transition: color .15s; }
 .stApp .dh-explore-item-price {
     flex-shrink: 0; font-size: 10.5px; font-weight: 800; color: var(--dh-primary-dark);
     background: var(--dh-warning-bg); border-radius: 100px; padding: 4px 11px; white-space: nowrap;
 }
 .stApp .dh-explore-item-price.vip { background: var(--dh-primary); color: #fff; }
-.stApp .dh-explore-item.highlight { background: var(--dh-warning-bg); }
 
 /* Footer kartu: garis pemisah + tombol-tombolnya (di dalam kartu) */
 [class*="st-key-dhexplore_foot"] {
@@ -365,15 +401,22 @@ div[data-testid="stVerticalBlock"].st-key-dhexplore_card_premium {
 
 /* ── DATA FLOW CARDS (redesign dr-bulk-card lama, namespace baru) ─ */
 .stApp .dh-flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.stApp .dh-flow-grid .dh-flow-card.wide { grid-column: span 2; }
-.stApp .dh-flow-card {
+.stApp .dh-flow-grid a.dh-flow-card.wide { grid-column: span 2; }
+.stApp a.dh-flow-card {
     background: var(--dh-bg-alt); border: 1.5px solid var(--dh-border); border-radius: 16px;
     padding: 22px; box-sizing: border-box; display: flex; flex-direction: column;
+    cursor: pointer; text-decoration: none !important; color: inherit;
+    transition: border-color .18s, transform .18s, box-shadow .18s;
 }
+.stApp a.dh-flow-card:hover {
+    border-color: #C25E00; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.stApp a.dh-flow-card:hover .dh-flow-title { color: var(--dh-primary); }
+.stApp a.dh-flow-card:hover .dh-flow-foot > span:last-child { color: var(--dh-primary); }
 .stApp .dh-flow-card .dh-flow-list { flex: 1; }
 @media (max-width: 900px) {
     .stApp .dh-flow-grid { grid-template-columns: 1fr; }
-    .stApp .dh-flow-grid .dh-flow-card.wide { grid-column: auto; }
+    .stApp .dh-flow-grid a.dh-flow-card.wide { grid-column: auto; }
 }
 .stApp .dh-flow-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
 .stApp .dh-flow-icon {
@@ -384,7 +427,7 @@ div[data-testid="stVerticalBlock"].st-key-dhexplore_card_premium {
     font-size: 10px; font-weight: 800; color: var(--dh-primary-dark);
     background: var(--dh-warning-bg); border-radius: 100px; padding: 3px 10px;
 }
-.stApp .dh-flow-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 16px; color: var(--dh-text-dark); margin-bottom: 6px; }
+.stApp .dh-flow-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 16px; color: var(--dh-text-dark); margin-bottom: 6px; transition: color .18s; }
 .stApp .dh-flow-desc { font-size: 12.5px; color: var(--dh-text-muted); line-height: 1.55; margin-bottom: 12px; }
 .stApp .dh-flow-list { list-style: none; padding: 0; margin: 0 0 14px 0; }
 .stApp .dh-flow-list li { font-size: 13px; color: var(--dh-text-dark); padding: 3px 0; }
