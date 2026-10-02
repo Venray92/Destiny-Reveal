@@ -17,3 +17,9 @@
 **Root cause:** Nama file di-rename tapi import path di 2 file pemanggil belum ikut diupdate.
 **Fix:** Update import ke nama file baru.
 **File:** `content/result_builder.py`, `utils/card_images.py`
+
+## 2 Okt 2026 (ronde 2) — Dropdown Tahun kepotong, gak bisa discroll
+**Gejala:** Dropdown dengan opsi banyak (mis. Tahun, ~95 opsi) kepotong dan nggak bisa discroll turun buat lihat opsi selanjutnya — user cuma lihat beberapa opsi teratas.
+**Root cause:** `div[role="listbox"]` pakai `overflow: hidden !important`.
+**Fix:** Ganti ke `overflow-y: auto` + `max-height: 260px` (border-radius tetap kepakai di container sendiri).
+**File:** `assets/css/app.css` (dulu inline di `app.py`)

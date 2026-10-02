@@ -11,3 +11,6 @@ Sebelumnya cuma 5 sistem lama (Zodiak/Shio/Weton/Numerologi/Matrix Destiny) yang
 
 ## 2 Okt 2026 — Rapihin struktur project
 File interpretations yang tadinya 1 file gemuk per sistem (zodiak.py 793 baris, shio.py 938 baris, mbti.py 1193 baris, dst) dipecah jadi 1 file per entri (per sign/shio/pasaran/angka/titik), masing-masing di bawah 50 baris. Nama file `xxx__yyy.py` (double underscore) dirapihin jadi `yyy.py`. Duplikat basi (`content__result_builder.py`, `utils__card_images.py`) dihapus. File test yang nyasar di root dipindah ke `tests/`.
+
+## 2 Okt 2026 (ronde 2) — Pisahin CSS & notes dari app.py
+CSS (~390 baris, tadinya 1 string raksasa di `app.py`) dipindah ke `assets/css/app.css`, dibaca & di-inject lewat `Path.read_text()`. Catatan dated/narrative (bug-fix dropdown, keputusan sinkronisasi Home↔Reveal Yourself 27 Sep) dipindah ke `docs/bugs-fixed.md` & diringkas di sini, digantikan pointer singkat di kode.
