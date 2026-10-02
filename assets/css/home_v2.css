@@ -398,6 +398,17 @@ div[class*="st-key-dhexplore_card"] [data-testid="stElementContainer"] { positio
 div[data-testid="stVerticalBlock"].st-key-dhexplore_card_premium {
     border: 2px solid rgba(200,98,53,0.35);
 }
+/* Hover kartu luar (UI4): border oranye + shadow + naik 3px. Item di dalamnya
+   punya hover sendiri (bg krem) dan tetap jalan karena beda elemen. */
+div[data-testid="stVerticalBlock"][class*="st-key-dhexplore_card"] {
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+div[data-testid="stVerticalBlock"][class*="st-key-dhexplore_card"]:hover {
+    border-color: #D97706; box-shadow: 0 8px 24px rgba(217,119,6,0.12); transform: translateY(-3px);
+}
+div[data-testid="stVerticalBlock"].st-key-dhexplore_card_premium:hover {
+    border-color: #C25E00; box-shadow: 0 12px 32px rgba(194,94,0,0.24);
+}
 
 /* ── DATA FLOW CARDS (redesign dr-bulk-card lama, namespace baru) ─ */
 .stApp .dh-flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -488,11 +499,135 @@ div[data-testid="stVerticalBlock"].st-key-dhexplore_card_premium {
 .stApp .dh-footer-tagline { font-size: 12.5px; color: var(--dh-text-muted); margin-bottom: 10px; }
 .stApp .dh-footer-note { font-size: 11px; color: var(--dh-text-muted); font-style: italic; line-height: 1.5; }
 .stApp .dh-footer-col-title { font-size: 11px; font-weight: 800; letter-spacing: 0.05em; color: var(--dh-text-dark); margin-bottom: 12px; }
-.stApp .dh-footer-link { display: block; font-size: 12.5px; color: var(--dh-text-muted); padding: 5px 0; }
-.stApp .dh-footer-link.highlight { color: var(--dh-primary); font-weight: 700; }
+.stApp a.dh-footer-link {
+    display: block; font-size: 12.5px; color: var(--dh-text-muted); padding: 5px 0;
+    text-decoration: none !important; cursor: pointer; transition: color .2s ease;
+}
+.stApp a.dh-footer-link:hover { color: #D97706; }
+.stApp a.dh-footer-link.highlight:hover { color: #C25E00; }
+/* Target anchor: offset biar gak ketutup navbar fixed */
+.dh-anchor { height: 0; scroll-margin-top: 110px; }
+.stApp a.dh-footer-link.highlight { color: var(--dh-primary); font-weight: 700; }
 .stApp .dh-footer-bottom {
     margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--dh-border);
     display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
     font-size: 11.5px; color: var(--dh-text-muted);
 }
 .stApp .dh-footer-bottom em { font-style: italic; }
+
+
+/* ── MEGA MENU "Jelajahi" (UI4) ───────────────────────────────── */
+/* Trigger aktif (panel kebuka) = pill krem + panah naik */
+.st-key-dhnavbar .st-key-dhnav_links div[data-testid="stPopover"] button[aria-expanded="true"] {
+    background: #FBF4EA !important; color: #D97706 !important;
+}
+.st-key-dhnavbar .st-key-dhnav_links div[data-testid="stPopover"] button[aria-expanded="true"] p { color: #D97706 !important; }
+.st-key-dhnavbar .st-key-dhnav_links button[data-testid="stPopoverButton"] div[aria-hidden="true"] { transition: transform .2s ease; }
+.st-key-dhnavbar .st-key-dhnav_links button[data-testid="stPopoverButton"][aria-expanded="true"] div[aria-hidden="true"] { transform: rotate(180deg); }
+
+/* Panel: floating, center di bawah navbar */
+div[data-testid="stPopoverBody"]:has(.dh-mega) {
+    position: fixed !important; top: 76px !important; left: 50% !important; right: auto !important;
+    transform: translateX(-50%) !important; width: min(940px, 94vw) !important; max-width: none !important; max-height: none !important;
+    padding: 22px 24px !important; border-radius: 20px !important; border: 1.5px solid var(--dh-border) !important;
+    box-shadow: 0 24px 60px -20px rgba(45,42,38,0.28) !important; background: #fff !important; overflow: visible !important;
+}
+.dh-mega { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.dh-mega-col { display: flex; flex-direction: column; gap: 4px; }
+.dh-mega-col-title {
+    display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800;
+    letter-spacing: 0.06em; color: var(--dh-text-dark); padding: 0 12px 8px 12px;
+}
+.dh-mega-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--dh-success); }
+.dh-mega-col-title.koin .dh-mega-dot { background: #D97706; }
+.dh-mega-col-title.lain .dh-mega-dot { background: #8B5CF6; }
+a.dh-mega-item {
+    display: flex; flex-direction: column; gap: 2px; padding: 9px 12px; border-radius: 12px;
+    border: 1px solid transparent; text-decoration: none !important; cursor: pointer;
+    transition: background .15s ease, border-color .15s ease;
+}
+a.dh-mega-item:hover { background: #FDF3E0; border-color: #EBCFA6; }
+.dh-mega-title { font-size: 13px; font-weight: 700; color: #4A4640; transition: color .15s ease; }
+.dh-mega-sub { font-size: 11.5px; color: #A39B8E; line-height: 1.4; }
+a.dh-mega-item:hover .dh-mega-title { color: #B2552C; }
+.dh-mega-foot {
+    display: flex; align-items: center; gap: 8px; margin-top: 6px; padding: 10px 12px 0 12px;
+    border-top: 1px solid var(--dh-border); font-size: 12px; font-weight: 700;
+}
+.dh-mega-foot a { color: var(--dh-text-muted); text-decoration: none !important; cursor: pointer; transition: color .15s; }
+.dh-mega-foot a:hover { color: #D97706; }
+.dh-mega-foot i { color: #CFC6B8; font-style: normal; }
+
+/* ── MODAL "Reveal Dirimu" (UI4) ──────────────────────────────── */
+div[data-testid="stDialog"] { background: rgba(0,0,0,0.5) !important; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+div[data-testid="stDialog"] div[role="dialog"] {
+    background: var(--dh-bg) !important; border-radius: 24px !important; border: 1px solid var(--dh-border);
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.45); width: min(760px, 94vw) !important;
+}
+/* judul native disembunyiin, diganti header custom (eyebrow + title + sub) */
+div[data-testid="stDialog"] h2 { display: none !important; }
+div[data-testid="stDialog"] [data-testid="stDialogCloseButton"], div[data-testid="stDialog"] button[aria-label="Close"] { color: var(--dh-text-muted); }
+.dh-modal-head { text-align: left; margin-bottom: 18px; }
+.dh-modal-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; color: var(--dh-primary); margin-bottom: 8px; }
+.dh-modal-title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; color: var(--dh-text-dark); }
+.dh-modal-sub { font-size: 13.5px; color: var(--dh-text-muted); margin-top: 6px; }
+.dh-modal-section {
+    display: flex; align-items: center; gap: 10px; margin: 14px 0 10px 0; padding-top: 14px;
+    border-top: 1px solid var(--dh-border); font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; color: var(--dh-text-dark);
+}
+.dh-modal-section em {
+    font-style: normal; font-size: 10px; font-weight: 800; letter-spacing: 0; color: var(--dh-primary-dark);
+    background: #FBEBDD; border-radius: 100px; padding: 3px 10px;
+}
+.dh-modal-hint { font-size: 12.5px; color: var(--dh-text-muted); margin-bottom: 10px; }
+/* Input: hover/focus = border oranye lembut */
+div[data-testid="stDialog"] [data-baseweb="input"], div[data-testid="stDialog"] [data-baseweb="select"] > div {
+    background: #fff !important; border-radius: 12px !important; border: 1.5px solid var(--dh-border) !important; transition: border-color .2s ease;
+}
+div[data-testid="stDialog"] [data-baseweb="input"]:hover, div[data-testid="stDialog"] [data-baseweb="select"] > div:hover,
+div[data-testid="stDialog"] [data-baseweb="input"]:focus-within { border-color: #E8A06E !important; }
+div[data-testid="stDialog"] [data-baseweb="input"] > div { background: transparent !important; }
+
+/* Kartu mode: container = kartu, tombol transparan nutupin seluruh kartu */
+div[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] {
+    position: relative; background: #fff; border: 1.5px solid var(--dh-border); border-radius: 16px;
+    padding: 16px 16px 14px 16px; gap: 0 !important; height: 100%; box-sizing: border-box;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+div[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] [data-testid="stElementContainer"] { position: static !important; }
+div[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"]:hover {
+    border-color: #D97706; box-shadow: 0 8px 22px rgba(217,119,6,0.14); transform: translateY(-2px);
+}
+div[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"]:has(.dh-mm-sel) {
+    border: 2.5px solid var(--dh-primary); box-shadow: 0 6px 18px rgba(200,98,53,0.16); padding: 15px 15px 13px 15px;
+}
+div[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] [class*="st-key-dhmodal_pick_"] { position: absolute !important; inset: 0; z-index: 3; margin: 0 !important; }
+div[data-testid="stDialog"] [class*="st-key-dhmodal_pick_"] button, div[data-testid="stDialog"] [class*="st-key-dhmodal_pick_"] div.stButton {
+    width: 100% !important; height: 100% !important; opacity: 0; cursor: pointer; border-radius: 16px !important;
+}
+.dh-mm-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; min-height: 20px; }
+.dh-mm-tag { font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: var(--dh-text-muted); }
+.dh-mm-badge { font-size: 9.5px; font-weight: 800; color: #fff; background: var(--dh-primary); border-radius: 100px; padding: 3px 9px; }
+.dh-mm-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--dh-text-dark); transition: color .2s ease; }
+div[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"]:hover .dh-mm-title, .dh-mm-sel .dh-mm-title { color: var(--dh-primary); }
+.dh-mm-systems { font-size: 11.5px; color: var(--dh-text-muted); line-height: 1.5; margin: 6px 0 10px 0; }
+.dh-mm-need { font-size: 11px; font-weight: 700; color: var(--dh-text-dark); margin-bottom: 10px; }
+.dh-mm-foot { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--dh-border); padding-top: 10px; font-size: 11px; }
+.dh-mm-foot b { color: var(--dh-primary-dark); }
+.dh-mm-foot span { color: var(--dh-text-muted); }
+.dh-modal-info {
+    margin: 14px 0 16px 0; padding: 11px 14px; border-radius: 12px; background: #EEF3EC;
+    color: #5E7E5A; font-size: 12.5px; font-weight: 600;
+}
+/* CTA modal */
+div[data-testid="stDialog"] div.stButton > button[kind="primary"] {
+    background: var(--dh-primary) !important; border-color: var(--dh-primary) !important; color: #fff !important;
+    border-radius: 100px !important; height: 50px; font-weight: 700 !important;
+    transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+div[data-testid="stDialog"] div.stButton > button[kind="primary"]:hover {
+    background: var(--dh-primary-dark) !important; box-shadow: 0 10px 24px rgba(200,98,53,0.35); transform: translateY(-1px);
+}
+div[data-testid="stDialog"] div.stButton > button[kind="primary"] p { color: #fff !important; }
+#dh-top.dh-anchor { scroll-margin-top: 400px; }
+div[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] [data-testid="stMarkdownContainer"] { margin-bottom: 0 !important; }
