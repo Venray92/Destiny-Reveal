@@ -6,22 +6,11 @@ Tarot) + 5 sistem kuesioner Mode Mendalam (MBTI, Big Five, Enneagram,
 DISC, Love Language).
 
 Dipakai oleh:
-- views/loadingpage.py / views/loadingpage_lengkap.py -> compute_raw_result(),
-  dipanggil begitu animasi satu titik selesai, hasil MENTAH-nya (dict dari
-  engine) disimpan ke st.session_state.loading_results[system].
-- views/loadingpage_mendalam.py -> compute_quiz_raw_result(), khusus 5
-  sistem kuesioner (butuh jawaban user, bukan tanggal lahir).
-- views/revealpage.py -> build_display_data(), dipanggil saat amplop
-  dibuka/ditampilkan, menggabungkan hasil mentah + kamus konten jadi dict
-  siap-render (tagline, chip, title, p1, p2, quote, p3, dst — struktur yang
-  sama seperti DUMMY_RESULTS lama).
+- views/loadingpage.py / views/loadingpage_lengkap.py -> compute_raw_result()
+- views/loadingpage_mendalam.py -> compute_quiz_raw_result() (5 sistem kuesioner)
+- views/revealpage.py -> build_display_data()
 
-REVISI (28 Sep 2026): sebelumnya cuma 5 sistem lama yang tersambung di sini
-walau kamus konten + engine buat 10 sistem lainnya sudah lengkap ada di
-GitHub (BaZi/Zi Wei/Human Design/Golongan Darah/Tarot ditulis di sesi
-sebelumnya, MBTI/Big Five/Enneagram/DISC/Love Language baru ditulis batch
-ini) -- akibatnya amplop 10 sistem itu selalu jatuh ke fallback generic
-walau datanya sudah ada. Batch ini nyambungin SEMUANYA.
+Changelog & bug-fix: lihat docs/changelog.md.
 """
 
 from content.interpretations.big_five import BIG_FIVE_CONTENT
