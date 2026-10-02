@@ -27,13 +27,22 @@
    Container key = class beneran yang nempel ke DOM (.st-key-xxx),
    bukan markdown div open/close terpisah — itu gak kebungkus (lihat
    docs/bugs-fixed.md). */
-.st-key-dhnav_wrap { padding: 10px 0 18px 0; }
+/* position:sticky gak kepake di Streamlit (ada ancestor stMain/
+   element-container yang overflow-nya ngeganggu sticky context), jadi
+   dipakein position:fixed biar beneran freeze di atas pas discroll. */
+.st-key-dhnav_wrap {
+    position: fixed; top: 0.75rem; left: 0; right: 0; z-index: 999;
+    display: flex; justify-content: center; padding: 0 2rem; box-sizing: border-box;
+}
+.st-key-dhnavbar { width: 100%; max-width: 1200px; margin: 0 auto; }
 .st-key-dhnavbar {
     background: var(--dh-card); border: 1.5px solid var(--dh-border);
-    border-radius: 100px; padding: 10px 14px 10px 22px;
+    border-radius: 100px; padding: 14px 14px 14px 22px;
     box-shadow: 0 10px 30px -16px rgba(45,42,38,0.18);
 }
+.st-key-dhnavbar [data-testid="stHorizontalBlock"] { align-items: center !important; }
 .st-key-dhnavbar div.stButton > button { border-radius: 100px !important; }
+.dh-nav-sep { color: var(--dh-border); text-align: center; font-size: 14px; }
 .dh-navbar-logo {
     font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700;
     color: var(--dh-text-dark); white-space: nowrap; display: flex; align-items: center; gap: 6px;
@@ -41,7 +50,7 @@
 .dh-navbar-logo .dh-spark { color: var(--dh-primary); }
 .st-key-dhnav_cta div.stButton > button[kind="primary"] {
     background: var(--dh-primary) !important; border-color: var(--dh-primary) !important;
-    font-weight: 700 !important; font-size: 13px !important;
+    font-weight: 700 !important; font-size: 13px !important; white-space: nowrap !important;
 }
 .st-key-dhnav_cta div.stButton > button[kind="primary"]:hover {
     background: var(--dh-primary-dark) !important; border-color: var(--dh-primary-dark) !important;
@@ -53,9 +62,20 @@
 }
 .st-key-dhnav_links div.stButton > button:hover { color: var(--dh-primary) !important; }
 .st-key-dhnav_links div.stButton > button p { font-weight: 600 !important; }
+/* "Jelajahi ▾" — trigger popover, JANGAN punya pill background sendiri,
+   biar nyatu polos kayak item nav lain. */
+.st-key-dhnav_links div[data-testid="stPopover"] button {
+    background: transparent !important; border: none !important; padding: 4px 2px !important;
+    font-size: 13.5px !important; font-weight: 600 !important; color: var(--dh-text-dark) !important;
+    min-height: 0 !important; box-shadow: none !important;
+}
+.st-key-dhnav_links div[data-testid="stPopover"] button:hover { color: var(--dh-primary) !important; }
 
 /* ── HERO ─────────────────────────────────────────────────────── */
-.dh-hero { text-align: center; padding: 34px 0 10px 0; }
+.dh-hero {
+    text-align: center; padding: 34px 0 10px 0;
+    background: radial-gradient(ellipse 55% 60% at 50% 15%, rgba(200,98,53,0.07) 0%, rgba(200,98,53,0) 70%);
+}
 .dh-hero-badge {
     display: inline-flex; align-items: center; gap: 7px; padding: 7px 16px;
     border: 1px solid var(--dh-border); border-radius: 100px; background: var(--dh-card);
@@ -75,7 +95,8 @@
    (.st-key-dh_home_root), biar gak bocor ke halaman lain. */
 .st-key-dh_home_root div.stButton > button[kind="primary"] {
     background: var(--dh-primary) !important; border-color: var(--dh-primary) !important;
-    border-radius: 100px !important; font-weight: 700 !important;
+    border-radius: 100px !important; font-weight: 700 !important; white-space: nowrap !important;
+    box-shadow: 0 14px 28px -12px rgba(200,98,53,0.55) !important;
 }
 .st-key-dh_home_root div.stButton > button[kind="primary"]:hover {
     background: var(--dh-primary-dark) !important; border-color: var(--dh-primary-dark) !important;
@@ -102,22 +123,27 @@ a.dh-btn-anchor-secondary:hover { border-color: var(--dh-primary) !important; co
 /* ── HERO IMAGE CARD ──────────────────────────────────────────── */
 .dh-hero-card {
     position: relative; max-width: 980px; margin: 30px auto 0 auto; border-radius: 22px;
-    overflow: hidden; min-height: 300px; border: 1.5px solid var(--dh-border);
-    background:
-        radial-gradient(circle at 50% 42%, rgba(253,246,227,0.12) 0%, transparent 38%),
-        linear-gradient(135deg, #5b544a 0%, #857a68 38%, #a89a82 60%, #6b6054 100%);
+    overflow: hidden; min-height: 320px; border: 1.5px solid var(--dh-border);
+    background-color: #5b544a; background-size: cover; background-position: center;
     display: flex; align-items: flex-end;
 }
-.dh-hero-card svg { position: absolute; top: 14%; left: 50%; transform: translateX(-50%); opacity: 0.85; }
+/* Dark gradient overlay (bawah + kiri) biar teks putih tetep legible di
+   atas foto poster "Celestial Harmony" apa pun warnanya. */
+.dh-hero-card::before {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background:
+        linear-gradient(180deg, rgba(20,16,12,0) 35%, rgba(20,16,12,0.82) 100%),
+        linear-gradient(90deg, rgba(20,16,12,0.6) 0%, rgba(20,16,12,0) 55%);
+}
 .dh-hero-card-overlay {
     position: relative; z-index: 2; padding: 26px 34px 30px 34px; max-width: 560px;
 }
 .dh-hero-card-badge {
     display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 100px;
-    background: rgba(253,246,227,0.92); color: var(--dh-primary-dark); font-size: 11.5px; font-weight: 700;
+    background: #FFFFFF; color: var(--dh-primary); font-size: 11.5px; font-weight: 700;
     letter-spacing: 0.03em; margin-bottom: 14px;
 }
-.dh-hero-card-title { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; color: #fffaf2; line-height: 1.4; margin-bottom: 8px; }
+.dh-hero-card-title { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; color: #FFFFFF; line-height: 1.4; margin-bottom: 8px; }
 .dh-hero-card-sub { font-size: 12.5px; color: #e8ddc9; line-height: 1.55; }
 
 /* ── SECTION SHELL ────────────────────────────────────────────── */
@@ -125,9 +151,19 @@ a.dh-btn-anchor-secondary:hover { border-color: var(--dh-primary) !important; co
    bukan markdown div open/close — itu gak kebungkus di DOM. */
 .st-key-dh_section_explore,
 .st-key-dh_section_testimonials { padding: 56px 0; }
-.st-key-dh_section_dataflow,
+/* Data Flow section = putih (beda dari base cream), cocok sama mockup
+   1_7.png — card-nya sendiri yang krem, bukan section-nya. */
+.st-key-dh_section_dataflow {
+    padding: 56px 0; background: #FFFFFF;
+    border-top: 1px solid var(--dh-border); border-bottom: 1px solid var(--dh-border);
+}
+/* Final CTA = full-bleed (lepas dari boxed container Streamlit) + radial
+   warm glow di tengah, fade ke putih di tepi — sesuai mockup 1_9.png. */
 .st-key-dh_section_finalcta {
-    padding: 56px 0; background: var(--dh-bg-alt);
+    position: relative; left: 50%; right: 50%; width: 100vw;
+    margin-left: -50vw; margin-right: -50vw; box-sizing: border-box;
+    padding: 56px max(5vw, calc(50vw - 600px)) 56px max(5vw, calc(50vw - 600px));
+    background: radial-gradient(ellipse 70% 100% at 50% 50%, rgba(200,98,53,0.08) 0%, #FFFFFF 75%);
     border-top: 1px solid var(--dh-border); border-bottom: 1px solid var(--dh-border);
 }
 .dh-section-head { text-align: center; margin-bottom: 34px; }
@@ -158,6 +194,12 @@ a.dh-btn-anchor-secondary:hover { border-color: var(--dh-primary) !important; co
     content: ""; position: absolute; inset: 8%; border-radius: 50%;
     border: 1.5px dashed var(--dh-border); pointer-events: none;
 }
+/* Garis dashed statis pusat → tiap node (Opsi A, lihat home_v2.py) */
+.dh-matrix-lines {
+    position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
+}
+.dh-matrix-lines line { stroke: #D9C9B5; stroke-width: 0.35; stroke-dasharray: 2 2.2; }
+
 .dh-matrix-center {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
     width: 27%; aspect-ratio: 1/1; border-radius: 50%; border: 2.5px solid var(--dh-primary);
@@ -203,8 +245,9 @@ a.dh-btn-anchor-secondary:hover { border-color: var(--dh-primary) !important; co
 
 /* ── SOCIAL PROOF COUNTER ─────────────────────────────────────── */
 .dh-proof-bar {
-    text-align: center; padding: 14px 0; border-top: 1px solid var(--dh-border);
+    text-align: center; margin: 28px 0; padding: 14px 0; border-top: 1px solid var(--dh-border);
     border-bottom: 1px solid var(--dh-border); font-size: 13px; color: var(--dh-text-dark); font-weight: 600;
+    background: #FFFFFF;
 }
 .dh-proof-dot { color: var(--dh-success); margin-right: 6px; }
 
@@ -227,56 +270,81 @@ a.dh-btn-anchor-secondary:hover { border-color: var(--dh-primary) !important; co
 .dh-explore-subtitle { font-size: 11.5px; color: var(--dh-text-muted); }
 .dh-explore-item {
     display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    padding: 11px 0; border-bottom: 1px solid var(--dh-bg-alt);
+    padding: 11px 12px; margin-bottom: 8px; border-radius: 10px;
+    background: var(--dh-bg-alt);
 }
-.dh-explore-item:last-of-type { border-bottom: none; }
 .dh-explore-item-title { font-size: 13px; font-weight: 700; color: var(--dh-text-dark); }
 .dh-explore-item-sub { font-size: 11px; color: var(--dh-text-muted); margin-top: 2px; }
 .dh-explore-item-arrow { color: var(--dh-text-muted); flex-shrink: 0; }
-.dh-explore-item.highlight { background: var(--dh-warning-bg); margin: 0 -12px; padding: 11px 12px; border-radius: 10px; border-bottom: none; }
-.dh-explore-foot { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--dh-border); }
+.dh-explore-item-price {
+    flex-shrink: 0; font-size: 10.5px; font-weight: 800; color: var(--dh-primary-dark);
+    background: var(--dh-warning-bg); border-radius: 100px; padding: 4px 11px; white-space: nowrap;
+}
+.dh-explore-item-price.vip { background: var(--dh-primary); color: #fff; }
+.dh-explore-item.highlight { background: var(--dh-warning-bg); }
+.dh-explore-foot { margin-top: 10px; }
 
 [class*="st-key-dhexplore_col_"] div.stButton > button[kind="secondary"],
 [class*="st-key-dhexplore_col_"] div.stButton > button[kind="primary"] {
     border-radius: 100px !important; font-size: 13px !important; padding: 9px 18px !important;
     min-height: 0 !important;
 }
+a.dh-explore-pricelink {
+    display: block !important; text-align: center !important; margin-top: 10px !important;
+    padding: 9px 12px !important; border-radius: 100px !important; background: var(--dh-bg-alt) !important;
+    color: var(--dh-text-muted) !important; font-size: 12px !important; font-weight: 600 !important;
+    text-decoration: none !important;
+}
+a.dh-explore-pricelink:hover { color: var(--dh-primary) !important; }
+
+/* Card PREMIUM (tengah) dikasih border highlight biar menonjol */
+.st-key-dhexplore_col_premium .dh-explore-card {
+    border: 2px solid rgba(200,98,53,0.35);
+}
 
 /* ── DATA FLOW CARDS (redesign dr-bulk-card lama, namespace baru) ─ */
 .dh-flow-card {
-    background: var(--dh-card); border: 1.5px solid var(--dh-border); border-radius: 16px;
+    background: var(--dh-bg-alt); border: 1.5px solid var(--dh-border); border-radius: 16px;
     padding: 22px; height: 100%; box-sizing: border-box;
 }
 .dh-flow-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
 .dh-flow-icon {
-    width: 36px; height: 36px; border-radius: 10px; background: var(--dh-warning-bg);
+    width: 36px; height: 36px; border-radius: 10px; background: #FFFFFF;
     display: flex; align-items: center; justify-content: center; font-size: 17px; color: var(--dh-primary);
 }
-.dh-flow-tag { font-size: 10.5px; font-weight: 700; color: var(--dh-primary); }
+.dh-flow-tag {
+    font-size: 10px; font-weight: 800; color: var(--dh-primary-dark);
+    background: var(--dh-warning-bg); border-radius: 100px; padding: 3px 10px;
+}
 .dh-flow-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 16px; color: var(--dh-text-dark); margin-bottom: 6px; }
 .dh-flow-desc { font-size: 12.5px; color: var(--dh-text-muted); line-height: 1.55; margin-bottom: 12px; }
 .dh-flow-list { list-style: none; padding: 0; margin: 0 0 14px 0; }
 .dh-flow-list li { font-size: 13px; color: var(--dh-text-dark); padding: 3px 0; }
 .dh-flow-list li::before { content: "•"; color: var(--dh-primary); font-weight: 900; margin-right: 8px; }
 .dh-flow-foot {
-    border-top: 1px solid var(--dh-bg-alt); padding-top: 10px; font-size: 11px;
+    border-top: 1px solid var(--dh-border); padding-top: 10px; font-size: 11px;
     color: var(--dh-text-muted); font-style: italic; display: flex; justify-content: space-between; align-items: center;
 }
 
-.dh-flow-banner {
-    display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;
-    background: var(--dh-card); border: 1.5px solid var(--dh-border); border-radius: 16px;
-    padding: 22px 26px; margin-top: 22px;
+/* Banner bottom "Siap memproses...": container key beneran biar teks +
+   tombol kebungkus 1 kotak yang sama (bukan markdown div terpisah). */
+.st-key-dhflow_banner {
+    background: var(--dh-bg-alt); border: 1.5px solid var(--dh-border); border-radius: 16px;
+    padding: 18px 26px; margin-top: 22px;
 }
-.dh-flow-banner b { font-size: 15px; color: var(--dh-text-dark); display: block; margin-bottom: 4px; }
-.dh-flow-banner span { font-size: 12.5px; color: var(--dh-text-muted); }
+.st-key-dhflow_banner [data-testid="stHorizontalBlock"] { align-items: center !important; }
+.dh-flow-banner-text b { font-size: 15px; color: var(--dh-text-dark); display: block; margin-bottom: 4px; }
+.dh-flow-banner-text span { font-size: 12.5px; color: var(--dh-text-muted); }
 
 /* ── TESTIMONIALS ─────────────────────────────────────────────── */
 .dh-testi-card {
     background: var(--dh-card); border: 1.5px solid var(--dh-border); border-radius: 16px;
-    padding: 24px; height: 100%; box-sizing: border-box;
+    padding: 24px; height: 100%; max-width: 360px; margin: 0 auto; box-sizing: border-box;
 }
-.dh-testi-quote-mark { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--dh-primary); line-height: 1; margin-bottom: 6px; }
+.dh-testi-quote-mark {
+    font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700;
+    color: var(--dh-primary); opacity: 0.3; line-height: 1; margin-bottom: 2px;
+}
 .dh-testi-text { font-family: 'Lora', serif; font-style: italic; font-size: 13.5px; color: var(--dh-text-dark); line-height: 1.6; margin-bottom: 16px; }
 .dh-testi-foot { display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--dh-bg-alt); padding-top: 14px; }
 .dh-testi-avatar {
@@ -287,7 +355,8 @@ a.dh-btn-anchor-secondary:hover { border-color: var(--dh-primary) !important; co
 .dh-testi-role { font-size: 11px; color: var(--dh-text-muted); }
 
 /* ── FINAL CTA ────────────────────────────────────────────────── */
-.dh-finalcta { text-align: center; padding: 60px 0; }
+.dh-finalcta { text-align: center; padding: 60px 0; max-width: 700px; margin: 0 auto; }
+.st-key-dhfinal_cta_row { max-width: 700px; margin: 0 auto; }
 .dh-finalcta-eyebrow {
     font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; color: var(--dh-primary);
     text-transform: uppercase; margin-bottom: 10px;
