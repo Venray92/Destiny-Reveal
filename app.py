@@ -13,6 +13,7 @@ from views.loadingpage_lengkap import render as render_loading_lengkap
 from views.loadingpage_mendalam import render as render_loading_mendalam
 from views.revealpage import render as render_result
 from views.tutorialpage import render as render_tutorial
+from views import home_v2
 
 st.set_page_config(
     page_title="Destiny Reveal",
@@ -25,11 +26,16 @@ st.set_page_config(
 st.markdown(
     '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />'
     '<link rel="preconnect" href="https://fonts.googleapis.com">'
-    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap">',
+    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">',
     unsafe_allow_html=True,
 )
 _CSS_PATH = Path(__file__).resolve().parent / "assets" / "css" / "app.css"
-st.markdown(f"<style>\n{_CSS_PATH.read_text(encoding='utf-8')}\n</style>", unsafe_allow_html=True)
+_CSS_HOME_V2_PATH = Path(__file__).resolve().parent / "assets" / "css" / "home_v2.css"
+st.markdown(
+    f"<style>\n{_CSS_PATH.read_text(encoding='utf-8')}\n"
+    f"{_CSS_HOME_V2_PATH.read_text(encoding='utf-8')}\n</style>",
+    unsafe_allow_html=True,
+)
 
 # ── Data sistem lengkap (buat popover chip) — urut abjad ────
 # format: (nama, icon_material, apa_ini, [topik yang bisa diketahui], kalimat_ajakan, aktif)
@@ -104,211 +110,15 @@ SEMUA_SISTEM = [
 if "dr_page" not in st.session_state:
     st.session_state.dr_page = "home"
 
-# ── NAV BAR ──────────────────────────────────────────────────
-with st.container(key="nav_row"):
-    nav_l, nav_home_btn, nav_reveal_btn, nav_tutorial_btn, nav_r = st.columns(
-        [2.5, 0.95, 1.35, 1.05, 1.15]
-    )
-    with nav_l:
-        st.markdown(
-            '<div style="font-family:\'Fraunces\',serif;font-size:28px;font-weight:700;'
-            'color:#1c1a17;letter-spacing:-0.01em;">✨ Destiny Reveal</div>',
-            unsafe_allow_html=True,
-        )
-    with nav_home_btn:
-        if st.button(
-            "Home", key="nav_btn_home", icon=":material/home:",
-            type="primary" if st.session_state.dr_page == "home" else "secondary",
-            use_container_width=True,
-        ):
-            st.session_state.dr_page = "home"
-            st.rerun()
-    with nav_reveal_btn:
-        if st.button(
-            "Reveal Yourself", key="nav_btn_reveal", icon=":material/auto_awesome:",
-            type="primary" if st.session_state.dr_page == "reveal" else "secondary",
-            use_container_width=True,
-        ):
-            st.session_state.dr_page = "reveal"
-            st.rerun()
-    with nav_tutorial_btn:
-        if st.button(
-            "Tutorial", key="nav_btn_tutorial", icon=":material/menu_book:",
-            type="primary" if st.session_state.dr_page == "tutorial" else "secondary",
-            use_container_width=True,
-        ):
-            st.session_state.dr_page = "tutorial"
-            st.rerun()
-    with nav_r:
-        with st.container(key="lang_switch"):
-            st.selectbox("Bahasa", ["🇮🇩 Indonesian", "🇬🇧 English"], label_visibility="collapsed")
-
-st.markdown("<hr style='margin-top:14px;'>", unsafe_allow_html=True)
+# ── NAV BAR (v2, lihat views/home_v2.py — dipakai semua halaman) ──
+home_v2.render_navbar(st.session_state.dr_page)
 
 # ══════════════════════════════════════════════════════════════
 # HALAMAN — BERANDA
 # ══════════════════════════════════════════════════════════════
 if st.session_state.dr_page == "home":
+    home_v2.render(SEMUA_SISTEM)
 
-    # ── HERO ─────────────────────────────────────────────────
-    st.markdown('<div class="dr-hero-title">Ada Banyak Versi Dirimu yang Belum Kamu Kenal.</div>', unsafe_allow_html=True)
-    st.markdown(
-        '<div class="dr-hero-sub">'
-        'Masa lalu sudah menjadi pelajaran, saatnya kenali dirimu sepenuhnya sebelum melangkah ke depan.<br>'
-        '<em>Satu pembacaan lengkap</em> dari 15 sistem ini akan menunjukkan potensi, kelebihan, kelemahan, '
-        'dan langkah yang sebaiknya kamu ambil.'
-        '</div>',
-        unsafe_allow_html=True,
-    )
-
-    col_a, col_b, col_r = st.columns([1.3, 1.3, 2.4])
-    with col_a:
-        if st.button("Mulai Reveal", key="cta_hero", type="primary", icon=":material/bolt:", use_container_width=True):
-            st.session_state.dr_page = "reveal"
-            st.rerun()
-
-    st.write("")
-    st.markdown('<p style="font-size:12.5px;color:#9a948a !important;margin-bottom:6px;">Klik tiap sistem untuk melihat penjelasannya:</p>', unsafe_allow_html=True)
-
-    n_per_row = 5
-    for i in range(0, len(SEMUA_SISTEM), n_per_row):
-        chunk = SEMUA_SISTEM[i:i + n_per_row]
-        cols = st.columns(n_per_row)
-        for col, (nama, icon, apa_ini, topik_list, ajakan, aktif) in zip(cols, chunk):
-            with col:
-                with st.popover(nama, use_container_width=True, icon=f":material/{icon}:"):
-                    status_badge = "Sudah aktif" if aktif else "Segera hadir"
-                    status_color = "#8a5a2f" if aktif else "#9a948a"
-                    st.markdown(
-                        f'<p style="font-size:11px;font-weight:700;letter-spacing:0.06em;'
-                        f'text-transform:uppercase;color:{status_color} !important;margin-bottom:6px;">{status_badge}</p>',
-                        unsafe_allow_html=True,
-                    )
-                    st.markdown(f"**{nama}**")
-                    st.write(apa_ini)
-                    st.markdown(
-                        '<p style="font-size:12.5px;font-weight:700;color:#3a362f !important;margin:14px 0 4px 0;">Bisa bantu kamu tahu:</p>',
-                        unsafe_allow_html=True,
-                    )
-                    for topik in topik_list:
-                        st.markdown(
-                            f'<p style="font-size:13px;color:#3a362f !important;margin:2px 0;">'
-                            f'<span style="color:#b8562f !important;">•</span> {topik}</p>',
-                            unsafe_allow_html=True,
-                        )
-                    st.markdown(
-                        f'<p style="font-size:12.5px;color:#8a5a2f !important;font-style:italic;'
-                        f'margin:14px 0 0 0;padding-top:10px;border-top:1px solid #ecddc9;">{ajakan}</p>',
-                        unsafe_allow_html=True,
-                    )
-
-    st.write("")
-
-    # ── CARA KERJA ───────────────────────────────────────────
-    st.markdown('<div class="dr-section-title-wrap"><span class="dr-section-title">Tiga Langkah, Tanpa Ribet</span></div>', unsafe_allow_html=True)
-
-    st.markdown(
-        """
-        <div class="dr-stepper-row">
-            <div class="dr-step-circle">1</div>
-            <div class="dr-step-line"></div>
-            <div class="dr-step-circle">2</div>
-            <div class="dr-step-line"></div>
-            <div class="dr-step-circle">3</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    c1, c2, c3 = st.columns(3, gap="medium")
-    steps = [
-        (":material/mail:", "Verifikasi Email", "Masukkan email, dapat kode verifikasi. Tanpa akun atau password.", "dr-step-card-1"),
-        (":material/auto_awesome:", "Pilih Mode & Diproses", "Pilih fokus eksplorasimu, data lain ditanya pelan-pelan sambil diproses.", "dr-step-card-2"),
-        (":material/visibility:", "Buka Hasil Lengkap", "Laporan lengkap langsung terbuka & dikirim ke email kamu.", "dr-step-card-3"),
-    ]
-    for idx, (col, (icon, title, desc, cls)) in enumerate(zip([c1, c2, c3], steps)):
-        with col:
-            with st.container(key=f"drfillheight_step{idx}"):
-                st.markdown(
-                    f"""<div class="dr-card {cls}">
-                        <b>{title}</b>
-                        <p style="font-size:13.5px;margin-top:8px;line-height:1.6;">{desc}</p>
-                    </div>""",
-                    unsafe_allow_html=True,
-                )
-
-    st.write("")
-
-    # ── SATU DATA, BANYAK CARA PANDANG ────────────────────────
-    st.markdown('<div class="dr-section-title-wrap"><span class="dr-section-title">Satu Data, Banyak Cara Pandang</span></div>', unsafe_allow_html=True)
-
-    # SENGAJA disamain persis (isi + urutan) sama RY_MODES di
-    # views/reveal_yourself.py (mode Lengkap) — lihat docs/changelog.md.
-    bulk_groups = [
-        ("calendar_month", "Tanggal Lahir & Nama Lengkap", ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"], None),
-        ("schedule", "+ Tambah Jam Lahir", ["BaZi", "Zi Wei Dou Shu", "Human Design"], "BaZi & Human Design makin akurat kalau ditambah kota lahir."),
-        ("quiz", "Kuesioner", ["MBTI", "Big Five", "Enneagram", "DISC", "Love Language"], None),
-        ("water_drop", "Input Langsung", ["Golongan Darah"], None),
-        ("casino", "Acak", ["Tarot"], None),
-    ]
-    bcols = st.columns(5, gap="medium")
-    for idx, (col, (icon, title, items, note)) in enumerate(zip(bcols, bulk_groups)):
-        with col:
-            with st.container(key=f"drfillheight_bulk{idx}"):
-                tags_html = "".join(f'<span class="dr-bulk-tag">{x}</span>' for x in items)
-                note_html = (
-                    f'<div class="dr-bulk-note">{note}</div>' if note else ""
-                )
-                # Digabung lewat concatenation (BUKAN f-string multi-baris
-                # kayak sebelumnya) — kalau note_html kosong ("") dan
-                # ditaruh di baris sendiri di f-string, baris itu jadi
-                # cuma whitespace doang, ke-anggap "baris kosong" sama
-                # parser markdown Streamlit, jadi HTML block-nya keputus
-                # duluan SEBELUM closing </div> — akibatnya </div> penutup
-                # kartu kebaca sebagai teks literal (bukan tag beneran).
-                # Concatenation biasa nggak punya masalah ini karena semua
-                # nyambung jadi SATU baris string, gak ada baris kosong
-                # sama sekali di HTML akhirnya.
-                st.markdown(
-                    '<div class="dr-bulk-card">'
-                    f'<div class="dr-bulk-icon"><span class="material-symbols-outlined">{icon}</span></div>'
-                    f'<b style="font-size:14.5px;">{title}</b>'
-                    f'<div class="dr-bulk-tags-wrap" style="margin-top:10px;">{tags_html}</div>'
-                    f'{note_html}'
-                    '</div>',
-                    unsafe_allow_html=True,
-                )
-
-    st.write("")
-
-    # ── CTA PENUTUP ──────────────────────────────────────────
-    # Sengaja tanpa st.write("") kosong di sini — tiap st.write("") nambah
-    # elemen container-nya sendiri, dan gap antar stVerticalBlock (1rem) ikut
-    # kekali tiap ada elemen kosong tambahan, jadi jaraknya membengkak jauh
-    # lebih besar dari yang kelihatan di kode. Jarak sekarang cuma diatur
-    # lewat margin di <hr>-nya sendiri.
-    st.markdown("<hr style='margin-top:4px;margin-bottom:20px;'>", unsafe_allow_html=True)
-    st.markdown('<div class="dr-center"><span class="dr-section-title">Penasaran Sama Dirimu Sendiri?</span></div>', unsafe_allow_html=True)
-    st.markdown(
-        '<p class="dr-center" style="color:#6b6459 !important;font-size:15px;margin-bottom:22px;">Mulai sekarang, hasil pertama muncul dalam hitungan menit.</p>',
-        unsafe_allow_html=True,
-    )
-    cta_l, cta_mid, cta_r = st.columns([1.5, 1.4, 1.5])
-    with cta_mid:
-        if st.button("Mulai Reveal Gratis", key="cta_footer", type="primary", icon=":material/arrow_forward:", use_container_width=True):
-            st.session_state.dr_page = "reveal"
-            st.rerun()
-
-    st.write("")
-    st.markdown(
-        '<p class="dr-footer-copyright">© 2026 Destiny Reveal '
-        '<span class="dr-footer-byline">· By Zio</span></p>',
-        unsafe_allow_html=True,
-    )
-
-# ══════════════════════════════════════════════════════════════
-# HALAMAN — REVEAL YOURSELF (Verifikasi Email + Pilih Mode)
-# ══════════════════════════════════════════════════════════════
 elif st.session_state.dr_page == "reveal":
     render_reveal_yourself()
 
