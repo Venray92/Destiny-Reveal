@@ -41,10 +41,10 @@ from content.interpretations.weton import WETON_CONTENT
 from content.interpretations.zodiak import ZODIAK_CONTENT
 from engine.big_five_scoring import score_big_five
 from engine.disc_scoring import score_disc
-from engine.engine__bazi import hitung_bazi
-from engine.engine__human_design import hitung_human_design
-from engine.engine__tarot import TAROT_MAJOR_ARCANA, tarik_tarot
-from engine.engine__ziwei import hitung_ziwei
+from engine.bazi import hitung_bazi
+from engine.human_design import hitung_human_design
+from engine.tarot import TAROT_MAJOR_ARCANA, tarik_tarot
+from engine.ziwei import hitung_ziwei
 from engine.enneagram_scoring import score_enneagram
 from engine.love_language_scoring import score_love_language
 from engine.matrix_destiny import hitung_matrix_destiny
