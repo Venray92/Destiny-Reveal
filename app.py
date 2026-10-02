@@ -111,7 +111,10 @@ if "dr_page" not in st.session_state:
     st.session_state.dr_page = "home"
 
 # ── NAV BAR (v2, lihat views/home_v2.py — dipakai semua halaman) ──
+# Navbar-nya position:fixed (biar freeze pas discroll), jadi butuh spacer
+# di bawahnya biar konten halaman ga ketutupan.
 home_v2.render_navbar(st.session_state.dr_page)
+st.markdown('<div style="height:88px;"></div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════
 # HALAMAN — BERANDA
