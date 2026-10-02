@@ -19,9 +19,9 @@
     --dh-warning-bg: #FDF6E3;
 }
 
-.dh-font-headline { font-family: 'Playfair Display', 'Lora', Georgia, serif; }
-.dh-font-sub { font-family: 'Lora', Georgia, serif; }
-.dh-font-body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
+.stApp .dh-font-headline { font-family: 'Playfair Display', 'Lora', Georgia, serif; }
+.stApp .dh-font-sub { font-family: 'Lora', Georgia, serif; }
+.stApp .dh-font-body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
 
 /* ── NAVBAR (floating pill, dipakai di SEMUA halaman) ─────────────
    Container key = class beneran yang nempel ke DOM (.st-key-xxx),
@@ -37,17 +37,41 @@
 .st-key-dhnavbar { width: 100%; max-width: 1200px; margin: 0 auto; }
 .st-key-dhnavbar {
     background: var(--dh-card); border: 1.5px solid var(--dh-border);
-    border-radius: 100px; padding: 14px 14px 14px 22px;
+    border-radius: 100px; padding: 8px 24px;
     box-shadow: 0 10px 30px -16px rgba(45,42,38,0.18);
 }
-.st-key-dhnavbar [data-testid="stHorizontalBlock"] { align-items: center !important; }
+/* Semua kolom nav: isi di-center vertikal, tanpa gap lebar antar kolom */
+.st-key-dhnavbar [data-testid="stHorizontalBlock"] { align-items: center !important; gap: 0.5rem !important; }
+.st-key-dhnavbar [data-testid="stColumn"] { display: flex !important; flex-direction: column !important; justify-content: center !important; }
+.st-key-dhnavbar [data-testid="stVerticalBlock"] { gap: 0 !important; }
+/* Streamlit ngasih margin-bottom:-1rem ke markdown container -> logo keliatan turun dari tengah */
+.st-key-dhnavbar [data-testid="stMarkdownContainer"] { margin-bottom: 0 !important; }
 .st-key-dhnavbar div.stButton > button { border-radius: 100px !important; }
-.dh-nav-sep { color: var(--dh-border); text-align: center; font-size: 14px; }
-.dh-navbar-logo {
+/* Baris menu tengah: kolom divider ikut stretch setinggi tombol, biar garis sejajar tengah */
+.st-key-dhnavbar .st-key-dhnav_links [data-testid="stHorizontalBlock"] { align-items: stretch !important; gap: 0.25rem !important; }
+.st-key-dhnavbar .st-key-dhnav_links [data-testid="stColumn"] > [data-testid="stVerticalBlock"] { height: 100%; justify-content: center !important; }
+/* Divider tipis simetris antar item menu (garis 1px, bukan karakter "|"
+   biar sejajar tengah dengan teks menu) */
+.stApp .dh-nav-sep { width: 1px; height: 16px; background: #D9D0C3; margin: 0 auto; }
+/* Login & CTA: tinggi sama persis (40px), lebar natural, rata kanan */
+.st-key-dhnav_right [data-testid="stHorizontalBlock"] { justify-content: flex-end !important; gap: 0.75rem !important; }
+.st-key-dhnav_right [data-testid="stColumn"] { flex: 0 0 auto !important; width: auto !important; min-width: 0 !important; }
+.st-key-dhnavbar .st-key-dhnav_right div.stButton > button {
+    height: 40px !important; min-height: 40px !important; padding: 0 1.25rem !important;
+    white-space: nowrap !important; width: auto !important;
+}
+.st-key-dhnavbar .st-key-dhnav_right div.stButton > button[kind="secondary"] {
+    background: transparent !important; border: 1.5px solid var(--dh-border) !important;
+    color: var(--dh-text-dark) !important; font-weight: 600 !important; font-size: 13px !important;
+}
+.st-key-dhnavbar .st-key-dhnav_right div.stButton > button[kind="secondary"]:hover {
+    border-color: var(--dh-primary) !important; color: var(--dh-primary) !important;
+}
+.stApp .dh-navbar-logo {
     font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700;
     color: var(--dh-text-dark); white-space: nowrap; display: flex; align-items: center; gap: 6px;
 }
-.dh-navbar-logo .dh-spark { color: var(--dh-primary); }
+.stApp .dh-navbar-logo .dh-spark { color: var(--dh-primary); }
 .st-key-dhnav_cta div.stButton > button[kind="primary"] {
     background: var(--dh-primary) !important; border-color: var(--dh-primary) !important;
     font-weight: 700 !important; font-size: 13px !important; white-space: nowrap !important;
@@ -55,8 +79,9 @@
 .st-key-dhnav_cta div.stButton > button[kind="primary"]:hover {
     background: var(--dh-primary-dark) !important; border-color: var(--dh-primary-dark) !important;
 }
-.st-key-dhnav_links div.stButton > button {
+.st-key-dhnavbar .st-key-dhnav_links div.stButton > button {
     background: transparent !important; border: none !important; padding: 4px 2px !important;
+    height: auto !important;
     font-size: 13.5px !important; font-weight: 600 !important; color: var(--dh-text-dark) !important;
     min-height: 0 !important; box-shadow: none !important;
 }
@@ -72,24 +97,24 @@
 .st-key-dhnav_links div[data-testid="stPopover"] button:hover { color: var(--dh-primary) !important; }
 
 /* ── HERO ─────────────────────────────────────────────────────── */
-.dh-hero {
+.stApp .dh-hero {
     text-align: center; padding: 34px 0 10px 0;
     background: radial-gradient(ellipse 55% 60% at 50% 15%, rgba(200,98,53,0.07) 0%, rgba(200,98,53,0) 70%);
 }
-.dh-hero-badge {
+.stApp .dh-hero-badge {
     display: inline-flex; align-items: center; gap: 7px; padding: 7px 16px;
     border: 1px solid var(--dh-border); border-radius: 100px; background: var(--dh-card);
     font-size: 12.5px; color: var(--dh-text-muted); margin-bottom: 26px;
 }
-.dh-hero-title {
+.stApp .dh-hero-title {
     font-family: 'Playfair Display', serif; font-weight: 700; font-size: 44px;
     line-height: 1.25; color: var(--dh-text-dark); max-width: 760px; margin: 0 auto 20px auto;
 }
-.dh-hero-sub {
+.stApp .dh-hero-sub {
     font-family: 'Lora', serif; font-size: 16.5px; line-height: 1.75; color: var(--dh-text-muted);
     max-width: 640px; margin: 0 auto 30px auto;
 }
-.dh-hero-caption { font-size: 12.5px; color: var(--dh-text-muted); margin-top: 16px; }
+.stApp .dh-hero-caption { font-size: 12.5px; color: var(--dh-text-muted); margin-top: 16px; }
 
 /* Semua tombol primary/secondary di Home discope lewat 1 root key
    (.st-key-dh_home_root), biar gak bocor ke halaman lain. */
@@ -111,40 +136,40 @@
 
 /* Tombol sekunder hero ("Lihat 15 Sistem Matrix") — plain <a>, bukan
    st.button, jadi class CSS biasa nempel langsung. */
-a.dh-btn-anchor-secondary {
+.stApp a.dh-btn-anchor-secondary {
     display: flex !important; align-items: center !important; justify-content: center !important;
     height: 42px !important; width: 100% !important; padding: 0 18px !important; box-sizing: border-box !important;
     border-radius: 100px !important; border: 1.5px solid var(--dh-border) !important;
     color: var(--dh-text-dark) !important; font-weight: 700 !important; font-size: 14px !important;
     background: var(--dh-card) !important; text-decoration: none !important;
 }
-a.dh-btn-anchor-secondary:hover { border-color: var(--dh-primary) !important; color: var(--dh-primary) !important; }
+.stApp a.dh-btn-anchor-secondary:hover { border-color: var(--dh-primary) !important; color: var(--dh-primary) !important; }
 
 /* ── HERO IMAGE CARD ──────────────────────────────────────────── */
-.dh-hero-card {
+.stApp .dh-hero-card {
     position: relative; max-width: 980px; margin: 30px auto 0 auto; border-radius: 22px;
-    overflow: hidden; min-height: 320px; border: 1.5px solid var(--dh-border);
+    overflow: hidden; aspect-ratio: 1376 / 768; min-height: 320px; border: 1.5px solid var(--dh-border);
     background-color: #5b544a; background-size: cover; background-position: center;
     display: flex; align-items: flex-end;
 }
 /* Dark gradient overlay (bawah + kiri) biar teks putih tetep legible di
    atas foto poster "Celestial Harmony" apa pun warnanya. */
-.dh-hero-card::before {
+.stApp .dh-hero-card::before {
     content: ""; position: absolute; inset: 0; z-index: 1;
     background:
-        linear-gradient(180deg, rgba(20,16,12,0) 35%, rgba(20,16,12,0.82) 100%),
-        linear-gradient(90deg, rgba(20,16,12,0.6) 0%, rgba(20,16,12,0) 55%);
+        linear-gradient(180deg, rgba(20,16,12,0) 45%, rgba(20,16,12,0.78) 100%),
+        linear-gradient(90deg, rgba(20,16,12,0.45) 0%, rgba(20,16,12,0) 50%);
 }
-.dh-hero-card-overlay {
+.stApp .dh-hero-card-overlay {
     position: relative; z-index: 2; padding: 26px 34px 30px 34px; max-width: 560px;
 }
-.dh-hero-card-badge {
+.stApp .dh-hero-card-badge {
     display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 100px;
     background: #FFFFFF; color: var(--dh-primary); font-size: 11.5px; font-weight: 700;
     letter-spacing: 0.03em; margin-bottom: 14px;
 }
-.dh-hero-card-title { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; color: #FFFFFF; line-height: 1.4; margin-bottom: 8px; }
-.dh-hero-card-sub { font-size: 12.5px; color: #e8ddc9; line-height: 1.55; }
+.stApp .dh-hero-card-title { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; color: #FFFFFF; line-height: 1.4; margin-bottom: 8px; }
+.stApp .dh-hero-card-sub { font-size: 12.5px; color: #e8ddc9; line-height: 1.55; }
 
 /* ── SECTION SHELL ────────────────────────────────────────────── */
 /* Scope ke st.container(key=...) beneran (lihat home_v2.py render()),
@@ -160,27 +185,27 @@ a.dh-btn-anchor-secondary:hover { border-color: var(--dh-primary) !important; co
 /* Final CTA = full-bleed (lepas dari boxed container Streamlit) + radial
    warm glow di tengah, fade ke putih di tepi — sesuai mockup 1_9.png. */
 .st-key-dh_section_finalcta {
-    position: relative; left: 50%; right: 50%; width: 100vw;
-    margin-left: -50vw; margin-right: -50vw; box-sizing: border-box;
+    position: relative !important; left: 50% !important; right: 50% !important; width: 100vw !important;
+    max-width: none !important; margin-left: -50vw !important; margin-right: -50vw !important; box-sizing: border-box;
     padding: 56px max(5vw, calc(50vw - 600px)) 56px max(5vw, calc(50vw - 600px));
     background: radial-gradient(ellipse 70% 100% at 50% 50%, rgba(200,98,53,0.08) 0%, #FFFFFF 75%);
     border-top: 1px solid var(--dh-border); border-bottom: 1px solid var(--dh-border);
 }
-.dh-section-head { text-align: center; margin-bottom: 34px; }
-.dh-section-title {
+.stApp .dh-section-head { text-align: center; margin-bottom: 34px; }
+.stApp .dh-section-title {
     font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700;
     color: var(--dh-text-dark); line-height: 1.3; margin-bottom: 8px;
 }
-.dh-section-sub { font-family: 'Lora', serif; font-size: 14.5px; color: var(--dh-text-muted); }
+.stApp .dh-section-sub { font-family: 'Lora', serif; font-size: 14.5px; color: var(--dh-text-muted); }
 
 /* ── MATRIX DIAGRAM ───────────────────────────────────────────── */
-.dh-filter-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
-.dh-filter-chip {
+.stApp .dh-filter-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
+.stApp .dh-filter-chip {
     display: inline-flex; align-items: center; padding: 8px 18px; border-radius: 100px;
     font-size: 12.5px; font-weight: 700; border: 1.5px solid var(--dh-border);
     background: var(--dh-card); color: var(--dh-text-dark);
 }
-.dh-filter-chip.active { background: var(--dh-primary); border-color: var(--dh-primary); color: #fff; }
+.stApp .dh-filter-chip.active { background: var(--dh-primary); border-color: var(--dh-primary); color: #fff; }
 
 /* Wrapper container BENERAN (st.container key) jadi positioning
    context-nya langsung — bukan div markdown terpisah, karena HTML
@@ -190,26 +215,30 @@ a.dh-btn-anchor-secondary:hover { border-color: var(--dh-primary) !important; co
     position: relative; width: 100%; max-width: 640px; aspect-ratio: 1 / 1;
     margin: 30px auto 0 auto; box-sizing: border-box;
 }
+/* Streamlit ngasih position:relative ke tiap stElementContainer. Akibatnya
+   lingkaran KAMU + SVG garis (absolute, top:50%) ngacu ke container markdown
+   yang tingginya ~0, bukan ke wrap-nya. Paksa static biar ngacu ke wrap. */
+.st-key-dhmatrix_wrap [data-testid="stElementContainer"] { position: static !important; }
 .st-key-dhmatrix_wrap::before {
     content: ""; position: absolute; inset: 8%; border-radius: 50%;
     border: 1.5px dashed var(--dh-border); pointer-events: none;
 }
 /* Garis dashed statis pusat → tiap node (Opsi A, lihat home_v2.py) */
-.dh-matrix-lines {
+.stApp .dh-matrix-lines {
     position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
 }
-.dh-matrix-lines line { stroke: #D9C9B5; stroke-width: 0.35; stroke-dasharray: 2 2.2; }
+.stApp .dh-matrix-lines line { stroke: #DCCDBA; stroke-width: 1; stroke-dasharray: 3 4; vector-effect: non-scaling-stroke; }
 
-.dh-matrix-center {
+.stApp .dh-matrix-center {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
     width: 27%; aspect-ratio: 1/1; border-radius: 50%; border: 2.5px solid var(--dh-primary);
     background: var(--dh-card); display: flex; flex-direction: column; align-items: center;
     justify-content: center; text-align: center; z-index: 3;
 }
-.dh-matrix-center b { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--dh-primary-dark); }
-.dh-matrix-center span { font-size: 8.5px; color: var(--dh-text-muted); margin-top: 3px; padding: 0 8px; line-height: 1.3; }
+.stApp .dh-matrix-center b { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--dh-primary-dark); }
+.stApp .dh-matrix-center span { font-size: 8.5px; color: var(--dh-text-muted); margin-top: 3px; padding: 0 8px; line-height: 1.3; }
 
-.dh-matrix-node-label { font-size: 10px; font-weight: 700; color: var(--dh-text-dark); line-height: 1.2; text-align: center; margin-top: 4px; }
+.stApp .dh-matrix-node-label { font-size: 10px; white-space: nowrap; font-weight: 700; color: var(--dh-text-dark); line-height: 1.2; text-align: center; margin-top: 4px; }
 
 /* Tiap node = st.container(key=f"dhnode_{i}") — posisinya di-absolute-kan
    lewat rule per-node yang di-generate Python (top/left %), lihat
@@ -218,10 +247,14 @@ a.dh-btn-anchor-secondary:hover { border-color: var(--dh-primary) !important; co
    st.markdown terpisah TIDAK membungkus widget Streamlit lain (lihat
    docs/bugs-fixed.md). */
 [class*="st-key-dhnode_"] {
-    position: absolute !important; transform: translate(-50%, -50%); z-index: 2;
+    /* titik tengah IKON (bukan tengah ikon+label) tepat di koordinat radial,
+       biar garis dashed berujung pas di pusat lingkaran ikon */
+    position: absolute !important; transform: translate(-50%, -19px); z-index: 2;
     width: 68px !important; display: flex !important; flex-direction: column !important;
     align-items: center !important;
 }
+div[data-testid="stVerticalBlock"][class*="st-key-dhnode_"] { gap: 0 !important; }
+[class*="st-key-dhnode_"] [data-testid="stElementContainer"] { position: static !important; }
 [class*="st-key-dhnode_"] div[data-testid="stPopover"] { display: flex; justify-content: center; }
 [class*="st-key-dhnode_"] div[data-testid="stPopover"] button {
     width: 38px !important; height: 38px !important; border-radius: 50% !important;
@@ -241,87 +274,122 @@ a.dh-btn-anchor-secondary:hover { border-color: var(--dh-primary) !important; co
 }
 
 .st-key-dhmatrix_wrap [data-testid="stPopoverBody"] { width: 260px; }
-.dh-matrix-caption { text-align: center; font-size: 12px; color: var(--dh-text-muted); margin-top: 18px; }
+.stApp .dh-matrix-caption { text-align: center; font-size: 12px; color: var(--dh-text-muted); margin-top: 18px; }
 
 /* ── SOCIAL PROOF COUNTER ─────────────────────────────────────── */
-.dh-proof-bar {
+.stApp .dh-proof-bar {
     text-align: center; margin: 28px 0; padding: 14px 0; border-top: 1px solid var(--dh-border);
     border-bottom: 1px solid var(--dh-border); font-size: 13px; color: var(--dh-text-dark); font-weight: 600;
     background: #FFFFFF;
 }
-.dh-proof-dot { color: var(--dh-success); margin-right: 6px; }
+.stApp .dh-proof-dot { color: var(--dh-success); margin-right: 6px; }
 
 /* ── EXPLORE SECTION (3 kolom) ────────────────────────────────── */
-.dh-explore-card {
+/* Card = st.container(key="dhexplore_card_*") beneran (bukan div markdown),
+   biar tombol/link bawah ikut KEBUNGKUS di dalam kartu. Tinggi 3 kartu
+   disamain lewat flex-stretch (pola sama kayak drfillheight di app.css). */
+[data-testid="stColumn"]:has([class*="st-key-dhexplore_card"]) { display: flex !important; flex-direction: column !important; }
+[data-testid="stVerticalBlock"]:has(> [data-testid="stLayoutWrapper"] > [class*="st-key-dhexplore_card"]),
+[data-testid="stLayoutWrapper"]:has(> [class*="st-key-dhexplore_card"]) {
+    display: flex !important; flex-direction: column !important; flex: 1 !important; min-height: 0 !important;
+}
+div[data-testid="stVerticalBlock"][class*="st-key-dhexplore_card"] {
     background: var(--dh-card); border: 1.5px solid var(--dh-border); border-radius: 18px;
-    padding: 24px 24px 20px 24px; height: 100%; box-sizing: border-box; position: relative;
+    padding: 24px 24px 20px 24px; flex: 1 !important; box-sizing: border-box; position: relative;
+    gap: 0 !important; display: flex !important; flex-direction: column !important;
 }
-.dh-explore-card-badge {
-    position: absolute; top: 18px; right: -1px; background: var(--dh-primary); color: #fff;
-    font-size: 9.5px; font-weight: 800; letter-spacing: 0.04em; padding: 4px 12px 4px 14px;
-    border-radius: 100px 0 0 100px;
+/* Konten atas (head + item) tumbuh ngisi ruang, footer (tombol) nempel di dasar kartu */
+div[class*="st-key-dhexplore_card"] > [data-testid="stElementContainer"]:first-child { flex: 1 1 auto; }
+/* Streamlit ngasih position:relative ke stElementContainer -> badge ngacu ke
+   situ (kegeser ke dalam padding). Paksa static biar nempel ke pojok kartu. */
+div[class*="st-key-dhexplore_card"] [data-testid="stElementContainer"] { position: static !important; }
+.stApp .dh-explore-card-badge {
+    position: absolute; top: -2px; right: -2px; background: var(--dh-primary); color: #fff;
+    font-size: 9.5px; font-weight: 800; letter-spacing: 0.04em; padding: 6px 14px;
+    border-radius: 0 18px 0 12px; z-index: 2;
 }
-.dh-explore-head { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-.dh-explore-icon {
+.stApp .dh-explore-head { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.stApp .dh-explore-icon {
     width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center;
     justify-content: center; font-size: 16px; flex-shrink: 0;
 }
-.dh-explore-title { font-weight: 800; font-size: 14.5px; color: var(--dh-text-dark); }
-.dh-explore-subtitle { font-size: 11.5px; color: var(--dh-text-muted); }
-.dh-explore-item {
+.stApp .dh-explore-title { font-weight: 800; font-size: 14.5px; color: var(--dh-text-dark); }
+.stApp .dh-explore-subtitle { font-size: 11.5px; color: var(--dh-text-muted); }
+.stApp .dh-explore-item {
     display: flex; align-items: center; justify-content: space-between; gap: 10px;
     padding: 11px 12px; margin-bottom: 8px; border-radius: 10px;
     background: var(--dh-bg-alt);
 }
-.dh-explore-item-title { font-size: 13px; font-weight: 700; color: var(--dh-text-dark); }
-.dh-explore-item-sub { font-size: 11px; color: var(--dh-text-muted); margin-top: 2px; }
-.dh-explore-item-arrow { color: var(--dh-text-muted); flex-shrink: 0; }
-.dh-explore-item-price {
+.stApp .dh-explore-item-title { font-size: 13px; font-weight: 700; color: var(--dh-text-dark); }
+.stApp .dh-explore-item-sub { font-size: 11px; color: var(--dh-text-muted); margin-top: 2px; }
+.stApp .dh-explore-item-arrow { color: var(--dh-text-muted); flex-shrink: 0; }
+.stApp .dh-explore-item-price {
     flex-shrink: 0; font-size: 10.5px; font-weight: 800; color: var(--dh-primary-dark);
     background: var(--dh-warning-bg); border-radius: 100px; padding: 4px 11px; white-space: nowrap;
 }
-.dh-explore-item-price.vip { background: var(--dh-primary); color: #fff; }
-.dh-explore-item.highlight { background: var(--dh-warning-bg); }
-.dh-explore-foot { margin-top: 10px; }
+.stApp .dh-explore-item-price.vip { background: var(--dh-primary); color: #fff; }
+.stApp .dh-explore-item.highlight { background: var(--dh-warning-bg); }
 
-[class*="st-key-dhexplore_col_"] div.stButton > button[kind="secondary"],
-[class*="st-key-dhexplore_col_"] div.stButton > button[kind="primary"] {
-    border-radius: 100px !important; font-size: 13px !important; padding: 9px 18px !important;
-    min-height: 0 !important;
+/* Footer kartu: garis pemisah + tombol-tombolnya (di dalam kartu) */
+[class*="st-key-dhexplore_foot"] {
+    border-top: 1px solid var(--dh-border); padding-top: 16px; margin-top: 14px; gap: 0.6rem !important;
 }
-a.dh-explore-pricelink {
-    display: block !important; text-align: center !important; margin-top: 10px !important;
+[class*="st-key-dhexplore_card"] div.stButton > button {
+    border-radius: 100px !important; font-size: 13px !important; padding: 9px 18px !important;
+    min-height: 0 !important; white-space: nowrap !important;
+}
+[class*="st-key-dhexplore_card"] div.stButton > button[kind="secondary"] {
+    background: var(--dh-card) !important; border: 1.5px solid #EBC9B6 !important;
+    color: var(--dh-primary-dark) !important; font-weight: 700 !important;
+}
+.st-key-dhexplore_card_lainnya div.stButton > button[kind="secondary"] {
+    border-color: var(--dh-border) !important; color: var(--dh-text-dark) !important;
+}
+[class*="st-key-dhexplore_card"] div.stButton > button[kind="secondary"]:hover {
+    border-color: var(--dh-primary) !important; color: var(--dh-primary) !important;
+}
+/* "Paket Koin" krem + "Upgrade VIP" oranye, 1 baris sejajar */
+.st-key-dhexplore_foot_premium [data-testid="stHorizontalBlock"] { gap: 0.6rem !important; }
+.stApp a.dh-explore-pricelink {
+    display: block !important; text-align: center !important; margin: 0 !important;
     padding: 9px 12px !important; border-radius: 100px !important; background: var(--dh-bg-alt) !important;
     color: var(--dh-text-muted) !important; font-size: 12px !important; font-weight: 600 !important;
     text-decoration: none !important;
 }
-a.dh-explore-pricelink:hover { color: var(--dh-primary) !important; }
+.stApp a.dh-explore-pricelink:hover { color: var(--dh-primary) !important; }
 
 /* Card PREMIUM (tengah) dikasih border highlight biar menonjol */
-.st-key-dhexplore_col_premium .dh-explore-card {
+div[data-testid="stVerticalBlock"].st-key-dhexplore_card_premium {
     border: 2px solid rgba(200,98,53,0.35);
 }
 
 /* ── DATA FLOW CARDS (redesign dr-bulk-card lama, namespace baru) ─ */
-.dh-flow-card {
+.stApp .dh-flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.stApp .dh-flow-grid .dh-flow-card.wide { grid-column: span 2; }
+.stApp .dh-flow-card {
     background: var(--dh-bg-alt); border: 1.5px solid var(--dh-border); border-radius: 16px;
-    padding: 22px; height: 100%; box-sizing: border-box;
+    padding: 22px; box-sizing: border-box; display: flex; flex-direction: column;
 }
-.dh-flow-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
-.dh-flow-icon {
+.stApp .dh-flow-card .dh-flow-list { flex: 1; }
+@media (max-width: 900px) {
+    .stApp .dh-flow-grid { grid-template-columns: 1fr; }
+    .stApp .dh-flow-grid .dh-flow-card.wide { grid-column: auto; }
+}
+.stApp .dh-flow-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+.stApp .dh-flow-icon {
     width: 36px; height: 36px; border-radius: 10px; background: #FFFFFF;
     display: flex; align-items: center; justify-content: center; font-size: 17px; color: var(--dh-primary);
 }
-.dh-flow-tag {
+.stApp .dh-flow-tag {
     font-size: 10px; font-weight: 800; color: var(--dh-primary-dark);
     background: var(--dh-warning-bg); border-radius: 100px; padding: 3px 10px;
 }
-.dh-flow-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 16px; color: var(--dh-text-dark); margin-bottom: 6px; }
-.dh-flow-desc { font-size: 12.5px; color: var(--dh-text-muted); line-height: 1.55; margin-bottom: 12px; }
-.dh-flow-list { list-style: none; padding: 0; margin: 0 0 14px 0; }
-.dh-flow-list li { font-size: 13px; color: var(--dh-text-dark); padding: 3px 0; }
-.dh-flow-list li::before { content: "•"; color: var(--dh-primary); font-weight: 900; margin-right: 8px; }
-.dh-flow-foot {
+.stApp .dh-flow-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 16px; color: var(--dh-text-dark); margin-bottom: 6px; }
+.stApp .dh-flow-desc { font-size: 12.5px; color: var(--dh-text-muted); line-height: 1.55; margin-bottom: 12px; }
+.stApp .dh-flow-list { list-style: none; padding: 0; margin: 0 0 14px 0; }
+.stApp .dh-flow-list li { font-size: 13px; color: var(--dh-text-dark); padding: 3px 0; }
+.stApp .dh-flow-list li::before { content: "•"; color: var(--dh-primary); font-weight: 900; margin-right: 8px; }
+.stApp .dh-flow-foot {
     border-top: 1px solid var(--dh-border); padding-top: 10px; font-size: 11px;
     color: var(--dh-text-muted); font-style: italic; display: flex; justify-content: space-between; align-items: center;
 }
@@ -333,49 +401,55 @@ a.dh-explore-pricelink:hover { color: var(--dh-primary) !important; }
     padding: 18px 26px; margin-top: 22px;
 }
 .st-key-dhflow_banner [data-testid="stHorizontalBlock"] { align-items: center !important; }
-.dh-flow-banner-text b { font-size: 15px; color: var(--dh-text-dark); display: block; margin-bottom: 4px; }
-.dh-flow-banner-text span { font-size: 12.5px; color: var(--dh-text-muted); }
+.stApp .dh-flow-banner-text b { font-size: 15px; color: var(--dh-text-dark); display: block; margin-bottom: 4px; }
+.stApp .dh-flow-banner-text span { font-size: 12.5px; color: var(--dh-text-muted); }
 
 /* ── TESTIMONIALS ─────────────────────────────────────────────── */
-.dh-testi-card {
+.stApp .dh-testi-card {
     background: var(--dh-card); border: 1.5px solid var(--dh-border); border-radius: 16px;
     padding: 24px; height: 100%; max-width: 360px; margin: 0 auto; box-sizing: border-box;
 }
-.dh-testi-quote-mark {
+.stApp .dh-testi-quote-mark {
     font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700;
     color: var(--dh-primary); opacity: 0.3; line-height: 1; margin-bottom: 2px;
 }
-.dh-testi-text { font-family: 'Lora', serif; font-style: italic; font-size: 13.5px; color: var(--dh-text-dark); line-height: 1.6; margin-bottom: 16px; }
-.dh-testi-foot { display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--dh-bg-alt); padding-top: 14px; }
-.dh-testi-avatar {
+.stApp .dh-testi-text { font-family: 'Lora', serif; font-style: italic; font-size: 13.5px; color: var(--dh-text-dark); line-height: 1.6; margin-bottom: 16px; }
+.stApp .dh-testi-foot { display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--dh-bg-alt); padding-top: 14px; }
+.stApp .dh-testi-avatar {
     width: 36px; height: 36px; border-radius: 50%; background: var(--dh-warning-bg); color: var(--dh-primary-dark);
     display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12.5px; flex-shrink: 0;
 }
-.dh-testi-name { font-size: 12.5px; font-weight: 700; color: var(--dh-text-dark); }
-.dh-testi-role { font-size: 11px; color: var(--dh-text-muted); }
+.stApp .dh-testi-name { font-size: 12.5px; font-weight: 700; color: var(--dh-text-dark); }
+.stApp .dh-testi-role { font-size: 11px; color: var(--dh-text-muted); }
 
 /* ── FINAL CTA ────────────────────────────────────────────────── */
-.dh-finalcta { text-align: center; padding: 60px 0; max-width: 700px; margin: 0 auto; }
+.stApp .dh-finalcta { text-align: center; padding: 60px 0; max-width: 700px; margin: 0 auto; }
 .st-key-dhfinal_cta_row { max-width: 700px; margin: 0 auto; }
-.dh-finalcta-eyebrow {
+/* Tombol CTA akhir: lebar natural + nowrap biar teks gak kepotong ("→ Revea...") */
+.st-key-dhfinal_cta_row [data-testid="stColumn"] > [data-testid="stVerticalBlock"] { align-items: center !important; }
+.st-key-dhfinal_cta_row div.stButton > button {
+    width: auto !important; min-width: 240px; padding: 0.75rem 2rem !important; white-space: nowrap !important;
+}
+.st-key-dhfinal_cta_row div.stButton > button p { white-space: nowrap !important; overflow: visible !important; text-overflow: clip !important; }
+.stApp .dh-finalcta-eyebrow {
     font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; color: var(--dh-primary);
     text-transform: uppercase; margin-bottom: 10px;
 }
-.dh-finalcta-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--dh-text-dark); margin-bottom: 10px; }
-.dh-finalcta-sub { font-family: 'Lora', serif; font-size: 14.5px; color: var(--dh-text-muted); margin-bottom: 26px; }
-.dh-finalcta-caption { font-size: 12px; color: var(--dh-text-muted); margin-top: 12px; }
+.stApp .dh-finalcta-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--dh-text-dark); margin-bottom: 10px; }
+.stApp .dh-finalcta-sub { font-family: 'Lora', serif; font-size: 14.5px; color: var(--dh-text-muted); margin-bottom: 26px; }
+.stApp .dh-finalcta-caption { font-size: 12px; color: var(--dh-text-muted); margin-top: 12px; }
 
 /* ── FOOTER ───────────────────────────────────────────────────── */
-.dh-footer { padding: 42px 0 20px 0; }
-.dh-footer-brand { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--dh-text-dark); margin-bottom: 8px; }
-.dh-footer-tagline { font-size: 12.5px; color: var(--dh-text-muted); margin-bottom: 10px; }
-.dh-footer-note { font-size: 11px; color: var(--dh-text-muted); font-style: italic; line-height: 1.5; }
-.dh-footer-col-title { font-size: 11px; font-weight: 800; letter-spacing: 0.05em; color: var(--dh-text-dark); margin-bottom: 12px; }
-.dh-footer-link { display: block; font-size: 12.5px; color: var(--dh-text-muted); padding: 5px 0; }
-.dh-footer-link.highlight { color: var(--dh-primary); font-weight: 700; }
-.dh-footer-bottom {
+.stApp .dh-footer { padding: 42px 0 20px 0; }
+.stApp .dh-footer-brand { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--dh-text-dark); margin-bottom: 8px; }
+.stApp .dh-footer-tagline { font-size: 12.5px; color: var(--dh-text-muted); margin-bottom: 10px; }
+.stApp .dh-footer-note { font-size: 11px; color: var(--dh-text-muted); font-style: italic; line-height: 1.5; }
+.stApp .dh-footer-col-title { font-size: 11px; font-weight: 800; letter-spacing: 0.05em; color: var(--dh-text-dark); margin-bottom: 12px; }
+.stApp .dh-footer-link { display: block; font-size: 12.5px; color: var(--dh-text-muted); padding: 5px 0; }
+.stApp .dh-footer-link.highlight { color: var(--dh-primary); font-weight: 700; }
+.stApp .dh-footer-bottom {
     margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--dh-border);
     display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
     font-size: 11.5px; color: var(--dh-text-muted);
 }
-.dh-footer-bottom em { font-style: italic; }
+.stApp .dh-footer-bottom em { font-style: italic; }
