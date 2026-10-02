@@ -14,6 +14,7 @@ di mock cuma contoh kondisi SUDAH login).
 
 import base64
 import math
+from functools import lru_cache
 from pathlib import Path
 
 import streamlit as st
@@ -59,6 +60,7 @@ NODE_COLOR = {
 _CELESTIAL_IMG_PATH = Path(__file__).resolve().parent.parent / "assets" / "images" / "celestial_harmony.jpg"
 
 
+@lru_cache(maxsize=1)
 def _celestial_harmony_b64():
     """Base64 poster 'Celestial Harmony' buat background kartu hero.
     None kalau file-nya belum ke-upload (fallback ke gradient polos)."""
@@ -79,7 +81,7 @@ def _go(page):
 def render_navbar(current_page):
     with st.container(key="dhnav_wrap"):
         with st.container(key="dhnavbar"):
-            logo_col, links_col, right_col = st.columns([1.4, 2.2, 2.0])
+            logo_col, links_col, right_col = st.columns([1.5, 2.4, 2.4])
             with logo_col:
                 st.markdown(
                     '<div class="dh-navbar-logo"><span class="dh-spark">✦</span> Destiny Reveal</div>',
@@ -87,22 +89,22 @@ def render_navbar(current_page):
                 )
             with links_col:
                 with st.container(key="dhnav_links"):
-                    l1, d1, l2, d2, l3, d3, l4 = st.columns([2, 0.3, 2, 0.3, 2, 0.3, 2.4])
+                    l1, d1, l2, d2, l3, d3, l4 = st.columns([2, 0.4, 2, 0.4, 2, 0.4, 2.4])
                     with l1:
                         if st.button("Home", key="dhnav_home", use_container_width=True):
                             _go("home")
                     with d1:
-                        st.markdown('<div class="dh-nav-sep">|</div>', unsafe_allow_html=True)
+                        st.markdown('<div class="dh-nav-sep"></div>', unsafe_allow_html=True)
                     with l2:
                         if st.button("Reveal", key="dhnav_reveal", use_container_width=True):
                             _go("reveal")
                     with d2:
-                        st.markdown('<div class="dh-nav-sep">|</div>', unsafe_allow_html=True)
+                        st.markdown('<div class="dh-nav-sep"></div>', unsafe_allow_html=True)
                     with l3:
                         if st.button("Tutorial", key="dhnav_tutorial", use_container_width=True):
                             _go("tutorial")
                     with d3:
-                        st.markdown('<div class="dh-nav-sep">|</div>', unsafe_allow_html=True)
+                        st.markdown('<div class="dh-nav-sep"></div>', unsafe_allow_html=True)
                     with l4:
                         with st.popover("Jelajahi ▾", use_container_width=True):
                             st.markdown("**Gratis**")
@@ -112,17 +114,18 @@ def render_navbar(current_page):
                             if st.button("Lihat Tutorial Lengkap", key="dhnav_jelajahi_tutorial"):
                                 _go("tutorial")
             with right_col:
-                lb, cb = st.columns([1, 1.7])
-                with lb:
-                    if st.button("Login", key="dhnav_login", use_container_width=True):
-                        st.toast("Login/akun belum tersedia — masih tahap pengembangan 🚧")
-                with cb:
-                    with st.container(key="dhnav_cta"):
-                        if st.button(
-                            "Mulai Reveal Takdirku →", key="dhnav_cta_btn", type="primary",
-                            icon=":material/bolt:", use_container_width=True,
-                        ):
-                            _go("reveal")
+                with st.container(key="dhnav_right"):
+                    lb, cb = st.columns(2)
+                    with lb:
+                        if st.button("Login", key="dhnav_login"):
+                            st.toast("Login/akun belum tersedia — masih tahap pengembangan 🚧")
+                    with cb:
+                        with st.container(key="dhnav_cta"):
+                            if st.button(
+                                "Mulai Reveal Takdirku →", key="dhnav_cta_btn", type="primary",
+                                icon=":material/bolt:",
+                            ):
+                                _go("reveal")
 
 
 # ══════════════════════════════════════════════════════════════
@@ -215,7 +218,13 @@ def _render_matrix_diagram(sistem_lookup):
         positions.append((top, left))
         nama = NODE_ORDER[i][0]
         warna = NODE_COLOR.get(nama, "#C86235")
+        label_above = top < 46  # node separuh atas: label di atas ikon
+        flip_css = (
+            f'.st-key-dhnode_{i} .dh-matrix-node-label {{ position: absolute; bottom: 100%;'
+            f' left: 50%; transform: translateX(-50%); margin: 0 0 4px 0; }}'
+        ) if label_above else ''
         pos_css.append(
+            flip_css +
             f'.st-key-dhnode_{i} {{ top: {top:.2f}%; left: {left:.2f}%; }}'
             f'.st-key-dhnode_{i} div[data-testid="stPopover"] button {{'
             f' background: {warna} !important; border-color: {warna} !important; }}'
@@ -284,95 +293,81 @@ def _render_explore():
 
     ec1, ec2, ec3 = st.columns(3, gap="medium")
 
+    def _item(title, sub, right):
+        return (
+            '<div class="dh-explore-item"><div>'
+            f'<div class="dh-explore-item-title">{title}</div>'
+            f'<div class="dh-explore-item-sub">{sub}</div></div>{right}</div>'
+        )
+
+    arrow = '<span class="dh-explore-item-arrow">→</span>'
+
+    def _price(txt, vip=False):
+        return f'<span class="dh-explore-item-price{" vip" if vip else ""}">{txt}</span>'
+
+    def _head(icon, bg, title, sub):
+        return (
+            '<div class="dh-explore-head">'
+            f'<div class="dh-explore-icon" style="background:{bg};">{icon}</div>'
+            f'<div><div class="dh-explore-title">{title}</div>'
+            f'<div class="dh-explore-subtitle">{sub}</div></div></div>'
+        )
+
+    # Tiap kartu = st.container(key="dhexplore_card_*") beneran, jadi tombol
+    # footer ikut kebungkus di dalam kartu (bukan nongol di luar border).
     with ec1:
-        with st.container(key="dhexplore_col_gratis"):
+        with st.container(key="dhexplore_card_gratis"):
             st.markdown(
-                '<div class="dh-explore-card">'
-                '<div class="dh-explore-head">'
-                '<div class="dh-explore-icon" style="background:#FDF6E3;">🆓</div>'
-                '<div><div class="dh-explore-title">GRATIS</div>'
-                '<div class="dh-explore-subtitle">Eksplorasi tanpa biaya harian</div></div></div>'
-                '<div class="dh-explore-item"><div><div class="dh-explore-item-title">Ramalan Harian Gratis</div>'
-                '<div class="dh-explore-item-sub">1x per hari, pilih Zodiak atau Shio</div></div>'
-                '<span class="dh-explore-item-arrow">→</span></div>'
-                '<div class="dh-explore-item"><div><div class="dh-explore-item-title">Tarot 1 Kartu Harian</div>'
-                '<div class="dh-explore-item-sub">Tarik kartu deck tertutup dengan animasi shuffle</div></div>'
-                '<span class="dh-explore-item-arrow">→</span></div>'
-                '<div class="dh-explore-item"><div><div class="dh-explore-item-title">Preview Zodiak</div>'
-                '<div class="dh-explore-item-sub">12 rasi, modality, planet &amp; quote</div></div>'
-                '<span class="dh-explore-item-arrow">→</span></div>'
-                '<div class="dh-explore-item"><div><div class="dh-explore-item-title">Streak &amp; Reward</div>'
-                '<div class="dh-explore-item-sub">5 hari berturut = 1 koin gratis</div></div>'
-                '<span class="dh-explore-item-arrow">→</span></div>'
-                '<div class="dh-explore-foot"></div>'
-                '</div>',
+                _head("🆓", "#FDF6E3", "GRATIS", "Eksplorasi tanpa biaya harian")
+                + _item("Ramalan Harian Gratis", "1x per hari, pilih Zodiak atau Shio", arrow)
+                + _item("Tarot 1 Kartu Harian", "Tarik kartu deck tertutup dengan animasi shuffle", arrow)
+                + _item("Preview Zodiak", "12 rasi, modality, planet &amp; quote", arrow)
+                + _item("Streak &amp; Reward", "5 hari berturut = 1 koin gratis", arrow),
                 unsafe_allow_html=True,
             )
-            if st.button("Mulai Pembacaan Gratis →", key="dhexplore_gratis_btn", use_container_width=True):
-                _go("reveal")
+            with st.container(key="dhexplore_foot_gratis"):
+                if st.button("Mulai Pembacaan Gratis →", key="dhexplore_gratis_btn", use_container_width=True):
+                    _go("reveal")
 
     with ec2:
-        with st.container(key="dhexplore_col_premium"):
+        with st.container(key="dhexplore_card_premium"):
             st.markdown(
-                '<div class="dh-explore-card">'
                 '<div class="dh-explore-card-badge">PAKAI KOIN &amp; VIP</div>'
-                '<div class="dh-explore-head">'
-                '<div class="dh-explore-icon" style="background:#eef2fb;">💎</div>'
-                '<div><div class="dh-explore-title">PREMIUM</div>'
-                '<div class="dh-explore-subtitle">Panduan mendalam &amp; akurasi tinggi</div></div></div>'
-                '<div class="dh-explore-item"><div><div class="dh-explore-item-title">Tarot Spreads Multi-Kartu</div>'
-                '<div class="dh-explore-item-sub">3 Kartu (1 Koin), 5 Kartu (2 Koin), Celtic Cross (3 Koin)</div></div>'
-                '<span class="dh-explore-item-price">1-3 Koin</span></div>'
-                '<div class="dh-explore-item"><div><div class="dh-explore-item-title">Cek Kecocokan</div>'
-                '<div class="dh-explore-item-sub">Bandingkan 2 orang langsung (Weton &amp; Zodiak)</div></div>'
-                '<span class="dh-explore-item-price">3 Koin</span></div>'
-                '<div class="dh-explore-item"><div><div class="dh-explore-item-title">Weekly &amp; Monthly Report</div>'
-                '<div class="dh-explore-item-sub">Timing pekan (3 Koin) &amp; analisis bulan (5 Koin)</div></div>'
-                '<span class="dh-explore-item-price">3-5 Koin</span></div>'
-                '<div class="dh-explore-item"><div><div class="dh-explore-item-title">Deep Blueprint (15 Sistem)</div>'
-                '<div class="dh-explore-item-sub">Laporan lengkap 15 sistem sekaligus + PDF</div></div>'
-                '<span class="dh-explore-item-price vip">VIP</span></div>'
-                '</div>',
+                + _head("💎", "#eef2fb", "PREMIUM", "Panduan mendalam &amp; akurasi tinggi")
+                + _item("Tarot Spreads Multi-Kartu", "3 Kartu (1 Koin), 5 Kartu (2 Koin), Celtic Cross (3 Koin)", _price("1-3 Koin"))
+                + _item("Cek Kecocokan", "Bandingkan 2 orang langsung (Weton &amp; Zodiak)", _price("3 Koin"))
+                + _item("Weekly &amp; Monthly Report", "Timing pekan (3 Koin) &amp; analisis bulan (5 Koin)", _price("3-5 Koin"))
+                + _item("Deep Blueprint (15 Sistem)", "Laporan lengkap 15 sistem sekaligus + PDF", _price("VIP", vip=True)),
                 unsafe_allow_html=True,
             )
-            pb1, pb2 = st.columns(2)
-            with pb1:
-                if st.button("Paket Koin", key="dhexplore_koin_btn", use_container_width=True):
-                    st.toast("Paket koin belum tersedia — masih tahap pengembangan 🚧")
-            with pb2:
-                if st.button("Upgrade VIP", key="dhexplore_vip_btn", type="primary", use_container_width=True):
-                    st.toast("Upgrade VIP belum tersedia — masih tahap pengembangan 🚧")
-            st.markdown(
-                '<a href="#" class="dh-explore-pricelink" onclick="return false;">'
-                '🔒 Lihat Daftar Harga Final Lengkap →</a>',
-                unsafe_allow_html=True,
-            )
+            with st.container(key="dhexplore_foot_premium"):
+                pb1, pb2 = st.columns(2)
+                with pb1:
+                    if st.button("Paket Koin", key="dhexplore_koin_btn", use_container_width=True):
+                        st.toast("Paket koin belum tersedia — masih tahap pengembangan 🚧")
+                with pb2:
+                    if st.button("Upgrade VIP", key="dhexplore_vip_btn", type="primary", use_container_width=True):
+                        st.toast("Upgrade VIP belum tersedia — masih tahap pengembangan 🚧")
+                st.markdown(
+                    '<a href="#" class="dh-explore-pricelink" onclick="return false;">'
+                    '🔒 Lihat Daftar Harga Final Lengkap →</a>',
+                    unsafe_allow_html=True,
+                )
 
     with ec3:
-        with st.container(key="dhexplore_col_lainnya"):
+        with st.container(key="dhexplore_card_lainnya"):
             st.markdown(
-                '<div class="dh-explore-card">'
-                '<div class="dh-explore-head">'
-                '<div class="dh-explore-icon" style="background:#f3eefc;">✨</div>'
-                '<div><div class="dh-explore-title">LAINNYA</div>'
-                '<div class="dh-explore-subtitle">Referral, wawasan &amp; bantuan pengguna</div></div></div>'
-                '<div class="dh-explore-item highlight"><div><div class="dh-explore-item-title">🎁 Program Referral &amp; Affiliate</div>'
-                '<div class="dh-explore-item-sub">Komisi 10-30% + Bonus Milestone VIP</div></div>'
-                '<span class="dh-explore-item-arrow">→</span></div>'
-                '<div class="dh-explore-item"><div><div class="dh-explore-item-title">Tutorial</div>'
-                '<div class="dh-explore-item-sub">Panduan pakai website &amp; cara baca hasil</div></div>'
-                '<span class="dh-explore-item-arrow">→</span></div>'
-                '<div class="dh-explore-item"><div><div class="dh-explore-item-title">Blog</div>'
-                '<div class="dh-explore-item-sub">Artikel tentang self-discovery &amp; potensi diri</div></div>'
-                '<span class="dh-explore-item-arrow">→</span></div>'
-                '<div class="dh-explore-item"><div><div class="dh-explore-item-title">FAQ &amp; Bantuan</div>'
-                '<div class="dh-explore-item-sub">Pertanyaan yang sering ditanya</div></div>'
-                '<span class="dh-explore-item-arrow">→</span></div>'
-                '</div>',
+                _head("✨", "#f3eefc", "LAINNYA", "Referral, wawasan &amp; bantuan pengguna")
+                + _item("🎁 Program Referral &amp; Affiliate", "Komisi 10-30% + Bonus Milestone VIP", arrow).replace(
+                    'class="dh-explore-item"', 'class="dh-explore-item highlight"')
+                + _item("Tutorial", "Panduan pakai website &amp; cara baca hasil", arrow)
+                + _item("Blog", "Artikel tentang self-discovery &amp; potensi diri", arrow)
+                + _item("FAQ &amp; Bantuan", "Pertanyaan yang sering ditanya", arrow),
                 unsafe_allow_html=True,
             )
-            if st.button("Tentang Kami — Destiny Reveal", key="dhexplore_about_btn", use_container_width=True):
-                st.toast("Halaman Tentang Kami belum tersedia — masih tahap pengembangan 🚧")
+            with st.container(key="dhexplore_foot_lainnya"):
+                if st.button("Tentang Kami — Destiny Reveal", key="dhexplore_about_btn", use_container_width=True):
+                    st.toast("Halaman Tentang Kami belum tersedia — masih tahap pengembangan 🚧")
 
 
 # ══════════════════════════════════════════════════════════════
@@ -410,25 +405,24 @@ def _render_dataflow():
          "Setiap tarikan kasih pesan &amp; bimbingan berbeda."),
     ]
 
-    cols = st.columns(3, gap="medium")
+    # 1 markdown = 1 CSS grid (3 kolom). Kartu terakhir ("Tarikan Acak")
+    # span 2 kolom biar baris 2 gak bolong; tinggi per baris otomatis sama.
+    cards_html = ""
     for idx, (icon, tag, title, desc, items, foot) in enumerate(groups):
-        with cols[idx % 3]:
-            with st.container(key=f"drfillheight_flow{idx}"):
-                items_html = "".join(f"<li>{it}</li>" for it in items)
-                st.markdown(
-                    '<div class="dh-flow-card">'
-                    '<div class="dh-flow-head">'
-                    f'<div class="dh-flow-icon"><span class="material-symbols-outlined">{icon}</span></div>'
-                    f'<span class="dh-flow-tag">{tag}</span></div>'
-                    f'<div class="dh-flow-title">{title}</div>'
-                    f'<div class="dh-flow-desc">{desc}</div>'
-                    f'<ul class="dh-flow-list">{items_html}</ul>'
-                    f'<div class="dh-flow-foot"><span>{foot}</span><span>→</span></div>'
-                    '</div>',
-                    unsafe_allow_html=True,
-                )
-        if idx % 3 == 2 and idx != len(groups) - 1:
-            cols = st.columns(3, gap="medium")
+        items_html = "".join(f"<li>{it}</li>" for it in items)
+        wide = " wide" if idx == len(groups) - 1 else ""
+        cards_html += (
+            f'<div class="dh-flow-card{wide}">'
+            '<div class="dh-flow-head">'
+            f'<div class="dh-flow-icon"><span class="material-symbols-outlined">{icon}</span></div>'
+            f'<span class="dh-flow-tag">{tag}</span></div>'
+            f'<div class="dh-flow-title">{title}</div>'
+            f'<div class="dh-flow-desc">{desc}</div>'
+            f'<ul class="dh-flow-list">{items_html}</ul>'
+            f'<div class="dh-flow-foot"><span>{foot}</span><span>→</span></div>'
+            '</div>'
+        )
+    st.markdown(f'<div class="dh-flow-grid">{cards_html}</div>', unsafe_allow_html=True)
 
     with st.container(key="dhflow_banner"):
         bl, br_ = st.columns([3, 1.3])
@@ -497,7 +491,7 @@ def _render_final_cta():
     with st.container(key="dhfinal_cta_row"):
         cl, cm, cr = st.columns([1, 1.3, 1])
         with cm:
-            if st.button("→ Reveal Yours ←", key="dhfinal_cta_btn", type="primary", use_container_width=True):
+            if st.button("→ Reveal Yours~", key="dhfinal_cta_btn", type="primary"):
                 _go("reveal")
     st.markdown(
         '<p class="dh-finalcta-caption" style="text-align:center;">Gratis · Tanpa akun · 3 menit</p>',
