@@ -886,3 +886,65 @@ div[data-testid="stVerticalBlock"].st-key-dh_home_root { gap: 0 !important; marg
 [data-testid="stDialog"] div.st-key-dhd_wa a * { color: #FFFFFF !important; }
 /* bar social proof di dalam section chart: tanpa blok putih */
 .st-key-dh_home_root .dh-proof-bar { background: transparent !important; border: 0 !important; box-shadow: none !important; }
+
+/* ══════════════ UI8 ══════════════ */
+/* Header modal hasil: pill 1 baris */
+[data-testid="stDialog"] div.st-key-dhr_account div.stButton > button,
+[data-testid="stDialog"] div.st-key-dhr_copy div.stButton > button {
+    height: 38px !important; min-height: 38px !important; padding: 0 16px !important;
+    border-radius: 9999px !important; white-space: nowrap !important;
+}
+[data-testid="stDialog"] div.st-key-dhr_account div.stButton > button p,
+[data-testid="stDialog"] div.st-key-dhr_copy div.stButton > button p {
+    font-size: 0.875rem !important; font-weight: 600 !important; white-space: nowrap !important;
+}
+[data-testid="stDialog"] div.st-key-dhr_account div.stButton > button[kind="secondary"] {
+    background: #F9F6F0 !important; border: 1px solid #E8E0D5 !important; color: #1F2937 !important;
+}
+[data-testid="stDialog"] div.st-key-dhr_account div.stButton > button[kind="secondary"] * { color: #1F2937 !important; }
+
+/* Sub-modal: judul + kartu gambar portrait */
+.dh-dt-eyebrow { text-align: center; color: #C25E00; }
+.dh-dt-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: #2D2A26; text-align: center; margin: 2px 0 6px; }
+.dh-dt-subtitle { font-size: 12px; color: #8B8378; text-align: center; max-width: 460px; margin: 0 auto 14px; line-height: 1.5; }
+.dh-dt-imgwrap { display: flex; justify-content: center; margin: 0 auto 14px; }
+.dh-dt-img { width: min(300px, 80%); height: auto; aspect-ratio: 870 / 1164; object-fit: contain; border-radius: 18px; box-shadow: 0 18px 36px -20px rgba(45,42,38,.45); }
+/* Tombol aksi ringkas, di tengah, gak selebar modal */
+.st-key-dhd_actions { max-width: 330px; margin: 0 auto; }
+[data-testid="stDialog"] .st-key-dhd_actions div.stDownloadButton > button,
+[data-testid="stDialog"] .st-key-dhd_actions a[data-testid^="stBaseLinkButton"] {
+    height: 38px !important; min-height: 38px !important; border-radius: 100px !important; padding: 0 10px !important;
+    font-size: 12px !important; white-space: nowrap !important;
+}
+[data-testid="stDialog"] .st-key-dhd_actions p { font-size: 12px !important; font-weight: 700 !important; white-space: nowrap !important; }
+[data-testid="stDialog"] .st-key-dhd_actions div.st-key-dhd_wa a, [data-testid="stDialog"] .st-key-dhd_actions div.st-key-dhd_wa [data-testid^="stBaseLinkButton"] {
+    background: #7C9A7B !important; border-color: #7C9A7B !important;
+}
+
+/* Card analisis: tint per card */
+.dh-dt-sec { border-radius: 16px; padding: 1.25rem 1.5rem; margin: 12px 0; border: 1px solid #F0D9BF; background: #FFFFFF; }
+.dh-dt-sec-t { display: flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 800; letter-spacing: .05em; color: #C25E00; margin-bottom: 8px; }
+.dh-dt-ico { font-size: 14px; line-height: 1; }
+.dh-dt-sec p { font-size: 0.9rem; line-height: 1.6; color: #4B5563; }
+.dh-dt-ivory { background: #FFFDF9; }
+.dh-dt-white { background: #FFFFFF; }
+.dh-dt-sand { background: #FAF5EC; }
+.dh-dt-sage { background: #F4F7F4; border-color: #D5E0D7; }
+.dh-dt-sage .dh-dt-sec-t { color: #4A6B53; }
+.dh-dt-soft { background: #FFFDF5; border-color: #EFE6D6; }
+.dh-dt-sec.dh-dt-dark { background: #222222; border-color: #222222; }
+.dh-dt-sec.dh-dt-dark .dh-dt-sec-t { color: #F3B76B; }
+.dh-dt-sec.dh-dt-dark p { color: #F5EFE4; }
+/* Parameter kunci: grid 2 kolom */
+.dh-dt-params { background: #FAF6F0; border-color: #EFE6D6; }
+.dh-dt-pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dh-dt-pm { display: flex; justify-content: space-between; align-items: center; gap: 10px; background: #FFFFFF; border: 1px solid #E8E0D5; border-radius: 12px; padding: 10px 14px; font-size: 12.5px; }
+.dh-dt-pm span { color: #9CA3AF; }
+.dh-dt-pm b { color: #1F2937; text-align: right; }
+/* Tombol tutup */
+[data-testid="stDialog"] div.st-key-dhd_back div.stButton > button[kind="secondary"] {
+    background: #FAF6F0 !important; border: 0 !important; border-radius: 100px !important; height: 44px !important; color: #374151 !important;
+}
+[data-testid="stDialog"] div.st-key-dhd_back div.stButton > button[kind="secondary"] * { color: #374151 !important; }
+/* tombol X dialog selalu di atas konten */
+[data-testid="stDialog"] button[aria-label="Close"] { position: relative; z-index: 5; }
