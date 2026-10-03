@@ -1110,3 +1110,46 @@ div[data-testid="stVerticalBlock"].st-key-dh_home_root { gap: 0 !important; marg
 [data-testid="stDialog"] div.st-key-dhpv_grid button[kind="primary"] p::first-line { color: #FFFFFF !important; font-size: 14px; }
 [data-testid="stDialog"] div.st-key-dhtr_sync div.stButton > button[kind="secondary"], [data-testid="stDialog"] div.st-key-dhpv_sync div.stButton > button[kind="secondary"] { background: #FFFFFF !important; border: 1px solid #E0D6C8 !important; color: #2D2A26 !important; }
 [data-testid="stDialog"] div.st-key-dhtr_sync div.stButton > button *, [data-testid="stDialog"] div.st-key-dhpv_sync div.stButton > button * { color: #2D2A26 !important; }
+
+/* ═══════ UI12: hasil Ramalan Harian + Tarot ramping ═══════ */
+.dh-dr-quota { display: flex; align-items: center; gap: 12px; background: #EEF4EE; border: 1px solid #D5E3D6; border-radius: 14px; padding: 12px 14px; margin: 0 0 12px; }
+.dh-dr-ck { color: #4A6B53; font-size: 16px; font-weight: 700; flex: none; }
+.dh-dr-quota div { flex: 1; min-width: 0; }
+.dh-dr-quota b { display: block; color: #4A6B53; font-size: 13px; font-weight: 700; }
+.dh-dr-quota div span { display: block; color: #6B635A; font-size: 11.5px; margin-top: 1px; }
+.dh-dr-quota em { font-style: normal; background: #FFFDF8; border: 1px solid #DDD5C8; color: #5B534A; font-size: 11px; font-weight: 600; padding: 3px 12px; border-radius: 100px; flex: none; }
+.dh-dr-msg { background: #FFFFFF; border: 1px solid #E8E0D5; border-radius: 14px; padding: 14px 16px; margin: 0 0 12px; }
+.dh-dr-msghead { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
+.dh-dr-msghead b { font-family: 'Playfair Display', serif; font-size: 16px; color: #2D2A26; }
+.dh-dr-msghead span { background: #E6EFE6; color: #4A6B53; font-size: 11px; font-weight: 700; padding: 3px 12px; border-radius: 100px; }
+.dh-dr-msg p { font-size: 14px; line-height: 1.6; color: #2D2A26; margin: 0 0 12px; }
+.dh-dr-foot { display: flex; justify-content: space-between; gap: 10px; border-top: 1px solid #EFE9DD; padding-top: 10px; font-size: 11.5px; color: #6B635A; }
+.dh-dr-foot b { color: #2D2A26; }
+div[data-testid="stVerticalBlock"].st-key-dhdy_lock { position: relative; background: #FBF6EC; border: 1px solid #F0DFC4; border-radius: 16px; padding: 14px 18px 12px; gap: 0 !important; margin: 0 0 12px; align-items: center; }
+.st-key-dhdy_lock .dh-dr-blur { filter: blur(4.5px); opacity: .6; user-select: none; pointer-events: none; height: 92px; overflow: hidden; }
+.st-key-dhdy_lock .dh-dr-blur p { font-size: 12px; line-height: 1.5; color: #6B635A; margin: 0 0 8px; }
+.st-key-dhdy_lock .st-key-dhdy_unlock { margin-top: -62px !important; position: relative; z-index: 2; display: flex; justify-content: center; }
+[data-testid="stDialog"] .st-key-dhdy_unlock button { background: #C8633B !important; border: 0 !important; border-radius: 100px !important; height: 42px !important; padding: 0 26px !important; }
+[data-testid="stDialog"] .st-key-dhdy_unlock button, [data-testid="stDialog"] .st-key-dhdy_unlock button * { color: #FFFFFF !important; font-weight: 700 !important; }
+.st-key-dhdy_lock .dh-dr-sub { text-align: center; font-size: 11px; color: #6B635A; margin-top: 12px; line-height: 1.45; }
+div[data-testid="stVerticalBlock"].st-key-dhdy_swap { background: #FAF6F0; border: 1px solid #E8E0D5; border-radius: 14px; padding: 14px 16px; gap: 2px !important; align-items: center; margin: 0 0 12px; }
+.dh-dr-swaptxt { text-align: center; font-size: 12.5px; color: #6B635A; }
+.st-key-dhdy_swap .stElementContainer { display: flex; justify-content: center; }
+[data-testid="stDialog"] div.st-key-dhdy_swap div.stButton > button { background: transparent !important; border: 0 !important; box-shadow: none !important; height: auto !important; min-height: 0 !important; padding: 2px 6px !important; }
+[data-testid="stDialog"] div.st-key-dhdy_swap div.stButton > button, [data-testid="stDialog"] div.st-key-dhdy_swap div.stButton > button * { color: #C25E00 !important; font-weight: 700 !important; font-size: 13px !important; }
+[data-testid="stDialog"] .st-key-dhdy_sync button { background: #FFFFFF !important; border: 1px solid #E0D6C8 !important; border-radius: 100px !important; height: 42px !important; }
+[data-testid="stDialog"] .st-key-dhdy_sync button, [data-testid="stDialog"] .st-key-dhdy_sync button * { color: #2D2A26 !important; font-weight: 600 !important; }
+/* tarot: kartu ramping 2:3 + animasi flip */
+.dh-tr-img { width: min(190px, 56%); aspect-ratio: 2 / 3; }
+.dh-tr-ph { height: auto; }
+.dh-tr-wrap, .st-key-dhtr_cover { width: min(190px, 56%); }
+.dh-tr-wrap { animation: dhFlip .7s ease both; transform-origin: center; }
+@keyframes dhFlip { 0% { transform: perspective(900px) rotateY(90deg); opacity: .2; } 100% { transform: perspective(900px) rotateY(0); opacity: 1; } }
+.dh-tr-over div { font-size: 16px; }
+.dh-tr-hint { text-align: center; font-size: 12px; font-weight: 600; color: #C25E00; margin: 12px 0 0; }
+.dh-mn-paywall { border-color: #F0C9A0; }
+/* UI12 fix: box paywall tarot (tombol di dalam box) + warna tombol sync */
+div[data-testid="stVerticalBlock"].st-key-dhtr_pay { background: #FEF6E3; border: 1px solid #F0C9A0; border-radius: 14px; padding: 14px 16px; gap: 0 !important; margin: 0 0 12px; }
+.st-key-dhtr_pay .dh-mn-paywall { background: transparent; border: 0; padding: 0 0 10px; margin: 0; }
+[data-testid="stDialog"] div.st-key-dhdy_sync div.stButton > button[kind="secondary"] { background: #FFFFFF !important; border: 1px solid #E0D6C8 !important; border-radius: 100px !important; height: 42px !important; }
+[data-testid="stDialog"] div.st-key-dhdy_sync div.stButton > button *, [data-testid="stDialog"] div.st-key-dhdy_sync div.stButton > button p { color: #2D2A26 !important; font-weight: 600 !important; }
