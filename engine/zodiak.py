@@ -46,3 +46,44 @@ def hitung_zodiak(tanggal_lahir: date) -> dict:
             }
 
     raise ValueError(f"Tanggal tidak valid untuk pencocokan zodiak: {tanggal_lahir}")
+
+
+# Urutan tanda tropis mulai 0 derajat ekliptika (Aries = 0-30 derajat, dst).
+_URUTAN_TANDA = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
+                 "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"]
+
+
+def hitung_bulan(tanggal_lahir: date, jam_lahir, kota_lahir=None) -> dict:
+    """
+    Posisi Bulan (tanda tropis) pada saat lahir. Pakai swisseph (Moshier) +
+    tebakan zona waktu dari engine.human_design, jadi akurasinya ikut
+    keterbatasan itu (default WIB kalau kota tidak dikenali).
+
+    Args:
+        tanggal_lahir: tanggal lahir (waktu LOKAL).
+        jam_lahir: objek datetime.time atau string "HH:MM" (waktu LOKAL).
+        kota_lahir: nama kota (opsional) untuk tebak offset UTC.
+
+    Returns:
+        {"moon_sign": str, "moon_near_edge": bool} atau {} kalau jam kosong /
+        tidak valid / swisseph tidak tersedia.
+    """
+    if not jam_lahir:
+        return {}
+    try:
+        if isinstance(jam_lahir, str):
+            jam, menit = (int(x) for x in jam_lahir.split(":")[:2])
+        else:
+            jam, menit = jam_lahir.hour, jam_lahir.minute
+        import swisseph as swe
+        from engine.human_design import _tebak_utc_offset
+        jam_utc = jam + menit / 60 - _tebak_utc_offset(kota_lahir)
+        jd = swe.julday(tanggal_lahir.year, tanggal_lahir.month, tanggal_lahir.day, jam_utc)
+        lon = swe.calc_ut(jd, swe.MOON, swe.FLG_MOSEPH)[0][0] % 360
+    except (ValueError, ImportError, AttributeError, TypeError):
+        return {}
+    dalam_tanda = lon % 30
+    return {
+        "moon_sign": _URUTAN_TANDA[int(lon // 30)],
+        "moon_near_edge": dalam_tanda < 1 or dalam_tanda > 29,
+    }
