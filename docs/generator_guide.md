@@ -149,3 +149,9 @@ Berlaku untuk semua key. Naskah ditulis per teks, bukan dirakit dari template.
 - Tone sama seperti bagian 4. Item daily berdiri sendiri, tidak merujuk item lain.
 - Tanpa "—", "–", spasi ganda, duplikat dalam satu kategori, dan kata vonis (pasti, sial, vonis, ditakdirkan).
 - Validasi: `dynamic_loader.validate(system, kind, QUOTA_PRODUKSI)`.
+
+### 6.5 Shio, Weton, Numerologi
+- Struktur dan kuota sama dengan Zodiak. Key harus sama dengan file profile: Shio 12 hewan, Weton 35 "Hari Pasaran", Numerologi "1".."9","11","22","33".
+- Shio: tidak menyebut elemen tetap (kayu, logam, dst), pakai polaritas Yang/Yin saja. Weton: tanpa pancasuda; fokus saran mengikuti kelompok neptu (7-10 percaya diri/keberanian, 11-14 konsistensi/keseimbangan, 15-18 kelola emosi/ambisi). Numerologi: angka tunggal fokus pendalaman dan satu kebiasaan sampai tuntas; master 11/22/33 fokus keberlanjutan, jeda pemulihan, kurangi tekanan.
+- Tidak ada teks kembar antar key untuk ramalan, saran, quote, monthly, weekly (dites di `tests/test_dynamic_loader.py`).
+- Warna daily diambil dari palet 28 warna per kelompok internal (bukan klaim elemen ke user).
