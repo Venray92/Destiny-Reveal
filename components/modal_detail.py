@@ -211,6 +211,9 @@ def render_detail():
             f'<div class="dh-dt-foot"><span>Milik: <b>{_e(nama)}</b></span><span>destinyreveal.id</span></div></div>',
             unsafe_allow_html=True)
 
+    if quote:  # kutipan di antara kartu dan tombol aksi
+        st.markdown(f'<div class="dh-dt-quotebox">&ldquo;{_e(quote)}&rdquo;</div>', unsafe_allow_html=True)
+
     caption = (f'"{quote}"\n\n— {nama} · {item["short"]}\nCek takdirmu di destinyreveal.id #DestinyReveal'
                if quote else f'{nama} · {item["short"]}\nCek takdirmu di destinyreveal.id #DestinyReveal')
     with st.container(key="dhd_actions"):
