@@ -1,0 +1,71 @@
+{
+  "lp": {
+    "1": "belajar memimpin, mandiri, dan memulai sesuatu dari awal",
+    "2": "belajar bekerja sama, mendengarkan, dan menjaga keharmonisan",
+    "3": "belajar mengekspresikan diri lewat ide, kata, dan kreativitas",
+    "4": "belajar membangun fondasi lewat disiplin dan ketekunan",
+    "5": "belajar beradaptasi, berani mencoba, dan menikmati kebebasan",
+    "6": "belajar merawat, bertanggung jawab, dan menciptakan rasa nyaman",
+    "7": "belajar menggali makna lewat analisis, riset, dan perenungan",
+    "8": "belajar mengelola kekuatan, uang, dan pengaruh secara seimbang",
+    "9": "belajar berempati luas, melepaskan, dan memberi manfaat bagi banyak orang",
+    "11": "belajar mempercayai intuisi dan menjadi sumber inspirasi bagi sekitar",
+    "22": "belajar mengubah visi besar menjadi sistem dan hasil yang nyata",
+    "33": "belajar membimbing dan merawat orang lain tanpa melupakan diri sendiri"
+  },
+  "su": {
+    "1": "merasa bebas menentukan arah dan membuktikan kemampuan sendiri",
+    "2": "merasa dekat, dibutuhkan, dan hidup dalam hubungan yang tenang",
+    "3": "mengungkapkan perasaan dan melihat orang tersenyum karena karyamu",
+    "4": "merasa aman lewat rencana yang jelas dan hasil yang bisa diandalkan",
+    "5": "menjelajah hal baru dan tidak terkurung rutinitas",
+    "6": "menjaga orang tersayang dan menghadirkan rumah yang hangat",
+    "7": "memahami hal yang tersembunyi dan punya waktu sunyi untuk berpikir",
+    "8": "membangun sesuatu yang berpengaruh dan diakui hasilnya",
+    "9": "memberi manfaat dan merasa hidup punya makna yang lebih besar",
+    "11": "merasakan koneksi batin dan hidup selaras dengan nilai yang tinggi",
+    "22": "mewujudkan karya besar yang bertahan lama",
+    "33": "melayani dan mengangkat orang lain dengan kasih yang tulus"
+  },
+  "ex": {
+    "1": "memimpin, mengambil inisiatif, dan membuka jalan baru",
+    "2": "menengahi, mendengarkan, dan menyatukan orang yang berbeda",
+    "3": "berkomunikasi, bercerita, dan menghidupkan suasana",
+    "4": "mengatur, merapikan, dan menuntaskan pekerjaan secara teliti",
+    "5": "beradaptasi, menjual gagasan, dan bergerak lincah antar bidang",
+    "6": "merawat, mendidik, dan menjaga standar kualitas yang hangat",
+    "7": "menganalisis, meneliti, dan menemukan inti persoalan",
+    "8": "mengelola sumber daya, strategi, dan target besar",
+    "9": "menginspirasi, mengajar, dan menyentuh perasaan banyak orang",
+    "11": "menginspirasi lewat intuisi dan visi yang membangkitkan semangat",
+    "22": "merancang dan membangun sistem berskala besar",
+    "33": "membimbing, mengayomi, dan mengarahkan komunitas"
+  },
+  "pe": {
+    "1": "tegas, percaya diri, dan terlihat siap memimpin",
+    "2": "lembut, ramah, dan mudah diajak bicara",
+    "3": "ceria, ekspresif, dan menyenangkan",
+    "4": "serius, rapi, dan dapat diandalkan",
+    "5": "energik, menarik, dan serba ingin tahu",
+    "6": "hangat, perhatian, dan menenangkan",
+    "7": "tenang, misterius, dan penuh pertimbangan",
+    "8": "berwibawa, ambisius, dan tampak kompeten",
+    "9": "murah hati, bijaksana, dan penuh pengertian",
+    "11": "peka, karismatik, dan penuh inspirasi",
+    "22": "berkelas, terstruktur, dan visioner",
+    "33": "penuh kasih, sabar, dan mengayomi"
+  },
+  "relation": {
+    "sama": "Karena Life Path dan Soul Urge sama-sama {a}, arah hidup dan kerinduan batinmu bergerak searah, sehingga keputusan besar terasa lebih utuh.",
+    "beda": "Perbedaan antara jalan hidup ({a}) dan dorongan batin ({b}) wajar terjadi. Saat keduanya diselaraskan, kamu bergerak tanpa perasaan terbelah.",
+    "master": "Salah satu angkamu adalah angka master, jadi intensitasnya cenderung lebih tinggi dan ritmenya perlu dijaga.",
+    "ex_sama": "Karena Expression dan Personality sama-sama {a}, apa yang orang lihat selaras dengan kemampuan aslimu.",
+    "ex_beda": "Orang awalnya melihatmu {pe_tail}, padahal kekuatan utamamu ada pada {ex_tail}. Biarkan keduanya terlihat agar kamu dinilai utuh."
+  },
+  "advice": {
+    "tunggal": "Karena angka intimu berupa angka tunggal, bobot sarannya ada pada kedalaman: pilih satu keunggulan utama dan latih secara konsisten sebelum menambah target lain.",
+    "master": "Karena ada angka master di peta angkamu, bobot sarannya ada pada keberlanjutan: pecah visi menjadi langkah kecil, sisihkan jeda pemulihan, dan jangan menuntut diri sempurna sekaligus.",
+    "selaras": "Gunakan keselarasan angkamu sebagai pegangan: ambil keputusan penting di saat kamu merasa jalan hidup dan hatimu sepakat.",
+    "tegang": "Jika terasa tarik-menarik, tuliskan dulu apa yang diminta jalan hidupmu dan apa yang diminta hatimu, lalu cari satu langkah kecil yang memenuhi keduanya."
+  }
+}
