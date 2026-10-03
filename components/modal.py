@@ -144,6 +144,8 @@ def _on_dismiss():
 def reopen_if_pending():
     if st.session_state.pop("dh_reopen", False):
         _flow_dialog()
+    elif st.session_state.pop("dh_open_reveal", False):
+        open_reveal_modal()
 
 
 @st.dialog("Reveal Dirimu", width="large", on_dismiss=_on_dismiss)

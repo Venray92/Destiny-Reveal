@@ -7,6 +7,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from components.common import go
+from components.mini_modals import DIALOGS as _MINI_DIALOGS
 from components.modal import open_reveal_modal, reopen_if_pending
 
 
@@ -68,7 +69,10 @@ _BRIDGE_JS = """<script>
 w.eval("document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('.dh-open-reveal');if(!t)return;e.preventDefault();var b=document.querySelector('.st-key-dh_modal_trigger button');if(b)b.click();},true);");})();
 (function(){var w=window.parent;if(w.__dhBackdropBound)return;w.__dhBackdropBound=true;
 // Sub-modal detail: klik backdrop (di luar kotak modal) = tidak ngapa-ngapain
-w.eval("['pointerdown','pointerup','mousedown','mouseup','click','touchstart','touchend'].forEach(function(t){window.addEventListener(t,function(e){var d=e.target;if(d&&d.getAttribute&&d.getAttribute('data-testid')==='stDialog'&&d.querySelector('.dh-step-detail')){e.stopImmediatePropagation();e.preventDefault();}},true);});");})();
+w.eval("['pointerdown','pointerup','mousedown','mouseup','click','touchstart','touchend'].forEach(function(t){window.addEventListener(t,function(e){var d=e.target;if(d&&d.getAttribute&&d.getAttribute('data-testid')==='stDialog'&&(d.querySelector('.dh-step-detail')||d.querySelector('.dh-nodismiss'))){e.stopImmediatePropagation();e.preventDefault();}},true);});");})();
+(function(){var w=window.parent;if(w.__dhModalBound)return;w.__dhModalBound=true;
+// kartu/link dengan .dh-open-modal[data-modal=x] -> klik tombol tersembunyi dh_trig_x; Esc diblok di modal .dh-nodismiss
+w.eval("document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('.dh-open-modal');if(!t)return;e.preventDefault();var b=document.querySelector('.st-key-dh_trig_'+t.getAttribute('data-modal')+' button');if(b)b.click();},true);window.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.querySelector('[data-testid=stDialog] .dh-nodismiss')){e.stopImmediatePropagation();e.preventDefault();}},true);");})();
 </script>"""
 
 
@@ -140,5 +144,8 @@ def render_navbar(current_page):
         with st.container(key="dh_modal_trigger_wrap"):
             if st.button("buka modal", key="dh_modal_trigger"):
                 open_reveal_modal()
+            for _k, _fn in _MINI_DIALOGS.items():
+                if st.button(f"buka {_k}", key=f"dh_trig_{_k}"):
+                    _fn()
             components.html(_BRIDGE_JS, height=0)
     reopen_if_pending()  # balik ke Modal Hasil setelah sub-modal detail ditutup (X/backdrop)
