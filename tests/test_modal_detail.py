@@ -30,3 +30,14 @@ def test_mini_modal_zodiak_info():
     from components.mini_modals import _zodiak_info
     d = _zodiak_info("Aquarius")
     assert d["tgl"] == "20 Jan - 18 Feb" and d["elemen"] == "Udara" and d["siapa"] and d["quote"]
+
+
+def test_daily_reading_json_and_fallback(monkeypatch):
+    from components import mini_modals as m
+    monkeypatch.setattr(m, "_daily_json", lambda: {"data": {"zodiak": {"Aries": {"2026-10-03": {
+        "pesan": "Satu. Dua. Tiga.", "angka_hoki": "9 & 27", "warna_hoki": "Merah Bata"}}}}})
+    r = m.get_daily_reading("zodiak", "Aries", "2026-10-03")
+    assert r == {"pesan": "Satu. Dua.", "angka": "9 & 27", "warna": "Merah Bata"}
+    monkeypatch.setattr(m, "_daily_json", lambda: {})
+    r = m.get_daily_reading("zodiak", "Aries", "2026-10-03")
+    assert r["pesan"].count(". ") == 0 and r["angka"] and r["warna"]
