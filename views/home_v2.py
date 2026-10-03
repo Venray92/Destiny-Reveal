@@ -29,14 +29,14 @@ def render(semua_sistem_list):
     with st.container(key="dh_home_root"):
         st.markdown('<div id="dh-top" class="dh-anchor"></div>', unsafe_allow_html=True)
         consume_pending_scroll()
-        sections.render_hero()
+        with st.container(key="dh_section_hero"):
+            sections.render_hero()
 
         # NOTE: section wrapper WAJIB st.container(key=...) asli, bukan markdown
         # div open/close terpisah — itu gak bener-bener membungkus di DOM.
         with st.container(key="dh_section_matrix"):
             sections.render_matrix_diagram(lookup)
-
-        sections.render_social_proof()
+            sections.render_social_proof()
 
         with st.container(key="dh_section_explore"):
             sections.render_explore()
@@ -50,4 +50,5 @@ def render(semua_sistem_list):
         with st.container(key="dh_section_finalcta"):
             sections.render_final_cta()
 
-        sections.render_footer()
+        with st.container(key="dh_section_footer"):
+            sections.render_footer()
