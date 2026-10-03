@@ -36,6 +36,8 @@ def render(semua_sistem_list):
         # div open/close terpisah — itu gak bener-bener membungkus di DOM.
         with st.container(key="dh_section_matrix"):
             sections.render_matrix_diagram(lookup)
+
+        with st.container(key="dh_section_proof"):
             sections.render_social_proof()
 
         with st.container(key="dh_section_explore"):
