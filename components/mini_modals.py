@@ -102,16 +102,52 @@ def _open_reveal():
     st.rerun()
 
 
+_COIN_MSG = "Fitur koin belum tersedia — masih tahap pengembangan 🚧"
+
+
 def _soon(msg):
     st.toast(msg)
 
 
 # ═══════════ 1. RAMALAN HARIAN GRATIS ═══════════
+_DAILY_JSON = _ROOT / "content" / "interpretations" / "daily" / "daily.json"
+_WARNA = ["Merah Bata (Terracotta)", "Biru Laut", "Hijau Sage", "Kuning Madu", "Ungu Lavender", "Putih Gading", "Emas", "Hitam Pekat"]
+
+
+@lru_cache(maxsize=1)
+def _daily_json():
+    try:
+        return json.loads(_DAILY_JSON.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def _daily_entry(kind, name, day):
+    """Ambil entri harian dari daily.json. Format yang didukung (data.<kind>.<nama>):
+    - dict per tanggal: {"2026-10-03": {...}}  ATAU  - list yang diputar per hari (urut tanggal)
+    Field entri: pesan, angka_hoki, warna_hoki."""
+    d = _daily_json()
+    d = d.get("data", d)
+    node = (d.get(kind, {}) or {}).get(name)
+    if isinstance(node, dict):
+        node = node.get(day) or node.get("harian")
+    if isinstance(node, list) and node:
+        node = node[datetime.fromisoformat(day).toordinal() % len(node)]
+    return node if isinstance(node, dict) else None
+
+
 def get_daily_reading(kind, name, day):
-    """HOOK ke data harian (daily.json). Sementara: pakai kutipan & 'Untuk Hari Ini' dari kamus konten.
-    Ganti isi fungsi ini begitu daily.json siap — return dict {judul, teks, quote}."""
+    """Return {pesan, angka, warna}: PESAN SINGKAT harian (1-2 kalimat), bukan profil statis.
+    Sumber: daily.json. DUMMY kalau file belum ada: pesan = 2 kalimat 'Untuk Hari Ini' kamus konten,
+    angka/warna hoki dibuat deterministik dari nama+tanggal."""
+    e = _daily_entry(kind, name, day)
+    if e and e.get("pesan"):
+        return {"pesan": _first_sentences(e["pesan"], 2), "angka": str(e.get("angka_hoki", "")),
+                "warna": str(e.get("warna_hoki", ""))}
     c = (ZODIAK_CONTENT if kind == "zodiak" else SHIO_CONTENT).get(name, {})
-    return {"judul": c.get("p3_label", "Untuk Hari Ini"), "teks": c.get("p3", ""), "quote": c.get("quote", "")}
+    seed = random.Random(f"{kind}{name}{day}")
+    n1 = seed.randint(1, 9)
+    return {"pesan": _first_sentences(c.get("p3", ""), 1), "angka": f"{n1} & {n1 * 3}", "warna": seed.choice(_WARNA)}
 
 
 def _cb_daily_tab(tab):
@@ -138,16 +174,32 @@ def daily_dialog():
         kind, name = lock["kind"], lock["name"]
         r = get_daily_reading(kind, name, lock["date"])
         label = "Zodiak" if kind == "zodiak" else "Shio"
-        sym = GLYPH.get(name, "") + "︎" if kind == "zodiak" else SHIO_EMOJI.get(name, "")
-        quote = f'<div class="dh-mn-quote">&ldquo;{_e(r["quote"].strip(chr(34)))}&rdquo;</div>' if r["quote"] else ""
+        sym = GLYPH.get(name, "") + "\ufe0e" if kind == "zodiak" else SHIO_EMOJI.get(name, "")
         st.markdown(
-            f'<div class="dh-mn-card"><div class="dh-mn-cardhead"><span class="dh-mn-sym">{sym}</span>'
-            f'<div><div class="dh-mn-name">{label} {_e(name)} · Hari Ini</div>'
-            f'<div class="dh-mn-meta">Hasil terkunci hingga pergantian hari (00:00 WIB)</div></div></div>'
-            f'<div class="dh-mn-lab">{_e(r["judul"]).upper()}:</div><p>{_e(_first_sentences(r["teks"], 3))}</p>{quote}</div>'
-            '<div class="dh-mn-notice"><b>ⓘ Ramalan harian lengkap menyusul.</b>'
-            'Teks harian yang berganti tiap 00:00 WIB masih disiapkan; sementara ini pesan diambil dari profil tandamu.</div>',
+            '<div class="dh-dr-quota"><span class="dh-dr-ck">✓</span><div>'
+            '<b>Kuota Gratis Hari Ini Sudah Digunakan</b>'
+            f'<span>Membaca: {sym} {label} {_e(name)} (Reset besok 00:00)</span></div>'
+            '<em>Terkunci</em></div>'
+            f'<div class="dh-dr-msg"><div class="dh-dr-msghead"><b>{label} {_e(name)}</b><span>Pesan Hari Ini</span></div>'
+            f'<p>{_e(r["pesan"])}</p>'
+            f'<div class="dh-dr-foot"><div>Angka Hoki: <b>{_e(r["angka"])}</b></div>'
+            f'<div>Warna Hoki: <b>{_e(r["warna"])}</b></div></div></div>',
             unsafe_allow_html=True)
+        with st.container(key="dhdy_lock"):
+            st.markdown('<div class="dh-dr-blur"><p>💼 Karier: Peluang kerja sama baru terbuka lewat obrolan yang kamu mulai hari ini…</p>'
+                        '<p>💗 Asmara: Percakapan jujur dengan orang terdekat membawa suasana yang lebih hangat…</p>'
+                        '<p>💡 Nasihat: Tuntaskan satu hal kecil sebelum memulai hal baru supaya energimu tidak pecah…</p></div>',
+                        unsafe_allow_html=True)
+            st.button("🔒 Buka Analisis Lengkap — 1 Koin", key="dhdy_unlock", type="primary",
+                      on_click=_soon, args=(_COIN_MSG,))
+            st.markdown('<div class="dh-dr-sub">Membongkar detail karier, dinamika asmara, dan nasihat langkah konkret hari ini.</div>',
+                        unsafe_allow_html=True)
+        with st.container(key="dhdy_swap"):
+            st.markdown('<div class="dh-dr-swaptxt">Mau intip ramalan zodiak atau shio lain hari ini?</div>',
+                        unsafe_allow_html=True)
+            st.button("Ganti Pilihan / Buka Sistem Lain (1 Koin) →", key="dhdy_swapbtn", on_click=_soon, args=(_COIN_MSG,))
+        if st.button("Sinkronkan dengan Weton & Numerologi Lengkap →", key="dhdy_sync", use_container_width=True):
+            _open_reveal()
         return
 
     tab = ss.setdefault("dh_daily_tab", "zodiak")
@@ -206,7 +258,8 @@ def tarot_dialog():
             st.markdown(f'<img class="dh-tr-img" src="{uri}" alt="Kartu tarot">' if uri else
                         '<div class="dh-tr-img dh-tr-ph">🂠</div>', unsafe_allow_html=True)
             st.button("Tarik kartu", key="dhtr_draw", on_click=_cb_tarot_draw)
-        st.markdown('<div class="dh-tr-cap">Kartu sinkronisitas tetap sepanjang hari ini (tanpa kocok ulang)</div>',
+        st.markdown('<div class="dh-tr-hint">👆 Klik kartu untuk membuka kartumu hari ini</div>'
+                    '<div class="dh-tr-cap">Kartu sinkronisitas tetap sepanjang hari ini (tanpa kocok ulang)</div>',
                     unsafe_allow_html=True)
         return
 
@@ -221,12 +274,14 @@ def tarot_dialog():
         f'<div>{_e(nama)}{f" ({_e(arti)})" if arti else ""}</div></div></div>'
         '<div class="dh-tr-cap">Kartu sinkronisitas tetap sepanjang hari ini (tanpa kocok ulang)</div>'
         f'<div class="dh-mn-msg"><div class="dh-mn-msghead"><span>PESAN INTI HARI INI:</span><b>{_e(arti or nama)}</b></div>'
-        f'<p>{_e(c.get("p1", ""))}</p></div>'
-        '<div class="dh-mn-paywall"><b>Mau Tau Lebih Dalam?</b>'
-        '<span>Bongkar dimensi karier, dinamika asmara, dan peringatan energi tersembunyi kartu ini.</span></div>',
+        f'<p>{_e(_first_sentences(c.get("p1", ""), 3))}</p></div>',
         unsafe_allow_html=True)
-    st.button("🔒 Mau Tau Lebih Dalam? (1 Koin)", key="dhtr_unlock", type="primary", use_container_width=True,
-              on_click=_soon, args=("Fitur koin belum tersedia — masih tahap pengembangan 🚧",))
+    with st.container(key="dhtr_pay"):
+        st.markdown('<div class="dh-mn-paywall"><b>Mau Tau Lebih Dalam?</b>'
+                    '<span>Bongkar dimensi karier, dinamika asmara, dan peringatan energi tersembunyi kartu ini.</span></div>',
+                    unsafe_allow_html=True)
+        st.button("🔒 Mau Tau Lebih Dalam? (1 Koin)", key="dhtr_unlock", type="primary", use_container_width=True,
+                  on_click=_soon, args=(_COIN_MSG,))
     if st.button("Sinkronkan Kartu Ini dengan Zodiak & Wetonmu di Scan →", key="dhtr_sync", use_container_width=True):
         _open_reveal()
 
@@ -264,7 +319,7 @@ def preview_dialog():
         '<span>Membongkar kekuatan sejati, PR batin (shadow work), serta insight karier, asmara &amp; keuangan.</span></div></div>',
         unsafe_allow_html=True)
     st.button("🔒 Buka Analisis Lengkap — 1 Koin", key="dhpv_unlock", type="primary", use_container_width=True,
-              on_click=_soon, args=("Fitur koin belum tersedia — masih tahap pengembangan 🚧",))
+              on_click=_soon, args=(_COIN_MSG,))
     if st.button("Sinkronkan dengan Weton & Shio Milikmu →", key="dhpv_sync", use_container_width=True):
         _open_reveal()
 
