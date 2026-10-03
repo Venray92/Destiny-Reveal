@@ -76,7 +76,7 @@ def test_deep_gm_tampil_urut(monkeypatch):
     raw = compute_raw_result("Zodiak", LD)
     entry = {"sections": {"free": {}, **_AM}}
     monkeypatch.setattr(md, "_profile_json", _fake_profile(raw["sign"], entry))
-    d = md.build_detail("Zodiak", raw)
+    d = md.build_detail("Zodiak", raw, "deep")
     assert [x[2] for x in d["deep"]] == [[f"teks {k}"] for k in "GHIJKLM"]
     assert len(d["sections"]) == 6
     txt = md._plain_text("Zodiak Barat", d)
@@ -86,21 +86,35 @@ def test_deep_gm_tampil_urut(monkeypatch):
 def test_deep_kosong_kalau_format_lama(monkeypatch):
     raw = compute_raw_result("Shio", LD)
     monkeypatch.setattr(md, "_profile_json", lambda folder: {})
-    assert md.build_detail("Shio", raw)["deep"] == []
+    assert md.build_detail("Shio", raw, "deep")["deep"] == []
     entry = {"sections": {"free": {}, "A": "a", "G": "g"}}
     monkeypatch.setattr(md, "_profile_json", _fake_profile(raw["shio"], entry))
-    assert [x[2] for x in md.build_detail("Shio", raw)["deep"]] == [["g"]]
+    assert [x[2] for x in md.build_detail("Shio", raw, "deep")["deep"]] == [["g"]]
 
 
 def test_build_detail_combo_zodiak_dan_numerologi():
     from components.modal_detail import _plain_text, build_detail
     d = build_detail("Zodiak", {"sign": "Leo", "element": "Api", "modality": "Fixed", "ruling_planet": "Matahari",
-                                 "moon_sign": "Gemini"})
+                                 "moon_sign": "Gemini"}, "deep")
     assert [b["title"] for b in d["combo"]][0] == "Matahari di Leo × Bulan di Gemini"
     assert ("Bulan", "Gemini") in d["params"] and "PERPADUAN VARIABEL" in _plain_text("Zodiak", d)
-    tanpa = build_detail("Zodiak", {"sign": "Leo", "element": "Api", "modality": "Fixed", "ruling_planet": "Matahari"})
+    tanpa = build_detail("Zodiak", {"sign": "Leo", "element": "Api", "modality": "Fixed", "ruling_planet": "Matahari"}, "deep")
     assert tanpa["combo"] == [] and "PERPADUAN VARIABEL" not in _plain_text("Zodiak", tanpa)
-    n = build_detail("Numerologi", {"life_path": 7, "expression": 3, "soul_urge": 9, "personality": 6, "birthday": 1})
+    n = build_detail("Numerologi", {"life_path": 7, "expression": 3, "soul_urge": 9, "personality": 6, "birthday": 1}, "deep")
     assert len(n["combo"]) == 3
     assert build_detail("Weton", {"hari": "Senin", "pasaran": "Legi", "neptu": 9,
-                                   "pancasuda": {"nama": "Sri", "arti": "x"}})["combo"] == []
+                                   "pancasuda": {"nama": "Sri", "arti": "x"}}, "deep")["combo"] == []
+
+
+def test_mode1_tidak_tarik_gm_dan_combo(monkeypatch):
+    raw = compute_raw_result("Zodiak", LD)
+    raw["moon_sign"] = "Gemini"
+    entry = {"sections": {"free": {}, **_AM}}
+    monkeypatch.setattr(md, "_profile_json", _fake_profile(raw["sign"], entry))
+    d = md.build_detail("Zodiak", raw)
+    assert d["deep"] == [] and d["combo"] == [] and len(d["sections"]) == 6
+    txt = md._plain_text("Zodiak Barat", d)
+    assert "ANALISIS MENDALAM" not in txt and "teks G" not in txt and "PERPADUAN VARIABEL" not in txt
+    assert "teks A" in txt and "teks F" in txt
+    full = md.build_detail("Zodiak", raw, md.MODE_DEEP)
+    assert len(full["deep"]) == 7 and full["combo"]
