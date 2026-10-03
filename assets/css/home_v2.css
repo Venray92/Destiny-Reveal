@@ -885,7 +885,6 @@ div[data-testid="stVerticalBlock"].st-key-dh_home_root { gap: 0 !important; marg
 }
 [data-testid="stDialog"] div.st-key-dhd_wa a * { color: #FFFFFF !important; }
 /* bar social proof di dalam section chart: tanpa blok putih */
-.st-key-dh_home_root .dh-proof-bar { background: transparent !important; border: 0 !important; box-shadow: none !important; }
 
 /* ══════════════ UI8 ══════════════ */
 /* Header modal hasil: pill 1 baris */
@@ -946,5 +945,17 @@ div[data-testid="stVerticalBlock"].st-key-dh_home_root { gap: 0 !important; marg
     background: #FAF6F0 !important; border: 0 !important; border-radius: 100px !important; height: 44px !important; color: #374151 !important;
 }
 [data-testid="stDialog"] div.st-key-dhd_back div.stButton > button[kind="secondary"] * { color: #374151 !important; }
-/* tombol X dialog selalu di atas konten */
-[data-testid="stDialog"] button[aria-label="Close"] { position: relative; z-index: 5; }
+
+/* ══════════════ UI9 ══════════════ */
+/* Social proof bar: full-bleed putih, border tipis atas-bawah */
+.st-key-dh_home_root .st-key-dh_section_proof {
+    position: relative !important; left: 50% !important; right: 50% !important; width: 100vw !important;
+    max-width: none !important; margin-left: -50vw !important; margin-right: -50vw !important; box-sizing: border-box;
+    padding: 22px 5vw !important; background: #FFFFFF;
+    border-top: 1px solid rgba(231,229,228,.7) !important; border-bottom: 1px solid rgba(231,229,228,.7) !important;
+}
+.st-key-dh_home_root .st-key-dh_section_proof .dh-proof-bar { background: transparent !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; margin: 0; }
+/* Jelajahi: krem ivory, bukan putih */
+.st-key-dh_home_root .st-key-dh_section_explore { background: #FDFBF7 !important; }
+/* ✕ dialog tetap di pojok kanan atas modal (posisi bawaan: absolute) & selalu di atas konten */
+[data-testid="stDialog"] button[aria-label="Close"] { z-index: 10; }
