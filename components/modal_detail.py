@@ -3,10 +3,10 @@ Sub-modal "Detail Sistem" (UI7): kartu takdir + uraian lengkap satu sistem.
 Dibuka dari tombol "Lihat & Simpan Kartu ..." di hasil Mode 1. Bukan dialog baru
 (Streamlit cuma izinkan 1 dialog) — ini satu langkah di dalam _flow_dialog.
 
-Sumber isi uraian (dibaca dinamis, urutan prioritas):
-  1. key JSON versi lengkap  : aspek_utama, karier_dan_keuangan, asmara_dan_hubungan,
-                               kekuatan_karakter, shadow_work, nasihat_strategis, parameter_kunci
-  2. key JSON yang sudah ada : sections.free/paid/deep di content/interpretations/zodiak/zodiak_profile.json
+Sumber isi uraian (dibaca dinamis, urutan prioritas, per section):
+  1. JSON format baru A-M    : content/interpretations/<sistem>/<sistem>_profile.json,
+                               key A-F = 6 section utama, key G-M = 7 section 'Analisis Mendalam' (unlocked)
+  2. key JSON format lama    : sections.free/paid/deep (cuma dibaca buat Zodiak, kompatibilitas)
   3. kamus konten Python (build_display_data): p1/p2/p3 + domains (semua sistem)
 """
 
@@ -19,49 +19,103 @@ from urllib.parse import quote as urlquote
 import streamlit as st
 import streamlit.components.v1 as components
 
+from components.combo import build_combo
 from components.flow_state import STEP_RESULT, set_step
 from content.result_builder import build_display_data
 from utils.card_images import card_filename_for_system, card_image_bytes_for_system, card_image_for_system
 
-_ZODIAK_JSON = Path(__file__).resolve().parent.parent / "content" / "interpretations" / "zodiak" / "zodiak_profile.json"
+_CONTENT_DIR = Path(__file__).resolve().parent.parent / "content" / "interpretations"
+
+# sistem -> folder profil JSON (content/interpretations/<folder>/<folder>_profile.json)
+_PROFILE_FOLDER = {
+    "Zodiak": "zodiak", "Shio": "shio", "Weton": "weton",
+    "Numerologi": "numerologi", "Matrix Destiny": "matrix_destiny",
+}
+_NEW_KEYS = ("A", "B", "C", "D", "E", "F")
 
 ZODIAK_GLYPH = {
     "Aries": "♈", "Taurus": "♉", "Gemini": "♊", "Cancer": "♋", "Leo": "♌", "Virgo": "♍",
     "Libra": "♎", "Scorpio": "♏", "Sagittarius": "♐", "Capricorn": "♑", "Aquarius": "♒", "Pisces": "♓",
 }
 
-# (judul section, [key kandidat berurutan]) — semua key kandidat yang ada digabung
+# (ikon, judul, key format baru A-M, [key format lama berurutan], tone)
+# Key baru dipakai SENDIRIAN kalau ada; kalau nggak ada, key lama digabung (perilaku lama).
 SECTIONS = [
-    ("🪐", "ASPEK UTAMA & ESENSI JIWA", ["aspek_utama", "siapa_kamu"], "ivory"),
-    ("💼", "KARIER, PELUANG USAHA & POTENSI FINANSIAL", ["karier_dan_keuangan", "karir", "peta_karier", "keuangan"], "white"),
-    ("🤍", "ASMARA, DINAMIKA PERCINTAAN & PASANGAN JIWA", ["asmara_dan_hubungan", "asmara", "panduan_hubungan"], "sand"),
-    ("🛡️", "KEKUATAN KARAKTER & YANG PERLU DIJAGA", ["kekuatan_karakter", "kekuatan_yang_perlu_dijaga"], "sage"),
-    ("⚠️", "PR BAYANGAN (SHADOW WORK) & HAL YANG PERLU DIWASPADAI", ["shadow_work", "shadow_side", "blindspot"], "soft"),
-    ("💡", "LANGKAH PRAKTIS JIWA & NASIHAT STRATEGIS", ["nasihat_strategis", "pr_kecil_buat_kamu"], "dark"),
+    ("🪐", "ASPEK UTAMA & ESENSI JIWA", "A", ["aspek_utama", "siapa_kamu"], "ivory"),
+    ("💼", "KARIER, PELUANG USAHA & POTENSI FINANSIAL", "B", ["karier_dan_keuangan", "karir", "peta_karier", "keuangan"], "white"),
+    ("🤍", "ASMARA, DINAMIKA PERCINTAAN & PASANGAN JIWA", "C", ["asmara_dan_hubungan", "asmara", "panduan_hubungan"], "sand"),
+    ("🛡️", "KEKUATAN KARAKTER & YANG PERLU DIJAGA", "D", ["kekuatan_karakter", "kekuatan_yang_perlu_dijaga"], "sage"),
+    ("⚠️", "PR BAYANGAN (SHADOW WORK) & HAL YANG PERLU DIWASPADAI", "E", ["shadow_work", "shadow_side", "blindspot"], "soft"),
+    ("💡", "LANGKAH PRAKTIS JIWA & NASIHAT STRATEGIS", "F", ["nasihat_strategis", "pr_kecil_buat_kamu"], "dark"),
+]
+
+# Bagian "Analisis Mendalam" (key G-M format baru). Cuma tampil kalau JSON-nya punya key ini,
+# gak ada fallback ke key lama (biar gak dobel sama 6 section utama).
+DEEP_SECTIONS = [
+    ("🔮", "RINGKASAN ESENSI DIRIMU", "G", "ivory"),
+    ("🧭", "INSIGHT KARIER MENDALAM", "H", "white"),
+    ("💞", "INSIGHT ASMARA MENDALAM", "I", "sand"),
+    ("💰", "INSIGHT KEUANGAN & PENGELOLAAN REZEKI", "J", "sage"),
+    ("🌑", "SHADOW SIDE & PEMICU EMOSI TERSEMBUNYI", "K", "soft"),
+    ("🔍", "BLINDSPOT YANG SERING TIDAK DISADARI", "L", "white"),
+    ("🌱", "PR KECIL & LATIHAN KONKRET HARIAN", "M", "dark"),
 ]
 
 
-@lru_cache(maxsize=1)
-def _zodiak_json():
+@lru_cache(maxsize=None)
+def _profile_json(folder):
+    path = _CONTENT_DIR / folder / f"{folder}_profile.json"
     try:
-        return json.loads(_ZODIAK_JSON.read_text(encoding="utf-8")).get("data", {})
+        return json.loads(path.read_text(encoding="utf-8")).get("data", {})
     except (OSError, ValueError):
         return {}
 
 
+def _profile_key(system, raw):
+    """Key entri di *_profile.json untuk hasil engine ini (None kalau sistem belum punya profil)."""
+    r = raw or {}
+    if system == "Zodiak":
+        return r.get("sign")
+    if system == "Shio":
+        return r.get("shio")
+    if system == "Weton":
+        return f"{r.get('hari')} {r.get('pasaran')}"
+    if system == "Numerologi":
+        return str(r.get("life_path"))
+    if system == "Matrix Destiny":
+        return str(r.get("titik_inti"))
+    return None
+
+
 def _flatten(entry):
-    """Ratakan {sections:{free,paid,deep}} + key top-level jadi satu dict datar."""
+    """Ratakan entri profil jadi satu dict datar. Mendukung format lama
+    (sections: {free:{...}, paid:{...}, deep:{...}}) dan format baru A-M
+    (sections: {free:{...}, A:"teks", B:"teks", ...})."""
     flat = {}
     if not isinstance(entry, dict):
         return flat
     for k, v in entry.items():
         if k == "sections" and isinstance(v, dict):
-            for grp in v.values():
+            for gk, grp in v.items():
                 if isinstance(grp, dict):
                     flat.update(grp)
+                else:
+                    flat[gk] = grp
         else:
             flat[k] = v
     return flat
+
+
+def _collect(flat, keys):
+    """Kumpulkan teks non-kosong dari key-key ini (str atau list of str)."""
+    texts = []
+    for k in keys:
+        v = flat.get(k)
+        if isinstance(v, str) and v.strip():
+            texts.append(v.strip())
+        elif isinstance(v, list):
+            texts.extend(str(x).strip() for x in v if str(x).strip())
+    return texts
 
 
 def _param_rows(system, raw):
@@ -69,7 +123,8 @@ def _param_rows(system, raw):
     r = raw or {}
     if system == "Zodiak":
         rows = [("Rasi Bintang", r.get("sign")), ("Elemen Dasar", r.get("element")),
-                ("Planet Penguasa", r.get("ruling_planet")), ("Karakter Kunci", r.get("modality"))]
+                ("Planet Penguasa", r.get("ruling_planet")), ("Karakter Kunci", r.get("modality")),
+                ("Bulan", r.get("moon_sign"))]
     elif system == "Shio":
         rows = [("Shio", r.get("shio")), ("Elemen Dasar", r.get("elemen"))]
     elif system == "Weton":
@@ -107,23 +162,23 @@ def build_detail(system, raw):
     flat = {"siapa_kamu": disp.get("p1"), "kekuatan_yang_perlu_dijaga": disp.get("p2"),
             "pr_kecil_buat_kamu": disp.get("p3")}
     flat.update({k: v for k, v in (disp.get("domains") or {}).items() if v})
-    if system == "Zodiak":
-        flat.update(_flatten(_zodiak_json().get((raw or {}).get("sign"))))
+    folder, key = _PROFILE_FOLDER.get(system), _profile_key(system, raw)
+    prof = _flatten(_profile_json(folder).get(key)) if folder and key else {}
+    # Format baru A-M: dipakai semua sistem. Format lama: cuma Zodiak (kompatibilitas).
+    if any(k in prof for k in _NEW_KEYS) or system == "Zodiak":
+        flat.update(prof)
 
     sections = []
-    for icon, title, keys, tone in SECTIONS:
-        texts = []
-        for k in keys:
-            v = flat.get(k)
-            if isinstance(v, str) and v.strip():
-                texts.append(v.strip())
-            elif isinstance(v, list):
-                texts.extend(str(x).strip() for x in v if str(x).strip())
+    for icon, title, new_key, old_keys, tone in SECTIONS:
+        texts = _collect(flat, [new_key]) or _collect(flat, old_keys)
         sections.append((icon, title, texts, tone))
+
+    deep = [(icon, title, _collect(flat, [key]), tone) for icon, title, key, tone in DEEP_SECTIONS]
+    deep = [d for d in deep if d[2]]
 
     params = _as_rows(flat.get("parameter_kunci")) or _param_rows(system, raw)
     return {"title": disp["title"], "quote": disp.get("quote", ""), "tagline": disp.get("tagline", ""),
-            "sections": sections, "params": params}
+            "sections": sections, "deep": deep, "combo": build_combo(system, raw), "params": params}
 
 
 def _plain_text(system_label, detail):
@@ -131,6 +186,14 @@ def _plain_text(system_label, detail):
     for _i, title, texts, _t in detail["sections"]:
         if texts:
             out += [title, *texts, ""]
+    if detail.get("deep"):
+        out += ["ANALISIS MENDALAM", ""]
+        for _i, title, texts, _t in detail["deep"]:
+            out += [title, *texts, ""]
+    if detail.get("combo"):
+        out += ["PERPADUAN VARIABEL", ""]
+        for b in detail["combo"]:
+            out += [b["title"], b["text"], ""]
     if detail["params"]:
         out += ["PARAMETER KUNCI SISTEM INI", *[f"{k}: {v}" for k, v in detail["params"]]]
     return "\n".join(out).strip()
@@ -244,6 +307,21 @@ def render_detail():
         body = "".join(f"<p>{_e(t)}</p>" for t in texts)
         st.markdown(f'<div class="dh-dt-sec dh-dt-{tone}"><div class="dh-dt-sec-t"><span class="dh-dt-ico">{icon}</span>'
                     f'{title}</div>{body}</div>', unsafe_allow_html=True)
+
+    if detail.get("deep"):
+        st.markdown('<div class="dh-dt-sep"></div><div class="dh-dt-eyebrow">ANALISIS MENDALAM</div>',
+                    unsafe_allow_html=True)
+        for icon, title, texts, tone in detail["deep"]:
+            body = "".join(f"<p>{_e(t)}</p>" for t in texts)
+            st.markdown(f'<div class="dh-dt-sec dh-dt-{tone}"><div class="dh-dt-sec-t"><span class="dh-dt-ico">{icon}</span>'
+                        f'{title}</div>{body}</div>', unsafe_allow_html=True)
+
+    if detail.get("combo"):
+        st.markdown('<div class="dh-dt-sep"></div><div class="dh-dt-eyebrow">PERPADUAN VARIABEL</div>',
+                    unsafe_allow_html=True)
+        for b in detail["combo"]:
+            st.markdown(f'<div class="dh-dt-sec dh-dt-soft"><div class="dh-dt-sec-t"><span class="dh-dt-ico">✦</span>'
+                        f'{_e(b["title"])}</div><p>{_e(b["text"])}</p></div>', unsafe_allow_html=True)
 
     if detail["params"]:
         cells = "".join(f'<div class="dh-dt-pm"><span>{_e(k)}</span><b>{_e(v)}</b></div>' for k, v in detail["params"])
