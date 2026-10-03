@@ -276,8 +276,8 @@ def render_result():
     jam = f' · {data["jam_lahir"]} WIB' if data.get("jam_lahir") else ""
     email = ss.get("dh_email", "")
 
-    st.markdown('<div style="height:20px;"></div>', unsafe_allow_html=True)  # ruang buat tombol X dialog
-    h1, h2, h3 = st.columns([3.1, 1, 1.4], gap="small", vertical_alignment="top")
+    # kolom ke-4 kosong = ruang buat tombol X dialog (X di kanan tombol Salin Ringkasan)
+    h1, h2, h3, _x = st.columns([3.1, 1, 1.4, 0.32], gap="small", vertical_alignment="top")
     with h1:
         st.markdown(
             '<div class="dh-step dh-step-result"></div>'

@@ -66,6 +66,9 @@ def _mega_menu_html():
 _BRIDGE_JS = """<script>
 (function(){var w=window.parent;if(w.__dhRevealBound)return;w.__dhRevealBound=true;
 w.eval("document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('.dh-open-reveal');if(!t)return;e.preventDefault();var b=document.querySelector('.st-key-dh_modal_trigger button');if(b)b.click();},true);");})();
+(function(){var w=window.parent;if(w.__dhBackdropBound)return;w.__dhBackdropBound=true;
+// Sub-modal detail: klik backdrop (di luar kotak modal) = tidak ngapa-ngapain
+w.eval("['pointerdown','pointerup','mousedown','mouseup','click','touchstart','touchend'].forEach(function(t){window.addEventListener(t,function(e){var d=e.target;if(d&&d.getAttribute&&d.getAttribute('data-testid')==='stDialog'&&d.querySelector('.dh-step-detail')){e.stopImmediatePropagation();e.preventDefault();}},true);});");})();
 </script>"""
 
 
