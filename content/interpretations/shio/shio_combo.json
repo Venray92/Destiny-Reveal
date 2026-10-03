@@ -1,0 +1,45 @@
+{
+  "elemen": {
+    "Kayu": {
+      "karakter": "tumbuh, kreatif, dan selalu mencari ruang untuk berkembang",
+      "karier": "peran yang memberi ruang belajar dan berkembang, seperti pendidikan, riset, desain, atau bisnis rintisan",
+      "hubungan": "mendukung pertumbuhan pasangan dan butuh hubungan yang memberi ruang bernapas"
+    },
+    "Api": {
+      "karakter": "hangat, bersemangat, dan mudah menyalakan semangat orang lain",
+      "karier": "peran yang menuntut energi dan pengaruh, seperti penjualan, hiburan, kepemimpinan tim, atau komunikasi",
+      "hubungan": "tulus dan ekspresif, tetapi perlu waktu tenang agar semangat tidak cepat padam"
+    },
+    "Tanah": {
+      "karakter": "stabil, sabar, dan dapat diandalkan",
+      "karier": "peran yang menuntut ketekunan dan kepercayaan, seperti operasional, keuangan, properti, atau pengelolaan proyek",
+      "hubungan": "setia dan melindungi, tetapi perlu belajar fleksibel menghadapi perubahan"
+    },
+    "Logam": {
+      "karakter": "tegas, teratur, dan memegang standar yang tinggi",
+      "karier": "peran yang menuntut ketelitian dan keputusan jelas, seperti hukum, teknik, audit, atau manajemen",
+      "hubungan": "jujur dan berprinsip, tetapi perlu melembutkan cara menyampaikan kritik"
+    },
+    "Air": {
+      "karakter": "luwes, peka, dan pandai membaca situasi",
+      "karier": "peran yang menuntut kepekaan dan strategi, seperti konsultasi, riset, penulisan, atau pelayanan",
+      "hubungan": "penuh pengertian dan intuitif, tetapi perlu berani menyuarakan perasaan sendiri"
+    }
+  },
+  "polaritas": {
+    "Yang": "Polaritas Yang membuat energimu cenderung bergerak ke luar: kamu lebih mudah mengambil inisiatif dan tampil.",
+    "Yin": "Polaritas Yin membuat energimu cenderung mengalir ke dalam: kamu lebih mudah mengamati, menimbang, dan bekerja tanpa banyak sorotan."
+  },
+  "advice": {
+    "Kayu|Yang": "Karena elemen Kayu bertemu polaritas Yang, bobot sarannya ada pada pengendalian tempo: beri jeda sebelum bertindak agar pertumbuhanmu terarah.",
+    "Kayu|Yin": "Karena elemen Kayu bertemu polaritas Yin, bobot sarannya ada pada keberanian tampil: tunjukkan hasil dan pendapatmu secara terbuka agar pertumbuhanmu terlihat.",
+    "Api|Yang": "Karena elemen Api bertemu polaritas Yang, bobot sarannya ada pada pengendalian tempo: beri jeda sebelum bertindak agar semangatmu terarah.",
+    "Api|Yin": "Karena elemen Api bertemu polaritas Yin, bobot sarannya ada pada keberanian tampil: tunjukkan hasil dan pendapatmu secara terbuka agar semangatmu terlihat.",
+    "Tanah|Yang": "Karena elemen Tanah bertemu polaritas Yang, bobot sarannya ada pada pengendalian tempo: beri jeda sebelum bertindak agar kestabilanmu terarah.",
+    "Tanah|Yin": "Karena elemen Tanah bertemu polaritas Yin, bobot sarannya ada pada keberanian tampil: tunjukkan hasil dan pendapatmu secara terbuka agar kestabilanmu terlihat.",
+    "Logam|Yang": "Karena elemen Logam bertemu polaritas Yang, bobot sarannya ada pada pengendalian tempo: beri jeda sebelum bertindak agar ketegasanmu terarah.",
+    "Logam|Yin": "Karena elemen Logam bertemu polaritas Yin, bobot sarannya ada pada keberanian tampil: tunjukkan hasil dan pendapatmu secara terbuka agar ketegasanmu terlihat.",
+    "Air|Yang": "Karena elemen Air bertemu polaritas Yang, bobot sarannya ada pada pengendalian tempo: beri jeda sebelum bertindak agar kepekaanmu terarah.",
+    "Air|Yin": "Karena elemen Air bertemu polaritas Yin, bobot sarannya ada pada keberanian tampil: tunjukkan hasil dan pendapatmu secara terbuka agar kepekaanmu terlihat."
+  }
+}
