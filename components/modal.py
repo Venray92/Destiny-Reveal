@@ -10,7 +10,7 @@ from datetime import date
 
 import streamlit as st
 
-from components import modal_steps
+from components import modal_detail, modal_steps
 from components.flow_state import (
     STEP_FORM, STEP_LOADING, STEP_PAY, STEP_RESULT, STEP_VERIFY, current_step, set_step,
 )
@@ -147,6 +147,8 @@ def _flow_dialog():
         modal_steps.render_loading()
     elif step == STEP_RESULT:
         modal_steps.render_result()
+    elif step == "detail":
+        modal_detail.render_detail()
     else:
         _render_form()
 

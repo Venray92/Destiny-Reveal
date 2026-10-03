@@ -14,7 +14,7 @@ from components.flow_state import (
     STEP_RESULT, STEP_VERIFY, price_now, reset_for_new_scan, rp, set_step, valid_email,
 )
 from content.result_builder import build_display_data, compute_raw_result
-from utils.card_images import card_filename_for_system, card_image_bytes_for_system
+from components.modal_detail import cb_open_detail
 from utils.date_format import format_tanggal_lengkap
 
 
@@ -277,7 +277,7 @@ def render_result():
     email = ss.get("dh_email", "")
 
     st.markdown('<div style="height:20px;"></div>', unsafe_allow_html=True)  # ruang buat tombol X dialog
-    h1, h2, h3 = st.columns([3, 1, 1.3], gap="small", vertical_alignment="top")
+    h1, h2, h3 = st.columns([5, 1.15, 1.35], gap="small", vertical_alignment="top")
     with h1:
         st.markdown(
             '<div class="dh-step dh-step-result"></div>'
@@ -286,11 +286,11 @@ def render_result():
             f'<div class="dh-res-info"><b>Mode 1 — 5 Kelahiran</b> · Lahir: {format_tanggal_lengkap(tgl)}{jam}'
             f' · Tersimpan di Akun ({email})</div>', unsafe_allow_html=True)
     with h2:
-        st.button("Buka Akunku", key="dhr_account", on_click=_cb_soon,
+        st.button("Buka  \nAkunku", key="dhr_account", on_click=_cb_soon,
                   args=("Halaman akun belum tersedia — masih tahap pengembangan 🚧",), use_container_width=True)
     with h3:
-        st.button("⧉ Salin Ringkasan", key="dhr_copy", type="primary", on_click=_cb_toggle_summary,
-                  use_container_width=True)
+        st.button("Salin  \nRingkasan", key="dhr_copy", type="primary", on_click=_cb_toggle_summary,
+                  use_container_width=True, icon=":material/ios_share:")
     if ss.get("dh_show_summary"):
         st.code(_summary_text(nama, tgl, results), language=None)
 
@@ -308,15 +308,8 @@ def render_result():
                     st.markdown(f'<div class="dh-rc-top"><span>{r["label"]}</span>{tag}</div>'
                                 f'<div class="dh-rc-title">{r["title"]}</div>'
                                 f'<div class="dh-rc-desc">{r["desc"]}</div>{quote}', unsafe_allow_html=True)
-                    img = card_image_bytes_for_system(r["system"], r["raw"])
-                    label = f'📷 Lihat & Simpan Kartu {r["short"]}'
-                    if img:
-                        st.download_button(label, data=img, file_name=card_filename_for_system(r["system"], r["raw"]),
-                                           mime="image/png", key=f'dhres_dl_{r["system"]}',
-                                           on_click="ignore", use_container_width=True)
-                    else:
-                        st.button(label, key=f'dhres_dl_{r["system"]}', on_click=_cb_soon,
-                                  args=("Gambar kartu belum tersedia untuk hasil ini.",), use_container_width=True)
+                    st.button(f'📷 Lihat & Simpan Kartu {r["short"]}', key=f'dhres_dl_{r["system"]}',
+                              on_click=cb_open_detail, args=(r["system"],), use_container_width=True)
 
     st.markdown('<div class="dh-res-sep"></div>', unsafe_allow_html=True)
     f1, f2, f3 = st.columns([2.2, 1.4, 1.1], gap="small", vertical_alignment="center")

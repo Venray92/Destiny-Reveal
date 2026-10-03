@@ -54,6 +54,7 @@ _FORM_KEYS = ("dhm_nama", "dhm_tgl", "dhm_jam", "dhm_kota", "dhm_golda")
 def reset_for_new_scan():
     """Tombol 'Scan Orang Lain': balik ke form, data orang sebelumnya dibersihin
     (email yang sudah terverifikasi tetap dipakai)."""
-    for k in _FORM_KEYS + ("dh_modal_data", "dh_flow_result", "dh_show_summary"):
+    for k in _FORM_KEYS + ("dh_modal_data", "dh_flow_result", "dh_show_summary",
+              "dh_detail_system", "dh_show_quote", "dh_show_fulltext"):
         st.session_state.pop(k, None)
     set_step(STEP_FORM)

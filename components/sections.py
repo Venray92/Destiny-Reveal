@@ -142,6 +142,8 @@ def render_matrix_diagram(sistem_lookup):
         ) if label_above else ''
         pos_css.append(
             dim_css + flip_css +
+            f'.st-key-dhmatrix_wrap:has(.st-key-dhnode_{i}:hover) .dh-matrix-lines line:nth-child({i + 1})'
+            f' {{ stroke: #C25E00; stroke-width: 2.5; stroke-dasharray: none; opacity: 1; }}'
             f'.st-key-dhnode_{i} {{ top: {top:.2f}%; left: {left:.2f}%; }}'
             f'.st-key-dhnode_{i} div[data-testid="stPopover"] button {{'
             f' background: {warna} !important; border-color: {warna} !important; }}'
