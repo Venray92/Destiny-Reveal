@@ -17,10 +17,11 @@ from pathlib import Path
 from urllib.parse import quote as urlquote
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 from components.flow_state import STEP_RESULT, set_step
 from content.result_builder import build_display_data
-from utils.card_images import card_filename_for_system, card_image_bytes_for_system
+from utils.card_images import card_filename_for_system, card_image_bytes_for_system, card_image_for_system
 
 _ZODIAK_JSON = Path(__file__).resolve().parent.parent / "content" / "interpretations" / "zodiak" / "zodiak_profile.json"
 
@@ -31,12 +32,12 @@ ZODIAK_GLYPH = {
 
 # (judul section, [key kandidat berurutan]) — semua key kandidat yang ada digabung
 SECTIONS = [
-    ("ASPEK UTAMA & ESENSI JIWA", ["aspek_utama", "siapa_kamu"]),
-    ("KARIER, PELUANG USAHA & POTENSI FINANSIAL", ["karier_dan_keuangan", "karir", "peta_karier", "keuangan"]),
-    ("ASMARA, DINAMIKA PERCINTAAN & PASANGAN JIWA", ["asmara_dan_hubungan", "asmara", "panduan_hubungan"]),
-    ("KEKUATAN KARAKTER & YANG PERLU DIJAGA", ["kekuatan_karakter", "kekuatan_yang_perlu_dijaga"]),
-    ("PR BAYANGAN (SHADOW WORK) & HAL YANG PERLU DIWASPADAI", ["shadow_work", "shadow_side", "blindspot"]),
-    ("LANGKAH PRAKTIS JIWA & NASIHAT STRATEGIS", ["nasihat_strategis", "pr_kecil_buat_kamu"]),
+    ("🪐", "ASPEK UTAMA & ESENSI JIWA", ["aspek_utama", "siapa_kamu"], "ivory"),
+    ("💼", "KARIER, PELUANG USAHA & POTENSI FINANSIAL", ["karier_dan_keuangan", "karir", "peta_karier", "keuangan"], "white"),
+    ("🤍", "ASMARA, DINAMIKA PERCINTAAN & PASANGAN JIWA", ["asmara_dan_hubungan", "asmara", "panduan_hubungan"], "sand"),
+    ("🛡️", "KEKUATAN KARAKTER & YANG PERLU DIJAGA", ["kekuatan_karakter", "kekuatan_yang_perlu_dijaga"], "sage"),
+    ("⚠️", "PR BAYANGAN (SHADOW WORK) & HAL YANG PERLU DIWASPADAI", ["shadow_work", "shadow_side", "blindspot"], "soft"),
+    ("💡", "LANGKAH PRAKTIS JIWA & NASIHAT STRATEGIS", ["nasihat_strategis", "pr_kecil_buat_kamu"], "dark"),
 ]
 
 
@@ -110,7 +111,7 @@ def build_detail(system, raw):
         flat.update(_flatten(_zodiak_json().get((raw or {}).get("sign"))))
 
     sections = []
-    for title, keys in SECTIONS:
+    for icon, title, keys, tone in SECTIONS:
         texts = []
         for k in keys:
             v = flat.get(k)
@@ -118,7 +119,7 @@ def build_detail(system, raw):
                 texts.append(v.strip())
             elif isinstance(v, list):
                 texts.extend(str(x).strip() for x in v if str(x).strip())
-        sections.append((title, texts))
+        sections.append((icon, title, texts, tone))
 
     params = _as_rows(flat.get("parameter_kunci")) or _param_rows(system, raw)
     return {"title": disp["title"], "quote": disp.get("quote", ""), "tagline": disp.get("tagline", ""),
@@ -127,7 +128,7 @@ def build_detail(system, raw):
 
 def _plain_text(system_label, detail):
     out = [f"Analisis Lengkap: {system_label}", detail["title"], ""]
-    for title, texts in detail["sections"]:
+    for _i, title, texts, _t in detail["sections"]:
         if texts:
             out += [title, *texts, ""]
     if detail["params"]:
@@ -138,8 +139,6 @@ def _plain_text(system_label, detail):
 # ── callback ─────────────────────────────────────────────────────
 def cb_open_detail(system):
     st.session_state.dh_detail_system = system
-    st.session_state.pop("dh_show_quote", None)
-    st.session_state.pop("dh_show_fulltext", None)
     set_step("detail")
 
 
@@ -147,12 +146,29 @@ def _cb_back():
     set_step(STEP_RESULT)
 
 
-def _cb_toggle(key):
-    st.session_state[key] = not st.session_state.get(key)
-
-
 def _e(text):
     return html.escape(str(text)).replace("\n", "<br>")
+
+
+def copy_button(text, label, key):
+    """Tombol salin MURNI ke clipboard (JS). Layar gak berubah, cuma teks tombol
+    jadi '✓ Tersalin!' 2 detik."""
+    payload = json.dumps(text).replace("</", "<\\/")
+    components.html(
+        '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&display=swap" rel="stylesheet">'
+        "<style>html,body{margin:0;background:transparent}"
+        "button{width:100%;height:40px;border-radius:100px;border:1px solid #E9C9A8;background:#FFFFFF;"
+        "color:#C25E00;font:700 13px 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;transition:background .15s}"
+        "button:hover{background:#FFF6EA}button.ok{background:#EAF3EC;border-color:#BBD4C0;color:#4A6B53}</style>"
+        f'<button id="b" type="button">{html.escape(label)}</button>'
+        f"<script>var T={payload},L={json.dumps(label)},b=document.getElementById('b');"
+        "function ok(){b.textContent='✓ Tersalin!';b.className='ok';setTimeout(function(){b.textContent=L;b.className='';},2000)}"
+        "function fb(){var t=document.createElement('textarea');t.value=T;t.style.position='fixed';t.style.opacity=0;"
+        "document.body.appendChild(t);t.select();try{document.execCommand('copy');ok()}catch(e){}document.body.removeChild(t)}"
+        "b.onclick=function(){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(T).then(ok,fb)}else{fb()}};"
+        "</script>",
+        height=44,
+    )
 
 
 # ── render ───────────────────────────────────────────────────────
@@ -171,71 +187,66 @@ def render_detail():
 
     raw, label = item["raw"], item["label"]
     num, _, nm = label.partition(". ")
-    sys_title = nm.title().replace("Pythagoras", "Pythagoras")
-    symbol = (ZODIAK_GLYPH.get(raw.get("sign"), "✦") + "\ufe0e") if system == "Zodiak" else \
-        (detail["tagline"].split(" ")[0] if detail["tagline"] else "✦")
-    elemen = raw.get("element") or raw.get("elemen")
-    subline = f"Elemen {elemen}" if elemen else item["tag"]
-    pills = "".join(f'<span class="dh-dt-pill">{_e(k)}: {_e(v)}</span>' for k, v in detail["params"][:3])
+    sys_title = nm.title()
     quote = detail["quote"]
-    quote_html = f'<div class="dh-dt-quote">&ldquo;{_e(quote)}&rdquo;</div>' if quote else ""
+    img_uri = card_image_for_system(system, raw)
+    img = card_image_bytes_for_system(system, raw)
 
-    st.markdown('<div style="height:14px;"></div>', unsafe_allow_html=True)
+    st.markdown('<div style="height:30px;"></div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="dh-step dh-step-detail"></div>'
-        '<div class="dh-dt-eyebrow">DETAIL SISTEM · KARTU TAKDIR</div>'
-        '<div class="dh-dt-card">'
-        '<div class="dh-dt-brand">✦ DESTINY REVEAL ✦</div>'
-        f'<div class="dh-dt-sys">{_e(num)} · {_e(sys_title)}</div>'
-        f'<div class="dh-dt-symbol">{_e(symbol)}</div>'
-        f'<div class="dh-dt-name">{_e(item["short"])}</div>'
-        f'<div class="dh-dt-sub">{_e(subline)}</div>'
-        f'{quote_html}<div class="dh-dt-pills">{pills}</div>'
-        f'<div class="dh-dt-foot"><span>Milik: <b>{_e(nama)}</b></span><span>destinyreveal.id</span></div>'
-        '</div>', unsafe_allow_html=True)
+        '<div class="dh-dt-eyebrow">KARTU TAKDIR &amp; ANALISIS LENGKAP</div>'
+        f'<div class="dh-dt-title">{_e(num)}. {_e(sys_title)} · {_e(nama)}</div>'
+        '<div class="dh-dt-subtitle">Simpan gambar kartu untuk story sosial mediamu, dan scroll ke bawah '
+        'untuk membaca versi analisis lengkapnya.</div>', unsafe_allow_html=True)
+
+    if img_uri:  # kartu = file gambar dari assets/cards/, ditampilkan utuh (portrait)
+        st.markdown(f'<div class="dh-dt-imgwrap"><img class="dh-dt-img" src="{img_uri}" alt="Kartu {_e(item["short"])}"></div>',
+                    unsafe_allow_html=True)
+    else:  # fallback kalau file kartu belum ada
+        st.markdown(
+            '<div class="dh-dt-card"><div class="dh-dt-brand">✦ DESTINY REVEAL ✦</div>'
+            f'<div class="dh-dt-sys">{_e(num)} · {_e(sys_title)}</div>'
+            f'<div class="dh-dt-name">{_e(item["short"])}</div><div class="dh-dt-sub">{_e(item["tag"])}</div>'
+            f'<div class="dh-dt-foot"><span>Milik: <b>{_e(nama)}</b></span><span>destinyreveal.id</span></div></div>',
+            unsafe_allow_html=True)
 
     caption = (f'"{quote}"\n\n— {nama} · {item["short"]}\nCek takdirmu di destinyreveal.id #DestinyReveal'
                if quote else f'{nama} · {item["short"]}\nCek takdirmu di destinyreveal.id #DestinyReveal')
-    img = card_image_bytes_for_system(system, raw)
-    b1, b2 = st.columns(2, gap="small")
-    with b1:
-        if img:
-            st.download_button("Simpan Gambar PNG", data=img, file_name=card_filename_for_system(system, raw),
-                               mime="image/png", key="dhd_png", on_click="ignore", use_container_width=True,
-                               icon=":material/download:")
-        else:
-            st.button("Simpan Gambar PNG", key="dhd_png", disabled=True, use_container_width=True)
-    with b2:
-        st.link_button("Share ke WhatsApp", f"https://wa.me/?text={urlquote(caption)}",
-                       key="dhd_wa", use_container_width=True, icon=":material/send:")
-    st.button("Salin Teks Kutipan untuk Caption", key="dhd_copyq", on_click=_cb_toggle,
-              args=("dh_show_quote",), use_container_width=True, icon=":material/content_copy:")
-    if ss.get("dh_show_quote"):
-        st.code(caption, language=None)
+    with st.container(key="dhd_actions"):
+        b1, b2 = st.columns(2, gap="small")
+        with b1:
+            if img:
+                st.download_button("Simpan Gambar PNG", data=img, file_name=card_filename_for_system(system, raw),
+                                   mime="image/png", key="dhd_png", on_click="ignore", use_container_width=True,
+                                   icon=":material/download:")
+            else:
+                st.button("Simpan Gambar PNG", key="dhd_png", disabled=True, use_container_width=True)
+        with b2:
+            st.link_button("Share ke WhatsApp", f"https://wa.me/?text={urlquote(caption)}",
+                           key="dhd_wa", use_container_width=True, icon=":material/share:")
+        copy_button(caption, "📋 Salin Teks Kutipan untuk Caption", "dhd_copyq")
 
     st.markdown('<div class="dh-dt-sep"></div>'
                 '<div class="dh-dt-eyebrow">URAIAN KOMPREHENSIF VERSI LENGKAP</div>', unsafe_allow_html=True)
-    h1, h2 = st.columns([2.4, 1.4], gap="small", vertical_alignment="center")
+    h1, h2 = st.columns([1.5, 1], gap="small", vertical_alignment="center")
     with h1:
         st.markdown(f'<div class="dh-dt-h">Analisis Lengkap: {_e(sys_title)}</div>', unsafe_allow_html=True)
     with h2:
-        st.button("Salin Seluruh Analisis Lengkap", key="dhd_copyall", on_click=_cb_toggle,
-                  args=("dh_show_fulltext",), use_container_width=True, icon=":material/content_copy:")
-    if ss.get("dh_show_fulltext"):
-        st.code(_plain_text(sys_title, detail), language=None)
+        copy_button(_plain_text(sys_title, detail), "📋 Salin Seluruh Analisis Lengkap", "dhd_copyall")
 
-    for title, texts in detail["sections"]:
+    for icon, title, texts, tone in detail["sections"]:
         if not texts:
             continue
         body = "".join(f"<p>{_e(t)}</p>" for t in texts)
-        dark = " dh-dt-dark" if title.startswith("LANGKAH PRAKTIS") else ""
-        st.markdown(f'<div class="dh-dt-sec{dark}"><div class="dh-dt-sec-t">{title}</div>{body}</div>',
-                    unsafe_allow_html=True)
+        st.markdown(f'<div class="dh-dt-sec dh-dt-{tone}"><div class="dh-dt-sec-t"><span class="dh-dt-ico">{icon}</span>'
+                    f'{title}</div>{body}</div>', unsafe_allow_html=True)
 
     if detail["params"]:
-        rows = "".join(f"<tr><td>{_e(k)}</td><td>{_e(v)}</td></tr>" for k, v in detail["params"])
-        st.markdown('<div class="dh-dt-sec"><div class="dh-dt-sec-t">PARAMETER KUNCI SISTEM INI</div>'
-                    f'<table class="dh-dt-table">{rows}</table></div>', unsafe_allow_html=True)
+        cells = "".join(f'<div class="dh-dt-pm"><span>{_e(k)}</span><b>{_e(v)}</b></div>' for k, v in detail["params"])
+        st.markdown('<div class="dh-dt-sec dh-dt-params"><div class="dh-dt-sec-t"><span class="dh-dt-ico">🧭</span>'
+                    f'PARAMETER KUNCI SISTEM INI</div><div class="dh-dt-pgrid">{cells}</div></div>',
+                    unsafe_allow_html=True)
 
     st.button("← Tutup & Kembali ke Cetak Biru Takdir", key="dhd_back", on_click=_cb_back,
               use_container_width=True)

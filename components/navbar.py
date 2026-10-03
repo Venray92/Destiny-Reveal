@@ -7,7 +7,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from components.common import go
-from components.modal import open_reveal_modal
+from components.modal import open_reveal_modal, reopen_if_pending
 
 
 # ══════════════════════════════════════════════════════════════
@@ -138,3 +138,4 @@ def render_navbar(current_page):
             if st.button("buka modal", key="dh_modal_trigger"):
                 open_reveal_modal()
             components.html(_BRIDGE_JS, height=0)
+    reopen_if_pending()  # balik ke Modal Hasil setelah sub-modal detail ditutup (X/backdrop)

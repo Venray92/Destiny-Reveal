@@ -133,7 +133,20 @@ def _render_form():
                   use_container_width=True, on_click=_cb_form_next, args=(mode,))
 
 
-@st.dialog("Reveal Dirimu", width="large")
+def _on_dismiss():
+    """X / klik backdrop. Di sub-modal detail: cuma balik ke Modal Hasil (dialog dibuka ulang
+    di run berikutnya lewat reopen_if_pending); di langkah lain: nutup biasa."""
+    if current_step() == "detail":
+        set_step(STEP_RESULT)
+        st.session_state.dh_reopen = True
+
+
+def reopen_if_pending():
+    if st.session_state.pop("dh_reopen", False):
+        _flow_dialog()
+
+
+@st.dialog("Reveal Dirimu", width="large", on_dismiss=_on_dismiss)
 def _flow_dialog():
     if st.session_state.pop("dh_flow_exit", False):
         st.session_state.dr_page = "reveal"
