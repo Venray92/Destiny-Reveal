@@ -8,6 +8,16 @@ HARI_INI = datetime(2026, 10, 3, 9, 0, tzinfo=WIB)
 
 BULAN = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
          "Oktober", "November", "Desember"]
+import re
+import pytest
+
+HARI = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
+KEYS = {
+    "Shio": ["Tikus", "Kerbau", "Macan", "Kelinci", "Naga", "Ular", "Kuda", "Kambing", "Monyet", "Ayam", "Anjing", "Babi"],
+    "Numerologi": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "11", "22", "33"],
+    "Weton": [f"{h} {p}" for h in HARI for p in ["Legi", "Pahing", "Pon", "Wage", "Kliwon"]],
+}
+BANNED = {"Shio": r"elemen|kayu|logam", "Weton": r"pancasuda", "Numerologi": r"(?!x)x"}
 SIGNS = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio",
          "Sagittarius", "Capricorn", "Aquarius", "Pisces"]
 
@@ -71,7 +81,8 @@ def test_monthly_ganti_tanggal_1():
 
 def test_key_atau_sistem_tidak_ada_balikin_none():
     assert dl.get_daily("Zodiak", "Naga", "u", HARI_INI) is None
-    assert dl.get_weekly("Shio", "Tikus", HARI_INI) is None
+    assert dl.get_weekly("Shio", "Naga Emas", HARI_INI) is None
+    assert dl.get_weekly("Primbon", "X", HARI_INI) is None
     assert dl.get_monthly("Zodiak", "Naga", HARI_INI) is None
 
 
@@ -99,3 +110,67 @@ def test_monthly_weekly_tidak_ada_teks_kembar_antar_zodiak():
 def test_hindari_weekly_tanpa_titik():
     for sg, e in dl._load("Zodiak", "weekly").items():
         assert all(not b["hindari"].endswith(".") for b in e.values()), sg
+
+
+@pytest.mark.parametrize("system", list(KEYS))
+def test_sistem_baru_lolos_validasi_kuota_dan_key_lengkap(system):
+    for kind in ("daily", "weekly", "monthly"):
+        assert dl.validate(system, kind, dl.QUOTA_PRODUKSI if kind == "daily" else None) == []
+        assert set(dl._load(system, kind)) == set(KEYS[system])
+
+
+@pytest.mark.parametrize("system", list(KEYS))
+def test_sistem_baru_struktur_weekly_monthly_dan_tanggal(system):
+    for key in KEYS[system]:
+        d = dl._load(system, "daily")[key]
+        assert {k: len(v) for k, v in d.items()} == dl.QUOTA_PRODUKSI, key
+        w = dl._load(system, "weekly")[key]
+        assert set(w) == {f"week_{i}" for i in range(1, 6)}, key
+        assert all(not b["hindari"].endswith(".") for b in w.values()), key
+        m = dl._load(system, "monthly")[key]
+        assert set(m) == {str(i) for i in range(1, 13)}, key
+        assert all(m[str(i)]["tanggal_penting"] and BULAN[i - 1] in m[str(i)]["tanggal_penting"] for i in range(1, 13)), key
+
+
+@pytest.mark.parametrize("system", list(KEYS))
+def test_sistem_baru_variasi_kalimat_antar_bulan(system):
+    for key in KEYS[system]:
+        e = dl._load(system, "monthly")[key]
+        for f in ("timing", "prediksi", "saran", "peluang", "risiko"):
+            awal = []
+            for m in range(1, 13):
+                t = e[str(m)][f]
+                for b in BULAN:
+                    t = t.replace(b, "B")
+                awal.append(t.split()[:4])
+            assert all(awal[i] != awal[i + 1] for i in range(11)), (system, key, f)
+
+
+@pytest.mark.parametrize("system", list(KEYS))
+def test_sistem_baru_tanpa_teks_kembar_dan_kata_terlarang(system):
+    for kind in ("monthly", "weekly"):
+        seen = {}
+        for key, e in dl._load(system, kind).items():
+            for slot, blk in e.items():
+                for f, t in blk.items():
+                    assert t not in seen, (system, kind, key, slot, f, seen[t])
+                    seen[t] = (key, slot, f)
+                    assert not re.search(BANNED[system], t, re.I), (system, key, t)
+    for key, e in dl._load(system, "daily").items():
+        for f, items in e.items():
+            if f == "warna":  # nama warna (mis. "Cokelat kayu") bukan klaim elemen
+                continue
+            for t in items:
+                assert not re.search(BANNED[system], t, re.I), (system, key, t)
+    for f in ("ramalan", "saran", "quote"):
+        seen = {}
+        for key, e in dl._load(system, "daily").items():
+            for t in e[f]:
+                assert t not in seen, (system, key, f, seen[t])
+                seen[t] = key
+
+
+def test_get_sistem_baru_jalan_end_to_end():
+    assert dl.get_daily("Weton", "Senin Legi", "u", HARI_INI)["ramalan"]
+    assert dl.get_weekly("Shio", "Tikus", HARI_INI)["prediksi"]
+    assert "Oktober" in dl.get_monthly("Numerologi", "33", HARI_INI)["tanggal_penting"]
