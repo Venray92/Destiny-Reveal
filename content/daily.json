@@ -1,0 +1,41 @@
+{
+  "system": "Zodiak",
+  "kind": "daily",
+  "data": {
+    "Aries": {
+      "ramalan": [
+        "Energimu cenderung tinggi pagi ini, jadi manfaatkan untuk menyelesaikan tugas yang paling kamu hindari.",
+        "Hari ini kamu mudah terpancing tempo orang lain. Tarik napas dulu sebelum membalas pesan yang bikin kesal.",
+        "Ada peluang kecil untuk memimpin diskusi. Ambil kesempatan itu dengan satu usulan yang jelas.",
+        "Idemu hari ini cenderung banyak, tetapi tidak semuanya perlu dikerjakan. Pilih satu yang paling berdampak.",
+        "Percakapan dengan orang dekat hari ini umumnya terasa hangat bila kamu mau mendengar lebih dulu.",
+        "Kamu mungkin merasa ingin cepat-cepat selesai. Periksa sekali lagi sebelum mengirim pekerjaan penting."
+      ],
+      "hoki": [
+        "Angka 9 dan 18",
+        "Angka 1 dan 7",
+        "Arah timur untuk memulai urusan penting",
+        "Jam 10.00 sampai 12.00 untuk mengambil keputusan"
+      ],
+      "warna": [
+        "Merah",
+        "Oranye",
+        "Putih",
+        "Emas"
+      ],
+      "saran": [
+        "Tulis tiga prioritasmu pagi ini, lalu kerjakan satu per satu tanpa berpindah.",
+        "Sisihkan 10 menit untuk berjalan kaki supaya energimu tersalurkan dengan sehat.",
+        "Sebelum memutuskan hal besar, tunggu satu jam dan tanyakan pada dirimu apa alasan utamanya.",
+        "Kirim satu pesan apresiasi kepada rekan atau teman hari ini.",
+        "Selesaikan satu tugas kecil yang tertunda sebelum memulai hal baru."
+      ],
+      "quote": [
+        "Mulai itu mudah. Menyelesaikan itulah yang membedakanmu.",
+        "Keberanian bukan tanpa ragu, melainkan tetap melangkah dengan satu keputusan jelas.",
+        "Tenagamu berharga, arahkan ke hal yang benar-benar kamu pedulikan.",
+        "Pelan sebentar bukan berarti mundur."
+      ]
+    }
+  }
+}
