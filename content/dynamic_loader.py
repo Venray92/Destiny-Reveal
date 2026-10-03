@@ -5,6 +5,7 @@ Kalau file/key belum ada, fungsi balikin None (UI tinggal sembunyikan kartunya).
 """
 
 import json
+import re
 from functools import lru_cache
 from pathlib import Path
 
@@ -12,11 +13,14 @@ from engine.rotation import (format_periode_minggu, format_tanggal, now_wib, pic
                              today_wib, week_slot, week_start)
 
 _DIR = Path(__file__).resolve().parent / "dynamic"
-_FOLDER = {"Zodiak": "zodiak"}  # tambah sistem lain di sini kalau file-nya sudah ada
+_FOLDER = {"Zodiak": "zodiak", "Shio": "shio", "Weton": "weton", "Numerologi": "numerologi"}
 
 DAILY_FIELDS = ("ramalan", "hoki", "warna", "saran", "quote")
 WEEKLY_FIELDS = ("timing", "prediksi", "saran", "hindari")
-MONTHLY_FIELDS = ("timing", "prediksi", "saran", "peluang", "risiko")
+MONTHLY_FIELDS = ("timing", "prediksi", "saran", "peluang", "risiko", "tanggal_penting")
+QUOTA_PRODUKSI = {"ramalan": 100, "saran": 20, "hoki": 30, "warna": 20, "quote": 10}
+HARI_BULAN = (31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+_KATA_VONIS = re.compile(r"\b(pasti|sial|vonis|ditakdirkan)\b", re.I)
 
 
 @lru_cache(maxsize=None)
@@ -94,6 +98,15 @@ def validate(system, kind, minimum=None):
         for text in _texts(entry):
             if "—" in text or "–" in text or text != text.strip() or "  " in text:
                 errs.append(f"{key}: format teks salah: {text[:40]}")
+            if _KATA_VONIS.search(text):
+                errs.append(f"{key}: kata vonis: {text[:40]}")
+        if kind == "monthly":
+            for mo, blk in entry.items():
+                errs += _cek_tanggal(key, mo, blk.get("tanggal_penting", ""))
+            for f in MONTHLY_FIELDS:
+                vals = [blk.get(f, "") for blk in entry.values()]
+                if len(set(vals)) != len(vals):
+                    errs.append(f"{key}.{f}: ada bulan dengan teks sama")
     return errs
 
 
@@ -106,3 +119,15 @@ def _texts(o):
     elif isinstance(o, dict):
         for x in o.values():
             yield from _texts(x)
+
+
+def _cek_tanggal(key, bulan, teks):
+    """Angka tanggal harus naik dan tidak melebihi jumlah hari bulan itu."""
+    try:
+        maks = HARI_BULAN[int(bulan) - 1]
+    except (ValueError, IndexError):
+        return [f"{key}.{bulan}: nomor bulan salah"]
+    nums = [int(x) for x in re.findall(r"\d+", teks)]
+    if len(nums) != 3 or nums != sorted(nums) or len(set(nums)) != 3 or nums[-1] > maks or nums[0] < 1:
+        return [f"{key}.{bulan}.tanggal_penting: {teks}"]
+    return []
