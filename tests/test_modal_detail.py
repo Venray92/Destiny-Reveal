@@ -41,3 +41,10 @@ def test_daily_reading_json_and_fallback(monkeypatch):
     monkeypatch.setattr(m, "_daily_json", lambda: {})
     r = m.get_daily_reading("zodiak", "Aries", "2026-10-03")
     assert r["pesan"].count(". ") == 0 and r["angka"] and r["warna"]
+
+
+def test_auth_helpers():
+    from components import auth
+    assert auth._nama_dari_email("stevecorner512@gmail.com") == "stevecorner"
+    r = auth._ref_code("stevecorner512@gmail.com")
+    assert r.startswith("DR-STEVE") and len(r) == 12 and r == auth._ref_code("StevecorneR512@gmail.com")
