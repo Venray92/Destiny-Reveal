@@ -154,8 +154,13 @@ def _as_rows(value):
     return rows
 
 
-def build_detail(system, raw):
-    """Susun data detail satu sistem. Return dict {title, sections:[(judul, [teks...])], params:[(k,v)]} atau None."""
+MODE1 = "mode1"   # free + A-F saja
+MODE_DEEP = "deep"  # Deep Blueprint: free + A-M + perpaduan variabel
+
+
+def build_detail(system, raw, mode=MODE1):
+    """Susun data detail satu sistem. Return dict {title, sections:[(judul, [teks...])], params:[(k,v)]} atau None.
+    mode=MODE1: G-M dan perpaduan variabel TIDAK ditarik. mode=MODE_DEEP: semua."""
     disp = build_display_data(system, raw)
     if not disp:
         return None
@@ -173,12 +178,15 @@ def build_detail(system, raw):
         texts = _collect(flat, [new_key]) or _collect(flat, old_keys)
         sections.append((icon, title, texts, tone))
 
-    deep = [(icon, title, _collect(flat, [key]), tone) for icon, title, key, tone in DEEP_SECTIONS]
-    deep = [d for d in deep if d[2]]
+    deep, combo = [], []
+    if mode == MODE_DEEP:
+        deep = [(icon, title, _collect(flat, [key]), tone) for icon, title, key, tone in DEEP_SECTIONS]
+        deep = [d for d in deep if d[2]]
+        combo = build_combo(system, raw)
 
     params = _as_rows(flat.get("parameter_kunci")) or _param_rows(system, raw)
     return {"title": disp["title"], "quote": disp.get("quote", ""), "tagline": disp.get("tagline", ""),
-            "sections": sections, "deep": deep, "combo": build_combo(system, raw), "params": params}
+            "sections": sections, "deep": deep, "combo": combo, "params": params}
 
 
 def _plain_text(system_label, detail):
@@ -239,7 +247,7 @@ def render_detail():
     ss = st.session_state
     system = ss.get("dh_detail_system")
     item = next((r for r in (ss.get("dh_flow_result") or []) if r["system"] == system), None)
-    detail = build_detail(system, item["raw"]) if item else None
+    detail = build_detail(system, item["raw"], ss.get("dh_detail_mode", MODE1)) if item else None
     nama = (ss.get("dh_modal_data") or {}).get("nama", "")
     if not item or not detail:
         st.markdown('<div class="dh-step dh-step-detail"></div>', unsafe_allow_html=True)
