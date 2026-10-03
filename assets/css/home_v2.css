@@ -959,3 +959,17 @@ div[data-testid="stVerticalBlock"].st-key-dh_home_root { gap: 0 !important; marg
 .st-key-dh_home_root .st-key-dh_section_explore { background: #FDFBF7 !important; }
 /* ✕ dialog tetap di pojok kanan atas modal (posisi bawaan: absolute) & selalu di atas konten */
 [data-testid="stDialog"] button[aria-label="Close"] { z-index: 10; }
+
+/* ══════════════ UI10 ══════════════ */
+/* Header modal hasil: tombol sejajar baris judul "Peta Jiwa", ikon center */
+[data-testid="stDialog"] .st-key-dhr_account, [data-testid="stDialog"] .st-key-dhr_copy { margin-top: 14px; }
+[data-testid="stDialog"] div.st-key-dhr_account div.stButton > button,
+[data-testid="stDialog"] div.st-key-dhr_copy div.stButton > button { display: flex !important; align-items: center !important; justify-content: center !important; gap: 0.5rem !important; }
+[data-testid="stDialog"] div.st-key-dhr_copy div.stButton > button > div { display: flex !important; align-items: center !important; gap: 0.5rem !important; }
+[data-testid="stDialog"] div.st-key-dhr_copy span[data-testid="stIconMaterial"] { display: inline-flex !important; align-items: center !important; line-height: 1 !important; font-size: 18px !important; position: relative; top: 1px; }
+/* Kutipan di sub-modal detail */
+.dh-dt-quotebox {
+    max-width: 420px; margin: 0 auto 14px; padding: 0.875rem 1.25rem; border-radius: 12px; text-align: center;
+    background: #FFFDF5; border: 1px solid rgba(245,158,11,.3); color: #78350F;
+    font-family: 'Playfair Display', 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; line-height: 1.55;
+}
