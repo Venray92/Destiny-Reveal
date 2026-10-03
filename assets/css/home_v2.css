@@ -787,3 +787,102 @@ a.dh-mega-item:hover .dh-mega-title { color: #B2552C; }
 .dh-rc-quote { margin-top: 8px; padding: 8px 10px; border-radius: 8px; background: #FDF6E3; border: 1px solid #F0DDB8; font-family: 'Lora', serif; font-style: italic; font-size: 11px; line-height: 1.5; color: #6B5A3A; }
 .dh-res-sep { height: 1px; background: var(--dh-border); margin: 6px 0; }
 .dh-res-saved { font-size: 11px; color: var(--dh-text-muted); }
+
+/* ══════════════ UI7 ══════════════ */
+/* (1) Jarak navbar -> hero dirapetin: spacer 88px di app.py dikompensasi lewat margin root */
+.st-key-dh_home_root { margin-top: -78px; }
+.st-key-dh_home_root .dh-hero { padding-top: 18px; }
+.stApp .dh-hero-badge { margin-bottom: 22px; }
+
+/* (3) Warna section: base ivory, tiap section full-bleed, tanpa gap putih antar section */
+.stApp:has(.st-key-dh_home_root), .stApp:has(.st-key-dh_home_root) [data-testid="stMain"],
+.stApp:has(.st-key-dh_home_root) [data-testid="stAppViewContainer"] { background: #FDFBF7 !important; }
+div[data-testid="stVerticalBlock"].st-key-dh_home_root { gap: 0 !important; margin-bottom: -32px; }
+.st-key-dh_home_root .st-key-dh_section_hero, .st-key-dh_home_root .st-key-dh_section_matrix,
+.st-key-dh_home_root .st-key-dh_section_explore, .st-key-dh_home_root .st-key-dh_section_dataflow,
+.st-key-dh_home_root .st-key-dh_section_testimonials, .st-key-dh_home_root .st-key-dh_section_finalcta,
+.st-key-dh_home_root .st-key-dh_section_footer {
+    position: relative !important; left: 50% !important; right: 50% !important; width: 100vw !important;
+    max-width: none !important; margin-left: -50vw !important; margin-right: -50vw !important; box-sizing: border-box;
+    padding: 56px max(5vw, calc(50vw - 600px)) !important; border: 0 !important;
+}
+.st-key-dh_home_root .st-key-dh_section_hero { background-color: #FDFBF7; padding-top: 0 !important; padding-bottom: 28px !important; }
+.st-key-dh_home_root .st-key-dh_section_matrix { background: #F7F3EB; }
+.st-key-dh_home_root .st-key-dh_section_explore { background: #FFFFFF; }
+.st-key-dh_home_root .st-key-dh_section_dataflow { background: #FDFBF7; }
+.st-key-dh_home_root .st-key-dh_section_testimonials { background: #F7F3EB; }
+.st-key-dh_home_root .st-key-dh_section_finalcta { background: #FDFBF7; }
+.st-key-dh_home_root .st-key-dh_section_footer { background: #F5F0EB; border-top: 1px solid var(--dh-border) !important; padding-top: 12px !important; padding-bottom: 8px !important; }
+
+/* (2) Roda 15 sistem: garis netral default, hover -> garis solid terracotta + label + KAMU bold */
+.stApp .dh-matrix-lines line { stroke: #E5E7EB; transition: stroke .2s, stroke-width .2s; }
+.stApp .dh-matrix-center b { font-weight: 400; transition: font-weight .2s; }
+.st-key-dhmatrix_wrap:has([class*="st-key-dhnode_"]:hover) .dh-matrix-center b { font-weight: 700; }
+.stApp .dh-matrix-node-label { transition: color .2s; }
+.st-key-dhmatrix_wrap [class*="st-key-dhnode_"]:hover .dh-matrix-node-label { color: #C25E00 !important; }
+.st-key-dhmatrix_wrap [class*="st-key-dhnode_"]:hover div[data-testid="stPopover"] button {
+    background: #C25E00 !important; border-color: #C25E00 !important;
+}
+
+/* (4) Header modal hasil: tombol ringkas 2 baris */
+[data-testid="stDialog"] div.st-key-dhr_account div.stButton > button,
+[data-testid="stDialog"] div.st-key-dhr_copy div.stButton > button {
+    height: 52px !important; min-height: 52px !important; padding: 0 12px !important;
+    border-radius: 12px !important; display: flex !important; align-items: center !important;
+    justify-content: center !important; gap: 6px !important; box-shadow: none !important;
+}
+[data-testid="stDialog"] div.st-key-dhr_account div.stButton > button p,
+[data-testid="stDialog"] div.st-key-dhr_copy div.stButton > button p {
+    font-size: 12px !important; font-weight: 700 !important; line-height: 1.2 !important; margin: 0 !important; text-align: center;
+}
+[data-testid="stDialog"] div.st-key-dhr_account div.stButton > button[kind="secondary"] {
+    background: #F7F3EB !important; border: 1px solid #E8E0D5 !important; color: #2D2A26 !important;
+}
+[data-testid="stDialog"] div.st-key-dhr_copy div.stButton > button[kind="primary"] {
+    background: #C25E00 !important; border: 1px solid #C25E00 !important;
+}
+[data-testid="stDialog"] div.st-key-dhr_copy div.stButton > button[kind="primary"] *,
+[data-testid="stDialog"] div.st-key-dhr_copy div.stButton > button[kind="primary"] p { color: #FFFFFF !important; }
+
+/* (5) Sub-modal Detail Sistem */
+[data-testid="stDialog"] > div:has(.dh-step-detail) { width: min(820px, 94vw) !important; max-width: 820px !important; }
+.dh-dt-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: .08em; color: #8B8378; margin: 4px 0 8px; }
+.dh-dt-card {
+    background: linear-gradient(160deg, #FFF8EE 0%, #FBEFDD 100%); border: 1.5px solid #E8D5B7;
+    border-radius: 20px; padding: 24px 26px; text-align: center; max-width: 420px; margin: 0 auto 14px;
+    box-shadow: 0 14px 30px -18px rgba(194,94,0,.35);
+}
+.dh-dt-brand { font-size: 10.5px; font-weight: 800; letter-spacing: .14em; color: #C25E00; }
+.dh-dt-sys { font-size: 11px; color: #8B8378; margin-top: 6px; }
+.dh-dt-symbol { font-size: 54px; line-height: 1.2; color: #C25E00; margin: 8px 0 2px; }
+.dh-dt-name { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: #2D2A26; }
+.dh-dt-sub { font-size: 12px; color: #8B8378; margin-bottom: 12px; }
+.dh-dt-quote { background: #FFFFFF; border: 1px solid #EEDFC8; border-radius: 12px; padding: 12px 14px; font-family: 'Lora', serif; font-style: italic; font-size: 13px; line-height: 1.6; color: #3A3631; }
+.dh-dt-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 12px 0; }
+.dh-dt-pill { padding: 4px 10px; border-radius: 100px; background: #FFFFFF; border: 1px solid #EEDFC8; font-size: 10.5px; color: #5A5249; }
+.dh-dt-foot { display: flex; justify-content: space-between; border-top: 1px dashed #E8D5B7; padding-top: 10px; font-size: 10.5px; color: #8B8378; }
+.dh-dt-foot b { color: #2D2A26; }
+.dh-dt-sep { height: 1px; background: #E8E0D5; margin: 16px 0 12px; }
+.dh-dt-h { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #2D2A26; }
+.dh-dt-sec { background: #FFFFFF; border: 1px solid #E8E0D5; border-radius: 14px; padding: 16px 18px; margin: 10px 0; }
+.dh-dt-sec-t { font-size: 11px; font-weight: 800; letter-spacing: .06em; color: #C25E00; margin-bottom: 8px; }
+.dh-dt-sec p { font-size: 13px; line-height: 1.75; color: #3A3631; margin: 0 0 8px; }
+.dh-dt-sec p:last-child { margin-bottom: 0; }
+.dh-dt-sec.dh-dt-dark { background: #2D2A26; border-color: #2D2A26; }
+.dh-dt-sec.dh-dt-dark .dh-dt-sec-t { color: #F3B76B; }
+.dh-dt-sec.dh-dt-dark p { color: #F3EDE3; }
+.dh-dt-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.dh-dt-table td { padding: 8px 4px; border-bottom: 1px solid #F0E9DD; color: #3A3631; }
+.dh-dt-table tr:last-child td { border-bottom: 0; }
+.dh-dt-table td:first-child { color: #8B8378; width: 42%; }
+.dh-dt-table td:last-child { font-weight: 700; text-align: right; }
+[data-testid="stDialog"] div.st-key-dhd_png div.stDownloadButton > button {
+    background: #C25E00 !important; border: 1px solid #C25E00 !important; color: #FFFFFF !important;
+}
+[data-testid="stDialog"] div.st-key-dhd_png div.stDownloadButton > button * { color: #FFFFFF !important; }
+[data-testid="stDialog"] div.st-key-dhd_wa a, [data-testid="stDialog"] div.st-key-dhd_wa [data-testid="stBaseLinkButton-secondary"] {
+    background: #25A244 !important; border: 1px solid #25A244 !important; color: #FFFFFF !important;
+}
+[data-testid="stDialog"] div.st-key-dhd_wa a * { color: #FFFFFF !important; }
+/* bar social proof di dalam section chart: tanpa blok putih */
+.st-key-dh_home_root .dh-proof-bar { background: transparent !important; border: 0 !important; box-shadow: none !important; }
