@@ -36,3 +36,21 @@ def test_mode1_out_of_range_year_does_not_crash():
     res = {r["system"]: r for r in compute_mode1("Kakek", date(1930, 3, 3))}
     assert res["Shio"]["title"] == "Belum bisa dihitung"
     assert res["Zodiak"]["raw"]["sign"] == "Pisces"
+
+
+def test_mode1_zodiak_bulan_hanya_jika_jam_diisi(monkeypatch):
+    import components.modal_steps as ms
+    panggil = []
+
+    def palsu(tgl, jam, kota):
+        panggil.append((tgl, jam, kota))
+        return {"moon_sign": "Scorpio", "moon_near_edge": False}
+
+    monkeypatch.setattr(ms, "hitung_bulan", palsu)
+    tanpa = {r["system"]: r for r in compute_mode1("Rina", date(1998, 5, 17))}
+    assert "moon_sign" not in tanpa["Zodiak"]["raw"] and not panggil
+    dengan = {r["system"]: r for r in compute_mode1("Rina", date(1998, 5, 17), "19:00", "Makassar")}
+    assert dengan["Zodiak"]["raw"]["moon_sign"] == "Scorpio" and dengan["Zodiak"]["raw"]["sign"] == "Taurus"
+    assert panggil == [(date(1998, 5, 17), "19:00", "Makassar")]
+    assert "moon_sign" not in dengan["Shio"]["raw"]
+    assert dengan["Zodiak"]["title"] == tanpa["Zodiak"]["title"]
