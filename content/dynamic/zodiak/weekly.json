@@ -1,0 +1,38 @@
+{
+  "system": "Zodiak",
+  "kind": "weekly",
+  "data": {
+    "Aries": {
+      "week_1": {
+        "timing": "Awal bulan cocok untuk menetapkan target mingguan yang jelas.",
+        "prediksi": "Minggu ini kamu cenderung bersemangat memulai hal baru, terutama di pekerjaan.",
+        "saran": "Tulis satu target terukur dan bagikan ke satu orang supaya ada yang mengingatkan.",
+        "hindari": "Memulai terlalu banyak proyek sekaligus."
+      },
+      "week_2": {
+        "timing": "Pertengahan pertama bulan cenderung ramai oleh urusan kerja sama.",
+        "prediksi": "Kamu umumnya menemukan peluang lewat obrolan dengan orang di luar lingkaran biasa.",
+        "saran": "Jadwalkan dua pertemuan singkat dan siapkan satu pertanyaan konkret untuk tiap pertemuan.",
+        "hindari": "Menyela pembicaraan saat sedang bersemangat."
+      },
+      "week_3": {
+        "timing": "Minggu ini ritmenya cenderung padat dan butuh pengaturan tenaga.",
+        "prediksi": "Pekerjaan yang tertunda berpeluang selesai bila kamu fokus pada satu hal per hari.",
+        "saran": "Pecah tugas besar menjadi langkah 30 menit dan centang tiap selesai.",
+        "hindari": "Mengambil keputusan penting saat sedang lelah."
+      },
+      "week_4": {
+        "timing": "Menjelang akhir bulan, evaluasi lebih berguna daripada mulai hal baru.",
+        "prediksi": "Kamu cenderung lebih tenang membaca situasi dan memperbaiki yang sudah berjalan.",
+        "saran": "Tinjau pengeluaran dan jadwalmu, lalu pilih satu kebiasaan yang diperbaiki.",
+        "hindari": "Terburu-buru menutup pekerjaan tanpa memeriksa ulang."
+      },
+      "week_5": {
+        "timing": "Penutup bulan cocok untuk merapikan dan beristirahat secukupnya.",
+        "prediksi": "Hubungan dengan orang dekat umumnya membaik bila kamu menyediakan waktu tanpa gawai.",
+        "saran": "Atur satu waktu santai yang tidak boleh digeser dan rencanakan target bulan depan.",
+        "hindari": "Menunda istirahat demi mengejar hal kecil."
+      }
+    }
+  }
+}

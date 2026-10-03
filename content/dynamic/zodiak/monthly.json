@@ -1,0 +1,92 @@
+{
+  "system": "Zodiak",
+  "kind": "monthly",
+  "data": {
+    "Aries": {
+      "1": {
+        "timing": "Januari cocok untuk menetapkan arah tahun.",
+        "prediksi": "Di bulan ini kamu cenderung punya dorongan kuat untuk menetapkan arah tahun, dan hasilnya umumnya terasa bila dikerjakan bertahap.",
+        "saran": "Tetapkan satu target bulanan terkait menetapkan arah tahun, lalu cek progresnya tiap akhir pekan.",
+        "peluang": "Peluang muncul lewat orang-orang yang mendukung langkahmu dalam menetapkan arah tahun.",
+        "risiko": "Kamu mungkin tergoda mengerjakan semuanya sekaligus. Batasi maksimal tiga prioritas agar tenagamu tidak habis di tengah."
+      },
+      "2": {
+        "timing": "Februari cocok untuk memperkuat kebiasaan sehat.",
+        "prediksi": "Di bulan ini kamu cenderung punya dorongan kuat untuk memperkuat kebiasaan sehat, dan hasilnya umumnya terasa bila dikerjakan bertahap.",
+        "saran": "Tetapkan satu target bulanan terkait memperkuat kebiasaan sehat, lalu cek progresnya tiap akhir pekan.",
+        "peluang": "Peluang muncul lewat orang-orang yang mendukung langkahmu dalam memperkuat kebiasaan sehat.",
+        "risiko": "Kamu mungkin tergoda mengerjakan semuanya sekaligus. Batasi maksimal tiga prioritas agar tenagamu tidak habis di tengah."
+      },
+      "3": {
+        "timing": "Maret cocok untuk menyelesaikan urusan administrasi.",
+        "prediksi": "Di bulan ini kamu cenderung punya dorongan kuat untuk menyelesaikan urusan administrasi, dan hasilnya umumnya terasa bila dikerjakan bertahap.",
+        "saran": "Tetapkan satu target bulanan terkait menyelesaikan urusan administrasi, lalu cek progresnya tiap akhir pekan.",
+        "peluang": "Peluang muncul lewat orang-orang yang mendukung langkahmu dalam menyelesaikan urusan administrasi.",
+        "risiko": "Kamu mungkin tergoda mengerjakan semuanya sekaligus. Batasi maksimal tiga prioritas agar tenagamu tidak habis di tengah."
+      },
+      "4": {
+        "timing": "April cocok untuk memulai proyek baru.",
+        "prediksi": "Di bulan ini kamu cenderung punya dorongan kuat untuk memulai proyek baru, dan hasilnya umumnya terasa bila dikerjakan bertahap.",
+        "saran": "Tetapkan satu target bulanan terkait memulai proyek baru, lalu cek progresnya tiap akhir pekan.",
+        "peluang": "Peluang muncul lewat orang-orang yang mendukung langkahmu dalam memulai proyek baru.",
+        "risiko": "Kamu mungkin tergoda mengerjakan semuanya sekaligus. Batasi maksimal tiga prioritas agar tenagamu tidak habis di tengah."
+      },
+      "5": {
+        "timing": "Mei cocok untuk menjalin kerja sama.",
+        "prediksi": "Di bulan ini kamu cenderung punya dorongan kuat untuk menjalin kerja sama, dan hasilnya umumnya terasa bila dikerjakan bertahap.",
+        "saran": "Tetapkan satu target bulanan terkait menjalin kerja sama, lalu cek progresnya tiap akhir pekan.",
+        "peluang": "Peluang muncul lewat orang-orang yang mendukung langkahmu dalam menjalin kerja sama.",
+        "risiko": "Kamu mungkin tergoda mengerjakan semuanya sekaligus. Batasi maksimal tiga prioritas agar tenagamu tidak habis di tengah."
+      },
+      "6": {
+        "timing": "Juni cocok untuk mengevaluasi pertengahan tahun.",
+        "prediksi": "Di bulan ini kamu cenderung punya dorongan kuat untuk mengevaluasi pertengahan tahun, dan hasilnya umumnya terasa bila dikerjakan bertahap.",
+        "saran": "Tetapkan satu target bulanan terkait mengevaluasi pertengahan tahun, lalu cek progresnya tiap akhir pekan.",
+        "peluang": "Peluang muncul lewat orang-orang yang mendukung langkahmu dalam mengevaluasi pertengahan tahun.",
+        "risiko": "Kamu mungkin tergoda mengerjakan semuanya sekaligus. Batasi maksimal tiga prioritas agar tenagamu tidak habis di tengah."
+      },
+      "7": {
+        "timing": "Juli cocok untuk merapikan keuangan.",
+        "prediksi": "Di bulan ini kamu cenderung punya dorongan kuat untuk merapikan keuangan, dan hasilnya umumnya terasa bila dikerjakan bertahap.",
+        "saran": "Tetapkan satu target bulanan terkait merapikan keuangan, lalu cek progresnya tiap akhir pekan.",
+        "peluang": "Peluang muncul lewat orang-orang yang mendukung langkahmu dalam merapikan keuangan.",
+        "risiko": "Kamu mungkin tergoda mengerjakan semuanya sekaligus. Batasi maksimal tiga prioritas agar tenagamu tidak habis di tengah."
+      },
+      "8": {
+        "timing": "Agustus cocok untuk mengasah kemampuan baru.",
+        "prediksi": "Di bulan ini kamu cenderung punya dorongan kuat untuk mengasah kemampuan baru, dan hasilnya umumnya terasa bila dikerjakan bertahap.",
+        "saran": "Tetapkan satu target bulanan terkait mengasah kemampuan baru, lalu cek progresnya tiap akhir pekan.",
+        "peluang": "Peluang muncul lewat orang-orang yang mendukung langkahmu dalam mengasah kemampuan baru.",
+        "risiko": "Kamu mungkin tergoda mengerjakan semuanya sekaligus. Batasi maksimal tiga prioritas agar tenagamu tidak habis di tengah."
+      },
+      "9": {
+        "timing": "September cocok untuk memperluas jaringan.",
+        "prediksi": "Di bulan ini kamu cenderung punya dorongan kuat untuk memperluas jaringan, dan hasilnya umumnya terasa bila dikerjakan bertahap.",
+        "saran": "Tetapkan satu target bulanan terkait memperluas jaringan, lalu cek progresnya tiap akhir pekan.",
+        "peluang": "Peluang muncul lewat orang-orang yang mendukung langkahmu dalam memperluas jaringan.",
+        "risiko": "Kamu mungkin tergoda mengerjakan semuanya sekaligus. Batasi maksimal tiga prioritas agar tenagamu tidak habis di tengah."
+      },
+      "10": {
+        "timing": "Oktober cocok untuk menuntaskan target besar.",
+        "prediksi": "Di bulan ini kamu cenderung punya dorongan kuat untuk menuntaskan target besar, dan hasilnya umumnya terasa bila dikerjakan bertahap.",
+        "saran": "Tetapkan satu target bulanan terkait menuntaskan target besar, lalu cek progresnya tiap akhir pekan.",
+        "peluang": "Peluang muncul lewat orang-orang yang mendukung langkahmu dalam menuntaskan target besar.",
+        "risiko": "Kamu mungkin tergoda mengerjakan semuanya sekaligus. Batasi maksimal tiga prioritas agar tenagamu tidak habis di tengah."
+      },
+      "11": {
+        "timing": "November cocok untuk menyiapkan transisi akhir tahun.",
+        "prediksi": "Di bulan ini kamu cenderung punya dorongan kuat untuk menyiapkan transisi akhir tahun, dan hasilnya umumnya terasa bila dikerjakan bertahap.",
+        "saran": "Tetapkan satu target bulanan terkait menyiapkan transisi akhir tahun, lalu cek progresnya tiap akhir pekan.",
+        "peluang": "Peluang muncul lewat orang-orang yang mendukung langkahmu dalam menyiapkan transisi akhir tahun.",
+        "risiko": "Kamu mungkin tergoda mengerjakan semuanya sekaligus. Batasi maksimal tiga prioritas agar tenagamu tidak habis di tengah."
+      },
+      "12": {
+        "timing": "Desember cocok untuk merefleksikan dan beristirahat.",
+        "prediksi": "Di bulan ini kamu cenderung punya dorongan kuat untuk merefleksikan dan beristirahat, dan hasilnya umumnya terasa bila dikerjakan bertahap.",
+        "saran": "Tetapkan satu target bulanan terkait merefleksikan dan beristirahat, lalu cek progresnya tiap akhir pekan.",
+        "peluang": "Peluang muncul lewat orang-orang yang mendukung langkahmu dalam merefleksikan dan beristirahat.",
+        "risiko": "Kamu mungkin tergoda mengerjakan semuanya sekaligus. Batasi maksimal tiga prioritas agar tenagamu tidak habis di tengah."
+      }
+    }
+  }
+}
