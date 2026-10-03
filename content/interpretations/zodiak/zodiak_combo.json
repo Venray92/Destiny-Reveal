@@ -1,0 +1,42 @@
+{
+  "sun": {
+    "Aries": "keberanian dan dorongan untuk memulai lebih dulu",
+    "Taurus": "ketenangan, kesetiaan, dan kecenderungan membangun hal yang nyata",
+    "Gemini": "rasa ingin tahu, kelincahan bicara, dan kemampuan menghubungkan banyak ide",
+    "Cancer": "kehangatan, sikap melindungi, dan kepekaan terhadap suasana",
+    "Leo": "kepercayaan diri, kemurahan hati, dan keinginan untuk bersinar",
+    "Virgo": "ketelitian, sikap membantu, dan keinginan memperbaiki sesuatu",
+    "Libra": "keramahan, rasa adil, dan kepandaian menjaga keseimbangan",
+    "Scorpio": "intensitas, keteguhan, dan kemampuan melihat hal yang tersembunyi",
+    "Sagittarius": "optimisme, kebebasan, dan semangat menjelajah makna",
+    "Capricorn": "disiplin, tanggung jawab, dan kesabaran mengejar target jangka panjang",
+    "Aquarius": "kemandirian, gagasan orisinal, dan kepedulian pada gambaran besar",
+    "Pisces": "empati, imajinasi, dan kelembutan menghadapi orang lain"
+  },
+  "moon": {
+    "Aries": "butuh bergerak, merasa bebas, dan cepat bereaksi saat terhalang",
+    "Taurus": "butuh rasa aman, kenyamanan, dan rutinitas yang bisa dipegang",
+    "Gemini": "butuh bercakap, bertukar ide, dan variasi agar perasaan tidak jenuh",
+    "Cancer": "butuh kedekatan, rumah yang nyaman, dan merasa dirawat",
+    "Leo": "butuh dihargai, disayang secara terang-terangan, dan merasa istimewa",
+    "Virgo": "butuh keteraturan dan merasa berguna untuk tenang",
+    "Libra": "butuh keharmonisan, hubungan yang tenang, dan kebersamaan",
+    "Scorpio": "butuh kedalaman, kejujuran penuh, dan rasa percaya yang kuat",
+    "Sagittarius": "butuh ruang bebas, petualangan, dan sesuatu yang dipercayai",
+    "Capricorn": "butuh kepastian, struktur, dan merasa mampu diandalkan",
+    "Aquarius": "butuh ruang pribadi, kebebasan berpikir, dan hubungan yang tidak mengekang",
+    "Pisces": "butuh ketenangan, waktu menyendiri, dan suasana yang lembut"
+  },
+  "relation": {
+    "kembar": "Matahari dan Bulanmu berada di tanda yang sama, jadi sikap luar dan kebutuhan batinmu sejalan, tetapi kamu cenderung menonjolkan satu sisi dan jarang melihat sisi lain.",
+    "selaras": "Matahari dan Bulanmu sama-sama berelemen {e}, jadi apa yang kamu tampilkan dan apa yang kamu rasakan umumnya searah.",
+    "harmonis": "Elemen {e1} pada Matahari dan elemen {e2} pada Bulan secara tradisi dianggap saling mendukung, jadi sikap luar dan kebutuhan batinmu cenderung saling melengkapi.",
+    "tegangan": "Elemen {e1} pada Matahari dan elemen {e2} pada Bulan berbeda karakter, jadi kamu mungkin sesekali merasa tertarik ke dua arah. Ini wajar dan bisa dikelola."
+  },
+  "advice": {
+    "kembar": "Karena Matahari dan Bulanmu sejalan, bobot sarannya ada pada keseimbangan: sengaja latih sisi yang jarang kamu pakai, misalnya dengan meminta pandangan orang lain.",
+    "selaras": "Karena elemenmu searah, bobot sarannya ada pada keluwesan: cari sudut pandang yang berbeda sebelum memutuskan hal besar.",
+    "harmonis": "Karena elemenmu saling mendukung, bobot sarannya ada pada kesadaran: catat kapan sikap luar dan kebutuhan batinmu bekerja sama agar kamu bisa mengulangnya.",
+    "tegangan": "Karena elemenmu berbeda, bobot sarannya ada pada jeda: sebelum bereaksi, tanyakan dulu apakah itu suara sikap luarmu atau kebutuhan batinmu, lalu cari jalan tengah."
+  }
+}
