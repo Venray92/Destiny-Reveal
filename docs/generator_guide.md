@@ -114,16 +114,38 @@ Lokasi: `content/dynamic/<folder>/{daily,weekly,monthly}.json`. Wrapper: `{"syst
 
 | File | Struktur per key | Ganti | Pemilihan |
 |---|---|---|---|
-| daily | `ramalan[50] hoki[20] warna[10] saran[30] quote[20]` | 00:00 WIB | sha256(tanggal+anonymous_id+sistem+kategori) % n |
+| daily | `ramalan[100] saran[20] hoki[30] warna[20] quote[10]` | 00:00 WIB | sha256(tanggal+anonymous_id+sistem+kategori) % n |
 | weekly | `week_1..week_5 {timing, prediksi, saran, hindari}` | Senin 00:00 WIB | slot = minggu ke-n dari tanggal Senin |
-| monthly | `"1".."12" {timing, prediksi, saran, peluang, risiko}` | tanggal 1 00:00 WIB | bulan WIB |
+| monthly | `"1".."12" {timing, prediksi, saran, peluang, risiko, tanggal_penting}` | tanggal 1 00:00 WIB | bulan WIB |
 
-Aturan tulis:
-- Tone sama seperti bagian 4. Satu item daily = satu kalimat (maks. 2), berdiri sendiri, tidak merujuk item lain.
-- Item daily tidak boleh bergantung pada hari/tanggal tertentu ("hari ini" boleh, "Senin ini" jangan).
-- Weekly: `timing` 1 kalimat, `prediksi` 1-2 kalimat dengan "cenderung/umumnya", `saran` konkret dengan ukuran, `hindari` frasa pendek tanpa tanda titik.
-- Monthly: `peluang` dan `risiko` seimbang; risiko ditulis sebagai pola yang bisa diatur.
-- Transisi antar-kalimat dalam satu item pakai penghubung dari bagian 2.
-- Tanpa "—", "–", spasi ganda, atau duplikat dalam satu kategori.
+### 6.1 Kuota daily (per key)
+Ramalan 100, saran 20, hoki 30, warna 20, quote 10. Semua unik dalam satu kategori. Konstanta: `dynamic_loader.QUOTA_PRODUKSI`.
 
-Validasi: `dynamic_loader.validate(system, kind, minimum)`; target produksi daily `{"ramalan":50,"hoki":20,"warna":10,"saran":30,"quote":20}`.
+Cara menyusun supaya tidak terasa template:
+- Ramalan = kalimat kecenderungan khas key (20 per key, 2 per ranah: kerja, uang, asmara, teman, energi, belajar, keputusan, komunikasi, kreativitas, ritme) + 1 dari 5 saran praktis ranah yang sama, disambung penghubung bergilir ("Karena itu,", "Sebagai langkah kecil,", "Supaya tetap terarah,", "Untuk hasil yang lebih baik,", "Kalau sempat,").
+- Hoki 30 = 12 angka + 8 jam + 5 arah + 5 kata kunci. Warna 20 dari palet elemen.
+- Item daily tidak boleh menyebut nama hari atau tanggal tertentu.
+
+### 6.2 Aturan monthly
+- Dilarang satu pola kalimat dipakai di semua bulan. Tiap field punya minimal 6 kerangka kalimat (deklaratif, kondisional "Jika...", imperatif, dua kalimat berurutan), dipilih bergeser per bulan sehingga dua bulan berurutan tidak pernah memakai kerangka yang sama.
+- Isi tiap bulan wajib khas bulan itu (suasana, fokus, risiko) dan khas key (kekuatan, pola yang diwaspadai, cara mengatur diri).
+- `prediksi` memakai "cenderung" atau "umumnya". `risiko` ditulis sebagai pola yang bisa diatur.
+- `tanggal_penting`: dua rentang tanggal. Format: `8-14 Januari untuk diskusi penting, 22 ke atas untuk rehat`. Pakai tanda hubung biasa (bukan "–"). Tanggal tidak boleh melebihi jumlah hari bulan itu (Februari maks. 28), urutan naik, rentang pertama sebelum rentang kedua. Ada 3 variasi susunan, bergilir.
+
+### 6.2a Standar benchmark (Aries) untuk monthly dan weekly
+Berlaku untuk semua key. Naskah ditulis per teks, bukan dirakit dari template.
+- Khas sifat key (pola kebiasaan, mekanisme risiko) dan khas bulan atau minggunya (skenario konkret sesuai tema).
+- Panjang acuan monthly: timing 95-155 karakter, prediksi 270-420, saran 190-270, peluang 145-215, risiko 155-240.
+- Saran selalu berukuran (menit, hari, jam, jumlah). Risiko selalu disertai mekanisme ("biasanya bermula dari ...").
+- Detail astrologi tradisional boleh, selalu berhati-hati ("secara tradisi astrologi", "sekitar"): hanya musim Matahari (Aries 21 Mar-19 Apr, Taurus 20 Apr-20 Mei, Gemini 21 Mei-20 Jun, Cancer 21 Jun-22 Jul, Leo 23 Jul-22 Agu, Virgo 23 Agu-22 Sep, Libra 23 Sep-22 Okt, Scorpio 23 Okt-21 Nov, Sagittarius 22 Nov-21 Des, Capricorn 22 Des-19 Jan, Aquarius 20 Jan-18 Feb, Pisces 19 Feb-20 Mar). Tidak menyebut retrograde atau tanggal astronomi lain.
+- Dua bulan berurutan tidak boleh dibuka dengan empat kata yang sama (nama bulan dihitung sama). Tidak ada teks kembar antar bulan atau antar key.
+- Tanggal penting: tiga angka naik, nama bulan wajib ada, tidak ada angka lain.
+- Dicek otomatis oleh `dynamic_loader.validate` dan `tests/test_dynamic_loader.py`.
+
+### 6.3 Aturan weekly
+`timing` 1 kalimat, `prediksi` 1-2 kalimat dengan "cenderung/umumnya", `saran` konkret dengan ukuran, `hindari` frasa pendek tanpa titik.
+
+### 6.4 Umum
+- Tone sama seperti bagian 4. Item daily berdiri sendiri, tidak merujuk item lain.
+- Tanpa "—", "–", spasi ganda, duplikat dalam satu kategori, dan kata vonis (pasti, sial, vonis, ditakdirkan).
+- Validasi: `dynamic_loader.validate(system, kind, QUOTA_PRODUKSI)`.
