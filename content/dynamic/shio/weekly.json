@@ -1,0 +1,390 @@
+{
+  "system": "Shio",
+  "kind": "weekly",
+  "data": {
+    "Tikus": {
+      "week_1": {
+        "timing": "Awal bulan cocok untuk memetakan target sebelum bergerak.",
+        "prediksi": "Minggu ini kamu cenderung teliti membaca situasi, dan peta yang jelas umumnya membuatmu mantap melangkah.",
+        "saran": "Tulis tiga prioritas di pagi hari dan tentukan satu keputusan yang diambil tanpa menunggu informasi tambahan.",
+        "hindari": "Menunda mulai demi data yang sempurna"
+      },
+      "week_2": {
+        "timing": "Minggu ini percakapan terasa lebih berharga daripada rencana pribadi.",
+        "prediksi": "Kamu umumnya mendapat informasi penting lewat obrolan santai, asalkan mau menceritakan sesuatu lebih dulu.",
+        "saran": "Ceritakan satu rencana kepada orang tepercaya dan ajukan dua pertanyaan terbuka kepadanya.",
+        "hindari": "Menahan informasi penting dari rekan"
+      },
+      "week_3": {
+        "timing": "Tenaga minggu ini cenderung terkuras bila semuanya kamu pegang sendiri.",
+        "prediksi": "Tugas yang tertunda umumnya selesai bila kamu menyerahkan satu bagian kecil dan menutup satu hal per hari.",
+        "saran": "Serahkan satu tugas berdurasi satu jam ke orang lain dan kerjakan sisanya dalam blok 40 menit.",
+        "hindari": "Mengerjakan semuanya sendiri demi rasa aman"
+      },
+      "week_4": {
+        "timing": "Akhir bulan cocok untuk memeriksa mana rencana yang berjalan dan mana yang hanya cadangan.",
+        "prediksi": "Kamu cenderung jeli menemukan kebocoran kecil pada waktu dan pengeluaran saat meninjau dengan tenang.",
+        "saran": "Tinjau catatan seminggu terakhir selama 20 menit dan pilih satu kebiasaan untuk diperbaiki.",
+        "hindari": "Menyimpan kekesalan kecil sebagai bahan pembelaan"
+      },
+      "week_5": {
+        "timing": "Penutup bulan cocok untuk melepas kewaspadaan dan memulihkan diri.",
+        "prediksi": "Umumnya kamu lebih mudah rileks bila agenda berikutnya sudah tertulis, sehingga pikiranmu tidak terus berjaga.",
+        "saran": "Tulis rencana bulan depan dalam lima baris, lalu sediakan dua jam tanpa agenda untuk dirimu sendiri.",
+        "hindari": "Memeriksa pekerjaan lagi saat waktu istirahat"
+      }
+    },
+    "Kerbau": {
+      "week_1": {
+        "timing": "Awal bulan cocok untuk memilih satu target dan menimbangnya baik-baik sebelum melangkah.",
+        "prediksi": "Kamu cenderung memulai pelan tetapi mantap, dan rencana yang kamu pikirkan matang umumnya bertahan sampai akhir bulan.",
+        "saran": "Tulis satu target terukur untuk tujuh hari, pecah jadi tiga langkah, lalu ceritakan kepada satu orang yang bisa menanyakan kabarnya.",
+        "hindari": "Menunda mulai karena menunggu kondisi sempurna"
+      },
+      "week_2": {
+        "timing": "Minggu ini percakapan dengan orang lain membuka pintu yang tidak terbuka bila kamu bekerja sendirian.",
+        "prediksi": "Kamu umumnya lebih banyak mendengar, dan itu membuat orang percaya padamu, meski sesekali kamu perlu menyuarakan pendapat lebih dulu.",
+        "saran": "Sampaikan satu pendapat di setiap rapat dan kirim satu pesan terima kasih kepada rekan yang membantumu pekan lalu.",
+        "hindari": "Menjawab singkat saat sedang tidak nyaman"
+      },
+      "week_3": {
+        "timing": "Tenaga paling berguna bila dibagi rata, karena agenda tengah bulan cenderung penuh.",
+        "prediksi": "Pekerjaanmu umumnya selesai satu per satu bila kamu memakai ritme tetap dan tidak membiarkan tugas baru menyela tanpa seleksi.",
+        "saran": "Kerjakan tugas tersulit di dua jam pertama, lalu beri jeda 10 menit tiap 90 menit dan tutup hari dengan mencentang daftar.",
+        "hindari": "Mengabaikan tanda lelah demi menyelesaikan semuanya"
+      },
+      "week_4": {
+        "timing": "Menjelang akhir bulan, kamu lebih jernih membaca apa yang sudah berjalan dan apa yang perlu diubah.",
+        "prediksi": "Kamu cenderung kritis pada diri sendiri saat meninjau hasil, jadi mungkin lebih adil bila pencapaian ikut ditulis di samping kekurangan.",
+        "saran": "Pilih satu proses kerja yang paling lambat, ubah satu langkahnya, dan catat hasilnya. Laporkan satu pencapaianmu kepada atasan atau teman.",
+        "hindari": "Mempertahankan cara lama hanya karena sudah terbiasa"
+      },
+      "week_5": {
+        "timing": "Penutup bulan pas untuk melonggarkan ritme dan memberi tubuh kesempatan pulih setelah rutinitas yang padat.",
+        "prediksi": "Perasaan yang kamu simpan beberapa minggu umumnya terasa lebih ringan begitu kamu menceritakannya kepada orang yang kamu percaya.",
+        "saran": "Jadwalkan satu sore istirahat yang tidak boleh digeser, ucapkan satu perasaan kepada orang dekat, lalu tulis satu rencana kecil untuk bulan depan.",
+        "hindari": "Menyimpan keluhan sampai meledak sekaligus"
+      }
+    },
+    "Macan": {
+      "week_1": {
+        "timing": "Awal bulan cocok untuk menancapkan satu sasaran yang berani dan menyatakannya terang-terangan.",
+        "prediksi": "Minggu ini kamu cenderung terdorong memimpin dari depan, dan satu sasaran yang jelas umumnya lebih menggerakkan daripada banyak rencana.",
+        "saran": "Tulis satu sasaran minggu ini dengan ukuran angka, lalu beri tahu satu orang yang kamu hormati sebelum tengah hari.",
+        "hindari": "Mengumumkan target besar tanpa langkah pertama"
+      },
+      "week_2": {
+        "timing": "Minggu kedua cenderung ramai oleh percakapan yang menguji kesabaranmu.",
+        "prediksi": "Kamu umumnya mudah membakar semangat orang lain, tetapi pendapat orang yang tenang mungkin lebih berguna daripada yang paling lantang. Dengarkan lebih lama dari biasanya.",
+        "saran": "Dalam tiap obrolan penting, biarkan lawan bicara selesai lalu hitung tiga napas sebelum menjawab.",
+        "hindari": "Memotong kalimat orang yang sedang membantahmu"
+      },
+      "week_3": {
+        "timing": "Tenagamu cenderung besar minggu ini, tetapi paling baik dibagi merata sampai akhir pekan.",
+        "prediksi": "Tugas yang menumpuk umumnya selesai bila kamu mengerjakannya dalam ledakan fokus pendek, bukan maraton panjang yang menguras emosi.",
+        "saran": "Kerjakan tugas tersulit dalam dua blok 45 menit di pagi hari, lalu jeda 10 menit tiap selesai satu blok.",
+        "hindari": "Mengambil keputusan besar saat marah atau lapar"
+      },
+      "week_4": {
+        "timing": "Menjelang penutup bulan, menimbang ulang lebih bermanfaat daripada menyerbu hal baru.",
+        "prediksi": "Kamu cenderung mau mengakui kekeliruan bila disampaikan langsung dan tanpa drama, sehingga minggu ini cocok untuk memperbaiki arah.",
+        "saran": "Pilih satu keputusan bulan ini yang paling kamu sesali, tulis penyebabnya dalam tiga kalimat, lalu tetapkan satu aturan baru.",
+        "hindari": "Membela keputusan lama hanya demi gengsi"
+      },
+      "week_5": {
+        "timing": "Penghujung bulan cocok untuk merapikan sisa urusan dan memulihkan tenaga.",
+        "prediksi": "Setelah berminggu-minggu bergerak cepat, tubuhmu umumnya meminta jeda, dan orang dekat biasanya lebih menghargai kehadiranmu yang santai.",
+        "saran": "Sediakan satu sore penuh tanpa target untuk bergerak ringan atau makan bersama orang tersayang, lalu catat satu sasaran bulan depan.",
+        "hindari": "Menjadikan waktu istirahat ajang berdebat"
+      }
+    },
+    "Kelinci": {
+      "week_1": {
+        "timing": "Awal bulan cocok untuk menyusun target yang tenang dan masuk akal bagimu.",
+        "prediksi": "Minggu ini kamu cenderung lebih mudah fokus bila ruang kerjamu rapi dan tidak bising.",
+        "saran": "Tulis satu target terukur dan kirim ke satu orang yang kamu percaya sebelum pertengahan minggu.",
+        "hindari": "Menyetujui target orang lain sebelum menimbang targetmu"
+      },
+      "week_2": {
+        "timing": "Minggu ini percakapan hangat membuka lebih banyak pintu daripada rapat yang formal.",
+        "prediksi": "Kamu umumnya mampu meredakan perbedaan pendapat, tetapi cenderung menyimpan pendapatmu sendiri.",
+        "saran": "Sampaikan satu pendapat atau keberatan dengan kalimat sopan di satu percakapan, lalu catat reaksinya.",
+        "hindari": "Berkata tidak apa-apa saat sebenarnya keberatan"
+      },
+      "week_3": {
+        "timing": "Tenagamu perlu dibagi hati-hati karena agenda minggu ini cukup padat.",
+        "prediksi": "Kamu cenderung menyerap suasana sekitar, sehingga tenaga mudah terkuras bila ruang kerja bising.",
+        "saran": "Kerjakan tugas terberat di dua jam paling tenang, lalu ambil jeda 10 menit di sudut yang nyaman.",
+        "hindari": "Menerima tugas tambahan karena sungkan"
+      },
+      "week_4": {
+        "timing": "Minggu ini cocok meninjau apa yang berjalan baik dan apa yang masih mengganjal.",
+        "prediksi": "Umumnya kamu bisa menilai situasi dengan lembut, tetapi mungkin menghindari bagian yang kurang enak dilihat.",
+        "saran": "Tulis dua hal yang berhasil dan satu hal yang perlu diperbaiki, lalu tentukan langkah 20 menit untuk perbaikan itu.",
+        "hindari": "Menunda percakapan sulit sampai terlalu lama"
+      },
+      "week_5": {
+        "timing": "Penutup bulan cocok untuk merapikan sudut rumah dan memberi tubuh waktu pulih.",
+        "prediksi": "Kamu cenderung lebih segar bila lingkunganmu bersih dan jadwalmu longgar.",
+        "saran": "Sisihkan satu sore tanpa agenda dan rapikan satu laci atau folder selama 30 menit.",
+        "hindari": "Mengisi setiap waktu luang dengan undangan"
+      }
+    },
+    "Naga": {
+      "week_1": {
+        "timing": "Minggu pembuka ini pas untuk memilih satu visi dan mematok ukurannya sebelum bergerak.",
+        "prediksi": "Kamu cenderung punya gambaran besar yang jelas, tetapi umumnya baru berjalan bila dipecah menjadi angka dan tenggat. Orang di sekitarmu mungkin ikut bersemangat.",
+        "saran": "Tulis satu target dengan angka dan tenggat, lalu bacakan kepada satu orang yang berani mengoreksimu.",
+        "hindari": "Mengumumkan rencana besar sebelum detailnya jadi"
+      },
+      "week_2": {
+        "timing": "Kerja sama dan percakapan menonjol minggu ini, dan sinarmu mudah menarik perhatian.",
+        "prediksi": "Kamu umumnya mudah memikat pendengar, tetapi ide terbaik cenderung muncul saat orang lain diberi giliran bicara lebih dulu.",
+        "saran": "Ajukan tiga pertanyaan terbuka dalam tiap diskusi sebelum menyampaikan pendapatmu, dan catat satu ide milik orang lain.",
+        "hindari": "Menimpali kritik dengan nada tinggi"
+      },
+      "week_3": {
+        "timing": "Tenaga besarmu perlu diatur minggu ini agar tidak habis sebelum tugas rampung.",
+        "prediksi": "Kamu cenderung bersemangat di awal tugas dan jenuh di bagian teknis yang berulang. Menyelesaikan satu hal per hari umumnya lebih efektif.",
+        "saran": "Kerjakan bagian teknis tersulit di 60 menit pertama hari kerja, lalu beri dirimu jeda 10 menit tiap dua jam.",
+        "hindari": "Menyanggupi tambahan tugas demi terlihat hebat"
+      },
+      "week_4": {
+        "timing": "Saatnya menilai hasil dengan jujur, tanpa panggung dan tanpa pembelaan.",
+        "prediksi": "Kamu mungkin merasa tidak nyaman melihat bagian yang meleset, tetapi umumnya itulah informasi paling berguna bagi standar tingginya.",
+        "saran": "Beri nilai 1 sampai 5 untuk tiga hasil minggu ini, perbaiki yang terendah, dan minta komentar singkat dari satu orang dekat.",
+        "hindari": "Membandingkan diri dengan pencapaian orang lain"
+      },
+      "week_5": {
+        "timing": "Penutup ini cocok untuk turun dari panggung sejenak dan memulihkan tenaga.",
+        "prediksi": "Kamu cenderung sulit melambat karena jeda terasa seperti kehilangan momentum. Padahal orang dekat umumnya paling menghargai kehadiranmu yang santai.",
+        "saran": "Pasang satu waktu istirahat 2 jam yang tidak boleh digeser, dan ucapkan terima kasih spesifik kepada satu orang yang membantumu.",
+        "hindari": "Mengisi seluruh waktu luang dengan rencana baru"
+      }
+    },
+    "Ular": {
+      "week_1": {
+        "timing": "Minggu pertama pas untuk mengamati dulu, lalu memilih satu target yang benar-benar layak diperjuangkan.",
+        "prediksi": "Kamu cenderung menimbang lebih lama dari orang lain, dan umumnya itu menghasilkan target yang lebih tepat sasaran. Hanya saja, target yang tidak diucapkan mudah menguap.",
+        "saran": "Tulis satu target terukur untuk minggu ini, lalu ceritakan kepada satu orang sebelum hari ketiga.",
+        "hindari": "Menyimpan rencana sendiri sampai terasa sempurna"
+      },
+      "week_2": {
+        "timing": "Minggu ini percakapan dengan orang yang tepat membuka lebih banyak jalan daripada bekerja sendirian.",
+        "prediksi": "Kamu umumnya membaca maksud lawan bicara dengan tajam, sehingga satu pertanyaan yang tepat cenderung lebih berguna daripada banyak penjelasan.",
+        "saran": "Ajak dua orang bicara 15 menit, dan sampaikan satu pendapatmu di awal obrolan, bukan di akhir.",
+        "hindari": "Menjawab dengan diam saat sebenarnya kamu keberatan"
+      },
+      "week_3": {
+        "timing": "Agenda minggu ini cenderung padat, jadi tenagamu perlu dibagi sebelum habis di tengah jalan.",
+        "prediksi": "Kamu umumnya bekerja rapi saat fokus pada satu urusan, dan tugas tertunda berpeluang selesai bila tidak diselingi banyak hal.",
+        "saran": "Kerjakan tugas tersulit dalam satu blok 90 menit tanpa notifikasi, lalu istirahat 10 menit sebelum lanjut.",
+        "hindari": "Memikul semua tugas sendirian demi menjaga kendali"
+      },
+      "week_4": {
+        "timing": "Menjelang akhir bulan, kepala dingin membantumu melihat apa yang bekerja dan apa yang perlu diganti.",
+        "prediksi": "Ketelitianmu cenderung paling berguna sekarang, terutama untuk menemukan pola kecil yang menyebabkan hambatan berulang.",
+        "saran": "Tulis tiga hal yang berjalan baik dan satu yang perlu diubah, lalu minta tanggapan satu orang tepercaya.",
+        "hindari": "Menilai diri terlalu keras lalu menarik diri"
+      },
+      "week_5": {
+        "timing": "Penutup bulan cocok untuk menutup urusan yang menggantung dan memberi dirimu ruang sunyi secukupnya.",
+        "prediksi": "Waktu menyendiri umumnya memulihkanmu, tetapi orang terdekat cenderung menafsirkan jarak yang terlalu lama sebagai ketidakpedulian.",
+        "saran": "Sisihkan dua malam untuk istirahat sendiri, dan kirim satu pesan hangat kepada orang dekat di antaranya.",
+        "hindari": "Menghilang tanpa kabar saat butuh ruang"
+      }
+    },
+    "Kuda": {
+      "week_1": {
+        "timing": "Awal bulan cocok untuk memilih satu target utama sebelum rasa ingin mencoba semuanya muncul.",
+        "prediksi": "Kamu cenderung berenergi dan cepat bergerak, dan umumnya paling bersemangat bila targetnya terasa seperti petualangan kecil.",
+        "saran": "Tulis satu target dengan tenggat tujuh hari dan ceritakan kepada satu teman yang akan menanyakan kabarnya.",
+        "hindari": "Membuka tiga proyek baru sekaligus"
+      },
+      "week_2": {
+        "timing": "Minggu ini percakapan dan kerja sama cenderung ramai, dan kamu mudah mencairkan suasana.",
+        "prediksi": "Kamu umumnya membuka pintu lewat obrolan santai, tetapi janji yang diucapkan terlalu cepat cenderung ditagih belakangan.",
+        "saran": "Catat setiap janji di kalender sebelum menutup obrolan, dan batasi maksimal tiga pertemuan dalam sehari.",
+        "hindari": "Mengiyakan ajakan tanpa membuka jadwal"
+      },
+      "week_3": {
+        "timing": "Tenaga minggu ini cenderung berlari cepat lalu turun mendadak, jadi pembagian jatah kerja penting.",
+        "prediksi": "Tugas yang tertunda berpeluang selesai bila kamu menutupnya satu per satu, dan kamu umumnya lebih gelisah bila menumpuknya sambil memulai hal lain.",
+        "saran": "Selesaikan satu tugas tertunda tiap pagi sebelum membuka hal baru, lalu bergerak 15 menit di sela pekerjaan.",
+        "hindari": "Berpindah tugas sebelum yang tadi rampung"
+      },
+      "week_4": {
+        "timing": "Menjelang akhir bulan, meninjau lebih berguna daripada melaju ke arah baru.",
+        "prediksi": "Kamu umumnya mulai melihat bagian mana yang kamu tinggalkan setengah jalan, dan itu cenderung terasa kurang nyaman tetapi berguna.",
+        "saran": "Tinjau semua janji bulan ini, beri tenggat pada yang belum punya, dan perbaiki satu kebiasaan yang paling sering membuatmu menghindar dari rencana.",
+        "hindari": "Mencari alasan keluar saat evaluasi terasa tidak enak"
+      },
+      "week_5": {
+        "timing": "Penutup bulan pas untuk merapikan sisa urusan dan memberi tubuhmu waktu pulih.",
+        "prediksi": "Setelah banyak bergerak, kamu cenderung lebih tenang bila ada waktu bebas yang tidak diisi rencana apa pun.",
+        "saran": "Sisakan dua jam tanpa agenda di akhir pekan dan susun tiga prioritas untuk bulan depan di selembar kertas.",
+        "hindari": "Mengisi setiap jam kosong dengan acara baru"
+      }
+    },
+    "Kambing": {
+      "week_1": {
+        "timing": "Minggu pertama cocok untuk menuliskan satu target kecil yang terasa aman sebelum kamu bertanya ke banyak orang.",
+        "prediksi": "Kamu cenderung punya banyak bayangan indah, tetapi ragu menjadikannya target. Umumnya satu target sederhana yang kamu pilih sendiri terasa lebih ringan dijalani.",
+        "saran": "Tulis satu target terukur dalam 10 menit, lalu bagikan ke satu orang saja setelah kamu yakin dengan pilihanmu.",
+        "hindari": "Meminta pendapat lima orang sebelum memutuskan"
+      },
+      "week_2": {
+        "timing": "Minggu ini percakapan hangat dengan orang yang tepat cenderung membuka kerja sama yang nyaman.",
+        "prediksi": "Kamu umumnya pandai menenangkan suasana, tetapi mungkin menahan pendapat agar tidak ada yang tersinggung. Menyuarakannya dengan lembut cenderung lebih dihargai daripada yang kamu bayangkan.",
+        "saran": "Sampaikan satu kebutuhan atau ide dengan kalimat utuh dalam dua percakapan, lalu catat bagaimana tanggapan orangnya.",
+        "hindari": "Mengiyakan permintaan karena sungkan"
+      },
+      "week_3": {
+        "timing": "Ritme minggu ini cenderung padat, jadi tenagamu perlu dijaga lewat rutinitas yang sederhana.",
+        "prediksi": "Tekanan tugas bisa membuatmu ingin menghindar, tetapi tugas yang dipecah kecil umumnya terasa lebih ramah. Kamu cenderung bekerja lebih baik di suasana tenang.",
+        "saran": "Pecah tugas terberat jadi tiga bagian 25 menit, kerjakan satu bagian tiap pagi, dan istirahat 5 menit di antaranya.",
+        "hindari": "Menunda tugas yang menuntut keputusan"
+      },
+      "week_4": {
+        "timing": "Minggu ini cocok untuk meninjau kembali apa yang sudah kamu putuskan sendiri dan hasilnya.",
+        "prediksi": "Kamu cenderung lebih jernih menilai bila tidak sedang dikritik, sehingga evaluasi pribadi umumnya lebih menyenangkan. Pengakuan atas langkah kecil bisa menambah keyakinanmu.",
+        "saran": "Tulis tiga keputusan kecil yang sudah kamu ambil, satu yang ingin diperbaiki, dan satu hal yang akan kamu ubah mulai besok.",
+        "hindari": "Menyalahkan diri atas hasil yang belum sempurna"
+      },
+      "week_5": {
+        "timing": "Penutup ini cocok untuk merawat diri lewat kegiatan kreatif yang menenangkan.",
+        "prediksi": "Kamu umumnya pulih lewat berkarya dan waktu tenang bersama orang yang sabar. Perasaan yang diungkapkan lebih awal cenderung mencegah salah paham.",
+        "saran": "Sediakan dua jam untuk berkarya tanpa target hasil, lalu ungkapkan satu perasaan kepada orang terdekat secara langsung.",
+        "hindari": "Memendam perasaan sambil berharap ditebak"
+      }
+    },
+    "Monyet": {
+      "week_1": {
+        "timing": "Minggu pertama cocok untuk memilih target utama sebelum rasa ingin tahumu menyebar ke banyak arah.",
+        "prediksi": "Kamu cenderung punya banyak ide segar minggu ini, dan umumnya paling berhasil bila hanya satu yang dijadikan target utama.",
+        "saran": "Tulis satu target terukur beserta tenggatnya, lalu simpan ide lain di daftar tunggu yang tidak dibuka sebelum Jumat.",
+        "hindari": "Membuka proyek keempat sebelum yang pertama jalan"
+      },
+      "week_2": {
+        "timing": "Minggu ini percakapan dan kerja sama cenderung mengalir, dan humormu membantu mencairkan suasana.",
+        "prediksi": "Orang umumnya mudah nyaman denganmu, tetapi mereka mungkin menunggu jawaban yang serius pada topik yang penting.",
+        "saran": "Pada satu percakapan penting, jawab dulu dengan satu kalimat jujur sebelum menyelipkan candaan, lalu tanyakan pendapat lawan bicara.",
+        "hindari": "Menjawab hal serius dengan lelucon"
+      },
+      "week_3": {
+        "timing": "Tengah bulan menuntut tenaga yang diatur, apalagi bila tugasmu mulai terasa monoton.",
+        "prediksi": "Rasa bosan cenderung muncul di pertengahan minggu, namun tugas lebih sering selesai bila kamu membuatnya seperti tantangan.",
+        "saran": "Beri waktu 40 menit untuk tiap tugas dengan penghitung waktu, lalu ambil jeda lima menit saat selesai.",
+        "hindari": "Berpindah tugas hanya karena bosan"
+      },
+      "week_4": {
+        "timing": "Minggu ini cocok untuk meninjau mana yang sungguh sudah kamu kuasai dan mana yang baru sekadar kamu pahami.",
+        "prediksi": "Kamu cenderung cepat melihat celah pada rencana, dan umumnya perbaikan kecil sekarang menyelamatkan banyak waktu nanti.",
+        "saran": "Pilih satu hal yang kamu rasa sudah bisa, lalu jelaskan ke seseorang tanpa catatan selama sepuluh menit untuk mengujinya.",
+        "hindari": "Menganggap paham sama dengan menguasai"
+      },
+      "week_5": {
+        "timing": "Penutup bulan pas untuk merapikan catatan dan memberi ruang bagi dirimu untuk tenang.",
+        "prediksi": "Setelah banyak bergerak, pikiranmu umumnya butuh jeda agar perasaan yang tertunda sempat terolah.",
+        "saran": "Tulis satu perasaan jujur tanpa candaan, lalu tutup minggu dengan merapikan daftar proyek aktif menjadi maksimal tiga.",
+        "hindari": "Mengisi setiap jeda dengan hal baru"
+      }
+    },
+    "Ayam": {
+      "week_1": {
+        "timing": "Awal bulan cocok untuk memilih satu standar kerja yang jelas sebelum mulai bergerak.",
+        "prediksi": "Minggu ini kamu cenderung ingin rencana tersusun rapi sebelum mulai, dan umumnya itu menolong selama tidak berlarut. Draf kasar sering sudah cukup untuk melangkah.",
+        "saran": "Tulis satu target terukur dalam satu kalimat, batasi penyusunannya 20 menit, lalu kerjakan langkah pertama hari itu juga.",
+        "hindari": "Menunda mulai demi rencana yang sempurna"
+      },
+      "week_2": {
+        "timing": "Pekan ini percakapan dan koordinasi dengan orang lain cenderung ramai.",
+        "prediksi": "Kamu umumnya menyampaikan pendapat dengan jelas dan percaya diri, tetapi nada yang tajam bisa membuat lawan bicara menutup diri sebelum paham maksudmu.",
+        "saran": "Awali setiap masukan dengan satu hal yang sudah berjalan baik, lalu tunggu jawaban lawan bicara sebelum menambah koreksi kedua.",
+        "hindari": "Menunjuk kesalahan di depan banyak orang"
+      },
+      "week_3": {
+        "timing": "Ritme minggu ini cenderung padat, jadi tenaga perlu dibagi dengan cermat.",
+        "prediksi": "Kamu umumnya menghabiskan tenaga untuk memeriksa ulang detail yang sebenarnya sudah benar, sehingga tugas utama bisa tertinggal.",
+        "saran": "Tetapkan satu tugas rutin sebagai cukup baik, periksa satu kali saja, lalu centang dan lanjut ke tugas berikutnya.",
+        "hindari": "Memeriksa ulang pekerjaan lebih dari dua kali"
+      },
+      "week_4": {
+        "timing": "Menjelang akhir bulan, meninjau hasil lebih berguna daripada menambah proyek.",
+        "prediksi": "Kamu cenderung cepat melihat bagian yang kurang, dan evaluasimu umumnya lebih adil bila kamu juga mencatat apa yang sudah berhasil.",
+        "saran": "Tulis tiga hal yang berjalan baik dan satu hal yang diperbaiki, lalu tentukan langkah 15 menit untuk perbaikan itu.",
+        "hindari": "Menilai hasil hanya dari kekurangannya"
+      },
+      "week_5": {
+        "timing": "Penutup bulan pas untuk merapikan meja kerja dan memberi jeda pada diri sendiri.",
+        "prediksi": "Setelah berminggu-minggu menjaga standar, kamu umumnya butuh jeda agar ketelitianmu tidak berubah menjadi sikap mudah kesal.",
+        "saran": "Sisihkan satu sore atau malam untuk hiburan di luar pekerjaan dan tandai di kalender seperti janji penting.",
+        "hindari": "Mengisi waktu luang dengan pekerjaan tambahan"
+      }
+    },
+    "Anjing": {
+      "week_1": {
+        "timing": "Minggu pertama pas untuk menata arah dengan tenang sebelum kamu bergerak jauh.",
+        "prediksi": "Kamu cenderung menimbang banyak kemungkinan sebelum memilih, dan umumnya targetmu jadi lebih realistis karena itu.",
+        "saran": "Tulis satu target mingguan terukur beserta satu kekhawatiran terbesarnya, lalu ceritakan keduanya kepada satu orang yang kamu percaya.",
+        "hindari": "Menunda mulai karena menunggu rencana sempurna"
+      },
+      "week_2": {
+        "timing": "Percakapan dengan orang lain minggu ini cenderung membuka kejelasan yang tidak kamu dapat sendirian.",
+        "prediksi": "Kamu umumnya didengar karena dianggap jujur, tetapi mungkin terdengar curiga bila nada bertanyamu terlalu menyelidik.",
+        "saran": "Ajukan dua pertanyaan terbuka dalam tiap obrolan penting dan dengarkan jawabannya tanpa memotong selama tiga menit.",
+        "hindari": "Menafsirkan diam orang lain sebagai penolakan"
+      },
+      "week_3": {
+        "timing": "Tenaga minggu ini perlu dibagi hati-hati karena kamu cenderung ikut memikul tugas orang lain.",
+        "prediksi": "Tugas tertunda umumnya selesai bila kamu mengerjakan satu hal per sesi dan berhenti memeriksa berulang kali.",
+        "saran": "Kerjakan satu tugas penting selama 45 menit tanpa gawai, istirahat 10 menit, lalu ulangi maksimal tiga kali sehari.",
+        "hindari": "Mengiyakan permintaan tambahan saat tenaga menipis"
+      },
+      "week_4": {
+        "timing": "Evaluasi minggu ini lebih berguna daripada memulai hal baru, sebab kamu cenderung jeli melihat celah.",
+        "prediksi": "Kamu umumnya mudah menemukan kekurangan, tetapi yang lebih membantu minggu ini adalah menandai juga apa yang sudah berjalan baik.",
+        "saran": "Tulis tiga hal yang berjalan baik dan satu hal yang diperbaiki, lalu tentukan langkah perbaikan 15 menit untuk besok.",
+        "hindari": "Mengkritik diri sendiri lebih dari sepuluh menit"
+      },
+      "week_5": {
+        "timing": "Penutup bulan cocok untuk merapikan urusan dan memberi dirimu izin untuk berhenti berjaga.",
+        "prediksi": "Kamu cenderung sulit mematikan waspada, jadi ketenangan umumnya baru datang bila istirahat dijadwalkan.",
+        "saran": "Jalan kaki 30 menit tanpa tujuan produktif, lalu telepon satu orang dekat untuk bercerita ringan.",
+        "hindari": "Membayangkan skenario terburuk menjelang tidur"
+      }
+    },
+    "Babi": {
+      "week_1": {
+        "timing": "Awal bulan cocok untuk menyusun rencana yang memberi tempat bagi kebutuhanmu sendiri, bukan hanya bagi permintaan orang lain.",
+        "prediksi": "Kamu cenderung memulai minggu dengan niat tulus membantu semua orang, sehingga targetmu sendiri mudah terdorong ke belakang.",
+        "saran": "Tulis satu target pribadi yang terukur, bagikan ke satu orang tepercaya, dan jadwalkan 20 menit untuk mengerjakannya sebelum tengah hari.",
+        "hindari": "Menerima titipan tugas sebelum target pribadi tertulis"
+      },
+      "week_2": {
+        "timing": "Minggu ini percakapan dan kerja sama ramai, dan keramahanmu cenderung membuka banyak pintu.",
+        "prediksi": "Kamu umumnya mudah akrab dengan siapa saja, tetapi mungkin terlalu cepat menyetujui permintaan di tengah obrolan yang hangat.",
+        "saran": "Siapkan satu kalimat penolakan sopan, misalnya biar aku cek jadwal dulu, dan pakai minimal sekali sebelum menjawab ya pada permintaan baru.",
+        "hindari": "Berjanji di tengah obrolan tanpa membuka jadwal"
+      },
+      "week_3": {
+        "timing": "Tenaga minggu ini perlu dibagi dengan cermat karena kamu cenderung menanggung pekerjaan yang bukan bagianmu.",
+        "prediksi": "Pekerjaan yang tertunda umumnya selesai bila kamu menutup satu tugas milikmu sebelum membantu orang lain. Makan dan tidur teratur cenderung menjaga tenagamu tetap stabil.",
+        "saran": "Kerjakan tugasmu dulu selama 90 menit tanpa gangguan, baru buka pintu untuk permintaan bantuan, maksimal dua per hari.",
+        "hindari": "Mengambil alih tugas rekan demi cepat beres"
+      },
+      "week_4": {
+        "timing": "Menjelang akhir bulan, meninjau siapa saja yang menghargai kebaikanmu lebih berguna daripada memulai hal baru.",
+        "prediksi": "Kamu cenderung lebih jernih melihat pola memberi dan menerima dalam hubunganmu. Umumnya baru terasa ada bantuan atau pinjaman yang tidak pernah kembali.",
+        "saran": "Catat tiga hal yang kamu berikan dan tiga yang kamu terima minggu ini, lalu pilih satu kebiasaan memberi untuk diatur ulang.",
+        "hindari": "Memendam kesal tanpa menyampaikannya"
+      },
+      "week_5": {
+        "timing": "Penutup bulan cocok untuk merapikan urusan dan memberi dirimu hadiah istirahat yang sudah direncanakan.",
+        "prediksi": "Kamu umumnya pulih paling cepat lewat makanan enak dan suasana rumah yang hangat, asalkan tidak berubah menjadi acara menjamu orang lain.",
+        "saran": "Tetapkan satu sore bebas undangan, siapkan makanan kesukaanmu, dan tulis satu target kecil untuk bulan berikutnya.",
+        "hindari": "Mengisi waktu libur dengan urusan orang lain"
+      }
+    }
+  }
+}
