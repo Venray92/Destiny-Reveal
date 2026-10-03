@@ -9,12 +9,12 @@ import time
 
 import streamlit as st
 
+from components import auth
 from components.flow_state import (
     MODE1_PRICE_BASE, REFERRAL_BONUS_COIN, REFERRAL_DISCOUNT, STEP_LOADING, STEP_PAY,
     STEP_RESULT, STEP_VERIFY, price_now, reset_for_new_scan, rp, set_step, valid_email,
 )
 from content.result_builder import build_display_data, compute_raw_result
-from engine.zodiak import hitung_bulan
 from components.modal_detail import cb_open_detail
 from utils.date_format import format_tanggal_lengkap
 
@@ -49,6 +49,7 @@ def _cb_send_link():
 
 
 def _cb_verify():
+    auth.ensure_user(st.session_state.get("dh_email", ""))  # akun otomatis dibuat (5 koin bonus)
     st.session_state.dh_email_verified = True
     set_step(STEP_PAY)
 
@@ -221,15 +222,12 @@ def _tag_and_short(system, raw):
     return f'Arcana #{raw.get("titik_inti", "")}', raw.get("nama_arketipe", "Matrix Destiny")
 
 
-def compute_mode1(nama, tgl, jam="", kota=""):
-    """Hitung 5 sistem Mode 1 dari engine + kamus konten (content/result_builder.py).
-    jam & kota opsional: kalau jam diisi, Zodiak ditambah posisi Bulan (buat perpaduan Matahari x Bulan)."""
+def compute_mode1(nama, tgl):
+    """Hitung 5 sistem Mode 1 dari engine + kamus konten (content/result_builder.py)."""
     ld = {"tanggal_lahir": tgl, "nama_lengkap": nama}
     out = []
     for system, label in MODE1_SYSTEMS:
         raw = compute_raw_result(system, ld)
-        if system == "Zodiak" and jam and raw.get("sign"):
-            raw = {**raw, **hitung_bulan(tgl, jam, kota)}
         disp = build_display_data(system, raw)
         tag, short = _tag_and_short(system, raw) if disp else ("", system)
         out.append({
@@ -250,8 +248,8 @@ def render_loading():
         '<div class="dh-loading-sub">Memproses peta takdir dan membuat akun personalmu.</div></div>',
         unsafe_allow_html=True,
     )
-    st.session_state.dh_flow_result = compute_mode1(
-        data.get("nama", ""), data.get("tgl_lahir"), data.get("jam_lahir", ""), data.get("kota_lahir", ""))
+    st.session_state.dh_flow_result = compute_mode1(data.get("nama", ""), data.get("tgl_lahir"))
+    auth.add_history(data.get("nama", ""), data.get("tgl_lahir"), st.session_state.dh_flow_result)
     time.sleep(2.5)
     set_step(STEP_RESULT)
     st.rerun(scope="fragment")
@@ -291,8 +289,9 @@ def render_result():
             f'<div class="dh-res-info"><b>Mode 1 — 5 Kelahiran</b> · Lahir: {format_tanggal_lengkap(tgl)}{jam}'
             f' · Tersimpan di Akun ({email})</div>', unsafe_allow_html=True)
     with h2:
-        st.button("Buka Akunku", key="dhr_account", on_click=_cb_soon,
-                  args=("Halaman akun belum tersedia — masih tahap pengembangan 🚧",), use_container_width=True)
+        if st.button("Buka Akunku", key="dhr_account", use_container_width=True):
+            ss.dh_open_profile = True
+            st.rerun()  # rerun penuh: modal hasil nutup, profil kebuka
     with h3:
         st.button("Salin Ringkasan", key="dhr_copy", type="primary", on_click=_cb_toggle_summary,
                   use_container_width=True, icon=":material/share:")

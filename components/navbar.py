@@ -6,6 +6,7 @@ buat elemen HTML statis yang harus buka modal Reveal.
 import streamlit as st
 import streamlit.components.v1 as components
 
+from components import auth
 from components.common import go
 from components.mini_modals import DIALOGS as _MINI_DIALOGS
 from components.modal import open_reveal_modal, reopen_if_pending
@@ -132,8 +133,9 @@ def render_navbar(current_page):
                 with st.container(key="dhnav_right"):
                     lb, cb = st.columns(2)
                     with lb:
-                        if st.button("Login", key="dhnav_login"):
-                            st.toast("Login/akun belum tersedia — masih tahap pengembangan 🚧")
+                        _u = auth.current_user()
+                        if st.button(f"👤 {_u['nama'].title()}" if _u else "👤 Masuk / Login", key="dhnav_login"):
+                            auth.open_auth()
                     with cb:
                         with st.container(key="dhnav_cta"):
                             if st.button(
@@ -148,4 +150,5 @@ def render_navbar(current_page):
                 if st.button(f"buka {_k}", key=f"dh_trig_{_k}"):
                     _fn()
             components.html(_BRIDGE_JS, height=0)
+    auth.reopen_if_pending()  # habis login -> profil
     reopen_if_pending()  # balik ke Modal Hasil setelah sub-modal detail ditutup (X/backdrop)
