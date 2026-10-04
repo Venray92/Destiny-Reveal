@@ -2,7 +2,7 @@
 Modal fitur (UI14): Tarot Spreads Multi-Kartu, Cek Kecocokan, Weekly & Monthly Report,
 Deep Blueprint, Tutorial, Blog, FAQ & Bantuan. Dibuka dari kartu di section Jelajahi
 (class .dh-open-modal + data-modal -> tombol tersembunyi di navbar.py).
-DUMMY: koin belum dipotong, tebaran/sinergi/laporan belum ada backend (toast).
+DUMMY: Stardust belum dipotong, tebaran/sinergi/laporan belum ada backend (toast).
 """
 
 import html
@@ -64,7 +64,7 @@ def saldo():
 # ═══════════ 1. TAROT SPREADS MULTI-KARTU ═══════════
 _SPREADS = {
     3: {
-        "tab": "Tarot 3 Kartu", "koin": 1, "title": "Tarot 3 Kartu",
+        "tab": "Tarot 3 Kartu", "koin": 50, "title": "Tarot 3 Kartu",
         "desc": "Masa Lalu, Masa Kini, Masa Depan — Membaca alur waktu energimu dengan cepat dan akurat.",
         "pos": [
             ("1. Masa Lalu", "Fondasi, pengalaman lampau, atau karma awal yang membentuk situasimu saat ini."),
@@ -73,7 +73,7 @@ _SPREADS = {
         ],
     },
     5: {
-        "tab": "Tarot 5 Kartu", "koin": 2, "title": "Tarot 5 Kartu",
+        "tab": "Tarot 5 Kartu", "koin": 100, "title": "Tarot 5 Kartu",
         "desc": "Analisis mendalam 5 dimensi: Situasi, Rintangan, Fondasi Bawah Sadar, Solusi Tindakan, dan Hasil.",
         "pos": [
             ("1. Situasi Saat Ini", "Kondisi riil yang sedang kamu hadapi dan pusat perhatian pikiranmu."),
@@ -84,7 +84,7 @@ _SPREADS = {
         ],
     },
     10: {
-        "tab": "Tarot Celtic Cross", "koin": 3, "title": "Tarot Celtic Cross",
+        "tab": "Tarot Celtic Cross", "koin": 150, "title": "Tarot Celtic Cross",
         "desc": "Format tebaran 10 kartu legendaris paling komprehensif dalam sejarah esoteris Barat.",
         "pos": [
             ("1. Situasi Inti", "Pusat permasalahan atau tema utama hidupmu saat ini."),
@@ -117,21 +117,21 @@ def tarot_spread_dialog():
         cols = st.columns(3, gap="small")
         for col, (n, sp) in zip(cols, _SPREADS.items()):
             with col:
-                coin = f"{sp['koin']} Koin" if n == tab else f":orange[{sp['koin']} Koin]"
+                coin = f"{sp['koin']} SD" if n == tab else f":orange[{sp['koin']} SD]"
                 st.button(f"{sp['tab']}  \n{coin}", key=f"dhts_tab_{n}", on_click=_cb_ts_tab, args=(n,),
                           type="primary" if n == tab else "secondary", use_container_width=True)
     sp = _SPREADS[tab]
     st.markdown(
         '<div class="dh-fm-center"><div class="dh-fm-ico dh-fm-ico-lg">🎴</div>'
-        f'<div class="dh-fm-h2">{sp["title"]}<span class="dh-fm-badge">{sp["koin"]} Koin</span></div>'
+        f'<div class="dh-fm-h2">{sp["title"]}<span class="dh-fm-badge">{sp["koin"]} ✨ SD</span></div>'
         f'<div class="dh-fm-desc">{sp["desc"]}</div></div>', unsafe_allow_html=True)
     cards = "".join(f'<div><b>{html.escape(a)}</b><span>{html.escape(b)}</span></div>' for a, b in sp["pos"])
     st.markdown(f'<div class="dh-fm-pos"><div class="dh-fm-poshead">POSISI KARTU DALAM TEBARAN ({tab} KARTU):</div>'
                 f'<div class="dh-fm-posgrid">{cards}</div></div>', unsafe_allow_html=True)
     with st.container(key="dhfm_cta_ts"):
-        st.button(f"✨ Kocok & Buka Tebaran ({sp['koin']} Koin)", key="dhts_go", type="primary",
+        st.button(f"✨ Kocok & Buka Tebaran ({sp['koin']} SD)", key="dhts_go", type="primary",
                   use_container_width=True, on_click=_soon)
-    st.markdown(f'<div class="dh-fm-saldo">Saldo koinmu saat ini: <b>{saldo()} Koin</b></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="dh-fm-saldo">Saldo Stardust-mu saat ini: <b>{saldo()} ✨ SD</b></div>', unsafe_allow_html=True)
 
 
 # ═══════════ 2. CEK KECOCOKAN ═══════════
@@ -143,7 +143,7 @@ WETON_OPTIONS = [f"{h} {p} (Neptu {nh + npn})" for h, nh in _HARI.items() for p,
 @st.dialog("Cek Kecocokan", width="small")
 def compat_dialog():
     _top(key="cp")
-    _title("💖", "Cek Kecocokan", "Bandingkan 2 orang langsung tanpa perlu scan sebelumnya", badge="3 Koin")
+    _title("💖", "Cek Kecocokan", "Bandingkan 2 orang langsung tanpa perlu scan sebelumnya", badge="100 ✨ SD")
     c1, c2 = st.columns(2, gap="small")
     with c1:
         st.markdown('<div class="dh-fm-label">Orang Pertama</div>', unsafe_allow_html=True)
@@ -154,7 +154,7 @@ def compat_dialog():
         st.selectbox("Orang Kedua", WETON_OPTIONS, index=WETON_OPTIONS.index("Kamis Kliwon (Neptu 16)"),
                      key="dhcp_b", label_visibility="collapsed")
     with st.container(key="dhfm_cta_cp"):
-        st.button("Hitung Sinergi Pasangan (3 Koin)", key="dhcp_go", type="primary", use_container_width=True,
+        st.button("Hitung Sinergi Pasangan (100 SD)", key="dhcp_go", type="primary", use_container_width=True,
                   on_click=_soon)
 
 
@@ -166,7 +166,7 @@ def _start_scan():
 @st.dialog("Weekly & Monthly Report", width="small")
 def weekly_dialog():
     _top(key="wk")
-    _title("📊", "Weekly Report (3-5 Koin)", "Panduan timing &amp; strategi eksekusi berkala")
+    _title("📊", "Weekly Report (100-200 SD)", "Panduan timing &amp; strategi eksekusi berkala")
     with st.container(key="dhwk_box"):
         st.markdown('<div class="dh-fm-warn"><b>❗ Kamu butuh melakukan scan takdir terlebih dahulu!</b>'
                     '<p>Laporan berkala disusun berdasarkan titik komparasi Weton, BaZi, dan Zodiak hasil scan '

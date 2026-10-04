@@ -246,7 +246,7 @@ def render_explore():
                 + _item("Ramalan Harian Gratis", "1x per hari, pilih Zodiak atau Shio", arrow, modal="daily")
                 + _item("Tarot 1 Kartu Harian", "Tarik kartu deck tertutup dengan animasi shuffle", arrow, modal="tarot")
                 + _item("Preview Zodiak", "12 rasi, modality, planet &amp; quote", arrow, modal="preview")
-                + _item("Streak &amp; Reward", "5 hari berturut = 1 koin gratis", arrow, modal="streak"),
+                + _item("Streak &amp; Reward", "5 hari berturut = 50 SD gratis", arrow, modal="streak"),
                 unsafe_allow_html=True,
             )
             with st.container(key="dhexplore_foot_gratis"):
@@ -256,18 +256,18 @@ def render_explore():
     with ec2:
         with st.container(key="dhexplore_card_premium"):
             st.markdown(
-                '<div class="dh-explore-card-badge">PAKAI KOIN &amp; VIP</div>'
+                '<div class="dh-explore-card-badge">PAKAI STARDUST &amp; VIP</div>'
                 + _head("💎", "#eef2fb", "PREMIUM", "Panduan mendalam &amp; akurasi tinggi")
-                + _item("Tarot Spreads Multi-Kartu", "3 Kartu (1 Koin), 5 Kartu (2 Koin), Celtic Cross (3 Koin)", _price("1-3 Koin"), modal="tarot_spread")
-                + _item("Cek Kecocokan", "Bandingkan 2 orang langsung (Weton &amp; Zodiak)", _price("3 Koin"), modal="compat")
-                + _item("Weekly &amp; Monthly Report", "Timing pekan (3 Koin) &amp; analisis bulan (5 Koin)", _price("3-5 Koin"), modal="weekly")
+                + _item("Tarot Spreads Multi-Kartu", "3 Kartu (50 SD), 5 Kartu (100 SD), Celtic Cross (150 SD)", _price("50-150 SD"), modal="tarot_spread")
+                + _item("Cek Kecocokan", "Bandingkan 2 orang langsung (Weton &amp; Zodiak)", _price("100 SD"), modal="compat")
+                + _item("Weekly &amp; Monthly Report", "Timing pekan (100 SD) &amp; analisis bulan (200 SD)", _price("100-200 SD"), modal="weekly")
                 + _item("Deep Blueprint (15 Sistem)", "Laporan lengkap 15 sistem sekaligus + PDF", _price("VIP", vip=True), modal="blueprint"),
                 unsafe_allow_html=True,
             )
             with st.container(key="dhexplore_foot_premium"):
                 pb1, pb2 = st.columns(2)
                 with pb1:
-                    if st.button("Paket Koin", key="dhexplore_koin_btn", use_container_width=True):
+                    if st.button("Paket Stardust", key="dhexplore_koin_btn", use_container_width=True):
                         pricing_modal.open_pricing("koin")
                 with pb2:
                     if st.button("Upgrade VIP", key="dhexplore_vip_btn", type="primary", use_container_width=True):

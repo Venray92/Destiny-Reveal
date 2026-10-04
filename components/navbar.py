@@ -39,15 +39,15 @@ def _mega_menu_html():
         _mega_item("Ramalan Harian", "Pilih Zodiak atau Shio (1× per hari)", modal="daily"),
         _mega_item("Tarot 1 Kartu", "Tarik 1 kartu sinkronisitas hari ini", modal="tarot"),
         _mega_item("Preview Zodiak", "Kelebihan &amp; kekurangan elemenmu", modal="preview"),
-        _mega_item("Streak &amp; Reward", "Klaim 1 koin gratis tiap 5 hari", modal="streak"),
+        _mega_item("Streak &amp; Reward", "Klaim 50 SD gratis tiap 5 hari", modal="streak"),
     ])
     koin = "".join([
-        _mega_item("Tarot 3 Kartu (1 Koin)", "Masa Lalu, Kini, Masa Depan", modal="tarot_spread_3"),
-        _mega_item("Tarot 5 Kartu (2 Koin)", "Situasi, Rintangan, Saran &amp; Hasil", modal="tarot_spread_5"),
-        _mega_item("Celtic Cross (3 Koin)", "10 Posisi Tebaran Komprehensif", modal="tarot_spread_10"),
-        _mega_item("Cek Kecocokan (3 Koin)", "Bandingkan 2 orang (Weton &amp; Zodiak)", modal="compat"),
-        _mega_item("Weekly (3 Koin) / Monthly (5 Koin)", "Prediksi berkala &amp; timing eksekusi", modal="weekly"),
-        '<div class="dh-mega-foot"><a href="#dh-soon" class="dh-open-modal" data-modal="pricing_koin">🪙 Koin</a><i>·</i>'
+        _mega_item("Tarot 3 Kartu (50 SD)", "Masa Lalu, Kini, Masa Depan", modal="tarot_spread_3"),
+        _mega_item("Tarot 5 Kartu (100 SD)", "Situasi, Rintangan, Saran &amp; Hasil", modal="tarot_spread_5"),
+        _mega_item("Celtic Cross (150 SD)", "10 Posisi Tebaran Komprehensif", modal="tarot_spread_10"),
+        _mega_item("Cek Kecocokan (100 SD)", "Bandingkan 2 orang (Weton &amp; Zodiak)", modal="compat"),
+        _mega_item("Weekly (100 SD) / Monthly (200 SD)", "Prediksi berkala &amp; timing eksekusi", modal="weekly"),
+        '<div class="dh-mega-foot"><a href="#dh-soon" class="dh-open-modal" data-modal="pricing_koin">✨ Stardust</a><i>·</i>'
         '<a href="#dh-soon" class="dh-open-modal" data-modal="pricing_vip">⭐ VIP</a><i>·</i><a href="#dh-soon" class="dh-open-modal" data-modal="pricing">💰 List Harga</a></div>',
     ])
     lain = "".join([
@@ -64,7 +64,7 @@ def _mega_menu_html():
     return (
         '<div class="dh-mega">'
         + col("🌄", "GRATIS", gratis)
-        + col("💎", "PAKAI KOIN &amp; VIP", koin)
+        + col("💎", "PAKAI STARDUST &amp; VIP", koin)
         + col("🎨", "LAINNYA", lain)
         + '</div>'
     )

@@ -19,7 +19,7 @@ from components.modal_detail import copy_button
 _WIB = timezone(timedelta(hours=7))
 _BLN = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
         "Oktober", "November", "Desember"]
-BONUS_KOIN = 5
+BONUS_KOIN = 250  # SD (setara 5 koin lama)
 _SOON = "Fitur ini belum tersedia — masih tahap pengembangan 🚧"
 
 
@@ -38,7 +38,7 @@ def _ref_code(email):
 
 
 def ensure_user(email):
-    """Buat akun baru (5 koin bonus + ID referral) atau pakai yang ada. Dipanggil juga dari alur Reveal."""
+    """Buat akun baru (250 SD bonus + ID referral) atau pakai yang ada. Dipanggil juga dari alur Reveal."""
     ss = st.session_state
     email = email.strip()
     if not ss.get("dh_user") or ss.dh_user["email"] != email:
@@ -132,11 +132,11 @@ def _render_email():
     st.markdown(
         '<div class="dh-au-notice"><b>🛡️ Autentikasi Verifikasi Email Langsung</b>'
         'Kami akan mengirimkan kode verifikasi 6-digit &amp; tautan instan ke emailmu. Setelah masuk, '
-        'profil dan saldo koinmu otomatis terbuka.</div>', unsafe_allow_html=True)
+        'profil dan saldo Stardust-mu otomatis terbuka.</div>', unsafe_allow_html=True)
     st.button("Lanjutkan Verifikasi Email →", key="dha_send", type="primary", use_container_width=True,
               on_click=_cb_send)
     st.markdown('<div class="dh-au-foot">Belum punya akun? Cukup masukkan emailmu di atas, akun barumu akan '
-                f'otomatis dibuat dengan <b>{BONUS_KOIN} Koin Bonus &amp; ID Referral</b>.</div>',
+                f'otomatis dibuat dengan <b>{BONUS_KOIN} SD Bonus &amp; ID Referral</b>.</div>',
                 unsafe_allow_html=True)
 
 
@@ -211,8 +211,8 @@ def profile_dialog():
         with st.container(key="dhpf_coin"):
             c1, c2 = st.columns([0.85, 1.25], gap="small", vertical_alignment="bottom")
             with c1:
-                st.markdown(f'<div class="dh-pf-coinl">SALDO KOIN</div><div class="dh-pf-coinv">💎 <b>{u["koin"]}</b> '
-                            '<span>Koin</span></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="dh-pf-coinl">SALDO STARDUST</div><div class="dh-pf-coinv">✨ <b>{u["koin"]}</b> '
+                            '<span>SD</span></div>', unsafe_allow_html=True)
             with c2:
                 if st.button("➕ Top Up", key="dhpf_topup", type="primary"):
                     request_open("pricing_keep", dh_pr_tab="koin")

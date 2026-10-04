@@ -21,7 +21,7 @@ STEP_FORM, STEP_VERIFY, STEP_PAY, STEP_LOADING, STEP_RESULT = (
 
 MODE1_PRICE_BASE = 10000      # harga normal Mode 1 (Rp) = 1 Koin
 REFERRAL_DISCOUNT = 0.20      # diskon kode referral
-REFERRAL_BONUS_COIN = 1
+REFERRAL_BONUS_COIN = 50  # SD
 
 _EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]{2,}$")
 

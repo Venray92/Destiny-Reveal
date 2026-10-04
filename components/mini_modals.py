@@ -102,7 +102,7 @@ def _open_reveal():
     st.rerun()
 
 
-_COIN_MSG = "Fitur koin belum tersedia — masih tahap pengembangan 🚧"
+_COIN_MSG = "Fitur Stardust belum tersedia — masih tahap pengembangan 🚧"
 
 
 def _soon(msg):
@@ -190,14 +190,14 @@ def daily_dialog():
                         '<p>💗 Asmara: Percakapan jujur dengan orang terdekat membawa suasana yang lebih hangat…</p>'
                         '<p>💡 Nasihat: Tuntaskan satu hal kecil sebelum memulai hal baru supaya energimu tidak pecah…</p></div>',
                         unsafe_allow_html=True)
-            st.button("🔒 Buka Analisis Lengkap — 1 Koin", key="dhdy_unlock", type="primary",
+            st.button("🔒 Buka Analisis Lengkap — 50 SD", key="dhdy_unlock", type="primary",
                       on_click=_soon, args=(_COIN_MSG,))
             st.markdown('<div class="dh-dr-sub">Membongkar detail karier, dinamika asmara, dan nasihat langkah konkret hari ini.</div>',
                         unsafe_allow_html=True)
         with st.container(key="dhdy_swap"):
             st.markdown('<div class="dh-dr-swaptxt">Mau intip ramalan zodiak atau shio lain hari ini?</div>',
                         unsafe_allow_html=True)
-            st.button("Ganti Pilihan / Buka Sistem Lain (1 Koin) →", key="dhdy_swapbtn", on_click=_soon, args=(_COIN_MSG,))
+            st.button("Ganti Pilihan / Buka Sistem Lain (50 SD) →", key="dhdy_swapbtn", on_click=_soon, args=(_COIN_MSG,))
         if st.button("Sinkronkan dengan Weton & Numerologi Lengkap →", key="dhdy_sync", use_container_width=True):
             _open_reveal()
         return
@@ -280,7 +280,7 @@ def tarot_dialog():
         st.markdown('<div class="dh-mn-paywall"><b>Mau Tau Lebih Dalam?</b>'
                     '<span>Bongkar dimensi karier, dinamika asmara, dan peringatan energi tersembunyi kartu ini.</span></div>',
                     unsafe_allow_html=True)
-        st.button("🔒 Mau Tau Lebih Dalam? (1 Koin)", key="dhtr_unlock", type="primary", use_container_width=True,
+        st.button("🔒 Mau Tau Lebih Dalam? (50 SD)", key="dhtr_unlock", type="primary", use_container_width=True,
                   on_click=_soon, args=(_COIN_MSG,))
     if st.button("Sinkronkan Kartu Ini dengan Zodiak & Wetonmu di Scan →", key="dhtr_sync", use_container_width=True):
         _open_reveal()
@@ -318,7 +318,7 @@ def preview_dialog():
         f'<span class="dh-mn-lockico">🔒</span><b>Buka Analisis Lengkap {pick}</b>'
         '<span>Membongkar kekuatan sejati, PR batin (shadow work), serta insight karier, asmara &amp; keuangan.</span></div></div>',
         unsafe_allow_html=True)
-    st.button("🔒 Buka Analisis Lengkap — 1 Koin", key="dhpv_unlock", type="primary", use_container_width=True,
+    st.button("🔒 Buka Analisis Lengkap — 50 SD", key="dhpv_unlock", type="primary", use_container_width=True,
               on_click=_soon, args=(_COIN_MSG,))
     if st.button("Sinkronkan dengan Weton & Shio Milikmu →", key="dhpv_sync", use_container_width=True):
         _open_reveal()
@@ -329,18 +329,18 @@ def preview_dialog():
 def streak_dialog():
     email = st.session_state.get("dh_email")
     _head()
-    ms = [("5 Hari", "🎁 1 Koin", True), ("7 Hari", "💎 2 Koin", False), ("30 Hari", "👑 1 Bln VIP", False),
+    ms = [("5 Hari", "🎁 50 SD", True), ("7 Hari", "💎 100 SD", False), ("30 Hari", "👑 1 Bln VIP", False),
           ("100 Hari", "🏆 Lifetime", False)]
     cards = "".join(f'<div class="dh-sk-ms{" on" if on else ""}"><b>{a}</b><span>{b}</span></div>' for a, b, on in ms)
     st.markdown(
         '<div class="dh-sk-flame">🔥</div><div class="dh-sk-title">Streak &amp; Reward</div>'
         '<div class="dh-mn-notice dh-sk-info"><b>📌 Cara Menaikkan Streak:</b>'
         'Buka website tiap hari buat naikin streak (+1 setiap kali kamu membuka fitur gratis harian).</div>'
-        '<div class="dh-sk-prog"><div class="dh-sk-proghead"><b>5 / 7 Hari menuju 1 Koin Gratis</b><span>71%</span></div>'
+        '<div class="dh-sk-prog"><div class="dh-sk-proghead"><b>5 / 7 Hari menuju 50 SD Gratis</b><span>71%</span></div>'
         '<div class="dh-sk-bar"><i style="width:71%"></i></div></div>'
         f'<div class="dh-sk-grid">{cards}</div>', unsafe_allow_html=True)
-    st.button("Klaim Hadiah Hari Ini (+1 Koin)", key="dhsk_claim", type="primary", use_container_width=True)
-    st.markdown('<div class="dh-sk-foot">✓ Koin dan streak tersinkronisasi aman ke akun '
+    st.button("Klaim Hadiah Hari Ini (+50 SD)", key="dhsk_claim", type="primary", use_container_width=True)
+    st.markdown('<div class="dh-sk-foot">✓ Stardust dan streak tersinkronisasi aman ke akun '
                 f'({_e(email or "belum masuk akun")}).</div>', unsafe_allow_html=True)
 
 
