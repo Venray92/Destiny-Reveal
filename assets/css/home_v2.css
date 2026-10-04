@@ -1397,3 +1397,7 @@ div[data-testid="stVerticalBlock"].st-key-dhpr_refcode { background: #FDF3DF; bo
 .dh-pr-rcl { font-size: 9.5px; font-weight: 800; color: #6B635A; letter-spacing: .04em; }
 .dh-pr-rc { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #C25E00; white-space: nowrap; }
 .dh-pr-rcoff { font-size: 12.5px; color: #8B8378; font-family: inherit; font-weight: 500; white-space: normal; }
+
+/* ===== UI16: logo navbar klik -> Home + hover ===== */
+.stApp a.dh-navbar-logo.dh-logo-link { color: #2D2D2D; text-decoration: none !important; cursor: pointer; transition: color .2s ease; }
+.stApp a.dh-navbar-logo.dh-logo-link:hover, .stApp a.dh-navbar-logo.dh-logo-link:hover .dh-spark { color: #C85A32; }
