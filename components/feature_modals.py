@@ -242,7 +242,14 @@ def faq_dialog():
     _close_btn("Tutup", "fq", outline=True)
 
 
+def _open_spread(n):
+    st.session_state.dh_ts_tab = n
+    tarot_spread_dialog()
+
+
 DIALOGS = {
+    "tarot_spread_3": lambda: _open_spread(3), "tarot_spread_5": lambda: _open_spread(5),
+    "tarot_spread_10": lambda: _open_spread(10),
     "tarot_spread": tarot_spread_dialog, "compat": compat_dialog, "weekly": weekly_dialog,
     "blueprint": blueprint_dialog, "tutorial": tutorial_dialog, "blog": blog_dialog, "faq": faq_dialog,
 }

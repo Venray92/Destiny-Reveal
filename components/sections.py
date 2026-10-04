@@ -250,8 +250,8 @@ def render_explore():
                 unsafe_allow_html=True,
             )
             with st.container(key="dhexplore_foot_gratis"):
-                if st.button("Mulai Pembacaan Gratis →", key="dhexplore_gratis_btn", use_container_width=True):
-                    go("reveal")
+                if st.button("Mulai Reveal →", key="dhexplore_gratis_btn", use_container_width=True):
+                    open_reveal_modal()
 
     with ec2:
         with st.container(key="dhexplore_card_premium"):

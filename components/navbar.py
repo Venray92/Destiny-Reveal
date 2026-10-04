@@ -15,7 +15,7 @@ from components.mini_modals import DIALOGS as _MINI_DIALOGS
 from components.modal import open_reveal_modal, reopen_if_pending
 
 
-_ALL_DIALOGS = {**_MINI_DIALOGS, **_FEATURE_DIALOGS, **_PRICING_DIALOGS, **_INFO_DIALOGS}
+_ALL_DIALOGS = {**_MINI_DIALOGS, **_FEATURE_DIALOGS, **_PRICING_DIALOGS, **_INFO_DIALOGS, "gohome": lambda: go("home")}
 # dialog yang cuma bisa dibuka lewat dialog_bus.request_open (bukan dari kartu Home)
 _BUS_ONLY = {"auth": auth.open_auth, "reveal": open_reveal_modal, "pricing_keep": pricing_dialog}
 
@@ -42,11 +42,11 @@ def _mega_menu_html():
         _mega_item("Streak &amp; Reward", "Klaim 1 koin gratis tiap 5 hari", modal="streak"),
     ])
     koin = "".join([
-        _mega_item("Tarot 3 Kartu (1 Koin)", "Masa Lalu, Kini, Masa Depan", modal="pricing_fitur"),
-        _mega_item("Tarot 5 Kartu (2 Koin)", "Situasi, Rintangan, Saran &amp; Hasil", modal="pricing_fitur"),
-        _mega_item("Celtic Cross (3 Koin)", "10 Posisi Tebaran Komprehensif", modal="pricing_fitur"),
-        _mega_item("Cek Kecocokan (3 Koin)", "Bandingkan 2 orang (Weton &amp; Zodiak)", modal="pricing_fitur"),
-        _mega_item("Weekly (3 Koin) / Monthly (5 Koin)", "Prediksi berkala &amp; timing eksekusi", modal="pricing_fitur"),
+        _mega_item("Tarot 3 Kartu (1 Koin)", "Masa Lalu, Kini, Masa Depan", modal="tarot_spread_3"),
+        _mega_item("Tarot 5 Kartu (2 Koin)", "Situasi, Rintangan, Saran &amp; Hasil", modal="tarot_spread_5"),
+        _mega_item("Celtic Cross (3 Koin)", "10 Posisi Tebaran Komprehensif", modal="tarot_spread_10"),
+        _mega_item("Cek Kecocokan (3 Koin)", "Bandingkan 2 orang (Weton &amp; Zodiak)", modal="compat"),
+        _mega_item("Weekly (3 Koin) / Monthly (5 Koin)", "Prediksi berkala &amp; timing eksekusi", modal="weekly"),
         '<div class="dh-mega-foot"><a href="#dh-soon" class="dh-open-modal" data-modal="pricing_koin">🪙 Koin</a><i>·</i>'
         '<a href="#dh-soon" class="dh-open-modal" data-modal="pricing_vip">⭐ VIP</a><i>·</i><a href="#dh-soon" class="dh-open-modal" data-modal="pricing">💰 List Harga</a></div>',
     ])
@@ -106,8 +106,11 @@ def render_navbar(current_page):
         with st.container(key="dhnavbar"):
             logo_col, links_col, right_col = st.columns([1.5, 2.4, 2.4])
             with logo_col:
+                # logo klik -> Home (di Home: scroll ke atas; halaman lain: pindah ke Home)
+                _lh = ('href="#dh-top" class="dh-navbar-logo dh-logo-link"' if current_page == "home"
+                       else 'href="#dh-soon" class="dh-navbar-logo dh-logo-link dh-open-modal" data-modal="gohome"')
                 st.markdown(
-                    '<div class="dh-navbar-logo"><span class="dh-spark">✦</span> Destiny Reveal</div>',
+                    f'<a {_lh}><span class="dh-spark">✦</span> Destiny Reveal</a>',
                     unsafe_allow_html=True,
                 )
             with links_col:
