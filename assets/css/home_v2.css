@@ -1345,7 +1345,7 @@ div[data-testid="stVerticalBlock"].st-key-dhpr_tabs { background: #FAF6F0; borde
 .dh-pr-allacc { font-style: normal; background: #FDEDE6; color: #C25E00; font-size: 10.5px; font-weight: 700; padding: 3px 10px; border-radius: 100px; }
 .dh-pr-comm { font-style: normal; color: #5F8A69; font-weight: 700; }
 div[data-testid="stVerticalBlock"][class*="st-key-dhpr_coin_"], div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_"] { background: #FFFFFF; border: 1px solid #E8E0D5; border-radius: 16px; padding: 14px 14px 12px; gap: 6px !important; margin-bottom: 4px; position: relative; }
-div[data-testid="stVerticalBlock"].st-key-dhpr_plan_hl { background: #FDF3DF; border: 1.5px solid #D9722F; }
+div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_hl"] { background: #FDF3DF; border: 1.5px solid #D9722F; }
 .dh-pr-chead { display: flex; justify-content: space-between; align-items: center; }
 .dh-pr-chead b { font-family: 'Playfair Display', serif; font-size: 16px; color: #2D2A26; }
 .dh-pr-chead em { font-style: normal; background: #FDEDE6; color: #C25E00; font-size: 10.5px; font-weight: 700; padding: 2px 10px; border-radius: 100px; }
@@ -1361,17 +1361,17 @@ div[data-testid="stVerticalBlock"].st-key-dhpr_plan_hl { background: #FDF3DF; bo
 [data-testid="stDialog"] div[class*="st-key-dhpr_plan_"] div.stButton > button { border-radius: 100px !important; height: 38px !important; }
 [data-testid="stDialog"] div[class*="st-key-dhpr_plan_"] div.stButton > button[kind="secondary"] { background: #FFFFFF !important; border: 1px solid #C85A32 !important; }
 [data-testid="stDialog"] div[class*="st-key-dhpr_plan_"] div.stButton > button[kind="secondary"] * { color: #C85A32 !important; font-weight: 700 !important; font-size: 12.5px !important; }
-[data-testid="stDialog"] div.st-key-dhpr_plan_hl div.stButton > button[kind="primary"] { background: #C85A32 !important; border: 0 !important; }
-[data-testid="stDialog"] div.st-key-dhpr_plan_hl div.stButton > button * { color: #FFFFFF !important; font-weight: 700 !important; font-size: 12.5px !important; }
-[data-testid="stDialog"] div.st-key-dhpr_plan_dark div.stButton > button { background: #2A2420 !important; border: 0 !important; }
-[data-testid="stDialog"] div.st-key-dhpr_plan_dark div.stButton > button * { color: #FFFFFF !important; font-weight: 700 !important; font-size: 12.5px !important; }
+[data-testid="stDialog"] div[class*="st-key-dhpr_plan_hl"] div.stButton > button[kind="primary"] { background: #C85A32 !important; border: 0 !important; }
+[data-testid="stDialog"] div[class*="st-key-dhpr_plan_hl"] div.stButton > button * { color: #FFFFFF !important; font-weight: 700 !important; font-size: 12.5px !important; }
+[data-testid="stDialog"] div[class*="st-key-dhpr_plan_dark"] div.stButton > button[kind] { background: #2A2420 !important; border: 0 !important; }
+[data-testid="stDialog"] div[class*="st-key-dhpr_plan_dark"] div.stButton > button[kind] * { color: #FFFFFF !important; font-weight: 700 !important; font-size: 12.5px !important; }
 .dh-pr-vipbox { background: #2A2420; border-radius: 14px; padding: 14px 18px; margin-bottom: 14px; }
 .dh-pr-vipbox b { color: #F0A05A; font-size: 10.5px; letter-spacing: .08em; }
 .dh-pr-vipgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; margin-top: 10px; }
 .dh-pr-vipgrid div { color: #FFFFFF; font-size: 12px; }
 /* tabel fitur */
 div[data-testid="stVerticalBlock"].st-key-dhpr_table { border: 1px solid #E8E0D5; border-radius: 14px; overflow: hidden; gap: 0 !important; margin-bottom: 14px; }
-.dh-pr-th { display: grid; grid-template-columns: 1.7fr .75fr 2.6fr .85fr; gap: 8px; background: #FAF6F0; padding: 10px 14px; font-size: 10px; font-weight: 800; letter-spacing: .05em; color: #6B635A; }
+.dh-pr-th { display: grid; grid-template-columns: 1.7fr .95fr 2.4fr .85fr; gap: 8px; background: #FAF6F0; padding: 10px 14px; font-size: 10px; font-weight: 800; letter-spacing: .05em; color: #6B635A; }
 .dh-pr-th span:last-child { text-align: right; }
 div[data-testid="stVerticalBlock"][class*="st-key-dhpr_row_"] { padding: 8px 14px; border-top: 1px solid #EFE9DD; gap: 0 !important; background: #FFFFFF; }
 div[data-testid="stVerticalBlock"][class*="st-key-dhpr_row_"] [data-testid="stHorizontalBlock"] { gap: 8px !important; }
@@ -1401,3 +1401,23 @@ div[data-testid="stVerticalBlock"].st-key-dhpr_refcode { background: #FDF3DF; bo
 /* ===== UI16: logo navbar klik -> Home + hover ===== */
 .stApp a.dh-navbar-logo.dh-logo-link { color: #2D2D2D; text-decoration: none !important; cursor: pointer; transition: color .2s ease; }
 .stApp a.dh-navbar-logo.dh-logo-link:hover, .stApp a.dh-navbar-logo.dh-logo-link:hover .dh-spark { color: #C85A32; }
+
+/* ===== UI17: Stardust ===== */
+.dh-pr-sd { font-size: 13px; font-weight: 700; color: #2D2A26; margin-top: 2px; }
+.dh-pr-sd i { font-style: normal; font-size: 10.5px; font-weight: 700; color: #2E7D4F; background: #E6F4EA; padding: 2px 8px; border-radius: 100px; margin-left: 6px; }
+.dh-pr-cat { background: #F4EEE4; padding: 7px 14px; font-size: 10px; font-weight: 800; letter-spacing: .06em; color: #8B6B3A; border-top: 1px solid #EFE9DD; }
+.dh-pr-ribbon.dk { background: #2A2420; }
+.dh-pr-ribbon { white-space: nowrap; }
+[data-testid="stDialog"] div[class*="st-key-dhpr_plan_out_"] div.stButton > button { border-radius: 100px !important; }
+@media (max-width: 640px) { .dh-pr-th { display: none; } .dh-pr-vipgrid { grid-template-columns: 1fr !important; } }
+.dh-pr-unit { font-size: 11px; color: #8B8378; min-height: 16px; margin-top: -2px; }
+.dh-pr-cd3 { min-height: 54px; }
+div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_"] { min-height: 252px; justify-content: space-between; }
+/* mobile: tab pill tetap horizontal (Streamlit nge-stack kolom di <640px) */
+@media (max-width: 640px) {
+  [data-testid="stDialog"] div[class*="st-key-dhpr_tabs"] [data-testid="stHorizontalBlock"],
+  [data-testid="stDialog"] div[class*="st-key-dhts_tabs"] [data-testid="stHorizontalBlock"] { flex-direction: row !important; flex-wrap: wrap !important; gap: 4px !important; }
+  [data-testid="stDialog"] div[class*="st-key-dhpr_tabs"] [data-testid="stColumn"] { flex: 1 1 30% !important; min-width: 30% !important; width: auto !important; }
+  [data-testid="stDialog"] div[class*="st-key-dhts_tabs"] [data-testid="stColumn"] { flex: 1 1 30% !important; min-width: 0 !important; width: auto !important; }
+  [data-testid="stDialog"] div[class*="st-key-dhpr_tabs"] { border-radius: 20px !important; }
+}
