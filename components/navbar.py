@@ -8,13 +8,14 @@ import streamlit.components.v1 as components
 
 from components import auth, dialog_bus
 from components.feature_modals import DIALOGS as _FEATURE_DIALOGS
+from components.info_modals import DIALOGS as _INFO_DIALOGS
 from components.pricing_modal import DIALOGS as _PRICING_DIALOGS, pricing_dialog
 from components.common import go
 from components.mini_modals import DIALOGS as _MINI_DIALOGS
 from components.modal import open_reveal_modal, reopen_if_pending
 
 
-_ALL_DIALOGS = {**_MINI_DIALOGS, **_FEATURE_DIALOGS, **_PRICING_DIALOGS}
+_ALL_DIALOGS = {**_MINI_DIALOGS, **_FEATURE_DIALOGS, **_PRICING_DIALOGS, **_INFO_DIALOGS}
 # dialog yang cuma bisa dibuka lewat dialog_bus.request_open (bukan dari kartu Home)
 _BUS_ONLY = {"auth": auth.open_auth, "reveal": open_reveal_modal, "pricing_keep": pricing_dialog}
 
@@ -22,11 +23,12 @@ _BUS_ONLY = {"auth": auth.open_auth, "reveal": open_reveal_modal, "pricing_keep"
 # ══════════════════════════════════════════════════════════════
 # MEGA MENU "Jelajahi" (isi panel dropdown navbar)
 # ══════════════════════════════════════════════════════════════
-def _mega_item(title, sub, hl=False):
+def _mega_item(title, sub, hl=False, modal=None):
     # href dummy (fragmen yg gak ada target-nya, biar klik gak lompat ke atas).
-    # Ganti href kalau halaman/fiturnya udah jadi.
+    # modal=<nama dialog> -> klik buka modal lewat jembatan .dh-open-modal.
+    _m = f' dh-open-modal" data-modal="{modal}' if modal else ""
     return (
-        f'<a href="#dh-soon" class="dh-mega-item{" hl" if hl else ""}">'
+        f'<a href="#dh-soon" class="dh-mega-item{" hl" if hl else ""}{_m}">'
         f'<span class="dh-mega-title">{title}</span>'
         f'<span class="dh-mega-sub">{sub}</span></a>'
     )
@@ -34,27 +36,27 @@ def _mega_item(title, sub, hl=False):
 
 def _mega_menu_html():
     gratis = "".join([
-        _mega_item("Ramalan Harian", "Pilih Zodiak atau Shio (1× per hari)"),
-        _mega_item("Tarot 1 Kartu", "Tarik 1 kartu sinkronisitas hari ini"),
-        _mega_item("Preview Zodiak", "Kelebihan &amp; kekurangan elemenmu"),
-        _mega_item("Streak &amp; Reward", "Klaim 1 koin gratis tiap 5 hari"),
+        _mega_item("Ramalan Harian", "Pilih Zodiak atau Shio (1× per hari)", modal="daily"),
+        _mega_item("Tarot 1 Kartu", "Tarik 1 kartu sinkronisitas hari ini", modal="tarot"),
+        _mega_item("Preview Zodiak", "Kelebihan &amp; kekurangan elemenmu", modal="preview"),
+        _mega_item("Streak &amp; Reward", "Klaim 1 koin gratis tiap 5 hari", modal="streak"),
     ])
     koin = "".join([
-        _mega_item("Tarot 3 Kartu (1 Koin)", "Masa Lalu, Kini, Masa Depan"),
-        _mega_item("Tarot 5 Kartu (2 Koin)", "Situasi, Rintangan, Saran &amp; Hasil"),
-        _mega_item("Celtic Cross (3 Koin)", "10 Posisi Tebaran Komprehensif"),
-        _mega_item("Cek Kecocokan (3 Koin)", "Bandingkan 2 orang (Weton &amp; Zodiak)"),
-        _mega_item("Weekly (3 Koin) / Monthly (5 Koin)", "Prediksi berkala &amp; timing eksekusi"),
-        '<div class="dh-mega-foot"><a href="#dh-soon">🪙 Koin</a><i>·</i>'
-        '<a href="#dh-soon">⭐ VIP</a><i>·</i><a href="#dh-soon">💰 List Harga</a></div>',
+        _mega_item("Tarot 3 Kartu (1 Koin)", "Masa Lalu, Kini, Masa Depan", modal="pricing_fitur"),
+        _mega_item("Tarot 5 Kartu (2 Koin)", "Situasi, Rintangan, Saran &amp; Hasil", modal="pricing_fitur"),
+        _mega_item("Celtic Cross (3 Koin)", "10 Posisi Tebaran Komprehensif", modal="pricing_fitur"),
+        _mega_item("Cek Kecocokan (3 Koin)", "Bandingkan 2 orang (Weton &amp; Zodiak)", modal="pricing_fitur"),
+        _mega_item("Weekly (3 Koin) / Monthly (5 Koin)", "Prediksi berkala &amp; timing eksekusi", modal="pricing_fitur"),
+        '<div class="dh-mega-foot"><a href="#dh-soon" class="dh-open-modal" data-modal="pricing_koin">🪙 Koin</a><i>·</i>'
+        '<a href="#dh-soon" class="dh-open-modal" data-modal="pricing_vip">⭐ VIP</a><i>·</i><a href="#dh-soon" class="dh-open-modal" data-modal="pricing">💰 List Harga</a></div>',
     ])
     lain = "".join([
-        _mega_item("🎁 Program Referral", "Komisi 10-30% + Bonus VIP", hl=True),
-        _mega_item("Tutorial", "Panduan pakai 15 sistem"),
-        _mega_item("Blog", "Artikel self-discovery terkini"),
-        _mega_item("FAQ &amp; Bantuan", "Pertanyaan yang sering ditanyakan"),
-        _mega_item("Contact", "Bantuan tim Destiny Reveal"),
-        _mega_item("Tentang Kami", "Kisah di balik Destiny Reveal"),
+        _mega_item("🎁 Program Referral", "Komisi 10-30% + Bonus VIP", hl=True, modal="pricing_ref"),
+        _mega_item("Tutorial", "Panduan pakai 15 sistem", modal="tutorial"),
+        _mega_item("Blog", "Artikel self-discovery terkini", modal="blog"),
+        _mega_item("FAQ &amp; Bantuan", "Pertanyaan yang sering ditanyakan", modal="faq"),
+        _mega_item("Contact", "Bantuan tim Destiny Reveal", modal="contact"),
+        _mega_item("Tentang Kami", "Kisah di balik Destiny Reveal", modal="about"),
     ])
     def col(emoji, title, body):
         return (f'<div class="dh-mega-col"><div class="dh-mega-col-title">'
@@ -80,7 +82,7 @@ w.eval("document.addEventListener('click',function(e){var t=e.target.closest&&e.
 w.eval("['pointerdown','pointerup','mousedown','mouseup','click','touchstart','touchend'].forEach(function(t){window.addEventListener(t,function(e){var d=e.target;if(d&&d.getAttribute&&d.getAttribute('data-testid')==='stDialog'&&(d.querySelector('.dh-step-detail')||d.querySelector('.dh-nodismiss'))){e.stopImmediatePropagation();e.preventDefault();}},true);});");})();
 (function(){var w=window.parent;if(w.__dhModalBound)return;w.__dhModalBound=true;
 // kartu/link dengan .dh-open-modal[data-modal=x] -> klik tombol tersembunyi dh_trig_x; Esc diblok di modal .dh-nodismiss
-w.eval("document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('.dh-open-modal');if(!t)return;e.preventDefault();var b=document.querySelector('.st-key-dh_trig_'+t.getAttribute('data-modal')+' button');if(b)b.click();},true);window.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.querySelector('[data-testid=stDialog] .dh-nodismiss')){e.stopImmediatePropagation();e.preventDefault();}},true);");})();
+w.eval("document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('.dh-open-modal');if(!t)return;e.preventDefault();var pb=t.closest('[data-testid=stPopoverBody]');if(pb){var pt=document.querySelector('[data-testid=stPopover] button[aria-expanded=true]');if(pt)pt.click();}var b=document.querySelector('.st-key-dh_trig_'+t.getAttribute('data-modal')+' button');if(b)b.click();},true);window.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.querySelector('[data-testid=stDialog] .dh-nodismiss')){e.stopImmediatePropagation();e.preventDefault();}},true);");})();
 </script>"""
 
 

@@ -13,7 +13,7 @@ import streamlit as st
 
 from components.common import go
 from components.data import CATEGORY_SYSTEMS, NODE_COLOR, NODE_ORDER
-from components import pricing_modal
+from components import info_modals, pricing_modal
 from components.modal import open_reveal_modal
 
 
@@ -282,7 +282,7 @@ def render_explore():
         with st.container(key="dhexplore_card_lainnya"):
             st.markdown(
                 _head("✨", "#f3eefc", "LAINNYA", "Referral, wawasan &amp; bantuan pengguna")
-                + _item("🎁 Program Referral &amp; Affiliate", "Komisi 10-30% + Bonus Milestone VIP", arrow)
+                + _item("🎁 Program Referral &amp; Affiliate", "Komisi 10-30% + Bonus Milestone VIP", arrow, modal="pricing_ref")
                 + _item("Tutorial", "Panduan pakai website &amp; cara baca hasil", arrow, modal="tutorial")
                 + _item("Blog", "Artikel tentang self-discovery &amp; potensi diri", arrow, modal="blog")
                 + _item("FAQ &amp; Bantuan", "Pertanyaan yang sering ditanya", arrow, modal="faq"),
@@ -290,7 +290,7 @@ def render_explore():
             )
             with st.container(key="dhexplore_foot_lainnya"):
                 if st.button("Tentang Kami — Destiny Reveal", key="dhexplore_about_btn", use_container_width=True):
-                    st.toast("Halaman Tentang Kami belum tersedia — masih tahap pengembangan 🚧")
+                    info_modals.about_dialog()
 
 
 # ══════════════════════════════════════════════════════════════
@@ -436,14 +436,14 @@ def render_footer():
         'dan peta takdir holistik.</div></div>'
         '<div><div class="dh-footer-col-title">NAVIGASI</div>'
         '<a href="#dh-top" class="dh-footer-link">Home</a><a href="#dh-soon" class="dh-footer-link dh-open-reveal">Reveal</a>'
-        '<a href="#dh-dataflow" class="dh-footer-link">Tutorial</a><a href="#dh-soon" class="dh-footer-link">Blog</a></div>'
+        '<a href="#dh-dataflow" class="dh-footer-link">Tutorial</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="blog">Blog</a></div>'
         '<div><div class="dh-footer-col-title">FITUR</div>'
-        '<a href="#dh-explore" class="dh-footer-link">Ramalan Harian</a><a href="#dh-explore" class="dh-footer-link">Tarot 1 Kartu</a>'
-        '<a href="#dh-explore" class="dh-footer-link">Tarot Spreads Multi-Kartu</a><a href="#dh-explore" class="dh-footer-link">Cek Kecocokan</a>'
-        '<a href="#dh-explore" class="dh-footer-link highlight">🎁 Program Referral</a><a href="#dh-explore" class="dh-footer-link">Daftar Harga &amp; VIP</a></div>'
+        '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="daily">Ramalan Harian</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="tarot">Tarot 1 Kartu</a>'
+        '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="tarot_spread">Tarot Spreads Multi-Kartu</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="compat">Cek Kecocokan</a>'
+        '<a href="#dh-soon" class="dh-footer-link highlight dh-open-modal" data-modal="pricing_ref">🎁 Program Referral</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="pricing">Daftar Harga &amp; VIP</a></div>'
         '<div><div class="dh-footer-col-title">BANTUAN</div>'
-        '<a href="#dh-soon" class="dh-footer-link">FAQ</a><a href="#dh-soon" class="dh-footer-link">Contact</a>'
-        '<a href="#dh-soon" class="dh-footer-link">Privacy Policy</a><a href="#dh-soon" class="dh-footer-link">Terms of Service</a></div>'
+        '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="faq">FAQ</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="contact">Contact</a>'
+        '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="privacy">Privacy Policy</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="terms">Terms of Service</a></div>'
         '</div>'
         '<div class="dh-footer-bottom">'
         '<span>© 2026 Destiny Reveal · By Zio</span>'

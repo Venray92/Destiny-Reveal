@@ -178,4 +178,10 @@ def _open_all():
     open_pricing("semua")
 
 
-DIALOGS = {"pricing": _open_all}
+DIALOGS = {
+    "pricing": _open_all,
+    "pricing_koin": lambda: open_pricing("koin"),
+    "pricing_fitur": lambda: open_pricing("fitur"),
+    "pricing_vip": lambda: open_pricing("vip"),
+    "pricing_ref": lambda: open_pricing("ref"),
+}
