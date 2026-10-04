@@ -80,3 +80,9 @@ def test_ui15_pricing_tab_dialogs():
     keys = {k for k, _ in TABS}
     assert {"pricing", "pricing_koin", "pricing_fitur", "pricing_vip", "pricing_ref"} <= set(DIALOGS)
     assert {"semua", "koin", "fitur", "vip", "ref"} <= keys
+
+
+# ---- UI16 ----
+def test_ui16_spread_triggers():
+    from components.feature_modals import DIALOGS
+    assert {"tarot_spread_3", "tarot_spread_5", "tarot_spread_10"} <= set(DIALOGS)
