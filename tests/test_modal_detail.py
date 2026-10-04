@@ -48,3 +48,22 @@ def test_auth_helpers():
     assert auth._nama_dari_email("stevecorner512@gmail.com") == "stevecorner"
     r = auth._ref_code("stevecorner512@gmail.com")
     assert r.startswith("DR-STEVE") and len(r) == 12 and r == auth._ref_code("StevecorneR512@gmail.com")
+
+
+# ---- UI14 ----
+def test_ui14_weton_options():
+    from components.feature_modals import WETON_OPTIONS
+    assert "Senin Pon (Neptu 11)" in WETON_OPTIONS
+    assert "Kamis Kliwon (Neptu 16)" in WETON_OPTIONS
+    assert len(WETON_OPTIONS) == 35
+
+
+def test_ui14_spreads_positions():
+    from components.feature_modals import _SPREADS
+    for n in (3, 5, 10):
+        assert len(_SPREADS[n]["pos"]) == n
+
+
+def test_ui14_dialog_registry():
+    from components.feature_modals import DIALOGS
+    assert {"tarot_spread", "compat", "weekly", "blueprint", "tutorial", "blog", "faq"} <= set(DIALOGS)
