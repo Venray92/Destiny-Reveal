@@ -12,6 +12,7 @@ from datetime import datetime, timedelta, timezone
 
 import streamlit as st
 
+from components.dialog_bus import request_open
 from components.flow_state import STEP_RESULT, set_step, valid_email
 from components.modal_detail import copy_button
 
@@ -213,8 +214,8 @@ def profile_dialog():
                 st.markdown(f'<div class="dh-pf-coinl">SALDO KOIN</div><div class="dh-pf-coinv">💎 <b>{u["koin"]}</b> '
                             '<span>Koin</span></div>', unsafe_allow_html=True)
             with c2:
-                st.button("➕ Top Up", key="dhpf_topup", type="primary", on_click=_soon,
-                          args=("Top Up belum tersedia — masih tahap pengembangan 🚧",))
+                if st.button("➕ Top Up", key="dhpf_topup", type="primary"):
+                    request_open("pricing_keep", dh_pr_tab="koin")
     st.markdown('<div class="dh-pf-line"></div>', unsafe_allow_html=True)
 
     ref = u["ref"]
@@ -271,7 +272,8 @@ def profile_dialog():
                     unsafe_allow_html=True)
     with f2:
         with st.container(key="dhpf_price"):
-            st.button("List Harga & VIP", key="dhpf_pricebtn", on_click=_soon)
+            if st.button("List Harga & VIP", key="dhpf_pricebtn"):
+                request_open("pricing_keep", dh_pr_tab="semua")
     with f3:
         with st.container(key="dhpf_logout"):
             if st.button("🚪 Keluar Akun", key="dhpf_logoutbtn"):

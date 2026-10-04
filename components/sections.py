@@ -13,6 +13,7 @@ import streamlit as st
 
 from components.common import go
 from components.data import CATEGORY_SYSTEMS, NODE_COLOR, NODE_ORDER
+from components import pricing_modal
 from components.modal import open_reveal_modal
 
 
@@ -46,8 +47,8 @@ def render_hero():
         '<div class="dh-hero-title">Ada Banyak Versi Dirimu<br>yang Belum Kamu Kenal.</div>'
         '<div class="dh-hero-sub">'
         'Masa lalu sudah menjadi pelajaran, saatnya kenali dirimu sepenuhnya sebelum melangkah ke depan.<br>'
-        'Satu pembacaan lengkap dari 15 sistem ini akan menunjukkan potensi, kelebihan, '
-        'kelemahan, dan langkah yang sebaiknya kamu ambil.'
+        '<span class="dh-hero-sub-dark">Satu pembacaan lengkap dari 15 sistem ini akan menunjukkan potensi, kelebihan, '
+        'kelemahan, dan langkah yang sebaiknya kamu ambil.</span>'
         '</div>'
         '</div>',
         unsafe_allow_html=True,
@@ -257,22 +258,22 @@ def render_explore():
             st.markdown(
                 '<div class="dh-explore-card-badge">PAKAI KOIN &amp; VIP</div>'
                 + _head("💎", "#eef2fb", "PREMIUM", "Panduan mendalam &amp; akurasi tinggi")
-                + _item("Tarot Spreads Multi-Kartu", "3 Kartu (1 Koin), 5 Kartu (2 Koin), Celtic Cross (3 Koin)", _price("1-3 Koin"))
-                + _item("Cek Kecocokan", "Bandingkan 2 orang langsung (Weton &amp; Zodiak)", _price("3 Koin"))
-                + _item("Weekly &amp; Monthly Report", "Timing pekan (3 Koin) &amp; analisis bulan (5 Koin)", _price("3-5 Koin"))
-                + _item("Deep Blueprint (15 Sistem)", "Laporan lengkap 15 sistem sekaligus + PDF", _price("VIP", vip=True)),
+                + _item("Tarot Spreads Multi-Kartu", "3 Kartu (1 Koin), 5 Kartu (2 Koin), Celtic Cross (3 Koin)", _price("1-3 Koin"), modal="tarot_spread")
+                + _item("Cek Kecocokan", "Bandingkan 2 orang langsung (Weton &amp; Zodiak)", _price("3 Koin"), modal="compat")
+                + _item("Weekly &amp; Monthly Report", "Timing pekan (3 Koin) &amp; analisis bulan (5 Koin)", _price("3-5 Koin"), modal="weekly")
+                + _item("Deep Blueprint (15 Sistem)", "Laporan lengkap 15 sistem sekaligus + PDF", _price("VIP", vip=True), modal="blueprint"),
                 unsafe_allow_html=True,
             )
             with st.container(key="dhexplore_foot_premium"):
                 pb1, pb2 = st.columns(2)
                 with pb1:
                     if st.button("Paket Koin", key="dhexplore_koin_btn", use_container_width=True):
-                        st.toast("Paket koin belum tersedia — masih tahap pengembangan 🚧")
+                        pricing_modal.open_pricing("koin")
                 with pb2:
                     if st.button("Upgrade VIP", key="dhexplore_vip_btn", type="primary", use_container_width=True):
-                        st.toast("Upgrade VIP belum tersedia — masih tahap pengembangan 🚧")
+                        pricing_modal.open_pricing("vip")
                 st.markdown(
-                    '<a href="#" class="dh-explore-pricelink" onclick="return false;">'
+                    '<a href="#dh-soon" class="dh-explore-pricelink dh-open-modal" data-modal="pricing">'
                     '🔒 Lihat Daftar Harga Final Lengkap →</a>',
                     unsafe_allow_html=True,
                 )
@@ -282,9 +283,9 @@ def render_explore():
             st.markdown(
                 _head("✨", "#f3eefc", "LAINNYA", "Referral, wawasan &amp; bantuan pengguna")
                 + _item("🎁 Program Referral &amp; Affiliate", "Komisi 10-30% + Bonus Milestone VIP", arrow)
-                + _item("Tutorial", "Panduan pakai website &amp; cara baca hasil", arrow)
-                + _item("Blog", "Artikel tentang self-discovery &amp; potensi diri", arrow)
-                + _item("FAQ &amp; Bantuan", "Pertanyaan yang sering ditanya", arrow),
+                + _item("Tutorial", "Panduan pakai website &amp; cara baca hasil", arrow, modal="tutorial")
+                + _item("Blog", "Artikel tentang self-discovery &amp; potensi diri", arrow, modal="blog")
+                + _item("FAQ &amp; Bantuan", "Pertanyaan yang sering ditanya", arrow, modal="faq"),
                 unsafe_allow_html=True,
             )
             with st.container(key="dhexplore_foot_lainnya"):

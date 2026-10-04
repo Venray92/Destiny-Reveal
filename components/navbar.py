@@ -6,10 +6,17 @@ buat elemen HTML statis yang harus buka modal Reveal.
 import streamlit as st
 import streamlit.components.v1 as components
 
-from components import auth
+from components import auth, dialog_bus
+from components.feature_modals import DIALOGS as _FEATURE_DIALOGS
+from components.pricing_modal import DIALOGS as _PRICING_DIALOGS, pricing_dialog
 from components.common import go
 from components.mini_modals import DIALOGS as _MINI_DIALOGS
 from components.modal import open_reveal_modal, reopen_if_pending
+
+
+_ALL_DIALOGS = {**_MINI_DIALOGS, **_FEATURE_DIALOGS, **_PRICING_DIALOGS}
+# dialog yang cuma bisa dibuka lewat dialog_bus.request_open (bukan dari kartu Home)
+_BUS_ONLY = {"auth": auth.open_auth, "reveal": open_reveal_modal, "pricing_keep": pricing_dialog}
 
 
 # ══════════════════════════════════════════════════════════════
@@ -146,9 +153,12 @@ def render_navbar(current_page):
         with st.container(key="dh_modal_trigger_wrap"):
             if st.button("buka modal", key="dh_modal_trigger"):
                 open_reveal_modal()
-            for _k, _fn in _MINI_DIALOGS.items():
+            for _k, _fn in _ALL_DIALOGS.items():
                 if st.button(f"buka {_k}", key=f"dh_trig_{_k}"):
                     _fn()
             components.html(_BRIDGE_JS, height=0)
     auth.reopen_if_pending()  # habis login -> profil
+    _pend = dialog_bus.pop_pending()  # dialog lain minta buka dialog baru
+    if _pend:
+        {**_ALL_DIALOGS, **_BUS_ONLY}[_pend]()
     reopen_if_pending()  # balik ke Modal Hasil setelah sub-modal detail ditutup (X/backdrop)
