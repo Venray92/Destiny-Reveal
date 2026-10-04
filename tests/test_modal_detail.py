@@ -67,3 +67,16 @@ def test_ui14_spreads_positions():
 def test_ui14_dialog_registry():
     from components.feature_modals import DIALOGS
     assert {"tarot_spread", "compat", "weekly", "blueprint", "tutorial", "blog", "faq"} <= set(DIALOGS)
+
+
+# ---- UI15 ----
+def test_ui15_info_dialogs_registered():
+    from components.info_modals import DIALOGS
+    assert set(DIALOGS) == {"about", "contact", "privacy", "terms"}
+
+
+def test_ui15_pricing_tab_dialogs():
+    from components.pricing_modal import DIALOGS, TABS
+    keys = {k for k, _ in TABS}
+    assert {"pricing", "pricing_koin", "pricing_fitur", "pricing_vip", "pricing_ref"} <= set(DIALOGS)
+    assert {"semua", "koin", "fitur", "vip", "ref"} <= keys
