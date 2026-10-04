@@ -86,3 +86,20 @@ def test_ui15_pricing_tab_dialogs():
 def test_ui16_spread_triggers():
     from components.feature_modals import DIALOGS
     assert {"tarot_spread_3", "tarot_spread_5", "tarot_spread_10"} <= set(DIALOGS)
+
+
+# ---- UI17 (Stardust) ----
+def test_ui17_stardust_packs():
+    from components.pricing_modal import COIN_PACKS, TABS
+    assert [p[4] for p in COIN_PACKS] == [120, 350, 750, 1600, 3500]
+    assert [p[2] for p in COIN_PACKS] == ["Rp 10.000", "Rp 25.000", "Rp 50.000", "Rp 100.000", "Rp 200.000"]
+    assert [t[1] for t in TABS] == ["Semua", "✨ Stardust", "🔒 Fitur Stardust", "⭐ VIP", "🎁 Referral"]
+
+
+def test_ui17_fitur_and_vip():
+    from components.pricing_modal import FEATURES, VIP_PLANS
+    prices = {n: sd for _, rows in FEATURES for n, sd, *_ in rows}
+    assert len(prices) == 14
+    assert prices["Complete Bundle (15 Sistem)"] == 500 and prices["Deep Blueprint Report"] == 300
+    assert prices["Tarot Celtic Cross"] == 150 and prices["Compatibility (3 Sistem)"] == 250
+    assert [p[2] for p in VIP_PLANS] == ["Rp 99.000", "Rp 249.000", "Rp 449.000", "Rp 799.000", "Rp 1.999.000"]
