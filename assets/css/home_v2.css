@@ -1467,3 +1467,36 @@ div.st-key-dhpr_bp_ket [data-testid="stColumn"]:last-child { flex: 0 0 auto !imp
 .dh-pr-tier.on { border: 1.5px solid #C85A32; background: #FDF3DF; }
 .dh-pr-tier:hover { border-color: #C85A32; background: #FDF3E4; transform: translateY(-3px); box-shadow: 0 8px 16px -10px rgba(200,90,50,.6); }
 @media (max-width: 640px) { .dh-pr-tiers { display: flex; overflow-x: auto; padding-bottom: 8px; } .dh-pr-tier { flex: 0 0 96px; } .dh-pr-refcards { grid-template-columns: 1fr; } }
+
+/* ===== UI20 ===== */
+/* tooltip syarat Affiliate (CSS only: hover / fokus) */
+.dh-pr-refcards .dh-pr-ti { position: relative; display: inline-block; align-self: flex-start; margin-top: auto; padding-top: 8px; font-style: normal; font-size: 10.5px; font-weight: 700; color: #C25E00; cursor: pointer; outline: none; }
+.dh-pr-refcards .dh-pr-ti:hover, .dh-pr-refcards .dh-pr-ti:focus-within { color: #8F4400; }
+.dh-pr-refcards .dh-pr-pop { display: none; position: absolute; z-index: 30; left: -60px; top: 100%; width: 290px; background: #fff; border: 1px solid #E8E0D5; border-radius: 12px; padding: 12px 14px; box-shadow: 0 14px 30px -12px rgba(45,42,38,.35); font-style: normal; font-weight: 500; color: #3A3631; text-align: left; }
+.dh-pr-refcards .dh-pr-ti:hover .dh-pr-pop, .dh-pr-refcards .dh-pr-ti:focus .dh-pr-pop, .dh-pr-refcards .dh-pr-ti:focus-within .dh-pr-pop { display: block; }
+.dh-pr-refcards .dh-pr-pophead { display: block; font-style: normal; font-weight: 800; font-size: 11px; color: #2D2A26; margin-bottom: 8px; line-height: 1.4; }
+.dh-pr-refcards .dh-pr-popi { display: flex; gap: 8px; align-items: baseline; font-style: normal; font-size: 11px; line-height: 1.45; margin-bottom: 4px; }
+.dh-pr-refcards .dh-pr-popi i { font-style: normal; font-weight: 800; color: #C25E00; flex: none; width: 12px; }
+/* cara kerja program */
+.dh-pr-how { display: grid; gap: 8px; margin-bottom: 14px; }
+.dh-pr-how > div { background: #FAF7F2; border: 1px solid #E8E0D5; border-radius: 14px; padding: 12px 14px; }
+.dh-pr-how b { display: block; font-size: 12px; color: #2D2A26; margin-bottom: 8px; }
+.dh-pr-how p { margin: 0; font-size: 11.5px; line-height: 1.6; color: #4A453F; }
+.dh-pr-how u { text-decoration: none; font-weight: 700; color: #C25E00; }
+.dh-pr-steps { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.dh-pr-steps span { background: #fff; border: 1px solid #E8E0D5; border-radius: 100px; padding: 4px 11px; font-size: 11px; font-weight: 600; color: #3A3631; }
+.dh-pr-steps i { font-style: normal; color: #C25E00; font-size: 12px; }
+/* streak mingguan */
+.dh-sk-ms { text-align: center; cursor: pointer; transition: transform .2s ease, border-color .2s, background .2s, box-shadow .2s; display: flex; flex-direction: column; gap: 2px; padding: 10px 6px; }
+.dh-sk-ms small { font-size: 10px; color: #8B8378; }
+.dh-sk-ms span { font-weight: 700; margin-top: 3px; }
+.dh-sk-ms.on { border: 1.5px solid #C8633B; background: #FDF3E4; }
+.dh-sk-ms:hover { border-color: #C8633B; background: #FDF3E4; transform: translateY(-3px); box-shadow: 0 8px 16px -10px rgba(200,99,59,.6); }
+.dh-sk-note { font-size: 11px; color: #6B635A; text-align: center; line-height: 1.5; margin: -2px 0 12px; }
+.dh-sk-info { position: relative; }
+.dh-sk-ti { position: relative; display: block; margin-top: 8px; font-style: normal; font-size: 11px; font-weight: 700; color: #C25E00; cursor: pointer; outline: none; }
+.dh-sk-pop { display: none; position: absolute; z-index: 30; left: 50%; transform: translateX(-50%); top: 100%; width: 290px; margin-top: 6px; background: #fff; border: 1px solid #E8E0D5; border-radius: 12px; padding: 12px 14px; box-shadow: 0 14px 30px -12px rgba(45,42,38,.35); font-style: normal; font-weight: 500; color: #3A3631; text-align: left; }
+.dh-sk-pop i { display: block; font-style: normal; font-size: 11.5px; line-height: 1.6; }
+.dh-sk-pop .dh-sk-pophead { font-weight: 800; color: #2D2A26; margin-bottom: 4px; }
+.dh-sk-ti:hover .dh-sk-pop, .dh-sk-ti:focus .dh-sk-pop, .dh-sk-ti:focus-within .dh-sk-pop { display: block; }
+@media (max-width: 640px) { .dh-pr-refcards .dh-pr-pop { left: 0; width: 250px; } .dh-sk-grid { grid-template-columns: repeat(2, 1fr) !important; } }
