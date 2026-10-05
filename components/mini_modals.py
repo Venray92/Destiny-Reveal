@@ -105,6 +105,14 @@ def _open_reveal():
     st.rerun()
 
 
+def request_solo(system):
+    """Buka Solo Reveal dengan sistem terpilih (mulai dari pilih sistem, hasil lama dibuang)."""
+    ss = st.session_state
+    for k in ("dh_solo_res", "dh_solo_ans"):
+        ss.pop(k, None)
+    request_open("solo", dh_solo_step="select", dh_solo_sys=system, dh_solo_err=None)
+
+
 _COIN_MSG = "Fitur Stardust belum tersedia — masih tahap pengembangan 🚧"
 
 
@@ -163,7 +171,17 @@ def _cb_daily_pick(name):
 
 
 def _cb_daily_open():
+    """Klik 'Buka Ramalan' -> tampilkan popup konfirmasi kuota dulu (belum kepotong)."""
+    st.session_state.dh_daily_confirm = True
+
+
+def _cb_daily_cancel():
+    st.session_state.dh_daily_confirm = False
+
+
+def _cb_daily_confirm():
     ss = st.session_state
+    ss.dh_daily_confirm = False
     ss.dh_daily_lock = {"date": today_wib(), "kind": ss.dh_daily_tab, "name": ss.dh_daily_pick}
 
 
@@ -193,19 +211,33 @@ def daily_dialog():
                         '<p>💗 Asmara: Percakapan jujur dengan orang terdekat membawa suasana yang lebih hangat…</p>'
                         '<p>💡 Nasihat: Tuntaskan satu hal kecil sebelum memulai hal baru supaya energimu tidak pecah…</p></div>',
                         unsafe_allow_html=True)
-            st.button("🔒 Buka Analisis Lengkap — 50 SD", key="dhdy_unlock", type="primary",
-                      on_click=_soon, args=(_COIN_MSG,))
-            st.markdown('<div class="dh-dr-sub">Membongkar detail karier, dinamika asmara, dan nasihat langkah konkret hari ini.</div>',
-                        unsafe_allow_html=True)
+            if st.button("🔒 Buka Analisis Lengkap Per Sistem — 150 ✨", key="dhdy_unlock", type="primary"):
+                request_solo(label)
+            st.markdown('<div class="dh-dr-sub">Buka analisis mendalam 6 aspek: Aspek Utama, Karier, Asmara, Karakter, '
+                        'Shadow Work, &amp; Nasihat Strategis.</div>', unsafe_allow_html=True)
         with st.container(key="dhdy_swap"):
             st.markdown('<div class="dh-dr-swaptxt">Mau intip ramalan zodiak atau shio lain hari ini?</div>',
                         unsafe_allow_html=True)
             st.button("Ganti Pilihan / Buka Sistem Lain (50 SD) →", key="dhdy_swapbtn", on_click=_soon, args=(_COIN_MSG,))
-        if st.button("Sinkronkan dengan Weton & Numerologi Lengkap →", key="dhdy_sync", use_container_width=True):
+        if st.button("Sinkronkan dengan Sistem Lainnya →", key="dhdy_sync", use_container_width=True):
             _open_reveal()
         return
 
     tab = ss.setdefault("dh_daily_tab", "zodiak")
+    if ss.get("dh_daily_confirm") and ss.get("dh_daily_pick"):
+        kind_label = "Zodiak" if tab == "zodiak" else "Shio"
+        st.markdown('<div class="dh-dr-confirm"><div class="dh-dr-cico">⚠️</div><div class="dh-dr-ctitle">Konfirmasi Kuota Harian Gratis</div>'
+                    f'<p>Apakah kamu yakin ingin melihat ramalan untuk <b>{kind_label} {_e(ss.dh_daily_pick)}</b>? '
+                    'Jatah gratis ini hanya bisa digunakan <b>1x per hari</b> dan tidak dapat diganti setelah dibuka hari ini.</p></div>',
+                    unsafe_allow_html=True)
+        with st.container(key="dhdy_confirm"):
+            c1, c2 = st.columns(2, gap="small")
+            with c1:
+                st.button("Batal", key="dhdy_cancel", on_click=_cb_daily_cancel, use_container_width=True)
+            with c2:
+                st.button("Ya, Buka Ramalan", key="dhdy_yes", type="primary", on_click=_cb_daily_confirm,
+                          use_container_width=True)
+        return
     items = ZODIAK_LIST if tab == "zodiak" else SHIO_LIST
     if ss.get("dh_daily_pick") not in items:
         ss.dh_daily_pick = items[0]
@@ -321,9 +353,10 @@ def preview_dialog():
         f'<span class="dh-mn-lockico">🔒</span><b>Buka Analisis Lengkap {pick}</b>'
         '<span>Membongkar kekuatan sejati, PR batin (shadow work), serta insight karier, asmara &amp; keuangan.</span></div></div>',
         unsafe_allow_html=True)
-    st.button("🔒 Buka Analisis Lengkap — 50 SD", key="dhpv_unlock", type="primary", use_container_width=True,
-              on_click=_soon, args=(_COIN_MSG,))
-    if st.button("Sinkronkan dengan Weton & Shio Milikmu →", key="dhpv_sync", use_container_width=True):
+    if st.button("🔒 Buka Analisis Lengkap Per Sistem — 150 ✨", key="dhpv_unlock", type="primary",
+                 use_container_width=True):
+        request_solo("Zodiak")
+    if st.button("Sinkronkan dengan Sistem Lainnya →", key="dhpv_sync", use_container_width=True):
         _open_reveal()
 
 

@@ -13,6 +13,7 @@ import streamlit as st
 
 from components import auth
 from components.dialog_bus import request_open
+from utils.simple_pdf import make_pdf
 from components.modal_detail import build_detail, copy_button
 from content.questionnaires.big_five_soal import BIG_FIVE_QUESTIONS
 from content.questionnaires.disc_soal import DISC_QUESTIONS
@@ -132,6 +133,13 @@ def _cb_again():
     for k in ("dh_solo_res", "dh_solo_ans", "dh_solo_sys"):
         ss.pop(k, None)
     _go("select")
+
+
+def _cb_close():
+    """X / Selesai & Tutup di layar hasil -> reset, klik Solo Reveal berikutnya mulai dari pilih sistem."""
+    ss = st.session_state
+    if ss.get("dh_solo_step") == "result":
+        _cb_again()
 
 
 # ─────────────── data diri ───────────────
@@ -328,8 +336,12 @@ def _render_result():
         f'<div class="dh-so-bsub"><b>{_e(d.get("title", ""))}</b> · Untuk: {_e(nama)}</div>'
         + (f'<div class="dh-so-quote">&ldquo;{_e(quote)}&rdquo;</div>' if quote else "") + '</div>'
         + (f'<div class="dh-so-chips">{chips}</div>' if chips else ""), unsafe_allow_html=True)
-    plain = [f"SOLO REVEAL — {name} · {nama}", d.get("title", ""), ""]
     secs = {i: (texts or []) for i, (_ic, _t, texts, _tone) in enumerate(d["sections"])}
+    pdf_secs = [(_ASPEK[i], [t for t in secs.get(i, []) if t] or [_EMPTY]) for i in range(len(_ASPEK))]
+    st.download_button("📥 Download PDF", make_pdf(f"Solo Reveal - {name}", f'{d.get("title", "")} - Untuk: {nama}', pdf_secs),
+                       file_name=f"solo-reveal-{name.lower().replace(' ', '-')}.pdf", mime="application/pdf",
+                       key="dhso_pdf", use_container_width=True, on_click="ignore")
+    plain = [f"SOLO REVEAL — {name} · {nama}", d.get("title", ""), ""]
     for i, title in enumerate(_ASPEK):
         texts = [t for t in secs.get(i, []) if t]
         body = "".join(f"<p>{_e(t)}</p>" for t in texts) or f'<p class="dh-so-empty">{_EMPTY}</p>'
@@ -337,24 +349,24 @@ def _render_result():
                     unsafe_allow_html=True)
         plain += [title, *texts, ""]
     cap = f"Solo Reveal {name} — {nama}\nCek takdirmu di destinyreveal.id #DestinyReveal"
-    c1, c2 = st.columns(2, gap="small")
-    with c1:
-        copy_button("\n".join(plain).strip(), "📋 Salin Seluruh Analisis", "dhso_copy")
-    with c2:
-        st.link_button("Share ke WhatsApp", f"https://wa.me/?text={urlquote(cap)}", use_container_width=True,
-                       key="dhso_wa", icon=":material/share:")
-    f1, f2 = st.columns([1.3, 1], gap="small")
-    with f1:
-        with st.container(key="dhso_back"):
+    with st.container(key="dhso_acts"):
+        a1, a2 = st.columns(2, gap="small")
+        with a1:
+            copy_button("\n".join(plain).strip(), "📋 Salin Seluruh Analisis", "dhso_copy", fs=12.5, h=46)
+        with a2:
+            st.link_button("Share ke WhatsApp", f"https://wa.me/?text={urlquote(cap)}", use_container_width=True,
+                           key="dhso_wa", icon=":material/share:")
+        b1, b2 = st.columns(2, gap="small")
+        with b1:
             st.button(f"🔄 Pilih Sistem Kosmik Lain ({SOLO_PRICE}✨)", key="dhso_again", on_click=_cb_again,
                       use_container_width=True)
-    with f2:
-        with st.container(key="dhso_cta"):
+        with b2:
             if st.button("Selesai & Tutup", key="dhso_done", type="primary", use_container_width=True):
+                _cb_again()
                 st.rerun()  # rerun penuh = dialog nutup
 
 
-@st.dialog("Solo Reveal", width="large")
+@st.dialog("Solo Reveal", width="large", on_dismiss=_cb_close)
 def solo_dialog():
     ss = st.session_state
     step = ss.get("dh_solo_step", "select")

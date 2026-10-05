@@ -161,17 +161,17 @@ def _e(text):
     return html.escape(str(text)).replace("\n", "<br>")
 
 
-def copy_button(text, label, key, fs=13):
+def copy_button(text, label, key, fs=13, h=40):
     """Tombol salin MURNI ke clipboard (JS). Layar gak berubah, cuma teks tombol
     jadi '✓ Tersalin!' 2 detik."""
     payload = json.dumps(text).replace("</", "<\\/")
     components.html(
         '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&display=swap" rel="stylesheet">'
         "<style>html,body{margin:0;background:transparent}"
-        "button{width:100%;height:40px;border-radius:100px;border:1px solid #E9C9A8;background:#FFFFFF;"
+        "button{width:100%;height:{H}px;border-radius:100px;border:1px solid #E9C9A8;background:#FFFFFF;"
         "color:#C25E00;font:700 {FS}px 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;transition:background .15s}"
         "button:hover{background:#FFF6EA}button.ok{background:#EAF3EC;border-color:#BBD4C0;color:#4A6B53}</style>"
-        .replace("{FS}", str(fs)) +
+        .replace("{FS}", str(fs)).replace("{H}", str(h)) +
         f'<button id="b" type="button">{html.escape(label)}</button>'
         f"<script>var T={payload},L={json.dumps(label)},b=document.getElementById('b');"
         "function ok(){b.textContent='✓ Tersalin!';b.className='ok';setTimeout(function(){b.textContent=L;b.className='';},2000)}"
@@ -179,7 +179,7 @@ def copy_button(text, label, key, fs=13):
         "document.body.appendChild(t);t.select();try{document.execCommand('copy');ok()}catch(e){}document.body.removeChild(t)}"
         "b.onclick=function(){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(T).then(ok,fb)}else{fb()}};"
         "</script>",
-        height=44,
+        height=h + 4,
     )
 
 
