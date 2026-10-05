@@ -67,9 +67,20 @@ VIP_PLANS = [
     ("1 TAHUN", "VIP 1 Tahun", "Rp 799.000", "(~Rp 66.583/bln)", "Pilihan paling hemat untuk setahun penuh.", "Pilih Tahunan", "out", "PALING POPULER · HEMAT 33%"),
     ("SEKALI BAYAR", "VIP Lifetime", "Rp 1.999.000", "(Sekali Bayar)", "Akses seumur hidup tanpa biaya langganan bulanan selamanya.", "Pilih Lifetime", "out", "ALL ACCESS"),
 ]
-COMMISSION = [("USER BIASA", "10 - 15%", "Komisi tiap teman top up Stardust atau buka report."),
-              ("AFFILIATE PARTNER", "20 - 30%", "Untuk kreator konten, astrolog, dan komunitas."),
-              ("SUBSCRIPTION", "10 - 15% recurring", "Pasif berkala selama member VIP temanmu aktif.")]
+COMMISSION = [
+    ("USER BIASA (REFERRAL)", "Referral Stardust", "10 - 15%",
+     "Dapatkan komisi Stardust dari setiap teman yang top up Stardust (10%) atau buka Report (15%)."),
+    ("AFFILIATE PARTNER", "Affiliate (Cuan Cash)", "20 - 30%",
+     "Komisi berupa uang tunai (dapat dicairkan) untuk kreator &amp; komunitas yang memenuhi syarat."),
+    ("INCOME PASIF", "VIP Recurring", "10 - 15%",
+     "Komisi pasif berkala setiap bulan selama teman yang kamu undang tetap aktif berlangganan VIP."),
+]
+# (omset referral, extra bonus)
+MILESTONES = [("Rp 500rb", "Extra Rp 50.000"), ("Rp 2,5jt", "Extra Rp 250.000"),
+              ("Rp 10jt", "Extra Rp 1.000.000"), ("Rp 25jt", "Extra Rp 2.500.000")]
+# (ikon, nama, komisi, syarat) - tier pertama = tier aktif user baru
+TIERS = [("✨", "Stardust", "10%", ""), ("⭐️", "Star", "15%", "10 Referral"), ("🌟", "Constell.", "20%", "25 Referral"),
+         ("💫", "Galaxy", "25%", "50 Referral"), ("🌌", "Universe", "30%", "100 Referral")]
 BLUEPRINT_AM = [
     ("A", "aspek_utama", "Aspek utama kepribadian"), ("B", "karier_dan_keuangan", "Karier & keuangan"),
     ("C", "asmara_dan_hubungan", "Asmara & hubungan"), ("D", "kekuatan_karakter", "Kekuatan karakter"),
@@ -78,8 +89,6 @@ BLUEPRINT_AM = [
     ("J", "keuangan", "Keuangan"), ("K", "shadow_side", "Shadow side"), ("L", "blindspot", "Blindspot"),
     ("M", "pr_kecil_buat_kamu", "PR kecil"),
 ]
-MILESTONES = [("🥉", "10 Referral:", "VIP 1 Bulan Gratis"), ("🥈", "50 Referral:", "VIP 1 Tahun Gratis"),
-              ("🥇", "100 Referral:", "Lifetime VIP Gratis 👑")]
 
 
 def _buy(_what=""):
@@ -138,19 +147,20 @@ def _sec_fitur():
                 with st.container(key=f"dhpr_row_{i}"):
                     c1, c2, c3, c4 = st.columns(_COLS, gap="small", vertical_alignment="center")
                     with c1:
-                        if nama == "Deep Blueprint Report":
-                            n1, n2 = st.columns([5, 1], gap="small", vertical_alignment="center")
-                            with n1:
-                                st.markdown(f'<div class="dh-pr-fn">{nama}</div>', unsafe_allow_html=True)
-                            with n2:
-                                with st.container(key="dhpr_info"):
-                                    _blueprint_info()
-                        else:
-                            st.markdown(f'<div class="dh-pr-fn">{nama}</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="dh-pr-fn">{nama}</div>', unsafe_allow_html=True)
                     with c2:
                         st.markdown(f'<span class="dh-pr-pill">{sd} ✨ SD</span>', unsafe_allow_html=True)
                     with c3:
-                        st.markdown(f'<div class="dh-pr-fk">{html.escape(ket)}</div>', unsafe_allow_html=True)
+                        if nama == "Deep Blueprint Report":
+                            with st.container(key="dhpr_bp_ket"):
+                                k1, k2 = st.columns([1, 1], gap="small", vertical_alignment="center")
+                                with k1:
+                                    st.markdown(f'<div class="dh-pr-fk">{html.escape(ket)}</div>', unsafe_allow_html=True)
+                                with k2:
+                                    with st.container(key="dhpr_info"):
+                                        _blueprint_info()
+                        else:
+                            st.markdown(f'<div class="dh-pr-fk">{html.escape(ket)}</div>', unsafe_allow_html=True)
                     with c4:
                         if st.button("Buka →", key=f"dhpr_open_{i}"):
                             request_open(dlg, **state)
@@ -180,27 +190,39 @@ def _sec_vip():
 
 def _sec_ref():
     _sec_head("🎁", "Program Referral & Affiliate", '<i class="dh-pr-comm">Komisi Menarik</i>')
-    cards = "".join(f'<div><span>{a}</span><b>{b}</b><p>{c}</p></div>' for a, b, c in COMMISSION)
-    ms = "".join(f'<div><i>{ic}</i><span><b>{a}</b><em>{b}</em></span></div>' for ic, a, b in MILESTONES)
+    cards = "".join(f'<div><span>{a}</span><u>{t}</u><b>{b}</b><p>{c}</p></div>' for a, t, b, c in COMMISSION)
+    ms = "".join(f'<div><span>{a}</span><i>➡️</i><b>{b}</b></div>' for a, b in MILESTONES)
+    tiers = "".join(
+        f'<div class="dh-pr-tier{" on" if i == 0 else ""}"><i>{ic}</i><b>{nm}</b><em>({pc})</em>'
+        + ('<s>← Kamu</s>' if i == 0 else f'<small>{req}</small>') + '</div>'
+        for i, (ic, nm, pc, req) in enumerate(TIERS))
     st.markdown(
         f'<div class="dh-pr-refwrap"><div class="dh-pr-refcards">{cards}</div>'
-        f'<div class="dh-pr-ms"><div class="dh-pr-mshead">🏆 BONUS MILESTONE REFERRAL:</div><div class="dh-pr-msgrid">{ms}</div></div></div>',
+        f'<div class="dh-pr-ms"><div class="dh-pr-mshead">🏆 Extra Bonus Milestone (10% Revenue)</div>'
+        f'<div class="dh-pr-mssub">Dapatkan bonus tambahan 10% tunai setiap kali mencapai total transaksi referral berikut:</div>'
+        f'<div class="dh-pr-msgrid">{ms}</div></div></div>'
+        f'<div class="dh-pr-tierhead">TIER JOURNEY KOSMIK</div><div class="dh-pr-tiers">{tiers}</div>',
         unsafe_allow_html=True)
     u = auth.current_user()
     with st.container(key="dhpr_refcode"):
-        c1, c2 = st.columns([1.5, 1.2], gap="small", vertical_alignment="center")
         if u:
+            link = f"https://destiny-reveal.streamlit.app/?ref={u['ref']}"
+            c1, c2, c3 = st.columns([1.5, 1, 1], gap="small", vertical_alignment="center")
             with c1:
-                st.markdown(f'<div class="dh-pr-rcl">ID REFERRAL KHUSUS KAMU:</div><div class="dh-pr-rc">{u["ref"]}</div>',
+                st.markdown(f'<div class="dh-pr-rcl">ID &amp; LINK REFERRAL KHUSUS KAMU</div><div class="dh-pr-rc">{u["ref"]}</div>',
                             unsafe_allow_html=True)
             with c2:
-                copy_button(u["ref"], "📋 Salin Kode Referral", "dhpr_cp", fs=12)
+                copy_button(u["ref"], "📋 Salin Kode", "dhpr_cp", fs=12)
+            with c3:
+                copy_button(link, "🔗 Salin Link", "dhpr_cp2", fs=12)
         else:
+            c1, c2 = st.columns([1.5, 1.2], gap="small", vertical_alignment="center")
             with c1:
-                st.markdown('<div class="dh-pr-rcl">ID REFERRAL KHUSUS KAMU:</div>'
-                            '<div class="dh-pr-rc dh-pr-rcoff">Masuk dulu untuk dapat kode</div>', unsafe_allow_html=True)
+                st.markdown('<div class="dh-pr-rcl">ID &amp; LINK REFERRAL KHUSUS KAMU</div>'
+                            '<div class="dh-pr-rc dh-pr-rcoff">Masuk atau buat akun dulu untuk mendapatkan kode referral unik kamu.</div>',
+                            unsafe_allow_html=True)
             with c2:
-                if st.button("Masuk / Login", key="dhpr_login", type="primary", use_container_width=True):
+                if st.button("Masuk / Daftar Sekarang", key="dhpr_login", type="primary", use_container_width=True):
                     request_open("auth")
 
 
