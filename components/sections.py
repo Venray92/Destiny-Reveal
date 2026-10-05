@@ -258,6 +258,7 @@ def render_explore():
             st.markdown(
                 '<div class="dh-explore-card-badge">PAKAI STARDUST &amp; VIP</div>'
                 + _head("💎", "#eef2fb", "PREMIUM", "Panduan mendalam &amp; akurasi tinggi")
+                + _item("Solo Reveal", "Pilih 1 sistem untuk analisis mendalam", _price("150✨"), modal="solo")
                 + _item("Tarot Spreads Multi-Kartu", "3 Kartu (50✨), 5 Kartu (100✨), Celtic Cross (150✨)", _price("50-150✨"), modal="tarot_spread")
                 + _item("Cek Kecocokan", "Bandingkan 2 orang langsung (Weton &amp; Zodiak)", _price("100✨"), modal="compat")
                 + _item("Weekly &amp; Monthly Report", "Timing pekan (100✨) &amp; analisis bulan (200✨)", _price("100-200✨"), modal="weekly")
@@ -265,13 +266,6 @@ def render_explore():
                 unsafe_allow_html=True,
             )
             with st.container(key="dhexplore_foot_premium"):
-                pb1, pb2 = st.columns(2)
-                with pb1:
-                    if st.button("Paket Stardust", key="dhexplore_koin_btn", use_container_width=True):
-                        pricing_modal.open_pricing("koin")
-                with pb2:
-                    if st.button("Upgrade VIP", key="dhexplore_vip_btn", type="primary", use_container_width=True):
-                        pricing_modal.open_pricing("vip")
                 st.markdown(
                     '<a href="#dh-soon" class="dh-explore-pricelink dh-open-modal" data-modal="pricing">'
                     '🔒 Lihat Daftar Harga Final Lengkap →</a>',
