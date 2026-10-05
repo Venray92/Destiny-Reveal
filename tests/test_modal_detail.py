@@ -183,3 +183,15 @@ def test_ui23_premium_card_no_old_buttons():
     from components import sections
     src = inspect.getsource(sections)
     assert 'modal="solo"' in src and "dhexplore_koin_btn" not in src and "dhexplore_vip_btn" not in src
+
+
+def test_ui24_labels_and_pdf():
+    import pathlib
+    from utils.simple_pdf import make_pdf
+    mm = pathlib.Path("components/mini_modals.py").read_text()
+    assert "Buka Analisis Lengkap Per Sistem — 150 ✨" in mm
+    assert "Sinkronkan dengan Sistem Lainnya →" in mm
+    assert "Konfirmasi Kuota Harian Gratis" in mm and "Ya, Buka Ramalan" in mm
+    assert "Weton & Shio Milikmu" not in mm and "Weton & Numerologi Lengkap" not in mm
+    pdf = make_pdf("T", "S", [("A", ["halo dunia"])])
+    assert pdf.startswith(b"%PDF") and pdf.rstrip().endswith(b"%%EOF")
