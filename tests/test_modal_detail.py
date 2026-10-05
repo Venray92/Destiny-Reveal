@@ -210,3 +210,15 @@ def test_ui25_compat_and_solo_active():
         r = _compute(SYSTEMS, pa, pb, rel)
         assert 0 <= r["total"] <= 100 and len(r["rows"]) == 4 and r["nasihat"] and r["tantang"]
     assert _compute(["Shio"], pa, {"nama": "C", "tgl": date(1930, 1, 1)}, "Keluarga") is None
+
+
+def test_ui26_profile_and_return_flow():
+    import pathlib
+    from components.profile import _tier, TIERS, FILTERS
+    from components import dialog_bus
+    assert [_tier(n) for n in (0, 9, 10, 49, 50, 100)] == [0, 0, 1, 1, 2, 3] and len(TIERS) == 4
+    assert "Arsip" in FILTERS and hasattr(dialog_bus, "request_with_return")
+    cp = pathlib.Path("components/compat.py").read_text()
+    assert "help=_TIP" not in cp and "dhcp_info" in cp and "dhcp_card_" in cp
+    assert 'request_with_return("auth", "compat")' in cp
+    assert "Kotak Masuk Mail" not in pathlib.Path("components/profile.py").read_text()
