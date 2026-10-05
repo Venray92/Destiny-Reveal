@@ -120,3 +120,9 @@ def test_ui19_referral_data():
     assert [m[1] for m in MILESTONES] == ["Extra Rp 50.000", "Extra Rp 250.000", "Extra Rp 1.000.000", "Extra Rp 2.500.000"]
     assert [t[1] for t in TIERS] == ["Stardust", "Star", "Constell.", "Galaxy", "Universe"]
     assert [t[2] for t in TIERS] == ["10%", "15%", "20%", "25%", "30%"]
+
+
+# ---- UI20 ----
+def test_ui20_affiliate_syarat():
+    from components.pricing_modal import AFF_SYARAT
+    assert len(AFF_SYARAT) == 6 and AFF_SYARAT[2].startswith("Total Revenue Rp 500.000")
