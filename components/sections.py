@@ -246,7 +246,7 @@ def render_explore():
                 + _item("Ramalan Harian Gratis", "1x per hari, pilih Zodiak atau Shio", arrow, modal="daily")
                 + _item("Tarot 1 Kartu Harian", "Tarik kartu deck tertutup dengan animasi shuffle", arrow, modal="tarot")
                 + _item("Preview Zodiak", "12 rasi, modality, planet &amp; quote", arrow, modal="preview")
-                + _item("Streak &amp; Reward", "5 hari berturut = 50 SD gratis", arrow, modal="streak"),
+                + _item("Streak &amp; Reward", "Streak mingguan = +30 s/d +60 SD gratis", arrow, modal="streak"),
                 unsafe_allow_html=True,
             )
             with st.container(key="dhexplore_foot_gratis"):

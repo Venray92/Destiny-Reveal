@@ -76,6 +76,9 @@ COMMISSION = [
      "Komisi pasif berkala setiap bulan selama teman yang kamu undang tetap aktif berlangganan VIP."),
 ]
 # (omset referral, extra bonus)
+AFF_SYARAT = ["10 Referral Aktif (Daftar pakai kode kamu)", "5 Referral Belanja (Melakukan transaksi)",
+              "Total Revenue Rp 500.000 dari transaksi referral", "Verifikasi Email & Nomor HP",
+              "Verifikasi KTP (Khusus pencairan komisi)", "Rekening Bank (Tujuan transfer komisi)"]
 MILESTONES = [("Rp 500rb", "Extra Rp 50.000"), ("Rp 2,5jt", "Extra Rp 250.000"),
               ("Rp 10jt", "Extra Rp 1.000.000"), ("Rp 25jt", "Extra Rp 2.500.000")]
 # (ikon, nama, komisi, syarat) - tier pertama = tier aktif user baru
@@ -139,7 +142,16 @@ def _sec_fitur():
             h = st.columns(_COLS, gap="small", vertical_alignment="center")
             for col, t in zip(h, ["FITUR", "HARGA", "KETERANGAN", "AKSI"]):
                 with col:
-                    st.markdown(f'<div class="dh-pr-hd">{t}</div>', unsafe_allow_html=True)
+                    if t == "KETERANGAN":
+                        with st.container(key="dhpr_bp_ket"):
+                            k1, k2 = st.columns([1, 1], gap="small", vertical_alignment="center")
+                            with k1:
+                                st.markdown(f'<div class="dh-pr-hd">{t}</div>', unsafe_allow_html=True)
+                            with k2:
+                                with st.container(key="dhpr_info"):
+                                    _blueprint_info()
+                    else:
+                        st.markdown(f'<div class="dh-pr-hd">{t}</div>', unsafe_allow_html=True)
         i = 0
         for kat, rows in FEATURES:
             st.markdown(f'<div class="dh-pr-cat">{html.escape(kat)}</div>', unsafe_allow_html=True)
@@ -151,16 +163,7 @@ def _sec_fitur():
                     with c2:
                         st.markdown(f'<span class="dh-pr-pill">{sd} ✨ SD</span>', unsafe_allow_html=True)
                     with c3:
-                        if nama == "Deep Blueprint Report":
-                            with st.container(key="dhpr_bp_ket"):
-                                k1, k2 = st.columns([1, 1], gap="small", vertical_alignment="center")
-                                with k1:
-                                    st.markdown(f'<div class="dh-pr-fk">{html.escape(ket)}</div>', unsafe_allow_html=True)
-                                with k2:
-                                    with st.container(key="dhpr_info"):
-                                        _blueprint_info()
-                        else:
-                            st.markdown(f'<div class="dh-pr-fk">{html.escape(ket)}</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="dh-pr-fk">{html.escape(ket)}</div>', unsafe_allow_html=True)
                     with c4:
                         if st.button("Buka →", key=f"dhpr_open_{i}"):
                             request_open(dlg, **state)
@@ -190,18 +193,27 @@ def _sec_vip():
 
 def _sec_ref():
     _sec_head("🎁", "Program Referral & Affiliate", '<i class="dh-pr-comm">Komisi Menarik</i>')
-    cards = "".join(f'<div><span>{a}</span><u>{t}</u><b>{b}</b><p>{c}</p></div>' for a, t, b, c in COMMISSION)
+    syarat = ('<i class="dh-pr-ti" tabindex="0">ℹ️ Lihat Syarat Upgrade<i class="dh-pr-pop"><i class="dh-pr-pophead">📌 SYARAT NAIK TIER AFFILIATE (Pencairan Uang Tunai):</i>'
+              + "".join(f'<i class="dh-pr-popi"><i>{n}</i>{html.escape(t)}</i>' for n, t in enumerate(AFF_SYARAT, 1)) + '</i></i>')
+    cards = "".join(f'<div><span>{a}</span><u>{t}</u><b>{b}</b><p>{c}</p>{syarat if i == 1 else ""}</div>'
+                    for i, (a, t, b, c) in enumerate(COMMISSION))
     ms = "".join(f'<div><span>{a}</span><i>➡️</i><b>{b}</b></div>' for a, b in MILESTONES)
     tiers = "".join(
         f'<div class="dh-pr-tier{" on" if i == 0 else ""}"><i>{ic}</i><b>{nm}</b><em>({pc})</em>'
         + ('<s>← Kamu</s>' if i == 0 else f'<small>{req}</small>') + '</div>'
         for i, (ic, nm, pc, req) in enumerate(TIERS))
+    steps = '<i>➔</i>'.join(f'<span>{x}</span>' for x in ["Buat akun / Login", "Dapatkan Kode Unik", "Bagikan Link", "Dapat Komisi Stardust (10-15%)!"])
     st.markdown(
         f'<div class="dh-pr-refwrap"><div class="dh-pr-refcards">{cards}</div>'
         f'<div class="dh-pr-ms"><div class="dh-pr-mshead">🏆 Extra Bonus Milestone (10% Revenue)</div>'
         f'<div class="dh-pr-mssub">Dapatkan bonus tambahan 10% tunai setiap kali mencapai total transaksi referral berikut:</div>'
         f'<div class="dh-pr-msgrid">{ms}</div></div></div>'
-        f'<div class="dh-pr-tierhead">TIER JOURNEY KOSMIK</div><div class="dh-pr-tiers">{tiers}</div>',
+        f'<div class="dh-pr-tierhead">TIER JOURNEY KOSMIK</div><div class="dh-pr-tiers">{tiers}</div>'
+        f'<div class="dh-pr-tierhead">CARA KERJA PROGRAM</div><div class="dh-pr-how">'
+        f'<div><b>🔁 Referral Biasa (Otomatis)</b><div class="dh-pr-steps">{steps}</div></div>'
+        f'<div><b>🚀 Upgrade ke Affiliate (Komisi Cair Tunai)</b>'
+        f'<p>Capai <u>10 Referral</u> (5 Belanja &amp; Revenue Rp 500rb) + lengkapi <u>Verifikasi KTP &amp; Rekening Bank</u> '
+        f'untuk mulai cairkan uang tunai setiap <u>tanggal 1-5</u> awal bulan.</p></div></div>',
         unsafe_allow_html=True)
     u = auth.current_user()
     with st.container(key="dhpr_refcode"):

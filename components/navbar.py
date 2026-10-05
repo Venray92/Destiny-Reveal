@@ -39,7 +39,7 @@ def _mega_menu_html():
         _mega_item("Ramalan Harian", "Pilih Zodiak atau Shio (1× per hari)", modal="daily"),
         _mega_item("Tarot 1 Kartu", "Tarik 1 kartu sinkronisitas hari ini", modal="tarot"),
         _mega_item("Preview Zodiak", "Kelebihan &amp; kekurangan elemenmu", modal="preview"),
-        _mega_item("Streak &amp; Reward", "Klaim 50 SD gratis tiap 5 hari", modal="streak"),
+        _mega_item("Streak &amp; Reward", "Klaim SD gratis tiap minggu", modal="streak"),
     ])
     koin = "".join([
         _mega_item("Tarot 3 Kartu (50 SD)", "Masa Lalu, Kini, Masa Depan", modal="tarot_spread_3"),

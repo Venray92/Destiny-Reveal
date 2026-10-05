@@ -329,17 +329,25 @@ def preview_dialog():
 def streak_dialog():
     email = st.session_state.get("dh_email")
     _head()
-    ms = [("5 Hari", "🎁 50 SD", True), ("7 Hari", "💎 100 SD", False), ("30 Hari", "👑 1 Bln VIP", False),
-          ("100 Hari", "🏆 Lifetime", False)]
-    cards = "".join(f'<div class="dh-sk-ms{" on" if on else ""}"><b>{a}</b><span>{b}</span></div>' for a, b, on in ms)
+    ms = [("Week 1", "Hari 1-7", "🎁 +30 SD", True), ("Week 2", "Hari 8-14", "💎 +40 SD", False),
+          ("Week 3", "Hari 15-21", "👑 +50 SD", False), ("Week 4", "Hari 22-28", "🏆 +60 SD", False)]
+    cards = "".join(f'<div class="dh-sk-ms{" on" if on else ""}"><b>{a}</b><small>{r}</small><span>{b}</span></div>'
+                    for a, r, b, on in ms)
+    tip = ('<i class="dh-sk-ti" tabindex="0">ℹ️ Apa yang bisa didapat dengan 180 SD?<i class="dh-sk-pop">'
+           '<i class="dh-sk-pophead">💡 Dengan mengumpulkan 180 SD per bulan, kamu bisa unlock:</i>'
+           '<i>✅ 3 Sistem Kelahiran (150 SD)</i><i>✅ 1 Weekly Report + 1 Tarot 3 Kartu (150 SD)</i>'
+           '<i>✅ 1 Tarot Celtic Cross (150 SD)</i></i></i>')
     st.markdown(
         '<div class="dh-sk-flame">🔥</div><div class="dh-sk-title">Streak &amp; Reward</div>'
         '<div class="dh-mn-notice dh-sk-info"><b>📌 Cara Menaikkan Streak:</b>'
-        'Buka website tiap hari buat naikin streak (+1 setiap kali kamu membuka fitur gratis harian).</div>'
-        '<div class="dh-sk-prog"><div class="dh-sk-proghead"><b>5 / 7 Hari menuju 50 SD Gratis</b><span>71%</span></div>'
+        'Buka website tiap hari buat naikin streak (+1 setiap kali kamu membuka fitur gratis harian).'
+        f'{tip}</div>'
+        '<div class="dh-sk-prog"><div class="dh-sk-proghead"><b>5 / 7 Hari menuju +30 SD Gratis</b><span>71%</span></div>'
         '<div class="dh-sk-bar"><i style="width:71%"></i></div></div>'
-        f'<div class="dh-sk-grid">{cards}</div>', unsafe_allow_html=True)
-    st.button("Klaim Hadiah Hari Ini (+50 SD)", key="dhsk_claim", type="primary", use_container_width=True)
+        f'<div class="dh-sk-grid">{cards}</div>'
+        '<div class="dh-sk-note">Akses harian hari ke 29–31 memberikan ekstra +5 SD / hari '
+        '(Total potensi hingga 195 SD / bulan)!</div>', unsafe_allow_html=True)
+    st.button("Klaim Hadiah Hari Ini (+30 SD)", key="dhsk_claim", type="primary", use_container_width=True)
     st.markdown('<div class="dh-sk-foot">✓ Stardust dan streak tersinkronisasi aman ke akun '
                 f'({_e(email or "belum masuk akun")}).</div>', unsafe_allow_html=True)
 
