@@ -59,14 +59,30 @@ def _go(step):
     st.session_state.dh_solo_step = step
 
 
+ACTIVE = ("Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny")  # sistem yang sudah jalan
+
+
 def _cb_pick(name):
-    st.session_state.dh_solo_sys = name
+    ss = st.session_state
+    ss.dh_solo_sys = name
+    if name not in ACTIVE:  # 10 sistem lain masih dikembangkan -> info, tanpa potong Stardust
+        ss.dh_solo_err = None
+        _go("dev")
+
+
+def _cb_dev_ok():
+    ss = st.session_state
+    ss.pop("dh_solo_sys", None)
+    _go("select")
 
 
 def _cb_to_next():
     """Dari pilih sistem: validasi data diri -> kuesioner (sistem psikologi) atau bayar."""
     ss = st.session_state
     name = ss.get("dh_solo_sys")
+    if name and name not in ACTIVE:
+        _go("dev")
+        return
     prof = _profile()
     if not name:
         ss.dh_solo_err = "Pilih salah satu sistem dulu ya."
@@ -225,6 +241,19 @@ def _render_select():
         st.button(label, key="dhso_next", type="primary", use_container_width=True, on_click=_cb_to_next)
 
 
+# ─────────────── info: sistem belum tersedia ───────────────
+def _render_dev():
+    name = st.session_state.dh_solo_sys
+    _head()
+    st.markdown(
+        '<div class="dh-so-dev"><div class="dh-so-devico">🚧</div><div class="dh-so-devh">Fitur Dalam Tahap Pengembangan</div>'
+        f'<p>Sistem <b>{_e(name)}</b> saat ini masih dalam tahap pengembangan dan akan segera hadir. Silakan pilih sistem '
+        'lain yang sudah tersedia (Zodiak, Shio, Weton, Numerologi, atau Matrix Destiny) untuk melanjutkan analisis.</p>'
+        '<div class="dh-so-devnote">Stardust kamu tidak dipotong.</div></div>', unsafe_allow_html=True)
+    with st.container(key="dhso_cta"):
+        st.button("Pilih Sistem Lain", key="dhso_dev_ok", type="primary", use_container_width=True, on_click=_cb_dev_ok)
+
+
 # ─────────────── langkah 1b: kuesioner (5 sistem psikologi) ───────────────
 def _render_quiz():
     ss = st.session_state
@@ -372,6 +401,8 @@ def solo_dialog():
     step = ss.get("dh_solo_step", "select")
     if step == "result" and ss.get("dh_solo_res"):
         _render_result()
+    elif step == "dev" and ss.get("dh_solo_sys"):
+        _render_dev()
     elif step == "quiz" and ss.get("dh_solo_sys"):
         _render_quiz()
     elif step == "pay" and ss.get("dh_solo_sys"):

@@ -140,24 +140,6 @@ _PASARAN = {"Legi": 5, "Pahing": 9, "Pon": 7, "Wage": 4, "Kliwon": 8}
 WETON_OPTIONS = [f"{h} {p} (Neptu {nh + npn})" for h, nh in _HARI.items() for p, npn in _PASARAN.items()]
 
 
-@st.dialog("Cek Kecocokan", width="small")
-def compat_dialog():
-    _top(key="cp")
-    _title("💖", "Cek Kecocokan", "Bandingkan 2 orang langsung tanpa perlu scan sebelumnya", badge="100 ✨ SD")
-    c1, c2 = st.columns(2, gap="small")
-    with c1:
-        st.markdown('<div class="dh-fm-label">Orang Pertama</div>', unsafe_allow_html=True)
-        st.selectbox("Orang Pertama", WETON_OPTIONS, index=WETON_OPTIONS.index("Senin Pon (Neptu 11)"),
-                     key="dhcp_a", label_visibility="collapsed")
-    with c2:
-        st.markdown('<div class="dh-fm-label">Orang Kedua</div>', unsafe_allow_html=True)
-        st.selectbox("Orang Kedua", WETON_OPTIONS, index=WETON_OPTIONS.index("Kamis Kliwon (Neptu 16)"),
-                     key="dhcp_b", label_visibility="collapsed")
-    with st.container(key="dhfm_cta_cp"):
-        st.button("Hitung Sinergi Pasangan (100 SD)", key="dhcp_go", type="primary", use_container_width=True,
-                  on_click=_soon)
-
-
 # ═══════════ 3. WEEKLY & MONTHLY REPORT ═══════════
 def _start_scan():
     request_open("reveal")
@@ -199,6 +181,6 @@ def _open_spread(n):
 DIALOGS = {
     "tarot_spread_3": lambda: _open_spread(3), "tarot_spread_5": lambda: _open_spread(5),
     "tarot_spread_10": lambda: _open_spread(10),
-    "tarot_spread": tarot_spread_dialog, "compat": compat_dialog, "weekly": weekly_dialog,
+    "tarot_spread": tarot_spread_dialog, "weekly": weekly_dialog,
     "blueprint": blueprint_dialog, 
 }

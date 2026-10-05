@@ -175,6 +175,57 @@ def _cb_daily_open():
     st.session_state.dh_daily_confirm = True
 
 
+SWAP_PRICE = 50  # Stardust
+
+
+def _cb_swap_open():
+    st.session_state.dh_daily_swap = True
+
+
+def _cb_swap_cancel():
+    st.session_state.dh_daily_swap = False
+
+
+def _cb_swap_pay():
+    """Bayar 50 SD -> buang kunci harian, user bisa pilih Zodiak/Shio lain lagi."""
+    ss = st.session_state
+    u = auth.current_user()
+    if not u or u.get("koin", 0) < SWAP_PRICE:
+        return
+    u["koin"] -= SWAP_PRICE
+    ss.dh_daily_swap = False
+    ss.dh_daily_confirm = False
+    ss.pop("dh_daily_lock", None)
+
+
+def _render_swap(u):
+    saldo = u["koin"] if u else 0
+    st.markdown(
+        '<div class="dh-dr-confirm"><div class="dh-dr-cico">🔄</div><div class="dh-dr-ctitle">Buka Sistem Lain Hari Ini</div>'
+        '<p>Kuota gratis hari ini sudah terpakai. Mau intip Zodiak atau Shio lain? Biayanya '
+        f'<b>{SWAP_PRICE} Stardust</b>, lalu kamu bisa pilih ulang.</p>'
+        f'<div class="dh-dr-bal">Saldo kamu: <b>{saldo} ✨</b> · Sisa setelah bayar: <b>{max(saldo - SWAP_PRICE, 0) if u else 0} ✨</b></div></div>',
+        unsafe_allow_html=True)
+    if not u:
+        st.markdown('<div class="dh-dr-warn">🔒 Masuk akun dulu supaya Stardust bisa dipakai.</div>', unsafe_allow_html=True)
+    elif saldo < SWAP_PRICE:
+        st.markdown(f'<div class="dh-dr-warn">Saldo belum cukup — kurang {SWAP_PRICE - saldo} Stardust.</div>', unsafe_allow_html=True)
+    with st.container(key="dhdy_confirm"):
+        c1, c2 = st.columns(2, gap="small")
+        with c1:
+            st.button("Batal", key="dhdy_swap_no", on_click=_cb_swap_cancel, use_container_width=True)
+        with c2:
+            if not u:
+                if st.button("Masuk / Daftar →", key="dhdy_swap_login", type="primary", use_container_width=True):
+                    request_open("auth")
+            elif saldo < SWAP_PRICE:
+                if st.button("Top-up Stardust →", key="dhdy_swap_topup", type="primary", use_container_width=True):
+                    request_open("pricing_keep", dh_pr_tab="koin")
+            else:
+                st.button(f"Bayar {SWAP_PRICE} ✨ & Pilih Ulang", key="dhdy_swap_yes", type="primary",
+                          on_click=_cb_swap_pay, use_container_width=True)
+
+
 def _cb_daily_cancel():
     st.session_state.dh_daily_confirm = False
 
@@ -192,6 +243,9 @@ def daily_dialog():
     _title("🌅", "Ramalan Harian Gratis", "1x per hari · Pilih Zodiak atau Shio kelahiranmu")
     lock = ss.get("dh_daily_lock")
     if lock and lock.get("date") == today_wib():  # sudah dipilih hari ini -> terkunci sampai 00:00 WIB
+        if ss.get("dh_daily_swap"):
+            _render_swap(auth.current_user())
+            return
         kind, name = lock["kind"], lock["name"]
         r = get_daily_reading(kind, name, lock["date"])
         label = "Zodiak" if kind == "zodiak" else "Shio"
@@ -218,7 +272,7 @@ def daily_dialog():
         with st.container(key="dhdy_swap"):
             st.markdown('<div class="dh-dr-swaptxt">Mau intip ramalan zodiak atau shio lain hari ini?</div>',
                         unsafe_allow_html=True)
-            st.button("Ganti Pilihan / Buka Sistem Lain (50 SD) →", key="dhdy_swapbtn", on_click=_soon, args=(_COIN_MSG,))
+            st.button("Ganti Pilihan / Buka Sistem Lain (50 SD) →", key="dhdy_swapbtn", on_click=_cb_swap_open)
         if st.button("Sinkronkan dengan Sistem Lainnya →", key="dhdy_sync", use_container_width=True):
             _open_reveal()
         return

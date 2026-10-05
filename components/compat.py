@@ -1,0 +1,469 @@
+"""
+Cek Kecocokan (UI25) — wizard 4 langkah dalam satu st.dialog:
+  select (jumlah & jenis sistem) -> form (2 orang) -> loading -> result.
+State: dh_cp_step | dh_cp_n | dh_cp_sys (list) | dh_cp_res.
+Skor dihitung dari engine (Zodiak/Shio/Weton/Numerologi) pakai aturan kecocokan sederhana.
+DUMMY: Stardust dipotong di session saja (belum ada backend).
+"""
+
+import html
+import time
+from datetime import date
+
+import streamlit as st
+
+from components import auth
+from components.dialog_bus import request_open
+from components.modal_detail import copy_button
+from components.solo_reveal import _profile
+from content.result_builder import compute_raw_result
+from utils.simple_pdf import make_pdf
+
+PRICE = 100  # Stardust per sistem
+SYSTEMS = ["Zodiak", "Shio", "Weton", "Numerologi"]
+_ICON = {"Zodiak": "♈", "Shio": "🐉", "Weton": "🗓️", "Numerologi": "🔢"}
+_TIP = {
+    "Zodiak": "Zodiak: membaca kecocokan lewat elemen & sifat rasi bintang. Cocok untuk melihat chemistry dan gaya komunikasi.",
+    "Shio": "Shio: membaca kecocokan lewat siklus 12 hewan (trine, harmoni, bentrok). Kuat untuk melihat 'klik' alami dua orang.",
+    "Weton": "Weton: menjumlah neptu hari + pasaran Jawa. Paling dikenal untuk menilai jodoh, rezeki, dan ketahanan hubungan.",
+    "Numerologi": "Numerologi: membandingkan Life Path dari tanggal lahir. Bagus untuk melihat ritme hidup dan tujuan bersama.",
+}
+RELATIONS = ["Asmara / Pasangan", "Mitra Bisnis / Rekan Kerja", "Persahabatan", "Keluarga"]
+GENDERS = ["Perempuan", "Laki-laki", "Lainnya / Tidak ingin menyebut"]
+LOADING_SEC = 2.2
+
+
+def _e(t):
+    return html.escape(str(t))
+
+
+# ─────────────── perhitungan skor ───────────────
+_ELEM_Z = {("Api", "Api"): 85, ("Air", "Air"): 85, ("Tanah", "Tanah"): 85, ("Udara", "Udara"): 85,
+           ("Api", "Udara"): 88, ("Air", "Tanah"): 88, ("Api", "Tanah"): 58, ("Air", "Udara"): 58,
+           ("Api", "Air"): 45, ("Tanah", "Udara"): 52}
+_TRINE = [{"Tikus", "Naga", "Monyet"}, {"Kerbau", "Ular", "Ayam"}, {"Macan", "Kuda", "Anjing"},
+          {"Kelinci", "Kambing", "Babi"}]
+_HARMONI = [{"Tikus", "Kerbau"}, {"Macan", "Babi"}, {"Kelinci", "Anjing"}, {"Naga", "Ayam"},
+            {"Ular", "Monyet"}, {"Kuda", "Kambing"}]
+_SHIO = ["Tikus", "Kerbau", "Macan", "Kelinci", "Naga", "Ular", "Kuda", "Kambing", "Monyet", "Ayam", "Anjing", "Babi"]
+# jumlah neptu dua orang mod 8 -> (nama, skor)
+_WETON8 = {1: ("Pegat", 38), 2: ("Ratu", 90), 3: ("Jodoh", 88), 4: ("Topo", 74), 5: ("Tinari", 92),
+           6: ("Padu", 56), 7: ("Sujanan", 50), 0: ("Pesthi", 95)}
+_GRP = {1: 0, 5: 0, 7: 0, 2: 1, 4: 1, 8: 1, 3: 2, 6: 2, 9: 2, 11: 1, 22: 1, 33: 2}
+
+
+def _score_zodiak(a, b):
+    ea, eb = a["element"], b["element"]
+    sc = _ELEM_Z.get((ea, eb)) or _ELEM_Z.get((eb, ea)) or 60
+    note = f"{a['sign']} ({ea}) & {b['sign']} ({eb})"
+    if sc >= 80:
+        return sc, note, ("Elemen kalian saling menguatkan, jadi energi terasa nyambung.", None)
+    if sc >= 60:
+        return sc, note, ("Ada titik temu, asal sama-sama mau menyesuaikan tempo.", "Gaya bereaksi kalian beda, rawan salah tangkap.")
+    return sc, note, (None, "Elemen kalian cenderung beda ritme: yang satu cepat, yang lain butuh waktu.")
+
+
+def _score_shio(a, b):
+    x, y = a["shio"], b["shio"]
+    note = f"{x} & {y}"
+    if x == y:
+        return 70, note, ("Kalian punya kebiasaan dan cara pandang yang mirip.", "Kelemahan yang sama bisa saling menguatkan.")
+    if any({x, y} <= t for t in _TRINE):
+        return 90, note, ("Satu 'trine' shio: nilai dan tujuan hidup gampang sejalan.", None)
+    if any({x, y} == h for h in _HARMONI):
+        return 85, note, ("Pasangan harmoni shio: saling melengkapi dan menenangkan.", None)
+    if (_SHIO.index(x) - _SHIO.index(y)) % 12 == 6:
+        return 40, note, (None, "Shio kalian berseberangan (bentrok): gesekan mudah muncul kalau ego naik.")
+    return 62, note, ("Tidak ada bentrok khusus, hubungan bisa dibentuk lewat usaha bersama.", None)
+
+
+def _score_weton(a, b):
+    tot = a["neptu"] + b["neptu"]
+    nama, sc = _WETON8[tot % 8]
+    note = f"{a['hari']} {a['pasaran']} + {b['hari']} {b['pasaran']} (neptu {tot}) = {nama}"
+    if sc >= 80:
+        return sc, note, (f"Hitungan neptu jatuh di '{nama}', tergolong sangat baik.", None)
+    if sc >= 60:
+        return sc, note, (f"Neptu '{nama}': cukup stabil, perlu dijaga lewat komunikasi.", None)
+    return sc, note, (None, f"Neptu jatuh di '{nama}': perlu kesabaran ekstra dan kesepakatan yang jelas.")
+
+
+def _score_num(a, b):
+    la, lb = a["life_path"], b["life_path"]
+    note = f"Life Path {la} & {lb}"
+    if la == lb:
+        return 78, note, ("Life Path sama: kalian memahami ritme satu sama lain.", "Sifat yang sama bisa berbenturan saat sama-sama keras.")
+    if _GRP[la] == _GRP[lb]:
+        return 88, note, ("Life Path satu kelompok energi: visi dan gaya kerja saling mendukung.", None)
+    return 62, note, ("Beda kelompok energi bisa saling mengisi kalau saling terbuka.", "Cara mengambil keputusan kalian berbeda arah.")
+
+
+_SCORERS = {"Zodiak": _score_zodiak, "Shio": _score_shio, "Weton": _score_weton, "Numerologi": _score_num}
+
+_ADVICE = {
+    "Asmara / Pasangan": [
+        "Bikin ritual komunikasi mingguan: 20 menit ngobrol tanpa gawai soal harapan dan keresahan masing-masing.",
+        "Rayakan hal kecil dan sebutkan apresiasi secara langsung, jangan menunggu momen besar.",
+        "Saat konflik, sepakati aturan main dulu: tidak saling memotong dan tidak mengungkit masa lalu.",
+    ],
+    "Mitra Bisnis / Rekan Kerja": [
+        "Tulis pembagian peran, wewenang, dan target secara tertulis sebelum proyek berjalan.",
+        "Pisahkan urusan pribadi dan keuangan bisnis; evaluasi berkala tiap bulan dengan data, bukan perasaan.",
+        "Manfaatkan perbedaan gaya: satu fokus eksekusi, satu fokus strategi dan hubungan klien.",
+    ],
+    "Persahabatan": [
+        "Jadwalkan waktu bertemu yang rutin supaya hubungan tidak hanya hidup saat butuh.",
+        "Jujur secara halus saat ada yang mengganjal; jangan menyimpan sampai meledak.",
+        "Hargai batas masing-masing, termasuk waktu sendiri dan lingkaran pertemanan lain.",
+    ],
+    "Keluarga": [
+        "Dengarkan dulu sebelum menanggapi; banyak gesekan keluarga muncul dari asumsi, bukan niat buruk.",
+        "Tentukan topik sensitif yang dibahas di waktu tenang, bukan saat acara kumpul.",
+        "Tunjukkan peduli lewat tindakan kecil yang konsisten, bukan hanya kata-kata.",
+    ],
+}
+_CTX = {"Asmara / Pasangan": "sebagai pasangan", "Mitra Bisnis / Rekan Kerja": "sebagai rekan kerja",
+        "Persahabatan": "sebagai sahabat", "Keluarga": "sebagai keluarga"}
+
+
+def _label(score):
+    if score >= 85:
+        return "Sangat Selaras"
+    if score >= 70:
+        return "Cukup Selaras"
+    if score >= 55:
+        return "Perlu Usaha"
+    return "Banyak Tantangan"
+
+
+def _compute(systems, pa, pb, rel):
+    """Return dict hasil, atau None kalau data salah satu orang di luar jangkauan engine."""
+    rows, kuat, tantang = [], [], []
+    for s in systems:
+        ra = compute_raw_result(s, {"tanggal_lahir": pa["tgl"], "nama_lengkap": pa["nama"]})
+        rb = compute_raw_result(s, {"tanggal_lahir": pb["tgl"], "nama_lengkap": pb["nama"]})
+        if ra.get("placeholder") or rb.get("placeholder"):
+            return None
+        sc, note, (k, t) = _SCORERS[s](ra, rb)
+        rows.append({"system": s, "score": sc, "note": note})
+        if k:
+            kuat.append(f"{_ICON[s]} {s}: {k}")
+        if t:
+            tantang.append(f"{_ICON[s]} {s}: {t}")
+    total = round(sum(r["score"] for r in rows) / len(rows))
+    if not kuat:
+        kuat.append("Perbedaan kalian bisa jadi bahan belajar dan saling melengkapi kalau dikelola dengan baik.")
+    if not tantang:
+        tantang.append("Tidak ada tantangan besar dari sistem yang dipilih; waspadai rasa terlalu nyaman yang bikin lupa merawat hubungan.")
+    ctx = _CTX[rel]
+    ringkas = (f"{pa['nama']} & {pb['nama']} {ctx} berada di level “{_label(total)}” ({total}/100) "
+               f"berdasarkan {len(rows)} sistem: {', '.join(systems)}.")
+    nasihat = list(_ADVICE[rel])
+    if total < 60:
+        nasihat.insert(0, "Skor ini bukan vonis. Anggap sebagai peta area yang perlu dijaga lebih sadar.")
+    return {"total": total, "label": _label(total), "rows": rows, "kuat": kuat, "tantang": tantang,
+            "nasihat": nasihat, "ringkas": ringkas, "rel": rel, "a": pa["nama"], "b": pb["nama"], "systems": list(systems)}
+
+
+# ─────────────── callbacks ───────────────
+def _go(step):
+    st.session_state.dh_cp_step = step
+
+
+def _cb_count(n):
+    ss = st.session_state
+    ss.dh_cp_n = n
+    cur = ss.get("dh_cp_sys", [])
+    ss.dh_cp_sys = cur[-n:] if len(cur) > n else cur  # kelebihan -> buang yang paling awal
+    ss.dh_cp_err = None
+
+
+def _cb_toggle(name):
+    ss = st.session_state
+    cur = list(ss.get("dh_cp_sys", []))
+    n = ss.get("dh_cp_n", 2)
+    if name in cur:
+        cur.remove(name)
+    else:
+        cur.append(name)
+        if len(cur) > n:
+            cur = cur[-n:]
+    ss.dh_cp_sys = cur
+    ss.dh_cp_err = None
+
+
+def _cb_next():
+    ss = st.session_state
+    if len(ss.get("dh_cp_sys", [])) != ss.get("dh_cp_n", 2):
+        ss.dh_cp_err = f"Pilih tepat {ss.get('dh_cp_n', 2)} sistem dulu ya."
+        return
+    ss.dh_cp_err = None
+    _go("form")
+
+
+def _cb_fill_me():
+    ss = st.session_state
+    prof = _profile()
+    u = auth.current_user()
+    if u and not ss.get("dhcp_a_nama"):
+        ss.dhcp_a_nama = u.get("nama", "")
+    if prof:
+        ss.dhcp_a_nama = prof["nama"]
+        if hasattr(prof["tgl"], "year"):
+            ss.dhcp_a_tgl = prof["tgl"]
+        ss.dhcp_a_jam = prof.get("jam")
+        ss.dhcp_a_kota = prof.get("kota", "")
+        ss.dh_cp_err = None
+    else:
+        ss.dh_cp_err = "Profil akunmu belum punya data lahir. Isi tanggal lahir manual, atau lakukan scan Reveal Dirimu dulu."
+
+
+def _person(side):
+    ss = st.session_state
+    return {"nama": (ss.get(f"dhcp_{side}_nama") or "").strip(), "tgl": ss.get(f"dhcp_{side}_tgl"),
+            "gender": ss.get(f"dhcp_{side}_gender")}
+
+
+def _cb_go():
+    ss = st.session_state
+    u = auth.current_user()
+    systems = ss.get("dh_cp_sys", [])
+    cost = PRICE * len(systems)
+    pa, pb = _person("a"), _person("b")
+    rel = ss.get("dhcp_rel")
+    for lab, p in (("Pihak Pertama", pa), ("Pihak Kedua", pb)):
+        if not p["nama"] or not p["tgl"]:
+            ss.dh_cp_err = f"Nama dan Tanggal Lahir {lab} wajib diisi."
+            return
+        if not p["gender"]:
+            ss.dh_cp_err = f"Pilih Jenis Kelamin {lab}."
+            return
+    if not rel:
+        ss.dh_cp_err = "Pilih Tipe Hubungan dulu."
+        return
+    if not u:
+        ss.dh_cp_err = "Masuk akun dulu supaya Stardust bisa dipakai."
+        return
+    if u.get("koin", 0) < cost:
+        ss.dh_cp_err = f"Saldo belum cukup — kurang {cost - u['koin']} Stardust."
+        return
+    res = _compute(systems, pa, pb, rel)
+    if not res:
+        ss.dh_cp_err = "Tanggal lahir salah satu pihak di luar jangkauan data sistem (mis. Shio 1945-2020). Saldo tidak dipotong."
+        return
+    u["koin"] -= cost
+    res["cost"] = cost
+    ss.dh_cp_res = res
+    ss.dh_cp_err = None
+    _go("loading")
+
+
+def _cb_reset():
+    ss = st.session_state
+    for k in ("dh_cp_res", "dh_cp_sys", "dh_cp_n", "dh_cp_err", *_FORM_KEYS, *("_sv_" + k for k in _FORM_KEYS)):
+        ss.pop(k, None)
+    _go("select")
+
+
+# ─────────────── tampilan ───────────────
+def _head(sub):
+    st.markdown('<div class="dh-step dh-step-cp"></div>'
+                f'<div class="dh-cp-head"><span class="dh-cp-ico">💖</span><div><div class="dh-cp-brand">Cek Kecocokan</div>'
+                f'<div class="dh-cp-hsub">{sub}</div></div></div><div class="dh-cp-line"></div>', unsafe_allow_html=True)
+
+
+def _stepper(n):
+    labels = ["Pilih Sistem", "Data Kalian", "Hasil"]
+    st.markdown('<div class="dh-cp-steps">' + "".join(
+        f'<span class="{"on" if i == n else ("done" if i < n else "")}"><b>{i + 1}</b>{_e(t)}</span>'
+        for i, t in enumerate(labels)) + '</div>', unsafe_allow_html=True)
+
+
+def _err():
+    if st.session_state.get("dh_cp_err"):
+        st.error(st.session_state.dh_cp_err)
+
+
+def _render_select():
+    ss = st.session_state
+    n = ss.setdefault("dh_cp_n", 2)
+    sel = ss.setdefault("dh_cp_sys", [])
+    _head(f"Bandingkan 2 orang · {PRICE} ✨ per sistem")
+    _stepper(0)
+    st.markdown('<div class="dh-cp-lab">1. Mau pakai berapa sistem?</div>', unsafe_allow_html=True)
+    with st.container(key="dhcp_cnt"):
+        cols = st.columns(4, gap="small")
+        for i, col in enumerate(cols, 1):
+            with col:
+                st.button(f"{i} Sistem  \n**{PRICE * i} ✨**", key=f"dhcp_n{i}", on_click=_cb_count, args=(i,),
+                          type="primary" if n == i else "secondary", use_container_width=True)
+    st.markdown(f'<div class="dh-cp-lab">2. Pilih {n} sistem <span class="dh-cp-cnt">{len(sel)}/{n} terpilih</span></div>',
+                unsafe_allow_html=True)
+    with st.container(key="dhcp_sys"):
+        for r in range(0, len(SYSTEMS), 2):
+            cols = st.columns(2, gap="small")
+            for col, name in zip(cols, SYSTEMS[r:r + 2]):
+                with col:
+                    st.button(f"{_ICON[name]}  **{name}**  ⓘ", key=f"dhcp_s_{name}", on_click=_cb_toggle, args=(name,),
+                              type="primary" if name in sel else "secondary", use_container_width=True, help=_TIP[name])
+    st.markdown('<div class="dh-cp-hint">ⓘ Arahkan kursor (atau tap) pada nama sistem untuk melihat perbedaan dan keunggulannya.</div>',
+                unsafe_allow_html=True)
+    _err()
+    with st.container(key="dhcp_cta"):
+        st.button(f"Lanjut →  ({PRICE * n} ✨)", key="dhcp_next", type="primary", use_container_width=True, on_click=_cb_next)
+
+
+def _side(side, title, u):
+    st.markdown(f'<div class="dh-cp-side">{title}</div>', unsafe_allow_html=True)
+    if side == "a" and u:
+        with st.container(key="dhcp_me"):
+            st.button(f"👤 Pakai data profil: {u.get('nama', 'Saya')}", key="dhcp_fill", on_click=_cb_fill_me,
+                      use_container_width=True)
+    st.text_input("Nama Lengkap", placeholder="Contoh: Rina Anggraini", key=f"dhcp_{side}_nama")
+    st.date_input("Tanggal Lahir", value=None, min_value=date(1900, 1, 1), max_value=date.today(),
+                  format="DD/MM/YYYY", key=f"dhcp_{side}_tgl")
+    st.time_input("Jam Lahir (Opsional)", value=None, key=f"dhcp_{side}_jam")
+    st.text_input("Tempat Lahir (Opsional)", placeholder="Contoh: Jakarta", key=f"dhcp_{side}_kota")
+    st.selectbox("Jenis Kelamin", GENDERS, index=None, placeholder="Pilih", key=f"dhcp_{side}_gender")
+
+
+_FORM_KEYS = [f"dhcp_{x}_{f}" for x in "ab" for f in ("nama", "tgl", "jam", "kota", "gender")] + ["dhcp_rel"]
+
+
+def _restore():
+    """Widget yang tidak tampil (mis. pindah ke modal login) kehilangan isinya -> pulihkan dari salinan."""
+    ss = st.session_state
+    for k in _FORM_KEYS:
+        if k not in ss and ("_sv_" + k) in ss:
+            ss[k] = ss["_sv_" + k]
+
+
+def _save():
+    ss = st.session_state
+    for k in _FORM_KEYS:
+        if k in ss:
+            ss["_sv_" + k] = ss[k]
+
+
+def _render_form():
+    ss = st.session_state
+    _restore()
+    u = auth.current_user()
+    systems = ss.get("dh_cp_sys", [])
+    cost = PRICE * len(systems)
+    _head("Isi data kedua belah pihak")
+    _stepper(1)
+    st.markdown('<div class="dh-cp-chips">' + "".join(f'<span>{_ICON[s]} {_e(s)}</span>' for s in systems) + '</div>',
+                unsafe_allow_html=True)
+    c1, c2 = st.columns(2, gap="medium")
+    with c1:
+        _side("a", "Pihak Pertama", u)
+    with c2:
+        _side("b", "Pihak Kedua", u)
+    st.selectbox("Tipe Hubungan", RELATIONS, index=None, placeholder="Pilih tipe hubungan", key="dhcp_rel")
+    _save()
+    if not u:
+        st.markdown('<div class="dh-cp-note">🔒 Kamu perlu masuk akun untuk membayar dengan Stardust.</div>', unsafe_allow_html=True)
+    else:
+        st.markdown(f'<div class="dh-cp-note ok">Saldo: <b>{u["koin"]} ✨</b> · Biaya: <b>{cost} ✨</b></div>', unsafe_allow_html=True)
+    _err()
+    b1, b2 = st.columns([1, 2.2], gap="small")
+    with b1:
+        with st.container(key="dhcp_back"):
+            st.button("← Kembali", key="dhcp_b_back", on_click=_go, args=("select",), use_container_width=True)
+    with b2:
+        with st.container(key="dhcp_cta"):
+            if not u:
+                if st.button("Masuk / Daftar untuk Bayar →", key="dhcp_login", type="primary", use_container_width=True):
+                    request_open("auth")
+            elif u["koin"] < cost:
+                if st.button("Top-up Stardust →", key="dhcp_topup", type="primary", use_container_width=True):
+                    request_open("pricing_keep", dh_pr_tab="koin")
+            else:
+                st.button(f"Hitung Sinergi Pasangan ({cost} ✨)", key="dhcp_go", type="primary",
+                          use_container_width=True, on_click=_cb_go)
+
+
+def _render_loading():
+    st.markdown('<div class="dh-step dh-step-cp"></div><div class="dh-nodismiss"></div>'
+                '<div class="dh-cp-load"><div class="dh-cp-orb"><i></i><i></i><span>💖</span></div>'
+                '<div class="dh-cp-lt">Menghitung energi sinergi &amp; kecocokan profil...</div>'
+                '<div class="dh-cp-ls">Menyelaraskan sistem pilihanmu</div></div>', unsafe_allow_html=True)
+    time.sleep(LOADING_SEC)
+    _go("result")
+    st.rerun(scope="fragment")
+
+
+def _plain(r):
+    out = [f"CEK KECOCOKAN — {r['a']} & {r['b']}", r["ringkas"], "", f"SKOR: {r['total']}/100 ({r['label']})", ""]
+    out += [f"- {x['system']}: {x['score']} ({x['note']})" for x in r["rows"]]
+    out += ["", "KEKUATAN", *r["kuat"], "", "TANTANGAN", *r["tantang"], "", "NASIHAT STRATEGIS", *r["nasihat"]]
+    return "\n".join(out)
+
+
+def _render_result():
+    ss = st.session_state
+    r = ss.get("dh_cp_res")
+    if not r:
+        _go("select")
+        return _render_select()
+    _head("Hasil analisis kecocokan")
+    st.markdown('<div class="dh-nodismiss"></div>', unsafe_allow_html=True)
+    ang = round(r["total"] * 3.6)
+    st.markdown(
+        '<div class="dh-cp-banner">'
+        f'<div class="dh-cp-ring" style="background:conic-gradient(#C85A32 {ang}deg,#F3E4D3 0)"><div><b>{r["total"]}</b><span>/100</span></div></div>'
+        f'<div class="dh-cp-bt"><div class="dh-cp-eyebrow">SKOR SINERGI · {_e(r["rel"].upper())}</div>'
+        f'<div class="dh-cp-names">{_e(r["a"])} &amp; {_e(r["b"])}</div>'
+        f'<div class="dh-cp-lab2">{_e(r["label"])}</div></div></div>'
+        f'<div class="dh-cp-card"><div class="dh-cp-ct">📖 Ringkasan</div><p>{_e(r["ringkas"])}</p></div>', unsafe_allow_html=True)
+    rows = "".join(
+        f'<div class="dh-cp-row"><div class="dh-cp-rh"><span>{_ICON[x["system"]]} {_e(x["system"])}</span><b>{x["score"]}</b></div>'
+        f'<div class="dh-cp-bar"><i style="width:{x["score"]}%"></i></div><div class="dh-cp-rn">{_e(x["note"])}</div></div>'
+        for x in r["rows"])
+    st.markdown(f'<div class="dh-cp-card"><div class="dh-cp-ct">📊 Skor Per Sistem</div>{rows}</div>', unsafe_allow_html=True)
+    for ico, ttl, items in (("💪", "Poin Kekuatan Hubungan", r["kuat"]), ("⚠️", "Poin Tantangan", r["tantang"]),
+                            ("⚖️", "Nasihat Strategis", r["nasihat"])):
+        st.markdown(f'<div class="dh-cp-card"><div class="dh-cp-ct">{ico} {ttl}</div>'
+                    + "".join(f"<p>{_e(t)}</p>" for t in items) + '</div>', unsafe_allow_html=True)
+    secs = [("Ringkasan", [r["ringkas"]]), ("Skor Per Sistem", [f"{x['system']}: {x['score']} - {x['note']}" for x in r["rows"]]),
+            ("Poin Kekuatan", r["kuat"]), ("Poin Tantangan", r["tantang"]), ("Nasihat Strategis", r["nasihat"])]
+    with st.container(key="dhcp_acts"):
+        st.download_button("📥 Download PDF", make_pdf(f"Cek Kecocokan - {r['a']} & {r['b']}",
+                           f"Skor {r['total']}/100 - {r['label']}", secs),
+                           file_name="cek-kecocokan.pdf", mime="application/pdf", key="dhcp_pdf",
+                           use_container_width=True, on_click="ignore")
+        a1, a2 = st.columns(2, gap="small")
+        with a1:
+            copy_button(_plain(r), "📋 Salin Hasil", "dhcp_copy", fs=12.5, h=46)
+        with a2:
+            st.button("🔄 Cek Pasangan Lain", key="dhcp_again", on_click=_cb_reset, use_container_width=True)
+        if st.button("Selesai & Tutup", key="dhcp_done", type="primary", use_container_width=True):
+            _cb_reset()
+            st.rerun()
+
+
+def _cb_close():
+    if st.session_state.get("dh_cp_step") in ("result", "loading"):
+        _cb_reset()
+
+
+@st.dialog("Cek Kecocokan", width="large", on_dismiss=_cb_close)
+def compat_dialog():
+    step = st.session_state.get("dh_cp_step", "select")
+    if step == "loading" and st.session_state.get("dh_cp_res"):
+        _render_loading()
+    elif step == "result" and st.session_state.get("dh_cp_res"):
+        _render_result()
+    elif step == "form" and len(st.session_state.get("dh_cp_sys", [])) == st.session_state.get("dh_cp_n", 2):
+        _render_form()
+    else:
+        _render_select()
+
+
+def open_compat():
+    st.session_state.dh_cp_err = None
+    compat_dialog()
+
+
+DIALOGS = {"compat": open_compat}
