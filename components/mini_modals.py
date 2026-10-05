@@ -18,6 +18,9 @@ from pathlib import Path
 
 import streamlit as st
 
+from components import auth
+from components.dialog_bus import request_open
+
 from content.result_builder import SHIO_CONTENT, TAROT_CONTENT, ZODIAK_CONTENT
 from engine.tarot import TAROT_MAJOR_ARCANA
 from engine.zodiak import _RENTANG_ZODIAK
@@ -324,32 +327,93 @@ def preview_dialog():
         _open_reveal()
 
 
-# ═══════════ 4. STREAK & REWARD (UI statis) ═══════════
+# ═══════════ 4. STREAK & REWARD ═══════════
+# DUMMY: state di session (belum ada backend). Awal 6 hari supaya klaim Week 1 bisa dicoba setelah 1x check-in.
+STREAK_DEMO_START = 6
+_WEEKS = [("Week 1", "Hari 1-7", 30), ("Week 2", "Hari 8-14", 40), ("Week 3", "Hari 15-21", 50), ("Week 4", "Hari 22-28", 60)]
+
+
+def _streak_state(u):
+    """State streak per akun; reset otomatis tiap awal bulan (WIB)."""
+    ym = today_wib()[:7]
+    st_ = u.get("streak")
+    if not st_ or st_.get("month") != ym:
+        st_ = u["streak"] = {"month": ym, "days": STREAK_DEMO_START if not st_ else 0, "last": None, "claimed": []}
+    return st_
+
+
+def _cb_checkin():
+    u = auth.current_user()
+    if not u:
+        return
+    s_ = _streak_state(u)
+    if s_["last"] == today_wib():
+        return
+    s_["last"] = today_wib()
+    s_["days"] = min(s_["days"] + 1, 28)
+    st.session_state.dh_sk_toast = f"✅ Check-in berhasil! Streak kamu: {s_['days']} hari"
+
+
+def _cb_claim_week(i):
+    u = auth.current_user()
+    if not u:
+        return
+    s_ = _streak_state(u)
+    if i in s_["claimed"] or s_["days"] < 7 * (i + 1):
+        return
+    s_["claimed"].append(i)
+    u["koin"] = u.get("koin", 0) + _WEEKS[i][2]
+    st.session_state.dh_sk_toast = f"🎉 Selamat! +{_WEEKS[i][2]} Stardust telah berhasil masuk ke Saldo Stardust kamu!"
+
+
+def _cb_streak_login():
+    request_open("auth")
+
+
 @st.dialog("Streak & Reward", width="small")
 def streak_dialog():
-    email = st.session_state.get("dh_email")
+    u = auth.current_user()
     _head()
-    ms = [("Week 1", "Hari 1-7", "🎁 +30 SD", True), ("Week 2", "Hari 8-14", "💎 +40 SD", False),
-          ("Week 3", "Hari 15-21", "👑 +50 SD", False), ("Week 4", "Hari 22-28", "🏆 +60 SD", False)]
-    cards = "".join(f'<div class="dh-sk-ms{" on" if on else ""}"><b>{a}</b><small>{r}</small><span>{b}</span></div>'
-                    for a, r, b, on in ms)
-    tip = ('<i class="dh-sk-ti" tabindex="0">ℹ️ Apa yang bisa didapat dengan 180 SD?<i class="dh-sk-pop">'
-           '<i class="dh-sk-pophead">💡 Dengan mengumpulkan 180 SD per bulan, kamu bisa unlock:</i>'
-           '<i>✅ 3 Sistem Kelahiran (150 SD)</i><i>✅ 1 Weekly Report + 1 Tarot 3 Kartu (150 SD)</i>'
-           '<i>✅ 1 Tarot Celtic Cross (150 SD)</i></i></i>')
+    if msg := st.session_state.pop("dh_sk_toast", None):  # toast di body (bukan di callback)
+        st.toast(msg)
+    s_ = _streak_state(u) if u else {"days": 0, "last": None, "claimed": []}
+    days, claimed = s_["days"], s_["claimed"]
+    nxt = next((i for i in range(4) if i not in claimed), None)
+    if nxt is None:
+        ptxt, pct = "Semua reward bulan ini sudah diklaim 🎉", 100
+    else:
+        done = max(0, min(days - 7 * nxt, 7))
+        ptxt, pct = f"{done} / 7 Hari menuju +{_WEEKS[nxt][2]}✨ Gratis", round(done / 7 * 100)
+    tip = ('<i class="dh-sk-ti" tabindex="0">ℹ️ Apa yang bisa didapat dengan 180✨?<i class="dh-sk-pop">'
+           '<i class="dh-sk-pophead">💡 Dengan mengumpulkan 180✨ per bulan, kamu bisa unlock:</i>'
+           '<i>✅ 3 Sistem Kelahiran (150✨)</i><i>✅ 1 Weekly Report + 1 Tarot 3 Kartu (150✨)</i>'
+           '<i>✅ 1 Tarot Celtic Cross (150✨)</i></i></i>')
     st.markdown(
         '<div class="dh-sk-flame">🔥</div><div class="dh-sk-title">Streak &amp; Reward</div>'
         '<div class="dh-mn-notice dh-sk-info"><b>📌 Cara Menaikkan Streak:</b>'
         'Buka website tiap hari buat naikin streak (+1 setiap kali kamu membuka fitur gratis harian).'
         f'{tip}</div>'
-        '<div class="dh-sk-prog"><div class="dh-sk-proghead"><b>5 / 7 Hari menuju +30 SD Gratis</b><span>71%</span></div>'
-        '<div class="dh-sk-bar"><i style="width:71%"></i></div></div>'
-        f'<div class="dh-sk-grid">{cards}</div>'
-        '<div class="dh-sk-note">Akses harian hari ke 29–31 memberikan ekstra +5 SD / hari '
-        '(Total potensi hingga 195 SD / bulan)!</div>', unsafe_allow_html=True)
-    st.button("Klaim Hadiah Hari Ini (+30 SD)", key="dhsk_claim", type="primary", use_container_width=True)
+        f'<div class="dh-sk-prog"><div class="dh-sk-proghead"><b>{ptxt}</b><span>{pct}%</span></div>'
+        f'<div class="dh-sk-bar"><i style="width:{pct}%"></i></div></div>', unsafe_allow_html=True)
+    with st.container(key="dhsk_weeks"):
+        cols = st.columns(4, gap="small")
+        for i, (name, rng, sd) in enumerate(_WEEKS):
+            ready = bool(u) and i not in claimed and days >= 7 * (i + 1)
+            done_ = i in claimed
+            tag = "Diklaim" if done_ else f"+{sd}✨"
+            with cols[i]:
+                st.button(f"**{name}**  \n{rng}  \n**{'✓ ' if done_ else ''}{tag}**", key=f"dhsk_wk_{i}",
+                          type="primary" if ready else "secondary", disabled=not ready,
+                          on_click=_cb_claim_week, args=(i,), use_container_width=True)
+    with st.container(key="dhsk_cta"):
+        if not u:
+            st.button("Masuk / Log In untuk Check-in", key="dhsk_login", type="primary", on_click=_cb_streak_login)
+        elif s_["last"] == today_wib():
+            st.button("✓ Sudah Check-in Hari Ini", key="dhsk_checkin", type="primary", disabled=True)
+        else:
+            st.button("Check-in Hari Ini", key="dhsk_checkin", type="primary", on_click=_cb_checkin)
     st.markdown('<div class="dh-sk-foot">✓ Stardust dan streak tersinkronisasi aman ke akun '
-                f'({_e(email or "belum masuk akun")}).</div>', unsafe_allow_html=True)
+                f'({_e(u["email"] if u else "belum masuk akun")}).</div>', unsafe_allow_html=True)
 
 
 DIALOGS = {"daily": daily_dialog, "tarot": tarot_dialog, "preview": preview_dialog, "streak": streak_dialog}

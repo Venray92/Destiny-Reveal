@@ -246,7 +246,7 @@ def render_explore():
                 + _item("Ramalan Harian Gratis", "1x per hari, pilih Zodiak atau Shio", arrow, modal="daily")
                 + _item("Tarot 1 Kartu Harian", "Tarik kartu deck tertutup dengan animasi shuffle", arrow, modal="tarot")
                 + _item("Preview Zodiak", "12 rasi, modality, planet &amp; quote", arrow, modal="preview")
-                + _item("Streak &amp; Reward", "Streak mingguan = +30 s/d +60 SD gratis", arrow, modal="streak"),
+                + _item("Streak &amp; Reward", "Streak mingguan = +30 s/d +60✨ gratis", arrow, modal="streak"),
                 unsafe_allow_html=True,
             )
             with st.container(key="dhexplore_foot_gratis"):
@@ -258,9 +258,9 @@ def render_explore():
             st.markdown(
                 '<div class="dh-explore-card-badge">PAKAI STARDUST &amp; VIP</div>'
                 + _head("💎", "#eef2fb", "PREMIUM", "Panduan mendalam &amp; akurasi tinggi")
-                + _item("Tarot Spreads Multi-Kartu", "3 Kartu (50 SD), 5 Kartu (100 SD), Celtic Cross (150 SD)", _price("50-150 SD"), modal="tarot_spread")
-                + _item("Cek Kecocokan", "Bandingkan 2 orang langsung (Weton &amp; Zodiak)", _price("100 SD"), modal="compat")
-                + _item("Weekly &amp; Monthly Report", "Timing pekan (100 SD) &amp; analisis bulan (200 SD)", _price("100-200 SD"), modal="weekly")
+                + _item("Tarot Spreads Multi-Kartu", "3 Kartu (50✨), 5 Kartu (100✨), Celtic Cross (150✨)", _price("50-150✨"), modal="tarot_spread")
+                + _item("Cek Kecocokan", "Bandingkan 2 orang langsung (Weton &amp; Zodiak)", _price("100✨"), modal="compat")
+                + _item("Weekly &amp; Monthly Report", "Timing pekan (100✨) &amp; analisis bulan (200✨)", _price("100-200✨"), modal="weekly")
                 + _item("Deep Blueprint (15 Sistem)", "Laporan lengkap 15 sistem sekaligus + PDF", _price("VIP", vip=True), modal="blueprint"),
                 unsafe_allow_html=True,
             )

@@ -216,32 +216,6 @@ def blog_dialog():
     _close_btn("Mengerti & Kembali", "bl")
 
 
-_FAQ = [
-    ("Apakah Destiny Reveal aman dan menjaga kerahasiaan data saya?",
-     "Sangat aman. Semua kalkulasi tanggal lahir dan parameter kepribadian diproses secara privat langsung di "
-     "perambanmu tanpa menyimpan data pribadi ke pihak ketiga."),
-    ("Kenapa Destiny Reveal menggabungkan 15 sistem sekaligus?",
-     "Karena manusia itu multidimensional. Satu sistem seperti Zodiak saja hanya melihat dari satu sudut. Ketika "
-     "Zodiak dipadukan dengan Weton Nusantara, Numerologi Pythagoras, dan psikologi modern (MBTI & Big Five), kamu "
-     "mendapatkan peta diri yang utuh tanpa bias."),
-    ("Bagaimana cara kerja perhitungan Weton Jawa di Destiny Reveal?",
-     "Kami menggunakan algoritma kalender Jawa otentik berbasis siklus Saptawara (7 hari) dan Pancawara (Legi, "
-     "Pahing, Pon, Wage, Kliwon) yang dihitung presisi berdasarkan tanggal masehi lengkap beserta nilai Neptu dan "
-     "arketipe watak bawaannya."),
-    ("Apakah fitur dasar benar-benar gratis tanpa perlu membuat akun?",
-     "Ya, 100% gratis! Kamu dapat langsung melakukan 'Reveal Takdirku' dalam 3 menit tanpa repot mendaftar akun "
-     "atau memasukkan email."),
-]
-
-
-@st.dialog("FAQ & Bantuan", width="small")
-def faq_dialog():
-    _top(login_link=False, key="fq")
-    cards = "".join(f'<div class="dh-fm-faq"><b>{html.escape(q)}</b><p>{html.escape(a)}</p></div>' for q, a in _FAQ)
-    st.markdown(f'<div class="dh-fm-bigtitle">Pertanyaan yang Sering Ditanya</div>{cards}', unsafe_allow_html=True)
-    _close_btn("Tutup", "fq", outline=True)
-
-
 def _open_spread(n):
     st.session_state.dh_ts_tab = n
     tarot_spread_dialog()
@@ -251,5 +225,5 @@ DIALOGS = {
     "tarot_spread_3": lambda: _open_spread(3), "tarot_spread_5": lambda: _open_spread(5),
     "tarot_spread_10": lambda: _open_spread(10),
     "tarot_spread": tarot_spread_dialog, "compat": compat_dialog, "weekly": weekly_dialog,
-    "blueprint": blueprint_dialog, "tutorial": tutorial_dialog, "blog": blog_dialog, "faq": faq_dialog,
+    "blueprint": blueprint_dialog, "tutorial": tutorial_dialog, "blog": blog_dialog,
 }

@@ -133,8 +133,10 @@ def _render_email():
         '<div class="dh-au-notice"><b>🛡️ Autentikasi Verifikasi Email Langsung</b>'
         'Kami akan mengirimkan kode verifikasi 6-digit &amp; tautan instan ke emailmu. Setelah masuk, '
         'profil dan saldo Stardust-mu otomatis terbuka.</div>', unsafe_allow_html=True)
+    st.checkbox("Saya telah membaca dan menyetujui Syarat & Ketentuan serta Kebijakan Privasi Destiny Reveal.",
+                key="dha_agree")
     st.button("Lanjutkan Verifikasi Email →", key="dha_send", type="primary", use_container_width=True,
-              on_click=_cb_send)
+              on_click=_cb_send, disabled=not ss.get("dha_agree"))
     st.markdown('<div class="dh-au-foot">Belum punya akun? Cukup masukkan emailmu di atas, akun barumu akan '
                 f'otomatis dibuat dengan <b>{BONUS_KOIN} SD Bonus &amp; ID Referral</b>.</div>',
                 unsafe_allow_html=True)
