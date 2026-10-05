@@ -111,3 +111,12 @@ def test_ui18_blueprint_am():
     assert [k for k, *_ in BLUEPRINT_AM] == list("ABCDEFGHIJKLM")
     ket = {n: k for _, rows in FEATURES for n, _, k, *_ in rows}
     assert "13 Section" in ket["Deep Blueprint Report"]
+
+
+# ---- UI19 ----
+def test_ui19_referral_data():
+    from components.pricing_modal import COMMISSION, MILESTONES, TIERS
+    assert [c[2] for c in COMMISSION] == ["10 - 15%", "20 - 30%", "10 - 15%"]
+    assert [m[1] for m in MILESTONES] == ["Extra Rp 50.000", "Extra Rp 250.000", "Extra Rp 1.000.000", "Extra Rp 2.500.000"]
+    assert [t[1] for t in TIERS] == ["Stardust", "Star", "Constell.", "Galaxy", "Universe"]
+    assert [t[2] for t in TIERS] == ["10%", "15%", "20%", "25%", "30%"]
