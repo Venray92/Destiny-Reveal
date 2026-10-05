@@ -66,7 +66,9 @@ def test_ui14_spreads_positions():
 
 def test_ui14_dialog_registry():
     from components.feature_modals import DIALOGS
-    assert {"tarot_spread", "compat", "weekly", "blueprint"} <= set(DIALOGS)
+    assert {"tarot_spread", "weekly", "blueprint"} <= set(DIALOGS)
+    from components.compat import DIALOGS as CP
+    assert "compat" in CP
 
 
 # ---- UI15 ----
@@ -195,3 +197,16 @@ def test_ui24_labels_and_pdf():
     assert "Weton & Shio Milikmu" not in mm and "Weton & Numerologi Lengkap" not in mm
     pdf = make_pdf("T", "S", [("A", ["halo dunia"])])
     assert pdf.startswith(b"%PDF") and pdf.rstrip().endswith(b"%%EOF")
+
+
+def test_ui25_compat_and_solo_active():
+    from datetime import date
+    from components.compat import _compute, PRICE, SYSTEMS
+    from components.solo_reveal import ACTIVE
+    assert PRICE == 100 and len(SYSTEMS) == 4
+    assert set(ACTIVE) == {"Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"}
+    pa = {"nama": "A", "tgl": date(1992, 12, 5)}; pb = {"nama": "B", "tgl": date(1995, 3, 14)}
+    for rel in ("Asmara / Pasangan", "Keluarga"):
+        r = _compute(SYSTEMS, pa, pb, rel)
+        assert 0 <= r["total"] <= 100 and len(r["rows"]) == 4 and r["nasihat"] and r["tantang"]
+    assert _compute(["Shio"], pa, {"nama": "C", "tgl": date(1930, 1, 1)}, "Keluarga") is None
