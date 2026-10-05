@@ -66,7 +66,7 @@ def test_ui14_spreads_positions():
 
 def test_ui14_dialog_registry():
     from components.feature_modals import DIALOGS
-    assert {"tarot_spread", "compat", "weekly", "blueprint", "tutorial", "blog"} <= set(DIALOGS)
+    assert {"tarot_spread", "compat", "weekly", "blueprint"} <= set(DIALOGS)
 
 
 # ---- UI15 ----
@@ -74,7 +74,7 @@ def test_ui15_info_dialogs_registered():
     from components.info_modals import DIALOGS
     assert set(DIALOGS) == {"about"}
     from components.help_modals import DIALOGS as H
-    assert set(H) == {"faq", "contact", "privacy", "terms"}
+    assert set(H) == {"faq", "contact", "privacy", "terms", "tutorial", "blog"}
 
 
 def test_ui15_pricing_tab_dialogs():
@@ -147,3 +147,16 @@ def test_ui21_nav_uses_sparkle():
 def test_ui21_faq_sections():
     from components.help_modals import _FAQ
     assert len(_FAQ) == 7 and sum(len(q) for _, _, q in _FAQ) == 20
+
+
+# ---- UI22 ----
+def test_ui22_faq_unlock_prices():
+    from components.help_modals import _FAQ
+    txt = str(_FAQ)
+    assert "1 Sistem (A-F): 150✨" in txt and "1 Sistem (A-M): 300✨" in txt and "sebesar 150✨" in txt
+    assert "sebesar 100✨" not in txt
+
+
+def test_ui22_blog_posts():
+    from components.help_modals import _BLOG_POSTS, _BLOG_CATS
+    assert len(_BLOG_POSTS) == 5 and len(_BLOG_CATS) == 9
