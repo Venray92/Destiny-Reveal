@@ -1345,7 +1345,6 @@ div[data-testid="stVerticalBlock"].st-key-dhpr_tabs { background: #FAF6F0; borde
 .dh-pr-allacc { font-style: normal; background: #FDEDE6; color: #C25E00; font-size: 10.5px; font-weight: 700; padding: 3px 10px; border-radius: 100px; }
 .dh-pr-comm { font-style: normal; color: #5F8A69; font-weight: 700; }
 div[data-testid="stVerticalBlock"][class*="st-key-dhpr_coin_"], div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_"] { background: #FFFFFF; border: 1px solid #E8E0D5; border-radius: 16px; padding: 14px 14px 12px; gap: 6px !important; margin-bottom: 4px; position: relative; }
-div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_hl"] { background: #FDF3DF; border: 1.5px solid #D9722F; }
 .dh-pr-chead { display: flex; justify-content: space-between; align-items: center; }
 .dh-pr-chead b { font-family: 'Playfair Display', serif; font-size: 16px; color: #2D2A26; }
 .dh-pr-chead em { font-style: normal; background: #FDEDE6; color: #C25E00; font-size: 10.5px; font-weight: 700; padding: 2px 10px; border-radius: 100px; }
@@ -1361,10 +1360,6 @@ div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_hl"] { background: #
 [data-testid="stDialog"] div[class*="st-key-dhpr_plan_"] div.stButton > button { border-radius: 100px !important; height: 38px !important; }
 [data-testid="stDialog"] div[class*="st-key-dhpr_plan_"] div.stButton > button[kind="secondary"] { background: #FFFFFF !important; border: 1px solid #C85A32 !important; }
 [data-testid="stDialog"] div[class*="st-key-dhpr_plan_"] div.stButton > button[kind="secondary"] * { color: #C85A32 !important; font-weight: 700 !important; font-size: 12.5px !important; }
-[data-testid="stDialog"] div[class*="st-key-dhpr_plan_hl"] div.stButton > button[kind="primary"] { background: #C85A32 !important; border: 0 !important; }
-[data-testid="stDialog"] div[class*="st-key-dhpr_plan_hl"] div.stButton > button * { color: #FFFFFF !important; font-weight: 700 !important; font-size: 12.5px !important; }
-[data-testid="stDialog"] div[class*="st-key-dhpr_plan_dark"] div.stButton > button[kind] { background: #2A2420 !important; border: 0 !important; }
-[data-testid="stDialog"] div[class*="st-key-dhpr_plan_dark"] div.stButton > button[kind] * { color: #FFFFFF !important; font-weight: 700 !important; font-size: 12.5px !important; }
 .dh-pr-vipbox { background: #2A2420; border-radius: 14px; padding: 14px 18px; margin-bottom: 14px; }
 .dh-pr-vipbox b { color: #F0A05A; font-size: 10.5px; letter-spacing: .08em; }
 .dh-pr-vipgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; margin-top: 10px; }
@@ -1372,7 +1367,7 @@ div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_hl"] { background: #
 /* tabel fitur */
 div[data-testid="stVerticalBlock"].st-key-dhpr_table { border: 1px solid #E8E0D5; border-radius: 14px; overflow: hidden; gap: 0 !important; margin-bottom: 14px; }
 .dh-pr-th { display: grid; grid-template-columns: 1.7fr .95fr 2.4fr .85fr; gap: 8px; background: #FAF6F0; padding: 10px 14px; font-size: 10px; font-weight: 800; letter-spacing: .05em; color: #6B635A; }
-.dh-pr-th span:last-child { text-align: right; }
+
 div[data-testid="stVerticalBlock"][class*="st-key-dhpr_row_"] { padding: 8px 14px; border-top: 1px solid #EFE9DD; gap: 0 !important; background: #FFFFFF; }
 div[data-testid="stVerticalBlock"][class*="st-key-dhpr_row_"] [data-testid="stHorizontalBlock"] { gap: 8px !important; }
 .dh-pr-fn { font-size: 12.5px; font-weight: 600; color: #2D2A26; line-height: 1.3; }
@@ -1406,9 +1401,7 @@ div[data-testid="stVerticalBlock"].st-key-dhpr_refcode { background: #FDF3DF; bo
 .dh-pr-sd { font-size: 13px; font-weight: 700; color: #2D2A26; margin-top: 2px; }
 .dh-pr-sd i { font-style: normal; font-size: 10.5px; font-weight: 700; color: #2E7D4F; background: #E6F4EA; padding: 2px 8px; border-radius: 100px; margin-left: 6px; }
 .dh-pr-cat { background: #F4EEE4; padding: 7px 14px; font-size: 10px; font-weight: 800; letter-spacing: .06em; color: #8B6B3A; border-top: 1px solid #EFE9DD; }
-.dh-pr-ribbon.dk { background: #2A2420; }
 .dh-pr-ribbon { white-space: nowrap; }
-[data-testid="stDialog"] div[class*="st-key-dhpr_plan_out_"] div.stButton > button { border-radius: 100px !important; }
 @media (max-width: 640px) { .dh-pr-th { display: none; } .dh-pr-vipgrid { grid-template-columns: 1fr !important; } }
 .dh-pr-unit { font-size: 11px; color: #8B8378; min-height: 16px; margin-top: -2px; }
 .dh-pr-cd3 { min-height: 54px; }
@@ -1421,3 +1414,31 @@ div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_"] { min-height: 252
   [data-testid="stDialog"] div[class*="st-key-dhts_tabs"] [data-testid="stColumn"] { flex: 1 1 30% !important; min-width: 0 !important; width: auto !important; }
   [data-testid="stDialog"] div[class*="st-key-dhpr_tabs"] { border-radius: 20px !important; }
 }
+
+/* ===== UI18 ===== */
+.dh-pr-sd, .dh-pr-sd { color: #C25E00; }
+div[data-testid="stVerticalBlock"][class*="st-key-dhpr_coin_"], div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_"] { transition: border-color .2s, background .2s, box-shadow .2s; }
+div[data-testid="stVerticalBlock"][class*="st-key-dhpr_coin_"]:hover { border-color: #C25E00; background: #FDF3E4; box-shadow: 0 6px 16px -10px rgba(194,94,0,.55); }
+[data-testid="stDialog"] div[class*="st-key-dhpr_coin_"]:hover div.stButton > button { background: #FBDCC8 !important; border-color: #C25E00 !important; }
+[data-testid="stDialog"] div[class*="st-key-dhpr_coin_"]:hover div.stButton > button * { color: #9A4600 !important; }
+/* VIP: semua card seragam (border berwarna), highlight cuma pas hover */
+div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_"] { border: 1.5px solid #E9B99A; background: #FFFFFF; }
+div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_"]:hover { border-color: #D9722F; background: #FDF3DF; box-shadow: 0 6px 16px -10px rgba(217,114,47,.6); }
+[data-testid="stDialog"] div[class*="st-key-dhpr_plan_"] div.stButton > button { background: #FFFFFF !important; border: 1px solid #C85A32 !important; transition: all .2s; }
+[data-testid="stDialog"] div[class*="st-key-dhpr_plan_"] div.stButton > button * { color: #C85A32 !important; font-weight: 700 !important; font-size: 12.5px !important; }
+[data-testid="stDialog"] div[class*="st-key-dhpr_plan_"]:hover div.stButton > button { background: #C85A32 !important; }
+[data-testid="stDialog"] div[class*="st-key-dhpr_plan_"]:hover div.stButton > button * { color: #FFFFFF !important; }
+/* header tabel fitur sejajar dgn baris */
+div[data-testid="stVerticalBlock"].st-key-dhpr_head { background: #FAF6F0; padding: 10px 14px; gap: 0 !important; }
+div[data-testid="stVerticalBlock"].st-key-dhpr_head [data-testid="stHorizontalBlock"] { gap: 8px !important; }
+.dh-pr-hd { font-size: 10px; font-weight: 800; letter-spacing: .05em; color: #6B635A; line-height: 1; }
+/* tombol info Deep Blueprint */
+div.st-key-dhpr_info [data-testid="stPopover"] > button, div.st-key-dhpr_info button { min-height: 0 !important; height: 24px !important; width: 24px !important; padding: 0 !important; border-radius: 50% !important; background: #FAF6F0 !important; border: 1px solid #E2D9CE !important; }
+div.st-key-dhpr_info button p, div.st-key-dhpr_info button span { font-size: 12px !important; }
+div.st-key-dhpr_info button svg { display: none; }
+.dh-pr-tiphead { font-weight: 800; font-size: 12px; color: #2D2A26; margin-bottom: 6px; }
+.dh-pr-tip { display: grid; gap: 4px; min-width: 250px; }
+.dh-pr-tip > div { display: flex; gap: 8px; align-items: baseline; font-size: 11.5px; color: #3A3631; }
+.dh-pr-tip b { color: #C25E00; width: 14px; flex: none; }
+.dh-pr-tip code { background: #FAF6F0; color: #8B6B3A; padding: 1px 5px; border-radius: 5px; font-size: 10.5px; margin-right: 4px; }
+@media (max-width: 640px) { div.st-key-dhpr_head { display: none; } }
