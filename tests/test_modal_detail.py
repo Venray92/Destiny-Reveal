@@ -160,3 +160,26 @@ def test_ui22_faq_unlock_prices():
 def test_ui22_blog_posts():
     from components.help_modals import _BLOG_POSTS, _BLOG_CATS
     assert len(_BLOG_POSTS) == 5 and len(_BLOG_CATS) == 9
+
+
+# ---- UI23 ----
+def test_ui23_solo_systems_and_price():
+    from components.solo_reveal import SYSTEMS, SOLO_PRICE, DIALOGS
+    assert SOLO_PRICE == 150 and len(SYSTEMS) == 15 and len({n for n, _i, _k in SYSTEMS}) == 15
+    assert [n for n, _i, k in SYSTEMS if k == "quiz"] == ["MBTI", "Big Five", "Enneagram", "DISC", "Love Language"]
+    assert "solo" in DIALOGS
+
+
+def test_ui23_solo_result_has_six_sections():
+    from datetime import date
+    from components.modal_detail import build_detail
+    from content.result_builder import compute_raw_result
+    d = build_detail("Zodiak", compute_raw_result("Zodiak", {"tanggal_lahir": date(1992, 12, 5)}))
+    assert d and len(d["sections"]) == 6
+
+
+def test_ui23_premium_card_no_old_buttons():
+    import inspect
+    from components import sections
+    src = inspect.getsource(sections)
+    assert 'modal="solo"' in src and "dhexplore_koin_btn" not in src and "dhexplore_vip_btn" not in src
