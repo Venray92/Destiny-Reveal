@@ -1500,3 +1500,39 @@ div.st-key-dhpr_bp_ket [data-testid="stColumn"]:last-child { flex: 0 0 auto !imp
 .dh-sk-pop .dh-sk-pophead { font-weight: 800; color: #2D2A26; margin-bottom: 4px; }
 .dh-sk-ti:hover .dh-sk-pop, .dh-sk-ti:focus .dh-sk-pop, .dh-sk-ti:focus-within .dh-sk-pop { display: block; }
 @media (max-width: 640px) { .dh-pr-refcards .dh-pr-pop { left: 0; width: 250px; } .dh-sk-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+
+/* ===== UI21: Streak & Reward (box Week klik, tombol compact), halaman Bantuan ===== */
+.dh-sk-info { text-align: left !important; }
+.dh-sk-info .dh-sk-ti { text-align: left; }
+.dh-sk-pop { left: 0 !important; transform: none !important; }
+[data-testid="stDialog"] .st-key-dhsk_weeks div.stButton > button { height: 84px !important; padding: 8px 4px !important; border-radius: 12px !important; background: #FAF6F0 !important; border: 1px solid #E8E0D5 !important; box-shadow: none !important; line-height: 1.5; transition: transform .2s, border-color .2s, box-shadow .2s; }
+[data-testid="stDialog"] .st-key-dhsk_weeks div.stButton > button p { text-align: center; font-size: 11px !important; line-height: 1.55 !important; color: #8B8378 !important; margin: 0; }
+[data-testid="stDialog"] .st-key-dhsk_weeks div.stButton > button strong { color: #2D2A26 !important; font-size: 12.5px; }
+[data-testid="stDialog"] .st-key-dhsk_weeks div.stButton > button:last-child strong:last-of-type { color: #C8633B !important; }
+[data-testid="stDialog"] .st-key-dhsk_weeks div.stButton > button[kind="primary"] { background: #FDF3E4 !important; border: 1.5px solid #C8633B !important; cursor: pointer; }
+[data-testid="stDialog"] .st-key-dhsk_weeks div.stButton > button[kind="primary"]:hover { transform: translateY(-3px); box-shadow: 0 8px 16px -10px rgba(200,99,59,.6) !important; }
+[data-testid="stDialog"] .st-key-dhsk_weeks div.stButton > button:disabled { opacity: .75; cursor: not-allowed; }
+.st-key-dhsk_cta { align-items: center; } .st-key-dhsk_cta div.stButton { display: flex; justify-content: center; width: 100%; }
+[data-testid="stDialog"] .st-key-dhsk_cta div.stButton > button { width: fit-content !important; min-width: 220px; max-width: 280px; padding: 0 28px !important; height: 46px !important; border-radius: 100px !important; background: #C85A32 !important; border: 0 !important; margin: 0 auto; }
+[data-testid="stDialog"] .st-key-dhsk_cta div.stButton > button * { color: #fff !important; font-weight: 700 !important; }
+[data-testid="stDialog"] .st-key-dhsk_cta div.stButton > button:disabled { background: #B9B0A4 !important; opacity: 1; }
+@media (max-width: 640px) { [data-testid="stDialog"] .st-key-dhsk_weeks [data-testid="stHorizontalBlock"] { flex-wrap: wrap; } [data-testid="stDialog"] .st-key-dhsk_weeks [data-testid="stColumn"] { min-width: calc(50% - 8px) !important; } }
+.dh-hp-h1 { font-family: 'Playfair Display', serif; font-size: 27px; font-weight: 700; color: #2D2A26; margin: 2px 0 6px; }
+.dh-hp-h2 { font-size: 12.5px; font-weight: 800; letter-spacing: .06em; color: #C25E00; margin: 18px 0 8px; }
+.dh-hp-h3 { font-size: 13.5px; font-weight: 800; color: #2D2A26; margin-bottom: 6px; }
+.dh-hp-lead { font-size: 13px; color: #6B635A; margin: 0 0 12px; }
+.dh-hp-upd { font-size: 11.5px; color: #8B8378; margin-bottom: 12px; }
+.dh-hp-sec, .dh-hp-card { background: #FAF7F2; border: 1px solid #E8E0D5; border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }
+.dh-hp-sec p, .dh-hp-sec li, .dh-hp-card li { font-size: 12.5px; line-height: 1.65; color: #3A3631; }
+.dh-hp-sec p { margin: 0 0 8px; } .dh-hp-sec ul, .dh-hp-card ul { margin: 0 0 8px; padding-left: 18px; }
+.dh-hp-card ul { list-style: none; padding: 0; }
+.dh-hp-card li { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; flex-wrap: wrap; }
+.dh-hp-card li span { color: #8B8378; } .dh-hp-card li b { color: #2D2A26; word-break: break-all; text-align: right; }
+.dh-hp-ct { font-size: 12.5px; font-weight: 800; color: #2D2A26; margin-bottom: 6px; }
+.dh-hp-note { font-size: 11px; color: #8B8378; font-style: italic; margin-top: 4px; }
+[data-testid="stDialog"] [data-testid="stExpander"] { background: #FAF7F2; border: 1px solid #E8E0D5 !important; border-radius: 12px; margin-bottom: 8px; }
+[data-testid="stDialog"] [data-testid="stExpander"] summary p { font-size: 13px; font-weight: 700; color: #2D2A26; }
+[data-testid="stDialog"] [data-testid="stExpander"] li, [data-testid="stDialog"] [data-testid="stExpander"] p { font-size: 12.5px; line-height: 1.6; color: #3A3631; }
+.st-key-dhsk_cta { margin-top: 14px; }
+[data-testid="stDialog"] [data-testid="stFormSubmitButton"] button[kind="primaryFormSubmit"], [data-testid="stDialog"] [data-testid="stFormSubmitButton"] button { background: #C85A32 !important; border: 0 !important; border-radius: 100px !important; height: 46px !important; }
+[data-testid="stDialog"] [data-testid="stFormSubmitButton"] button * { color: #fff !important; font-weight: 700 !important; }
