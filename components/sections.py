@@ -275,7 +275,7 @@ def render_explore():
     with ec3:
         with st.container(key="dhexplore_card_lainnya"):
             st.markdown(
-                _head("✨", "#f3eefc", "LAINNYA", "Referral, wawasan &amp; bantuan pengguna")
+                _head('<svg class="dh-spark-blue" width="22" height="22" viewBox="0 0 24 24" fill="#3B6FD4"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>', "#eef2fb", "LAINNYA", "Referral, wawasan &amp; bantuan pengguna")
                 + _item("🎁 Program Referral &amp; Affiliate", "Komisi 10-30% + Bonus Milestone VIP", arrow, modal="pricing_ref")
                 + _item("Tutorial", "Panduan pakai website &amp; cara baca hasil", arrow, modal="tutorial")
                 + _item("Blog", "Artikel tentang self-discovery &amp; potensi diri", arrow, modal="blog")

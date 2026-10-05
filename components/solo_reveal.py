@@ -12,7 +12,7 @@ from urllib.parse import quote as urlquote
 import streamlit as st
 
 from components import auth
-from components.dialog_bus import request_open
+from components.dialog_bus import request_open, request_with_return
 from utils.simple_pdf import make_pdf
 from components.modal_detail import build_detail, copy_button
 from content.questionnaires.big_five_soal import BIG_FIVE_QUESTIONS
@@ -337,10 +337,10 @@ def _render_pay():
             if not u:
                 if st.button("Masuk / Daftar untuk Bayar →", key="dhso_p_login", type="primary",
                              use_container_width=True):
-                    request_open("auth")
+                    request_with_return("auth", "solo")
             elif sisa < 0:
                 if st.button("Top-up Stardust →", key="dhso_p_topup", type="primary", use_container_width=True):
-                    request_open("pricing_keep", dh_pr_tab="koin")
+                    request_with_return("pricing_keep", "solo", dh_pr_tab="koin")
             else:
                 st.button(f"Bayar {SOLO_PRICE} Stardust →", key="dhso_p_pay", type="primary",
                           use_container_width=True, on_click=_cb_pay)

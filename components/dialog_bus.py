@@ -17,3 +17,9 @@ def request_open(name, **state):
 
 def pop_pending():
     return st.session_state.pop("dh_open_dialog", None)
+
+
+def request_with_return(name, back, **state):
+    """Buka dialog `name` (login/top-up) lalu balik ke dialog `back` setelah selesai (data form tetap)."""
+    st.session_state.dh_return_to = back
+    request_open(name, **state)

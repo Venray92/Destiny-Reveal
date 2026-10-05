@@ -167,6 +167,13 @@ def render_navbar(current_page):
             components.html(_BRIDGE_JS, height=0)
     auth.reopen_if_pending()  # habis login -> profil
     _pend = dialog_bus.pop_pending()  # dialog lain minta buka dialog baru
+    _ss = st.session_state
     if _pend:
+        # Top-up dari modal scan: simpan tujuan balik, buka lagi setelah modal harga ditutup
+        _ss.dh_return_armed = _pend == "pricing_keep" and bool(_ss.get("dh_return_to"))
         {**_ALL_DIALOGS, **_BUS_ONLY}[_pend]()
+    elif _ss.pop("dh_return_armed", False) and _ss.get("dh_return_to"):
+        _back = _ss.pop("dh_return_to")
+        if _back in _ALL_DIALOGS:
+            _ALL_DIALOGS[_back]()
     reopen_if_pending()  # balik ke Modal Hasil setelah sub-modal detail ditutup (X/backdrop)

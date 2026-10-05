@@ -195,95 +195,10 @@ def _open_history(i):
     st.rerun()  # rerun penuh: profil nutup, Modal Hasil kebuka (navbar.reopen_if_pending)
 
 
-@st.dialog("Profil", width="small")
 def profile_dialog():
-    ss = st.session_state
-    u = current_user()
-    if not u:
-        st.rerun()
-    init = (u["nama"][:2] or "U").upper()
-    st.markdown('<div class="dh-step dh-step-profile"></div>', unsafe_allow_html=True)
-    ua, ub = st.columns([1.35, 1], gap="small", vertical_alignment="center")
-    with ua:
-        st.markdown(
-            f'<div class="dh-pf-user"><div class="dh-pf-av">{init}</div><div><div class="dh-pf-name">{u["nama"]}'
-            f'<span>Terverifikasi</span></div><div class="dh-pf-mail">{u["email"]} · Anggota sejak {u["joined"]}</div></div></div>',
-            unsafe_allow_html=True)
-    with ub:
-        with st.container(key="dhpf_coin"):
-            c1, c2 = st.columns([0.85, 1.25], gap="small", vertical_alignment="bottom")
-            with c1:
-                st.markdown(f'<div class="dh-pf-coinl">SALDO STARDUST</div><div class="dh-pf-coinv">✨ <b>{u["koin"]}</b> '
-                            '<span>SD</span></div>', unsafe_allow_html=True)
-            with c2:
-                if st.button("➕ Top Up", key="dhpf_topup", type="primary"):
-                    request_open("pricing_keep", dh_pr_tab="koin")
-    st.markdown('<div class="dh-pf-line"></div>', unsafe_allow_html=True)
-
-    ref = u["ref"]
-    link = f"https://destiny-reveal.streamlit.app/?ref={ref}"
-    with st.container(key="dhpf_ref"):
-        st.markdown(
-            '<div class="dh-pf-refhead"><b>🎁 ID Referral Khusus Kamu</b><span>User Biasa</span></div>'
-            '<div class="dh-pf-refsub">Dibuat khusus setelah emailmu terverifikasi. Bagikan ke teman untuk dapat komisi &amp; VIP gratis.</div>',
-            unsafe_allow_html=True)
-        with st.container(key="dhpf_codebox"):
-            c1, c2, c3 = st.columns([1.45, 0.95, 1.6], gap="small", vertical_alignment="center")
-            with c1:
-                st.markdown(f'<div class="dh-pf-codel">KODE REFERRAL PRIBADI:</div><div class="dh-pf-code">{ref}</div>',
-                            unsafe_allow_html=True)
-            with c2:
-                copy_button(ref, "📋 Salin Kode", "dhpf_cp1", fs=11)
-            with c3:
-                copy_button(link, "🔗 Salin Link Undangan", "dhpf_cp2", fs=11)
-        st.markdown(
-            '<div class="dh-pf-prog"><div class="dh-pf-proghead"><span>Progress Milestone: <b>0 / 10 Teman</b> menuju '
-            '<b>VIP 1 Bulan Gratis</b></span><b>0%</b></div><div class="dh-pf-bar"><i></i></div>'
-            '<div class="dh-pf-ms"><div><b>10 Referral</b><span>VIP 1 Bulan</span></div>'
-            '<div><b>50 Referral</b><span>VIP 1 Tahun</span></div>'
-            '<div><b>100 Referral</b><span>Lifetime VIP 👑</span></div></div>'
-            '<div class="dh-pf-comm"><span>Komisi User Biasa: 10–15% · Affiliate: 20–30% · Recurring: 10–15%</span>'
-            '<a>Detail Komisi Lengkap →</a></div></div>', unsafe_allow_html=True)
-
-    hist = ss.get("dh_history", [])
-    h1, h2 = st.columns([3, 1], vertical_alignment="center")
-    with h1:
-        st.markdown(f'<div class="dh-pf-sec">⏱️ RIWAYAT PEMBACAAN TAKDIR ({len(hist)})</div>', unsafe_allow_html=True)
-    with h2:
-        with st.container(key="dhpf_newscan"):
-            if st.button("+ Scan Baru", key="dhpf_newscan_btn"):
-                st.session_state.dh_open_reveal = True
-                st.rerun()
-    if not hist:
-        st.markdown('<div class="dh-pf-empty">Belum ada pembacaan. Mulai Reveal pertamamu lewat “+ Scan Baru”.</div>',
-                    unsafe_allow_html=True)
-    for i, h in enumerate(hist[:5]):
-        with st.container(key=f"dhpf_h{i}"):
-            a, b = st.columns([3.2, 1], vertical_alignment="center")
-            with a:
-                st.markdown(f'<div class="dh-pf-hn"><b>{h["nama"]}</b><em>Mode 1 (5 Kelahiran)</em></div>'
-                            f'<div class="dh-pf-hw">🗓️ {h["waktu"]}</div>'
-                            f'<div class="dh-pf-ht">{" · ".join(h["tags"])}</div>', unsafe_allow_html=True)
-            with b:
-                if st.button("Buka Hasil →", key=f"dhpf_open{i}"):
-                    _open_history(i)
-    st.markdown('<div class="dh-pf-line"></div>', unsafe_allow_html=True)
-    f1, f2, f3, f4 = st.columns([1.8, 1.25, 1.35, 0.8], gap="small", vertical_alignment="center")
-    with f1:
-        st.markdown('<div class="dh-pf-priv">Data takdirmu terlindungi aman secara enkripsi privat.</div>',
-                    unsafe_allow_html=True)
-    with f2:
-        with st.container(key="dhpf_price"):
-            if st.button("List Harga & VIP", key="dhpf_pricebtn"):
-                request_open("pricing_keep", dh_pr_tab="semua")
-    with f3:
-        with st.container(key="dhpf_logout"):
-            if st.button("🚪 Keluar Akun", key="dhpf_logoutbtn"):
-                _cb_logout()
-    with f4:
-        with st.container(key="dhpf_close"):
-            if st.button("Tutup", key="dhpf_closebtn"):
-                st.rerun()
+    """Modal profil ada di components/profile.py (UI26); import di sini supaya tidak sirkular."""
+    from components.profile import profile_dialog as _dlg
+    _dlg()
 
 
 # ─────────────── dialog masuk (email -> OTP) ───────────────
@@ -311,6 +226,10 @@ def open_auth():
 def reopen_if_pending():
     """Dipanggil di akhir navbar: habis login berhasil, buka profil."""
     if st.session_state.pop("dh_auth_done", False) and current_user():
-        profile_dialog()
+        back = st.session_state.pop("dh_return_to", None)
+        if back:  # login datang dari modal scan -> balik ke modal itu, bukan profil
+            st.session_state.dh_open_dialog = back
+        else:
+            profile_dialog()
     elif st.session_state.pop("dh_open_profile", False) and current_user():
         profile_dialog()

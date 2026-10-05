@@ -13,7 +13,7 @@ from datetime import date
 import streamlit as st
 
 from components import auth
-from components.dialog_bus import request_open
+from components.dialog_bus import request_with_return
 from components.modal_detail import copy_button
 from components.solo_reveal import _profile
 from content.result_builder import compute_raw_result
@@ -22,12 +22,12 @@ from utils.simple_pdf import make_pdf
 PRICE = 100  # Stardust per sistem
 SYSTEMS = ["Zodiak", "Shio", "Weton", "Numerologi"]
 _ICON = {"Zodiak": "♈", "Shio": "🐉", "Weton": "🗓️", "Numerologi": "🔢"}
-_TIP = {
-    "Zodiak": "Zodiak: membaca kecocokan lewat elemen & sifat rasi bintang. Cocok untuk melihat chemistry dan gaya komunikasi.",
-    "Shio": "Shio: membaca kecocokan lewat siklus 12 hewan (trine, harmoni, bentrok). Kuat untuk melihat 'klik' alami dua orang.",
-    "Weton": "Weton: menjumlah neptu hari + pasaran Jawa. Paling dikenal untuk menilai jodoh, rezeki, dan ketahanan hubungan.",
-    "Numerologi": "Numerologi: membandingkan Life Path dari tanggal lahir. Bagus untuk melihat ritme hidup dan tujuan bersama.",
-}
+_INFO = [
+    ("♈", "Zodiak", "Membaca chemistry & gaya komunikasi lewat elemen rasi bintang."),
+    ("🐉", "Shio", "Membaca dinamika karakter & energi berdasarkan tahun kelahiran."),
+    ("🗓️", "Weton", "Membaca kecocokan spiritual, rezeki, & garis nasib tradisi Jawa."),
+    ("🔢", "Numerologi", "Membaca frekuensi angka takdir & pola hubungan secara logis."),
+]
 RELATIONS = ["Asmara / Pasangan", "Mitra Bisnis / Rekan Kerja", "Persahabatan", "Keluarga"]
 GENDERS = ["Perempuan", "Laki-laki", "Lainnya / Tidak ingin menyebut"]
 LOADING_SEC = 2.2
@@ -213,6 +213,8 @@ def _cb_fill_me():
             ss.dhcp_a_tgl = prof["tgl"]
         ss.dhcp_a_jam = prof.get("jam")
         ss.dhcp_a_kota = prof.get("kota", "")
+        if prof.get("gender") in GENDERS:
+            ss.dhcp_a_gender = prof["gender"]
         ss.dh_cp_err = None
     else:
         ss.dh_cp_err = "Profil akunmu belum punya data lahir. Isi tanggal lahir manual, atau lakukan scan Reveal Dirimu dulu."
@@ -297,41 +299,46 @@ def _render_select():
             with col:
                 st.button(f"{i} Sistem  \n**{PRICE * i} ✨**", key=f"dhcp_n{i}", on_click=_cb_count, args=(i,),
                           type="primary" if n == i else "secondary", use_container_width=True)
-    st.markdown(f'<div class="dh-cp-lab">2. Pilih {n} sistem <span class="dh-cp-cnt">{len(sel)}/{n} terpilih</span></div>',
-                unsafe_allow_html=True)
+    lc, ic, _sp, cc = st.columns([2.1, 0.8, 2.6, 2.2], gap="small", vertical_alignment="center")
+    with lc:
+        st.markdown(f'<div class="dh-cp-lab" style="margin:0">2. Pilih {n} Sistem</div>', unsafe_allow_html=True)
+    with ic:
+        with st.container(key="dhcp_info"):
+            with st.popover("ⓘ", help=None):
+                st.markdown('<div class="dh-cp-pop"><b>Beda ke-4 sistem</b>' + "".join(
+                    f'<div><span>{i}</span><p><b>{_e(n_)}:</b> {_e(d)}</p></div>' for i, n_, d in _INFO) + '</div>',
+                    unsafe_allow_html=True)
+    with cc:
+        st.markdown(f'<div class="dh-cp-cnt" style="text-align:center">{len(sel)}/{n} terpilih</div>', unsafe_allow_html=True)
     with st.container(key="dhcp_sys"):
         for r in range(0, len(SYSTEMS), 2):
             cols = st.columns(2, gap="small")
             for col, name in zip(cols, SYSTEMS[r:r + 2]):
                 with col:
-                    st.button(f"{_ICON[name]}  **{name}**  ⓘ", key=f"dhcp_s_{name}", on_click=_cb_toggle, args=(name,),
-                              type="primary" if name in sel else "secondary", use_container_width=True, help=_TIP[name])
-    st.markdown('<div class="dh-cp-hint">ⓘ Arahkan kursor (atau tap) pada nama sistem untuk melihat perbedaan dan keunggulannya.</div>',
-                unsafe_allow_html=True)
+                    st.button(f"{_ICON[name]}  **{name}**", key=f"dhcp_s_{name}", on_click=_cb_toggle, args=(name,),
+                              type="primary" if name in sel else "secondary", use_container_width=True)
+    st.markdown('<div class="dh-cp-hint">Klik ⓘ di samping judul untuk melihat perbedaan ke-4 sistem.</div>', unsafe_allow_html=True)
     _err()
     with st.container(key="dhcp_cta"):
         st.button(f"Lanjut →  ({PRICE * n} ✨)", key="dhcp_next", type="primary", use_container_width=True, on_click=_cb_next)
 
 
-def _side(side, title, u):
-    st.markdown(f'<div class="dh-cp-side">{title}</div>', unsafe_allow_html=True)
-    if side == "a" and u:
-        with st.container(key="dhcp_me"):
-            st.button(f"👤 Pakai data profil: {u.get('nama', 'Saya')}", key="dhcp_fill", on_click=_cb_fill_me,
-                      use_container_width=True)
-    st.text_input("Nama Lengkap", placeholder="Contoh: Rina Anggraini", key=f"dhcp_{side}_nama")
-    st.date_input("Tanggal Lahir", value=None, min_value=date(1900, 1, 1), max_value=date.today(),
-                  format="DD/MM/YYYY", key=f"dhcp_{side}_tgl")
-    st.time_input("Jam Lahir (Opsional)", value=None, key=f"dhcp_{side}_jam")
-    st.text_input("Tempat Lahir (Opsional)", placeholder="Contoh: Jakarta", key=f"dhcp_{side}_kota")
-    st.selectbox("Jenis Kelamin", GENDERS, index=None, placeholder="Pilih", key=f"dhcp_{side}_gender")
+def _side(side, title):
+    with st.container(key=f"dhcp_card_{side}"):
+        st.markdown(f'<div class="dh-cp-side">{title}</div>', unsafe_allow_html=True)
+        st.text_input("Nama Lengkap", placeholder="Contoh: Rina Anggraini", key=f"dhcp_{side}_nama")
+        st.date_input("Tanggal Lahir", value=None, min_value=date(1900, 1, 1), max_value=date.today(),
+                      format="DD/MM/YYYY", key=f"dhcp_{side}_tgl")
+        st.time_input("Jam Lahir (Opsional)", value=None, key=f"dhcp_{side}_jam")
+        st.text_input("Tempat Lahir (Opsional)", placeholder="Contoh: Jakarta", key=f"dhcp_{side}_kota")
+        st.selectbox("Jenis Kelamin", GENDERS, index=None, placeholder="Pilih", key=f"dhcp_{side}_gender")
 
 
 _FORM_KEYS = [f"dhcp_{x}_{f}" for x in "ab" for f in ("nama", "tgl", "jam", "kota", "gender")] + ["dhcp_rel"]
 
 
 def _restore():
-    """Widget yang tidak tampil (mis. pindah ke modal login) kehilangan isinya -> pulihkan dari salinan."""
+    """Widget yang tidak tampil (mis. pindah ke modal login/top-up) kehilangan isinya -> pulihkan dari salinan."""
     ss = st.session_state
     for k in _FORM_KEYS:
         if k not in ss and ("_sv_" + k) in ss:
@@ -355,11 +362,15 @@ def _render_form():
     _stepper(1)
     st.markdown('<div class="dh-cp-chips">' + "".join(f'<span>{_ICON[s]} {_e(s)}</span>' for s in systems) + '</div>',
                 unsafe_allow_html=True)
+    if u:
+        with st.container(key="dhcp_me"):
+            st.button(f"👤 Pakai data profil: {u.get('nama', 'Saya')}", key="dhcp_fill", on_click=_cb_fill_me,
+                      use_container_width=True)
     c1, c2 = st.columns(2, gap="medium")
     with c1:
-        _side("a", "Pihak Pertama", u)
+        _side("a", "Pihak Pertama")
     with c2:
-        _side("b", "Pihak Kedua", u)
+        _side("b", "Pihak Kedua")
     st.selectbox("Tipe Hubungan", RELATIONS, index=None, placeholder="Pilih tipe hubungan", key="dhcp_rel")
     _save()
     if not u:
@@ -375,10 +386,10 @@ def _render_form():
         with st.container(key="dhcp_cta"):
             if not u:
                 if st.button("Masuk / Daftar untuk Bayar →", key="dhcp_login", type="primary", use_container_width=True):
-                    request_open("auth")
+                    request_with_return("auth", "compat")
             elif u["koin"] < cost:
                 if st.button("Top-up Stardust →", key="dhcp_topup", type="primary", use_container_width=True):
-                    request_open("pricing_keep", dh_pr_tab="koin")
+                    request_with_return("pricing_keep", "compat", dh_pr_tab="koin")
             else:
                 st.button(f"Hitung Sinergi Pasangan ({cost} ✨)", key="dhcp_go", type="primary",
                           use_container_width=True, on_click=_cb_go)

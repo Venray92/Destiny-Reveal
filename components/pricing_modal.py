@@ -239,7 +239,7 @@ def _sec_ref():
 
 
 # ─────────────── dialog ───────────────
-@st.dialog("Daftar Harga & Benefit VIP", width="large")
+@st.dialog("Daftar Harga & Benefit VIP", width="large", on_dismiss="rerun")
 def pricing_dialog():
     ss = st.session_state
     _top(login_link=False, key="pr")
