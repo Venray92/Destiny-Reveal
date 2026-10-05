@@ -1442,3 +1442,28 @@ div.st-key-dhpr_info button svg { display: none; }
 .dh-pr-tip b { color: #C25E00; width: 14px; flex: none; }
 .dh-pr-tip code { background: #FAF6F0; color: #8B6B3A; padding: 1px 5px; border-radius: 5px; font-size: 10.5px; margin-right: 4px; }
 @media (max-width: 640px) { div.st-key-dhpr_head { display: none; } }
+
+/* ===== UI19: info Deep Blueprint inline + Referral baru ===== */
+div.st-key-dhpr_bp_ket [data-testid="stHorizontalBlock"] { gap: 6px !important; flex-wrap: nowrap !important; align-items: center !important; }
+div.st-key-dhpr_bp_ket [data-testid="stColumn"] { flex: 0 1 auto !important; width: auto !important; min-width: 0 !important; }
+div.st-key-dhpr_bp_ket [data-testid="stColumn"]:last-child { flex: 0 0 auto !important; }
+.dh-pr-refcards div { display: flex; flex-direction: column; gap: 2px; }
+.dh-pr-refcards u { text-decoration: none; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 13.5px; color: #2D2A26; margin-top: 2px; }
+.dh-pr-refcards b { font-size: 18px; margin: 0; }
+.dh-pr-mssub { font-size: 11px; color: #6B635A; margin: -3px 0 10px; line-height: 1.45; }
+.dh-pr-msgrid { grid-template-columns: repeat(2, 1fr) !important; }
+.dh-pr-msgrid > div { justify-content: space-between; }
+.dh-pr-msgrid span { font-size: 11.5px; font-weight: 700; color: #2D2A26; }
+.dh-pr-msgrid i { font-size: 12px; }
+.dh-pr-msgrid b { font-size: 11.5px !important; color: #C25E00 !important; margin: 0 !important; display: inline !important; }
+.dh-pr-tierhead { font-size: 11px; font-weight: 800; letter-spacing: .06em; color: #6B635A; margin: 14px 0 8px; }
+.dh-pr-tiers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 14px; padding: 8px 2px 4px; }
+.dh-pr-tier { background: #FFFFFF; border: 1px solid #E8E0D5; border-radius: 14px; padding: 12px 6px 10px; display: flex; flex-direction: column; align-items: center; gap: 3px; text-align: center; cursor: pointer; transition: transform .2s ease, border-color .2s, background .2s, box-shadow .2s; min-height: 98px; }
+.dh-pr-tier i { font-style: normal; font-size: 20px; line-height: 1.2; }
+.dh-pr-tier b { font-size: 12.5px; color: #2D2A26; }
+.dh-pr-tier em { font-style: normal; font-size: 11.5px; font-weight: 700; color: #C25E00; }
+.dh-pr-tier small { font-size: 10px; color: #8B8378; margin-top: auto; }
+.dh-pr-tier s { text-decoration: none; margin-top: auto; background: #C85A32; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 10px; border-radius: 100px; }
+.dh-pr-tier.on { border: 1.5px solid #C85A32; background: #FDF3DF; }
+.dh-pr-tier:hover { border-color: #C85A32; background: #FDF3E4; transform: translateY(-3px); box-shadow: 0 8px 16px -10px rgba(200,90,50,.6); }
+@media (max-width: 640px) { .dh-pr-tiers { display: flex; overflow-x: auto; padding-bottom: 8px; } .dh-pr-tier { flex: 0 0 96px; } .dh-pr-refcards { grid-template-columns: 1fr; } }
