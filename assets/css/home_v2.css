@@ -1561,3 +1561,46 @@ div[data-baseweb="popover"] li:hover { background: #FFF3ED !important; }
 .dh-hp-post { display: flex; gap: 12px; background: #FAF7F2; border: 1px solid #E8E0D5; border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; }
 .dh-hp-pn { flex: none; width: 28px; height: 28px; border-radius: 8px; background: #FFF3ED; color: #C85A32; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 13px; }
 .dh-hp-post b { display: block; font-size: 13.5px; color: #2D2A26; line-height: 1.45; } .dh-hp-post em { display: block; font-size: 11px; color: #8B8378; font-style: normal; margin: 3px 0 5px; } .dh-hp-post p { font-size: 12.5px; line-height: 1.6; color: #3A3631; margin: 0; }
+
+/* ===== UI23: Solo Reveal ===== */
+[data-testid="stDialog"]:has(.dh-step-solo) { background: rgba(253,251,247,.45) !important; backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important; }
+[data-testid="stDialog"] > div:has(.dh-step-solo) { width: min(660px, 94vw) !important; max-width: 660px !important; border-radius: 22px !important; background: #FFFFFF !important; box-shadow: 0 30px 70px -25px rgba(122,62,29,.35) !important; }
+[data-testid="stDialog"]:has(.dh-step-solo) button[aria-label="Close"] { border-radius: 50% !important; transition: background .2s, transform .2s; }
+[data-testid="stDialog"]:has(.dh-step-solo) button[aria-label="Close"]:hover { background: #FFF3ED !important; transform: rotate(90deg); }
+.dh-so-head { display: flex; align-items: center; gap: 10px; }
+.dh-so-ico { font-size: 22px; } .dh-so-brand { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #2D2A26; letter-spacing: .02em; }
+.dh-so-hsub { font-size: 11.5px; color: #8B8378; } .dh-so-line { height: 1px; background: #EFE7DC; margin: 12px 0 14px; }
+.dh-so-h2 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #2D2A26; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.dh-so-pill { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; font-weight: 700; color: #C85A32; background: #FFF3ED; border: 1px solid #F0CDB8; border-radius: 100px; padding: 4px 12px; }
+.dh-so-sub { font-size: 12.5px; color: #6B635A; line-height: 1.55; margin: 6px 0 12px; } .dh-so-acc { color: #C85A32 !important; }
+.dh-so-prof { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; background: #FAF7F2; border: 1px solid #E8E0D5; border-radius: 12px; padding: 11px 14px; font-size: 12.5px; color: #6B635A; margin-bottom: 14px; }
+.dh-so-prof i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #7FB08A; margin-right: 8px; } .dh-so-prof b { color: #2D2A26; }
+.dh-so-bal { color: #C85A32; font-weight: 700; }
+.dh-so-sec2 { display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 800; letter-spacing: .05em; color: #C25E00; margin: 4px 0 6px; } .dh-so-sec2 em { font-style: normal; font-weight: 600; color: #8B8378; }
+.dh-so-label { font-size: 12px; color: #8B8378; margin: 10px 0 8px; }
+[data-testid="stDialog"] .st-key-dhso_grid div.stButton > button { height: 74px !important; border-radius: 12px !important; background: #FAF7F2 !important; border: 1px solid #E8E0D5 !important; box-shadow: none !important; padding: 6px 2px !important; transition: transform .2s, border-color .2s, box-shadow .2s, background .2s; }
+[data-testid="stDialog"] .st-key-dhso_grid div.stButton > button p { text-align: center; font-size: 11.5px !important; line-height: 1.5 !important; color: #2D2A26 !important; margin: 0; }
+[data-testid="stDialog"] .st-key-dhso_grid div.stButton > button:hover { transform: translateY(-3px); border-color: #C85A32 !important; background: #FFF8F2 !important; box-shadow: 0 10px 18px -12px rgba(200,90,50,.7) !important; }
+[data-testid="stDialog"] .st-key-dhso_grid div.stButton > button[kind="primary"] { background: #FFF3ED !important; border: 1.5px solid #C85A32 !important; }
+@media (max-width: 640px) { [data-testid="stDialog"] .st-key-dhso_grid [data-testid="stHorizontalBlock"] { flex-wrap: wrap; gap: .4rem !important; } [data-testid="stDialog"] .st-key-dhso_grid [data-testid="stColumn"] { min-width: 0 !important; flex: 0 0 calc(33.333% - .4rem) !important; max-width: calc(33.333% - .4rem) !important; } }
+[data-testid="stDialog"] .st-key-dhso_cta div.stButton > button { background: #C85A32 !important; border: 0 !important; border-radius: 100px !important; height: 48px !important; box-shadow: 0 8px 16px -8px rgba(200,90,50,.6) !important; transition: transform .2s, background .2s; }
+[data-testid="stDialog"] .st-key-dhso_cta div.stButton > button:hover:not(:disabled) { background: #B24E28 !important; transform: translateY(-2px); }
+[data-testid="stDialog"] .st-key-dhso_cta div.stButton > button * { color: #fff !important; font-weight: 700 !important; }
+[data-testid="stDialog"] .st-key-dhso_back div.stButton > button, [data-testid="stDialog"] [class*="st-key-dhso_"] [data-testid="stLinkButton"] a { background: #fff !important; border: 1px solid #E2D9CE !important; border-radius: 100px !important; height: 46px !important; transition: background .2s, border-color .2s; }
+[data-testid="stDialog"] .st-key-dhso_back div.stButton > button:hover { background: #FFF3ED !important; border-color: #C85A32 !important; }
+[data-testid="stDialog"] .st-key-dhso_back div.stButton > button * { color: #5C4A3A !important; font-weight: 700 !important; font-size: 12.5px !important; }
+.dh-so-box { background: linear-gradient(180deg,#FFFDF9,#FDF5E7); border: 1px solid #F0E3CB; border-radius: 14px; padding: 4px 16px; margin: 10px 0 14px; }
+.dh-so-row { display: flex; justify-content: space-between; gap: 10px; padding: 12px 0; border-bottom: 1px solid #F0E7D8; font-size: 12.5px; color: #8B8378; } .dh-so-row b { color: #2D2A26; text-align: right; }
+.dh-so-last { border-bottom: 0; } .dh-so-big { font-size: 16px; }
+.dh-so-note { border-radius: 10px; padding: 11px 14px; font-size: 12.5px; margin-bottom: 14px; } .dh-so-note.ok { background: #EAF3EC; color: #4A6B53; border: 1px solid #CFE2D3; } .dh-so-note.bad { background: #FFF3ED; color: #9A4524; border: 1px solid #F0CDB8; }
+.dh-so-q { font-size: 13px; font-weight: 700; color: #2D2A26; line-height: 1.5; margin: 12px 0 2px; }
+.dh-so-banner { background: linear-gradient(135deg,#FFF8EE,#FDEBDD); border: 1px solid #F0DCC6; border-radius: 16px; padding: 16px 18px; margin-bottom: 12px; }
+.dh-so-eyebrow { font-size: 10.5px; font-weight: 800; letter-spacing: .08em; color: #C85A32; } .dh-so-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #2D2A26; margin: 4px 0; line-height: 1.25; }
+.dh-so-bsub { font-size: 12.5px; color: #6B635A; } .dh-so-quote { margin-top: 8px; font-size: 12.5px; font-style: italic; color: #7A3E1D; }
+.dh-so-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; } .dh-so-chip { background: #fff; border: 1px solid #E8E0D5; border-radius: 100px; padding: 5px 12px; font-size: 11.5px; color: #6B635A; } .dh-so-chip b { color: #2D2A26; }
+.dh-so-card { background: #fff; border: 1px solid #E8E0D5; border-radius: 14px; padding: 16px 18px; margin-bottom: 12px; transition: box-shadow .2s, border-color .2s; }
+.dh-so-card:hover { box-shadow: 0 10px 24px -16px rgba(122,62,29,.4); border-color: #F0CDB8; }
+.dh-so-ct { display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #2D2A26; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #EFE7DC; }
+.dh-so-ct span { width: 32px; height: 32px; border-radius: 9px; background: #FAF7F2; display: inline-flex; align-items: center; justify-content: center; font-size: 15px; }
+.dh-so-card p { font-size: 13px; line-height: 1.7; color: #2D2A26; margin: 0 0 9px; } .dh-so-card p:nth-of-type(n+2) { color: #6B635A; } .dh-so-card p.dh-so-empty { color: #A59C90; font-style: italic; }
+[data-testid="stDialog"] .st-key-dhso_grid div.stButton > button[kind="primary"] p, [data-testid="stDialog"] .st-key-dhso_grid div.stButton > button[kind="primary"] * { color: #B24E28 !important; font-weight: 800 !important; }
