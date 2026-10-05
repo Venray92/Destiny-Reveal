@@ -1536,3 +1536,28 @@ div.st-key-dhpr_bp_ket [data-testid="stColumn"]:last-child { flex: 0 0 auto !imp
 .st-key-dhsk_cta { margin-top: 14px; }
 [data-testid="stDialog"] [data-testid="stFormSubmitButton"] button[kind="primaryFormSubmit"], [data-testid="stDialog"] [data-testid="stFormSubmitButton"] button { background: #C85A32 !important; border: 0 !important; border-radius: 100px !important; height: 46px !important; }
 [data-testid="stDialog"] [data-testid="stFormSubmitButton"] button * { color: #fff !important; font-weight: 700 !important; }
+
+/* ===== UI22: paksa light mode di semua modal (tanpa hitam), Tutorial & Blog ===== */
+[data-testid="stDialog"] [data-testid="stExpander"], [data-testid="stDialog"] [data-testid="stExpander"] details { background: #FAF7F2 !important; border: 1px solid #E8E0D5 !important; border-radius: 12px !important; color: #2D2A26 !important; }
+[data-testid="stDialog"] [data-testid="stExpander"] summary, [data-testid="stDialog"] [data-testid="stExpander"] details[open] > summary, [data-testid="stDialog"] [data-testid="stExpander"] summary:hover, [data-testid="stDialog"] [data-testid="stExpander"] summary:focus { background: #FFF3ED !important; color: #7A3E1D !important; }
+[data-testid="stDialog"] [data-testid="stExpander"] details:not([open]) > summary { background: transparent !important; }
+[data-testid="stDialog"] [data-testid="stExpander"] summary *, [data-testid="stDialog"] [data-testid="stExpander"] details[open] > summary * { color: #7A3E1D !important; }
+[data-testid="stDialog"] [data-testid="stExpander"] details:not([open]) > summary * { color: #2D2A26 !important; }
+[data-testid="stDialog"] [data-testid="stExpander"] [data-testid="stExpanderDetails"] { background: #FFFFFF !important; }
+[data-testid="stDialog"] textarea, [data-testid="stDialog"] [data-baseweb="textarea"], [data-testid="stDialog"] [data-baseweb="textarea"] > div { background: #FFFFFF !important; background-color: #FFFFFF !important; color: #1F2937 !important; border-color: #E5E7EB !important; }
+[data-testid="stDialog"] textarea::placeholder, [data-testid="stDialog"] input::placeholder { color: #9CA3AF !important; -webkit-text-fill-color: #9CA3AF; }
+[data-testid="stDialog"] [data-baseweb="textarea"] { border: 1px solid #E5E7EB !important; border-radius: 10px !important; }
+[data-testid="stDialog"] input, [data-testid="stDialog"] [data-baseweb="input"], [data-testid="stDialog"] [data-baseweb="input"] > div, [data-testid="stDialog"] [data-baseweb="select"] > div { background: #FFFFFF !important; color: #1F2937 !important; }
+[data-testid="stDialog"] [data-baseweb="select"] * { color: #1F2937 !important; }
+div[data-baseweb="popover"] ul, div[data-baseweb="popover"] li, div[data-baseweb="menu"] { background: #FFFFFF !important; color: #1F2937 !important; }
+div[data-baseweb="popover"] li:hover { background: #FFF3ED !important; }
+.dh-hp-steps { display: grid; gap: 10px; }
+.dh-hp-step { display: flex; gap: 12px; align-items: flex-start; background: #fff; border: 1px solid #E8E0D5; border-radius: 12px; padding: 10px 12px; }
+.dh-hp-step i { flex: none; width: 26px; height: 26px; border-radius: 50%; background: #C85A32; color: #fff; font-style: normal; font-weight: 800; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+.dh-hp-step b { display: block; font-size: 13px; color: #2D2A26; } .dh-hp-step span { font-size: 12.5px; color: #6B635A; line-height: 1.55; }
+.dh-hp-sec li ul { margin-top: 4px; }
+.dh-hp-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+.dh-hp-chips span { background: #FFF3ED; border: 1px solid #F0CDB8; color: #7A3E1D; border-radius: 100px; padding: 5px 11px; font-size: 11.5px; font-weight: 600; }
+.dh-hp-post { display: flex; gap: 12px; background: #FAF7F2; border: 1px solid #E8E0D5; border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; }
+.dh-hp-pn { flex: none; width: 28px; height: 28px; border-radius: 8px; background: #FFF3ED; color: #C85A32; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+.dh-hp-post b { display: block; font-size: 13.5px; color: #2D2A26; line-height: 1.45; } .dh-hp-post em { display: block; font-size: 11px; color: #8B8378; font-style: normal; margin: 3px 0 5px; } .dh-hp-post p { font-size: 12.5px; line-height: 1.6; color: #3A3631; margin: 0; }
