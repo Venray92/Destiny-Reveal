@@ -66,13 +66,15 @@ def test_ui14_spreads_positions():
 
 def test_ui14_dialog_registry():
     from components.feature_modals import DIALOGS
-    assert {"tarot_spread", "compat", "weekly", "blueprint", "tutorial", "blog", "faq"} <= set(DIALOGS)
+    assert {"tarot_spread", "compat", "weekly", "blueprint", "tutorial", "blog"} <= set(DIALOGS)
 
 
 # ---- UI15 ----
 def test_ui15_info_dialogs_registered():
     from components.info_modals import DIALOGS
-    assert set(DIALOGS) == {"about", "contact", "privacy", "terms"}
+    assert set(DIALOGS) == {"about"}
+    from components.help_modals import DIALOGS as H
+    assert set(H) == {"faq", "contact", "privacy", "terms"}
 
 
 def test_ui15_pricing_tab_dialogs():
@@ -126,3 +128,22 @@ def test_ui19_referral_data():
 def test_ui20_affiliate_syarat():
     from components.pricing_modal import AFF_SYARAT
     assert len(AFF_SYARAT) == 6 and AFF_SYARAT[2].startswith("Total Revenue Rp 500.000")
+
+
+# ---- UI21 ----
+def test_ui21_streak_weeks_total_180():
+    from components.mini_modals import _WEEKS
+    assert [w[2] for w in _WEEKS] == [30, 40, 50, 60] and sum(w[2] for w in _WEEKS) == 180
+
+
+def test_ui21_nav_uses_sparkle():
+    from components import navbar
+    import inspect
+    src = inspect.getsource(navbar)
+    assert "Tarot 3 Kartu (50✨)" in src and "Celtic Cross (150✨)" in src and "Klaim ✨ gratis" in src
+    assert "(50 SD)" not in src
+
+
+def test_ui21_faq_sections():
+    from components.help_modals import _FAQ
+    assert len(_FAQ) == 7 and sum(len(q) for _, _, q in _FAQ) == 20
