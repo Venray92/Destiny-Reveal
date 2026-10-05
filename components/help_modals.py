@@ -41,8 +41,8 @@ _FAQ = [
          "- **Paid (A-F):** Laporan lengkap standar mencakup 6 seksi analisis utama.\n"
          "- **Deep (A-M):** Laporan mendalam mencakup 12 seksi komprehensif + panduan shadow work."),
         ("Berapa biaya Stardust (✨) untuk unlock fitur?",
-         "- 1 Sistem (A-F): 50✨\n- 1 Sistem (A-M): 150✨\n- Bundle 15 Sistem (A-F): 500✨\n- Bundle 15 Sistem (A-M): 1.500✨"),
-        ("Jika sudah unlock versi A-F, apakah bisa upgrade ke A-M?", "Bisa. Kamu cukup membayar selisihnya sebesar 100✨."),
+         "- 1 Sistem (A-F): 150✨\n- 1 Sistem (A-M): 300✨\n- Bundle 15 Sistem (A-F): 500✨\n- Bundle 15 Sistem (A-M): 1.500✨"),
+        ("Jika sudah unlock versi A-F, apakah bisa upgrade ke A-M?", "Bisa. Kamu cukup membayar selisihnya sebesar 150✨."),
     ]),
     ("💳", "TENTANG PEMBAYARAN", [
         ("Metode pembayaran apa saja yang tersedia?",
@@ -207,4 +207,106 @@ def terms_dialog():
     _close_btn("Mengerti & Kembali", "tm")
 
 
-DIALOGS = {"faq": faq_dialog, "contact": contact_dialog, "privacy": privacy_dialog, "terms": terms_dialog}
+# ─────────────── Tutorial ───────────────
+def _li(items):
+    return "<ul>" + "".join(f"<li>{i}</li>" for i in items) + "</ul>"
+
+
+def _steps(rows):
+    return '<div class="dh-hp-steps">' + "".join(
+        f'<div class="dh-hp-step"><i>{n}</i><div><b>{t}</b><span>{d}</span></div></div>'
+        for n, (t, d) in enumerate(rows, 1)) + "</div>"
+
+
+@st.dialog("Tutorial", width="large")
+def tutorial_dialog():
+    _top(login_link=False, key="tu")
+    st.markdown(
+        '<div class="dh-hp-h1">TUTORIAL DESTINY REVEAL</div>'
+        '<p class="dh-hp-lead">Panduan lengkap cara penggunaan platform dan panduan membaca hasil analisis.</p>'
+        + _sec("1. 🚀 CARA MULAI", _steps([
+            ("Registrasi / Masuk Akun", "Klik &quot;Daftar Gratis&quot;, masukkan email &amp; verifikasi akunmu."),
+            ("Pilih Mode Analisis", "Klik &quot;Mulai Reveal Takdirku&quot;, lalu pilih Mode Instan, Mendalam, atau Lengkap."),
+            ("Isi Data Diri", "Masukkan nama, tanggal lahir, dan kuesioner singkat."),
+            ("Lihat &amp; Buka Laporan", "Proses analisis butuh 2-3 menit. Hasil akan muncul langsung di dashboard kamu.")]))
+        + _sec("2. 🎯 TIPE MODE ANALISIS", _li([
+            "<b>MODE INSTAN (5 Sistem Astrologi &amp; Tradisi)</b><br>Cukup nama &amp; tanggal lahir. Menggabungkan Zodiak, Shio, Weton Jawa, Numerologi, dan Matrix Destiny.",
+            "<b>MODE MENDALAM (5 Tes Psikologi)</b><br>Kuesioner interaktif 2-3 menit. Menggabungkan MBTI, Big Five, Enneagram, DISC, dan Love Language.",
+            "<b>MODE LENGKAP (15 Sistem Sekaligus)</b><br>Analisis holistik paling komprehensif mencakup seluruh 15 sistem astrologi, psikologi, dan spiritual."]))
+        + _sec("3. 📖 BIAYA UNLOCK &amp; CARA BACA HASIL",
+               "<p>Setiap sistem memiliki 12 seksi analisis (A-M):</p>" + _li([
+                   "<b>FREE PREVIEW:</b> Gratis preview 3-5 baris ringkasan utama (Seksi A).",
+                   "<b>PAID REPORT (Seksi A-F):</b> Unlock 6 seksi analisis standar seharga <b>150✨</b>.",
+                   "<b>DEEP REPORT (Seksi A-M):</b> Unlock 12 seksi analisis mendalam + panduan Shadow Work seharga <b>300✨</b>.",
+                   "<b>UPGRADE A-F KE A-M:</b> Cukup bayar selisihnya sebesar <b>150✨</b>."]))
+        + _sec("4. 💎 PENGGUNAAN STARDUST (✨)",
+               "<p>Stardust (✨) adalah mata uang digital internal untuk unlock fitur premium:</p>" + _li([
+                   "<b>Cara Dapatkan ✨:</b> Top-up saldo, Daily Check-in (Streak 30 hari = 180✨), program Referral, dan reward Milestone.",
+                   "<b>Paket Top-Up:</b>" + _li(["Starter: Rp 10.000 ➔ 120✨", "Basic: Rp 25.000 ➔ 350✨", "Value: Rp 50.000 ➔ 750✨",
+                                                "Pro: Rp 100.000 ➔ 1.600✨", "Sultan: Rp 200.000 ➔ 3.500✨"])]))
+        + _sec("5. 🎴 FITUR TAROT SPREADS", _li([
+            "<b>Tarot Harian (Gratis):</b> Draw 1 kartu gratis setiap hari.", "<b>Tarot 3 Kartu:</b> Past-Present-Future (50✨).",
+            "<b>Tarot 5 Kartu:</b> Cross Spread / Problem Solution (100✨).",
+            "<b>Celtic Cross:</b> 10 Kartu analisis situasi mendalam (150✨)."]))
+        + _sec("6. 💕 CEK KECOCOKAN (COMPATIBILITY)",
+               "<p>Analisis hubungan &amp; tingkat kecocokan 2 orang berdasarkan kompilasi sistem pilihanmu:</p>" + _li([
+                   "Input data nama &amp; tanggal lahir kedua belah pihak.", "Biaya unlock analisis kecocokan: <b>100✨</b>."]))
+        + _sec("7. 👑 VIP MEMBERSHIP",
+               "<p>Dapatkan akses tanpa batas ke seluruh platform:</p>" + _li([
+                   "✅ Bebas unlock 15 sistem tanpa Stardust", "✅ Kuota 10 Deep Report (A-M) / bulan",
+                   "✅ Export PDF Laporan Lengkap", "✅ Bebas Iklan &amp; Akses Prioritas",
+                   "<b>Pilihan Paket VIP:</b> Bulanan (Rp 99rb), 3 Bulan (Rp 249rb), 6 Bulan (Rp 449rb), 1 Tahun (Rp 799rb), dan Lifetime (Rp 1.999.000)."]))
+        + _sec("🛠️ TROUBLESHOOTING RINGKAS", _li([
+            "<b>Laporan tidak muncul?</b> Refresh halaman atau cek folder spam email kamu.",
+            "<b>Saldo ✨ hilang?</b> Pastikan kamu sudah Login (jika dalam mode Guest, saldo tersimpan di browser lokal).",
+            "<b>Butuh Bantuan?</b> Hubungi support@destinyreveal.com."])),
+        unsafe_allow_html=True)
+    _close_btn("Mengerti & Kembali", "tu")
+
+
+# ─────────────── Blog ───────────────
+_BLOG_CATS = ["🌟 Zodiak & Astrologi", "🐉 Shio & Feng Shui", "📅 Weton & Primbon Jawa", "🔢 Numerologi & Matrix Destiny",
+              "🧠 Psikologi & MBTI", "🎴 Tarot & Spiritual", "💕 Hubungan & Compatibility", "💼 Karier & Keuangan",
+              "🌱 Development & Shadow Work"]
+_BLOG_POSTS = [
+    ("Kenali Dirimu Lebih Dalam dengan 15 Sistem Sekaligus", "Self-Development", "5 Oktober 2026",
+     "Mengapa melihat diri dari satu sudut pandang tidak lagi cukup? Temukan bagaimana gabungan 15 sistem memberikan gambaran holistik tentang takdir dan potensimu."),
+    ("Zodiak vs Shio: Mana yang Lebih Akurat untuk Membaca Karaktermu?", "Zodiak & Astrologi", "3 Oktober 2026",
+     "Perbandingan mendalam antara Astrologi Barat dan Tradisi Tiongkok serta cara keduanya saling melengkapi."),
+    ("Cara Membaca Hasil MBTI Tanpa Terjebak Stereotip", "Psikologi & MBTI", "1 Oktober 2026",
+     "MBTI bukan sekadar 4 huruf label. Pelajari dinamika fungsi kognitif di balik tipologi kepribadianmu."),
+    ("Panduan Memahami Weton Jawa untuk Pemula", "Weton & Primbon Jawa", "28 September 2026",
+     "Mengenal perhitungan neptu, hari, dan pasaran Jawa dalam memetakan karakter bawaan."),
+    ("Shadow Work: Mengintegrasikan Sisi Gelap Diri untuk Pertumbuhan Real", "Self-Development", "25 September 2026",
+     "Memahami blindspot dan shadow side bukan untuk disesali, melainkan kunci utama kedamaian batin."),
+]
+
+
+@st.dialog("Blog", width="large")
+def blog_dialog():
+    _top(login_link=False, key="bl")
+    chips = "".join(f"<span>{c.replace('&', '&amp;')}</span>" for c in _BLOG_CATS)
+    posts = "".join(
+        f'<div class="dh-hp-post"><div class="dh-hp-pn">{n}</div><div><b>&ldquo;{t.replace("&", "&amp;")}&rdquo;</b>'
+        f'<em>Kategori: {k.replace("&", "&amp;")} · {d}</em><p>{x}</p></div></div>'
+        for n, (t, k, d, x) in enumerate(_BLOG_POSTS, 1))
+    st.markdown(
+        '<div class="dh-hp-h1">BLOG DESTINY REVEAL</div>'
+        '<p class="dh-hp-lead">Artikel, edukasi, dan wawasan seputar self-discovery &amp; pengembangan potensi diri.</p>'
+        f'<div class="dh-hp-h2">📂 KATEGORI ARTIKEL</div><div class="dh-hp-chips">{chips}</div>'
+        f'<div class="dh-hp-h2">📝 ARTIKEL TERBARU</div>{posts}'
+        '<div class="dh-hp-h2">📧 NEWSLETTER SUBSCRIPTION</div>'
+        '<p class="dh-hp-lead">Dapatkan rangkuman artikel dan insight harian/mingguan langsung di inbox emailmu:</p>',
+        unsafe_allow_html=True)
+    with st.form("dhbl_form", clear_on_submit=True, border=False):
+        em = st.text_input("Email", placeholder="nama@email.com", label_visibility="collapsed")
+        ok = st.form_submit_button("Berlangganan Gratis", type="primary", use_container_width=True)
+    if ok:
+        if _EMAIL_RE.match(em.strip()):
+            st.toast("✅ Berhasil berlangganan newsletter!")  # DUMMY: belum ada backend
+        else:
+            st.error("Masukkan email yang valid ya.")
+    _close_btn("Tutup", "bl", outline=True)
+
+
+DIALOGS = {"tutorial": tutorial_dialog, "blog": blog_dialog, "faq": faq_dialog, "contact": contact_dialog, "privacy": privacy_dialog, "terms": terms_dialog}

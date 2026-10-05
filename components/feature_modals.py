@@ -191,31 +191,6 @@ def blueprint_dialog():
             request_open("reveal", dh_modal_mode="lengkap")
 
 
-# ═══════════ 5-7. TUTORIAL, BLOG, FAQ ═══════════
-@st.dialog("Tutorial", width="small")
-def tutorial_dialog():
-    _top(login_link=False, key="tu")
-    st.markdown('<div class="dh-fm-bigtitle">Tutorial</div>'
-                '<div class="dh-fm-box"><p><b>Langkah 1:</b> Akses fitur gratis harian (Tarot 1 Kartu, Ramalan Harian, '
-                'Streak) tanpa perlu login sama sekali.</p>'
-                '<p><b>Langkah 2:</b> Pilih \'Reveal Takdirku\' (Mode 1, Mode 2, atau Mode 3) saat ingin membedah '
-                'takdir lengkap.</p>'
-                '<p><b>Langkah 3:</b> Masuk via Magic Link instan hanya saat ingin unlock konten berbayar atau '
-                'menyimpan hasil cetak biru.</p></div>', unsafe_allow_html=True)
-    _close_btn("Mengerti & Kembali", "tu")
-
-
-@st.dialog("Blog", width="small")
-def blog_dialog():
-    _top(login_link=False, key="bl")
-    st.markdown('<div class="dh-fm-bigtitle">Blog</div>'
-                '<div class="dh-fm-box"><p class="dh-fm-q"><b>Kenapa Weton dan MBTI Sering Saling Melengkapi?</b></p>'
-                '<p>Weton memetakan temperamen bawaan siklus bumi nusantara, sementara MBTI memotret cara otakmu '
-                'mengolah data saat ini. Ketika disandingkan, kita melihat benang merah yang menakjubkan.</p></div>',
-                unsafe_allow_html=True)
-    _close_btn("Mengerti & Kembali", "bl")
-
-
 def _open_spread(n):
     st.session_state.dh_ts_tab = n
     tarot_spread_dialog()
@@ -225,5 +200,5 @@ DIALOGS = {
     "tarot_spread_3": lambda: _open_spread(3), "tarot_spread_5": lambda: _open_spread(5),
     "tarot_spread_10": lambda: _open_spread(10),
     "tarot_spread": tarot_spread_dialog, "compat": compat_dialog, "weekly": weekly_dialog,
-    "blueprint": blueprint_dialog, "tutorial": tutorial_dialog, "blog": blog_dialog,
+    "blueprint": blueprint_dialog, 
 }

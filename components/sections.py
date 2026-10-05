@@ -436,7 +436,7 @@ def render_footer():
         'dan peta takdir holistik.</div></div>'
         '<div><div class="dh-footer-col-title">NAVIGASI</div>'
         '<a href="#dh-top" class="dh-footer-link">Home</a><a href="#dh-soon" class="dh-footer-link dh-open-reveal">Reveal</a>'
-        '<a href="#dh-dataflow" class="dh-footer-link">Tutorial</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="blog">Blog</a></div>'
+        '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="tutorial">Tutorial</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="blog">Blog</a></div>'
         '<div><div class="dh-footer-col-title">FITUR</div>'
         '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="daily">Ramalan Harian</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="tarot">Tarot 1 Kartu</a>'
         '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="tarot_spread">Tarot Spreads Multi-Kartu</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="compat">Cek Kecocokan</a>'
