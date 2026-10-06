@@ -13,7 +13,7 @@ from content import safe_json
 _BASE = Path(__file__).resolve().parent / "interpretations"
 _TITLES = "titles.json"
 
-# Tarot: 22 major + 4 suit (kartu suit sudah ada di JSON, belum ditarik engine)
+# Tarot: 78 kartu (22 major + 56 minor), semua bisa ditarik engine
 _FILES = {
     "BaZi": ["bazi/profile.json"],
     "Zi Wei": ["ziwei/profile.json"],
@@ -41,8 +41,10 @@ _BF_NAMA = {"O": "keterbukaan terhadap pengalaman baru", "C": "kehati-hatian/ked
 
 
 def _tarot_key(slug):
-    from engine.tarot import TAROT_MAJOR_ARCANA  # impor lambat biar tidak melingkar
-    return f"major_{TAROT_MAJOR_ARCANA.index(slug):02d}" if slug in TAROT_MAJOR_ARCANA else None
+    from engine.tarot import TAROT_MAJOR_ARCANA, TAROT_MINOR_ARCANA  # impor lambat biar tidak melingkar
+    if slug in TAROT_MAJOR_ARCANA:
+        return f"major_{TAROT_MAJOR_ARCANA.index(slug):02d}"
+    return slug if slug in TAROT_MINOR_ARCANA else None
 
 
 def profile_key(system, raw):
@@ -100,11 +102,11 @@ def get_title(system, raw):
 
 # ── Big Five ──
 def bf_key(trait, level, skor=None):
-    """Key JSON untuk satu trait. Sedang -> sisi terdekat berdasarkan skor (<=21 rendah), tanpa skor -> tinggi."""
+    """Key JSON untuk satu trait (tinggi/sedang/rendah). Level tak dikenal -> sisi terdekat berdasarkan skor (<=21 rendah), tanpa skor -> tinggi."""
     if not trait:
         return None
     lv = (level or "").lower()
-    if lv not in ("tinggi", "rendah"):
+    if lv not in ("tinggi", "sedang", "rendah"):
         lv = "rendah" if (skor is not None and skor <= 21) else "tinggi"
     return f"{_BF_TRAIT[trait]}_{lv}"
 
@@ -146,7 +148,6 @@ def audit(system):
         errs += [f"{system}.{k}.paid.{f}: kosong" for f in ("kekuatan_yang_perlu_dijaga", "pr_kecil_buat_kamu", "karir",
                                                            "asmara", "keuangan", "kesehatan")
                  if not str((e.get("paid") or {}).get(f, "")).strip()]
-        if system != "Tarot" or k.startswith("major_"):
-            if k not in tit:
-                errs.append(f"{system}.{k}: judul tidak ada di titles.json")
+        if k not in tit:
+            errs.append(f"{system}.{k}: judul tidak ada di titles.json")
     return errs
