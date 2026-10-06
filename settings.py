@@ -1,24 +1,8 @@
 """
 Konfigurasi global sementara buat tahap development/testing.
 
-TESTING_MODE = True selama fase ini:
-- views/reveal_yourself.py: langkah "Verifikasi Email" & "Pilih Fokus
-  Eksplorasi" tetap DITAMPILKAN visualnya, TAPI tidak memblokir user buat
-  lanjut ke "Mulai Proses Reveal" (email boleh kosong, mode otomatis
-  ke-default "Instan" tanpa harus diklik manual — karena baru mode ini
-  yang enginenya beneran lengkap).
-- views/loadingpage.py: floating window di akhir proses loading BUKAN
-  payment gateway asli, cuma 1 tombol "Bypass Payment" buat lanjut ke
-  halaman hasil (belum ada integrasi Midtrans/Xendit).
-
-Matikan (set ke False) begitu OTP email asli, mode Mendalam/Lengkap, dan
-payment gateway beneran sudah siap dipasang — jangan hapus flag-nya,
-cukup ganti nilainya, biar gampang dites bolak-balik.
-
-Harga di bawah ini (PRICE_*) SEMUA MASIH DUMMY/PLACEHOLDER buat keperluan
-testing tiering "Versi Pendek" vs "Versi Panjang" — belum ada keputusan
-bisnis final soal nominalnya, JANGAN dianggap harga beneran sampai
-dikonfirmasi.
+TESTING_MODE = True selama fase ini: verifikasi email & pembayaran di modal "Reveal Dirimu"
+masih simulasi (belum ada Supabase / Midtrans / Xendit), jadi tidak memblokir alur.
 """
 
 TESTING_MODE = True

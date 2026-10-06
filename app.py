@@ -7,12 +7,6 @@ from pathlib import Path
 
 import streamlit as st
 
-from views.reveal_yourself import render as render_reveal_yourself
-from views.loadingpage import render as render_loading
-from views.loadingpage_lengkap import render as render_loading_lengkap
-from views.loadingpage_mendalam import render as render_loading_mendalam
-from views.revealpage import render as render_result
-from views.tutorialpage import render as render_tutorial
 from views import home_v2
 
 st.set_page_config(
@@ -103,10 +97,7 @@ SEMUA_SISTEM = [
 ]
 
 # ── NAVIGASI HALAMAN ────────────────────────────────────────
-# Bukan st.tabs — st.tabs nggak bisa dipindah programatis lewat klik tombol
-# lain (misal tombol "Mulai Reveal" di hero). Jadi navigasi antar
-# "halaman" (Beranda / Reveal Yourself) dipegang manual lewat
-# st.session_state, dan konten dirender bergantian pakai if/else biasa.
+# Cuma ada satu halaman (Home). Alur Reveal berjalan di modal "Reveal Dirimu".
 if "dr_page" not in st.session_state:
     st.session_state.dr_page = "home"
 
@@ -116,44 +107,9 @@ if "dr_page" not in st.session_state:
 home_v2.render_navbar(st.session_state.dr_page)
 st.markdown('<div style="height:88px;"></div>', unsafe_allow_html=True)
 
-# ══════════════════════════════════════════════════════════════
-# HALAMAN — BERANDA
-# ══════════════════════════════════════════════════════════════
-if st.session_state.dr_page == "home":
-    home_v2.render(SEMUA_SISTEM)
+if st.session_state.get("dh_toast"):
+    st.toast(st.session_state.pop("dh_toast"), icon="✨")
 
-elif st.session_state.dr_page == "reveal":
-    render_reveal_yourself()
-
-# ══════════════════════════════════════════════════════════════
-# HALAMAN — TUTORIAL (penjelasan semua sistem/chip)
-# ══════════════════════════════════════════════════════════════
-elif st.session_state.dr_page == "tutorial":
-    render_tutorial(SEMUA_SISTEM)
-
-# ══════════════════════════════════════════════════════════════
-# HALAMAN — LOADING (proses per-titik, floating window minta data)
-# ══════════════════════════════════════════════════════════════
-elif st.session_state.dr_page == "loading":
-    render_loading()
-
-# ══════════════════════════════════════════════════════════════
-# HALAMAN — LOADING PAGE 2 (Mode Mendalam: kuesioner MBTI/Big Five/
-# Enneagram/DISC/Love Language, 1 soal per layar)
-# ══════════════════════════════════════════════════════════════
-elif st.session_state.dr_page == "loading_mendalam":
-    render_loading_mendalam()
-
-# ══════════════════════════════════════════════════════════════
-# HALAMAN — LOADING PAGE 3 (Mode Lengkap: semua 15 sistem, form
-# intake sekaligus di awal + animasi 10 titik data, lalu lepas ke
-# Loading Page 2 buat 5 sistem kuesioner)
-# ══════════════════════════════════════════════════════════════
-elif st.session_state.dr_page == "loading_lengkap":
-    render_loading_lengkap()
-
-# ══════════════════════════════════════════════════════════════
-# HALAMAN — HASIL AKHIR (stub, belum dibuat penuh)
-# ══════════════════════════════════════════════════════════════
-else:
-    render_result()
+# Halaman lain (reveal, tutorial, loading, hasil) sudah diganti modal "Reveal Dirimu" di Home.
+# Nilai dr_page apa pun yang tidak dikenal jatuh ke Home.
+home_v2.render(SEMUA_SISTEM)
