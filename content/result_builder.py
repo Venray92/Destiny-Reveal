@@ -13,24 +13,13 @@ Dipakai oleh:
 Changelog & bug-fix: lihat docs/changelog.md.
 """
 
-from content.interpretations.big_five import BIG_FIVE_CONTENT
-from content.interpretations.bazi import BAZI_CONTENT
-from content.interpretations.golongan_darah import GOLONGAN_DARAH_CONTENT
-from content.interpretations.human_design import HUMAN_DESIGN_CONTENT
-from content.interpretations.tarot import TAROT_CONTENT
-from content.interpretations.ziwei import ZIWEI_CONTENT
-from content.interpretations.disc import DISC_CONTENT
-from content.interpretations.enneagram import ENNEAGRAM_CONTENT
-from content.interpretations.love_language import LOVE_LANGUAGE_CONTENT
-from content.interpretations.mbti import MBTI_CONTENT
-from content.interpretations.weton import WETON_CONTENT
-from content import safe_json
-from content.profile_loader import ALLOW_LEGACY_FALLBACK, get_profile, get_title
+from content import profile_flat
+from content.profile_loader import get_profile, get_title
 from engine.big_five_scoring import score_big_five
 from engine.disc_scoring import score_disc
 from engine.bazi import hitung_bazi
 from engine.human_design import hitung_human_design
-from engine.tarot import TAROT_MAJOR_ARCANA, tarik_tarot
+from engine.tarot import tarik_tarot
 from engine.ziwei import hitung_ziwei
 from engine.enneagram_scoring import score_enneagram
 from engine.love_language_scoring import score_love_language
@@ -158,59 +147,32 @@ def compute_raw_result(system: str, loading_data: dict) -> dict:
     return {"placeholder": True}
 
 
-_BIG_FIVE_ID_NAMES = {
-    "O": "keterbukaan terhadap pengalaman baru",
-    "C": "kehati-hatian/kedisiplinan",
-    "E": "ekstraversi",
-    "A": "keramahan",
-    "N": "kepekaan emosi",
-}
-
-
-def _build_big_five_display(raw_result):
-    """
-    Big Five beda dari sistem lain: hasilnya 5 nilai (trait) sekaligus,
-    bukan 1 tipe tunggal, jadi gak bisa langsung lookup 1 dict kayak
-    ZODIAK_CONTENT dkk.
-
-    Pendekatan: trait yang skornya PALING TINGGI ("dominant_trait",
-    sudah dihitung engine/big_five_scoring.py) dipakai sebagai judul &
-    narasi utama (p1/p2/quote/p3/domains, persis kayak sistem lain),
-    LALU 4 trait lainnya dirangkum singkat (field "ringkas" di kamus
-    konten) dan disambung ke akhir p1 -- supaya laporan tetap
-    merepresentasikan seluruh 5 dimensi kepribadian, bukan cuma 1 label.
-    """
-    levels = raw_result.get("levels") or {}
-    dominant_trait = raw_result.get("dominant_trait")
-    if not dominant_trait or dominant_trait not in levels:
+def _display_flat(system, raw_result):
+    """Dict siap-tampil 9 sistem non-Mode-1 + Tarot dari JSON baru (free/paid) + titles.json.
+    p1=free.siapa_kamu, p2=paid.kekuatan, p3=paid.pr_kecil, domains=karir/asmara/keuangan/kesehatan."""
+    if system == "Big Five":
+        prof = profile_flat.get_big_five(raw_result)
+        judul = prof and prof["title"]
+    else:
+        prof = profile_flat.get_profile(system, raw_result)
+        judul = profile_flat.get_title(system, raw_result)
+    if not prof or not judul:
         return None
-
-    dominant_level = levels[dominant_trait]
-    base = BIG_FIVE_CONTENT.get(dominant_trait, {}).get(dominant_level)
-    if not base:
+    free, paid = prof["free"], prof["paid"]
+    if not free.get("siapa_kamu") or not paid.get("kekuatan_yang_perlu_dijaga") or not paid.get("pr_kecil_buat_kamu"):
         return None
-
-    data = dict(base)
-    ringkasan_lain = []
-    for trait in ("O", "C", "E", "A", "N"):
-        if trait == dominant_trait:
-            continue
-        level = levels.get(trait)
-        entry = BIG_FIVE_CONTENT.get(trait, {}).get(level)
-        if entry and entry.get("ringkas"):
-            ringkasan_lain.append(
-                f"Dari sisi {_BIG_FIVE_ID_NAMES[trait]} ({level.lower()}), "
-                f"{entry['ringkas']}"
-            )
-
-    if ringkasan_lain:
-        data["p1"] = (
-            data["p1"]
-            + " Selain sisi yang paling menonjol itu, ada empat dimensi lain "
-            "dari kepribadianmu yang juga membentuk caramu menjalani hidup: "
-            + " ".join(ringkasan_lain)
-        )
-    return data
+    p1 = free["siapa_kamu"]
+    if system == "Big Five" and prof["ringkas"]:
+        p1 += (" Selain sisi yang paling menonjol itu, ada empat dimensi lain dari kepribadianmu yang juga membentuk "
+               "caramu menjalani hidup: " + " ".join(prof["ringkas"]))
+    return {
+        "tagline": judul["tagline"], "chip": judul["chip"], "title": judul["title"],
+        "p1_label": "Siapa Kamu", "p1": p1,
+        "p2_label": "Kekuatan & yang Perlu Dijaga", "p2": paid["kekuatan_yang_perlu_dijaga"],
+        "quote": free.get("quote", ""),
+        "p3_label": "PR Kecil Buat Kamu", "p3": paid["pr_kecil_buat_kamu"],
+        "domains": {k: paid[k] for k in ("karir", "asmara", "keuangan", "kesehatan") if paid.get(k)},
+    }
 
 
 _JSON_SYSTEMS = ("Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny")
@@ -251,59 +213,9 @@ def build_display_data(system: str, raw_result):
         return None
 
     if system in _JSON_SYSTEMS:
-        data = _display_dari_json(system, raw_result)
-        if data:
-            return data
-        if system != "Weton" or not ALLOW_LEGACY_FALLBACK:
-            return None  # 4 sistem lain: sumber tunggalnya JSON baru
-        # Weton: profil JSON baru baru 5 dari 35, sisanya jatuh ke kamus lama per pasaran
-        content = WETON_CONTENT.get(raw_result.get("pasaran"))
-        if not content:
-            return None
-        data = safe_json.bersihkan(dict(content))  # kamus lama masih pakai em dash
-        hari = raw_result.get("hari", "")
-        neptu = raw_result.get("neptu", "")
-        data["title"] = data["title"].format(hari=hari, neptu=neptu)
-        data["p1"] = data["p1"].format(hari=hari, neptu=neptu)
-        return data
+        return _display_dari_json(system, raw_result)  # sumber tunggal: JSON baru
 
-    if system == "BaZi":
-        content = BAZI_CONTENT.get(raw_result.get("day_master"))
-        return dict(content) if content else None
-
-    if system == "Zi Wei":
-        content = ZIWEI_CONTENT.get(raw_result.get("bintang"))
-        return dict(content) if content else None
-
-    if system == "Human Design":
-        content = HUMAN_DESIGN_CONTENT.get(raw_result.get("tipe_slug"))
-        return dict(content) if content else None
-
-    if system == "Golongan Darah":
-        content = GOLONGAN_DARAH_CONTENT.get(raw_result.get("golongan_darah"))
-        return dict(content) if content else None
-
-    if system == "Tarot":
-        content = TAROT_CONTENT.get(raw_result.get("kartu"))
-        return dict(content) if content else None
-
-    if system == "MBTI":
-        content = MBTI_CONTENT.get(raw_result.get("tipe"))
-        return dict(content) if content else None
-
-    if system == "Enneagram":
-        content = ENNEAGRAM_CONTENT.get(raw_result.get("tipe"))
-        return dict(content) if content else None
-
-    if system == "DISC":
-        content = DISC_CONTENT.get(raw_result.get("tipe"))
-        return dict(content) if content else None
-
-    if system == "Love Language":
-        content = LOVE_LANGUAGE_CONTENT.get(raw_result.get("primary"))
-        return dict(content) if content else None
-
-    if system == "Big Five":
-        return _build_big_five_display(raw_result)
+    if system in profile_flat.SYSTEMS:
+        return _display_flat(system, raw_result)
 
     return None
