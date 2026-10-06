@@ -3,27 +3,23 @@ Sub-modal "Detail Sistem" (UI7): kartu takdir + uraian lengkap satu sistem.
 Dibuka dari tombol "Lihat & Simpan Kartu ..." di hasil Mode 1. Bukan dialog baru
 (Streamlit cuma izinkan 1 dialog) — ini satu langkah di dalam _flow_dialog.
 
-Sumber isi uraian (dibaca dinamis, urutan prioritas):
-  1. key JSON versi lengkap  : aspek_utama, karier_dan_keuangan, asmara_dan_hubungan,
-                               kekuatan_karakter, shadow_work, nasihat_strategis, parameter_kunci
-  2. key JSON yang sudah ada : sections.free/paid/deep di content/interpretations/zodiak/zodiak_profile.json
-  3. kamus konten Python (build_display_data): p1/p2/p3 + domains (semua sistem)
+Sumber isi uraian (5 sistem Mode 1):
+  1. JSON profil baru lewat content/profile_loader.py: sections A-F (G-M = Deep Blueprint, tidak dirender di sini)
+  2. Cadangan: kamus konten Python (build_display_data) HANYA kalau entri belum ada di JSON baru
+     (mati kalau profile_loader.ALLOW_LEGACY_FALLBACK = False). Judul/tagline tetap dari kamus.
 """
 
 import html
 import json
-from functools import lru_cache
-from pathlib import Path
 from urllib.parse import quote as urlquote
 
 import streamlit as st
 import streamlit.components.v1 as components
 
 from components.flow_state import STEP_RESULT, set_step
+from content.profile_loader import ALLOW_LEGACY_FALLBACK, MODE1, get_profile
 from content.result_builder import build_display_data
 from utils.card_images import card_filename_for_system, card_image_bytes_for_system, card_image_for_system
-
-_ZODIAK_JSON = Path(__file__).resolve().parent.parent / "content" / "interpretations" / "zodiak" / "zodiak_profile.json"
 
 ZODIAK_GLYPH = {
     "Aries": "♈", "Taurus": "♉", "Gemini": "♊", "Cancer": "♋", "Leo": "♌", "Virgo": "♍",
@@ -39,31 +35,6 @@ SECTIONS = [
     ("⚠️", "PR BAYANGAN (SHADOW WORK) & HAL YANG PERLU DIWASPADAI", ["shadow_work", "shadow_side", "blindspot"], "soft"),
     ("💡", "LANGKAH PRAKTIS JIWA & NASIHAT STRATEGIS", ["nasihat_strategis", "pr_kecil_buat_kamu"], "dark"),
 ]
-
-
-@lru_cache(maxsize=1)
-def _zodiak_json():
-    try:
-        return json.loads(_ZODIAK_JSON.read_text(encoding="utf-8")).get("data", {})
-    except (OSError, ValueError):
-        return {}
-
-
-def _flatten(entry):
-    """Ratakan {sections:{free,paid,deep}} + key top-level jadi satu dict datar."""
-    flat = {}
-    if not isinstance(entry, dict):
-        return flat
-    for k, v in entry.items():
-        if k == "sections" and isinstance(v, dict):
-            for gk, grp in v.items():
-                if isinstance(grp, dict):
-                    flat.update(grp)
-                else:  # format baru: sections.A ... sections.M langsung berisi teks
-                    flat[gk] = grp
-        else:
-            flat[k] = v
-    return flat
 
 
 def _param_rows(system, raw):
@@ -102,25 +73,22 @@ def _as_rows(value):
 
 
 def build_detail(system, raw):
-    """Susun data detail satu sistem. Return dict {title, sections:[(judul, [teks...])], params:[(k,v)]} atau None."""
-    disp = build_display_data(system, raw)
-    if not disp:
+    """Susun data detail satu sistem. Return dict {title, sections:[(icon, judul, [teks...], tone)], params:[(k,v)]} atau None.
+    Mode 1 = seksi A-F dari JSON baru. Entri yang belum ada di JSON baru jatuh ke kamus lama (lihat ALLOW_LEGACY_FALLBACK)."""
+    disp = build_display_data(system, raw)  # judul/tagline + cadangan
+    prof = get_profile(system, raw)
+    if prof and all(h in prof["sections"] for h in MODE1):
+        sections = [(icon, title, [prof["sections"][h]], tone) for (icon, title, _k, tone), h in zip(SECTIONS, MODE1)]
+        return {"title": (disp or {}).get("title") or prof["key"],
+                "quote": prof["free"].get("quote") or (disp or {}).get("quote", ""),
+                "tagline": (disp or {}).get("tagline", ""), "sections": sections,
+                "params": _as_rows(prof["meta"].get("parameter_kunci")) or _param_rows(system, raw)}
+    if not disp or not ALLOW_LEGACY_FALLBACK:
         return None
+
     flat = {"siapa_kamu": disp.get("p1"), "kekuatan_yang_perlu_dijaga": disp.get("p2"),
             "pr_kecil_buat_kamu": disp.get("p3")}
     flat.update({k: v for k, v in (disp.get("domains") or {}).items() if v})
-    if system == "Zodiak":
-        flat.update(_flatten(_zodiak_json().get((raw or {}).get("sign"))))
-
-    # Format JSON baru (A-M): Mode 1 cuma free + A-F. Bagian G-M (Deep Blueprint) sengaja TIDAK dirender di sini.
-    ABCDEF = ["A", "B", "C", "D", "E", "F"]
-    if system == "Zodiak" and all(isinstance(flat.get(k), str) for k in ABCDEF):
-        sections = [(icon, title, [flat[k].strip()] if flat[k].strip() else [], tone)
-                    for (icon, title, _keys, tone), k in zip(SECTIONS, ABCDEF)]
-        params = _as_rows(flat.get("parameter_kunci")) or _param_rows(system, raw)
-        return {"title": disp["title"], "quote": flat.get("quote") or disp.get("quote", ""),
-                "tagline": disp.get("tagline", ""), "sections": sections, "params": params}
-
     sections = []
     for icon, title, keys, tone in SECTIONS:
         texts = []
@@ -131,10 +99,8 @@ def build_detail(system, raw):
             elif isinstance(v, list):
                 texts.extend(str(x).strip() for x in v if str(x).strip())
         sections.append((icon, title, texts, tone))
-
-    params = _as_rows(flat.get("parameter_kunci")) or _param_rows(system, raw)
     return {"title": disp["title"], "quote": disp.get("quote", ""), "tagline": disp.get("tagline", ""),
-            "sections": sections, "params": params}
+            "sections": sections, "params": _param_rows(system, raw)}
 
 
 def _plain_text(system_label, detail):

@@ -5,12 +5,11 @@ lewat jembatan JS (class .dh-open-modal + data-modal) -> tombol tersembunyi di n
 
 Aturan tutup: HANYA tombol X. Klik backdrop & Esc diblok (marker .dh-nodismiss,
 listener-nya ada di _BRIDGE_JS navbar.py).
-DUMMY: koin, klaim streak, dan isi ramalan harian (daily.json) belum ada backend.
+DUMMY: koin dan klaim streak belum ada backend. Isi ramalan harian dari content/periodic.py (JSON harian baru).
 """
 
 import base64
 import html
-import json
 import random
 from datetime import datetime, timedelta, timezone
 from functools import lru_cache
@@ -21,13 +20,14 @@ import streamlit as st
 from components import auth
 from components.dialog_bus import request_open
 
+from content import periodic
+from content.profile_loader import get_profile
 from content.result_builder import SHIO_CONTENT, TAROT_CONTENT, ZODIAK_CONTENT
 from engine.tarot import TAROT_MAJOR_ARCANA
 from engine.zodiak import _RENTANG_ZODIAK
 from utils.card_images import card_image_data_uri
 
 _ROOT = Path(__file__).resolve().parent.parent
-_ZODIAK_JSON = _ROOT / "content" / "interpretations" / "zodiak" / "zodiak_profile.json"
 _COVER = _ROOT / "assets" / "images" / "sunmoon.jpg"
 
 GLYPH = {
@@ -50,18 +50,10 @@ def _e(t):
     return html.escape(str(t)).replace("\n", "<br>")
 
 
-@lru_cache(maxsize=1)
-def _zodiak_json():
-    try:
-        return json.loads(_ZODIAK_JSON.read_text(encoding="utf-8")).get("data", {})
-    except (OSError, ValueError):
-        return {}
-
-
 def _zodiak_info(sign):
-    """Data Preview Zodiak: rentang tanggal & elemen dari engine, teks dari JSON (sections.free)."""
+    """Data Preview Zodiak: rentang tanggal & elemen dari engine, teks dari JSON profil baru (sections.free)."""
     rng = next((r for r in _RENTANG_ZODIAK if r[2] == sign), None)
-    free = (_zodiak_json().get(sign, {}).get("sections", {}) or {}).get("free", {}) or {}
+    free = (get_profile("Zodiak", {"sign": sign}) or {}).get("free", {})
     fallback = ZODIAK_CONTENT.get(sign, {})
     tgl = f"{rng[0][1]} {_BLN[rng[0][0]]} - {rng[1][1]} {_BLN[rng[1][0]]}" if rng else ""
 
@@ -121,40 +113,26 @@ def _soon(msg):
 
 
 # ═══════════ 1. RAMALAN HARIAN GRATIS ═══════════
-_DAILY_JSON = _ROOT / "content" / "interpretations" / "daily" / "daily.json"
 _WARNA = ["Merah Bata (Terracotta)", "Biru Laut", "Hijau Sage", "Kuning Madu", "Ungu Lavender", "Putih Gading", "Emas", "Hitam Pekat"]
 
 
-@lru_cache(maxsize=1)
-def _daily_json():
-    try:
-        return json.loads(_DAILY_JSON.read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        return {}
-
-
-def _daily_entry(kind, name, day):
-    """Ambil entri harian dari daily.json. Format yang didukung (data.<kind>.<nama>):
-    - dict per tanggal: {"2026-10-03": {...}}  ATAU  - list yang diputar per hari (urut tanggal)
-    Field entri: pesan, angka_hoki, warna_hoki."""
-    d = _daily_json()
-    d = d.get("data", d)
-    node = (d.get(kind, {}) or {}).get(name)
-    if isinstance(node, dict):
-        node = node.get(day) or node.get("harian")
-    if isinstance(node, list) and node:
-        node = node[datetime.fromisoformat(day).toordinal() % len(node)]
-    return node if isinstance(node, dict) else None
+def _fmt_angka(v):
+    """[7, 19, 23] -> '7, 19 & 23'."""
+    if isinstance(v, (list, tuple)):
+        v = [str(x) for x in v]
+        return v[0] if len(v) == 1 else ", ".join(v[:-1]) + " & " + v[-1]
+    return str(v or "")
 
 
 def get_daily_reading(kind, name, day):
-    """Return {pesan, angka, warna}: PESAN SINGKAT harian (1-2 kalimat), bukan profil statis.
-    Sumber: daily.json. DUMMY kalau file belum ada: pesan = 2 kalimat 'Untuk Hari Ini' kamus konten,
-    angka/warna hoki dibuat deterministik dari nama+tanggal."""
-    e = _daily_entry(kind, name, day)
+    """Return {pesan, angka, warna}: pesan harian (maks 2 kalimat) dari JSON harian baru (content/periodic.py).
+    Kunci record dihitung dari kalender (Zodiak: rumah Bulan, Shio: elemen hari), bukan acak.
+    Cadangan (file tidak terbaca): pesan = 1 kalimat 'Untuk Hari Ini' kamus lama, angka/warna deterministik dari nama+tanggal."""
+    sistem = "Zodiak" if kind == "zodiak" else "Shio"
+    e = periodic.get_daily(sistem, name, now=datetime.fromisoformat(day))
     if e and e.get("pesan"):
-        return {"pesan": _first_sentences(e["pesan"], 2), "angka": str(e.get("angka_hoki", "")),
-                "warna": str(e.get("warna_hoki", ""))}
+        return {"pesan": _first_sentences(e["pesan"], 2), "angka": _fmt_angka(e.get("angka_hoki")),
+                "warna": str(e.get("warna_hoki") or "")}
     c = (ZODIAK_CONTENT if kind == "zodiak" else SHIO_CONTENT).get(name, {})
     seed = random.Random(f"{kind}{name}{day}")
     n1 = seed.randint(1, 9)
