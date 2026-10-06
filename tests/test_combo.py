@@ -172,3 +172,51 @@ def test_hitung_bulan_swisseph_palsu(monkeypatch):
     assert r == {"moon_sign": "Aries", "moon_near_edge": True} and seen["h"] == 12.0   # WITA +8
     seen["lon"] = 359.9
     assert hitung_bulan(date(2000, 1, 1), "00:00")["moon_sign"] == "Pisces"
+
+
+# ── combo 8 sistem tambahan ──
+import datetime as _dt
+
+_RAW_BARU = {
+    "Weton": lambda: __import__("engine.weton", fromlist=["x"]).hitung_weton(_dt.date(1992, 12, 5)),
+    "Zi Wei": lambda: {"bintang": "qisha", "ming_gong": "Zi", "bureau_elemen": "Api", "dipinjam": True},
+    "Human Design": lambda: {"tipe": "Projector", "otoritas": "Splenic"},
+    "MBTI": lambda: {"tipe": "ENFP", "counts": {"E": 6, "I": 2, "S": 3, "N": 5, "T": 4, "F": 4, "J": 2, "P": 6}},
+    "Big Five": lambda: {"levels": {"O": "Tinggi", "C": "Rendah", "E": "Sedang", "A": "Tinggi", "N": "Sedang"},
+                         "dominant_trait": "O"},
+    "Enneagram": lambda: {"tipe": 1, "counts": {9: 1, 1: 5, 2: 3}, "tipe_tied": None},
+    "DISC": lambda: {"tipe": "C", "counts": {"D": 2, "I": 1, "S": 5, "C": 6}},
+    "Love Language": lambda: {"primary": "PT", "secondary": "AS"},
+}
+
+
+def test_combo_sistem_baru_semua_terisi():
+    for sistem, mk in _RAW_BARU.items():
+        blok = build_combo(sistem, mk())
+        assert blok, sistem
+        for b in blok:
+            assert b["title"] and len(b["text"]) > 60, (sistem, b)
+            assert "—" not in b["text"] and "–" not in b["text"]
+
+
+def test_combo_sistem_tanpa_variabel_ganda_kosong():
+    for sistem in ("BaZi", "Golongan Darah", "Tarot"):
+        assert build_combo(sistem, {"kartu": "fool"}) == []
+
+
+def test_combo_semua_kombinasi_tidak_error():
+    import itertools
+    for a, b in itertools.permutations("WA QT RG AS PT".split(), 2):
+        assert build_combo("Love Language", {"primary": a, "secondary": b})
+    for a, b in itertools.permutations("DISC", 2):
+        c = {k: 0 for k in "DISC"}; c[a] = 5; c[b] = 3
+        assert build_combo("DISC", {"tipe": a, "counts": c})
+    for t in range(1, 10):
+        assert build_combo("Enneagram", {"tipe": t, "counts": {t: 4}, "tipe_tied": [t, 1]})
+    for tp in ("Generator", "Manifesting Generator", "Manifestor", "Projector", "Reflector"):
+        for o in ("Emotional / Solar Plexus", "Sacral", "Splenic", "Ego / Heart", "G-Center / Self-Projected",
+                  "Lunar / Environmental", "Mental Projector / Outer Authority"):
+            assert build_combo("Human Design", {"tipe": tp, "otoritas": o})
+    lv = ["Rendah", "Sedang", "Tinggi"]
+    for combo in itertools.product(lv, repeat=5):
+        assert len(build_combo("Big Five", {"levels": dict(zip("OCEAN", combo)), "dominant_trait": "N"})) == 6
