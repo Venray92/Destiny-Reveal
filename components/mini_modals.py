@@ -22,7 +22,7 @@ from components.dialog_bus import request_open
 
 from content import periodic
 from content.profile_loader import get_profile
-from content.result_builder import SHIO_CONTENT, TAROT_CONTENT, ZODIAK_CONTENT
+from content.result_builder import TAROT_CONTENT
 from engine.tarot import TAROT_MAJOR_ARCANA
 from engine.zodiak import _RENTANG_ZODIAK
 from utils.card_images import card_image_data_uri
@@ -54,7 +54,6 @@ def _zodiak_info(sign):
     """Data Preview Zodiak: rentang tanggal & elemen dari engine, teks dari JSON profil baru (sections.free)."""
     rng = next((r for r in _RENTANG_ZODIAK if r[2] == sign), None)
     free = (get_profile("Zodiak", {"sign": sign}) or {}).get("free", {})
-    fallback = ZODIAK_CONTENT.get(sign, {})
     tgl = f"{rng[0][1]} {_BLN[rng[0][0]]} - {rng[1][1]} {_BLN[rng[1][0]]}" if rng else ""
 
     def _val(attr, default):
@@ -63,10 +62,10 @@ def _zodiak_info(sign):
 
     return {
         "tgl": tgl, "elemen": rng[3] if rng else "",
-        "siapa": free.get("siapa_kamu") or fallback.get("p1", ""),
+        "siapa": free.get("siapa_kamu", ""),
         "modality": _val("atribut_1", rng[4] if rng else ""),
         "planet": _val("atribut_2", rng[5] if rng else ""),
-        "quote": (free.get("quote") or fallback.get("quote", "")).strip('"“” '),
+        "quote": free.get("quote", "").strip('"“” '),
     }
 
 
@@ -127,16 +126,16 @@ def _fmt_angka(v):
 def get_daily_reading(kind, name, day):
     """Return {pesan, angka, warna}: pesan harian (maks 2 kalimat) dari JSON harian baru (content/periodic.py).
     Kunci record dihitung dari kalender (Zodiak: rumah Bulan, Shio: elemen hari), bukan acak.
-    Cadangan (file tidak terbaca): pesan = 1 kalimat 'Untuk Hari Ini' kamus lama, angka/warna deterministik dari nama+tanggal."""
+    Cadangan (file tidak terbaca): pesan = quote profil, angka/warna deterministik dari nama+tanggal."""
     sistem = "Zodiak" if kind == "zodiak" else "Shio"
     e = periodic.get_daily(sistem, name, now=datetime.fromisoformat(day))
     if e and e.get("pesan"):
         return {"pesan": _first_sentences(e["pesan"], 2), "angka": _fmt_angka(e.get("angka_hoki")),
                 "warna": str(e.get("warna_hoki") or "")}
-    c = (ZODIAK_CONTENT if kind == "zodiak" else SHIO_CONTENT).get(name, {})
+    free = (get_profile(sistem, {"sign": name} if kind == "zodiak" else {"shio": name}) or {}).get("free", {})
     seed = random.Random(f"{kind}{name}{day}")
     n1 = seed.randint(1, 9)
-    return {"pesan": _first_sentences(c.get("p3", ""), 1), "angka": f"{n1} & {n1 * 3}", "warna": seed.choice(_WARNA)}
+    return {"pesan": free.get("quote", ""), "angka": f"{n1} & {n1 * 3}", "warna": seed.choice(_WARNA)}
 
 
 def _cb_daily_tab(tab):
