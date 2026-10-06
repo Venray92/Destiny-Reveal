@@ -8,8 +8,13 @@
         "siapa_kamu": "Kamu melambangkan jiwa pengembara yang penuh dengan kepolosaran, keberanian spontan, dan antusiasme murni untuk memulai petualangan baru tanpa dibebani ketakutan masa lalu. Jiwamu senantiasa terdorong untuk melompat ke dalam ketidakpastian dengan kepercayaan penuh pada pemeliharaan semesta yang tak terbatas. Kamu tidak mudah terikat oleh dogma kaku, ekspektasi masyarakat, maupun trauma masa lalu yang sering mengekang potensi orang lain. Kehadiranmu membawa kesegaran, kebebasan, dan kepolosan jujur yang sanggup mencairkan kekakuan di lingkungan sekitarmu. Bagimu, setiap detik kehidupan adalah kesempatan emas untuk memulai lembaran putih baru dan merayakan kebebasan jiwa.",
         "atribut_1": "Spontan & Bebas",
         "atribut_2": "Inovatif & Pelopor",
-	"elemen": "Udara",
-    	"kata_kunci": ["Awal Baru", "Kebebasan", "Spontanitas", "Potensi"]
+        "elemen": "Udara",
+        "kata_kunci": [
+          "Awal Baru",
+          "Kebebasan",
+          "Spontanitas",
+          "Potensi"
+        ],
         "quote": "Lompatlah ke dalam ketidakpastian dengan hati yang murni, karena semesta selalu menyediakan pijakan bagi jiwa yang berani."
       },
       "paid": {
@@ -27,8 +32,13 @@
         "siapa_kamu": "Kamu melambangkan sumber daya tak terbatas, fokus niat yang tajam, serta keahlian luar biasa untuk mewujudkan ide-ide abstrak menjadi kenyataan fisik yang nyata. Karakter dasarmu dipenuhi oleh kecerdasan komunikasi yang tinggi, pemahaman mendalam akan hukum alam, serta percaya diri yang sanggup menggerakkan sekitarmu. Kamu dibekali oleh semua elemen penting untuk mencapai keberhasilan, yaitu kejelasan mental, kedalaman emosi, gairah bertindak, dan kemandirian materi. Kamu adalah manifestor sejati yang tidak menunggu keajaiban datang, melainkan menciptakan keajaibanmu sendiri melalui kombinasi pengetahuan dan tindakan nyata. Bagimu, hidup adalah arena penyempurnaan keahlian dan pembuktian bahwa niat yang terfokus mampu menaklukkan setiap rintangan.",
         "atribut_1": "Fokus & Terampil",
         "atribut_2": "Komunikatif & Manifestor",
-	"elemen": "Udara",
-    	"kata_kunci": ["Manifestasi", "Keahlian", "Fokus", "Sumber Daya"]
+        "elemen": "Udara",
+        "kata_kunci": [
+          "Manifestasi",
+          "Keahlian",
+          "Fokus",
+          "Sumber Daya"
+        ],
         "quote": "Di dalam dirimu terhimpun semua sarana yang dibutuhkan; fokuskan niatmu dan wujudkan impian menjadi kenyataan."
       },
       "paid": {
@@ -39,18 +49,20 @@
         "keuangan": "Pendekatan finansialmu sangat aktif, berani memutar modal untuk peluang-peluang bisnis yang menjanjikan, dan sangat mahir menciptakan sumber pendapatan baru secara mandiri. Kamu memiliki pemahaman yang baik tentang cara kerja uang, tidak ragu menginvestasikan modal pada pengembangan diri atau alat kerja berteknologi tinggi yang dapat meningkatkan produktivitasmu. Namun, kamu wajib mewaspadai risiko kerugian keuangan akibat terlalu percaya diri mengambil keputusan investasi spekulatif tanpa melakukan analisis risiko secara mendalam. Buatlah perencanaan keuangan yang terstruktur dengan mengunci sebagian dari keuntungan bisnismu ke dalam aset-aset kaku yang aman dari godaan transaksi impulsif. Tempatkan porsi dana darurat yang memadai di rekening terpisah untuk mengantisipasi gejolak arus kas saat kamu sedang melakukan ekspansi usaha baru. Pelajari instrumen keuangan modern seperti saham unggulan, properti, atau reksadana terukur untuk mematangkan portofolio pertumbuhan kekayaanmu secara berkelanjutan. Hindari menggunakan keterampilan komunikasimu untuk terlibat dalam skema keuangan berisiko tinggi yang melanggar hukum demi keuntungan instan sesaat. Kedisiplinan mengatur risiko akan memastikan bahwa kelimpahan finansialmu bertahan kokoh sepanjang masa.",
         "kesehatan": "Berdasarkan simbolisme I - The Magician, kesehatan fisikmu terikat kuat dengan kejelasan fungsi sistem saraf pusat, kesehatan saluran pernapasan, serta kelancaran koordinasi tangan dan otak. Kamu rentan mengalami ketegangan saraf emosional, insomnia akibat pikiran yang tidak berhenti bekerja, pusing kronis, atau masalah pada pita suara dan tangan jika terlalu lelah. Sangat penting bagimu untuk menjadwalkan waktu istirahat tenang di mana kamu benar-benar lepas dari aktivitas berpikir, gawai, dan diskusi bisnis yang berat. Lakukan olahraga yang melatih koordinasi tubuh dan fokus ketenangan seperti senam kebugaran, tenis, berenang, atau latihan pernapasan mendalam secara teratur. Perhatikan asupan gizi harianmu dengan mengonsumsi makanan yang mendukung kesehatan saraf dan otak, seperti makanan kaya omega-3, sayuran hijau, serta mencukupi konsumsi air putih. Ciptakan rutinitas penenangan diri sebelum tidur di kamar yang harum dan gelap untuk memastikan kualitas pemulihan sel-sel otak serta saraf fisikmu secara maksimal. Salurkan ketegangan emosionalmu melalui aktivitas manual yang menyenangkan seperti menulis, bermain musik, atau berkarya seni untuk menyegarkan pikiranmu kembali. Merawat kesehatan sistem saraf dan mendinginkan emosi adalah kunci utama agar vitalitas manifestasimu tetap berada pada kondisi puncak."
       }
-    }
-  }
-}
-
-"major_02": {
+    },
+    "major_02": {
       "nama": "II - The High Priestess",
       "free": {
         "siapa_kamu": "Kamu melambangkan kedalaman intuisi, rahasia batin, serta kebijaksanaan spiritual yang tidak tersentuh oleh logika dangkal. Karakter dasarmu dipenuhi oleh ketenangan, kepekaan batin yang amat tajam, dan kemampuan luar biasa untuk memahami hal-hal tersirat di balik permukaan. Kamu adalah penjaga batas antara dunia sadar dan bawah sadar yang senantiasa mendengarkan suara nurani sebelum melangkah. Kehadiranmu membawa kedamaian yang misterius namun menenangkan, membuat orang lain secara alami memohon bimbingan intuitif dari dirimu. Bagimu, jawaban atas pertanyaan terkejam kehidupan tidak ditemukan di luar, melainkan di dalam keheningan jiwamu sendiri.",
         "atribut_1": "Intuitif & Bijaksana",
         "atribut_2": "Tenang & Misterius",
-	"elemen": "Air",
-   	 "kata_kunci": ["Intuisi", "Misteri", "Kebijaksanaan Batin", "Alam Bawah Sadar"]
+        "elemen": "Air",
+        "kata_kunci": [
+          "Intuisi",
+          "Misteri",
+          "Kebijaksanaan Batin",
+          "Alam Bawah Sadar"
+        ],
         "quote": "Dengarkanlah keheningan batinmu, karena di sanalah kebenaran sejati menyuarakan kebijaksanaannya."
       },
       "paid": {
@@ -61,18 +73,20 @@
         "keuangan": "Pendekatan finansialmu sangat dipengaruhi oleh intuisi, kehati-hatian, dan kecenderungan untuk menjaga kerahasiaan aset demi keamanan masa depan. Kamu tidak terlalu terobsesi pada penumpukan kemewahan materi yang mencolok, melainkan lebih mengutamakan kelayakan hidup yang stabil dan cadangan dana yang tersembunyi dengan aman. Kamu sangat cermat dalam menyimpan rahasia tabungan, menghindari pengeluaran impulsif, dan tidak mudah tergiur oleh ajakan investasi spekulatif yang bombastis. Namun, pastikan keraguanmu yang sering muncul tidak membuatmu terlalu kaku atau takut memutar modal untuk peluang-peluang usaha yang menguntungkan secara rasional. Pelajari instrumen keuangan modern yang transparan dan aman untuk memastikan agar tabungan yang kamu simpan dapat berkembang secara optimal jangka panjang. Tempatkan sebagian dari kekayaanmu pada aset-aset terukur seperti deposito, emas, atau reksadana konservatif demi melindungi nilai modalmu dari inflasi. Konsultasikan keputusan ekspansi finansial besar dengan ahli rasional untuk menyeimbangkan firasat intuitifmu dengan data fakta yang objektif. Kedisiplinan dan ketenangan batin dalam mengelola uang akan menjamin kebebasan serta keamanan finansialmu hingga tua.",
         "kesehatan": "Berdasarkan simbolisme II - The High Priestess, kesehatan fisikmu sangat terikat dengan Kestabilan hormon, ketenangan sistem saraf, serta keseimbangan energi pencernaan dan organ kewanitaan/reproduksi. Kamu sangat rentan mengalami insomnia, penyakit kecemasan, gangguan siklus hormon, pusing kronis, atau masalah pencernaan akibat stres emosional yang kamu pendam sendiri. Sangat penting bagimu untuk membatasi paparan terhadap lingkungan yang bising dan rutin melakukan pembersihan energi batin melalui meditasi atau ketenangan menyendiri di alam asri. Lakukan aktivitas fisik beritme lembut dan menenangkan seperti yoga, senam Tai Chi, atau berjalan santai di tepi air atau ruangan hijau yang tenang. Jagalah konsumsi air putih hangat yang cukup harian dan kurangi makanan yang terlalu dingin atau berfluoride tinggi yang dapat memperberat beban kerja ginjal serta sistem sarafmu. Ciptakan suasana kamar tidur yang sangat tenang, harum aromaterapi, dan gelap untuk mendukung pemulihan energi vital tubuhmu saat malam hari. Luapkan beban emosionalmu melalui kegiatan kreatif seperti melukis, menulis diary, atau mendengarkan musik reflektif alih-alih menahannya sendiri dalam batin. Merawat kesehatan jiwa dan ketenangan sistem saraf adalah kunci utama agar vitalitas kesegaranmu tetap memancar indah."
       }
-    }
-  }
-}
-
-"major_03": {
+    },
+    "major_03": {
       "nama": "III - The Empress",
       "free": {
         "siapa_kamu": "Kamu melambangkan energi kesuburan, kelimpahan materi, kasih sayang pengayom, serta kreativitas yang mekar indah dalam kehidupan. Karakter dasarmu dipenuhi oleh kehangatan, kepekaan estetika yang tinggi, serta kemampuan alami untuk merawat dan menumbuhkan potensi di sekitarmu. Kamu menikmati keindahan panca indera, kenyamanan hidup, dan memiliki daya tarik alami yang membuat orang lain merasa tenang berada di dekatmu. Bagi dirimu, kehidupan adalah tentang menciptakan keindahan, berbagi kebahagiaan, dan membiarkan segala sesuatu tumbuh pada waktu yang tepat. Kehadiranmu membawa keberkahan, kedamaian, dan kehangatan yang menguatkan ikatan kekeluargaan serta sosial.",
         "atribut_1": "Pengayom & Subur",
         "atribut_2": "Kreatif & Pemurah",
-	"elemen": "Tanah",
-    	"kata_kunci": ["Kelimpahan", "Kesuburan", "Kasih Sayang", "Kreativitas"]
+        "elemen": "Tanah",
+        "kata_kunci": [
+          "Kelimpahan",
+          "Kesuburan",
+          "Kasih Sayang",
+          "Kreativitas"
+        ],
         "quote": "Semaikan kasih sayang dengan ketulusan, maka kehidupan akan membalasmu dengan kelimpahan yang tak terhingga."
       },
       "paid": {
@@ -90,8 +104,13 @@
         "siapa_kamu": "Kamu melambangkan pilar struktur, kepemimpinan yang berwibawa, kedisiplinan kaku, serta kekuasaan untuk membangun ketertiban yang kokoh. Karakter dasarmu dipenuhi oleh rasionalitas tinggi, ketegangan etos kerja, serta rasa tanggung jawab yang amat besar dalam melindungi dan mengatur lingkungan sekitarmu. Kamu adalah pembangun sistem sejati yang mengutamakan hukum, kestabilan logika, dan pencapaian target nyata dibandingkan angan-angan kosong. Kepemimpinanmu yang tegas memberikan kepastian dan rasa aman bagi orang-orang yang berada di bawah naungan perlindunganmu. Bagimu, menegakkan disiplin, menjaga ketertiban aturan, dan mengukir kejayaan yang bertahan lama adalah esensi keberadaan hidup.",
         "atribut_1": "Tegas & Berwibawa",
         "atribut_2": "Disiplin & Pembangun Sistem",
-	"elemen": "Api",
-  	 "kata_kunci": ["Otoritas", "Struktur", "Kedisiplinan", "Kepemimpinan"]
+        "elemen": "Api",
+        "kata_kunci": [
+          "Otoritas",
+          "Struktur",
+          "Kedisiplinan",
+          "Kepemimpinan"
+        ],
         "quote": "Ketertiban dan kepemimpinan yang bijaksana adalah fondasi kokoh di mana kejayaan dan keamanan dibangun."
       },
       "paid": {
@@ -102,18 +121,20 @@
         "keuangan": "Pendekatan finansialmu sangat terencana, rasional, berhati-hati, dan berfokus pada pengumputan aset-aset riil bernilai tinggi yang memberikan keamanan jangka panjang. Kamu sangat mahir dalam menyusun anggaran operasional skala besar, mengendalikan pengeluaran, serta berinvestasi pada tanah, bangunan, atau saham unggulan. Kamu jarang sekali terjebak dalam utang konsumtif atau investasi spekulatif bodong karena profil risikomu yang sangat terukur dan berpatokan pada data nyata. Namun, pastikan kehati-hatianmu yang tinggi tidak membuatmu terlalu kaku hingga enggan memutar modal untuk peluang-peluang usaha baru yang menjanjikan. Buatlah diversifikasi portofolio keuangan yang seimbang antara keamanan modal utamamu dan pertumbuhan aset secara produktif. Alokasikan dana khusus untuk kenyamanan keluarga, merawat kesehatan pribadi, serta rekreasi tanpa perlu merasa bersalah setelah membelanjakannya. Bekerja samalah dengan penasihat keuangan profesional untuk membantumu menyusun strategi pengolahan kekayaan agar dapat bertahan hingga lintas generasi. Kedisiplinan mengatur risiko yang kamu jalankan akan menjamin kebebasan finansial yang kokoh.",
         "kesehatan": "Berdasarkan simbolisme IV - The Emperor, kesehatan fisikmu berhubungan erat dengan struktur tulang, kesehatan persendian, sistem pembuluh darah jantung, serta tingkat tekanan darah. Kamu sangat rentan mengalami ketegangan otot leher dan pundak, reumatik/nyeri sendi, pusing akibat stres kepemimpinan, hingga risiko tekanan darah tinggi. Sangat penting bagimu untuk menjadwalkan hari istirahat total dan rutin melakukan latihan pernapasan mendalam untuk meredakan ketegangan sistem saraf fisikmu. Lakukan olahraga yang menguatkan ketahanan fisik dan melatih kelenturan tubuh seperti berlatih beban terukur, berenang, bersepeda, atau berjalan cepat secara teratur. Jagalah konsumsi air putih harian yang cukup dan perbanyak asupan makanan kaya serat untuk mendukung kesehatan pembuangan usus dan sirkulasi darahmu. Kurangi konsumsi makanan yang terlalu tinggi garam dan lemak jenuh, serta batasi minuman kafein yang dapat memicu ketegangan pembuluh darah jantung. Ciptakan suasana tidur yang tenang dan nyaman untuk memastikan pemulihan stamina fisikmu setelah seharian bekerja keras memikul tanggung jawab. Merawat kesehatan persendian dan mendinginkan emosi adalah kunci utama agar vitalitas wibawamu tetap berada pada kondisi puncak."
       }
-    }
-  }
-}
-
-"major_05": {
+    },
+    "major_05": {
       "nama": "V - The Hierophant",
       "free": {
         "siapa_kamu": "Kamu melambangkan pilar tradisi, kebijaksanaan spiritual, sistem nilai yang kokoh, serta bimbingan moral yang menuntun masyarakat menuju keharmonisan. Karakter dasarmu dipenuhi oleh kepatuhan pada prinsip etika, kedalaman pengetahuan, dan dedikasi penuh untuk mengajar serta membagikan wawasan berharga. Kamu adalah jembatan antara nilai-nilai luhur dan kehidupan praktis, sosok tempat orang lain memohon nasihat serta kejelasan di masa-masa kebingungan. Kamu sangat menghormati tatanan, warisan kebudayaan, dan intuisi kolektif yang telah teruji oleh perjalanan waktu. Bagimu, menegakkan integritas moral, memelihara tradisi yang membangun, dan membimbing sesama adalah amanah jiwa yang sejati.",
         "atribut_1": "Bijaksana & Berprinsip",
         "atribut_2": "Pengajar & Terstruktur",
-	"elemen": "Tanah",
-   	 "kata_kunci": ["Tradisi", "Spiritualitas", "Bimbingan", "Sistem Nilai"]
+        "elemen": "Tanah",
+        "kata_kunci": [
+          "Tradisi",
+          "Spiritualitas",
+          "Bimbingan",
+          "Sistem Nilai"
+        ],
         "quote": "Kebijaksanaan sejati berakar pada tradisi yang teruji dan dedikasi tulus untuk membimbing jiwa-jiwa menuju kebenaran."
       },
       "paid": {
@@ -131,8 +152,13 @@
         "siapa_kamu": "Kamu melambangkan keharmonisan hubungan, keselarasan nilai-nilai batin, pilihan hati yang jujur, serta penyatuan dua energi yang saling melengkapi. Karakter dasarmu dipenuhi oleh kehangatan empati, rasa keadilan, sensitivitas estetika, serta dorongan kuat untuk menciptakan ikatan emosional yang mendalam. Kamu adalah individu yang sangat menghargai keterbukaan batin, tidak menyukai konflik kasar, dan senantiasa berusaha menyelaraskan logika pikiran dengan getaran nurani. Kehadiranmu membawa pesona kedamaian yang menyatukan, membuat orang lain merasa diterima dan dipahami secara utuh saat berada di dekatmu. Bagimu, hidup adalah tentang membuat pilihan berani yang setia pada kata hati dan merawat cinta dalam setiap bentuknya.",
         "atribut_1": "Harmonis & Empatis",
         "atribut_2": "Jujur & Penyelaras",
-	"elemen": "Udara",
-    	"kata_kunci": ["Keharmonisan", "Cinta", "Pilihan Hati", "Kemitraan"]
+        "elemen": "Udara",
+        "kata_kunci": [
+          "Keharmonisan",
+          "Cinta",
+          "Pilihan Hati",
+          "Kemitraan"
+        ],
         "quote": "Pilihlah jalan hidupmu dengan kejujuran kata hati, karena di sanalah keharmonisan sejati berada."
       },
       "paid": {
@@ -150,8 +176,13 @@
         "siapa_kamu": "Kamu melambangkan tekat bulat, ketangguhan mental, disiplin diri untuk mengendalikan dorongan yang berlawanan, serta keberanian menembus setiap hambatan demi kemenangan. Karakter dasarmu dipenuhi oleh fokus yang sangat tajam, etos kerja pantang menyerah, serta dorongan kuat untuk mencapai tujuan besar yang telah kamu tetapkan. Kamu adalah pengemudi atas takdirmu sendiri yang mampu menyelaraskan logika pikiran dan gejolak emosi menjadi energi pendorong yang sangat dahsyat. Kehadiranmu memancarkan kepastian dan ketangguhan yang menginspirasi orang lain untuk tidak menyerah dalam menghadapi krisis kehidupan. Bagimu, hidup adalah arena perjuangan di mana kedisiplinan dan fokus adalah kunci utama penakluk kejayaan.",
         "atribut_1": "Tangguh & Terfokus",
         "atribut_2": "Disiplin & Pemenang",
-	"elemen": "Air",
-   	 "kata_kunci": ["Tekad", "Kemenangan", "Pengendalian Diri", "Fokus"]
+        "elemen": "Air",
+        "kata_kunci": [
+          "Tekad",
+          "Kemenangan",
+          "Pengendalian Diri",
+          "Fokus"
+        ],
         "quote": "Kendalikan gejolak dalam dirimu dan arahkan seluruh energimu, maka tidak ada benteng yang tidak dapat kamu tembus."
       },
       "paid": {
@@ -169,8 +200,13 @@
         "siapa_kamu": "Kamu melambangkan kekuatan sejati yang lahir dari kelembutan batin, kesabaran, pengendalian emosi diri, serta ketahanan jiwa yang tak tergoyahkan. Karakter dasarmu dipenuhi oleh empati yang dalam, keberanian yang tenang, serta kemampuan luar biasa untuk menundukkan dorongan amarah kasar melalui kasih sayang. Kamu tidak menaklukkan rintangan dengan kekerasan atau konfrontasi yang merusak, melainkan melalui keanggunan diplomasi dan ketabahan yang konsisten. Kehadiranmu membawa energi penyembuhan yang menenangkan, membuat orang lain secara alami menaruh rasa percaya dan menghormati keteguhan prinsipmu. Bagimu, kemenangan teragung adalah saat kamu berhasil menguasai gejolak emosi diri sendiri dan mengarahkannya menjadi kebaikan bagi dunia.",
         "atribut_1": "Sabar & Anggun",
         "atribut_2": "Pengendali Diri & Penyembuh",
-	"elemen": "Api",
-    	"kata_kunci": ["Keberanian", "Kelembutan", "Kesabaran", "Pengendalian Emosi"]
+        "elemen": "Api",
+        "kata_kunci": [
+          "Keberanian",
+          "Kelembutan",
+          "Kesabaran",
+          "Pengendalian Emosi"
+        ],
         "quote": "Kekuatan terbesar tidak terletak pada kekerasan fisik, melainkan pada kelembutan batin yang sanggup menguasai ketakutan dan amarah."
       },
       "paid": {
@@ -188,8 +224,13 @@
         "siapa_kamu": "Kamu melambangkan perenungan batin, pencarian kebenaran sejati melalui kesendirian yang bijaksana, serta lentera petunjuk bagi jiwa-jiwa yang tersesat. Karakter dasarmu dipenuhi oleh kedalaman pemikiran, ketidaktertarikan pada kehebohan duniawi yang dangkal, serta dedikasi penuh untuk menemukan hakikat hidup. Kamu adalah individu yang mandiri secara emosional dan intelektual, yang menggunakan kesendirian bukan untuk melarikan diri, melainkan untuk mematangkan pemikiran. Kehadiranmu membawa aura ketenangan yang dalam, membuat orang lain secara alami datang meminta bimbingan dan nasihat dari pengalaman hidupmu yang kaya. Bagimu, memahami diri sendiri secara utuh dan membagikan pelita kebijaksanaan adalah pencapaian tertinggi dalam perjalanan hidup.",
         "atribut_1": "Bijaksana & Mandiri",
         "atribut_2": "Reflektif & Petunjuk Arah",
-	"elemen": "Tanah",
-   	 "kata_kunci": ["Perenungan", "Kesendirian", "Kebijaksanaan", "Pencarian Kebenaran"]
+        "elemen": "Tanah",
+        "kata_kunci": [
+          "Perenungan",
+          "Kesendirian",
+          "Kebijaksanaan",
+          "Pencarian Kebenaran"
+        ],
         "quote": "Di dalam keheningan kesendirian, pelita kebenaran menyala terang untuk menerangi jalan kehidupan."
       },
       "paid": {
@@ -207,8 +248,13 @@
         "siapa_kamu": "Kamu melambangkan dinamika perubahan zaman, roda perputaran nasib, hukum sebab-akibat, serta keberanian beradaptasi di tengah ketidakpastian kehidupan. Karakter dasarmu dipenuhi oleh optimisme yang fleksibel, ketahanan mental saat berhadapan dengan gejolak situasi, serta intuisi tajam dalam membaca peluang di setiap momentum. Kamu memahami betul bahwa tidak ada kondisi yang abadi di dunia ini, sehingga kamu tidak mudah panik saat berada di bawah, dan tidak sombong saat berada di puncak. Kehadiranmu membawa energi keberuntungan dan pembaruan yang membantu sekitarmu merangkul perubahan dengan kelapangan dada. Bagimu, hidup adalah perjalanan penuh siklus di mana keahlian beradaptasi dan menjaga Kestabilan batin adalah kunci utama keberhasilan.",
         "atribut_1": "Adaptif & Karismatik",
         "atribut_2": "Cerdas & Peluang Emas",
-	"elemen": "Api",
-    	"kata_kunci": ["Perubahan", "Roda Nasib", "Keberuntungan", "Siklus"]
+        "elemen": "Api",
+        "kata_kunci": [
+          "Perubahan",
+          "Roda Nasib",
+          "Keberuntungan",
+          "Siklus"
+        ],
         "quote": "Roda kehidupan terus berputar; tetaplah tenang di pusat jiwamu dan sambut setiap perubahan dengan keberanian."
       },
       "paid": {
@@ -219,18 +265,20 @@
         "keuangan": "Pendekatan finansialmu sangat dinamis, berani memanfaatkan peluang transaksi bisnis dari gejolak pasar, namun rentan mengalami fluktuasi arus kas jika tidak dikelola dengan ketat. Kamu memiliki insting yang tajam untuk mendeteksi barang atau usaha yang bakal meledak di pasar dan mahir melipatgandakan modal dalam waktu cepat melalui perdagangan strategis. Namun, kamu wajib mewaspadai kebocoran keuangan akibat tindakan spekulatif yang terlalu berani atau gaya hidup impulsif saat sedang memegang banyak uang. Gunakan sistem manajemen keuangan yang kaku dengan secara otomatis menyisihkan porsi keuntungan bisnismu ke dalam rekening tabungan atau investasi aman yang kaku. Tempatkan porsi terbesar dari kekayaanmu pada aset-aset kaku yang stabil dalam jangka panjang, seperti properti, tanah, atau emas, demi melindungi modal utamamu dari perputaran roda ekonomi. Pelajari analisis risiko finansial secara terstruktur dan jangan ragu berkonsultasi dengan ahli keuangan yang rasional untuk menjaga keseimbangan keuanganmu. Kedisiplinan mengatur risiko akan memastikan bahwa keberhasilan terobosanmu bertransformasi menjadi kekayaan yang kokoh hingga masa tua.",
         "kesehatan": "Berdasarkan simbolisme X - Wheel of Fortune, kesehatan fisikmu terikat kuat dengan Kestabilan metabolisme tubuh, Kestabilan hormon, sirkulasi darah, serta kecenderungan fluktuasi energi harian. Kamu sangat rentan mengalami perubahan kondisi fisik yang mendadak, pusing akibat stres emosional yang fluktuatif, masalah pencernaan, atau keletihan sistem saraf. Sangat penting bagimu untuk membangun ritme hidup harian yang lebih konsisten dalam hal jam makan, waktu olahraga, dan jadwal tidur malam demi menjaga Kestabilan biologismu. Lakukan olahraga yang menyegarkan stamina dan melatih ketahanan fisik seperti berenang, bersepeda, berjalan di alam terbuka, atau latihan beban secara teratur. Perhatikan asupan gizi harian dengan mengonsumsi makanan segar kaya antioksidan, sayuran hijau, serta mencukupi konsumsi air putih untuk mendukung kelancaran sirkulasi darah dan pembuangan racun tubuh. Ciptakan suasana kamar tidur yang tenang dan nyaman untuk memastikan kualitas pemulihan energi vital fisik dan otakmu secara maksimal. Mendedikasikan waktu untuk rileks total di tengah padatnya mobilitas harian adalah kunci utama untuk memulihkan kembali kesegaran pikiran dan ragamu. Merawat keteraturan gaya hidup harian adalah kunci utama agar vitalitas keberuntunganmu tetap menyala cemerlang."
       }
-    }
-  }
-}
-
-"major_11": {
+    },
+    "major_11": {
       "nama": "XI - Justice",
       "free": {
         "siapa_kamu": "Kamu melambangkan keadilan yang jujur, Kestabilan logika, kebenaran objektif, serta hukum sebab-akibat yang tidak memihak. Karakter dasarmu dipenuhi oleh rasa tanggung jawab moral yang tinggi, kejujuran intelektual, serta kemampuan luar biasa untuk menilai situasi secara adil dan jernih. Kamu tidak mudah terpengaruh oleh manipulasi emosional atau drama permukaan, melainkan selalu berpatokan pada fakta konkret dan pertimbangan yang matang. Keputusan yang kamu ambil selalu mempertimbangkan konsekuensi jangka panjang bagi semua pihak yang terlibat. Bagimu, menegakkan kebenaran, menjaga Kestabilan etika, dan bertindak secara bertanggung jawab adalah pilar kehormatan hidup yang hakiki.",
         "atribut_1": "Adil & Objektif",
         "atribut_2": "Jujur & Rasional",
-	"elemen": "Udara",
-  	 "kata_kunci": ["Keadilan", "Kejujuran", "Objektivitas", "Sebab Akibat"]
+        "elemen": "Udara",
+        "kata_kunci": [
+          "Keadilan",
+          "Kejujuran",
+          "Objektivitas",
+          "Sebab Akibat"
+        ],
         "quote": "Kebenaran tidak membutuhkan prasangka; keadilan sejati lahir dari pertimbangan yang jernih dan adil."
       },
       "paid": {
@@ -241,19 +289,20 @@
         "keuangan": "Pendekatan finansialmu sangat terencana, rasional, cermat, dan berfokus pada alokasi modal yang seimbang serta bebas dari utang yang tidak perlu. Kamu sangat mahir dalam mengelola anggaran bulanan, menghitung rasio keuntungan, serta menghindari keputusan belanja impulsif yang merusak Kestabilan arus kas harian. Kamu memiliki disiplin yang sangat baik dalam menabung dan berinvestasi pada sarana-sarana yang transparan, aman, dan mematuhi aturan hukum yang sah. Namun, pastikan kehati-hatianmu tidak membuatmu terlalu ragu-ragu dalam memutar modal untuk peluang-peluang bisnis baru yang menguntungkan secara rasional. Buatlah diversifikasi portofolio keuangan yang seimbang dengan mengalokasikan porsi dana darurat, tabungan pokok, dan investasi jangka panjang terukur. Pelajari instrumen keuangan modern seperti obligasi pemerintah, deposito, atau reksadana terukur untuk mematangkan pertumbuhan asetmu secara berkelanjutan. Kedisiplinan rasional dalam mengelola uang akan menjamin kebebasan finansial dan keamanan masa tuamu secara kokoh.",
         "kesehatan": "Berdasarkan simbolisme XI - Justice, kesehatan fisikmu terikat kuat dengan Kestabilan cairan tubuh, kesehatan ginjal, sirkulasi darah, serta Kestabilan asam-basa dalam sistem pencernaan. Kamu sangat rentan mengalami masalah pada ginjal, ketidakseimbangan hormon, pusing akibat stres emosional yang ditahan, atau ketegangan pada persendian pinggul dan punggung bawah. Sangat penting bagimu untuk mencukupi konsumsi air putih bersih harian, menjaga kebersihan saluran kemih, dan membatasi konsumsi makanan berkadar garam tinggi. Lakukan olahraga yang melatih Kestabilan tubuh dan ketenangan pikiran seperti yoga, berenang, berjalan santai di alam asri, atau pilates secara teratur. Perhatikan asupan gizi harian dengan mengonsumsi makanan yang mendukung kesehatan fungsi ginjal dan pembuluh darah, seperti sayuran hijau dan buah-buahan segar. Ciptakan suasana kamar tidur yang tenang, rapi, dan nyaman untuk memastikan kualitas pemulihan energi fisik dan sarafmu secara maksimal. Luapkan ketegangan batinmu melalui aktivitas meditasi atau mendengarkan musik yang menenangkan demi meredakan stres harian. Merawat kesehatan ginjal dan Kestabilan emosi adalah kunci utama agar vitalitas kebugaranmu tetap memancar cemerlang."
       }
-    }
-  }
-}
-
-
-"major_12": {
+    },
+    "major_12": {
       "nama": "XII - The Hanged Man",
       "free": {
         "siapa_kamu": "Kamu melambangkan pelepasan ego, jeda kontemplatif untuk melihat dunia dari sudut pandang yang sama sekali baru, serta pengorbanan yang membawa pencerahan batin. Karakter dasarmu dipenuhi oleh kesabaran yang luar biasa, ketenangan saat menghadapi fase tertunda, serta kedalaman intuisi yang sanggup menembus halusinasi materi. Kamu tidak memaksakan kehendak saat situasi sedang buntu, melainkan memilih untuk berserah dan membiarkan proses kehidupan mematangkan jiwamu. Kehadiranmu membawa kedamaian yang unik, menginspirasi orang lain untuk melepaskan kemelekatan dan menemukan kebijaksanaan di balik setiap penundaan. Bagimu, jeda bukanlah kekalahan, melainkan momentum spiritual untuk meraih perspektif yang jauh lebih jernih.",
         "atribut_1": "Sabar & Berserah",
         "atribut_2": "Kontemplatif & Intuitif",
-	"elemen": "Air",
-    	"kata_kunci": ["Pelepasan Ego", "Jeda", "Perspektif Baru", "Pengorbanan"]
+        "elemen": "Air",
+        "kata_kunci": [
+          "Pelepasan Ego",
+          "Jeda",
+          "Perspektif Baru",
+          "Pengorbanan"
+        ],
         "quote": "Lepaskanlah kendali egomu sejenak, karena dalam keheningan jeda itulah kebenaran sejati terpancar."
       },
       "paid": {
@@ -264,19 +313,20 @@
         "keuangan": "Pendekatan finansialmu sangat dipengaruhi oleh kedalaman perspektif dan ketidakterikatan pada kemewahan materi yang berlebihan, namun rentan mengalami stagnasi jika tidak dipantau secara aktif. Kamu tidak mudah tergiur oleh ajakan spekulasi bisnis instan atau tren gaya hidup konsumtif, melainkan lebih memilih kesederhanaan hidup yang stabil dan menenangkan. Namun, kamu wajib menjaga agar sikap berserahmu tidak berubah menjadi kelalaian dalam mengelola administrasi keuangan atau enggan memutar modal untuk peluang yang produktif. Buatlah sistem pengelolaan uang yang terstruktur dengan bantuan perencana keuangan rasional untuk memastikan agar asetmu tetap berkembang secara aman. Tempatkan porsi terbesar dari kekayaanmu pada instrumen investasi jangka panjang yang stabil, seperti deposito, emas, atau reksadana terukur. Pelajari manajemen risiko keuangan secara teratur dan hindari meminjamkan uang dalam jumlah besar hanya berdasarkan rasa kasihan tanpa perhitungan yang rasional. Kedisiplinan dalam menjaga keteraturan arus kas akan memastikan bahwa kebebasan dan keamanan masa tuamu terjaga dengan kokoh.",
         "kesehatan": "Berdasarkan simbolisme XII - The Hanged Man, kesehatan fisikmu berhubungan erat dengan sirkulasi cairan tubuh, Kestabilan sistem saraf pusat, kesehatan persendian kaki/pergelangan, serta kualitas tidur. Kamu sangat rentan mengalami penumpukan cairan (edema), rasa lesu kronis akibat stres emosional yang ditahan, masalah tekanan darah, atau pusing akibat kelelahan pikiran. Sangat penting bagimu untuk menjadwalkan rutinitas pemulihan fisik dan melakukan olahraga yang memperlancar sirkulasi darah tanpa membebani tubuh secara berlebihan. Lakukan olahraga beritme lembut dan menyegarkan seperti berenang, yoga pemulihan, senam pernapasan, atau berjalan santai di alam terbuka secara teratur. Perhatikan asupan gizi harianmu dengan mengonsumsi makanan segar yang mendukung pembersihan racun tubuh alami dan kurangi makanan berkadar garam tinggi serta olahan instan. Ciptakan suasana kamar tidur yang sangat tenang, harum aromaterapi, dan gelap untuk memastikan kualitas pemulihan energi otak serta saraf fisikmu secara maksimal. Mendedikasikan waktu untuk rileks total di ruang pribadi adalah kunci utama untuk menyegarkan kembali vitalitas pikiran dan ragamu. Merawat kesehatan sirkulasi darah dan mendinginkan ketegangan emosi adalah kunci agar kebugaran fisikmu tetap berada pada kondisi puncak."
       }
-    }
-  }
-}
-
-
-"major_13": {
+    },
+    "major_13": {
       "nama": "XIII - Death",
       "free": {
         "siapa_kamu": "Kamu melambangkan pelepasan fase lama, transformasi total, pengakhiran yang tidak terhindarkan, serta kelahiran kembali menuju lembaran baru yang lebih jernih. Karakter dasarmu dipenuhi oleh keberanian untuk merangkul perubahan ekstrem, ketahanan jiwa saat menghadapi pelepasan, serta kemampuan luar biasa untuk memotong hal-hal yang sudah mati dalam hidupmu. Kamu paham betul bahwa kematian sebuah fase adalah syarat mutlak untuk tumbuhnya kehidupan baru yang jauh lebih berkembang. Kehadiranmu membawa energi pembaharuan yang kuat, membantu sekitarmu membersihkan luka masa lalu dan bergerak maju tanpa ketakutan. Bagimu, transformasi bukanlah akhir dari segalanya, melainkan pintu gerbang menuju evolusi jiwa yang sejati.",
         "atribut_1": "Transformatif & Berani",
         "atribut_2": "Pembersih & Pelopor Baru",
-	"elemen": "Air",
-    	"kata_kunci": ["Transformasi", "Pengakhiran", "Kelahiran Kembali", "Pelepasan"]
+        "elemen": "Air",
+        "kata_kunci": [
+          "Transformasi",
+          "Pengakhiran",
+          "Kelahiran Kembali",
+          "Pelepasan"
+        ],
         "quote": "Janganlah takut pada pengakhiran, karena di balik jatuhnya daun-daun lama, benih kehidupan baru sedang bersiap mekar."
       },
       "paid": {
@@ -287,19 +337,20 @@
         "keuangan": "Pendekatan finansialmu sangat tegas, berani memotong kerugian (cut loss) secara cepat, dan mahir melakukan restrukturisasi portofolio modal di saat krisis ekonomi melanda. Kamu memiliki insting yang tajam untuk mendeteksi investasi yang sudah tidak produktif dan tidak ragu memindahkan asetmu ke sektor-sektor baru yang menawarkan pertumbuhan tinggi. Namun, kamu wajib menjaga agar kebiasaan radikalmu tidak membuatmu terlalu sering membongkar tabungan atau menjual aset penting secara terburu-buru akibat kepanikan sesaat. Buatlah sistem pengelolaan uang yang terstruktur dengan memisahkan dana darurat kaku yang aman dari keputusan pemindahan modal yang impulsif. Tempatkan porsi terbesar dari kekayaanmu pada instrumen investasi jangka panjang yang aman, seperti properti, tanah, atau logam mulia, demi mengunci keuntungan dari bisnis sebelumnya. Pelajari manajemen risiko keuangan secara mendalam dan jangan ragu berkonsultasi dengan ahli perencana keuangan yang rasional untuk membantu memantapkan strategi ekspansimu. Kedisiplinan mengatur risiko akan memastikan bahwa setiap transformasi finansialmu selalu bermuara pada akumulasi kekayaan yang jauh lebih kokoh.",
         "kesehatan": "Berdasarkan simbolisme XIII - Death, kesehatan fisikmu terikat kuat dengan proses pembuangan racun tubuh (detoksifikasi), Kestabilan usus besar, kesehatan tulang/persendian, serta regenerasi sel tubuh. Kamu sangat rentan mengalami masalah pencernaan usus besar, alergi kulit akibat penumpukan racun emosional/fisik, keletihan stamina, atau masalah pada persendian tulang. Sangat penting bagimu untuk menjalankan pola hidup bersih secara konsisten, rutin melakukan pembersihan pencernaan, dan mencukupi konsumsi air putih hangat harian. Lakukan aktivitas fisik yang membakar kalori dan merangsang keringat seperti berlatih beban, berenang, lari maraton, atau yoga panas (bikram yoga) secara teratur demi memperlancar detoksifikasi tubuh. Perhatikan asupan gizi harian dengan memperbanyak makanan kaya serat segar, buah-buahan antioksidan tinggi, serta menghentikan kebiasaan mengonsumsi makanan olahan instan atau rokok. Ciptakan suasana kamar tidur yang sangat bersih, rapi, dan memiliki sirkulasi udara segar untuk mendukung pemulihan sel-sel tubuhmu saat beristirahat malam. Merawat kesehatan pembuangan racun dan mendinginkan ketegangan emosi adalah kunci utama agar vitalitas pembaharuan fisikmu tetap berada pada kondisi puncak."
       }
-    }
-  }
-}
-
-
-"major_14": {
+    },
+    "major_14": {
       "nama": "XIV - Temperance",
       "free": {
         "siapa_kamu": "Kamu melambangkan Kestabilan, penyelarasan dua energi yang bertolak belakang, kesabaran dalam proses pematangan, serta kedamaian batin yang harmonis. Karakter dasarmu dipenuhi oleh ketenangan emosional, kecerdasan diplomasi, serta kemampuan luar biasa untuk menemukan titik tengah yang seimbang di tengah situasi ekstrem. Kamu tidak terburu-buru mengejar hasil instan, melainkan percaya pada proses peleburan alami yang membutuhkan waktu, ketelitian, dan pengendalian diri. Kehadiranmu membawa energi penyembuhan yang mencairkan ketegangan sosial, membuat orang lain merasa tenang dan terhubung saat berada di dekatmu. Bagimu, kedamaian sejati ditemukan saat logika dan perasaan, ketegasan dan kelembutan, mampu mengalir berdampingan secara harmonis.",
         "atribut_1": "Seimbang & Sabar",
         "atribut_2": "Penyelaras & Diplomatik",
-	"elemen": "Api",
-    	"kata_kunci": ["Keseimbangan", "Kesabaran", "Penyelarasan", "Kedamaian"]
+        "elemen": "Api",
+        "kata_kunci": [
+          "Keseimbangan",
+          "Kesabaran",
+          "Penyelarasan",
+          "Kedamaian"
+        ],
         "quote": "Kestabilan dan kesabaran adalah seni penyembuhan jiwa yang mengubah kekacauan menjadi keharmonisan yang indah."
       },
       "paid": {
@@ -310,19 +361,20 @@
         "keuangan": "Pendekatan finansialmu sangat terukur, rasional, berhati-hati, dan berfokus pada alokasi modal yang seimbang antara konsumsi harian, tabungan aman, dan investasi masa depan. Kamu tidak mudah tergiur oleh ajakan spekulasi bisnis yang berisiko tinggi atau belanja konsumtif yang berlebihan, melainkan mahir mengendalikan arus kas secara stabil. Kamu memiliki disiplin yang sangat baik dalam menjaga Kestabilan anggaran, membayar tagihan tepat waktu, dan menyisihkan pendapatan untuk cadangan masa depan secara rutin. Namun, pastikan kehati-hatianmu yang tinggi tidak membuatmu terlalu kaku atau ragu memutar modal untuk peluang-peluang usaha baru yang menawarkan hasil bagus secara rasional. Buatlah diversifikasi portofolio keuangan yang seimbang dengan mengalokasikan porsi dana darurat, tabungan pokok, dan investasi jangka panjang terukur. Pelajari instrumen keuangan modern seperti reksadana campuran, deposito, atau properti untuk mematangkan pertumbuhan kekayaanmu secara berkelanjutan. Kedisiplinan dan Kestabilan dalam mengelola uang akan menjamin kebebasan finansial dan keamanan masa tuamu secara kokoh.",
         "kesehatan": "Berdasarkan simbolisme XIV - Temperance, kesehatan fisikmu terikat kuat dengan Kestabilan cairan tubuh, kesehatan ginjal, sistem pencernaan, serta Kestabilan hormon dan suhu tubuh. Kamu sangat rentan mengalami masalah dehidrasi, ketidakseimbangan hormon, gangguan pada ginjal atau saluran kemih, serta keletihan fisik akibat ketidakseimbangan gaya hidup. Sangat penting bagimu untuk mencukupi konsumsi air putih bersih secara rutin sepanjang hari dan membatasi makanan atau minuman yang terlalu ekstrem (terlalu pedas, asin, atau manis). Lakukan olahraga yang beritme seimbang dan melatih Kestabilan tubuh seperti berenang, berjalan santai di alam terbuka, yoga, atau pilates secara teratur. Perhatikan asupan gizi harian dengan mengonsumsi makanan yang kaya serat segar, sayuran hijau, dan menjaga jadwal makan yang teratur demi Kestabilan pencernaanmu. Ciptakan suasana kamar tidur yang tenang, rapi, dan bersih untuk memastikan kualitas pemulihan energi fisik dan pembersihan racun tubuhmu secara maksimal. Merawat Kestabilan pola hidup harian dan menjaga kedamaian batin adalah kunci utama agar vitalitas kebugaranmu tetap memancar cemerlang."
       }
-    }
-  }
-}
-
-
-"major_15": {
+    },
+    "major_15": {
       "nama": "XV - The Devil",
       "free": {
         "siapa_kamu": "Kamu melambangkan konfrontasi dengan keterikatan materi, bayangan hasrat tersembunyi, keterikatan emosional, serta jebakan ilusi yang mengekang kebebasan jiwa. Karakter dasarmu dipenuhi oleh daya pikat sosial yang kuat, ambisi besar untuk menguasai sumber daya, serta pemahaman mendalam akan sisi gelap dan kelemahan manusia. Kamu tidak mudah tertipu oleh kepalsuan moralitas dangkal, melainkan berani menatap realita materi dengan ketajaman pikiran yang sangat realistis. Kehadiranmu membawa energi magnetis yang intens, sering kali menguji sekitarmu untuk menyadari ikatan toksik atau obsesi yang selama ini membelenggu potensi mereka. Bagimu, mengenali bayangan diri dan membebaskan keterikatan ilusi adalah kunci utama menuju kemerdekaan jiwa yang sejati.",
         "atribut_1": "Ambisius & Magnetis",
         "atribut_2": "Realistis & Transformatif",
-	"elemen": "Tanah",
-   	"kata_kunci": ["Keterikatan", "Ambisi", "Materialisme", "Bayangan Diri"]
+        "elemen": "Tanah",
+        "kata_kunci": [
+          "Keterikatan",
+          "Ambisi",
+          "Materialisme",
+          "Bayangan Diri"
+        ],
         "quote": "Keterikatan hanyalah ilusi pikiran; kenali bayangan dirimu dan temukan kemerdekaan jiwa yang hakiki."
       },
       "paid": {
@@ -340,8 +392,13 @@
         "siapa_kamu": "Kamu melambangkan runtuhnya struktur palsu, kebenaran mendadak yang membebaskan, terobosan radikal, serta pembersihan atas fondasi yang tidak kokoh. Karakter dasarmu dipenuhi oleh ketahanan mental yang dahsyat saat menghadapi krisis, kejujuran tanpa kompromi, serta kemampuan luar biasa untuk bangkit kembali dari kehancuran. Kamu tidak takut pada kebenaran yang pahit, melainkan melihat setiap goncangan hidup sebagai proses pembersihan ilusi demi membangun kembali masa depan di atas fondasi yang asli. Kehadiranmu membawa energi pembaharuan yang kuat, meruntuhkan kebiasaan buruk dan kepalsuan di sekitarmu agar lahir kebebasan sejati. Bagimu, krisis bukanlah akhir dari segalanya, melainkan petir pencerahan yang membongkar kepalsuan dan membebaskan jiwamu.",
         "atribut_1": "Tangguh & Radikal",
         "atribut_2": "Pembersih Ilusi & Bangkit",
-	"elemen": "Api",
-   	"kata_kunci": ["Terobosan", "Pembersihan", "Perubahan Mendadak", "Kebenaran"]
+        "elemen": "Api",
+        "kata_kunci": [
+          "Terobosan",
+          "Pembersihan",
+          "Perubahan Mendadak",
+          "Kebenaran"
+        ],
         "quote": "Ketika fondasi palsu runtuh oleh petir kebenaran, saat itulah jiwamu menemukan kebebasan sejati untuk membangun kembali."
       },
       "paid": {
@@ -352,19 +409,20 @@
         "keuangan": "Pendekatan finansialmu membutuhkan kehati-hatian khusus karena kamu rentan mengalami gejolak arus kas mendadak atau risiko kerugian modal akibat perubahan pasar yang tidak terduga. Kamu memiliki kemampuan luar biasa untuk bangkit dan membangun kembali kekayaanmu dari nol setelah mengalami kegagalan bisnis atau kerugian investasi. Namun, kamu wajib mewaspadai risiko kehancuran keuangan akibat tindakan spekulatif yang terlalu berani atau kurangnya dana darurat saat krisis melanda. Buatlah sistem manajemen keuangan yang sangat kaku dengan menyimpan porsi besar dari kekayaanmu pada aset-aset teraman yang bebas dari risiko gejolak pasar. Tempatkan dana darurat yang memadai di rekening yang terpisah dan kurang likuid agar modal utamamu terlindungi saat terjadi krisis yang tak terduga. Pelajari analisis risiko finansial secara terstruktur dan hindari menempatkan seluruh modalmu pada satu proyek berisiko tinggi tanpa adanya jaminan perlindungan. Kedisiplinan mengatur risiko dan kesiapan dana darurat akan memastikan bahwa Kestabilan finansialmu bertahan kokoh di tengah perputaran roda ekonomi.",
         "kesehatan": "Berdasarkan simbolisme XVI - The Tower, kesehatan fisikmu terikat kuat dengan risiko cedera fisik mendadak, pusing kronis, gangguan tekanan darah, serta ketegangan sistem saraf akibat stres kejutan. Kamu sangat rentan mengalami kecelakaan ringan saat beraktivitas terburu-buru, peradangan akut, masalah pada tulang/persendian, atau serangan cemas mendadak. Sangat penting bagimu untuk melatih kesadaran penuh saat bergerak, mematuhi prosedur keselamatan kerja, dan menghindari aktivitas tergesa-gesa yang membahayakan tubuh. Lakukan olahraga yang meredakan ketegangan sistem saraf dan membakar hormon stres seperti berenang, berjalan santai di alam terbuka, yoga pemulihan, atau senam pernapasan secara teratur. Perhatikan asupan gizi harian dengan mengonsumsi makanan yang mendukung kesehatan pembuluh darah dan tulang, seperti makanan kaya kalsium, magnesium, dan air putih bersih. Ciptakan suasana kamar tidur yang sangat tenang, harum, dan bebas dari stimulasi gawai untuk memastikan kualitas pemulihan otak serta sistem saraf fisikmu secara maksimal. Mendedikasikan waktu untuk rileks total di ruang pribadi yang asri adalah kunci utama untuk mendinginkan emosi dan menyegarkan kembali vitalitas tubuhmu. Merawat keselamatan fisik dan mendinginkan ketegangan saraf adalah kunci utama agar kebugaranmu tetap berada pada kondisi puncak."
       }
-    }
-  }
-}
-
-
-"major_17": {
+    },
+    "major_17": {
       "nama": "XVII - The Star",
       "free": {
         "siapa_kamu": "Kamu melambangkan harapan yang berkilau, pemulihan jiwa paska badai, inspirasi murni, serta iman yang tak tergoyahkan pada kebaikan masa depan. Karakter dasarmu dipenuhi oleh kedamaian batin, ketulusan rasa, kepekaan seni, serta kemampuan alami untuk memancarkan aura penyembuhan bagi sekitarmu. Kamu tidak lagi terikat oleh ketakutan masa lalu, melainkan melangkah dengan hati yang terbuka dan pasrah pada keindahan alur kehidupan. Kehadiranmu membawa kesegaran dan optimisme yang menenangkan, membantu orang lain menemukan kembali pencerahan dan harapan di tengah kegelapan. Bagimu, hidup adalah tentang membagikan kasih sayang secara murni, menginspirasi melalui teladan, dan percaya pada takdir yang indah.",
         "atribut_1": "Inspiratif & Damai",
         "atribut_2": "Optimis & Penyembuh",
-	"elemen": "Udara",
-   	"kata_kunci": ["Harapan", "Inspirasi", "Penyembuhan", "Kedamaian"]
+        "elemen": "Udara",
+        "kata_kunci": [
+          "Harapan",
+          "Inspirasi",
+          "Penyembuhan",
+          "Kedamaian"
+        ],
         "quote": "Tetaplah bersinar di tengah kegelapan, karena harapan murni adalah pelita yang tak akan pernah padam."
       },
       "paid": {
@@ -382,8 +440,13 @@
         "siapa_kamu": "Kamu melambangkan kedalaman dunia bawah sadar, intuisi imajinatif yang kaya, rahasia emosional yang tersembunyi, serta ujian menavigasi ketakutan dan ilusi di tengah kegelapan malam. Karakter dasarmu dipenuhi oleh peka rasa yang sangat tajam, daya imajinasi seni yang luar biasa, serta kemampuan alami untuk merasakan getaran emosi tersembunyi di sekitarmu. Kamu tidak mudah puas dengan fakta permukaan yang kaku, melainkan selalu terdorong untuk menembus bayang-bayang demi menemukan kebenaran tersirat. Kehadiranmu membawa aura misterius dan emosional yang mendalam, sering kali membimbing sekitarmu untuk berani menghadapi trauma dan ketakutan Batin mereka sendiri. Bagimu, menaklukkan bayangan ilusi dan memercayai kompas intuisi adalah jalan utama menuju kedewasaan jiwa yang sejati.",
         "atribut_1": "Intuitif & Imajinatif",
         "atribut_2": "Misterius & Peka Rasa",
-	"elemen": "Air",
-    	"kata_kunci": ["Intuisi", "Imajinasi", "Ketakutan Batin", "Misteri"]
+        "elemen": "Air",
+        "kata_kunci": [
+          "Intuisi",
+          "Imajinasi",
+          "Ketakutan Batin",
+          "Misteri"
+        ],
         "quote": "Percayalah pada intuisi batinmu saat menembus bayang-bayang kegelapan, karena di sanalah kebenaran tersembunyi menunggumu."
       },
       "paid": {
@@ -401,8 +464,13 @@
         "siapa_kamu": "Kamu melambangkan kejayaan cemerlang, vitalitas energi yang melimpah, kebahagiaan murni, kejelasan tanpa keraguan, serta keberhasilan yang memancarkan inspirasi bagi dunia. Karakter dasarmu dipenuhi oleh optimisme tinggi, kejujuran yang transparan, keberanian tampil di depan, serta karisma hangat yang membuat siapapun merasa bersemangat di dekatmu. Kamu adalah pembawa cahaya kehidupan yang sanggup mengusir kegelapan kebingungan, mencairkan kekakuan sosial, dan membawa harapan baru di manapun kamu berada. Kamu tidak menyukai kebohongan terselubung atau intrik rumit, melainkan lebih memilih kesederhanaan, keterbukaan, dan merayakan keberhasilan bersama. Bagimu, hidup adalah kesempatan emas untuk bersinar terang, berbagi kehangatan kasih sayang, dan menikmati kelimpahan berkah secara tulus.",
         "atribut_1": "Cemerlang & Optimis",
         "atribut_2": "Karismatik & Vitalitas",
-	"elemen": "Api",
-    	"kata_kunci": ["Kejayaan", "Kebahagiaan", "Vitalitas", "Kejelasan"]
+        "elemen": "Api",
+        "kata_kunci": [
+          "Kejayaan",
+          "Kebahagiaan",
+          "Vitalitas",
+          "Kejelasan"
+        ],
         "quote": "Pancarkan cahayamu dengan kejujuran tulus, karena keberadaanmu adalah berkah kehangatan bagi dunia."
       },
       "paid": {
@@ -420,8 +488,13 @@
         "siapa_kamu": "Kamu melambangkan panggilan jiwa yang agung, kebangkitan kesadaran baru, evaluasi Diri yang jujur, serta keberanian untuk meninggalkan masa lalu demi melangkah menuju tingkat kehidupan yang lebih tinggi. Karakter dasarmu dipenuhi oleh kejelasan nurani, kedewasaan berpikir, serta kemampuan luar biasa untuk memaafkan kesalahan masa lalu dan memetik pelajaran berharga. Kamu tidak lagi dapat dipengaruhi oleh ilusi atau kebohongan permukaan, melainkan mendengarkan panggilan tugas yang lebih mulia dalam hidupmu. Kehadiranmu membawa energi pencerahan yang membangkitkan sekitarmu dari tidur lelap rasa malas dan kebingungan moral. Bagimu, hidup adalah proses pertanggungjawaban yang jujur dan keberanian merespons panggilan evolusi jiwa secara utuh.",
         "atribut_1": "Bangkit & Berkesadaran",
         "atribut_2": "Evaluatif & Bijaksana",
-	"elemen": "Api",
-    	"kata_kunci": ["Kebangkitan", "Panggilan Jiwa", "Evaluasi Diri", "Pemaafan"]
+        "elemen": "Api",
+        "kata_kunci": [
+          "Kebangkitan",
+          "Panggilan Jiwa",
+          "Evaluasi Diri",
+          "Pemaafan"
+        ],
         "quote": "Dengarkanlah panggilan jiwamu, lepaskan penyesalan masa lalu, dan bangkitlah menuju takdirmu yang baru."
       },
       "paid": {
@@ -439,10 +512,23 @@
         "siapa_kamu": "Kamu melambangkan pencapaian puncak, keutuhan jiwa, penyelesaian siklus besar yang sempurna, serta kebebasan untuk menikmati kelimpahan hidup yang utuh. Karakter dasarmu dipenuhi oleh kebijaksanaan yang matang, wawasan global yang luas, Kestabilan emosional, serta kedamaian batin paska menaklukkan berbagai ujian kehidupan. Kamu adalah pribadi yang utuh yang sanggup menyelaraskan segenap potensi dirimu menjadi karya nyata yang bermanfaat bagi dunia luas. Kehadiranmu memancarkan aura keberhasilan dan keharmonisan yang menginspirasi sekitarmu untuk menuntaskan perjuangan mereka dengan ketekunan. Bagimu, hidup adalah perjalanan indah yang telah mencapai tingkat pemahaman puncak, di mana kebebasan dan rasa syukur hadir secara melimpah.",
         "atribut_1": "Utuh & Berhasil",
         "atribut_2": "Wawasan Luas & Bijaksana",
-	"elemen": "Tanah",
-    	"kata_kunci": ["Kesempurnaan", "Penuntasan", "Keharmonisan Global", "Pencapaian"]
-        "quote": "Selesaikanlah perjuanganmu dengan ketekunan, karena di puncak pencapaian itulah kebebasan dan keutuhan jiwa menunggumu."
+        "elemen": "Tanah",
+        "quote": "Selesaikanlah perjuanganmu dengan ketekunan, karena di puncak pencapaian itulah kebebasan dan keutuhan jiwa menunggumu.",
+        "kata_kunci": [
+          "Kesempurnaan",
+          "Penuntasan",
+          "Keharmonisan Global",
+          "Pencapaian"
+        ]
       },
       "paid": {
         "kekuatan_yang_perlu_dijaga": "Kebijaksanaan hidup yang matang, wawasan global yang luas, dan kemampuan alaimu untuk menuntaskan setiap proyek hingga sempurna adalah pilar kekuatan luar biasa. Kamu memiliki kapasitas unik untuk menyelaraskan berbagai sumber daya yang berbeda, mengintegrasikan pengalaman hidup menjadi karya besar, dan menikmati keberhasilan dengan kerendahan hati. Karisma keutuhan jiwamu membuat orang lain menaruh rasa percaya penuh padamu sebagai figur pimpinan atau mentor yang sangat mumpuni. Kamu tidak mudah tergoyahkan oleh gejolak krisis kecil, melainkan selalu berfokus pada penyelesaian target jangka panjang secara elegan dan bermartabat. Pertahankan komitmen pada kualitas puncak dan kedamaian rasa ini sebagai sarana utama untuk terus memelihara kejayaan hidup yang berkelanjutan. Kebiasaanmu menuntaskan tugas secara bertanggung jawab terbukti selalu membukakan jalan menuju kebebasan, penghormatan publik, dan kelimpahan yang melimpah. Teruslah memelihara keterbukaan pikiran dan ketulusan berbagi agar keberhasilanmu selalu memberikan keberkahan yang nyata bagi masyarakat luas. Keutuhan jiwa dan kejayaanmu adalah harta paling berharga yang tak akan pernah pudar.",
-        "pr_kecil_buat_kamu": "Tantangan terbesar yang perlu kamu kelola adalah mengendalikan ketakutan untuk melangkah ke siklus baru (takut memulai dari nol kembali), serta kecenderungan mudah merasa puas di zona nyaman puncak. Pencapaian besarmu terkadang membuatmu enggan melepaskan reputasi atau posisi lama saat panggilan evolusi jiwa yang baru mulai menyuarakan ajakannya. Belajarlah untuk merangkul keheningan jeda paska keberhasilan dan persiapkan dirimu untuk menyambut lembaran baru dengan kerendahan hati seorang pembelajar sejati. Kurangi kebiasaan terlalu kaku mempertahankan metode kerja lama yang pernah membawamu pada kesuksesan, karena siklus baru sering kali membutuhkan strategi baru yang lebih segar. Latihlah keterbukaan untuk menerima masukan dari generasi muda dan berikan kepercayaan pada mereka untuk meneruskan warisan kerjamu tanpa harus kamu kontrol secara ketat. Hindari kecenderungan menjadi terlalu isolatif atau merasa bahwa kamu sudah tidak membutuhkan masukan atau bantuan dari lingkungan sosial di sekitarmu. Terimalah bahwa kesempurnaan sejati di dunia ini adalah proses yang terus mengalir, di mana setiap akhir siklus adalah awal dari pet
+        "pr_kecil_buat_kamu": "Tantangan terbesar yang perlu kamu kelola adalah mengendalikan ketakutan untuk melangkah ke siklus baru (takut memulai dari nol kembali), serta kecenderungan mudah merasa puas di zona nyaman puncak. Pencapaian besarmu terkadang membuatmu enggan melepaskan reputasi atau posisi lama saat panggilan evolusi jiwa yang baru mulai menyuarakan ajakannya. Belajarlah untuk merangkul keheningan jeda paska keberhasilan dan persiapkan dirimu untuk menyambut lembaran baru dengan kerendahan hati seorang pembelajar sejati. Kurangi kebiasaan terlalu kaku mempertahankan metode kerja lama yang pernah membawamu pada kesuksesan, karena siklus baru sering kali membutuhkan strategi baru yang lebih segar. Latihlah keterbukaan untuk menerima masukan dari generasi muda dan berikan kepercayaan pada mereka untuk meneruskan warisan kerjamu tanpa harus kamu kontrol secara ketat. Hindari kecenderungan menjadi terlalu isolatif atau merasa bahwa kamu sudah tidak membutuhkan masukan atau bantuan dari lingkungan sosial di sekitarmu. Terimalah bahwa kesempurnaan sejati di dunia ini adalah proses yang terus mengalir, di mana setiap akhir siklus adalah awal dari petualangan baru yang menanti untuk dijelajahi.",
+        "karir": "Di dunia kerja, kamu akan sangat bersinar dalam peran yang menuntut pandangan luas, penyelesaian proyek besar, dan kerja sama lintas bidang atau lintas wilayah. Karier sebagai manajer program, konsultan internasional, diplomat, pengelola operasi regional, peneliti, pendidik, atau pemimpin organisasi yang membutuhkan penuntasan dari awal sampai akhir sangat cocok denganmu. Kamu pandai menyatukan banyak pihak dan banyak bagian pekerjaan menjadi satu hasil yang utuh dan rapi. Kemampuanmu menutup siklus dengan tuntas membuat atasan dan mitra mudah mempercayakan tanggung jawab besar kepadamu. Pekerjaan yang melibatkan perjalanan, pertukaran budaya, atau jaringan global memberi ruang yang pas bagi wawasanmu. Hati-hati agar kebiasaan menyelesaikan semuanya tidak berubah menjadi sulit melepas proyek yang sebenarnya sudah cukup baik. Tetapkan kriteria selesai di awal, rayakan setiap pencapaian, lalu bergeraklah ke tantangan berikutnya agar kariermu terus tumbuh tanpa jeda yang menjemukan.",
+        "asmara": "Dalam kehidupan asmara, kamu adalah pasangan yang matang, utuh, dan mencari hubungan yang menyatukan dua dunia tanpa saling meniadakan. Kamu menyukai pasangan yang berwawasan luas, mandiri, dan siap tumbuh bersama dalam jangka panjang. Kamu cenderung setia pada komitmen dan menganggap hubungan sebagai proses yang perlu dituntaskan dengan sungguh-sungguh, bukan dilepas ketika muncul hambatan. Kehangatan dan kedewasaan sikapmu membuat pasangan merasa aman untuk menjadi dirinya sendiri. Tantanganmu adalah kecenderungan menginginkan hubungan yang sempurna sehingga hal kecil yang kurang pas terasa mengganggu. Belajarlah menghargai proses dan ketidaksempurnaan, serta ajak pasangan menyusun tujuan bersama yang realistis. Luangkan waktu untuk perjalanan atau pengalaman baru bersama agar hubunganmu tetap segar dan tidak terjebak rutinitas yang kaku.",
+        "keuangan": "Pendekatan finansialmu terencana, berpandangan jauh, dan berorientasi pada pembangunan fondasi yang utuh dan berkelanjutan. Kamu mampu mengelola berbagai sumber penghasilan dan aset secara seimbang, serta memandang uang sebagai alat untuk menyelesaikan tujuan hidup yang lebih besar. Peluang usaha atau investasi yang berhubungan dengan pendidikan, perjalanan, perdagangan lintas wilayah, atau jaringan luas cenderung cocok dengan wawasanmu. Kamu juga mudah menyusun rencana jangka panjang seperti dana pensiun, dana pendidikan, dan dana darurat yang rapi. Hati-hati agar keinginan menuntaskan semuanya tidak membuatmu menunda mengambil peluang yang cukup baik hanya karena belum sempurna. Pecah tujuan keuangan besar menjadi target tahunan yang jelas, tinjau perkembangannya secara berkala, dan sediakan sebagian dana untuk dinikmati agar kerja kerasmu juga terasa manfaatnya.",
+        "kesehatan": "Berdasarkan simbolisme XXI - The World, kesehatan fisikmu terikat dengan keseimbangan menyeluruh antara tubuh, pikiran, dan lingkungan, serta kesehatan tulang, persendian, dan sistem kekebalan. Kamu cenderung mengalami kelelahan ketika terlalu lama mengejar penyelesaian banyak hal sekaligus, dengan gejala seperti pegal di punggung, kaku pada sendi, dan sulit tidur. Pola hidup yang seimbang, olahraga teratur yang melibatkan seluruh tubuh seperti berenang, yoga, atau berjalan jauh, dan waktu di alam terbuka membantu menjaga vitalitasmu. Perhatikan asupan kalsium, protein, dan nutrisi pendukung tulang, serta istirahat yang cukup setelah menyelesaikan pekerjaan besar. Jadwalkan pemeriksaan kesehatan rutin untuk memastikan seluruh sistem tubuhmu terpantau dengan baik. Sisihkan waktu pemulihan setelah setiap pencapaian agar energi tubuhmu terisi kembali dan siap menyambut fase berikutnya."
+      }
+    }
+  }
+}
