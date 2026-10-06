@@ -1,0 +1,327 @@
+{
+  "Zodiak": {
+    "Aries": {
+      "tagline": "☉ Matahari di Aries",
+      "chip": "ZODIAK",
+      "title": "Aries, Sang Pemberani yang Cepat Bergerak"
+    },
+    "Taurus": {
+      "tagline": "☉ Matahari di Taurus",
+      "chip": "ZODIAK",
+      "title": "Taurus, Sosok Tenang yang Setia"
+    },
+    "Gemini": {
+      "tagline": "☉ Matahari di Gemini",
+      "chip": "ZODIAK",
+      "title": "Gemini, Si Lincah yang Serba Ingin Tahu"
+    },
+    "Cancer": {
+      "tagline": "☉ Matahari di Cancer",
+      "chip": "ZODIAK",
+      "title": "Cancer, Pelindung yang Penuh Perasaan"
+    },
+    "Leo": {
+      "tagline": "☉ Matahari di Leo",
+      "chip": "ZODIAK",
+      "title": "Leo, Sang Pemimpin yang Hangat"
+    },
+    "Virgo": {
+      "tagline": "☉ Matahari di Virgo",
+      "chip": "ZODIAK",
+      "title": "Virgo, Perfeksionis yang Teliti"
+    },
+    "Libra": {
+      "tagline": "☉ Matahari di Libra",
+      "chip": "ZODIAK",
+      "title": "Libra, Penjaga Keseimbangan"
+    },
+    "Scorpio": {
+      "tagline": "☉ Matahari di Scorpio",
+      "chip": "ZODIAK",
+      "title": "Scorpio, Sosok Misterius yang Mendalam"
+    },
+    "Sagittarius": {
+      "tagline": "☉ Matahari di Sagittarius",
+      "chip": "ZODIAK",
+      "title": "Sagittarius, Sang Penjelajah yang Bebas"
+    },
+    "Capricorn": {
+      "tagline": "☉ Matahari di Capricorn",
+      "chip": "ZODIAK",
+      "title": "Capricorn, Pekerja Keras yang Disiplin"
+    },
+    "Aquarius": {
+      "tagline": "☉ Matahari di Aquarius",
+      "chip": "ZODIAK",
+      "title": "Aquarius, Pemikir yang Out of the Box"
+    },
+    "Pisces": {
+      "tagline": "☉ Matahari di Pisces",
+      "chip": "ZODIAK",
+      "title": "Pisces, Jiwa yang Penuh Empati"
+    }
+  },
+  "Shio": {
+    "Tikus": {
+      "tagline": "🐭 Shio Tikus",
+      "chip": "SHIO",
+      "title": "Tikus, Si Cerdik yang Serba Bisa"
+    },
+    "Kerbau": {
+      "tagline": "🐂 Shio Kerbau",
+      "chip": "SHIO",
+      "title": "Kerbau, Sosok Tekun yang Bisa Diandalkan"
+    },
+    "Macan": {
+      "tagline": "🐯 Shio Macan",
+      "chip": "SHIO",
+      "title": "Macan, Pemberani yang Penuh Semangat"
+    },
+    "Kelinci": {
+      "tagline": "🐰 Shio Kelinci",
+      "chip": "SHIO",
+      "title": "Kelinci, Sosok Lembut yang Bijaksana"
+    },
+    "Naga": {
+      "tagline": "🐉 Shio Naga",
+      "chip": "SHIO",
+      "title": "Naga, Sosok yang Sulit Diabaikan"
+    },
+    "Ular": {
+      "tagline": "🐍 Shio Ular",
+      "chip": "SHIO",
+      "title": "Ular, Pemikir Tajam yang Penuh Intuisi"
+    },
+    "Kuda": {
+      "tagline": "🐴 Shio Kuda",
+      "chip": "SHIO",
+      "title": "Kuda, Jiwa Bebas yang Energik"
+    },
+    "Kambing": {
+      "tagline": "🐐 Shio Kambing",
+      "chip": "SHIO",
+      "title": "Kambing, Jiwa Lembut yang Penuh Empati"
+    },
+    "Monyet": {
+      "tagline": "🐒 Shio Monyet",
+      "chip": "SHIO",
+      "title": "Monyet, Si Cerdas yang Penuh Ide"
+    },
+    "Ayam": {
+      "tagline": "🐓 Shio Ayam",
+      "chip": "SHIO",
+      "title": "Ayam, Sosok Rapi yang Percaya Diri"
+    },
+    "Anjing": {
+      "tagline": "🐕 Shio Anjing",
+      "chip": "SHIO",
+      "title": "Anjing, Sosok Setia yang Bisa Dipercaya"
+    },
+    "Babi": {
+      "tagline": "🐷 Shio Babi",
+      "chip": "SHIO",
+      "title": "Babi, Sosok Tulus yang Penuh Kebaikan Hati"
+    }
+  },
+  "Weton": {
+    "Legi": {
+      "tagline": "☾ Pasaran Legi",
+      "chip": "WETON",
+      "title": "{hari} Legi, Neptu {neptu}, Pembawa Ketenangan"
+    },
+    "Pahing": {
+      "tagline": "☾ Pasaran Pahing",
+      "chip": "WETON",
+      "title": "{hari} Pahing, Neptu {neptu}, Sosok yang Bersemangat"
+    },
+    "Pon": {
+      "tagline": "☾ Pasaran Pon",
+      "chip": "WETON",
+      "title": "{hari} Pon, Neptu {neptu}, Penengah yang Bijaksana"
+    },
+    "Wage": {
+      "tagline": "☾ Pasaran Wage",
+      "chip": "WETON",
+      "title": "{hari} Wage, Neptu {neptu}, Pribadi yang Mandiri"
+    },
+    "Kliwon": {
+      "tagline": "☾ Pasaran Kliwon",
+      "chip": "WETON",
+      "title": "{hari} Kliwon, Neptu {neptu}, Sosok yang Penuh Kepekaan"
+    }
+  },
+  "Numerologi": {
+    "1": {
+      "tagline": "✦ Angka Hidup 1",
+      "chip": "NUMEROLOGI",
+      "title": "Angka Hidup 1, Sang Pemula yang Mandiri"
+    },
+    "2": {
+      "tagline": "✦ Angka Hidup 2",
+      "chip": "NUMEROLOGI",
+      "title": "Angka Hidup 2, Sosok Harmonis yang Peka"
+    },
+    "3": {
+      "tagline": "✦ Angka Hidup 3",
+      "chip": "NUMEROLOGI",
+      "title": "Angka Hidup 3, Jiwa Kreatif yang Ekspresif"
+    },
+    "4": {
+      "tagline": "✦ Angka Hidup 4",
+      "chip": "NUMEROLOGI",
+      "title": "Angka Hidup 4, Sosok Teratur yang Bisa Diandalkan"
+    },
+    "5": {
+      "tagline": "✦ Angka Hidup 5",
+      "chip": "NUMEROLOGI",
+      "title": "Angka Hidup 5, Petualang yang Haus Kebebasan"
+    },
+    "6": {
+      "tagline": "✦ Angka Hidup 6",
+      "chip": "NUMEROLOGI",
+      "title": "Angka Hidup 6, Pengasuh yang Penuh Tanggung Jawab"
+    },
+    "7": {
+      "tagline": "✦ Angka Hidup 7",
+      "chip": "NUMEROLOGI",
+      "title": "Angka Hidup 7, Pemikir Mendalam yang Penuh Perenungan"
+    },
+    "8": {
+      "tagline": "✦ Angka Hidup 8",
+      "chip": "NUMEROLOGI",
+      "title": "Angka Hidup 8, Pengelola yang Rapi"
+    },
+    "9": {
+      "tagline": "✦ Angka Hidup 9",
+      "chip": "NUMEROLOGI",
+      "title": "Angka Hidup 9, Jiwa Dermawan yang Berpandangan Luas"
+    },
+    "11": {
+      "tagline": "✦ Angka Hidup 11 (Master Number)",
+      "chip": "NUMEROLOGI",
+      "title": "Angka Hidup 11, Intuisi yang Menyala Terang"
+    },
+    "22": {
+      "tagline": "✦ Angka Hidup 22 (Master Number)",
+      "chip": "NUMEROLOGI",
+      "title": "Angka Hidup 22, Sang Pembangun Besar"
+    },
+    "33": {
+      "tagline": "✦ Angka Hidup 33 (Master Number)",
+      "chip": "NUMEROLOGI",
+      "title": "Angka Hidup 33, Pembimbing yang Penuh Kasih"
+    }
+  },
+  "Matrix Destiny": {
+    "1": {
+      "tagline": "✧ The Beginner",
+      "chip": "MATRIX DESTINY",
+      "title": "The Beginner, Sang Pemula yang Berani Memulai"
+    },
+    "2": {
+      "tagline": "✧ The Listener",
+      "chip": "MATRIX DESTINY",
+      "title": "The Listener, Sang Pendengar yang Penuh Empati"
+    },
+    "3": {
+      "tagline": "✧ The Creator",
+      "chip": "MATRIX DESTINY",
+      "title": "The Creator, Sang Pencipta yang Penuh Imajinasi"
+    },
+    "4": {
+      "tagline": "✧ The Ruler",
+      "chip": "MATRIX DESTINY",
+      "title": "The Ruler, Sang Penguasa yang Tegas"
+    },
+    "5": {
+      "tagline": "✧ The Teacher",
+      "chip": "MATRIX DESTINY",
+      "title": "The Teacher, Sang Guru yang Suka Berbagi Ilmu"
+    },
+    "6": {
+      "tagline": "✧ The Partners",
+      "chip": "MATRIX DESTINY",
+      "title": "The Partners, Fondasi bagi Orang-Orang di Sekitarmu"
+    },
+    "7": {
+      "tagline": "✧ The Conqueror",
+      "chip": "MATRIX DESTINY",
+      "title": "The Conqueror, Sang Penakluk yang Pantang Menyerah"
+    },
+    "8": {
+      "tagline": "✧ The Balance",
+      "chip": "MATRIX DESTINY",
+      "title": "The Balance, Sang Penjaga Keseimbangan"
+    },
+    "9": {
+      "tagline": "✧ The Hermit",
+      "chip": "MATRIX DESTINY",
+      "title": "The Hermit, Sang Perenung yang Mandiri"
+    },
+    "10": {
+      "tagline": "✧ The Wheel",
+      "chip": "MATRIX DESTINY",
+      "title": "The Wheel, Sang Pembawa Perubahan"
+    },
+    "11": {
+      "tagline": "✧ The Brave",
+      "chip": "MATRIX DESTINY",
+      "title": "The Brave, Sang Pemberani yang Tangguh"
+    },
+    "12": {
+      "tagline": "✧ The Sacrifice",
+      "chip": "MATRIX DESTINY",
+      "title": "The Sacrifice, Sang Pemberi yang Rela Berkorban"
+    },
+    "13": {
+      "tagline": "✧ The Transformation",
+      "chip": "MATRIX DESTINY",
+      "title": "The Transformation, Sang Pembawa Perubahan Besar"
+    },
+    "14": {
+      "tagline": "✧ The Alchemist",
+      "chip": "MATRIX DESTINY",
+      "title": "The Alchemist, Sang Peramu yang Cerdik"
+    },
+    "15": {
+      "tagline": "✧ The Shadow",
+      "chip": "MATRIX DESTINY",
+      "title": "The Shadow, Sang Penjelajah Sisi Gelap Diri"
+    },
+    "16": {
+      "tagline": "✧ The Collapse",
+      "chip": "MATRIX DESTINY",
+      "title": "The Collapse, Sang Penakluk Kehancuran"
+    },
+    "17": {
+      "tagline": "✧ The Hope",
+      "chip": "MATRIX DESTINY",
+      "title": "The Hope, Sang Pembawa Harapan"
+    },
+    "18": {
+      "tagline": "✧ The Mystery",
+      "chip": "MATRIX DESTINY",
+      "title": "The Mystery, Sang Penjaga Rahasia"
+    },
+    "19": {
+      "tagline": "✧ The Joy",
+      "chip": "MATRIX DESTINY",
+      "title": "The Joy, Sang Pembawa Kebahagiaan"
+    },
+    "20": {
+      "tagline": "✧ The Awakening",
+      "chip": "MATRIX DESTINY",
+      "title": "The Awakening, Sang Pencari Kesadaran"
+    },
+    "21": {
+      "tagline": "✧ The Achievement",
+      "chip": "MATRIX DESTINY",
+      "title": "The Achievement, Sang Pencapai Tujuan"
+    },
+    "22": {
+      "tagline": "✧ The Unity",
+      "chip": "MATRIX DESTINY",
+      "title": "The Unity, Sang Penyatu yang Utuh"
+    }
+  }
+}
