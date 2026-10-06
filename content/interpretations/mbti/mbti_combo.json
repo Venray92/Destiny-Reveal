@@ -1,42 +1,42 @@
 {
   "temperamen": {
-    "NT": "Kombinasi NT menggabungkan intuisi dan logika, sehingga kamu menyukai ide, sistem, dan kompetensi. Kamu cepat melihat pola dan celah, jadi pastikan temuanmu disampaikan dengan cara yang bisa diterima orang lain.",
-    "NF": "Kombinasi NF menggabungkan intuisi dan perasaan, sehingga kamu mencari makna, keaslian, dan potensi orang lain. Kamu hidup dari nilai yang kamu yakini, jadi pilih kegiatan yang selaras dengannya agar energimu terjaga.",
-    "SJ": "Kombinasi SJ menggabungkan fakta nyata dan keteraturan, sehingga kamu menghargai tanggung jawab, aturan, dan kelanjutan yang jelas. Kamu menjadi penopang tim, jadi sisihkan ruang agar kamu juga terbuka pada cara baru.",
+    "NT": "Kombinasi NT menggabungkan intuisi dan logika, sehingga kamu menyukai ide, sistem, dan kompetensi. Kamu cepat melihat pola dan celah, jadi pastikan temuanmu disampaikan dengan cara yang bisa diterima orang lain. Misalnya, saat menemukan celah dalam rencana, mulailah dengan menyebut bagian yang sudah kuat sebelum menjelaskan perbaikannya.",
+    "NF": "Kombinasi NF menggabungkan intuisi dan perasaan, sehingga kamu mencari makna, keaslian, dan potensi orang lain. Kamu hidup dari nilai yang kamu yakini, jadi pilih kegiatan yang selaras dengannya agar energimu terjaga. Misalnya, pilih proyek atau komunitas yang sejalan dengan nilaimu dan kurangi komitmen yang terasa hampa.",
+    "SJ": "Kombinasi SJ menggabungkan fakta nyata dan keteraturan, sehingga kamu menghargai tanggung jawab, aturan, dan kelanjutan yang jelas. Kamu menjadi penopang tim, jadi sisihkan ruang agar kamu juga terbuka pada cara baru. Misalnya, ujilah satu prosedur baru selama dua minggu sebelum memutuskan apakah ia lebih baik dari cara lama.",
     "SP": "Kombinasi SP menggabungkan pengamatan langsung dan fleksibilitas, sehingga kamu bergerak cepat, praktis, dan menikmati pengalaman nyata. Kamu pandai merespons keadaan, jadi tambahkan rencana ringan agar hasil jangka panjang ikut terjaga."
   },
   "huruf": {
-    "E": "Huruf E tampak saat kamu mendapat energi dari berbicara, bertemu orang, dan berpikir sambil bersuara.",
-    "I": "Huruf I tampak saat kamu mengisi tenaga lewat waktu tenang dan berpikir matang sebelum bicara.",
-    "S": "Huruf S tampak saat kamu percaya pada fakta, pengalaman nyata, dan langkah yang bisa langsung dicoba.",
-    "N": "Huruf N tampak saat kamu menangkap pola, kemungkinan, dan gambaran besar sebelum rinciannya.",
-    "T": "Huruf T tampak saat kamu menimbang keputusan dari logika, konsistensi, dan sebab-akibat yang jelas.",
-    "F": "Huruf F tampak saat kamu menimbang keputusan dari nilai pribadi dan dampaknya bagi perasaan orang.",
-    "J": "Huruf J tampak saat kamu nyaman dengan rencana, jadwal, dan menutup urusan hingga tuntas.",
-    "P": "Huruf P tampak saat kamu menyukai fleksibilitas, membuka pilihan, dan menyesuaikan diri mengikuti keadaan."
+    "E": "Huruf E tampak saat kamu mendapat energi dari berbicara, bertemu orang, dan berpikir sambil bersuara. Dalam keseharian, kamu mungkin lebih jernih setelah mendiskusikan masalah dengan teman atau rekan, jadi jadwalkan obrolan itu sebelum memutuskan hal penting dan sesekali beri jeda hening agar kamu juga mendengar pikiranmu sendiri.",
+    "I": "Huruf I tampak saat kamu mengisi tenaga lewat waktu tenang dan berpikir matang sebelum bicara. Dalam keseharian, kamu mungkin butuh jeda sendirian setelah pertemuan panjang, jadi sisihkan waktu pulih dan sampaikan pendapatmu secara tertulis atau satu per satu bila suasana ramai terasa melelahkan bagimu.",
+    "S": "Huruf S tampak saat kamu percaya pada fakta, pengalaman nyata, dan langkah yang bisa langsung dicoba. Dalam pekerjaan, kamu cenderung kuat saat ada contoh, data, atau prosedur nyata, jadi minta rincian konkret bila instruksi terasa kabur dan uji ide baru lewat langkah kecil yang mudah diamati hasilnya.",
+    "N": "Huruf N tampak saat kamu menangkap pola, kemungkinan, dan gambaran besar sebelum rinciannya. Dalam pekerjaan, kamu cenderung cepat menemukan arah dan peluang baru, jadi catat ide yang muncul lalu terjemahkan menjadi langkah konkret dengan tenggat agar gambaran besarmu tidak berhenti sebagai angan-angan.",
+    "T": "Huruf T tampak saat kamu menimbang keputusan dari logika, konsistensi, dan sebab-akibat yang jelas. Dalam diskusi, kamu cenderung mencari alasan yang masuk akal, jadi tambahkan satu pertanyaan tentang dampaknya bagi orang yang terlibat agar keputusan yang logis juga terasa adil bagi semua pihak.",
+    "F": "Huruf F tampak saat kamu menimbang keputusan dari nilai pribadi dan dampaknya bagi perasaan orang. Dalam diskusi, kamu cenderung memikirkan perasaan dan nilai semua pihak, jadi lengkapi dengan data atau kriteria yang jelas supaya keputusan yang penuh pengertian tetap bisa dipertanggungjawabkan.",
+    "J": "Huruf J tampak saat kamu nyaman dengan rencana, jadwal, dan menutup urusan hingga tuntas. Dalam kehidupan sehari-hari, kamu cenderung merasa tenang saat rencana tertulis, jadi sisakan satu bagian jadwal yang longgar untuk hal tak terduga agar perubahan mendadak tidak terasa mengganggu.",
+    "P": "Huruf P tampak saat kamu menyukai fleksibilitas, membuka pilihan, dan menyesuaikan diri mengikuti keadaan. Dalam kehidupan sehari-hari, kamu cenderung bekerja bagus saat punya ruang bergerak, jadi tetapkan tenggat kecil untuk hal penting agar kebebasanmu tidak membuat pekerjaan menumpuk menjelang akhir."
   },
   "sumbu": {
     "EI": {
-      "kuat": "Kecenderunganmu di sumbu ini sangat jelas, sehingga pola energimu mudah ditebak oleh dirimu dan orang sekitar. Manfaatkan itu dengan mengatur jadwal yang sesuai, lalu sesekali latih sisi sebaliknya agar tidak terjebak kebiasaan.",
-      "tipis": "Skormu di sumbu ini hampir seimbang, jadi perilakumu mudah berubah mengikuti situasi dan suasana hati. Perhatikan kondisi yang membuatmu bertenaga dan atur porsi waktu sosial dan waktu sendiri sesuai kebutuhan hari itu."
+      "kuat": "Kecenderunganmu di sumbu ini sangat jelas, sehingga pola energimu mudah ditebak oleh dirimu dan orang sekitar. Manfaatkan itu dengan mengatur jadwal yang sesuai, lalu sesekali latih sisi sebaliknya agar tidak terjebak kebiasaan. Misalnya, pada hari yang padat, siapkan sesi sosial atau waktu sendiri sesuai kecenderunganmu.",
+      "tipis": "Skormu di sumbu ini hampir seimbang, jadi perilakumu mudah berubah mengikuti situasi dan suasana hati. Perhatikan kondisi yang membuatmu bertenaga dan atur porsi waktu sosial dan waktu sendiri sesuai kebutuhan hari itu. Misalnya, setelah pekan yang sibuk, tanyakan pada dirimu apakah kamu lebih butuh bertemu orang atau menyepi."
     },
     "SN": {
-      "kuat": "Cara kamu mengolah informasi di sumbu ini sangat jelas, sehingga kamu cepat bekerja dengan gaya favoritmu. Gandeng orang yang kuat di sisi sebaliknya agar sudut pandangmu lebih lengkap.",
-      "tipis": "Skormu di sumbu ini hampir seimbang, jadi kamu bisa berpindah antara detail nyata dan gambaran besar. Sadari mana yang sedang kamu pakai, lalu sengaja gunakan keduanya saat mengambil keputusan penting."
+      "kuat": "Cara kamu mengolah informasi di sumbu ini sangat jelas, sehingga kamu cepat bekerja dengan gaya favoritmu. Gandeng orang yang kuat di sisi sebaliknya agar sudut pandangmu lebih lengkap. Misalnya, saat menyusun rencana, ajak seseorang yang menyukai sisi sebaliknya untuk meninjau hasilnya.",
+      "tipis": "Skormu di sumbu ini hampir seimbang, jadi kamu bisa berpindah antara detail nyata dan gambaran besar. Sadari mana yang sedang kamu pakai, lalu sengaja gunakan keduanya saat mengambil keputusan penting. Misalnya, pada keputusan besar, tulis satu daftar fakta dan satu daftar kemungkinan, lalu bandingkan keduanya."
     },
     "TF": {
-      "kuat": "Cara kamu mengambil keputusan di sumbu ini sangat jelas, sehingga sikapmu konsisten dan mudah dipahami. Tanyakan pada orang yang berpikir berbeda untuk melihat hal yang mungkin terlewat.",
-      "tipis": "Skormu di sumbu ini hampir seimbang, jadi pertimbanganmu bisa condong ke logika atau perasaan tergantung konteks. Tuliskan alasan dari kedua sisi sebelum memutuskan agar pilihanmu terasa mantap."
+      "kuat": "Cara kamu mengambil keputusan di sumbu ini sangat jelas, sehingga sikapmu konsisten dan mudah dipahami. Tanyakan pada orang yang berpikir berbeda untuk melihat hal yang mungkin terlewat. Misalnya, sebelum menyampaikan keputusan penting, bayangkan bagaimana orang yang terdampak akan menerimanya dan apa alasan yang paling masuk akal bagi mereka.",
+      "tipis": "Skormu di sumbu ini hampir seimbang, jadi pertimbanganmu bisa condong ke logika atau perasaan tergantung konteks. Tuliskan alasan dari kedua sisi sebelum memutuskan agar pilihanmu terasa mantap. Misalnya, saat menghadapi pilihan sulit, mintalah satu teman memberi pandangan dari sisi yang tidak kamu condongi hari itu."
     },
     "JP": {
-      "kuat": "Gaya mengatur hidup di sumbu ini sangat jelas, sehingga ritme kerjamu mudah dikenali dan dihargai. Sisakan ruang untuk keluar dari kebiasaan sesekali agar kamu tetap lentur ketika keadaan berubah.",
-      "tipis": "Skormu di sumbu ini hampir seimbang, jadi kamu bisa rapi di satu waktu dan spontan di waktu lain. Tentukan area yang perlu rencana pasti dan area yang boleh longgar agar tidak bingung sendiri."
+      "kuat": "Gaya mengatur hidup di sumbu ini sangat jelas, sehingga ritme kerjamu mudah dikenali dan dihargai. Sisakan ruang untuk keluar dari kebiasaan sesekali agar kamu tetap lentur ketika keadaan berubah. Misalnya, coba satu kegiatan tanpa rencana atau satu proyek terjadwal ketat, sesuai sisi yang jarang kamu pakai.",
+      "tipis": "Skormu di sumbu ini hampir seimbang, jadi kamu bisa rapi di satu waktu dan spontan di waktu lain. Tentukan area yang perlu rencana pasti dan area yang boleh longgar agar tidak bingung sendiri. Misalnya, gunakan jadwal pasti untuk tenggat kerja dan biarkan akhir pekan lebih bebas, atau sebaliknya sesuai kebutuhanmu."
     }
   },
   "advice": {
-    "NT": "Latih mendengar perasaan orang lain sebelum membahas solusi, dan sampaikan kritik dengan menyebut hal yang sudah berjalan baik. Ubah satu ide per bulan menjadi langkah nyata supaya kecerdasanmu menghasilkan dampak.",
-    "NF": "Terjemahkan nilai dan cita-citamu menjadi satu kebiasaan harian yang konkret, dan latih menetapkan batas tanpa merasa bersalah. Mintalah data atau contoh nyata saat sedang ragu agar idealismemu tetap berpijak.",
-    "SJ": "Coba satu cara baru per bulan di pekerjaan atau rutinitas, lalu nilai hasilnya dengan tenang. Bagikan tanggung jawabmu kepada orang lain dan sisihkan waktu istirahat agar kamu tidak kelelahan menopang semuanya.",
-    "SP": "Tentukan satu target tiga bulan dan pecah menjadi langkah mingguan agar kelincahanmu mengarah ke hasil. Biasakan berhenti sejenak sebelum mengambil risiko besar untuk memikirkan akibat jangka panjangnya."
+    "NT": "Latih mendengar perasaan orang lain sebelum membahas solusi, dan sampaikan kritik dengan menyebut hal yang sudah berjalan baik. Ubah satu ide per bulan menjadi langkah nyata supaya kecerdasanmu menghasilkan dampak. Misalnya, kirim pesan apresiasi singkat kepada rekan yang membantu proyekmu.",
+    "NF": "Terjemahkan nilai dan cita-citamu menjadi satu kebiasaan harian yang konkret, dan latih menetapkan batas tanpa merasa bersalah. Mintalah data atau contoh nyata saat sedang ragu agar idealismemu tetap berpijak. Misalnya, tolak satu permintaan yang menguras tenagamu dengan kalimat yang jelas dan ramah.",
+    "SJ": "Coba satu cara baru per bulan di pekerjaan atau rutinitas, lalu nilai hasilnya dengan tenang. Bagikan tanggung jawabmu kepada orang lain dan sisihkan waktu istirahat agar kamu tidak kelelahan menopang semuanya. Misalnya, delegasikan satu tugas rutin kepada rekan dan gunakan waktunya untuk beristirahat.",
+    "SP": "Tentukan satu target tiga bulan dan pecah menjadi langkah mingguan agar kelincahanmu mengarah ke hasil. Biasakan berhenti sejenak sebelum mengambil risiko besar untuk memikirkan akibat jangka panjangnya. Misalnya, tulis tiga akibat yang mungkin terjadi sebelum menyetujui rencana yang berisiko."
   }
 }
