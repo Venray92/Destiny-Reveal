@@ -22,12 +22,10 @@ from content.interpretations.ziwei import ZIWEI_CONTENT
 from content.interpretations.disc import DISC_CONTENT
 from content.interpretations.enneagram import ENNEAGRAM_CONTENT
 from content.interpretations.love_language import LOVE_LANGUAGE_CONTENT
-from content.interpretations.matrix_destiny import MATRIX_DESTINY_CONTENT
 from content.interpretations.mbti import MBTI_CONTENT
-from content.interpretations.numerologi import NUMEROLOGI_CONTENT
-from content.interpretations.shio import SHIO_CONTENT
 from content.interpretations.weton import WETON_CONTENT
-from content.interpretations.zodiak import ZODIAK_CONTENT
+from content import safe_json
+from content.profile_loader import ALLOW_LEGACY_FALLBACK, get_profile, get_title
 from engine.big_five_scoring import score_big_five
 from engine.disc_scoring import score_disc
 from engine.bazi import hitung_bazi
@@ -215,6 +213,28 @@ def _build_big_five_display(raw_result):
     return data
 
 
+_JSON_SYSTEMS = ("Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny")
+
+
+def _display_dari_json(system, raw_result):
+    """Dict siap-tampil (bentuk sama dengan kamus lama) dari JSON profil baru + titles.json.
+    Peta seksi: p1=free.siapa_kamu, p2=D (kekuatan), p3=F (nasihat), domains karir=B, asmara=C.
+    None kalau profil / judul entri ini belum ada."""
+    prof = get_profile(system, raw_result)
+    judul = get_title(system, raw_result)
+    sec = (prof or {}).get("sections") or {}
+    if not prof or not judul or not prof["free"].get("siapa_kamu") or not all(h in sec for h in "BCDF"):
+        return None
+    return {
+        **judul,
+        "p1_label": "Siapa Kamu", "p1": prof["free"]["siapa_kamu"],
+        "p2_label": "Kekuatan & yang Perlu Dijaga", "p2": sec["D"],
+        "quote": prof["free"].get("quote", ""),
+        "p3_label": "PR Kecil Buat Kamu", "p3": sec["F"],
+        "domains": {"karir": sec["B"], "asmara": sec["C"]},
+    }
+
+
 def build_display_data(system: str, raw_result):
     """
     Gabungkan hasil MENTAH dari engine + kamus konten jadi dict siap-tampil,
@@ -230,32 +250,22 @@ def build_display_data(system: str, raw_result):
     if not raw_result or raw_result.get("placeholder"):
         return None
 
-    if system == "Zodiak":
-        content = ZODIAK_CONTENT.get(raw_result.get("sign"))
-        return dict(content) if content else None
-
-    if system == "Shio":
-        content = SHIO_CONTENT.get(raw_result.get("shio"))
-        return dict(content) if content else None
-
-    if system == "Weton":
+    if system in _JSON_SYSTEMS:
+        data = _display_dari_json(system, raw_result)
+        if data:
+            return data
+        if system != "Weton" or not ALLOW_LEGACY_FALLBACK:
+            return None  # 4 sistem lain: sumber tunggalnya JSON baru
+        # Weton: profil JSON baru baru 5 dari 35, sisanya jatuh ke kamus lama per pasaran
         content = WETON_CONTENT.get(raw_result.get("pasaran"))
         if not content:
             return None
-        data = dict(content)
+        data = safe_json.bersihkan(dict(content))  # kamus lama masih pakai em dash
         hari = raw_result.get("hari", "")
         neptu = raw_result.get("neptu", "")
         data["title"] = data["title"].format(hari=hari, neptu=neptu)
         data["p1"] = data["p1"].format(hari=hari, neptu=neptu)
         return data
-
-    if system == "Numerologi":
-        content = NUMEROLOGI_CONTENT.get(raw_result.get("life_path"))
-        return dict(content) if content else None
-
-    if system == "Matrix Destiny":
-        content = MATRIX_DESTINY_CONTENT.get(raw_result.get("titik_inti"))
-        return dict(content) if content else None
 
     if system == "BaZi":
         content = BAZI_CONTENT.get(raw_result.get("day_master"))

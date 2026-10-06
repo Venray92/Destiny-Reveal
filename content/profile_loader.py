@@ -21,6 +21,7 @@ _FILES = {
     "Numerologi": "numerologi/numerologi_profile.json",
     "Matrix Destiny": "matrix_destiny/matrix_destiny.json",
 }
+_TITLES = "titles.json"  # tagline/chip/title per entri (Weton: per pasaran, judul pakai {hari} & {neptu})
 SYSTEMS = tuple(_FILES)
 ALLOW_LEGACY_FALLBACK = True  # False = entri yang belum ada di JSON baru tampil kosong, bukan dari kamus lama
 HURUF = tuple("ABCDEFGHIJKLM")
@@ -66,6 +67,22 @@ def get_profile(system, raw):
         return None
     meta = {k: v for k, v in entry.items() if k != "sections"}
     return {"key": key, "free": free, "sections": teks, "meta": meta}
+
+
+def get_title(system, raw):
+    """{tagline, chip, title} dari titles.json, atau None kalau belum ada. Weton: placeholder diisi hari & neptu."""
+    d = (safe_json.load(_BASE / _TITLES) or {}).get(system) or {}
+    raw = raw or {}
+    if system == "Weton":
+        t = d.get(raw.get("pasaran"))
+        if not t:
+            return None
+        t = dict(t)
+        t["title"] = t["title"].format(hari=raw.get("hari", ""), neptu=raw.get("neptu", ""))
+        return t
+    key = profile_key(system, raw)
+    t = d.get(key) if key else None
+    return dict(t) if t else None
 
 
 def pertama_kalimat(teks, batas=170):
