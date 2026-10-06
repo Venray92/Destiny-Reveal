@@ -1,0 +1,82 @@
+{
+  "level": {
+    "O": {
+      "Rendah": "Keterbukaan yang rendah membuatmu lebih nyaman dengan cara yang sudah terbukti, konkret, dan praktis daripada gagasan abstrak.",
+      "Sedang": "Keterbukaan yang sedang membuatmu bisa menikmati hal baru sekaligus tetap menghargai kebiasaan yang sudah berjalan baik.",
+      "Tinggi": "Keterbukaan yang tinggi membuatmu haus akan ide, pengalaman, dan sudut pandang baru, sering kali sebelum orang lain tertarik."
+    },
+    "C": {
+      "Rendah": "Kehati-hatian yang rendah membuatmu spontan dan fleksibel, tetapi jadwal, detail, dan tenggat sering terasa melelahkan.",
+      "Sedang": "Kehati-hatian yang sedang membuatmu cukup teratur saat perlu, sambil tetap menyisakan ruang untuk bersantai dan beradaptasi.",
+      "Tinggi": "Kehati-hatian yang tinggi membuatmu terencana, disiplin, dan bertanggung jawab, dengan standar yang biasanya lebih ketat daripada orang sekitar."
+    },
+    "E": {
+      "Rendah": "Ekstraversi yang rendah membuatmu mendapat energi dari waktu sendiri atau lingkaran kecil, dan cenderung berbicara seperlunya.",
+      "Sedang": "Ekstraversi yang sedang membuatmu mampu bergaul dengan luwes dan juga menikmati ketenangan, tergantung situasi dan suasana hati.",
+      "Tinggi": "Ekstraversi yang tinggi membuatmu bersemangat saat bersama orang lain, mudah memulai percakapan, dan aktif mencari keramaian."
+    },
+    "A": {
+      "Rendah": "Keramahan yang rendah membuatmu blak-blakan, kompetitif, dan lebih mengutamakan logika atau kepentingan sendiri daripada menjaga suasana.",
+      "Sedang": "Keramahan yang sedang membuatmu bisa bekerja sama dengan baik, tetapi tetap mampu bersikap tegas ketika kepentinganmu perlu dijaga.",
+      "Tinggi": "Keramahan yang tinggi membuatmu peduli, kooperatif, dan mudah percaya, dengan dorongan kuat untuk menjaga keharmonisan."
+    },
+    "N": {
+      "Rendah": "Kepekaan emosi yang rendah membuatmu cenderung tenang, tahan tekanan, dan jarang larut dalam kecemasan.",
+      "Sedang": "Kepekaan emosi yang sedang membuatmu merasakan tekanan secukupnya, dan biasanya pulih setelah masalah mereda.",
+      "Tinggi": "Kepekaan emosi yang tinggi membuatmu merasakan suasana hati dengan intens, mudah cemas, dan lebih reaktif terhadap tekanan."
+    }
+  },
+  "pasangan": {
+    "O|C": {
+      "Rendah|Rendah": "Kamu cenderung nyaman dengan cara lama dan tidak terlalu ketat soal jadwal. Kombinasi ini membuatmu santai dan membumi, tetapi proyek bisa tertunda dan peluang baru jarang dijajal. Di karier, pilih peran dengan alur jelas, lalu pakai pengingat atau rekan kerja untuk menjaga tenggat.",
+      "Rendah|Sedang": "Kamu lebih suka metode yang sudah terbukti dan cukup teratur saat dibutuhkan. Ini membuatmu stabil dan realistis, walau kadang terlambat menyadari perubahan. Cobalah satu eksperimen kecil tiap bulan agar cara kerjamu tidak ketinggalan zaman. Dengan begitu kamu tetap bisa diandalkan tanpa kehilangan kenyamanan.",
+      "Rendah|Tinggi": "Kamu setia pada prosedur yang sudah teruji dan menjalankannya dengan disiplin tinggi. Ini sangat cocok untuk peran operasional, keuangan, atau pengawasan mutu. Risikonya adalah kaku terhadap perubahan, jadi biasakan menguji satu perbaikan kecil sebelum menolaknya.",
+      "Sedang|Rendah": "Kamu cukup terbuka pada ide baru, tetapi tindak lanjutnya sering kurang konsisten. Banyak gagasan menarik berhenti di tengah jalan karena tidak ada sistem yang menopangnya. Tentukan satu ide per periode dan tetapkan langkah mingguan yang jelas. Di tempat kerja, rekan yang detail akan sangat membantumu menyelesaikan apa yang sudah dimulai.",
+      "Sedang|Sedang": "Kamu seimbang antara rasa ingin tahu dan keteraturan, sehingga mudah menyesuaikan diri di banyak peran. Kekuatanmu ada pada fleksibilitas, tetapi kamu bisa kurang menonjol di bidang ekstrem. Pilih satu keahlian untuk didalami agar nilaimu lebih mudah dikenali.",
+      "Sedang|Tinggi": "Kamu terencana dan tetap mau mencoba hal baru selama ada kerangka yang jelas. Kombinasi ini baik untuk manajemen proyek dan perbaikan proses secara bertahap. Beri dirimu ruang kecil untuk improvisasi agar rencana tidak terasa mengekang. Peran seperti koordinator program atau pengembang produk bisa memanfaatkan kombinasi ini dengan baik.",
+      "Tinggi|Rendah": "Kamu penuh ide dan senang menjelajah, tetapi eksekusi dan kerapian sering tertinggal. Kamu bersinar di tahap awal yang kreatif, namun bisa kewalahan di tahap administrasi. Cari rekan yang detail atau gunakan daftar tugas sederhana agar ide tidak berhenti di kepala.",
+      "Tinggi|Sedang": "Kamu imajinatif dan cukup mampu menata langkah ketika sebuah ide sungguh menarik perhatianmu. Konsistensimu naik turun mengikuti minat, sehingga hasilnya sangat bergantung pada motivasi. Pasang tenggat kecil dan tujuan antara agar proyek tetap bergerak saat semangat menurun.",
+      "Tinggi|Tinggi": "Kamu memadukan kreativitas dengan disiplin, sehingga ide-idemu benar-benar sampai pada hasil. Kombinasi ini kuat untuk peran perancang, peneliti, atau pendiri usaha. Waspadai perfeksionisme dan terlalu banyak proyek sekaligus, karena keduanya bisa menguras tenaga."
+    },
+    "E|A": {
+      "Rendah|Rendah": "Kamu pendiam dan lugas, sehingga sering terkesan dingin atau sulit didekati. Di karier, kamu cocok bekerja mandiri atau di peran analitis yang menuntut penilaian objektif. Dalam hubungan, ungkapkan perhatianmu secara eksplisit agar orang lain tidak salah membaca sikapmu.",
+      "Rendah|Sedang": "Kamu tenang dan tidak banyak bicara, tetapi masih bisa bekerja sama dengan baik. Orang menilaimu dapat diandalkan walau tidak mudah ditebak isi pikirannya. Sesekali bagikan pendapat lebih awal agar kontribusimu tidak terlewat. Dalam hubungan, orang akan lebih mudah dekat bila kamu sesekali memulai obrolan.",
+      "Rendah|Tinggi": "Kamu pendiam namun hangat, tipe pendengar yang tulus dan pendukung di balik layar. Hubungan dekatmu biasanya dalam dan tahan lama, walau lingkarannya kecil. Latih keberanian menyuarakan kebutuhanmu, karena kamu cenderung mengalah demi menjaga suasana.",
+      "Sedang|Rendah": "Kamu cukup luwes bergaul, tetapi dalam perundingan kamu cenderung keras dan kompetitif. Ini membantu di situasi yang menuntut ketegasan, namun bisa memicu gesekan di tim. Dengarkan dulu sebelum menanggapi, terutama saat ada perbedaan pendapat. Di karier, gaya ini cocok untuk peran yang menuntut ketegasan, asal kamu tetap menjaga hubungan kerja.",
+      "Sedang|Sedang": "Kamu mudah menyesuaikan diri, bisa ramai dan bisa tenang, serta bekerja sama dengan wajar. Kekuatanmu ada pada kemampuan menjembatani berbagai tipe orang. Karena tidak ekstrem, pastikan kamu tetap menegaskan arah dan pendapat yang kamu pegang. Dalam hubungan, kamu mudah diterima, jadi jangan ragu mengambil inisiatif lebih sering.",
+      "Sedang|Tinggi": "Kamu bergaul dengan luwes dan membawa kehangatan di hampir setiap kelompok. Kamu efektif sebagai penghubung antartim, fasilitator, atau pendamping klien. Jaga batas waktu dan tenagamu agar kebaikanmu tidak dimanfaatkan. Dalam hubungan pribadi, orang terdekat akan menghargai kesediaanmu hadir dan mendengarkan.",
+      "Tinggi|Rendah": "Kamu hadir dengan energi besar dan berani bersuara, tetapi gaya bicaramu bisa terasa mendominasi atau menantang. Ini kuat di penjualan, negosiasi, atau kepemimpinan yang kompetitif. Beri ruang orang lain berbicara dan perhalus nada saat tidak setuju.",
+      "Tinggi|Sedang": "Kamu energik dan mudah membuka percakapan, dengan keramahan yang masih bisa diatur sesuai situasi. Ini membuatmu persuasif tanpa terlalu memaksa. Pastikan kamu juga mendengar, bukan hanya tampil, supaya hubunganmu terasa seimbang. Dalam karier, gaya ini cocok untuk peran penjualan, pelayanan, atau kepemimpinan tim yang butuh pengaruh.",
+      "Tinggi|Tinggi": "Kamu hangat, ekspresif, dan menyenangkan, sehingga orang cepat merasa diterima olehmu. Cocok untuk peran pelayanan, hubungan masyarakat, pendidikan, atau kepemimpinan tim. Hati-hati terlalu banyak berjanji dan sulit berkata tidak, karena itu bisa membuatmu kelelahan."
+    },
+    "C|N": {
+      "Rendah|Rendah": "Kamu santai soal rencana dan tidak mudah terganggu oleh tekanan. Kombinasi ini membuatmu tenang saat keadaan berubah, tetapi tanggung jawab bisa terlewat tanpa disadari. Buat sistem sederhana seperti kalender dan pengingat agar kelonggaranmu tidak merugikan orang lain.",
+      "Rendah|Sedang": "Kamu fleksibel dan sesekali merasa cemas ketika pekerjaan menumpuk. Kecemasan itu sering muncul setelah tenggat dekat, bukan sebelumnya. Mulai lebih awal dengan langkah kecil supaya stres di menit terakhir berkurang. Dalam hubungan, orang terdekat akan terbantu bila kamu mengabari lebih dulu saat rencana berubah.",
+      "Rendah|Tinggi": "Kamu cenderung kurang terstruktur sekaligus mudah cemas, sehingga tugas yang tertunda terasa semakin berat. Pola ini bisa menciptakan lingkaran menunda lalu panik. Pecah pekerjaan menjadi langkah kecil, tetapkan rutinitas harian yang sama, dan minta dukungan saat beban terasa menumpuk.",
+      "Sedang|Rendah": "Kamu cukup teratur dan jarang goyah saat tekanan datang. Ini cocok untuk peran yang menuntut ketenangan dan keputusan yang stabil. Pastikan standarmu tetap jelas supaya ketenangan tidak berubah menjadi sikap terlalu santai. Dalam karier, kamu cocok untuk pekerjaan yang butuh kestabilan dan koordinasi dengan banyak pihak.",
+      "Sedang|Sedang": "Kamu cukup rapi dan wajar merasa tegang saat beban naik. Kamu pulih dengan baik asalkan istirahat dan prioritas tertata. Kenali tanda awal kelelahan, lalu sesuaikan beban kerja sebelum menumpuk. Kamu cukup rapi tetapi tidak berlebihan, sehingga pekerjaanmu biasanya selesai tanpa banyak drama. Di karier maupun hubungan, ini membuatmu mudah diandalkan.",
+      "Sedang|Tinggi": "Kamu berusaha tertib, tetapi pikiran cemas mudah muncul saat hasil belum pasti. Ini bisa membuatmu memeriksa ulang pekerjaan lebih sering dari yang diperlukan. Tetapkan batas pemeriksaan, misalnya dua kali, lalu serahkan hasilnya. Dalam hubungan, ceritakan kekhawatiranmu agar pasangan atau rekan tidak salah mengira kamu kurang percaya diri.",
+      "Tinggi|Rendah": "Kamu disiplin dan tenang, kombinasi yang sangat dihargai di peran dengan tanggung jawab besar. Kamu bisa bekerja stabil di bawah tekanan tanpa kehilangan kualitas. Perhatikan agar kamu tidak mengabaikan sinyal kelelahan karena merasa selalu sanggup. Dalam hubungan, sisihkan waktu santai bersama agar disiplinmu tidak terasa seperti tuntutan.",
+      "Tinggi|Sedang": "Kamu terencana dan kadang tegang ketika standar tinggimu terancam. Ketelitianmu membantu mengurangi risiko, walau dapat menambah beban pikiran. Sisipkan waktu istirahat terjadwal dan terima bahwa hasil yang baik cukup tanpa harus sempurna. Dalam hubungan, bagikan bebanmu karena orang lain sering tidak menyadari tekanan yang kamu tanggung.",
+      "Tinggi|Tinggi": "Kamu sangat teliti dan sangat peka terhadap kemungkinan gagal, sehingga rawan perfeksionisme dan kelelahan. Standarmu tinggi dan kekhawatiranmu ikut menaikkannya. Tentukan batas kualitas yang cukup baik, delegasikan sebagian tugas, dan jadwalkan waktu pemulihan yang tidak bisa ditawar."
+    },
+    "A|N": {
+      "Rendah|Rendah": "Kamu tegas, lugas, dan tidak mudah terguncang oleh kritik. Ini berguna di peran yang menuntut negosiasi atau keputusan tidak populer. Dalam hubungan, tunjukkan empati secara sengaja karena ketenanganmu bisa terbaca sebagai ketidakpedulian. Orang sekitar akan lebih nyaman bila kamu sesekali menanyakan perasaan mereka.",
+      "Rendah|Sedang": "Kamu cenderung blak-blakan dan sesekali terpancing emosi saat merasa dirugikan. Reaksimu biasanya singkat tetapi bisa meninggalkan kesan tajam. Beri jeda sebelum membalas agar kritikmu tetap bisa diterima. Di tempat kerja, kejujuranmu berguna, tetapi nada yang lebih lembut akan membuat pesanmu lebih mudah diterima.",
+      "Rendah|Tinggi": "Kamu mudah curiga dan mudah tersulut, sehingga konflik terasa lebih sering dan lebih berat. Orang bisa menjauh sebelum maksud baikmu terlihat. Latih menanyakan maksud lawan bicara sebelum menyimpulkan, dan salurkan emosi lewat olahraga atau menulis. Dalam hubungan, minta maaf lebih cepat bila kamu menyadari reaksimu terlalu keras.",
+      "Sedang|Rendah": "Kamu bisa bekerja sama dan tetap tenang ketika ada ketegangan. Kamu cocok menjadi penengah yang tidak ikut terbawa emosi. Jangan lupa menyuarakan kebutuhanmu agar peranmu tidak sekadar meredam konflik orang lain. Dalam karier, kemampuan ini berguna di peran mediasi, manajemen tim, atau layanan pelanggan.",
+      "Sedang|Sedang": "Kamu cukup kooperatif dan wajar merasa terganggu saat hubungan memanas. Kamu biasanya bisa bangkit setelah percakapan jujur. Biasakan membahas masalah kecil lebih awal supaya tidak menumpuk menjadi konflik besar. Dalam karier, kamu cocok bekerja di tim yang komunikasinya terbuka dan umpan baliknya jelas.",
+      "Sedang|Tinggi": "Kamu bisa bersikap baik dan tegas, tetapi perasaanmu mudah terluka oleh penolakan atau kritik. Kamu sering memikirkan ulang percakapan lama. Ceritakan perasaanmu pada orang yang kamu percaya dan pisahkan kritik atas pekerjaan dari nilai dirimu. Dalam karier, lingkungan yang memberi umpan balik jelas dan rasa aman akan membantumu berkembang.",
+      "Tinggi|Rendah": "Kamu hangat, suportif, dan tetap stabil walau suasana sedang tegang. Orang merasa aman berada di dekatmu, sehingga kamu cocok di peran pendamping, tim, atau pelayanan. Latih berkata tidak agar kebaikanmu tidak membuatmu terus mengalah. Dalam hubungan, kamu menjadi tempat bersandar yang dapat dipercaya bagi orang terdekat.",
+      "Tinggi|Sedang": "Kamu penuh perhatian dan merasakan dampak emosional dari konflik di sekitarmu. Kamu berusaha menjaga harmoni, kadang dengan menahan pendapat sendiri. Sampaikan keberatan dengan tenang dan sedini mungkin supaya tidak menumpuk menjadi kekesalan. Dalam hubungan, pasangan akan menghargai kehangatanmu bila kamu juga jujur soal apa yang mengganggu.",
+      "Tinggi|Tinggi": "Kamu sangat peduli dan sangat peka, sehingga mudah ikut menanggung beban perasaan orang lain. Kamu penuh empati, tetapi rawan kelelahan emosional dan sulit menolak. Tetapkan batas yang jelas, sisihkan waktu pulih, dan jangan ragu mencari dukungan agar kepedulianmu tetap berkelanjutan."
+    }
+  },
+  "advice": {
+    "O": "Salurkan keterbukaanmu ke satu proyek nyata dengan target yang bisa diukur, supaya ide tidak berhenti sebagai wacana. Luangkan juga waktu untuk menguji idemu pada orang yang berpandangan berbeda.",
+    "C": "Pakai kedisiplinanmu untuk membangun rutinitas yang mendukung tujuan jangka panjang, bukan hanya mengejar daftar tugas. Sisakan ruang untuk hal yang tidak terencana agar kamu tidak mudah frustrasi.",
+    "E": "Arahkan energi sosialmu pada hubungan dan peran yang memberi dampak, misalnya memimpin diskusi atau membangun jaringan. Sediakan waktu hening secara berkala supaya energimu tetap terjaga.",
+    "A": "Manfaatkan kepedulianmu untuk membangun kepercayaan, tetapi latih menyampaikan pendapat dan batasmu dengan jelas. Berkata tidak dengan sopan justru menjaga hubunganmu tetap sehat.",
+    "N": "Kenali pemicu emosimu dan siapkan rutinitas penenang seperti tidur cukup, gerak badan, atau menulis jurnal. Kepekaanmu juga aset untuk membaca situasi, jadi arahkan ia pada hal yang bisa kamu ubah."
+  }
+}
