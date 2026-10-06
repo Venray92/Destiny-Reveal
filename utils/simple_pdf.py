@@ -51,7 +51,6 @@ def make_pdf(title, subtitle, sections):
         ops, y = [], PH - MT
 
     def text(s, size, bold=False, color=(0.18, 0.16, 0.15), x=MX):
-        nonlocal y
         ops.append(f"BT /{'F2' if bold else 'F1'} {size} Tf {color[0]} {color[1]} {color[2]} rg {x} {y:.1f} Td ({_esc(s)}) Tj ET")
 
     def block(s, size, bold=False, color=(0.18, 0.16, 0.15), gap=4, lead=1.45):
