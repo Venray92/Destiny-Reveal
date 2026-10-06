@@ -191,7 +191,7 @@ def test_ui24_labels_and_pdf():
     import pathlib
     from utils.simple_pdf import make_pdf
     mm = pathlib.Path("components/mini_modals.py").read_text()
-    assert "Buka Analisis Lengkap Per Sistem — 150 ✨" in mm
+    assert "Buka Analisis Lengkap Per Sistem (150 ✨)" in mm
     assert "Sinkronkan dengan Sistem Lainnya →" in mm
     assert "Konfirmasi Kuota Harian Gratis" in mm and "Ya, Buka Ramalan" in mm
     assert "Weton & Shio Milikmu" not in mm and "Weton & Numerologi Lengkap" not in mm

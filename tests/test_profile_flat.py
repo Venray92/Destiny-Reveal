@@ -68,3 +68,32 @@ def test_kamus_py_lama_sudah_hilang():
 def test_titles_tanpa_em_dash():
     t = json.loads((ROOT / "titles.json").read_text(encoding="utf-8"))
     assert "—" not in json.dumps(t, ensure_ascii=False)
+
+
+def test_big_five_sedang_punya_teks_sendiri():
+    assert PF.bf_key("O", "Sedang", 21) == "openness_sedang"
+    for t in "OCEAN":
+        r = PF.get_big_five({"levels": {k: "Sedang" for k in "OCEAN"}, "scores": {k: 21 for k in "OCEAN"},
+                             "dominant_trait": t})
+        assert r and r["key"].endswith("_sedang") and len(r["paid"]) == 6
+        assert len(r["ringkas"]) == 4
+
+
+def test_tarot_78_kartu_semua_punya_teks():
+    from engine.tarot import TAROT_DECK, kartu_periodik, tarik_tarot
+    from content.result_builder import build_display_data
+    assert len(TAROT_DECK) == 78 and len(set(TAROT_DECK)) == 78
+    for k in TAROT_DECK:
+        d = build_display_data("Tarot", {"kartu": k})
+        assert d and d["p1"] and d["title"] and len(d["domains"]) == 4, k
+    assert tarik_tarot()["kartu"] in TAROT_DECK
+
+
+def test_tarot_periodik_deterministik():
+    from engine.tarot import TAROT_DECK, kartu_periodik
+    import datetime as dt
+    n = dt.datetime(2026, 10, 6, 10)
+    for kind in ("daily", "weekly", "monthly"):
+        assert kartu_periodik(kind, n) == kartu_periodik(kind, n) in TAROT_DECK
+    # hari beda di minggu sama -> kartu mingguan sama
+    assert kartu_periodik("weekly", n) == kartu_periodik("weekly", n + dt.timedelta(days=1))
