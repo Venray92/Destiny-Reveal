@@ -104,11 +104,15 @@ def build_detail(system, raw):
             "sections": sections, "params": _param_rows(system, raw)}
 
 
-def _plain_text(system_label, detail):
+def _plain_text(system_label, detail, combo=()):
     out = [f"Analisis Lengkap: {system_label}", detail["title"], ""]
     for _i, title, texts, _t in detail["sections"]:
         if texts:
             out += [title, *texts, ""]
+    if combo:
+        out += ["COMBO: KETIKA VARIABEL-VARIABELMU BERTEMU", ""]
+        for b in combo:
+            out += [b["title"], b["text"], ""]
     if detail["params"]:
         out += ["PARAMETER KUNCI SISTEM INI", *[f"{k}: {v}" for k, v in detail["params"]]]
     return "\n".join(out).strip()
@@ -215,7 +219,7 @@ def render_detail():
     with h1:
         st.markdown(f'<div class="dh-dt-h">Analisis Lengkap: {_e(sys_title)}</div>', unsafe_allow_html=True)
     with h2:
-        copy_button(_plain_text(sys_title, detail), "📋 Salin Seluruh Analisis Lengkap", "dhd_copyall")
+        copy_button(_plain_text(sys_title, detail, build_combo(system, raw)), "📋 Salin Seluruh Analisis Lengkap", "dhd_copyall")
 
     for icon, title, texts, tone in detail["sections"]:
         if not texts:
@@ -225,10 +229,12 @@ def render_detail():
                     f'{title}</div>{body}</div>', unsafe_allow_html=True)
 
     combo_blocks = build_combo(system, raw)
-    if combo_blocks:
-        body = "".join(f"<p><b>{_e(b['title'])}</b><br>{_e(b['text'])}</p>" for b in combo_blocks)
-        st.markdown('<div class="dh-dt-sec dh-dt-params"><div class="dh-dt-sec-t"><span class="dh-dt-ico">🧩</span>'
-                    f'KOMBINASI VARIABELMU</div>{body}</div>', unsafe_allow_html=True)
+    if combo_blocks:  # kartu terakhir setelah seksi hasil: border pelangi
+        body = "".join(f'<span class="dh-dt-cb-h">{_e(b["title"])}</span><p>{_e(b["text"])}</p>' for b in combo_blocks)
+        st.markdown('<div class="dh-dt-combo"><div class="dh-dt-sec-t"><span class="dh-dt-ico">🌈</span>'
+                    'COMBO: KETIKA VARIABEL-VARIABELMU BERTEMU</div>'
+                    f'<div class="dh-dt-cb-sub">Perpaduan beberapa unsur dalam hasil {_e(sys_title)} milikmu.</div>{body}</div>',
+                    unsafe_allow_html=True)
 
     if detail["params"]:
         cells = "".join(f'<div class="dh-dt-pm"><span>{_e(k)}</span><b>{_e(v)}</b></div>' for k, v in detail["params"])

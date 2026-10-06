@@ -1,6 +1,6 @@
 """
-Penggabungan variabel per sistem (Zodiak Matahari+Bulan, Numerologi Life Path+Soul Urge,
-Matrix titik inti+cinta/uang/tujuan, Shio elemen+polaritas).
+Penggabungan variabel per sistem (12 sistem; BaZi, Golongan Darah, Tarot cuma punya 1 variabel jadi tanpa combo):
+Zodiak, Shio, Numerologi, Matrix Destiny, Weton, Zi Wei, Human Design, MBTI, Big Five, Enneagram, DISC, Love Language.
 
 Fragmen teks dibaca dari content/interpretations/<folder>/<folder>_combo.json.
 Antar-fragmen disambung kata hubung (rotasi deterministik, tidak berulang dalam
@@ -13,8 +13,9 @@ from functools import lru_cache
 from pathlib import Path
 
 _DIR = Path(__file__).resolve().parent.parent / "content" / "interpretations"
-_FOLDER = {"Zodiak": "zodiak", "Shio": "shio", "Numerologi": "numerologi",
-           "Matrix Destiny": "matrix_destiny"}
+_FOLDER = {"Zodiak": "zodiak", "Shio": "shio", "Numerologi": "numerologi", "Matrix Destiny": "matrix_destiny",
+           "Weton": "weton", "Zi Wei": "ziwei", "Human Design": "human_design", "MBTI": "mbti",
+           "Big Five": "big_five", "Enneagram": "enneagram", "DISC": "disc", "Love Language": "love_language"}
 
 # Kata awal yang JANGAN di-lowercase setelah kata hubung.
 _KEEP = ("Life Path", "Soul Urge", "Expression", "Personality", "Matahari", "Bulan", "Shio")
@@ -194,6 +195,130 @@ def _zodiak(raw, d):
 
 
 _BUILDERS = {"Numerologi": _numerologi, "Matrix Destiny": _matrix, "Shio": _shio, "Zodiak": _zodiak}
+
+
+# ── Sistem lain: teks dibaca langsung per kombinasi, kalimat disambung spasi ──
+def _join(*parts):
+    return " ".join(p.strip() for p in parts if p and p.strip())
+
+
+def _weton(raw, d):
+    hari, pas, neptu = raw.get("hari"), raw.get("pasaran"), raw.get("neptu")
+    psd = (raw.get("pancasuda") or {}).get("nama")
+    if not (hari and pas and neptu and psd):
+        return []
+    band = "rendah" if neptu <= 10 else "sedang" if neptu <= 14 else "tinggi"
+    return [_block(f"Hari {hari} × Pasaran {pas}", _join(d["hari"][hari], d["pasaran"][pas], d["relasi"][f"{hari}|{pas}"])),
+            _block(f"Neptu {neptu} × Pancasuda {psd}", _join(d["pancasuda"][psd], d["neptu"][band], d["advice"][psd]))]
+
+
+_ZW_SLUG = {"ziwei": "zi_wei", "tianji": "tian_ji", "taiyang": "tai_yang", "wuqu": "wu_qu", "tiantong": "tian_tong",
+            "lianzhen": "lian_zhen", "tianfu": "tian_fu", "taiyin": "tai_yin", "tanlang": "tan_lang",
+            "jumen": "ju_men", "tianxiang": "tian_xiang", "tianliang": "tian_liang", "qisha": "qi_sha", "pojun": "po_jun"}
+_ZW_NAMA = {v: v.replace("_", " ").title() for v in _ZW_SLUG.values()}
+
+
+def _ziwei(raw, d):
+    b = _ZW_SLUG.get(raw.get("bintang"))
+    mg, el = raw.get("ming_gong"), raw.get("bureau_elemen")
+    if not (b and mg and el):
+        return []
+    t2 = _join(d["bureau"][el], d["relasi"][f"{b}|{el}"], d["advice"][b], d["dipinjam"] if raw.get("dipinjam") else "")
+    return [_block(f"{_ZW_NAMA[b]} × Ming Gong di {mg}", _join(d["bintang"][b], d["istana"][mg])),
+            _block(f"{_ZW_NAMA[b]} × Biro {el}", t2)]
+
+
+def _human_design(raw, d):
+    tipe, oto = raw.get("tipe"), raw.get("otoritas")
+    if not (tipe and oto):
+        return []
+    return [_block(f"{tipe} × Otoritas {oto}", _join(d["tipe"][tipe], d["otoritas"][oto], d["relasi"][f"{tipe}|{oto}"])),
+            _block("Menjalankan Strategimu Sehari-hari", d["advice"][tipe])]
+
+
+_MB_SUMBU = (("E", "I", "EI", "Ekstraversi / Introversi"), ("S", "N", "SN", "Sensing / Intuition"),
+             ("T", "F", "TF", "Thinking / Feeling"), ("J", "P", "JP", "Judging / Perceiving"))
+
+
+def _mbti(raw, d):
+    tipe, c = raw.get("tipe") or "", raw.get("counts") or {}
+    if len(tipe) != 4 or not c:
+        return []
+    temp = tipe[1:3] if tipe[1] == "N" else "S" + tipe[3]  # pola Keirsey: NT, NF, SJ, SP
+    rasio = []
+    for a, b, kode, label in _MB_SUMBU:
+        tot = c.get(a, 0) + c.get(b, 0)
+        rasio.append((max(c.get(a, 0), c.get(b, 0)) / tot if tot else 0.5, kode, label))
+    kuat, tipis = max(rasio), min(rasio)
+    huruf = _join(*(d["huruf"][x] for x in tipe))
+    t2 = d["sumbu"][kuat[1]]["kuat"]
+    if tipis[0] <= 0.7 and tipis[1] != kuat[1]:
+        t2 = _join(t2, d["sumbu"][tipis[1]]["tipis"])
+    return [_block(f"{tipe}: Temperamen {temp}", _join(d["temperamen"][temp], huruf)),
+            _block(f"Sumbu Terjelas ({kuat[2]}) dan Terseimbang ({tipis[2]})", t2),
+            _block("Saran untuk Temperamenmu", d["advice"][temp])]
+
+
+_BF_PAIR = (("O", "C", "Keterbukaan × Kehati-hatian"), ("E", "A", "Ekstraversi × Keramahan"),
+            ("C", "N", "Kehati-hatian × Kepekaan emosi"), ("A", "N", "Keramahan × Kepekaan emosi"))
+
+
+def _big_five(raw, d):
+    lv, dom = raw.get("levels") or {}, raw.get("dominant_trait")
+    if len(lv) < 5:
+        return []
+    out = [_block("Profil Lima Sifatmu", _join(*(d["level"][t][lv[t]] for t in "OCEAN")))]
+    for a, b, judul in _BF_PAIR:
+        out.append(_block(judul, d["pasangan"][f"{a}|{b}"][f"{lv[a]}|{lv[b]}"]))
+    if dom in d["advice"]:
+        out.append(_block("Saran untuk Sifat Terkuatmu", d["advice"][dom]))
+    return out
+
+
+def _enneagram(raw, d):
+    t, c = raw.get("tipe"), raw.get("counts") or {}
+    if not t:
+        return []
+    kiri, kanan = (t - 2) % 9 + 1, t % 9 + 1
+    sayap = kanan if c.get(kanan, 0) > c.get(kiri, 0) else kiri
+    arah = d["arah"][str(t)]
+    t1 = d["sayap"][str(t)][str(sayap)]
+    if raw.get("tipe_tied"):
+        t1 = _join(t1, d["seri"])
+    return [_block(f"Tipe {t} × Sayap {sayap}", t1),
+            _block(f"Tipe {t}: Saat Tumbuh dan Saat Tertekan", _join(arah["tumbuh"], arah["stres"]))]
+
+
+_DISC_N = {"D": "Dominance", "I": "Influence", "S": "Steadiness", "C": "Conscientiousness"}
+
+
+def _disc(raw, d):
+    p, c = raw.get("tipe"), raw.get("counts") or {}
+    if p not in _DISC_N or not c:
+        return []
+    sisa = [k for k in "DISC" if k != p]
+    sec = max(sisa, key=lambda k: (c.get(k, 0), -"DISC".index(k)))
+    t = d["pasangan"][p + sec]
+    if c.get(sec, 0) == 0 or c.get(sec, 0) == c.get(p, 0):
+        t = _join(t, d["tunggal"])
+    return [_block(f"{_DISC_N[p]} × {_DISC_N[sec]}", t), _block(f"Saran untuk Gaya {_DISC_N[p]}", d["advice"][p])]
+
+
+_LL_N = {"WA": "Words of Affirmation", "QT": "Quality Time", "RG": "Receiving Gifts",
+         "AS": "Acts of Service", "PT": "Physical Touch"}
+
+
+def _love_language(raw, d):
+    p, s = raw.get("primary"), raw.get("secondary")
+    if p not in _LL_N or s not in _LL_N:
+        return []
+    return [_block(f"{_LL_N[p]} × {_LL_N[s]}", d["pasangan"][f"{p}|{s}"]),
+            _block("Cara Menyampaikan Kebutuhanmu", d["saran_pasangan"][p]),
+            _block("Cara Kamu Memberi Kasih", d["cara_memberi"][p])]
+
+
+_BUILDERS.update({"Weton": _weton, "Zi Wei": _ziwei, "Human Design": _human_design, "MBTI": _mbti,
+                  "Big Five": _big_five, "Enneagram": _enneagram, "DISC": _disc, "Love Language": _love_language})
 
 
 def build_combo(system, raw):
