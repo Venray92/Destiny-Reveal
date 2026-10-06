@@ -14,7 +14,11 @@
       "Mengabaikan sinyal kelelahan fisik akibat terlalu memaksakan diri. Luangkan waktu untuk recharging di akhir hari."
     ],
     "jam_baik": "08:30 - 11:00 WIB",
-    "angka_hoki": [7, 19, 23],
+    "angka_hoki": [
+      7,
+      19,
+      23
+    ],
     "warna_hoki": "Crimson Red"
   },
   {
@@ -32,13 +36,17 @@
       "Menilai harga diri berdasarkan angka di rekening bank atau kepemilikan materi. Tetap jaga perspektif bahwa nilai sejatimu melampaui aset fisik."
     ],
     "jam_baik": "09:15 - 11:45 WIB",
-    "angka_hoki": [2, 14, 28],
+    "angka_hoki": [
+      2,
+      14,
+      28
+    ],
     "warna_hoki": "Terra Cotta"
   },
   {
     "sign_user": "aries",
     "house": 3,
-    "pesan": "Dinamika mentalmu terakselerasi dengan pesat seiring transit Bulan di Rumah Ketiga yang mempertajam rasa ingin tahu dan dorongan berkomunikasi. Gagasan-gagasan segar mengalir tanpa henti, memicu keinginan kuat untuk berdiskusi, menulis, atau menyelesaikan korespondensi yang tertunda. Lingkungan sekitarmu—termasuk kerabat atau rekan dekat—menjadi sumber stimulasi intelektual yang sangat kaya hari ini. Manfaatkan ketajaman persepsimu untuk menyerap informasi penting dan menyusun pesan persuasif yang berpengaruh.",
+    "pesan": "Dinamika mentalmu terakselerasi dengan pesat seiring transit Bulan di Rumah Ketiga yang mempertajam rasa ingin tahu dan dorongan berkomunikasi. Gagasan-gagasan segar mengalir tanpa henti, memicu keinginan kuat untuk berdiskusi, menulis, atau menyelesaikan korespondensi yang tertunda. Lingkungan sekitarmu, termasuk kerabat atau rekan dekat, menjadi sumber stimulasi intelektual yang sangat kaya hari ini. Manfaatkan ketajaman persepsimu untuk menyerap informasi penting dan menyusun pesan persuasif yang berpengaruh.",
     "aksi": [
       "Sampaikan gagasan kompleksmu melalui tulisan atau presentasi singkat yang lugas. Komunikasi yang terstruktur akan memikat audiensmu dengan mudah.",
       "Jadwalkan pertemuan singkat untuk menyelaraskan pemahaman dengan rekan kerja atau mitra proyek. Klarifikasi cepat akan mencegah hambatan di masa depan.",
@@ -50,7 +58,11 @@
       "Mengemudi atau berpindah tempat dengan tergesa-gesa karena pikiran melayang. Tetap hadir secara penuh di momen sekarang demi keselamatan."
     ],
     "jam_baik": "13:00 - 15:30 WIB",
-    "angka_hoki": [5, 11, 32],
+    "angka_hoki": [
+      5,
+      11,
+      32
+    ],
     "warna_hoki": "Electric Amber"
   },
   {
@@ -68,7 +80,11 @@
       "Mengabaikan intuisi tubuh yang meminta istirahat fisik secara penuh. Memaksa bertindak di luar kapasitas hari ini hanya memicu burnout emosional."
     ],
     "jam_baik": "18:00 - 20:30 WIB",
-    "angka_hoki": [4, 16, 22],
+    "angka_hoki": [
+      4,
+      16,
+      22
+    ],
     "warna_hoki": "Pearl White"
   },
   {
@@ -86,7 +102,11 @@
       "Mengabaikan kewajiban rutin hanya karena merasa enggan melakukan hal yang monoton. Selesaikan tanggung jawab dasar sebelum bersenang-senang."
     ],
     "jam_baik": "14:00 - 17:00 WIB",
-    "angka_hoki": [1, 9, 18],
+    "angka_hoki": [
+      1,
+      9,
+      18
+    ],
     "warna_hoki": "Solar Gold"
   },
   {
@@ -104,7 +124,11 @@
       "Terjebak dalam kekhawatiran berlebih atas detail masa depan yang belum pasti. Fokuslah pada penyelesaian apa yang ada di depan mata saat ini."
     ],
     "jam_baik": "07:30 - 10:00 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Sage Green"
   },
   {
@@ -122,7 +146,11 @@
       "Membuat keputusan bilateral secara sepihak tanpa berkonsultasi dengan mitra terkait. Keterbukaan adalah kunci menjaga kepercayaan."
     ],
     "jam_baik": "15:30 - 18:00 WIB",
-    "angka_hoki": [8, 17, 26],
+    "angka_hoki": [
+      8,
+      17,
+      26
+    ],
     "warna_hoki": "Rose Quartz"
   },
   {
@@ -140,7 +168,11 @@
       "Bercerita rahasia mendalam atau informasi sensitif kepada pihak yang belum teruji loyalitasnya. Jaga kerahasiaan personal dengan ketat."
     ],
     "jam_baik": "20:00 - 22:30 WIB",
-    "angka_hoki": [9, 13, 31],
+    "angka_hoki": [
+      9,
+      13,
+      31
+    ],
     "warna_hoki": "Plum Burgundy"
   },
   {
@@ -158,7 +190,11 @@
       "Membuat janji besar yang berada di luar kapasitas riil eksekusimu saat antusiasme memuncak. Tetaplah realistis dalam berkomitmen."
     ],
     "jam_baik": "10:00 - 12:30 WIB",
-    "angka_hoki": [3, 12, 30],
+    "angka_hoki": [
+      3,
+      12,
+      30
+    ],
     "warna_hoki": "Saffron Yellow"
   },
   {
@@ -176,7 +212,11 @@
       "Mengorbankan integritas moral demi mencapai jalan pintas menuju kesuksesan karier. Keberhasilan sejati membutuhkan fondasi etik yang kokoh."
     ],
     "jam_baik": "11:00 - 13:30 WIB",
-    "angka_hoki": [10, 20, 28],
+    "angka_hoki": [
+      10,
+      20,
+      28
+    ],
     "warna_hoki": "Midnight Blue"
   },
   {
@@ -194,7 +234,11 @@
       "Meremehkan kontribusi kecil dari anggota tim dalam pencapaian kelompok. Akui dan hargai peran setiap orang secara adil."
     ],
     "jam_baik": "16:00 - 18:30 WIB",
-    "angka_hoki": [11, 22, 29],
+    "angka_hoki": [
+      11,
+      22,
+      29
+    ],
     "warna_hoki": "Electric Violet"
   },
   {
@@ -212,7 +256,11 @@
       "Terjebak dalam rasa bersalah atas kesalahan masa lalu yang tidak bisa diubah lagi. Maafkan dirimu dan lepaskan beban tersebut secara penuh."
     ],
     "jam_baik": "21:00 - 23:30 WIB",
-    "angka_hoki": [7, 12, 33],
+    "angka_hoki": [
+      7,
+      12,
+      33
+    ],
     "warna_hoki": "Lavender Fog"
   },
   {
@@ -230,7 +278,11 @@
       "Menanggapi kritik dengan reaksi emosional yang terendam lalu meledak mendadak. Komunikasikan rasa ketidaknyamananmu sejak awal."
     ],
     "jam_baik": "08:00 - 10:30 WIB",
-    "angka_hoki": [5, 14, 25],
+    "angka_hoki": [
+      5,
+      14,
+      25
+    ],
     "warna_hoki": "Deep Emerald"
   },
   {
@@ -248,7 +300,11 @@
       "Menilai kedekatan sebuah hubungan hanya dari besarnya nilai materi yang diberikan orang lain. Hargai ketulusan emosional di luar angka."
     ],
     "jam_baik": "09:30 - 12:00 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Copper Brown"
   },
   {
@@ -266,7 +322,11 @@
       "Terdistraksi oleh informasi yang tidak relevan hingga melupakan tugas utama yang harus diselesaikan. Jaga fokus prioritasmu."
     ],
     "jam_baik": "13:30 - 16:00 WIB",
-    "angka_hoki": [2, 11, 29],
+    "angka_hoki": [
+      2,
+      11,
+      29
+    ],
     "warna_hoki": "Mint Green"
   },
   {
@@ -284,7 +344,11 @@
       "Terjebak dalam pola pemikiran lama dari masa kecil yang membendung pertumbuhan pribadimu saat ini. Lepaskan trauma masa lalu."
     ],
     "jam_baik": "17:30 - 20:00 WIB",
-    "angka_hoki": [4, 13, 22],
+    "angka_hoki": [
+      4,
+      13,
+      22
+    ],
     "warna_hoki": "Warm Taupe"
   },
   {
@@ -302,7 +366,11 @@
       "Mengontrol alur permainan atau aktivitas rekreasi hingga menghilangkan kesenangan orang lain. Biarkan segalanya mengalir secara alami."
     ],
     "jam_baik": "14:30 - 17:00 WIB",
-    "angka_hoki": [7, 16, 25],
+    "angka_hoki": [
+      7,
+      16,
+      25
+    ],
     "warna_hoki": "Coral Pink"
   },
   {
@@ -320,7 +388,11 @@
       "Menolak metode kerja baru yang lebih efisien hanya karena kamu sudah terbiasa dengan cara lama. Buka diri pada modernisasi alur kerja."
     ],
     "jam_baik": "08:30 - 11:00 WIB",
-    "angka_hoki": [8, 17, 26],
+    "angka_hoki": [
+      8,
+      17,
+      26
+    ],
     "warna_hoki": "Olive Green"
   },
   {
@@ -338,7 +410,11 @@
       "Mengabaikan tanda-tanda ketidakseimbangan dalam pembagian beban kerja bersama. Bicarakan pembagian peran yang lebih adil."
     ],
     "jam_baik": "16:00 - 18:30 WIB",
-    "angka_hoki": [3, 12, 21],
+    "angka_hoki": [
+      3,
+      12,
+      21
+    ],
     "warna_hoki": "Pastel Blue"
   },
   {
@@ -356,7 +432,11 @@
       "Terjebak dalam rasa cemburu atau posesif yang berlebihan terhadap pasangan. Berikan kepercayaan yang seimbang demi kedamaian batin."
     ],
     "jam_baik": "19:30 - 22:00 WIB",
-    "angka_hoki": [9, 18, 27],
+    "angka_hoki": [
+      9,
+      18,
+      27
+    ],
     "warna_hoki": "Charcoal Grey"
   },
   {
@@ -374,7 +454,11 @@
       "Menunda ekspansi usaha hanya karena merasa belum 100% sempurna. Keberanian terukur sangat dibutuhkan untuk melangkah maju."
     ],
     "jam_baik": "10:30 - 13:00 WIB",
-    "angka_hoki": [1, 10, 28],
+    "angka_hoki": [
+      1,
+      10,
+      28
+    ],
     "warna_hoki": "Royal Blue"
   },
   {
@@ -392,7 +476,11 @@
       "Bersikap terlalu keras terhadap bawahan yang belum mencapai kecepatan kerjamu. Berikan bimbingan yang sabar dan terstruktur."
     ],
     "jam_baik": "11:30 - 14:00 WIB",
-    "angka_hoki": [4, 13, 31],
+    "angka_hoki": [
+      4,
+      13,
+      31
+    ],
     "warna_hoki": "Forest Green"
   },
   {
@@ -410,7 +498,11 @@
       "Bersikap kaku dalam pembagian keuntungan proyek kelompok yang membutuhkan kompromi. Utamakan keadilan bagi semua anggota."
     ],
     "jam_baik": "15:00 - 17:30 WIB",
-    "angka_hoki": [7, 16, 34],
+    "angka_hoki": [
+      7,
+      16,
+      34
+    ],
     "warna_hoki": "Sand Beige"
   },
   {
@@ -428,7 +520,11 @@
       "Mengisolasi diri dengan rasa kasihan pada diri sendiri secara berlebihan. Gunakan waktu menyendiri untuk pemulihan positif."
     ],
     "jam_baik": "20:30 - 23:00 WIB",
-    "angka_hoki": [2, 11, 20],
+    "angka_hoki": [
+      2,
+      11,
+      20
+    ],
     "warna_hoki": "Seafoam Green"
   },
   {
@@ -446,7 +542,11 @@
       "Mengambil terlalu banyak komitmen baru bersamaan hingga membuat energimu terpecah. Pilih prioritas yang paling realistis."
     ],
     "jam_baik": "08:00 - 10:30 WIB",
-    "angka_hoki": [3, 12, 21],
+    "angka_hoki": [
+      3,
+      12,
+      21
+    ],
     "warna_hoki": "Bright Yellow"
   },
   {
@@ -464,7 +564,11 @@
       "Menyebarkan energi pada terlalu banyak peluang bisnis sekaligus tanpa ada satu pun yang direalisasikan. Fokus pada satu sumber utama."
     ],
     "jam_baik": "09:30 - 12:00 WIB",
-    "angka_hoki": [4, 13, 30],
+    "angka_hoki": [
+      4,
+      13,
+      30
+    ],
     "warna_hoki": "Light Amber"
   },
   {
@@ -482,7 +586,11 @@
       "Gelisah berlebihan saat harus mendengarkan penjelasan panjang dari orang lain. Latih kesabaran untuk menyimak secara utuh."
     ],
     "jam_baik": "13:00 - 15:30 WIB",
-    "angka_hoki": [5, 14, 23],
+    "angka_hoki": [
+      5,
+      14,
+      23
+    ],
     "warna_hoki": "Sky Blue"
   },
   {
@@ -500,7 +608,11 @@
       "Gelisah saat berada dalam kesunyian rumah karena terbiasa dengan distraksi luar. Nikmati momen keheningan sebagai penyembuhan."
     ],
     "jam_baik": "18:30 - 21:00 WIB",
-    "angka_hoki": [2, 11, 20],
+    "angka_hoki": [
+      2,
+      11,
+      20
+    ],
     "warna_hoki": "Soft Platinum"
   },
   {
@@ -518,7 +630,11 @@
       "Menjadi terlalu haus akan pujian publik atas setiap candaan atau karya yang kamu lontarkan. Biarkan apresiasi mengalir alami."
     ],
     "jam_baik": "14:00 - 16:30 WIB",
-    "angka_hoki": [1, 10, 19],
+    "angka_hoki": [
+      1,
+      10,
+      19
+    ],
     "warna_hoki": "Sunset Orange"
   },
   {
@@ -536,7 +652,11 @@
       "Mengkritik cara kerja orang lain secara tajam hanya karena mereka tidak selincah dirimu. Berikan toleransi atas perbedaan ritme."
     ],
     "jam_baik": "07:30 - 10:00 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Crisp White"
   },
   {
@@ -554,7 +674,11 @@
       "Menghindari komitmen jangka panjang dengan alasan ingin mempertahankan kebebasan penuh. Belajarlah bertanggung jawab dalam ikatan."
     ],
     "jam_baik": "15:30 - 18:00 WIB",
-    "angka_hoki": [7, 16, 25],
+    "angka_hoki": [
+      7,
+      16,
+      25
+    ],
     "warna_hoki": "Turquoise Blue"
   },
   {
@@ -572,7 +696,11 @@
       "Lari dari kewajiban finansial bersama atau menunda pembagian hak pihak lain. Transparansi materi sangat wajib dipelihara."
     ],
     "jam_baik": "20:00 - 22:30 WIB",
-    "angka_hoki": [8, 17, 35],
+    "angka_hoki": [
+      8,
+      17,
+      35
+    ],
     "warna_hoki": "Deep Indigo"
   },
   {
@@ -590,7 +718,11 @@
       "Membuat kesimpulan tergesa-gesa tentang suatu budaya atau pemikiran tanpa riset yang memadai. Hindari prasangka dangkal."
     ],
     "jam_baik": "10:00 - 12:30 WIB",
-    "angka_hoki": [9, 18, 27],
+    "angka_hoki": [
+      9,
+      18,
+      27
+    ],
     "warna_hoki": "Cobalt Blue"
   },
   {
@@ -608,7 +740,11 @@
       "Menyilangkan urusan emosional pribadi ke dalam forum rapat resmi. Jaga batas ketat antara ruang pribadi dan tanggung jawab publik."
     ],
     "jam_baik": "11:00 - 13:30 WIB",
-    "angka_hoki": [1, 10, 28],
+    "angka_hoki": [
+      1,
+      10,
+      28
+    ],
     "warna_hoki": "Steel Grey"
   },
   {
@@ -626,7 +762,11 @@
       "Mengabaikan pandangan anggota tim yang lebih lambat bereaksi. Berikan waktu bagi semua orang untuk menyampaikan pendapat."
     ],
     "jam_baik": "16:00 - 18:30 WIB",
-    "angka_hoki": [5, 14, 32],
+    "angka_hoki": [
+      5,
+      14,
+      32
+    ],
     "warna_hoki": "Electric Teal"
   },
   {
@@ -644,12 +784,13 @@
       "Terjebak dalam pemikiran berputar-putar (overthinking) mengenai kesalahan komunikasi masa lalu. Maafkan diri dan lepaskan."
     ],
     "jam_baik": "21:00 - 23:30 WIB",
-    "angka_hoki": [3, 12, 33],
+    "angka_hoki": [
+      3,
+      12,
+      33
+    ],
     "warna_hoki": "Lavender Mist"
-},
-  {
-
-[
+  },
   {
     "sign_user": "cancer",
     "house": 1,
@@ -665,7 +806,11 @@
       "Mengabaikan istirahat saat tubuh mulai memberikan sinyal kelelahan mental."
     ],
     "jam_baik": "09:00 - 11:30 WIB",
-    "angka_hoki": [2, 11, 20],
+    "angka_hoki": [
+      2,
+      11,
+      20
+    ],
     "warna_hoki": "Silver Moon"
   },
   {
@@ -683,7 +828,11 @@
       "Mengukur kedamaian jiwa semata-mata dari besarnya saldo di rekening. Jaga keseimbangan antara materi dan spiritual."
     ],
     "jam_baik": "10:00 - 12:30 WIB",
-    "angka_hoki": [4, 16, 22],
+    "angka_hoki": [
+      4,
+      16,
+      22
+    ],
     "warna_hoki": "Opal White"
   },
   {
@@ -701,7 +850,11 @@
       "Mengemudi atau bergerak tergesa-gesa saat pikiran sedang penuh. Tetap fokus pada situasi saat ini demi keselamatan."
     ],
     "jam_baik": "13:30 - 16:00 WIB",
-    "angka_hoki": [5, 14, 23],
+    "angka_hoki": [
+      5,
+      14,
+      23
+    ],
     "warna_hoki": "Seafoam Aqua"
   },
   {
@@ -719,7 +872,11 @@
       "Menutup diri secara total saat kerabat terdekat membutuhkan dukungan moralmu. Tetap sediakan ruang untuk berbagi."
     ],
     "jam_baik": "18:00 - 20:30 WIB",
-    "angka_hoki": [2, 7, 18],
+    "angka_hoki": [
+      2,
+      7,
+      18
+    ],
     "warna_hoki": "Pearl Pink"
   },
   {
@@ -737,7 +894,11 @@
       "Menahan diri untuk bersenang-senang akibat rasa bersalah yang tidak beralasan. Izinkan dirimu menikmati keindahan hidup."
     ],
     "jam_baik": "14:00 - 16:30 WIB",
-    "angka_hoki": [1, 9, 27],
+    "angka_hoki": [
+      1,
+      9,
+      27
+    ],
     "warna_hoki": "Coral Glow"
   },
   {
@@ -755,7 +916,11 @@
       "Cemas berlebihan terhadap tanggung jawab esok hari yang belum terjadi. Fokuslah pada tugas yang ada di depan mata."
     ],
     "jam_baik": "08:00 - 10:30 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Sage Lavender"
   },
   {
@@ -773,7 +938,11 @@
       "Mengambil keputusan sepihak yang berdampak pada kepentingan kemitraan bersama. Libatkan partner dalam setiap langkah."
     ],
     "jam_baik": "15:30 - 18:00 WIB",
-    "angka_hoki": [8, 11, 29],
+    "angka_hoki": [
+      8,
+      11,
+      29
+    ],
     "warna_hoki": "Soft Rose"
   },
   {
@@ -791,7 +960,11 @@
       "Membuka rahasia pribadi atau masalah finansial sensitif kepada pihak yang belum teruji. Jaga kerahasiaan pribadimu."
     ],
     "jam_baik": "20:00 - 22:30 WIB",
-    "angka_hoki": [9, 13, 27],
+    "angka_hoki": [
+      9,
+      13,
+      27
+    ],
     "warna_hoki": "Deep Crimson"
   },
   {
@@ -809,7 +982,11 @@
       "Mengorbankan kenyamanan fisik hanya demi mengejar target eksplorasi yang berlebihan. Jaga kondisi tubuhmu tetap stabil."
     ],
     "jam_baik": "10:30 - 13:00 WIB",
-    "angka_hoki": [3, 12, 30],
+    "angka_hoki": [
+      3,
+      12,
+      30
+    ],
     "warna_hoki": "Sky Amber"
   },
   {
@@ -827,7 +1004,11 @@
       "Mengorbankan waktu istirahat dan keluarga demi mengejar pengakuan status karier semata. Jaga keseimbangan hidup."
     ],
     "jam_baik": "11:00 - 13:30 WIB",
-    "angka_hoki": [10, 19, 28],
+    "angka_hoki": [
+      10,
+      19,
+      28
+    ],
     "warna_hoki": "Navy Blue"
   },
   {
@@ -845,7 +1026,11 @@
       "Memaksa semua orang dalam kelompok memiliki tingkat kepekaan emosional yang sama denganmu. Hargai ragam karakter."
     ],
     "jam_baik": "16:00 - 18:30 WIB",
-    "angka_hoki": [11, 22, 31],
+    "angka_hoki": [
+      11,
+      22,
+      31
+    ],
     "warna_hoki": "Electric Silver"
   },
   {
@@ -863,7 +1048,11 @@
       "Menggunakan koping pelarian yang merugikan tubuh untuk menghindari kenyataan emosi. Hadapi batinmu dengan kelembutan."
     ],
     "jam_baik": "21:00 - 23:30 WIB",
-    "angka_hoki": [7, 12, 33],
+    "angka_hoki": [
+      7,
+      12,
+      33
+    ],
     "warna_hoki": "Mist Violet"
   },
   {
@@ -881,7 +1070,11 @@
       "Mengabaikan kelelahan fisik akibat terlalu bersemangat membuktikan kapasitas diri. Luangkan waktu untuk recharging energi."
     ],
     "jam_baik": "08:30 - 11:00 WIB",
-    "angka_hoki": [1, 10, 19],
+    "angka_hoki": [
+      1,
+      10,
+      19
+    ],
     "warna_hoki": "Royal Gold"
   },
   {
@@ -899,7 +1092,11 @@
       "Meminjamkan dana tanpa jaminan atau kesepakatan tertulis yang jelas. Lindungi kedaulatan finansial pribadimu."
     ],
     "jam_baik": "09:30 - 12:00 WIB",
-    "angka_hoki": [5, 14, 23],
+    "angka_hoki": [
+      5,
+      14,
+      23
+    ],
     "warna_hoki": "Amber Bronze"
   },
   {
@@ -917,7 +1114,11 @@
       "Menyebarkan kabar yang belum terverifikasi fakta kebenarannya kepada publik. Jaga kredibilitas informasi dari dirimu."
     ],
     "jam_baik": "13:00 - 15:30 WIB",
-    "angka_hoki": [3, 12, 21],
+    "angka_hoki": [
+      3,
+      12,
+      21
+    ],
     "warna_hoki": "Sunburst Yellow"
   },
   {
@@ -935,7 +1136,11 @@
       "Mengisolasi diri dengan sikap dingin ketika ada anggota keluarga yang ingin berbagi cerita. Buka hatimu untuk mendengar."
     ],
     "jam_baik": "17:30 - 20:00 WIB",
-    "angka_hoki": [4, 13, 22],
+    "angka_hoki": [
+      4,
+      13,
+      22
+    ],
     "warna_hoki": "Warm Terracotta"
   },
   {
@@ -953,7 +1158,11 @@
       "Mengabaikan jadwal kerja utama akibat terlalu larut dalam aktivitas rekreasi hiburan. Tetap jaga kedisiplinan diri."
     ],
     "jam_baik": "14:30 - 17:00 WIB",
-    "angka_hoki": [5, 9, 28],
+    "angka_hoki": [
+      5,
+      9,
+      28
+    ],
     "warna_hoki": "Crimson Copper"
   },
   {
@@ -971,7 +1180,11 @@
       "Mengabaikan gejala kelelahan fisik akibat terlalu memaksakan diri bekerja ekstra. Berikan tubuh waktu untuk memulihkan diri."
     ],
     "jam_baik": "08:00 - 10:30 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Saffron Orange"
   },
   {
@@ -989,7 +1202,11 @@
       "Berbuat keras kepala saat dituntut untuk melakukan kompromi yang adil demi kebaikan bersama. Latihlah fleksibilitas sikap."
     ],
     "jam_baik": "16:00 - 18:30 WIB",
-    "angka_hoki": [7, 16, 25],
+    "angka_hoki": [
+      7,
+      16,
+      25
+    ],
     "warna_hoki": "Champagne Gold"
   },
   {
@@ -1007,7 +1224,11 @@
       "Menyimpan rahasia bisnis yang berpotensi merugikan kepercayaan mitra kerja sama. Pertahankan integritas kejujuran."
     ],
     "jam_baik": "19:30 - 22:00 WIB",
-    "angka_hoki": [8, 17, 34],
+    "angka_hoki": [
+      8,
+      17,
+      34
+    ],
     "warna_hoki": "Maroon Velvet"
   },
   {
@@ -1025,7 +1246,11 @@
       "Membuat janji-janji muluk yang melampaui batas kapasitas riil eksekusimu saat ini. Tetap pimpin dengan realitas."
     ],
     "jam_baik": "10:00 - 12:30 WIB",
-    "angka_hoki": [9, 18, 27],
+    "angka_hoki": [
+      9,
+      18,
+      27
+    ],
     "warna_hoki": "Bronze Amber"
   },
   {
@@ -1043,7 +1268,11 @@
       "Mengorbankan keharmonisan keluarga demi mengejar pengakuan status karier semata. Jaga keutuhan pilar kehidupan."
     ],
     "jam_baik": "11:30 - 14:00 WIB",
-    "angka_hoki": [1, 10, 28],
+    "angka_hoki": [
+      1,
+      10,
+      28
+    ],
     "warna_hoki": "Imperial Gold"
   },
   {
@@ -1061,7 +1290,11 @@
       "Menutup diri dari pergaulan dengan individu yang memiliki latar belakang berbeda. Luaskan lingkaran pengaruh sosialmu."
     ],
     "jam_baik": "15:00 - 17:30 WIB",
-    "angka_hoki": [11, 20, 29],
+    "angka_hoki": [
+      11,
+      20,
+      29
+    ],
     "warna_hoki": "Electric Gold"
   },
   {
@@ -1079,7 +1312,11 @@
       "Melarikan diri dari keheningan melalui aktivitas hiburan malam yang menguras fisik. Pilih pemulihan yang menyehatkan."
     ],
     "jam_baik": "21:00 - 23:30 WIB",
-    "angka_hoki": [7, 12, 33],
+    "angka_hoki": [
+      7,
+      12,
+      33
+    ],
     "warna_hoki": "Deep Ochre"
   },
   {
@@ -1097,7 +1334,11 @@
       "Mengabaikan kebutuhan nutrisi dan waktu istirahat akibat terlalu sibuk mengejar kesempurnaan. Jaga stamina fisikmu."
     ],
     "jam_baik": "08:00 - 10:30 WIB",
-    "angka_hoki": [5, 14, 23],
+    "angka_hoki": [
+      5,
+      14,
+      23
+    ],
     "warna_hoki": "Emerald Mint"
   },
   {
@@ -1115,7 +1356,11 @@
       "Menilai kualitas hubungan personal semata dari perhitungan angka dan efisiensi materi. Jaga kehangatan emosi."
     ],
     "jam_baik": "09:30 - 12:00 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Olive Drab"
   },
   {
@@ -1133,7 +1378,11 @@
       "Menyebarkan fakta teknis tanpa memahami konteks emosional dari rekan bicara. Padukan data dengan empati."
     ],
     "jam_baik": "13:00 - 15:30 WIB",
-    "angka_hoki": [3, 12, 30],
+    "angka_hoki": [
+      3,
+      12,
+      30
+    ],
     "warna_hoki": "Crisp Teal"
   },
   {
@@ -1151,7 +1400,11 @@
       "Menolak uluran tangan keluarga yang ingin membantu merapikan urusan pribadimu. Terima kepedulian mereka dengan lapang hati."
     ],
     "jam_baik": "17:30 - 20:00 WIB",
-    "angka_hoki": [4, 13, 22],
+    "angka_hoki": [
+      4,
+      13,
+      22
+    ],
     "warna_hoki": "Parchment Beige"
   },
   {
@@ -1169,7 +1422,11 @@
       "Enggan ikut serta dalam hiburan hanya karena menganggapnya sebagai tindakan membuang waktu. Kesenangan juga bagian dari pemulihan."
     ],
     "jam_baik": "14:00 - 16:30 WIB",
-    "angka_hoki": [5, 14, 23],
+    "angka_hoki": [
+      5,
+      14,
+      23
+    ],
     "warna_hoki": "Coral Sage"
   },
   {
@@ -1187,7 +1444,11 @@
       "Cemas berlebihan pada gejala fisik kecil akibat stres kerja (psikosomatis). Tenangkan pikiran dengan pernapasan teratur."
     ],
     "jam_baik": "07:30 - 10:00 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Forest Mint"
   },
   {
@@ -1205,7 +1466,11 @@
       "Menunda klarifikasi ketidaksepahaman hingga menumpuk menjadi ketegangan tersembunyi. Selesaikan masalah secara langsung."
     ],
     "jam_baik": "15:30 - 18:00 WIB",
-    "angka_hoki": [7, 16, 25],
+    "angka_hoki": [
+      7,
+      16,
+      25
+    ],
     "warna_hoki": "Dusty Blue"
   },
   {
@@ -1223,7 +1488,11 @@
       "Merahasiakan detail data finansial penting dari mitra yang berhak mengetahui. Pertahankan kejelasan dan transparansi."
     ],
     "jam_baik": "20:00 - 22:30 WIB",
-    "angka_hoki": [8, 17, 26],
+    "angka_hoki": [
+      8,
+      17,
+      26
+    ],
     "warna_hoki": "Slate Grey"
   },
   {
@@ -1241,7 +1510,11 @@
       "Meragukan kapasitas pengetahuan pribadimu saat mendapat kesempatan untuk mengajar atau berbagi. Tampil penuh keyakinan."
     ],
     "jam_baik": "10:00 - 12:30 WIB",
-    "angka_hoki": [9, 18, 27],
+    "angka_hoki": [
+      9,
+      18,
+      27
+    ],
     "warna_hoki": "Khaki Green"
   },
   {
@@ -1259,7 +1532,11 @@
       "Mengorbankan waktu istirahat dan kebutuhan pribadi semata-mata untuk membuktikan kompetensi di hadapan atasan. Jaga ritme."
     ],
     "jam_baik": "11:00 - 13:30 WIB",
-    "angka_hoki": [10, 19, 28],
+    "angka_hoki": [
+      10,
+      19,
+      28
+    ],
     "warna_hoki": "Charcoal Black"
   },
   {
@@ -1277,7 +1554,11 @@
       "Meragukan manfaat dari kolaborasi kelompok dan memilih menyelesaikan semuanya sendirian. Percayai pembagian peran."
     ],
     "jam_baik": "16:00 - 18:30 WIB",
-    "angka_hoki": [11, 20, 29],
+    "angka_hoki": [
+      11,
+      20,
+      29
+    ],
     "warna_hoki": "Silver Sage"
   },
   {
@@ -1295,12 +1576,13 @@
       "Mengisolasi diri dengan rasa cemas yang tak berdasar tanpa mau membaginya pada orang terpercaya. Buka pintu pemulihan."
     ],
     "jam_baik": "21:00 - 23:30 WIB",
-    "angka_hoki": [7, 12, 33],
+    "angka_hoki": [
+      7,
+      12,
+      33
+    ],
     "warna_hoki": "Soft Lavender"
-},
-  {
-
-[
+  },
   {
     "sign_user": "libra",
     "house": 1,
@@ -1316,7 +1598,11 @@
       "Menyerap energi atau kecemasan orang lain hingga memicu beban emosional sendiri."
     ],
     "jam_baik": "10:00 - 12:30 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Rose Gold"
   },
   {
@@ -1334,7 +1620,11 @@
       "Menilai harga diri semata-mata dari kepemilikan materi fisiks. Tetap jaga rasa syukur atas hal-hal esensial."
     ],
     "jam_baik": "09:00 - 11:30 WIB",
-    "angka_hoki": [2, 11, 29],
+    "angka_hoki": [
+      2,
+      11,
+      29
+    ],
     "warna_hoki": "Champagne Bronze"
   },
   {
@@ -1352,7 +1642,11 @@
       "Tergesa-gesa dalam mengambil keputusan perjalanan atau perjalanan singkat tanpa persiapan matang. Jaga keselamatan diri."
     ],
     "jam_baik": "13:30 - 16:00 WIB",
-    "angka_hoki": [5, 14, 23],
+    "angka_hoki": [
+      5,
+      14,
+      23
+    ],
     "warna_hoki": "Pastel Turquoise"
   },
   {
@@ -1370,7 +1664,11 @@
       "Mengisolasi diri secara total saat ada kerabat yang membutuhkan bantuan morilmu. Sediakan ruang untuk berempati."
     ],
     "jam_baik": "18:00 - 20:30 WIB",
-    "angka_hoki": [4, 13, 22],
+    "angka_hoki": [
+      4,
+      13,
+      22
+    ],
     "warna_hoki": "Pearl Ivory"
   },
   {
@@ -1388,7 +1686,11 @@
       "Mengabaikan komitmen kerja utama akibat terlalu larut dalam aktivitas hiburan. Jaga keselarasan tanggung jawab."
     ],
     "jam_baik": "14:00 - 16:30 WIB",
-    "angka_hoki": [3, 12, 21],
+    "angka_hoki": [
+      3,
+      12,
+      21
+    ],
     "warna_hoki": "Blush Pink"
   },
   {
@@ -1406,7 +1708,11 @@
       "Cemas berlebihan pada detail masa depan yang belum pasti. Fokuslah pada tugas riil yang ada di depan mata."
     ],
     "jam_baik": "08:00 - 10:30 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Soft Olive"
   },
   {
@@ -1424,7 +1730,11 @@
       "Menyimpan kejengkelan di balik senyuman palsu. Komunikasikan rasa ketidaknyamananmu dengan cara sopan."
     ],
     "jam_baik": "15:30 - 18:00 WIB",
-    "angka_hoki": [7, 16, 25],
+    "angka_hoki": [
+      7,
+      16,
+      25
+    ],
     "warna_hoki": "Powder Blue"
   },
   {
@@ -1442,7 +1752,11 @@
       "Membuka rahasia pribadi atau dokumen finansial sensitif kepada pihak yang belum teruji. Jaga kerahasiaan aset."
     ],
     "jam_baik": "19:30 - 22:00 WIB",
-    "angka_hoki": [8, 17, 26],
+    "angka_hoki": [
+      8,
+      17,
+      26
+    ],
     "warna_hoki": "Deep Plum"
   },
   {
@@ -1460,7 +1774,11 @@
       "Membuat janji-janji manis di luar batas kapasitas eksekusimu saat antusiasme memuncak. Tetaplah realistis."
     ],
     "jam_baik": "10:30 - 13:00 WIB",
-    "angka_hoki": [9, 18, 27],
+    "angka_hoki": [
+      9,
+      18,
+      27
+    ],
     "warna_hoki": "Royal Coral"
   },
   {
@@ -1478,7 +1796,11 @@
       "Mengorbankan kebutuhan keluarga dan istirahat pribadi semata-mata demi mengejar pengakuan status karier. Jaga keseimbangan."
     ],
     "jam_baik": "11:00 - 13:30 WIB",
-    "angka_hoki": [1, 10, 28],
+    "angka_hoki": [
+      1,
+      10,
+      28
+    ],
     "warna_hoki": "Midnight Sapphire"
   },
   {
@@ -1496,7 +1818,11 @@
       "Meremehkan sumbangsih pemikiran rekan lain dalam diskusi kelompok. Berikan apresiasi yang adil bagi setiap orang."
     ],
     "jam_baik": "16:00 - 18:30 WIB",
-    "angka_hoki": [11, 20, 29],
+    "angka_hoki": [
+      11,
+      20,
+      29
+    ],
     "warna_hoki": "Electric Silver"
   },
   {
@@ -1514,7 +1840,11 @@
       "Menggunakan mekanisme pelarian yang tidak sehat untuk menghindari kenyataan perasaan. Hadapi emosimu dengan lembut."
     ],
     "jam_baik": "21:00 - 23:30 WIB",
-    "angka_hoki": [7, 12, 33],
+    "angka_hoki": [
+      7,
+      12,
+      33
+    ],
     "warna_hoki": "Lavender Mist"
   },
   {
@@ -1532,7 +1862,11 @@
       "Memaksa orang lain mengikuti kehendakmu secara intimidatif. Gunakan pendekatan persuasif yang berwibawa."
     ],
     "jam_baik": "08:30 - 11:00 WIB",
-    "angka_hoki": [9, 18, 27],
+    "angka_hoki": [
+      9,
+      18,
+      27
+    ],
     "warna_hoki": "Obsidian Black"
   },
   {
@@ -1550,7 +1884,11 @@
       "Menilai kesetiaan atau kualitas relasi hanya dari perhitungan materi matematika. Hargai kejujuran di atas angka."
     ],
     "jam_baik": "09:30 - 12:00 WIB",
-    "angka_hoki": [8, 17, 26],
+    "angka_hoki": [
+      8,
+      17,
+      26
+    ],
     "warna_hoki": "Deep Crimson"
   },
   {
@@ -1568,7 +1906,11 @@
       "Menyimpan informasi penting secara sengaja demi keuntungan sepihak. Pertahankan integritas transparansi."
     ],
     "jam_baik": "13:00 - 15:30 WIB",
-    "angka_hoki": [5, 14, 23],
+    "angka_hoki": [
+      5,
+      14,
+      23
+    ],
     "warna_hoki": "Midnight Blue"
   },
   {
@@ -1586,7 +1928,11 @@
       "Menolak dukungan emosional dari orang terdekat saat kamu sedang membutuhkan tempat berbagi. Biarkan mereka mendekat."
     ],
     "jam_baik": "18:00 - 20:30 WIB",
-    "angka_hoki": [2, 11, 20],
+    "angka_hoki": [
+      2,
+      11,
+      20
+    ],
     "warna_hoki": "Dark Burgundy"
   },
   {
@@ -1604,7 +1950,11 @@
       "Menutupi bakat atau kreasimu akibat rasa takut dinilai meragukan oleh orang lain. Tampil percaya diri."
     ],
     "jam_baik": "14:00 - 16:30 WIB",
-    "angka_hoki": [1, 10, 19],
+    "angka_hoki": [
+      1,
+      10,
+      19
+    ],
     "warna_hoki": "Ruby Red"
   },
   {
@@ -1622,7 +1972,11 @@
       "Menyimpan kekhawatiran berlebihan atas detail operasional kecil yang dapat diselesaikan bertahap. Tetaplah tenang."
     ],
     "jam_baik": "08:00 - 10:30 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Forest Emerald"
   },
   {
@@ -1640,7 +1994,11 @@
       "Menunda penyelesaian konflik relasi dan membiarkannya membusuk menjadi dendam diam. Bicarakan masalah secara terbuka."
     ],
     "jam_baik": "15:30 - 18:00 WIB",
-    "angka_hoki": [7, 16, 25],
+    "angka_hoki": [
+      7,
+      16,
+      25
+    ],
     "warna_hoki": "Deep Sapphire"
   },
   {
@@ -1658,7 +2016,11 @@
       "Takut pada proses perubahan atau pelepasan yang sebenarnya membawa kebaikan jangka panjang. Peluklah transformasi."
     ],
     "jam_baik": "20:00 - 22:30 WIB",
-    "angka_hoki": [8, 13, 31],
+    "angka_hoki": [
+      8,
+      13,
+      31
+    ],
     "warna_hoki": "Charcoal Black"
   },
   {
@@ -1676,7 +2038,11 @@
       "Menjadi terlalu dogmatis dan memaksakan keyakinan pribadi kepada orang lain secara agresif. Hargai perbedaan."
     ],
     "jam_baik": "10:30 - 13:00 WIB",
-    "angka_hoki": [9, 18, 27],
+    "angka_hoki": [
+      9,
+      18,
+      27
+    ],
     "warna_hoki": "Bronze Amber"
   },
   {
@@ -1694,7 +2060,11 @@
       "Mengorbankan kesehatan fisik dan waktu keluarga demi mengejar obsesi target profesional semata. Jaga keseimbangan."
     ],
     "jam_baik": "11:30 - 14:00 WIB",
-    "angka_hoki": [1, 10, 28],
+    "angka_hoki": [
+      1,
+      10,
+      28
+    ],
     "warna_hoki": "Imperial Violet"
   },
   {
@@ -1712,7 +2082,11 @@
       "Meragukan ketulusan kawan dalam jejaring sosial tanpa adanya bukti pelanggaran. Percayai ikatan persahabatan."
     ],
     "jam_baik": "15:00 - 17:30 WIB",
-    "angka_hoki": [11, 20, 29],
+    "angka_hoki": [
+      11,
+      20,
+      29
+    ],
     "warna_hoki": "Deep Indigo"
   },
   {
@@ -1730,7 +2104,11 @@
       "Melarikan diri dari keheningan melalui kebiasaan buruk yang merusak kesehatan fisik. Pilih jalan penyembuhan sejati."
     ],
     "jam_baik": "21:00 - 23:30 WIB",
-    "angka_hoki": [7, 12, 33],
+    "angka_hoki": [
+      7,
+      12,
+      33
+    ],
     "warna_hoki": "Smoky Quartz"
   },
   {
@@ -1748,7 +2126,11 @@
       "Bosan dan meninggalkan tanggung jawab rutin sebelum tugas selesai dengan sempurna. Pertahankan ketahanan."
     ],
     "jam_baik": "08:00 - 10:30 WIB",
-    "angka_hoki": [3, 12, 21],
+    "angka_hoki": [
+      3,
+      12,
+      21
+    ],
     "warna_hoki": "Royal Purple"
   },
   {
@@ -1766,7 +2148,11 @@
       "Menilai kebahagiaan hidup hanya berdasarkan kemampuan konsumsi barang mewah semata. Jaga kebersyukuran jiwa."
     ],
     "jam_baik": "09:30 - 12:00 WIB",
-    "angka_hoki": [5, 14, 23],
+    "angka_hoki": [
+      5,
+      14,
+      23
+    ],
     "warna_hoki": "Saffron Gold"
   },
   {
@@ -1784,7 +2170,11 @@
       "Menyebarkan fakta yang belum lengkap validasinya hanya demi memenangkan perdebatan. Jaga kredibilitas kata."
     ],
     "jam_baik": "13:00 - 15:30 WIB",
-    "angka_hoki": [4, 13, 30],
+    "angka_hoki": [
+      4,
+      13,
+      30
+    ],
     "warna_hoki": "Electric Cyan"
   },
   {
@@ -1802,7 +2192,11 @@
       "Mengabaikan kebutuhan tubuh akan istirahat akibat terus memikirkan proyek pekerjaan luar. Berikan hak fisikmu."
     ],
     "jam_baik": "18:00 - 20:30 WIB",
-    "angka_hoki": [2, 11, 20],
+    "angka_hoki": [
+      2,
+      11,
+      20
+    ],
     "warna_hoki": "Warm Amber"
   },
   {
@@ -1820,7 +2214,11 @@
       "Menyepelakan perasaan komitmen pasangan demi mengejar kebebasan pribadi sepihak. Jaga rasa saling menghargai."
     ],
     "jam_baik": "14:00 - 16:30 WIB",
-    "angka_hoki": [1, 10, 19],
+    "angka_hoki": [
+      1,
+      10,
+      19
+    ],
     "warna_hoki": "Sunset Magenta"
   },
   {
@@ -1838,7 +2236,11 @@
       "Bersikap kurang sabar saat rekan kerja membutuhkan waktu lebih lama untuk memahami instruksi. Berikan arahan dengan bijak."
     ],
     "jam_baik": "08:00 - 10:30 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Forest Jade"
   },
   {
@@ -1856,7 +2258,11 @@
       "Mengambil keputusan sepihak dalam proyek kemitraan tanpa berkonsultasi terlebih dahulu. Hargai prinsip kesetaraan."
     ],
     "jam_baik": "15:30 - 18:00 WIB",
-    "angka_hoki": [7, 16, 25],
+    "angka_hoki": [
+      7,
+      16,
+      25
+    ],
     "warna_hoki": "Sky Blue"
   },
   {
@@ -1874,7 +2280,11 @@
       "Lari dari kewajiban komitmen emosional yang membutuhkan kehadiran pemikiranmu. Hadapi dengan keberanian jiwa."
     ],
     "jam_baik": "20:00 - 22:30 WIB",
-    "angka_hoki": [8, 17, 35],
+    "angka_hoki": [
+      8,
+      17,
+      35
+    ],
     "warna_hoki": "Midnight Plum"
   },
   {
@@ -1892,7 +2302,11 @@
       "Membuat janji-janji spektakuler di luar batas kemampuan eksekusi riil saat antusiasme memuncak. Tetaplah terukur."
     ],
     "jam_baik": "10:00 - 12:30 WIB",
-    "angka_hoki": [9, 18, 27],
+    "angka_hoki": [
+      9,
+      18,
+      27
+    ],
     "warna_hoki": "Golden Yellow"
   },
   {
@@ -1910,7 +2324,11 @@
       "Mengorbankan waktu keluarga dan istirahat pribadi semata-mata demi mengejar pengakuan status sosial. Jaga keselarasan hidup."
     ],
     "jam_baik": "11:30 - 14:00 WIB",
-    "angka_hoki": [1, 10, 28],
+    "angka_hoki": [
+      1,
+      10,
+      28
+    ],
     "warna_hoki": "Royal Violet"
   },
   {
@@ -1928,7 +2346,11 @@
       "Meremehkan sumbangsih pemikiran rekan lain dalam diskusi kelompok. Berikan apresiasi yang adil bagi setiap orang."
     ],
     "jam_baik": "16:00 - 18:30 WIB",
-    "angka_hoki": [11, 20, 29],
+    "angka_hoki": [
+      11,
+      20,
+      29
+    ],
     "warna_hoki": "Electric Purple"
   },
   {
@@ -1946,12 +2368,13 @@
       "Menggunakan mekanisme pelarian yang tidak sehat untuk menghindari kenyataan perasaan. Hadapi emosimu dengan lembut."
     ],
     "jam_baik": "21:00 - 23:30 WIB",
-    "angka_hoki": [7, 12, 33],
+    "angka_hoki": [
+      7,
+      12,
+      33
+    ],
     "warna_hoki": "Lavender Mist"
-   },
-  {
-
-[
+  },
   {
     "sign_user": "capricorn",
     "house": 1,
@@ -1967,7 +2390,11 @@
       "Mengabaikan kondisi stamina tubuh akibat terlalu fokus mengejar target."
     ],
     "jam_baik": "07:30 - 10:00 WIB",
-    "angka_hoki": [4, 8, 22],
+    "angka_hoki": [
+      4,
+      8,
+      22
+    ],
     "warna_hoki": "Charcoal Grey"
   },
   {
@@ -1985,7 +2412,11 @@
       "Menilai kehormatan atau kapasitas diri semata-mata dari besarnya kepemilikan materi."
     ],
     "jam_baik": "09:00 - 11:30 WIB",
-    "angka_hoki": [2, 10, 28],
+    "angka_hoki": [
+      2,
+      10,
+      28
+    ],
     "warna_hoki": "Earth Bronze"
   },
   {
@@ -2003,7 +2434,11 @@
       "Mengabaikan keselamatan dalam perjalanan akibat pikiran yang terlalu sarat oleh target kerja."
     ],
     "jam_baik": "13:00 - 15:30 WIB",
-    "angka_hoki": [5, 14, 23],
+    "angka_hoki": [
+      5,
+      14,
+      23
+    ],
     "warna_hoki": "Slate Slate"
   },
   {
@@ -2021,7 +2456,11 @@
       "Mengabaikan kebutuhan istirahat fisik akibat terus-menerus memikirkan target pekerjaan esok hari."
     ],
     "jam_baik": "18:00 - 20:30 WIB",
-    "angka_hoki": [4, 13, 22],
+    "angka_hoki": [
+      4,
+      13,
+      22
+    ],
     "warna_hoki": "Deep Pine"
   },
   {
@@ -2039,7 +2478,11 @@
       "Menolak ajaran atau ajakan rekreasi hanya karena menganggapnya sebagai hal yang membuang waktu."
     ],
     "jam_baik": "14:00 - 16:30 WIB",
-    "angka_hoki": [1, 9, 18],
+    "angka_hoki": [
+      1,
+      9,
+      18
+    ],
     "warna_hoki": "Burgundy Red"
   },
   {
@@ -2057,7 +2500,11 @@
       "Cemas berlebihan pada detail prosedur yang sebenarnya bisa disesuaikan secara bertahap."
     ],
     "jam_baik": "08:00 - 10:30 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Olive Moss"
   },
   {
@@ -2075,7 +2522,11 @@
       "Bertahan pada posisi kaku yang menghambat tercapainya kompromi adil bagi kedua pihak."
     ],
     "jam_baik": "15:30 - 18:00 WIB",
-    "angka_hoki": [7, 16, 25],
+    "angka_hoki": [
+      7,
+      16,
+      25
+    ],
     "warna_hoki": "Steel Blue"
   },
   {
@@ -2093,7 +2544,11 @@
       "Menunda penyelesaian kewajiban utang atau komitmen materi yang sudah jatuh tempo."
     ],
     "jam_baik": "19:30 - 22:00 WIB",
-    "angka_hoki": [8, 17, 26],
+    "angka_hoki": [
+      8,
+      17,
+      26
+    ],
     "warna_hoki": "Obsidian Black"
   },
   {
@@ -2111,7 +2566,11 @@
       "Memaksakan pandangan pribadi secara dogmatis dalam diskusi filosofi atau prinsip kerja."
     ],
     "jam_baik": "10:00 - 12:30 WIB",
-    "angka_hoki": [9, 18, 27],
+    "angka_hoki": [
+      9,
+      18,
+      27
+    ],
     "warna_hoki": "Deep Ochre"
   },
   {
@@ -2129,7 +2588,11 @@
       "Abaikan kondisi kesehatan fisik dan waktu keluarga demi mengejar ambisi kerja tanpa batas."
     ],
     "jam_baik": "11:00 - 13:30 WIB",
-    "angka_hoki": [10, 19, 28],
+    "angka_hoki": [
+      10,
+      19,
+      28
+    ],
     "warna_hoki": "Charcoal Black"
   },
   {
@@ -2147,7 +2610,11 @@
       "Bersikap terlalu kaku dalam pembagian peran kelompok yang membutuhkan fleksibilitas."
     ],
     "jam_baik": "16:00 - 18:30 WIB",
-    "angka_hoki": [11, 20, 29],
+    "angka_hoki": [
+      11,
+      20,
+      29
+    ],
     "warna_hoki": "Granite Grey"
   },
   {
@@ -2165,7 +2632,11 @@
       "Mengisolasi diri dengan keputusasaan tanpa mau menerima bantuan pemulihan dari luar."
     ],
     "jam_baik": "21:00 - 23:30 WIB",
-    "angka_hoki": [7, 12, 33],
+    "angka_hoki": [
+      7,
+      12,
+      33
+    ],
     "warna_hoki": "Ash Platinum"
   },
   {
@@ -2183,7 +2654,11 @@
       "Memaksa orang lain mengikuti pandangan radikalmu secara instan tanpa proses edukasi."
     ],
     "jam_baik": "08:30 - 11:00 WIB",
-    "angka_hoki": [3, 11, 22],
+    "angka_hoki": [
+      3,
+      11,
+      22
+    ],
     "warna_hoki": "Electric Blue"
   },
   {
@@ -2201,7 +2676,11 @@
       "Menilai kedekatan persahabatan berdasarkan transaksi materi atau perhitungan finansial kaku."
     ],
     "jam_baik": "09:30 - 12:00 WIB",
-    "angka_hoki": [4, 13, 31],
+    "angka_hoki": [
+      4,
+      13,
+      31
+    ],
     "warna_hoki": "Cyan Silver"
   },
   {
@@ -2219,7 +2698,11 @@
       "Tergesa-gesa dalam berkendara atau berpindah tempat akibat pikiran yang terlalu melayang."
     ],
     "jam_baik": "13:00 - 15:30 WIB",
-    "angka_hoki": [5, 14, 23],
+    "angka_hoki": [
+      5,
+      14,
+      23
+    ],
     "warna_hoki": "Bright Turquoise"
   },
   {
@@ -2237,7 +2720,11 @@
       "Terjebak dalam kenangan pahit masa lalu yang menghambat kebebasan berkembangmu saat ini."
     ],
     "jam_baik": "18:00 - 20:30 WIB",
-    "angka_hoki": [2, 11, 20],
+    "angka_hoki": [
+      2,
+      11,
+      20
+    ],
     "warna_hoki": "Soft Ice Blue"
   },
   {
@@ -2255,7 +2742,11 @@
       "Mengabaikan komitmen tugas utama akibat terlalu larut dalam aktivitas rekreasi harian."
     ],
     "jam_baik": "14:00 - 16:30 WIB",
-    "angka_hoki": [1, 10, 19],
+    "angka_hoki": [
+      1,
+      10,
+      19
+    ],
     "warna_hoki": "Neon Violet"
   },
   {
@@ -2273,7 +2764,11 @@
       "Cemas berlebihan pada detail operasional kecil hingga mengganggu ketenangan pikiranmu."
     ],
     "jam_baik": "07:30 - 10:00 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Mint Emerald"
   },
   {
@@ -2291,7 +2786,11 @@
       "Mengambil keputusan sepihak dalam proyek bersama tanpa berkonsultasi terlebih dahulu."
     ],
     "jam_baik": "15:30 - 18:00 WIB",
-    "angka_hoki": [7, 16, 25],
+    "angka_hoki": [
+      7,
+      16,
+      25
+    ],
     "warna_hoki": "Electric Blue"
   },
   {
@@ -2309,7 +2808,11 @@
       "Lari dari tanggung jawab komitmen emosional yang membutuhkan kehadiran pemikiranmu."
     ],
     "jam_baik": "20:00 - 22:30 WIB",
-    "angka_hoki": [8, 17, 35],
+    "angka_hoki": [
+      8,
+      17,
+      35
+    ],
     "warna_hoki": "Deep Indigo"
   },
   {
@@ -2327,7 +2830,11 @@
       "Membuat janji-janji spektakuler di luar batas kemampuan eksekusi riil saat antusiasme memuncak."
     ],
     "jam_baik": "10:00 - 12:30 WIB",
-    "angka_hoki": [9, 18, 27],
+    "angka_hoki": [
+      9,
+      18,
+      27
+    ],
     "warna_hoki": "Electric Purple"
   },
   {
@@ -2345,7 +2852,11 @@
       "Mengorbankan waktu keluarga dan kesehatan pribadi semata-mata demi pengakuan status publik."
     ],
     "jam_baik": "11:30 - 14:00 WIB",
-    "angka_hoki": [1, 10, 28],
+    "angka_hoki": [
+      1,
+      10,
+      28
+    ],
     "warna_hoki": "Steel Blue"
   },
   {
@@ -2363,7 +2874,11 @@
       "Meremehkan sumbangsih pemikiran rekan lain yang terkesan tradisional dalam diskusi."
     ],
     "jam_baik": "15:00 - 17:30 WIB",
-    "angka_hoki": [11, 20, 29],
+    "angka_hoki": [
+      11,
+      20,
+      29
+    ],
     "warna_hoki": "Cyan Blue"
   },
   {
@@ -2381,7 +2896,11 @@
       "Tenggelam dalam pemikiran berputar-putar (overthinking) mengenai hal yang di luar kendalimu."
     ],
     "jam_baik": "21:00 - 23:30 WIB",
-    "angka_hoki": [7, 12, 33],
+    "angka_hoki": [
+      7,
+      12,
+      33
+    ],
     "warna_hoki": "Mist Lavender"
   },
   {
@@ -2399,7 +2918,11 @@
       "Mengorbankan kebutuhan pribadimu semata-mata demi menyenangkan atau menyelamatkan orang lain."
     ],
     "jam_baik": "08:30 - 11:00 WIB",
-    "angka_hoki": [2, 12, 21],
+    "angka_hoki": [
+      2,
+      12,
+      21
+    ],
     "warna_hoki": "Seafoam Green"
   },
   {
@@ -2417,7 +2940,11 @@
       "Menilai kedamaian jiwa semata-mata dari angka di rekening atau kepemilikan barang mewah."
     ],
     "jam_baik": "09:30 - 12:00 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Aqua Turquoise"
   },
   {
@@ -2435,7 +2962,11 @@
       "Mengemudi atau berpindah tempat dengan pikiran melayang akibat melamun di jalan."
     ],
     "jam_baik": "13:00 - 15:30 WIB",
-    "angka_hoki": [3, 14, 23],
+    "angka_hoki": [
+      3,
+      14,
+      23
+    ],
     "warna_hoki": "Soft Lavender"
   },
   {
@@ -2453,7 +2984,11 @@
       "Mengisolasi diri secara total ketika ada anggota keluarga yang membutuhkan dukungan moralmu."
     ],
     "jam_baik": "18:00 - 20:30 WIB",
-    "angka_hoki": [4, 13, 22],
+    "angka_hoki": [
+      4,
+      13,
+      22
+    ],
     "warna_hoki": "Pearl White"
   },
   {
@@ -2471,7 +3006,11 @@
       "Mengabaikan kewajiban tugas utama akibat terlalu larut dalam melamun atau rekreasi."
     ],
     "jam_baik": "14:00 - 16:30 WIB",
-    "angka_hoki": [5, 9, 27],
+    "angka_hoki": [
+      5,
+      9,
+      27
+    ],
     "warna_hoki": "Coral Pink"
   },
   {
@@ -2489,7 +3028,11 @@
       "Cemas berlebihan pada tanggung jawab esok hari yang belum tentu terjadi."
     ],
     "jam_baik": "07:30 - 10:00 WIB",
-    "angka_hoki": [6, 15, 24],
+    "angka_hoki": [
+      6,
+      15,
+      24
+    ],
     "warna_hoki": "Sage Green"
   },
   {
@@ -2507,7 +3050,11 @@
       "Mengambil keputusan sepihak dalam urusan kemitraan tanpa berkonsultasi lebih dulu."
     ],
     "jam_baik": "15:30 - 18:00 WIB",
-    "angka_hoki": [7, 16, 25],
+    "angka_hoki": [
+      7,
+      16,
+      25
+    ],
     "warna_hoki": "Powder Blue"
   },
   {
@@ -2525,7 +3072,11 @@
       "Membuka rahasia pribadi atau dokumen finansial sensitif kepada pihak yang belum teruji."
     ],
     "jam_baik": "20:00 - 22:30 WIB",
-    "angka_hoki": [8, 17, 35],
+    "angka_hoki": [
+      8,
+      17,
+      35
+    ],
     "warna_hoki": "Deep Crimson"
   },
   {
@@ -2543,7 +3094,11 @@
       "Mengorbankan kenyamanan fisik demi mengejar eksplorasi di luar batas kemampuan tubuh."
     ],
     "jam_baik": "10:00 - 12:30 WIB",
-    "angka_hoki": [9, 18, 27],
+    "angka_hoki": [
+      9,
+      18,
+      27
+    ],
     "warna_hoki": "Amber Gold"
   },
   {
@@ -2561,7 +3116,11 @@
       "Mengorbankan waktu istirahat dan kedamaian keluarga demi mengejar status karier semata."
     ],
     "jam_baik": "11:30 - 14:00 WIB",
-    "angka_hoki": [1, 10, 28],
+    "angka_hoki": [
+      1,
+      10,
+      28
+    ],
     "warna_hoki": "Royal Navy"
   },
   {
@@ -2579,7 +3138,11 @@
       "Memaksa semua orang dalam kelompok memiliki tingkat kepekaan emosi yang sama dengannya."
     ],
     "jam_baik": "16:00 - 18:30 WIB",
-    "angka_hoki": [11, 20, 29],
+    "angka_hoki": [
+      11,
+      20,
+      29
+    ],
     "warna_hoki": "Electric Teal"
   },
   {
@@ -2597,7 +3160,11 @@
       "Menggunakan mekanisme pelarian yang tidak sehat untuk menghindari kenyataan emosional."
     ],
     "jam_baik": "21:00 - 23:30 WIB",
-    "angka_hoki": [7, 12, 33],
+    "angka_hoki": [
+      7,
+      12,
+      33
+    ],
     "warna_hoki": "Mist Violet"
   }
 ]
