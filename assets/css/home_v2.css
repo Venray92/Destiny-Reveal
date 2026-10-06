@@ -1841,3 +1841,17 @@ div[data-testid="stVerticalBlock"][class*="st-key-dhpp_h"]:not([class*="st-key-d
   .dh-pp-brand { font-size: 15px; } .dh-pp-sub { display: none; }
 }
 @media (max-width: 640px) { [data-testid="stDialog"] .st-key-dhpp_tabs div.stButton > button { padding: 0 4px !important; } [data-testid="stDialog"] .st-key-dhpp_tabs div.stButton > button p { white-space: nowrap !important; overflow: visible !important; text-overflow: clip !important; } }
+
+/* Kartu Combo: border pelangi bersinar */
+@property --dh-ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+.dh-dt-combo { position: relative; border: 2px solid transparent; border-radius: 16px; padding: 18px 18px; margin: 16px 0 10px;
+  background: linear-gradient(#FFFDF8, #FFFDF8) padding-box,
+              conic-gradient(from var(--dh-ang), #ff5f6d, #ffc371, #f7f06b, #5ee7a0, #4cc9f0, #8e7dff, #ff6ad5, #ff5f6d) border-box;
+  box-shadow: 0 0 14px rgba(142,125,255,.35), 0 0 28px rgba(76,201,240,.22), 0 0 40px rgba(255,106,213,.18);
+  animation: dh-spin 7s linear infinite; }
+@keyframes dh-spin { to { --dh-ang: 360deg; } }
+.dh-dt-combo .dh-dt-sec-t { color: #6B4FD8; }
+.dh-dt-combo .dh-dt-cb-sub { font-size: 12px; color: #7A7268; margin: -2px 0 10px; }
+.dh-dt-combo .dh-dt-cb-h { display: block; font-size: 12.5px; font-weight: 800; color: #3A3631; margin: 12px 0 4px; }
+.dh-dt-combo p { font-size: 13px; line-height: 1.75; color: #3A3631; margin: 0; }
+@media (prefers-reduced-motion: reduce) { .dh-dt-combo { animation: none; } }
