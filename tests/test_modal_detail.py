@@ -18,9 +18,9 @@ def test_sistem_lain_tetap_punya_detail():
 
 
 def test_format_json_baru_mode1_hanya_A_sampai_F(monkeypatch):
-    from components import modal_detail
+    from content import profile_loader
     entry = {"sections": {"free": {"quote": "Q"}, **{k: f"isi {k}" for k in "ABCDEFGHIJKLM"}}}
-    monkeypatch.setattr(modal_detail, "_zodiak_json", lambda: {"Taurus": entry})
+    monkeypatch.setattr(profile_loader, "_data", lambda system: {"Taurus": entry} if system == "Zodiak" else {})
     d = build_detail("Zodiak", compute_raw_result("Zodiak", LD))
     texts = [t for sec in d["sections"] for t in sec[2]]
     assert texts == [f"isi {k}" for k in "ABCDEF"]  # G-M tidak ikut
@@ -34,11 +34,11 @@ def test_mini_modal_zodiak_info():
 
 def test_daily_reading_json_and_fallback(monkeypatch):
     from components import mini_modals as m
-    monkeypatch.setattr(m, "_daily_json", lambda: {"data": {"zodiak": {"Aries": {"2026-10-03": {
-        "pesan": "Satu. Dua. Tiga.", "angka_hoki": "9 & 27", "warna_hoki": "Merah Bata"}}}}})
+    monkeypatch.setattr(m.periodic, "get_daily", lambda s, n, now=None: {
+        "pesan": "Satu. Dua. Tiga.", "angka_hoki": [9, 27, 30], "warna_hoki": "Merah Bata"})
     r = m.get_daily_reading("zodiak", "Aries", "2026-10-03")
-    assert r == {"pesan": "Satu. Dua.", "angka": "9 & 27", "warna": "Merah Bata"}
-    monkeypatch.setattr(m, "_daily_json", lambda: {})
+    assert r == {"pesan": "Satu. Dua.", "angka": "9, 27 & 30", "warna": "Merah Bata"}
+    monkeypatch.setattr(m.periodic, "get_daily", lambda s, n, now=None: None)
     r = m.get_daily_reading("zodiak", "Aries", "2026-10-03")
     assert r["pesan"].count(". ") == 0 and r["angka"] and r["warna"]
 
