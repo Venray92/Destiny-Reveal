@@ -31,7 +31,7 @@ buat detail diskusinya). Ini kompromi yang disengaja demi kesederhanaan,
 BUKAN keakuratan penuh untuk kota luar Indonesia.
 """
 
-from datetime import date, time, timedelta
+from datetime import date, time
 
 import swisseph as swe
 
