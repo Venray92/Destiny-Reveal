@@ -12,9 +12,7 @@ from datetime import datetime, timedelta, timezone
 
 import streamlit as st
 
-from components.dialog_bus import request_open
 from components.flow_state import STEP_RESULT, set_step, valid_email
-from components.modal_detail import copy_button
 
 _WIB = timezone(timedelta(hours=7))
 _BLN = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",

@@ -1,7 +1,5 @@
 """Data statis Home v2: urutan/warna node diagram 15 sistem + kategori filter."""
 
-import streamlit.components.v1 as components
-
 NODE_ORDER = [
     ("Zodiak", "star"),
     ("Shio", "pets"),

@@ -171,6 +171,11 @@ _HARMONIS = {frozenset(("Api", "Udara")), frozenset(("Tanah", "Air"))}
 
 def _zodiak(raw, d):
     sun, moon = raw.get("sign"), raw.get("moon_sign")
+    if sun in d.get("sun", {}) and moon is None and "tanpa_bulan" in d:  # jam lahir kosong: Matahari saja
+        tb, e = d["tanpa_bulan"], _ELEMEN[sun]
+        return [_block(f"Matahari di {sun} × Unsur {e}",
+                       _join(f"Matahari di {sun} membuatmu tampil ke dunia dengan {d['sun'][sun]}.", tb["elemen"][e])),
+                _block("Saran untuk Perpaduan Matahari dan Unsurmu", _join(tb["saran"][e], tb["catatan"]))]
     if sun not in d.get("sun", {}) or moon not in d.get("moon", {}):
         return []
     e1, e2, rel, s = _ELEMEN[sun], _ELEMEN[moon], d["relation"], _seed(sun, moon)

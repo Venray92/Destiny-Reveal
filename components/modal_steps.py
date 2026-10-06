@@ -17,6 +17,7 @@ from components.flow_state import (
 from content.profile_loader import ALLOW_LEGACY_FALLBACK, get_profile
 from content.result_builder import build_display_data, compute_raw_result
 from components.modal_detail import cb_open_detail
+from engine.zodiak import hitung_bulan
 from utils.date_format import format_tanggal_lengkap
 
 
@@ -223,12 +224,15 @@ def _tag_and_short(system, raw):
     return f'Arcana #{raw.get("titik_inti", "")}', raw.get("nama_arketipe", "Matrix Destiny")
 
 
-def compute_mode1(nama, tgl):
-    """Hitung 5 sistem Mode 1 dari engine + kamus konten (content/result_builder.py)."""
+def compute_mode1(nama, tgl, jam=None, kota=None):
+    """Hitung 5 sistem Mode 1 dari engine + teks JSON (content/result_builder.py).
+    Kalau jam lahir diisi, posisi Bulan ikut dihitung dan masuk raw Zodiak (dipakai combo Matahari x Bulan)."""
     ld = {"tanggal_lahir": tgl, "nama_lengkap": nama}
     out = []
     for system, label in MODE1_SYSTEMS:
         raw = compute_raw_result(system, ld)
+        if system == "Zodiak" and jam and not raw.get("placeholder"):
+            raw = {**raw, **hitung_bulan(tgl, jam, kota)}
         disp = build_display_data(system, raw)
         prof = get_profile(system, raw)  # teks dari JSON baru; kamus lama cuma cadangan (judul + entri yang belum ada)
         tag, short = _tag_and_short(system, raw) if disp else ("", system)
@@ -253,7 +257,8 @@ def render_loading():
         '<div class="dh-loading-sub">Memproses peta takdir dan membuat akun personalmu.</div></div>',
         unsafe_allow_html=True,
     )
-    st.session_state.dh_flow_result = compute_mode1(data.get("nama", ""), data.get("tgl_lahir"))
+    st.session_state.dh_flow_result = compute_mode1(data.get("nama", ""), data.get("tgl_lahir"),
+                                                      data.get("jam_lahir") or None, data.get("kota_lahir") or None)
     auth.add_history(data.get("nama", ""), data.get("tgl_lahir"), st.session_state.dh_flow_result)
     time.sleep(2.5)
     set_step(STEP_RESULT)

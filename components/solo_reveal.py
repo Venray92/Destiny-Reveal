@@ -12,7 +12,7 @@ from urllib.parse import quote as urlquote
 import streamlit as st
 
 from components import auth
-from components.dialog_bus import request_open, request_with_return
+from components.dialog_bus import request_with_return
 from utils.simple_pdf import make_pdf
 from components.modal_detail import build_detail, copy_button
 from content.questionnaires.big_five_soal import BIG_FIVE_QUESTIONS

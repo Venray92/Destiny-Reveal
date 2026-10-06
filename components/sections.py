@@ -11,9 +11,8 @@ from pathlib import Path
 
 import streamlit as st
 
-from components.common import go
 from components.data import CATEGORY_SYSTEMS, NODE_COLOR, NODE_ORDER
-from components import info_modals, pricing_modal
+from components import info_modals
 from components.modal import open_reveal_modal
 
 

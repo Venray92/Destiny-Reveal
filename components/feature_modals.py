@@ -202,12 +202,11 @@ def weekly_dialog():
     _title("📊", "Laporan Mingguan & Bulanan", "Panduan timing &amp; strategi eksekusi berkala")
     tab = st.radio("Periode", ["Mingguan", "Bulanan"], horizontal=True, key="dhwk_tab", label_visibility="collapsed")
     kind = "weekly" if tab == "Mingguan" else "monthly"
-    opsi = (["Zodiak", "Weton", "Tarot"] if kind == "weekly" else ["Zodiak", "Shio", "Numerologi", "Tarot"])
+    opsi = (["Zodiak", "Shio", "Weton", "Numerologi", "Tarot"] if kind == "weekly"
+            else ["Zodiak", "Shio", "Numerologi", "BaZi", "Zi Wei", "Tarot"])
     sistem = st.selectbox("Sistem", opsi, key=f"dhwk_sys_{kind}")
-    tgl = None
-    if sistem == "Tarot":
-        key = ""
-    elif sistem == "Zodiak":
+    tgl, key = None, ""
+    if sistem == "Zodiak":
         key = st.selectbox("Zodiak kamu", _ZOD_W, key="dhwk_zod")
     elif sistem == "Shio":
         key = st.selectbox("Shio kamu", _SHIO_W, key="dhwk_shio")
@@ -216,15 +215,34 @@ def weekly_dialog():
         h = c1.selectbox("Hari lahir", _HARI_W, key="dhwk_hari")
         p = c2.selectbox("Pasaran", _PAS_W, key="dhwk_pas")
         key = f"{h} {p}"
-    else:
+    elif sistem in ("Numerologi", "BaZi", "Zi Wei"):
         tgl = st.date_input("Tanggal lahir", value=date(1995, 1, 1), min_value=date(1930, 1, 1),
                             max_value=date.today(), key="dhwk_tgl")
-        key = "numerologi"
+        if sistem == "BaZi":
+            try:
+                from engine.bazi import hitung_bazi
+                key = hitung_bazi(tgl)["day_master"]
+            except Exception:
+                st.info("Hitungan BaZi belum bisa dijalankan untuk tanggal ini.")
+                return
+        elif sistem == "Zi Wei":
+            jam = st.selectbox("Jam lahir", list(range(24)), format_func=lambda j: f"{j:02d}:00", key="dhwk_jam")
+            try:
+                from engine.ziwei import hitung_ziwei
+                zw = hitung_ziwei(tgl, jam)
+                slug = {"ziwei": "zi_wei", "tianji": "tian_ji", "taiyang": "tai_yang", "wuqu": "wu_qu",
+                        "tiantong": "tian_tong", "lianzhen": "lian_zhen", "tianfu": "tian_fu", "taiyin": "tai_yin",
+                        "tanlang": "tan_lang", "jumen": "ju_men", "tianxiang": "tian_xiang",
+                        "tianliang": "tian_liang", "qisha": "qi_sha", "pojun": "po_jun"}[zw["bintang"]]
+                key = f"{slug}|{zw['ming_gong']}"
+            except Exception:
+                st.info("Hitungan Zi Wei belum bisa dijalankan untuk data ini.")
+                return
     if sistem == "Tarot":
         _render_tarot_periodik(kind)
         return
     if kind == "weekly":
-        r = periodic.get_weekly(sistem, key)
+        r = periodic.get_weekly(sistem, key, tgl_lahir=tgl)
     else:
         r = periodic.get_monthly(sistem, key, tgl_lahir=tgl)
     if r:
