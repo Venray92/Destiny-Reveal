@@ -323,5 +323,840 @@
       "chip": "MATRIX DESTINY",
       "title": "The Unity, Sang Penyatu yang Utuh"
     }
+  },
+  "BaZi": {
+    "jia": {
+      "tagline": "甲 · Kayu Yang",
+      "chip": "BAZI",
+      "title": "Jia, Sang Pohon Besar yang Kokoh"
+    },
+    "yi": {
+      "tagline": "乙 · Kayu Yin",
+      "chip": "BAZI",
+      "title": "Yi, Sang Tanaman Merambat yang Lentur"
+    },
+    "bing": {
+      "tagline": "丙 · Api Yang",
+      "chip": "BAZI",
+      "title": "Bing, Sang Matahari yang Menerangi"
+    },
+    "ding": {
+      "tagline": "丁 · Api Yin",
+      "chip": "BAZI",
+      "title": "Ding, Sang Lilin yang Menghangatkan Dekat"
+    },
+    "wu": {
+      "tagline": "戊 · Tanah Yang",
+      "chip": "BAZI",
+      "title": "Wu, Sang Gunung yang Menjulang Stabil"
+    },
+    "ji": {
+      "tagline": "己 · Tanah Yin",
+      "chip": "BAZI",
+      "title": "Ji, Sang Ladang Subur yang Menghidupi"
+    },
+    "geng": {
+      "tagline": "庚 · Logam Yang",
+      "chip": "BAZI",
+      "title": "Geng, Sang Pedang Baja yang Tegas"
+    },
+    "xin": {
+      "tagline": "辛 · Logam Yin",
+      "chip": "BAZI",
+      "title": "Xin, Sang Perhiasan yang Berkilau Halus"
+    },
+    "ren": {
+      "tagline": "壬 · Air Yang",
+      "chip": "BAZI",
+      "title": "Ren, Sang Samudra yang Luas Tak Terbatas"
+    },
+    "gui": {
+      "tagline": "癸 · Air Yin",
+      "chip": "BAZI",
+      "title": "Gui, Sang Embun yang Tenang & Dalam"
+    }
+  },
+  "Zi Wei": {
+    "zi_wei": {
+      "tagline": "紫微 · Bintang Kaisar",
+      "chip": "ZI WEI DOU SHU",
+      "title": "Zi Wei, Sang Kaisar yang Berwibawa"
+    },
+    "tian_ji": {
+      "tagline": "天機 · Bintang Kebijaksanaan",
+      "chip": "ZI WEI DOU SHU",
+      "title": "Tian Ji, Sang Ahli Strategi"
+    },
+    "tai_yang": {
+      "tagline": "太陽 · Bintang Matahari",
+      "chip": "ZI WEI DOU SHU",
+      "title": "Tai Yang, Sang Penerang yang Hangat"
+    },
+    "wu_qu": {
+      "tagline": "武曲 · Bintang Kekayaan",
+      "chip": "ZI WEI DOU SHU",
+      "title": "Wu Qu, Sang Pekerja Keras yang Disiplin"
+    },
+    "tian_tong": {
+      "tagline": "天同 · Bintang Keharmonisan",
+      "chip": "ZI WEI DOU SHU",
+      "title": "Tian Tong, Sang Jiwa yang Damai"
+    },
+    "lian_zhen": {
+      "tagline": "廉貞 · Bintang Gairah",
+      "chip": "ZI WEI DOU SHU",
+      "title": "Lian Zhen, Sang Jiwa yang Intens"
+    },
+    "tian_fu": {
+      "tagline": "天府 · Bintang Perbendaharaan",
+      "chip": "ZI WEI DOU SHU",
+      "title": "Tian Fu, Sang Penjaga yang Bijaksana"
+    },
+    "tai_yin": {
+      "tagline": "太陰 · Bintang Bulan",
+      "chip": "ZI WEI DOU SHU",
+      "title": "Tai Yin, Sang Jiwa yang Lembut & Intuitif"
+    },
+    "tan_lang": {
+      "tagline": "貪狼 · Bintang Ambisi",
+      "chip": "ZI WEI DOU SHU",
+      "title": "Tan Lang, Sang Jiwa yang Serba Bisa"
+    },
+    "ju_men": {
+      "tagline": "巨門 · Bintang Kefasihan",
+      "chip": "ZI WEI DOU SHU",
+      "title": "Ju Men, Sang Penganalisa yang Tajam"
+    },
+    "tian_xiang": {
+      "tagline": "天相 · Bintang Pendukung",
+      "chip": "ZI WEI DOU SHU",
+      "title": "Tian Xiang, Sang Penengah yang Adil"
+    },
+    "tian_liang": {
+      "tagline": "天梁 · Bintang Sesepuh",
+      "chip": "ZI WEI DOU SHU",
+      "title": "Tian Liang, Sang Pelindung yang Bijak"
+    },
+    "qi_sha": {
+      "tagline": "七殺 · Bintang Prajurit",
+      "chip": "ZI WEI DOU SHU",
+      "title": "Qi Sha, Sang Prajurit Pemberani"
+    },
+    "po_jun": {
+      "tagline": "破軍 · Bintang Revolusioner",
+      "chip": "ZI WEI DOU SHU",
+      "title": "Po Jun, Sang Pembaharu yang Berani Berubah"
+    }
+  },
+  "Human Design": {
+    "generator": {
+      "tagline": "⚡ Human Design · Generator",
+      "chip": "HUMAN DESIGN",
+      "title": "Generator, Sang Pembangun Energi Kehidupan"
+    },
+    "manifesting_generator": {
+      "tagline": "⚡ Human Design · Manifesting Generator",
+      "chip": "HUMAN DESIGN",
+      "title": "Manifesting Generator, Sang Multitasker Berenergi Cepat"
+    },
+    "manifestor": {
+      "tagline": "⚡ Human Design · Manifestor",
+      "chip": "HUMAN DESIGN",
+      "title": "Manifestor, Sang Penggerak yang Memulai Sendiri"
+    },
+    "projector": {
+      "tagline": "⚡ Human Design · Projector",
+      "chip": "HUMAN DESIGN",
+      "title": "Projector, Sang Pembimbing yang Melihat Lebih Dalam"
+    },
+    "reflector": {
+      "tagline": "⚡ Human Design · Reflector",
+      "chip": "HUMAN DESIGN",
+      "title": "Reflector, Sang Cermin yang Peka Lingkungan"
+    }
+  },
+  "Golongan Darah": {
+    "o": {
+      "tagline": "🩸 Golongan Darah O",
+      "chip": "GOLONGAN DARAH",
+      "title": "O, Sang Pemimpin yang Percaya Diri"
+    },
+    "a": {
+      "tagline": "🩸 Golongan Darah A",
+      "chip": "GOLONGAN DARAH",
+      "title": "A, Sang Perfeksionis yang Bisa Diandalkan"
+    },
+    "b": {
+      "tagline": "🩸 Golongan Darah B",
+      "chip": "GOLONGAN DARAH",
+      "title": "B, Sang Pembebas yang Autentik"
+    },
+    "ab": {
+      "tagline": "🩸 Golongan Darah AB",
+      "chip": "GOLONGAN DARAH",
+      "title": "AB, Sang Misterius yang Serba Bisa"
+    }
+  },
+  "MBTI": {
+    "istj": {
+      "tagline": "🗂️ Sang Penjaga Aturan",
+      "chip": "MBTI",
+      "title": "ISTJ, Sang Penjaga yang Teguh Pendirian"
+    },
+    "isfj": {
+      "tagline": "🕊️ Sang Pelindung Sunyi",
+      "chip": "MBTI",
+      "title": "ISFJ, Sang Pelindung yang Setia Tanpa Banyak Bicara"
+    },
+    "infj": {
+      "tagline": "🔮 Sang Penglihat yang Jarang Ditemukan",
+      "chip": "MBTI",
+      "title": "INFJ, Sang Idealis yang Melihat Lebih Dalam"
+    },
+    "intj": {
+      "tagline": "♟️ Sang Perencana Jangka Panjang",
+      "chip": "MBTI",
+      "title": "INTJ, Sang Perencana yang Selalu Berpikir Jauh ke Depan"
+    },
+    "istp": {
+      "tagline": "🔧 Sang Pengrajin Diam-diam",
+      "chip": "MBTI",
+      "title": "ISTP, Sang Pengrajin yang Tenang tapi Piawai"
+    },
+    "isfp": {
+      "tagline": "🎨 Sang Seniman yang Hidup dengan Rasa",
+      "chip": "MBTI",
+      "title": "ISFP, Sang Seniman yang Hidup dengan Rasa"
+    },
+    "infp": {
+      "tagline": "🌙 Sang Pemimpi yang Setia pada Hati",
+      "chip": "MBTI",
+      "title": "INFP, Sang Pemimpi yang Setia pada Nilai Sendiri"
+    },
+    "intp": {
+      "tagline": "🧩 Sang Penjelajah Ide",
+      "chip": "MBTI",
+      "title": "INTP, Sang Penjelajah Ide yang Rasa Ingin Tahunya Tak Pernah Padam"
+    },
+    "estp": {
+      "tagline": "⚡ Sang Petualang Siap Aksi",
+      "chip": "MBTI",
+      "title": "ESTP, Sang Petualang yang Selalu Siap Bergerak"
+    },
+    "esfp": {
+      "tagline": "🎉 Sang Penghibur yang Menghidupkan Suasana",
+      "chip": "MBTI",
+      "title": "ESFP, Sang Penghibur yang Menghidupkan Suasana"
+    },
+    "enfp": {
+      "tagline": "✨ Sang Juru Kampanye yang Penuh Semangat",
+      "chip": "MBTI",
+      "title": "ENFP, Sang Juru Kampanye yang Penuh Semangat"
+    },
+    "entp": {
+      "tagline": "💡 Sang Pendebat Pengulik Kemungkinan",
+      "chip": "MBTI",
+      "title": "ENTP, Sang Pendebat yang Suka Mengulik Kemungkinan"
+    },
+    "estj": {
+      "tagline": "📋 Sang Pengatur yang Tegas",
+      "chip": "MBTI",
+      "title": "ESTJ, Sang Pengatur yang Tegas dan Terstruktur"
+    },
+    "esfj": {
+      "tagline": "🤝 Sang Penghubung yang Peduli",
+      "chip": "MBTI",
+      "title": "ESFJ, Sang Penghubung yang Peduli Sekitarnya"
+    },
+    "enfj": {
+      "tagline": "🌟 Sang Penggerak yang Menginspirasi",
+      "chip": "MBTI",
+      "title": "ENFJ, Sang Penggerak yang Menginspirasi Orang Lain"
+    },
+    "entj": {
+      "tagline": "👑 Sang Komandan Berorientasi Hasil",
+      "chip": "MBTI",
+      "title": "ENTJ, Sang Komandan yang Berorientasi pada Hasil"
+    }
+  },
+  "Enneagram": {
+    "tipe_1": {
+      "tagline": "Satu titik yang selalu mencari garis paling lurus.",
+      "chip": "ENNEAGRAM",
+      "title": "Tipe 1, Sang Penjaga Standar yang Berintegritas"
+    },
+    "tipe_2": {
+      "tagline": "Hati yang selalu punya ruang lebih untuk orang lain.",
+      "chip": "ENNEAGRAM",
+      "title": "Tipe 2, Sang Pemberi yang Tulus"
+    },
+    "tipe_3": {
+      "tagline": "Selalu bergerak menuju versi diri yang lebih bersinar.",
+      "chip": "ENNEAGRAM",
+      "title": "Tipe 3, Sang Pengejar Prestasi yang Gigih"
+    },
+    "tipe_4": {
+      "tagline": "Selalu mencari warna paling asli dari dirinya sendiri.",
+      "chip": "ENNEAGRAM",
+      "title": "Tipe 4, Sang Pencari Makna yang Mendalam"
+    },
+    "tipe_5": {
+      "tagline": "Pikiran yang senang menyelam sebelum bicara.",
+      "chip": "ENNEAGRAM",
+      "title": "Tipe 5, Sang Pengamat yang Mendalam"
+    },
+    "tipe_6": {
+      "tagline": "Selalu menyiapkan payung sebelum langit benar-benar mendung.",
+      "chip": "ENNEAGRAM",
+      "title": "Tipe 6, Sang Penjaga Kesetiaan yang Waspada"
+    },
+    "tipe_7": {
+      "tagline": "Selalu ada satu pintu baru yang menarik untuk dibuka.",
+      "chip": "ENNEAGRAM",
+      "title": "Tipe 7, Sang Penjelajah yang Penuh Semangat"
+    },
+    "tipe_8": {
+      "tagline": "Berdiri kokoh, siap melindungi apa yang penting.",
+      "chip": "ENNEAGRAM",
+      "title": "Tipe 8, Sang Pelindung yang Tegas"
+    },
+    "tipe_9": {
+      "tagline": "Air tenang yang tetap punya arus di dalamnya.",
+      "chip": "ENNEAGRAM",
+      "title": "Tipe 9, Sang Penjaga Kedamaian yang Lembut"
+    }
+  },
+  "DISC": {
+    "dominance": {
+      "tagline": "⚡ Gaya Dominan",
+      "chip": "DISC",
+      "title": "D, Sang Penggerak yang Tegas"
+    },
+    "influence": {
+      "tagline": "✨ Gaya Memengaruhi",
+      "chip": "DISC",
+      "title": "I, Sang Penyemangat yang Hangat"
+    },
+    "steadiness": {
+      "tagline": "🌿 Gaya Stabil",
+      "chip": "DISC",
+      "title": "S, Sang Penopang yang Setia"
+    },
+    "conscientiousness": {
+      "tagline": "📐 Gaya Teliti",
+      "chip": "DISC",
+      "title": "C, Sang Perancang yang Teliti"
+    }
+  },
+  "Love Language": {
+    "words_of_affirmation": {
+      "tagline": "Kata yang diucapkan, tersimpan selamanya",
+      "chip": "LOVE LANGUAGE",
+      "title": "Kata-kata Afirmasi, Kamu Hidup dari Kalimat yang Tulus"
+    },
+    "quality_time": {
+      "tagline": "Kehadiran yang penuh, bukan sekadar berada di ruang yang sama",
+      "chip": "LOVE LANGUAGE",
+      "title": "Waktu Berkualitas, Kehadiran adalah Cinta Bagimu"
+    },
+    "receiving_gifts": {
+      "tagline": "Sesuatu yang bisa digenggam, mengingatkan bahwa kamu dipikirkan",
+      "chip": "LOVE LANGUAGE",
+      "title": "Menerima Hadiah, Simbol Kecil yang Berarti Besar"
+    },
+    "acts_of_service": {
+      "tagline": "Tindakan nyata berbicara lebih keras dari sekadar kata",
+      "chip": "LOVE LANGUAGE",
+      "title": "Tindakan Pelayanan, Kamu Percaya pada Cinta yang Dikerjakan"
+    },
+    "physical_touch": {
+      "tagline": "Sentuhan yang tenang, mengatakan apa yang kata tak sanggup ucapkan",
+      "chip": "LOVE LANGUAGE",
+      "title": "Sentuhan Fisik, Kedekatan yang Kamu Rasakan lewat Raga"
+    }
+  },
+  "Big Five": {
+    "openness_rendah": {
+      "tagline": "◐ Keterbukaan Rendah",
+      "chip": "BIG FIVE",
+      "title": "Keterbukaan Rendah, Si Pijakan Nyata",
+      "ringkas": "kamu lebih nyaman dengan cara-cara yang sudah terbukti daripada coba-coba hal baru yang belum jelas hasilnya."
+    },
+    "openness_tinggi": {
+      "tagline": "◕ Keterbukaan Tinggi",
+      "chip": "BIG FIVE",
+      "title": "Keterbukaan Tinggi, Si Penjelajah Ide",
+      "ringkas": "kamu haus akan ide, pengalaman, dan cara pandang baru yang belum pernah kamu coba sebelumnya."
+    },
+    "conscientiousness_rendah": {
+      "tagline": "◐ Kehati-hatian Rendah",
+      "chip": "BIG FIVE",
+      "title": "Kehati-hatian Rendah, Si Pengikut Momen",
+      "ringkas": "kamu lebih suka mengalir mengikuti momen daripada terikat rencana dan jadwal yang ketat."
+    },
+    "conscientiousness_tinggi": {
+      "tagline": "◕ Kehati-hatian Tinggi",
+      "chip": "BIG FIVE",
+      "title": "Kehati-hatian Tinggi, Si Tangan Dingin yang Teliti",
+      "ringkas": "kamu terorganisir, disiplin, dan bisa diandalkan untuk menyelesaikan apa yang sudah kamu mulai."
+    },
+    "extraversion_rendah": {
+      "tagline": "◐ Ekstraversi Rendah",
+      "chip": "BIG FIVE",
+      "title": "Ekstraversi Rendah, Si Pemikir Tenang",
+      "ringkas": "kamu lebih suka lingkaran kecil dan waktu sendiri untuk mengisi ulang energimu."
+    },
+    "extraversion_tinggi": {
+      "tagline": "◕ Ekstraversi Tinggi",
+      "chip": "BIG FIVE",
+      "title": "Ekstraversi Tinggi, Si Pusat Energi Sosial",
+      "ringkas": "kamu mendapat energi dari interaksi sosial dan merasa hidup ketika berada di tengah orang banyak."
+    },
+    "agreeableness_rendah": {
+      "tagline": "◐ Keramahan Rendah",
+      "chip": "BIG FIVE",
+      "title": "Keramahan Rendah, Si Pembicara Blak-blakan",
+      "ringkas": "kamu lebih memilih jujur apa adanya daripada basa-basi demi menyenangkan orang lain."
+    },
+    "agreeableness_tinggi": {
+      "tagline": "◕ Keramahan Tinggi",
+      "chip": "BIG FIVE",
+      "title": "Keramahan Tinggi, Si Hati yang Hangat",
+      "ringkas": "kamu penuh empati, kooperatif, dan selalu berusaha menjaga keharmonisan dengan orang di sekitarmu."
+    },
+    "neuroticism_rendah": {
+      "tagline": "◐ Stabilitas Emosi Tinggi",
+      "chip": "BIG FIVE",
+      "title": "Neurotisisme Rendah, Si Jangkar yang Tenang",
+      "ringkas": "kamu cenderung tenang menghadapi tekanan dan jarang gampang cemas."
+    },
+    "neuroticism_tinggi": {
+      "tagline": "◕ Kepekaan Emosi Tinggi",
+      "chip": "BIG FIVE",
+      "title": "Neurotisisme Tinggi, Si Perasa yang Mendalam",
+      "ringkas": "kamu lebih peka secara emosi dan cepat merasakan sesuatu secara mendalam dibanding kebanyakan orang."
+    },
+    "openness_sedang": {
+      "tagline": "◑ Keterbukaan Sedang",
+      "chip": "BIG FIVE",
+      "title": "Keterbukaan Sedang, Si Pejalan Jalur Tengah",
+      "ringkas": "kamu terbuka pada hal baru selama masuk akal, dan tetap menghargai cara lama yang masih berguna."
+    },
+    "conscientiousness_sedang": {
+      "tagline": "◑ Kehati-hatian Sedang",
+      "chip": "BIG FIVE",
+      "title": "Kehati-hatian Sedang, Si Pengatur Takaran",
+      "ringkas": "kamu cukup teratur untuk bisa diandalkan, tetapi tetap luwes ketika rencana harus berubah."
+    },
+    "extraversion_sedang": {
+      "tagline": "◑ Ekstraversi Sedang",
+      "chip": "BIG FIVE",
+      "title": "Ekstraversi Sedang, Si Penyeimbang Ruang Sosial",
+      "ringkas": "kamu menikmati keramaian dan ketenangan secara bergantian, tergantung suasana dan energimu hari itu."
+    },
+    "agreeableness_sedang": {
+      "tagline": "◑ Keramahan Sedang",
+      "chip": "BIG FIVE",
+      "title": "Keramahan Sedang, Si Penengah yang Tahu Batas",
+      "ringkas": "kamu peduli pada orang lain tetapi tetap berani menjaga batas dan kepentinganmu sendiri."
+    },
+    "neuroticism_sedang": {
+      "tagline": "◑ Kepekaan Emosi Sedang",
+      "chip": "BIG FIVE",
+      "title": "Neurotisisme Sedang, Si Pelaut Ombak Sedang",
+      "ringkas": "kamu cukup tenang pada hari biasa, tetapi bisa goyah sesaat ketika tekanan menumpuk."
+    }
+  },
+  "Tarot": {
+    "major_00": {
+      "tagline": "0 · The Fool",
+      "chip": "TAROT",
+      "title": "The Fool, Awal yang Berani"
+    },
+    "major_01": {
+      "tagline": "I · The Magician",
+      "chip": "TAROT",
+      "title": "The Magician, Kamu Punya Semua Alatnya"
+    },
+    "major_02": {
+      "tagline": "II · The High Priestess",
+      "chip": "TAROT",
+      "title": "The High Priestess, Dengarkan Intuisimu"
+    },
+    "major_03": {
+      "tagline": "III · The Empress",
+      "chip": "TAROT",
+      "title": "The Empress, Waktunya Bertumbuh"
+    },
+    "major_04": {
+      "tagline": "IV · The Emperor",
+      "chip": "TAROT",
+      "title": "The Emperor, Saatnya Ambil Kendali"
+    },
+    "major_05": {
+      "tagline": "V · The Hierophant",
+      "chip": "TAROT",
+      "title": "The Hierophant, Belajar dari yang Sudah Teruji"
+    },
+    "major_06": {
+      "tagline": "VI · The Lovers",
+      "chip": "TAROT",
+      "title": "The Lovers, Pilihan dari Hati"
+    },
+    "major_07": {
+      "tagline": "VII · The Chariot",
+      "chip": "TAROT",
+      "title": "The Chariot, Terus Maju dengan Fokus"
+    },
+    "major_08": {
+      "tagline": "VIII · Strength",
+      "chip": "TAROT",
+      "title": "Strength, Kekuatan yang Lembut"
+    },
+    "major_09": {
+      "tagline": "IX · The Hermit",
+      "chip": "TAROT",
+      "title": "The Hermit, Waktunya Menyendiri Sejenak"
+    },
+    "major_10": {
+      "tagline": "X · Wheel of Fortune",
+      "chip": "TAROT",
+      "title": "Wheel of Fortune, Siklus Sedang Berputar"
+    },
+    "major_11": {
+      "tagline": "XI · Justice",
+      "chip": "TAROT",
+      "title": "Justice, Keseimbangan & Konsekuensi"
+    },
+    "major_12": {
+      "tagline": "XII · The Hanged Man",
+      "chip": "TAROT",
+      "title": "The Hanged Man, Ubah Sudut Pandang"
+    },
+    "major_13": {
+      "tagline": "XIII · Death",
+      "chip": "TAROT",
+      "title": "Death, Transformasi, Bukan Akhir"
+    },
+    "major_14": {
+      "tagline": "XIV · Temperance",
+      "chip": "TAROT",
+      "title": "Temperance, Cari Titik Seimbang"
+    },
+    "major_15": {
+      "tagline": "XV · The Devil",
+      "chip": "TAROT",
+      "title": "The Devil, Kenali Belenggu yang Kamu Buat Sendiri"
+    },
+    "major_16": {
+      "tagline": "XVI · The Tower",
+      "chip": "TAROT",
+      "title": "The Tower, Keruntuhan yang Diperlukan"
+    },
+    "major_17": {
+      "tagline": "XVII · The Star",
+      "chip": "TAROT",
+      "title": "The Star, Harapan Setelah Badai"
+    },
+    "major_18": {
+      "tagline": "XVIII · The Moon",
+      "chip": "TAROT",
+      "title": "The Moon, Waspada pada Ilusi"
+    },
+    "major_19": {
+      "tagline": "XIX · The Sun",
+      "chip": "TAROT",
+      "title": "The Sun, Kebahagiaan yang Tulus"
+    },
+    "major_20": {
+      "tagline": "XX · Judgement",
+      "chip": "TAROT",
+      "title": "Judgement, Panggilan untuk Bangkit"
+    },
+    "major_21": {
+      "tagline": "XXI · The World",
+      "chip": "TAROT",
+      "title": "The World, Satu Babak Tuntas"
+    },
+    "cups_01": {
+      "tagline": "Ace of Cups",
+      "chip": "TAROT",
+      "title": "Ace of Cups, Penyayang & Intuitif"
+    },
+    "cups_02": {
+      "tagline": "Two of Cups",
+      "chip": "TAROT",
+      "title": "Two of Cups, Harmonis & Setara"
+    },
+    "cups_03": {
+      "tagline": "Three of Cups",
+      "chip": "TAROT",
+      "title": "Three of Cups, Ceria & Ramah"
+    },
+    "cups_04": {
+      "tagline": "Four of Cups",
+      "chip": "TAROT",
+      "title": "Four of Cups, Reflektif & Introspektif"
+    },
+    "cups_05": {
+      "tagline": "Five of Cups",
+      "chip": "TAROT",
+      "title": "Five of Cups, Peka & Dalam"
+    },
+    "cups_06": {
+      "tagline": "Six of Cups",
+      "chip": "TAROT",
+      "title": "Six of Cups, Nostaljik & Tulus"
+    },
+    "cups_07": {
+      "tagline": "Seven of Cups",
+      "chip": "TAROT",
+      "title": "Seven of Cups, Imajinatif & Visioner"
+    },
+    "cups_08": {
+      "tagline": "Eight of Cups",
+      "chip": "TAROT",
+      "title": "Eight of Cups, Berani & Mandiri"
+    },
+    "cups_09": {
+      "tagline": "Nine of Cups",
+      "chip": "TAROT",
+      "title": "Nine of Cups, Puas & Bahagia"
+    },
+    "cups_10": {
+      "tagline": "Ten of Cups",
+      "chip": "TAROT",
+      "title": "Ten of Cups, Harmonis & Bahagia"
+    },
+    "cups_page": {
+      "tagline": "Page of Cups",
+      "chip": "TAROT",
+      "title": "Page of Cups, Intuitif & Peka"
+    },
+    "cups_knight": {
+      "tagline": "Knight of Cups",
+      "chip": "TAROT",
+      "title": "Knight of Cups, Romantis & Puitis"
+    },
+    "cups_queen": {
+      "tagline": "Queen of Cups",
+      "chip": "TAROT",
+      "title": "Queen of Cups, Intuitif & Empatis"
+    },
+    "cups_king": {
+      "tagline": "King of Cups",
+      "chip": "TAROT",
+      "title": "King of Cups, Kematangan Emosi & Bijaksana"
+    },
+    "pentacles_01": {
+      "tagline": "Ace of Pentacles",
+      "chip": "TAROT",
+      "title": "Ace of Pentacles, Praktis & Stabil"
+    },
+    "pentacles_02": {
+      "tagline": "Two of Pentacles",
+      "chip": "TAROT",
+      "title": "Two of Pentacles, Lincah & Fleksibel"
+    },
+    "pentacles_03": {
+      "tagline": "Three of Pentacles",
+      "chip": "TAROT",
+      "title": "Three of Pentacles, Ahli & Terampil"
+    },
+    "pentacles_04": {
+      "tagline": "Four of Pentacles",
+      "chip": "TAROT",
+      "title": "Four of Pentacles, Hemat & Waspada"
+    },
+    "pentacles_05": {
+      "tagline": "Five of Pentacles",
+      "chip": "TAROT",
+      "title": "Five of Pentacles, Tabah & Prihatin"
+    },
+    "pentacles_06": {
+      "tagline": "Six of Pentacles",
+      "chip": "TAROT",
+      "title": "Six of Pentacles, Pemurah & Adil"
+    },
+    "pentacles_07": {
+      "tagline": "Seven of Pentacles",
+      "chip": "TAROT",
+      "title": "Seven of Pentacles, Sabar & Evaluatif"
+    },
+    "pentacles_08": {
+      "tagline": "Eight of Pentacles",
+      "chip": "TAROT",
+      "title": "Eight of Pentacles, Tekun & Disiplin"
+    },
+    "pentacles_09": {
+      "tagline": "Nine of Pentacles",
+      "chip": "TAROT",
+      "title": "Nine of Pentacles, Mandiri & Anggun"
+    },
+    "pentacles_10": {
+      "tagline": "Ten of Pentacles",
+      "chip": "TAROT",
+      "title": "Ten of Pentacles, Makmur & Makmur Lintas Generasi"
+    },
+    "pentacles_page": {
+      "tagline": "Page of Pentacles",
+      "chip": "TAROT",
+      "title": "Page of Pentacles, Tekun & Pembawa Peluang"
+    },
+    "pentacles_knight": {
+      "tagline": "Knight of Pentacles",
+      "chip": "TAROT",
+      "title": "Knight of Pentacles, Tekun & Terencana"
+    },
+    "pentacles_queen": {
+      "tagline": "Queen of Pentacles",
+      "chip": "TAROT",
+      "title": "Queen of Pentacles, Pengayom & Makmur"
+    },
+    "pentacles_king": {
+      "tagline": "King of Pentacles",
+      "chip": "TAROT",
+      "title": "King of Pentacles, Makmur & Berwibawa Puncak"
+    },
+    "swords_01": {
+      "tagline": "Ace of Swords",
+      "chip": "TAROT",
+      "title": "Ace of Swords, Jernih & Objektif"
+    },
+    "swords_02": {
+      "tagline": "Two of Swords",
+      "chip": "TAROT",
+      "title": "Two of Swords, Netral & Berhati-hati"
+    },
+    "swords_03": {
+      "tagline": "Three of Swords",
+      "chip": "TAROT",
+      "title": "Three of Swords, Jujur & Peka"
+    },
+    "swords_04": {
+      "tagline": "Four of Swords",
+      "chip": "TAROT",
+      "title": "Four of Swords, Tenang & Pemulihan"
+    },
+    "swords_05": {
+      "tagline": "Five of Swords",
+      "chip": "TAROT",
+      "title": "Five of Swords, Kritis & Taktis"
+    },
+    "swords_06": {
+      "tagline": "Six of Swords",
+      "chip": "TAROT",
+      "title": "Six of Swords, Tabah & Bertransisi"
+    },
+    "swords_07": {
+      "tagline": "Seven of Swords",
+      "chip": "TAROT",
+      "title": "Seven of Swords, Cerdik & Taktis"
+    },
+    "swords_08": {
+      "tagline": "Eight of Swords",
+      "chip": "TAROT",
+      "title": "Eight of Swords, Peka & Terbelenggu Pikiran"
+    },
+    "swords_09": {
+      "tagline": "Nine of Swords",
+      "chip": "TAROT",
+      "title": "Nine of Swords, Peka & Sangat Cemas"
+    },
+    "swords_10": {
+      "tagline": "Ten of Swords",
+      "chip": "TAROT",
+      "title": "Ten of Swords, Tabah & Bangkit kembali"
+    },
+    "swords_page": {
+      "tagline": "Page of Swords",
+      "chip": "TAROT",
+      "title": "Page of Swords, Kritis & Waspada"
+    },
+    "swords_knight": {
+      "tagline": "Knight of Swords",
+      "chip": "TAROT",
+      "title": "Knight of Swords, Pemberani & Cepat"
+    },
+    "swords_queen": {
+      "tagline": "Queen of Swords",
+      "chip": "TAROT",
+      "title": "Queen of Swords, Mandiri & Intelektual"
+    },
+    "swords_king": {
+      "tagline": "King of Swords",
+      "chip": "TAROT",
+      "title": "King of Swords, Intelektual Unggul & Bijaksana"
+    },
+    "wands_01": {
+      "tagline": "Ace of Wands",
+      "chip": "TAROT",
+      "title": "Ace of Wands, Inspiratif & Bersemangat"
+    },
+    "wands_02": {
+      "tagline": "Two of Wands",
+      "chip": "TAROT",
+      "title": "Two of Wands, Visioner & Perencana"
+    },
+    "wands_03": {
+      "tagline": "Three of Wands",
+      "chip": "TAROT",
+      "title": "Three of Wands, Optimis & Penuh Kejayaan"
+    },
+    "wands_04": {
+      "tagline": "Four of Wands",
+      "chip": "TAROT",
+      "title": "Four of Wands, Harmonis & Stabil"
+    },
+    "wands_05": {
+      "tagline": "Five of Wands",
+      "chip": "TAROT",
+      "title": "Five of Wands, Kompetitif & Tangguh"
+    },
+    "wands_06": {
+      "tagline": "Six of Wands",
+      "chip": "TAROT",
+      "title": "Six of Wands, Sukses & Berkarisma"
+    },
+    "wands_07": {
+      "tagline": "Seven of Wands",
+      "chip": "TAROT",
+      "title": "Seven of Wands, Tangguh & Gigih"
+    },
+    "wands_08": {
+      "tagline": "Eight of Wands",
+      "chip": "TAROT",
+      "title": "Eight of Wands, Cepat & Dinamis"
+    },
+    "wands_09": {
+      "tagline": "Nine of Wands",
+      "chip": "TAROT",
+      "title": "Nine of Wands, Gigih & Waspada"
+    },
+    "wands_10": {
+      "tagline": "Ten of Wands",
+      "chip": "TAROT",
+      "title": "Ten of Wands, Bertanggung Jawab & Pekerja Keras"
+    },
+    "wands_page": {
+      "tagline": "Page of Wands",
+      "chip": "TAROT",
+      "title": "Page of Wands, Antusias & Kreatif"
+    },
+    "wands_knight": {
+      "tagline": "Knight of Wands",
+      "chip": "TAROT",
+      "title": "Knight of Wands, Pemberani & Bersemangat"
+    },
+    "wands_queen": {
+      "tagline": "Queen of Wands",
+      "chip": "TAROT",
+      "title": "Queen of Wands, Berkarisma & Percaya Diri"
+    },
+    "wands_king": {
+      "tagline": "King of Wands",
+      "chip": "TAROT",
+      "title": "King of Wands, Visioner & Berwibawa"
+    }
   }
 }
