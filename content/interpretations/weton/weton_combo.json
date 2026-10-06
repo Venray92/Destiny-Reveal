@@ -1,0 +1,74 @@
+{
+  "hari": {
+    "Senin": "Hari Senin membawa watak lembut, penuh empati, dan peka terhadap suasana hati orang di sekitarmu.",
+    "Selasa": "Hari Selasa membawa watak berani, gigih, dan blak-blakan dalam mengejar apa yang kamu yakini.",
+    "Rabu": "Hari Rabu membawa watak tenang, analitis, dan cenderung berhati-hati sebelum membuka isi pikiranmu.",
+    "Kamis": "Hari Kamis membawa watak bijak, berwibawa, dan senang membimbing orang lain.",
+    "Jumat": "Hari Jumat membawa watak luwes, menawan, dan pandai menjalin hubungan serta menikmati keindahan.",
+    "Sabtu": "Hari Sabtu membawa watak tekun, disiplin, dan serius memegang tanggung jawab.",
+    "Minggu": "Hari Minggu membawa watak percaya diri, hangat, dan alami menjadi pusat perhatian atau pemimpin."
+  },
+  "pasaran": {
+    "Legi": "Pasaran Legi membawa watak ramah, sabar, dan mudah membuat orang merasa nyaman di dekatmu.",
+    "Pahing": "Pasaran Pahing membawa watak ambisius, tegas, dan mandiri dengan standar yang tinggi.",
+    "Pon": "Pasaran Pon membawa watak tekun, teliti, dan cenderung menyimpan sendiri apa yang kamu rasakan.",
+    "Wage": "Pasaran Wage membawa watak tenang, setia, dan kuat memegang pendirian tanpa banyak bicara.",
+    "Kliwon": "Pasaran Kliwon membawa watak intuitif, karismatik, dan punya daya tarik yang sulit dijelaskan."
+  },
+  "relasi": {
+    "Senin|Legi": "Kelembutan Senin bertemu keramahan Legi, sehingga kamu mudah diterima dan orang cepat merasa nyaman bercerita padamu. Latih diri berkata tidak dengan sopan agar kebaikanmu tidak dimanfaatkan dan energimu tetap terjaga.",
+    "Senin|Pahing": "Empati Senin dipadukan dorongan Pahing yang ingin berprestasi, jadi kamu peka sekaligus punya target yang jelas. Saat dua sisi ini berbenturan, beri dirimu jeda sebelum memutuskan agar ambisi tidak mengalahkan perasaan.",
+    "Senin|Pon": "Kepekaan Senin bertemu ketelitian Pon, membuatmu memperhatikan detail kecil yang sering terlewat orang lain. Hati-hati memendam perasaan terlalu lama, karena menulis atau bercerita pada satu orang tepercaya akan sangat membantu.",
+    "Senin|Wage": "Senin yang lembut bertemu Wage yang tenang dan setia, sehingga kamu terlihat kalem namun berpegang teguh pada nilai pribadi. Biasakan menyampaikan kebutuhanmu secara terbuka karena orang sulit menebak apa yang kamu rasakan.",
+    "Senin|Kliwon": "Empati Senin dan intuisi Kliwon saling menguatkan, jadi kamu sering merasakan suasana hati orang sebelum mereka berbicara. Bedakan perasaan milikmu dari perasaan orang lain dengan menepi sejenak sebelum bereaksi.",
+    "Selasa|Legi": "Keberanian Selasa dilunakkan keramahan Legi, sehingga ketegasanmu terasa hangat dan mudah diterima. Manfaatkan kombinasi ini untuk menyampaikan kritik dengan cara yang membangun.",
+    "Selasa|Pahing": "Dua unsur yang sama-sama berani dan kompetitif bertemu, jadi kamu cepat bergerak dan jarang menunggu disuruh. Salurkan tenaga ini ke tujuan yang terukur dan beri ruang untuk mendengar agar kamu tidak terlihat memaksakan kehendak.",
+    "Selasa|Pon": "Dorongan Selasa bertemu ketekunan Pon, membuatmu mampu mengerjakan tugas berat sampai selesai tanpa banyak keluhan. Atur jadwal istirahat karena kamu cenderung memaksa diri sebelum tubuh memberi tanda.",
+    "Selasa|Wage": "Selasa yang berapi-api bertemu Wage yang tenang, jadi kamu tegas tetapi tidak mudah meledak. Kekuatan ini cocok untuk peran yang menuntut keteguhan, asalkan kamu tetap membuka diri pada masukan.",
+    "Selasa|Kliwon": "Keberanian Selasa bertemu daya tarik Kliwon, sehingga kehadiranmu terasa kuat dan mudah menarik perhatian. Gunakan pengaruh itu untuk mengajak orang bergerak bersama, bukan sekadar menunjukkan siapa yang paling menonjol.",
+    "Rabu|Legi": "Ketenangan Rabu bertemu keramahan Legi, jadi kamu pendengar yang baik dan pemberi saran yang menenangkan. Cobalah lebih sering menyuarakan pendapat sendiri, bukan hanya menampung cerita orang.",
+    "Rabu|Pahing": "Pemikiran Rabu yang berhati-hati dipacu semangat Pahing untuk maju, sehingga rencanamu biasanya matang sekaligus punya arah. Tetapkan batas waktu untuk menimbang agar analisis tidak menunda tindakan.",
+    "Rabu|Pon": "Rabu dan Pon sama-sama gemar bekerja dengan teliti dan tenang, jadi hasil kerjamu rapi dan dapat diandalkan. Karena cenderung tertutup, sempatkan membagikan proses dan hasilmu agar kontribusimu terlihat.",
+    "Rabu|Wage": "Dua unsur yang pendiam bertemu, menghasilkan sosok yang tenang, setia, dan jarang mencari sorotan. Pilih satu atau dua lingkungan untuk berbicara lebih aktif supaya kemampuanmu tidak tersembunyi.",
+    "Rabu|Kliwon": "Logika Rabu bertemu intuisi Kliwon, jadi kamu menimbang fakta sekaligus membaca firasat. Catat firasatmu lalu cocokkan dengan data, karena cara itu melatihmu memercayai keduanya secara seimbang.",
+    "Kamis|Legi": "Kebijaksanaan Kamis bertemu keramahan Legi, sehingga kamu mudah menjadi pembimbing yang dihormati sekaligus disayangi. Pastikan nasihatmu menyesuaikan kesiapan orang, bukan hanya apa yang menurutmu benar.",
+    "Kamis|Pahing": "Wibawa Kamis dipadukan ketegasan Pahing, membuatmu cocok memimpin dan mengambil keputusan di saat genting. Berikan alasan di balik keputusanmu agar tim ikut berjalan dengan sukarela.",
+    "Kamis|Pon": "Kamis yang bijak bertemu Pon yang tekun, jadi kamu membangun kepercayaan lewat konsistensi dalam waktu panjang. Jangan menunda berbagi ilmu karena pengalamanmu sudah cukup berharga bagi orang lain.",
+    "Kamis|Wage": "Wibawa Kamis bertemu keteguhan Wage, menghasilkan sosok yang tenang namun dipercaya saat orang butuh pegangan. Waspadai sikap yang terlalu kaku, dan sesekali coba cara baru yang ditawarkan orang lain.",
+    "Kamis|Kliwon": "Kebijaksanaan Kamis bertemu intuisi Kliwon, membuat nasihatmu sering terasa tepat sasaran dan menyentuh. Dasarkan pendapatmu juga pada alasan yang bisa dijelaskan agar orang mudah menerimanya.",
+    "Jumat|Legi": "Pesona Jumat bertemu keramahan Legi, jadi kamu pandai membangun jaringan dan membuat suasana menjadi akrab. Pilih hubungan yang benar-benar bermakna agar waktumu tidak habis untuk pergaulan yang dangkal.",
+    "Jumat|Pahing": "Keluwesan Jumat dipadukan ambisi Pahing, sehingga kamu mampu mencapai tujuan sambil tetap menjaga hubungan baik. Gunakan kemampuan bernegosiasi ini untuk membuka peluang kerja sama, dan jaga agar tidak terlalu perfeksionis.",
+    "Jumat|Pon": "Selera Jumat bertemu ketelitian Pon, membuat karyamu rapi, indah, dan terperinci. Tentukan kapan sebuah pekerjaan sudah cukup baik, karena kamu mudah terus memolesnya.",
+    "Jumat|Wage": "Jumat yang luwes bertemu Wage yang tenang, jadi kamu ramah tanpa kehilangan kedalaman dan kesetiaan. Beranilah menyatakan keinginan sendiri, sebab kamu cenderung mengalah demi menjaga suasana.",
+    "Jumat|Kliwon": "Daya tarik Jumat bertemu karisma Kliwon, membuatmu mudah diingat dan didengarkan banyak orang. Gunakan pengaruhmu secara jujur, dan sediakan waktu menyendiri agar tidak kelelahan secara sosial.",
+    "Sabtu|Legi": "Kedisiplinan Sabtu bertemu keramahan Legi, sehingga kamu serius bekerja namun tetap enak diajak berbincang. Izinkan dirimu bersantai sesekali karena kamu sering merasa harus selalu produktif.",
+    "Sabtu|Pahing": "Ketekunan Sabtu bertemu ambisi Pahing, memberimu daya juang kuat untuk target jangka panjang. Awasi kecenderungan menuntut terlalu tinggi pada diri sendiri dan orang lain, lalu rayakan pencapaian kecil.",
+    "Sabtu|Pon": "Sabtu dan Pon sama-sama tekun, jadi kamu mampu menyelesaikan pekerjaan rumit dengan sabar dan rapi. Bagi tugas dan minta bantuan sebelum lelah, karena kamu cenderung memikul semuanya sendiri.",
+    "Sabtu|Wage": "Keseriusan Sabtu bertemu keteguhan Wage, menghasilkan pribadi yang setia pada komitmen dan jarang mengeluh. Luangkan waktu mengungkapkan perasaan, sebab orang di sekitarmu mudah mengira kamu baik-baik saja.",
+    "Sabtu|Kliwon": "Disiplin Sabtu bertemu intuisi Kliwon, jadi kamu terstruktur namun peka membaca keadaan yang belum terlihat jelas. Susun rutinitas tetap yang tetap memberi ruang untuk menyimak firasat dan kreativitas.",
+    "Minggu|Legi": "Kepercayaan diri Minggu bertemu keramahan Legi, sehingga kamu hangat, mudah dipercaya, dan alami memimpin dengan senyum. Pastikan orang lain mendapat ruang berbicara agar kepemimpinanmu terasa sebagai kerja bersama.",
+    "Minggu|Pahing": "Semangat Minggu dipadukan ambisi Pahing, memberimu dorongan kuat untuk tampil dan mengejar posisi penting. Imbangi dengan kerendahan hati dan umpan balik, supaya semangatmu tidak berubah menjadi sikap yang keras.",
+    "Minggu|Pon": "Minggu yang bersinar bertemu Pon yang teliti, jadi kamu mampu memimpin sekaligus memperhatikan detail pelaksanaan. Percayakan sebagian rincian kepada orang lain agar kamu tetap fokus pada gambaran besar.",
+    "Minggu|Wage": "Karisma Minggu bertemu ketenangan Wage, menghasilkan pemimpin yang berwibawa tanpa perlu banyak bicara. Sesekali ceritakan rencanamu dan tunjukkan sisi hangat supaya orang tidak ragu mengikuti arahanmu.",
+    "Minggu|Kliwon": "Kepercayaan diri Minggu bertemu daya tarik Kliwon, sehingga kehadiranmu terasa kuat dan sulit diabaikan. Arahkan sorotan itu untuk tujuan yang bermanfaat, dan sediakan waktu hening untuk menjernihkan arah."
+  },
+  "pancasuda": {
+    "Sri": "Pancasuda Sri menggambarkan watak yang membawa rezeki, daya tarik, dan kemudahan dalam bergaul sehingga peluang sering datang lewat hubungan baik.",
+    "Lungguh": "Pancasuda Lungguh menggambarkan watak yang berwibawa dan dihormati, dengan kecenderungan mendapat kepercayaan untuk memegang peran atau jabatan.",
+    "Gedhong": "Pancasuda Gedhong menggambarkan watak yang mapan, berhati lapang, dan pandai mengelola serta menyimpan sumber daya untuk jangka panjang.",
+    "Lara": "Pancasuda Lara menggambarkan watak yang diuji lewat tantangan dan rasa cemas, namun tantangan itu bisa dikelola dan justru menempa dirimu menjadi lebih tangguh.",
+    "Pati": "Pancasuda Pati menggambarkan watak yang mudah merasa terbebani oleh perubahan besar dan akhir sebuah fase, tetapi dengan persiapan dan dukungan, kamu bisa menjadikannya titik awal yang baru."
+  },
+  "neptu": {
+    "rendah": "Neptu total yang rendah cenderung memberi tempo hidup yang ringan, gesit, dan mudah berpindah antar kegiatan. Kamu bekerja paling baik dalam tugas pendek yang jelas, dan perlu melatih ketahanan agar tidak cepat bosan pada proyek panjang.",
+    "sedang": "Neptu total yang sedang cenderung memberi tempo hidup yang seimbang antara bergerak dan berhenti. Kamu bisa bekerja stabil dan menyesuaikan diri dengan banyak situasi, asalkan menjaga ritme kerja yang konsisten.",
+    "tinggi": "Neptu total yang tinggi cenderung memberi tempo hidup yang padat, bertenaga, dan penuh daya dorong. Kamu mampu memikul tanggung jawab besar, tetapi perlu menjadwalkan jeda agar energi tidak terkuras sebelum tujuanmu tercapai."
+  },
+  "advice": {
+    "Sri": "Rawat hubungan baik dengan menjaga komunikasi rutin, karena peluangmu sering datang lewat orang yang mengenal dan memercayaimu. Catat penghasilan dan pengeluaran agar rezeki yang datang tidak habis tanpa terasa.",
+    "Lungguh": "Terima peran yang sesuai kemampuan, lalu jalankan dengan transparan dan mau mendengar masukan. Wibawa tumbuh dari konsistensi, jadi tepati janji kecil terlebih dahulu.",
+    "Gedhong": "Susun rencana keuangan dan tabungan jangka panjang, lalu tinjau setiap bulan agar tetap terarah. Berbagilah dengan orang terdekat secara terukur supaya kemapananmu membawa manfaat bagi sekitar.",
+    "Lara": "Pecah masalah besar menjadi langkah kecil dan jadwalkan istirahat serta aktivitas yang menenangkan setiap pekan. Jangan ragu meminta dukungan teman atau keluarga, dan temui tenaga profesional bila beban terasa berat.",
+    "Pati": "Siapkan rencana cadangan sebelum memasuki perubahan besar, dan beri waktu untuk menutup satu fase dengan baik. Cari pendamping atau mentor yang bisa diajak berdiskusi agar setiap akhir terasa sebagai awal yang terarah."
+  }
+}
