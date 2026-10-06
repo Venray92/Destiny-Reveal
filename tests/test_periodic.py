@@ -180,3 +180,45 @@ def test_compute_mode1_pakai_teks_json_baru():
     hasil = {r["system"]: r for r in compute_mode1("Steven", dt.date(1992, 12, 5))}
     z = SJ.load(PL._BASE / "zodiak/zodiak_profile.json")["data"]["Sagittarius"]["sections"]["free"]
     assert hasil["Zodiak"]["quote"] == z["quote"] and hasil["Zodiak"]["desc"].startswith(z["siapa_kamu"][:40])
+
+
+# ── JSON strict valid + title/tagline dari titles.json + tampilan tanpa kamus lama ──
+import json
+
+STRICT = ["zodiak/zodiak_profile.json", "zodiak/daily.json", "zodiak/weekly.json", "zodiak/monthly.json",
+          "shio/shio_profile.json", "shio/daily.json", "shio/monthly.json", "weton/daily.json", "weton/weekly.json",
+          "numerologi/numerologi_profile.json", "numerologi/monthly.json", "matrix_destiny/matrix_destiny.json",
+          "titles.json"]
+
+
+@pytest.mark.parametrize("path", STRICT)
+def test_json_valid_strict(path):
+    json.loads((PL._BASE / path).read_text(encoding="utf-8"))  # tanpa loader toleran
+
+
+@pytest.mark.parametrize("system", ["Zodiak", "Shio", "Numerologi", "Matrix Destiny"])
+def test_titles_dan_display_ada_untuk_semua_entri(system):
+    from content.result_builder import build_display_data
+    for k in PL.kunci_harapan(system):
+        raw = {"Zodiak": lambda: {"sign": k}, "Shio": lambda: {"shio": k}, "Numerologi": lambda: {"life_path": int(k)},
+               "Matrix Destiny": lambda: {"titik_inti": int(k)}}[system]()
+        t = PL.get_title(system, raw)
+        d = build_display_data(system, raw)
+        assert t and t["title"] and t["tagline"] and "—" not in t["title"], (system, k)
+        assert d and d["p1"] and d["p2"] and d["p3"] and d["quote"] and d["domains"]["karir"], (system, k)
+
+
+def test_weton_title_isi_hari_dan_neptu():
+    t = PL.get_title("Weton", {"hari": "Sabtu", "pasaran": "Pon", "neptu": 18})
+    assert "Sabtu Pon" in t["title"] and "18" in t["title"] and "{" not in t["title"]
+
+
+def test_kamus_lama_4_sistem_sudah_dihapus():
+    for d in ("zodiak", "shio", "numerologi", "matrix_destiny"):
+        assert [p.name for p in (PL._BASE / d).glob("*.py")] == ["__init__.py"]
+
+
+def test_weton_cadangan_kamus_lama_tanpa_em_dash():
+    from content.result_builder import build_display_data
+    d = build_display_data("Weton", {"hari": "Sabtu", "pasaran": "Pon", "neptu": 16})  # Sabtu Pon belum ada di JSON baru
+    assert "Sabtu Pon" in d["title"] and "—" not in d["title"] and "—" not in d["p1"]
