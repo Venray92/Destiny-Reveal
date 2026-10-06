@@ -20,12 +20,25 @@ TAROT_MAJOR_ARCANA = [
 ]
 
 
-def tarik_tarot() -> dict:
-    """
-    Tarik 1 kartu Arcana Mayor secara acak.
+# Minor Arcana: slug = key di JSON tarot (cups_01..cups_10, cups_page/knight/queen/king, dst)
+TAROT_SUITS = ["cups", "pentacles", "swords", "wands"]
+_RANK = [f"{n:02d}" for n in range(1, 11)] + ["page", "knight", "queen", "king"]
+TAROT_MINOR_ARCANA = [f"{s}_{r}" for s in TAROT_SUITS for r in _RANK]
+TAROT_DECK = TAROT_MAJOR_ARCANA + TAROT_MINOR_ARCANA  # 78 kartu
 
-    Returns:
-        dict: {"kartu": "fool"} (key pinyin/slug-nya, dipakai buat lookup
-        konten & gambar kartu -- sama pola kayak "sign"/"shio"/dll).
-    """
-    return {"kartu": random.choice(TAROT_MAJOR_ARCANA)}
+
+def tarik_tarot() -> dict:
+    """Tarik 1 kartu acak dari 78 kartu. Return {"kartu": slug} (major: "fool"; minor: "cups_03")."""
+    return {"kartu": random.choice(TAROT_DECK)}
+
+
+def kartu_periodik(kind, now=None, user_key="") -> str:
+    """Kartu deterministik per periode (kind: daily/weekly/monthly), dari 78 kartu.
+    Periode = tanggal WIB / Senin minggu itu / bulan; user_key opsional supaya tiap orang beda."""
+    import hashlib
+
+    from engine.rotation import today_wib, week_start
+    d = today_wib(now)
+    per = {"daily": d.isoformat(), "weekly": week_start(d).isoformat(), "monthly": f"{d.year}-{d.month:02d}"}[kind]
+    h = hashlib.sha256(f"{kind}|{per}|{user_key}".encode()).digest()
+    return TAROT_DECK[int.from_bytes(h[:4], "big") % len(TAROT_DECK)]
