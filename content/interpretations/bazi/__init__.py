@@ -1,3 +1,1 @@
-"""Paket konten bazi."""
-
-from .bazi import BAZI_CONTENT
+"""Paket konten bazi. Teks ada di file JSON folder ini (tidak ada kamus .py lagi)."""
