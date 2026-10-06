@@ -22,7 +22,7 @@ from components.dialog_bus import request_open
 
 from content import periodic
 from content.profile_loader import get_profile
-from content.result_builder import TAROT_CONTENT
+from content.result_builder import build_display_data
 from engine.tarot import TAROT_MAJOR_ARCANA
 from engine.zodiak import _RENTANG_ZODIAK
 from utils.card_images import card_image_data_uri
@@ -331,8 +331,8 @@ def tarot_dialog():
 
     kartu = draw["kartu"]
     idx = TAROT_MAJOR_ARCANA.index(kartu)
-    c = TAROT_CONTENT.get(kartu, {})
-    nama, _, arti = (c.get("title") or kartu).partition(" — ")
+    c = build_display_data("Tarot", {"kartu": kartu}) or {}
+    nama, _, arti = (c.get("title") or kartu).partition(", ")
     uri = next((u for u in [card_image_data_uri(f"tarot/{idx:02d}_{kartu}.png")] if u), None)
     img = f'<img class="dh-tr-img" src="{uri}" alt="{_e(nama)}">' if uri else '<div class="dh-tr-img dh-tr-ph">🂠</div>'
     st.markdown(
