@@ -38,5 +38,20 @@
     "selaras": "Karena elemenmu searah, bobot sarannya ada pada keluwesan: cari sudut pandang yang berbeda sebelum memutuskan hal besar.",
     "harmonis": "Karena elemenmu saling mendukung, bobot sarannya ada pada kesadaran: catat kapan sikap luar dan kebutuhan batinmu bekerja sama agar kamu bisa mengulangnya.",
     "tegangan": "Karena elemenmu berbeda, bobot sarannya ada pada jeda: sebelum bereaksi, tanyakan dulu apakah itu suara sikap luarmu atau kebutuhan batinmu, lalu cari jalan tengah."
+  },
+  "tanpa_bulan": {
+    "elemen": {
+      "Api": "Tandamu berunsur Api, jadi energimu cenderung menyala cepat: kamu mudah bersemangat, berani memulai, dan sulit duduk diam saat sebuah ide terasa benar. Kekuatan ini membuat orang lain ikut bergerak bersamamu.",
+      "Tanah": "Tandamu berunsur Tanah, jadi energimu cenderung membumi: kamu menilai sesuatu dari hasil nyata, bergerak bertahap, dan setia pada hal yang sudah terbukti. Kekuatan ini membuat orang lain merasa aman bersandar padamu.",
+      "Udara": "Tandamu berunsur Udara, jadi energimu cenderung bergerak lewat pikiran dan percakapan: kamu cepat menangkap pola, mudah menghubungkan orang dan gagasan, serta betah bertukar sudut pandang. Kekuatan ini membuatmu pandai menjadi penghubung.",
+      "Air": "Tandamu berunsur Air, jadi energimu cenderung mengalir lewat rasa: kamu peka pada suasana, kuat dalam intuisi, dan memahami orang tanpa harus banyak bertanya. Kekuatan ini membuat orang lain merasa dimengerti olehmu."
+    },
+    "saran": {
+      "Api": "Saat semangat sedang tinggi, tuliskan tiga langkah konkret sebelum bergerak dan sisakan satu hari untuk jeda, supaya api yang kamu nyalakan tidak habis di tengah jalan.",
+      "Tanah": "Pilih satu hal kecil yang berbeda dari rutinitas setiap minggu, supaya kestabilanmu tetap hidup dan tidak berubah menjadi kekakuan saat keadaan menuntut perubahan.",
+      "Udara": "Pilih satu gagasan dari banyak pikiranmu lalu selesaikan sampai ada hasil yang bisa ditunjukkan, supaya kecerdasanmu berubah menjadi karya, bukan sekadar rencana.",
+      "Air": "Sediakan waktu rutin untuk sendiri dan menamai perasaanmu dengan jelas, supaya kepekaanmu menjadi arah dan bukan beban yang kamu pikul diam-diam."
+    },
+    "catatan": "Gambaran ini baru memakai Matahari. Isi jam lahir di form untuk membuka perpaduan dengan posisi Bulanmu, yang menunjukkan sisi batinmu."
   }
 }
