@@ -8,9 +8,6 @@
         -webkit-font-smoothing: antialiased;
     }
 
-    .dr-font-display { font-family: 'Fraunces', serif !important; }
-    .dr-font-reading { font-family: 'Lora', serif !important; }
-
     /* Sembunyikan panah dropdown (expand_more) di tombol popover chip sistem.
        Dicek langsung dari DOM: panah dibungkus div aria-hidden="true" terpisah
        dari ikon+label, jadi bisa ditarget spesifik tanpa ikut menghapus ikon. */
@@ -59,11 +56,6 @@
         display: flex !important; flex-direction: column !important;
         flex: 1 !important; min-height: 0 !important;
     }
-    [class*="drfillheight"] .dr-card,
-    [class*="drfillheight"] .dr-bulk-card {
-        flex: 1 !important;
-    }
-
     .stApp { background-color: #ffffff; }
     .block-container { padding-top: 1.5rem; padding-bottom: 2rem; max-width: 1360px; }
     div[data-testid="stVerticalBlock"] { gap: 1rem !important; }
@@ -75,60 +67,11 @@
     }
     .stApp { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; }
 
-    .dr-center { text-align: center; }
     /* Footer copyright + byline — dipakai lewat class, bukan inline style,
        karena sanitizer HTML Streamlit ternyata membuang deklarasi CSS yang
        pakai !important di dalam atribut style="" (terbukti lewat inspeksi
        DOM langsung: propertinya lenyap total dari outerHTML). */
-    .dr-footer-copyright { text-align: center; color: #9a948a !important; font-size: 12.5px; }
-    .dr-footer-byline { color: #d9cdb6 !important; }
-
-    .dr-badge {
-        display: inline-flex; align-items: center; gap: 6px;
-        padding: 7px 16px; border: 1px solid #ecddc9; border-radius: 100px;
-        font-size: 13px; color: #8a5a2f !important; background: #fdf3e7;
-        margin-bottom: 22px;
-    }
-    .dr-hero-title {
-        font-family: 'Fraunces', serif;
-        font-size: 38px; font-weight: 700; line-height: 1.25;
-        margin: 0 0 22px 0; letter-spacing: -0.01em; color: #1c1a17 !important;
-        text-align: left;
-    }
-    .dr-hero-sub {
-        font-size: 18px; line-height: 1.75; color: #5c564d !important;
-        max-width: 680px; margin: 0 0 30px 0; text-align: left;
-    }
-    .dr-hero-sub em { color: #b8562f !important; font-style: normal; font-weight: 600; }
-    .dr-section-title-wrap { margin-bottom: 18px; }
-    .dr-section-title {
-        font-family: 'Fraunces', serif; font-size: 28px; font-weight: 700;
-        color: #1c1a17 !important; margin: 0; text-align: left; display: inline-block;
-        position: relative; padding-bottom: 12px;
-    }
-    .dr-section-title::after {
-        content: ""; position: absolute; left: 0; bottom: 0;
-        width: 48px; height: 3px; border-radius: 3px; background: #b8562f;
-    }
-    .dr-card {
-        padding: 24px; border-radius: 16px; background: #ffffff;
-        height: 100%; box-sizing: border-box;
-        border: 2px solid #ece6dc;
-        text-align: center;
-    }
-    .dr-card b { color: #1c1a17 !important; font-size: 15.5px; }
-    .dr-card p { color: #6b6459 !important; }
-
     /* Stepper cara kerja */
-    .dr-stepper-row { display: flex; align-items: center; margin-bottom: 18px; max-width: 640px; margin-left: auto; margin-right: auto; }
-    .dr-step-circle {
-        width: 46px; height: 46px; border-radius: 50%; background: #b8562f;
-        color: #ffffff !important; display: flex; align-items: center; justify-content: center;
-        font-weight: 800; font-size: 17px; flex-shrink: 0;
-    }
-    .dr-step-line { flex: 1; height: 3px; background: #ecddc9; margin: 0 10px; border-radius: 3px; }
-    .dr-step-card-1, .dr-step-card-2, .dr-step-card-3 { border-color: #e4ddd0 !important; }
-
     /* Chip popover (sistem kecil di hero) */
     div[data-testid="stPopover"] button {
         border-radius: 100px !important; background: #f6f1e9 !important;
@@ -140,54 +83,6 @@
     }
 
     /* Kartu bulk kategori */
-    .dr-bulk-card {
-        padding: 22px 24px; border-radius: 16px; background: #fbf8f3;
-        border: 2px solid #ece6dc; height: 100%; box-sizing: border-box;
-        display: flex; flex-direction: column; align-items: center; text-align: center;
-    }
-    .dr-bulk-icon {
-        width: 44px; height: 44px; border-radius: 12px; background: #fdf3e7;
-        display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
-        color: #b8562f !important; flex-shrink: 0;
-    }
-    .dr-bulk-tags-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
-    .dr-bulk-tag {
-        display: inline-block; padding: 6px 13px; border-radius: 100px;
-        background: #ffffff; border: 1px solid #e4ddd0; color: #1c1a17 !important;
-        font-size: 12.5px; font-weight: 600;
-    }
-    .dr-bulk-note {
-        margin-top: 10px; font-size: 11px; color: #8a5a2f !important;
-        font-style: italic; line-height: 1.4;
-    }
-
-    .dr-result-card {
-        border: 2px solid #ecddc9; border-radius: 18px; overflow: hidden;
-        box-shadow: 0 20px 50px -22px rgba(139,90,47,0.25);
-    }
-    .dr-result-header {
-        padding: 20px 26px; background: #fdf3e7; border-bottom: 2px solid #ecddc9;
-        color: #8a5a2f !important; font-family: 'Fraunces', serif;
-        font-size: 17px; font-weight: 700;
-    }
-    .dr-result-header * { color: #8a5a2f !important; }
-    .dr-mini-card {
-        padding: 16px 18px; border: 1px solid #ecddc9; border-radius: 12px;
-        margin-bottom: 12px; background: #fffdf9;
-    }
-    .dr-mini-card b { color: #1c1a17 !important; }
-    .dr-mini-tag {
-        display: inline-block; padding: 5px 13px; border-radius: 100px;
-        background: #fdf3e7; color: #8a5a2f !important; font-size: 12.5px; font-weight: 700;
-        margin-bottom: 8px;
-    }
-    .dr-mini-label {
-        font-size: 12px; font-weight: 700; color: #b8562f !important; text-transform: uppercase;
-        letter-spacing: 0.04em; margin-top: 8px; display: block; width: fit-content;
-        border-bottom: 2px solid #e4a56e; padding-bottom: 2px;
-    }
-    .dr-mini-text { font-family: 'Lora', serif; font-size: 13.5px; color: #3a362f !important; line-height: 1.6; margin: 2px 0 0 0; }
-
     div.stButton > button[kind="primary"] {
         background: #c9683a; color: #ffffff !important; border: 2px solid #c9683a;
         padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 18px;
@@ -349,10 +244,6 @@
     }
 
     /* Kontainer Contoh Laporan lebih compact */
-    .dr-report-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
-    .dr-report-item { padding: 4px 0; border-bottom: 1px solid #f2ecdf; }
-    .dr-report-item:nth-last-child(-n+2) { border-bottom: none; }
-
     /* Tab (Beranda / Preview Form + Global / Mingguan) jadi pill nav modern */
     [data-testid="stTabs"] [data-baseweb="tab-list"] {
         gap: 10px !important; background: #fbf8f3; padding: 8px; border-radius: 100px;
