@@ -30,7 +30,7 @@ import time
 import streamlit as st
 import streamlit.components.v1 as components
 
-from content.interpretations.matrix_destiny import MATRIX_DESTINY_CONTENT
+from content.profile_loader import get_title
 from content.result_builder import build_display_data
 from engine.matrix_destiny import NAMA_ARKETIPE
 from settings import PRICE_UPGRADE_SELISIH
@@ -1017,7 +1017,7 @@ def _render_matrix_destiny_extra(raw_result):
     chakra = raw_result["chakra"]
 
     def _arti_singkat(nilai):
-        konten = MATRIX_DESTINY_CONTENT.get(nilai)
+        konten = get_title("Matrix Destiny", {"titik_inti": nilai})
         if konten:
             return konten["title"]
         return NAMA_ARKETIPE.get(nilai, "-")
