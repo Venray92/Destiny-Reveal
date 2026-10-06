@@ -1,0 +1,79 @@
+{
+  "sayap": {
+    "1": {
+      "9": "Dengan sayap 9 kamu terlihat lebih tenang, sabar, dan menerima, sehingga kritik internalmu terasa lebih lembut. Kamu bisa menjadi pembawa damai yang tetap berprinsip. Waspadai kecenderungan menahan kemarahan dan menunda bersikap tegas demi menghindari konflik.",
+      "2": "Dengan sayap 2 kamu tampil lebih hangat, perhatian, dan ingin membantu orang secara langsung. Idealismemu berpadu dengan keinginan membuat orang lain merasa terbantu. Hati-hati menjadi terlalu menuntut ketika bantuanmu tidak dihargai."
+    },
+    "2": {
+      "1": "Dengan sayap 1 kamu menolong dengan lebih terstruktur, bertanggung jawab, dan berprinsip. Kepedulianmu diarahkan oleh rasa benar dan salah yang jelas. Awasi kecenderungan menilai orang yang tidak mengikuti caramu.",
+      "3": "Dengan sayap 3 kamu lebih sosial, menawan, dan berorientasi pada hasil serta pengakuan. Kamu pandai membangun hubungan sekaligus pencapaian. Waspadai menyesuaikan citra demi disukai hingga lupa kebutuhanmu sendiri."
+    },
+    "3": {
+      "2": "Dengan sayap 2 kamu terlihat hangat, ramah, dan pandai membangun jaringan. Ambisimu sering diarahkan untuk membantu atau menyenangkan orang lain. Jangan sampai nilai dirimu terlalu bergantung pada pujian sekitar.",
+      "4": "Dengan sayap 4 kamu lebih reflektif, kreatif, dan peduli pada keaslian. Kamu ingin berprestasi dengan cara yang bermakna dan khas. Perhatikan naik turun suasana hati yang bisa muncul saat hasil tidak sesuai harapan."
+    },
+    "4": {
+      "3": "Dengan sayap 3 kamu lebih menonjol, produktif, dan sadar citra, sehingga ekspresi dirimu lebih mudah diterima publik. Kamu mampu mengubah perasaan menjadi karya. Awasi perbandingan dengan orang lain yang memicu rasa kurang.",
+      "5": "Dengan sayap 5 kamu lebih tertutup, analitis, dan mandiri, dengan dunia batin yang kaya. Kamu cenderung mendalami ide secara sunyi. Hati-hati menarik diri terlalu lama sehingga hubungan dan peluang terlewat."
+    },
+    "5": {
+      "4": "Dengan sayap 4 kamu lebih intuitif, kreatif, dan peka terhadap nuansa perasaan. Kepintaranmu berpadu dengan daya cipta yang personal. Waspadai rasa terasing yang bisa membuatmu makin menjauh dari orang lain.",
+      "6": "Dengan sayap 6 kamu lebih teliti, setia, dan senang bekerja dalam sistem yang jelas. Kamu mengecek fakta dan menyiapkan diri dengan baik. Hati-hati kecemasan yang membuatmu terlalu lama menimbang sebelum bertindak."
+    },
+    "6": {
+      "5": "Dengan sayap 5 kamu lebih mandiri, analitis, dan mengandalkan riset untuk meredakan keraguan. Kamu tampak tenang dan berpikir jernih. Perhatikan kecenderungan menyendiri saat cemas daripada meminta dukungan.",
+      "7": "Dengan sayap 7 kamu lebih ramah, humoris, dan optimis, sehingga cemasmu sering ditutupi keceriaan. Kamu mudah menjalin pertemanan. Waspadai kesibukan berlebihan yang menunda kamu menghadapi sumber kekhawatiran."
+    },
+    "7": {
+      "6": "Dengan sayap 6 kamu lebih setia, bertanggung jawab, dan peduli pada keamanan kelompok. Antusiasmemu lebih terarah dan hangat. Awasi keraguan yang muncul tiba-tiba dan membuatmu sulit memutuskan. Bagian ini membuatmu lebih peduli pada orang lain dan lebih bisa diandalkan oleh kelompok.",
+      "8": "Dengan sayap 8 kamu lebih berani, tegas, dan berenergi besar dalam mengejar keinginan. Kamu cepat bertindak dan suka memimpin petualangan. Hati-hati sikap menekan atau terlalu impulsif saat menginginkan sesuatu."
+    },
+    "8": {
+      "7": "Dengan sayap 7 kamu lebih ekspansif, humoris, dan gemar mengambil peluang. Kekuatanmu terasa hidup dan menular. Waspadai risiko berlebihan serta sikap terlalu cepat jenuh pada komitmen jangka panjang.",
+      "9": "Dengan sayap 9 kamu lebih tenang, sabar, dan melindungi, sehingga kekuatanmu terasa lebih kalem. Kamu mampu memimpin tanpa banyak menekan. Perhatikan agar kemarahan yang tertahan tidak meledak sekaligus."
+    },
+    "9": {
+      "8": "Dengan sayap 8 kamu lebih tegas, kuat, dan berani menyatakan kehendak, sehingga sifat mengalahmu berkurang. Kamu bisa menjadi penengah yang punya pengaruh. Awasi sikap keras kepala saat tertekan. Bila kamu belajar menyuarakan pendapat sejak awal, pengaruhmu akan terasa lebih sehat.",
+      "1": "Dengan sayap 1 kamu lebih teratur, idealis, dan punya standar yang jelas. Ketenanganmu berpadu dengan keinginan memperbaiki keadaan. Hati-hati kritik diri yang diam-diam menumpuk dan membuatmu kaku. Beri ruang untuk istirahat agar standarmu tidak berubah menjadi beban."
+    }
+  },
+  "arah": {
+    "1": {
+      "tumbuh": "Saat sehat, kamu menjadi lebih santai, spontan, dan mampu menikmati hidup tanpa terus menilai diri. Latih memberi dirimu waktu bermain dan melihat sisi ringan dari kesalahan.",
+      "stres": "Saat tertekan, kamu bisa menjadi murung, menarik diri, dan tenggelam dalam rasa iri atau kecewa pada diri sendiri. Antisipasi dengan mengenali tanda kelelahan sejak dini, istirahat cukup, dan berbicara pada orang tepercaya sebelum kritik diri membesar."
+    },
+    "2": {
+      "tumbuh": "Saat sehat, kamu mulai mengakui kebutuhan dan perasaanmu sendiri serta mengekspresikannya dengan jujur. Sisihkan waktu rutin untuk dirimu tanpa merasa bersalah, dan tanyakan apa yang kamu inginkan sebelum membantu.",
+      "stres": "Saat tertekan, kamu bisa menjadi menuntut, mudah marah, dan terang-terangan menagih balasan dari orang yang kamu bantu. Antisipasi dengan menyampaikan kebutuhanmu lebih awal dan batasi bantuan yang kamu berikan sebelum merasa dimanfaatkan."
+    },
+    "3": {
+      "tumbuh": "Saat sehat, kamu menjadi lebih setia pada nilai, kerja sama, dan tidak sibuk menjaga citra. Berbagi kerentanan dengan orang tepercaya dan pilih tujuan yang bermakna, bukan sekadar tampak berhasil.",
+      "stres": "Saat tertekan, kamu bisa kehilangan semangat, menunda, dan menjauh dari tugas atau orang di sekitar. Antisipasi dengan menjaga ritme kerja yang realistis, bertanya pada diri apa yang sebenarnya penting, dan meminta bantuan sebelum kewalahan."
+    },
+    "4": {
+      "tumbuh": "Saat sehat, kamu menjadi lebih disiplin, objektif, dan mampu menyalurkan perasaan ke tindakan nyata. Bangun rutinitas kecil yang konsisten agar karya dan tujuanmu selesai tanpa menunggu suasana hati.",
+      "stres": "Saat tertekan, kamu bisa terlalu bergantung pada orang lain, mencari validasi, dan mengabaikan kebutuhan sendiri. Antisipasi dengan menenangkan diri lebih dulu, menuliskan perasaan, dan memeriksa apakah kamu sedang menggantungkan harga dirimu pada respons orang."
+    },
+    "5": {
+      "tumbuh": "Saat sehat, kamu keluar dari pengamatan dan berani bertindak, tegas, serta hadir di tengah orang lain. Praktikkan keputusan yang cepat dan bagikan pengetahuanmu secara langsung, bukan hanya menyimpannya.",
+      "stres": "Saat tertekan, kamu bisa menjadi gelisah, mencari distraksi, dan bertindak impulsif untuk lari dari rasa kewalahan. Antisipasi dengan menyadari tanda kebanjiran informasi, istirahat dari rangsangan, dan menunda keputusan besar sampai pikiran tenang."
+    },
+    "6": {
+      "tumbuh": "Saat sehat, kamu lebih tenang, percaya pada diri, dan terbuka pada orang lain tanpa curiga berlebihan. Latih mempercayai penilaianmu sendiri dan ambil keputusan setelah informasi cukup, bukan sempurna.",
+      "stres": "Saat tertekan, kamu bisa menjadi gila kerja, mengejar citra, dan memaksakan diri hingga lupa pada perasaan. Antisipasi dengan mengakui rasa takutmu secara jujur dan membatasi jam kerja agar pencapaian tidak menjadi pelarian."
+    },
+    "7": {
+      "tumbuh": "Saat sehat, kamu lebih fokus, mendalam, dan sabar menekuni satu hal sampai tuntas. Pilih satu tujuan utama, beri waktu untuk merenung, dan nikmati proses yang tidak selalu menyenangkan.",
+      "stres": "Saat tertekan, kamu bisa menjadi kritis, kaku, dan perfeksionis terhadap diri sendiri maupun orang lain. Antisipasi dengan memberi ruang bagi spontanitas, mengurangi komitmen yang menumpuk, dan menyadari kapan kritikmu berasal dari cemas, bukan niat membantu."
+    },
+    "8": {
+      "tumbuh": "Saat sehat, kamu menunjukkan sisi lembut, peduli, dan melindungi tanpa merasa lemah. Berani mengungkapkan kerentanan dan gunakan kekuatanmu untuk mengangkat orang lain.",
+      "stres": "Saat tertekan, kamu bisa menarik diri, menutup diri, dan menjadi terlalu tertutup dalam menyimpan perasaan serta rencana. Antisipasi dengan menyadari dorongan menjauh, berbagi beban pada satu orang tepercaya, dan memberi waktu sebelum bereaksi keras."
+    },
+    "9": {
+      "tumbuh": "Saat sehat, kamu menjadi lebih aktif, percaya diri, dan berani mengejar tujuan pribadi. Tentukan satu prioritas yang benar-benar kamu inginkan dan ambil langkah kecil untuknya setiap hari.",
+      "stres": "Saat tertekan, kamu bisa menjadi cemas, curiga, dan ragu-ragu sampai sulit mengambil keputusan. Antisipasi dengan menuliskan fakta dan kekhawatiran secara terpisah, lalu meminta masukan satu orang yang kamu percaya."
+    }
+  },
+  "seri": "Bila skor dua tipe nyaris sama, baca deskripsi keduanya lalu pilih yang paling menggambarkan motivasi terdalammu, bukan sekadar perilaku yang tampak. Coba ingat sikapmu saat sedang santai dan bayangkan bagaimana kamu bereaksi di bawah tekanan, lalu amati tipe mana yang lebih sering terasa seperti dirimu."
+}
