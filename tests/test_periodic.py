@@ -90,7 +90,8 @@ def test_periode_yang_tidak_ada():
 
 # ── kelengkapan JSON: sistem yang sudah lengkap ──────────────────
 @pytest.mark.parametrize("system,kind", [("Zodiak", "daily"), ("Zodiak", "weekly"), ("Zodiak", "monthly"),
-                                         ("Shio", "daily"), ("Shio", "monthly"), ("Numerologi", "monthly")])
+                                         ("Shio", "daily"), ("Shio", "monthly"), ("Numerologi", "monthly"),
+                                         ("Weton", "daily"), ("Weton", "weekly")])
 def test_periodik_lengkap_tanpa_duplikat(system, kind):
     a = P.audit(system, kind)
     assert a["hilang"] == [] and a["duplikat_beda_isi"] == [] and a["duplikat_sama"] == 0, a
@@ -115,12 +116,9 @@ def test_weekly_monthly_zodiak_shio_terisi_setahun_penuh():
             assert P.get_monthly("Shio", s, now)["prediksi"]
 
 
-@pytest.mark.xfail(reason="Weton: 7 dari 35 weton belum ada di daily/weekly (senin_legi, selasa_pon, rabu_legi, "
-                          "kamis_kliwon, jumat_pon, sabtu_pahing, minggu_kliwon)", strict=False)
-@pytest.mark.parametrize("kind", ["daily", "weekly"])
-def test_weton_periodik_lengkap(kind):
-    a = P.audit("Weton", kind)
-    assert a["hilang"] == [] and a["duplikat_beda_isi"] == []
+def test_weton_weekly_lengkap_tanpa_duplikat():
+    a = P.audit("Weton", "weekly")
+    assert a["hilang"] == [] and a["duplikat_beda_isi"] == [] and a["duplikat_sama"] == 0, a
 
 
 # ── profil statis ────────────────────────────────────────────────
@@ -129,7 +127,6 @@ def test_profil_lengkap_free_dan_A_sampai_M(system):
     assert PL.audit(system) == []
 
 
-@pytest.mark.xfail(reason="Weton: profil baru baru 5 dari 35 (Senin saja)", strict=False)
 def test_profil_weton_lengkap():
     assert PL.audit("Weton") == []
 
