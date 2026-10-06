@@ -118,14 +118,17 @@ Lokasi: `content/interpretations/<sistem>/{daily,weekly,monthly}.json`. Isi: lis
 | Zodiak | weekly | `sign_user` + `fase_bulan` (Senin minggu itu) | 48 |
 | Zodiak | monthly | `sign_user` + `sun_house` (tgl 15) | 144 |
 | Shio | daily | `shio_user` + `elemen_hari_ini` | 60 |
+| Shio | weekly | `shio_user` + `fase_bulan` | 48 |
 | Shio | monthly | `shio_user` + `shio_bulan_ini` | 144 |
 | Weton | daily | `weton_user` + `pasaran_hari_ini` | 175 |
 | Weton | weekly | `weton_user` + `fase_bulan` | 140 |
+| Numerologi | daily | `personal_month` + `personal_day` (butuh tgl lahir) | 81 |
+| Numerologi | weekly | `personal_month` + `fase_bulan` | 36 |
 | Numerologi | monthly | `personal_year` + `personal_month` | 81 |
 | BaZi | monthly | `day_master` + `elemen_bulan` | 120 |
-| Zi Wei | monthly | `bintang_utama` + `istana_transit` | 144 + Qi Sha, Po Jun |
+| Zi Wei | monthly | `bintang_utama` + `istana_transit` (= (cabang bulan - cabang Ming Gong) mod 12 + 1) | 168 |
 
-Field record daily: `pesan, aksi[], hindari[], jam_baik, angka_hoki, warna_hoki`. Weekly: `timing, prediksi, saran, hindari, hari_terbaik, arah_rezeki`. Monthly: `timing, prediksi, peluang, hindari_risiko, saran, fokus_bulan_ini, fase_kunci`.
+Field record daily: `pesan, aksi[], hindari[], jam_baik, angka_hoki, warna_hoki`. Weekly: `timing, prediksi, saran, hindari, hari_terbaik` + `arah_rezeki` (Weton) / `fokus_mingguan` (Zodiak, Shio, Numerologi). Monthly: `timing, prediksi, peluang, hindari_risiko, saran, fokus_bulan_ini, fase_kunci`.
 
 ### 6.1 Aturan isi
 - Satu record = satu kombinasi kunci. Tidak boleh ada record kembar dan tidak boleh ada pesan/prediksi yang sama persis antar record dalam satu file.
@@ -168,3 +171,10 @@ Pemetaan tampilan: p1 = `free.siapa_kamu`, p2 = `paid.kekuatan_yang_perlu_dijaga
 | Tarot | `major_00` sampai `major_21`, `cups_01..14`, `pentacles_01..14`, `swords_01..14`, `wands_01..14` | 78 |
 
 Tiap field paid sekitar 1.000 sampai 1.300 karakter. Aturan tanda baca dan kata vonis sama seperti bagian 4. Dicek oleh `profile_flat.audit(sistem)` dan `tests/test_profile_flat.py`.
+
+
+## 8. Combo (penggabungan variabel dalam satu sistem)
+
+File: `content/interpretations/<sistem>/<sistem>_combo.json`, dibaca `components/combo.py` (`build_combo(system, raw)`), tampil sebagai kartu pelangi terakhir di detail sistem. 12 sistem: Zodiak, Shio, Numerologi, Matrix Destiny, Weton, Zi Wei, Human Design, MBTI, Big Five, Enneagram, DISC, Love Language. BaZi, Golongan Darah, Tarot tidak punya (1 variabel).
+
+Aturan: semua string kalimat lengkap berawal huruf kapital (disambung spasi, kecuali 4 sistem lama yang pakai kata hubung otomatis); 230-450 karakter per entri; tanpa em/en dash; semua kombinasi harus terisi (tes: `tests/test_combo.py`). Key tiap file bisa dilihat langsung dari builder-nya di `components/combo.py`.

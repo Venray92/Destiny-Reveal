@@ -33,3 +33,14 @@ CSS (~390 baris, tadinya 1 string raksasa di `app.py`) dipindah ke `assets/css/a
 ## 6 Okt 2026 (malam) — Combo 12 sistem + kartu pelangi
 - `components/combo.py` diperluas dari 4 ke 12 sistem: tambah Weton, Zi Wei, Human Design, MBTI, Big Five, Enneagram, DISC, Love Language (data: `<sistem>/<sistem>_combo.json`). BaZi, Golongan Darah, Tarot tanpa combo (cuma 1 variabel).
 - Kartu "COMBO" muncul sebagai kartu terakhir setelah seksi hasil di detail sistem, border pelangi bersinar (`.dh-dt-combo`). Ikut masuk ke "Salin Seluruh Analisis Lengkap".
+
+## 6 Okt 2026 (tengah malam) — Periodik lengkap, combo Zodiak, perbaikan alur
+- Periodik baru: Shio mingguan (48), Numerologi harian (81) dan mingguan (36). BaZi bulanan (120) dan Zi Wei bulanan (168) disambung ke `content/periodic.py` dan modal "Weekly & Monthly Report" (BaZi dari tgl lahir, Zi Wei dari tgl + jam lahir).
+- Modal Weekly & Monthly: tambah Shio, Numerologi, BaZi, Zi Wei. Tes setahun penuh untuk semua kombinasi baru.
+- Perbaikan: `compute_mode1` sekarang memakai jam/kota lahir dari form untuk menghitung Bulan Zodiak (sebelumnya form menerima jam tapi tidak pernah dipakai, tes `test_mode1_zodiak_bulan_hanya_jika_jam_diisi` gagal). Tanpa jam, combo Zodiak tampil versi Matahari + unsur.
+- Teks diperpanjang: Big Five Sedang, Po Jun/Qi Sha (profil dan bulanan), semua combo yang di bawah 230 karakter.
+
+## 6 Okt 2026 (akhir) — Bersih-bersih
+- Import tak terpakai dihapus (auth, solo_reveal, sections, data, human_design, simple_pdf).
+- `settings.py` (TESTING_MODE tidak dibaca file mana pun) dan folder `synthesis/` (stub kosong) dihapus. Lihat DAFTAR_HAPUS_4.txt.
+- CSS mati dibuang: 36 aturan `.dr-*` di `app.css` (halaman lama) dan 71 aturan di `home_v2.css` (profil lama `.dh-pf-*`, `.dh-sk-ms`, FAQ lama, dll). Ukuran total 202,9 KB menjadi 191,0 KB. Dicek lewat screenshot sebelum/sesudah (home, modal laporan, form, 4 langkah alur, hasil, detail, profil): identik.

@@ -5,7 +5,6 @@ Status (6 Okt 2026): semua 15 sistem sumber kontennya 100% JSON. Kamus .py lama 
 ```
 destiny-reveal/
 ├── app.py                      (entry, navbar, toast, render home_v2)
-├── settings.py
 ├── assets/css/app.css
 ├── components/                 (UI hidup: modal Reveal Dirimu, mini modal, navbar, dll)
 │   ├── modal.py  modal_steps.py  modal_detail.py  mini_modals.py
@@ -25,7 +24,6 @@ destiny-reveal/
 ├── engine/                     (logic hitung per sistem)
 ├── utils/                      (card_images, date_format)
 ├── views/home_v2.py            (satu-satunya halaman)
-├── synthesis/                  (stub, belum dipakai)
 ├── docs/                       (generator_guide, changelog, bugs-fixed, formula-notes)
 └── tests/                      (zodiak, shio, weton, numerologi, matrix_destiny, periodic, profile_flat, modal_detail, mode1_flow, rotation, combo)
 ```
