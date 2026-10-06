@@ -219,3 +219,11 @@ def test_weton_cadangan_kamus_lama_tanpa_em_dash():
     from content.result_builder import build_display_data
     d = build_display_data("Weton", {"hari": "Sabtu", "pasaran": "Pon", "neptu": 16})  # Sabtu Pon belum ada di JSON baru
     assert "Sabtu Pon" in d["title"] and "—" not in d["title"] and "—" not in d["p1"]
+
+
+def test_semua_json_interpretasi_valid_strict():
+    import json
+    from pathlib import Path
+    root = Path(__file__).resolve().parent.parent / "content" / "interpretations"
+    for f in root.rglob("*.json"):
+        json.loads(f.read_text(encoding="utf-8"))
