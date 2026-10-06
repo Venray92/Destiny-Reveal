@@ -29,3 +29,7 @@ CSS (~390 baris, tadinya 1 string raksasa di `app.py`) dipindah ke `assets/css/a
 - Big Five: teks "Sedang" (5 trait) ditulis sendiri, tidak lagi pinjam sisi tinggi/rendah.
 - Zi Wei monthly: Qi Sha dan Po Jun (12 istana masing-masing), total 168 record. Belum disambung ke UI (butuh hitung istana transit).
 - Tarot: engine menarik dari 78 kartu; kartu minor belum punya gambar (tampil sampul / tanpa gambar). Tarot periodik deterministik per hari/pekan/bulan (`engine.tarot.kartu_periodik`).
+
+## 6 Okt 2026 (malam) — Combo 12 sistem + kartu pelangi
+- `components/combo.py` diperluas dari 4 ke 12 sistem: tambah Weton, Zi Wei, Human Design, MBTI, Big Five, Enneagram, DISC, Love Language (data: `<sistem>/<sistem>_combo.json`). BaZi, Golongan Darah, Tarot tanpa combo (cuma 1 variabel).
+- Kartu "COMBO" muncul sebagai kartu terakhir setelah seksi hasil di detail sistem, border pelangi bersinar (`.dh-dt-combo`). Ikut masuk ke "Salin Seluruh Analisis Lengkap".
