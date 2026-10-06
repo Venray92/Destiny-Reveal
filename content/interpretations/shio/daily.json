@@ -14,7 +14,11 @@
       "Mengabaikan jadwal makan dan kesehatan pencernaan akibat terlalu sibuk mengejar target."
     ],
     "jam_baik": "23:00 - 01:00 WIB",
-    "angka_hoki": [1, 3, 8],
+    "angka_hoki": [
+      1,
+      3,
+      8
+    ],
     "warna_hoki": "Jade Green"
   },
   {
@@ -32,7 +36,11 @@
       "Melakukan aktivitas fisik berat tanpa pemanasan memadai yang berisiko memicu cedera."
     ],
     "jam_baik": "09:00 - 11:00 WIB",
-    "angka_hoki": [2, 7, 9],
+    "angka_hoki": [
+      2,
+      7,
+      9
+    ],
     "warna_hoki": "Vermilion Red"
   },
   {
@@ -50,7 +58,11 @@
       "Terlalu lama duduk berdiam diri yang dapat menghambat sirkulasi vitalitas tubuhmu."
     ],
     "jam_baik": "01:00 - 03:00 WIB",
-    "angka_hoki": [5, 8, 10],
+    "angka_hoki": [
+      5,
+      8,
+      10
+    ],
     "warna_hoki": "Imperial Amber"
   },
   {
@@ -68,7 +80,11 @@
       "Abaikan istirahat mata dan area leher akibat terlalu lama bekerja di depan layar."
     ],
     "jam_baik": "15:00 - 17:00 WIB",
-    "angka_hoki": [1, 6, 8],
+    "angka_hoki": [
+      1,
+      6,
+      8
+    ],
     "warna_hoki": "Metallic White"
   },
   {
@@ -86,7 +102,11 @@
       "Mengonsumsi minuman dingin berlebih yang dapat menurunkan vitalitas suhu tubuh internal."
     ],
     "jam_baik": "21:00 - 23:00 WIB",
-    "angka_hoki": [1, 4, 6],
+    "angka_hoki": [
+      1,
+      4,
+      6
+    ],
     "warna_hoki": "Obsidian Black"
   },
   {
@@ -104,7 +124,11 @@
       "Memaksa fisik bekerja berlebihan tanpa memberikan jeda pemulihan pada persendian."
     ],
     "jam_baik": "05:00 - 07:00 WIB",
-    "angka_hoki": [3, 8, 9],
+    "angka_hoki": [
+      3,
+      8,
+      9
+    ],
     "warna_hoki": "Forest Green"
   },
   {
@@ -122,7 +146,11 @@
       "Abaikan akumulasi panas dalam tubuh akibat terpapar stres kerja secara terus-menerus."
     ],
     "jam_baik": "09:00 - 11:00 WIB",
-    "angka_hoki": [2, 5, 7],
+    "angka_hoki": [
+      2,
+      5,
+      7
+    ],
     "warna_hoki": "Scarlet Orange"
   },
   {
@@ -140,7 +168,11 @@
       "Mengonsumsi makanan berat yang sulit dicerna jelang jam istirahat malam."
     ],
     "jam_baik": "01:00 - 03:00 WIB",
-    "angka_hoki": [2, 5, 8],
+    "angka_hoki": [
+      2,
+      5,
+      8
+    ],
     "warna_hoki": "Terracotta Gold"
   },
   {
@@ -158,7 +190,11 @@
       "Mengabaikan ketegangan pada otot bahu dan punggung akibat posisi duduk yang salah."
     ],
     "jam_baik": "17:00 - 19:00 WIB",
-    "angka_hoki": [6, 8, 10],
+    "angka_hoki": [
+      6,
+      8,
+      10
+    ],
     "warna_hoki": "Platinum Silver"
   },
   {
@@ -176,7 +212,11 @@
       "Membiarkan kelelahan emosional menurunkan kebugaran sistem kekebalan tubuhmu."
     ],
     "jam_baik": "21:00 - 23:00 WIB",
-    "angka_hoki": [1, 4, 9],
+    "angka_hoki": [
+      1,
+      4,
+      9
+    ],
     "warna_hoki": "Deep Navy"
   },
   {
@@ -194,7 +234,11 @@
       "Memaksa kondisi tubuh yang lelah untuk terus beraktivitas di luar ambang batas."
     ],
     "jam_baik": "03:00 - 05:00 WIB",
-    "angka_hoki": [3, 7, 8],
+    "angka_hoki": [
+      3,
+      7,
+      8
+    ],
     "warna_hoki": "Emerald Green"
   },
   {
@@ -212,7 +256,11 @@
       "Mengabaikan asupan air putih dan kebutuhan tidur yang cukup di tengah kesibukan."
     ],
     "jam_baik": "11:00 - 13:00 WIB",
-    "angka_hoki": [2, 4, 9],
+    "angka_hoki": [
+      2,
+      4,
+      9
+    ],
     "warna_hoki": "Fiery Red"
   },
   {
@@ -230,7 +278,11 @@
       "Menunda istirahat malam akibat terlalu sibuk menyusun rencana besar di dalam pikiran."
     ],
     "jam_baik": "07:00 - 09:00 WIB",
-    "angka_hoki": [5, 8, 12],
+    "angka_hoki": [
+      5,
+      8,
+      12
+    ],
     "warna_hoki": "Ochre Yellow"
   },
   {
@@ -248,7 +300,11 @@
       "Memendam kekesalan hingga memicu rasa nyeri pada area kepala atau persendian."
     ],
     "jam_baik": "15:00 - 17:00 WIB",
-    "angka_hoki": [6, 7, 11],
+    "angka_hoki": [
+      6,
+      7,
+      11
+    ],
     "warna_hoki": "Bronze Gold"
   },
   {
@@ -266,7 +322,11 @@
       "Mengabaikan kebersihan lingkungan kerja dan asupan makanan segar harian."
     ],
     "jam_baik": "21:00 - 23:00 WIB",
-    "angka_hoki": [1, 3, 9],
+    "angka_hoki": [
+      1,
+      3,
+      9
+    ],
     "warna_hoki": "Aqua Blue"
   },
   {
@@ -284,7 +344,11 @@
       "Terlalu banyak mengonsumsi makanan manis yang dapat mengganggu konsentrasi mental."
     ],
     "jam_baik": "05:00 - 07:00 WIB",
-    "angka_hoki": [3, 8, 10],
+    "angka_hoki": [
+      3,
+      8,
+      10
+    ],
     "warna_hoki": "Mint Green"
   },
   {
@@ -302,7 +366,11 @@
       "Mengabaikan sinyal kelelahan mata dan kepala akibat terlalu padatnya jadwal harian."
     ],
     "jam_baik": "11:00 - 13:00 WIB",
-    "angka_hoki": [2, 7, 9],
+    "angka_hoki": [
+      2,
+      7,
+      9
+    ],
     "warna_hoki": "Peach Coral"
   },
   {
@@ -320,7 +388,11 @@
       "Terlalu banyak mengonsumsi makanan berlemak tinggi yang memperlambat metabolisme tubuh."
     ],
     "jam_baik": "13:00 - 15:00 WIB",
-    "angka_hoki": [5, 8, 11],
+    "angka_hoki": [
+      5,
+      8,
+      11
+    ],
     "warna_hoki": "Warm Taupe"
   },
   {
@@ -338,7 +410,11 @@
       "Mengabaikan ketegangan pada saluran pernapasan atau area leher akibat stres berlebih."
     ],
     "jam_baik": "17:00 - 19:00 WIB",
-    "angka_hoki": [6, 7, 10],
+    "angka_hoki": [
+      6,
+      7,
+      10
+    ],
     "warna_hoki": "Silver White"
   },
   {
@@ -356,12 +432,13 @@
       "Mengabaikan hidrasi tubuh dan kebersihan area tempat tidur harianmu."
     ],
     "jam_baik": "21:00 - 23:00 WIB",
-    "angka_hoki": [1, 4, 9],
+    "angka_hoki": [
+      1,
+      4,
+      9
+    ],
     "warna_hoki": "Ocean Teal"
-},
-  {
-
-[
+  },
   {
     "shio_user": "naga",
     "elemen_hari_ini": "kayu",
@@ -377,7 +454,11 @@
       "Mengambil risiko finansial besar tanpa melakukan kalkulasi matang terlebih dahulu."
     ],
     "jam_baik": "07:00 - 09:00 WIB",
-    "angka_hoki": [3, 8, 9],
+    "angka_hoki": [
+      3,
+      8,
+      9
+    ],
     "warna_hoki": "Emerald Green"
   },
   {
@@ -395,7 +476,11 @@
       "Abaikan waktu istirahat yang mengakibatkan kelelahan fisik dan tekanan darah tinggi."
     ],
     "jam_baik": "09:00 - 11:00 WIB",
-    "angka_hoki": [2, 7, 9],
+    "angka_hoki": [
+      2,
+      7,
+      9
+    ],
     "warna_hoki": "Imperial Red"
   },
   {
@@ -413,7 +498,11 @@
       "Terlalu lama memendam kejenuhan tanpa melakukan perenggangan fisik atau rekreasi."
     ],
     "jam_baik": "07:00 - 09:00 WIB",
-    "angka_hoki": [5, 8, 10],
+    "angka_hoki": [
+      5,
+      8,
+      10
+    ],
     "warna_hoki": "Terracotta Gold"
   },
   {
@@ -431,7 +520,11 @@
       "Mengabaikan ketegangan pada area leher dan punggung akibat fokus kerja berlebihan."
     ],
     "jam_baik": "15:00 - 17:00 WIB",
-    "angka_hoki": [1, 6, 8],
+    "angka_hoki": [
+      1,
+      6,
+      8
+    ],
     "warna_hoki": "Radiant Platinum"
   },
   {
@@ -449,7 +542,11 @@
       "Mengabaikan kebersihan pola makan dan asupan air putih di tengah kesibukan harian."
     ],
     "jam_baik": "15:00 - 17:00 WIB",
-    "angka_hoki": [1, 4, 9],
+    "angka_hoki": [
+      1,
+      4,
+      9
+    ],
     "warna_hoki": "Deep Sapphire"
   },
   {
@@ -467,7 +564,11 @@
       "Mengabaikan waktu istirahat mata dan pemulihan stamina di sela aktivitas meriset."
     ],
     "jam_baik": "09:00 - 11:00 WIB",
-    "angka_hoki": [3, 8, 11],
+    "angka_hoki": [
+      3,
+      8,
+      11
+    ],
     "warna_hoki": "Jade Olive"
   },
   {
@@ -485,7 +586,11 @@
       "Abaikan ketegangan emosional yang dapat memicu gangguan kecemasan atau susah tidur."
     ],
     "jam_baik": "09:00 - 11:00 WIB",
-    "angka_hoki": [2, 7, 9],
+    "angka_hoki": [
+      2,
+      7,
+      9
+    ],
     "warna_hoki": "Coral Crimson"
   },
   {
@@ -503,7 +608,11 @@
       "Mengonsumsi makanan berat berlemak tinggi yang dapat memperlambat pencernaan."
     ],
     "jam_baik": "17:00 - 19:00 WIB",
-    "angka_hoki": [5, 8, 10],
+    "angka_hoki": [
+      5,
+      8,
+      10
+    ],
     "warna_hoki": "Earthy Brown"
   },
   {
@@ -521,7 +630,11 @@
       "Membiarkan ketegangan saraf leher berlanjut tanpa melakukan penanganan fisik."
     ],
     "jam_baik": "17:00 - 19:00 WIB",
-    "angka_hoki": [6, 7, 12],
+    "angka_hoki": [
+      6,
+      7,
+      12
+    ],
     "warna_hoki": "Silver Amber"
   },
   {
@@ -539,7 +652,11 @@
       "Mengabaikan kecukupan cairan tubuh dan kualitas waktu tidur di malam hari."
     ],
     "jam_baik": "21:00 - 23:00 WIB",
-    "angka_hoki": [1, 4, 6],
+    "angka_hoki": [
+      1,
+      4,
+      6
+    ],
     "warna_hoki": "Charcoal Black"
   },
   {
@@ -557,7 +674,11 @@
       "Memaksa fisik bergerak secara berlebihan tanpa mengindahkan sinyal kelelahan."
     ],
     "jam_baik": "11:00 - 13:00 WIB",
-    "angka_hoki": [3, 7, 8],
+    "angka_hoki": [
+      3,
+      7,
+      8
+    ],
     "warna_hoki": "Forest Emerald"
   },
   {
@@ -575,7 +696,11 @@
       "Abaikan panas dalam tubuh akibat padatnya kegiatan harian tanpa hidrasi yang cukup."
     ],
     "jam_baik": "11:00 - 13:00 WIB",
-    "angka_hoki": [2, 7, 9],
+    "angka_hoki": [
+      2,
+      7,
+      9
+    ],
     "warna_hoki": "Scarlet Red"
   },
   {
@@ -593,7 +718,11 @@
       "Terlalu lama duduk bekerja tanpa melakukan olahraga ringan untuk kelenturan otot."
     ],
     "jam_baik": "13:00 - 15:00 WIB",
-    "angka_hoki": [5, 8, 10],
+    "angka_hoki": [
+      5,
+      8,
+      10
+    ],
     "warna_hoki": "Warm Sand"
   },
   {
@@ -611,7 +740,11 @@
       "Membiarkan stres kerja memicu ketegangan pada sistem bahu dan pernapasan."
     ],
     "jam_baik": "15:00 - 17:00 WIB",
-    "angka_hoki": [6, 8, 11],
+    "angka_hoki": [
+      6,
+      8,
+      11
+    ],
     "warna_hoki": "Golden Bronze"
   },
   {
@@ -629,7 +762,11 @@
       "Mengabaikan kebersihan lingkungan harian serta keteraturan jam tidur malam."
     ],
     "jam_baik": "15:00 - 17:00 WIB",
-    "angka_hoki": [1, 4, 9],
+    "angka_hoki": [
+      1,
+      4,
+      9
+    ],
     "warna_hoki": "Ocean Teal"
   },
   {
@@ -647,7 +784,11 @@
       "Terlalu banyak mengonsumsi makanan manis saat emosi sedang merasa lesu."
     ],
     "jam_baik": "05:00 - 07:00 WIB",
-    "angka_hoki": [3, 8, 10],
+    "angka_hoki": [
+      3,
+      8,
+      10
+    ],
     "warna_hoki": "Mint Jade"
   },
   {
@@ -665,7 +806,11 @@
       "Mengabaikan sinyal kelelahan fisik dan kelelahan mata akibat jadwal kerja padat."
     ],
     "jam_baik": "11:00 - 13:00 WIB",
-    "angka_hoki": [2, 7, 9],
+    "angka_hoki": [
+      2,
+      7,
+      9
+    ],
     "warna_hoki": "Peach Gold"
   },
   {
@@ -683,7 +828,11 @@
       "Kurang bergerak atau terlalu lama berdiam diri yang memperlambat metabolisme tubuh."
     ],
     "jam_baik": "13:00 - 15:00 WIB",
-    "angka_hoki": [5, 8, 12],
+    "angka_hoki": [
+      5,
+      8,
+      12
+    ],
     "warna_hoki": "Terracotta Beige"
   },
   {
@@ -701,7 +850,11 @@
       "Mengabaikan ketegangan otot pada area bahu dan pernapasan akibat stres kerja."
     ],
     "jam_baik": "15:00 - 17:00 WIB",
-    "angka_hoki": [6, 7, 10],
+    "angka_hoki": [
+      6,
+      7,
+      10
+    ],
     "warna_hoki": "Ivory White"
   },
   {
@@ -719,12 +872,13 @@
       "Mengabaikan kecukupan asupan air minum serta kebersihan area peristirahatan harian."
     ],
     "jam_baik": "21:00 - 23:00 WIB",
-    "angka_hoki": [1, 4, 9],
+    "angka_hoki": [
+      1,
+      4,
+      9
+    ],
     "warna_hoki": "Seafoam Aqua"
   },
-  {
-
-[
   {
     "shio_user": "monyet",
     "elemen_hari_ini": "kayu",
@@ -740,7 +894,11 @@
       "Abaikan akumulasi kelelahan mental akibat bekerja tanpa jeda istirahat yang cukup."
     ],
     "jam_baik": "15:00 - 17:00 WIB",
-    "angka_hoki": [3, 8, 11],
+    "angka_hoki": [
+      3,
+      8,
+      11
+    ],
     "warna_hoki": "Emerald Green"
   },
   {
@@ -758,7 +916,11 @@
       "Mengabaikan asupan air minum dan kualitas waktu tidur di tengah padatnya agenda."
     ],
     "jam_baik": "09:00 - 11:00 WIB",
-    "angka_hoki": [2, 7, 9],
+    "angka_hoki": [
+      2,
+      7,
+      9
+    ],
     "warna_hoki": "Crimson Spark"
   },
   {
@@ -776,7 +938,11 @@
       "Terlalu lama berdiam diri tanpa melakukan aktivitas fisik ringan untuk melancarkan sirkulasi."
     ],
     "jam_baik": "13:00 - 15:00 WIB",
-    "angka_hoki": [5, 8, 10],
+    "angka_hoki": [
+      5,
+      8,
+      10
+    ],
     "warna_hoki": "Amber Gold"
   },
   {
@@ -794,7 +960,11 @@
       "Abaikan ketegangan pada otot bahu dan leher akibat posisi duduk bekerja yang salah."
     ],
     "jam_baik": "15:00 - 17:00 WIB",
-    "angka_hoki": [6, 8, 12],
+    "angka_hoki": [
+      6,
+      8,
+      12
+    ],
     "warna_hoki": "Silver Metallic"
   },
   {
@@ -812,7 +982,11 @@
       "Mengabaikan komitmen janji kecil yang berpotensi merusak reputasi profesionalmu."
     ],
     "jam_baik": "15:00 - 17:00 WIB",
-    "angka_hoki": [4, 9, 14],
+    "angka_hoki": [
+      4,
+      9,
+      14
+    ],
     "warna_hoki": "Deep Indigo"
   },
   {
@@ -830,7 +1004,11 @@
       "Mengabaikan kelelahan fisik akibat terlalu memaksakan diri mencapai target idealistis."
     ],
     "jam_baik": "17:00 - 19:00 WIB",
-    "angka_hoki": [3, 8, 10],
+    "angka_hoki": [
+      3,
+      8,
+      10
+    ],
     "warna_hoki": "Jade Green"
   },
   {
@@ -848,7 +1026,11 @@
       "Mengabaikan rasa panas atau kelelahan pada area mata akibat terlalu lama bekerja."
     ],
     "jam_baik": "09:00 - 11:00 WIB",
-    "angka_hoki": [2, 7, 9],
+    "angka_hoki": [
+      2,
+      7,
+      9
+    ],
     "warna_hoki": "Imperial Coral"
   },
   {
@@ -866,7 +1048,11 @@
       "Terlalu lama duduk berdiam diri bekerja tanpa menyelinginya dengan peregangan otot."
     ],
     "jam_baik": "13:00 - 15:00 WIB",
-    "angka_hoki": [5, 8, 11],
+    "angka_hoki": [
+      5,
+      8,
+      11
+    ],
     "warna_hoki": "Earthy Brown"
   },
   {
@@ -884,7 +1070,11 @@
       "Membiarkan ketegangan saraf leher dan saluran pernapasan berlanjut tanpa penanganan."
     ],
     "jam_baik": "17:00 - 19:00 WIB",
-    "angka_hoki": [6, 8, 10],
+    "angka_hoki": [
+      6,
+      8,
+      10
+    ],
     "warna_hoki": "Champagne Platinum"
   },
   {
@@ -902,7 +1092,11 @@
       "Mengabaikan kecukupan asupan air minum dan kebersihan area istirahat harian."
     ],
     "jam_baik": "21:00 - 23:00 WIB",
-    "angka_hoki": [1, 4, 9],
+    "angka_hoki": [
+      1,
+      4,
+      9
+    ],
     "warna_hoki": "Aqua Teal"
   },
   {
@@ -920,7 +1114,11 @@
       "Membiarkan rasa lelah emosional merusak fokus penyelesaian tugas-tugas rutin harian."
     ],
     "jam_baik": "19:00 - 21:00 WIB",
-    "angka_hoki": [3, 8, 11],
+    "angka_hoki": [
+      3,
+      8,
+      11
+    ],
     "warna_hoki": "Forest Jade"
   },
   {
@@ -938,7 +1136,11 @@
       "Mengabaikan batas stamina tubuh akibat terlalu larut dalam aktivitas kerja padat."
     ],
     "jam_baik": "09:00 - 11:00 WIB",
-    "angka_hoki": [2, 7, 9],
+    "angka_hoki": [
+      2,
+      7,
+      9
+    ],
     "warna_hoki": "Ruby Scarlet"
   },
   {
@@ -956,7 +1158,11 @@
       "Kurang bergerak atau terlalu lama berdiam diri yang dapat memperlambat metabolisme."
     ],
     "jam_baik": "19:00 - 21:00 WIB",
-    "angka_hoki": [5, 8, 12],
+    "angka_hoki": [
+      5,
+      8,
+      12
+    ],
     "warna_hoki": "Warm Terracotta"
   },
   {
@@ -974,7 +1180,11 @@
       "Mengabaikan ketegangan pada area leher dan persendian akibat stres kerja."
     ],
     "jam_baik": "15:00 - 17:00 WIB",
-    "angka_hoki": [6, 8, 10],
+    "angka_hoki": [
+      6,
+      8,
+      10
+    ],
     "warna_hoki": "Platinum Bronze"
   },
   {
@@ -992,7 +1202,11 @@
       "Mengabaikan hidrasi tubuh dan keteraturan jam istirahat malam harian."
     ],
     "jam_baik": "21:00 - 23:00 WIB",
-    "angka_hoki": [1, 4, 9],
+    "angka_hoki": [
+      1,
+      4,
+      9
+    ],
     "warna_hoki": "Deep Ocean"
   },
   {
@@ -1010,7 +1224,11 @@
       "Terlalu banyak mengonsumsi makanan manis atau berlemak secara berlebihan."
     ],
     "jam_baik": "21:00 - 23:00 WIB",
-    "angka_hoki": [3, 8, 10],
+    "angka_hoki": [
+      3,
+      8,
+      10
+    ],
     "warna_hoki": "Mint Aqua"
   },
   {
@@ -1028,7 +1246,11 @@
       "Mengabaikan sinyal kelelahan fisik dan kesehatan mata akibat jadwal kerja yang padat."
     ],
     "jam_baik": "09:00 - 11:00 WIB",
-    "angka_hoki": [2, 7, 9],
+    "angka_hoki": [
+      2,
+      7,
+      9
+    ],
     "warna_hoki": "Coral Gold"
   },
   {
@@ -1046,7 +1268,11 @@
       "Kurang bergerak atau terlalu lama berdiam diri yang dapat memperlambat metabolisme tubuh."
     ],
     "jam_baik": "13:00 - 15:00 WIB",
-    "angka_hoki": [5, 8, 12],
+    "angka_hoki": [
+      5,
+      8,
+      12
+    ],
     "warna_hoki": "Warm Amber"
   },
   {
@@ -1064,7 +1290,11 @@
       "Mengabaikan ketegangan otot pada area bahu dan pernapasan akibat tekanan stres harian."
     ],
     "jam_baik": "15:00 - 17:00 WIB",
-    "angka_hoki": [6, 7, 10],
+    "angka_hoki": [
+      6,
+      7,
+      10
+    ],
     "warna_hoki": "Silver Ivory"
   },
   {
@@ -1082,8 +1312,11 @@
       "Mengabaikan kecukupan asupan air minum serta kebersihan area peristirahatan harian."
     ],
     "jam_baik": "21:00 - 23:00 WIB",
-    "angka_hoki": [1, 4, 9],
+    "angka_hoki": [
+      1,
+      4,
+      9
+    ],
     "warna_hoki": "Ocean Teal"
   }
 ]
-
