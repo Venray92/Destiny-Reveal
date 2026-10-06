@@ -158,6 +158,9 @@ def _resolve_relative_path(system, raw_result):
     relative_path = card_relative_path_for_result(system, raw_result)
     if relative_path:
         return relative_path
+    # Tarot minor (cups_03 dst) belum punya gambar: jangan pinjam gambar The Fool
+    if system == "Tarot" and (raw_result or {}).get("kartu"):
+        return None
     return SYSTEM_CARD_IMAGE_FALLBACK.get(system)
 
 
