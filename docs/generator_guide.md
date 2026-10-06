@@ -1,6 +1,6 @@
 # Panduan Generator Teks Profil: Destiny Reveal
 
-Berlaku untuk 5 sistem: Zodiak, Shio, Numerologi, Matrix Destiny, Weton.
+Bagian 1-5 berlaku untuk 5 sistem Mode 1: Zodiak, Shio, Numerologi, Matrix Destiny, Weton. Bagian 6 untuk data periodik, bagian 7 untuk 10 sistem lain.
 Tujuan: teks mengalir, saran sesuai bobot indikator, tone konsisten.
 
 ## 1. Struktur Output
@@ -108,50 +108,63 @@ Kecocokan (bagian I), format tetap:
 - [ ] `build_detail` jalan untuk semua key: 6 section + 7 bagian mendalam.
 - [ ] `pytest tests/test_modal_detail.py` lulus.
 
-## 6. Data Dinamis & Berkala
+## 6. Data Periodik (harian, mingguan, bulanan)
 
-Lokasi: `content/dynamic/<folder>/{daily,weekly,monthly}.json`. Wrapper: `{"system","kind","data":{"<Key>":...}}`. Key sama dengan profil (Zodiak `sign`, dst).
+Lokasi: `content/interpretations/<sistem>/{daily,weekly,monthly}.json`. Isi: list record (bukan dict per key). Loader: `content/periodic.py` (`get_daily`, `get_weekly`, `get_monthly`, `audit`). Pemilihan record dari kalender (WIB), bukan acak.
 
-| File | Struktur per key | Ganti | Pemilihan |
+| Sistem | Periode | Kunci record | Jumlah |
 |---|---|---|---|
-| daily | `ramalan[100] saran[20] hoki[30] warna[20] quote[10]` | 00:00 WIB | sha256(tanggal+anonymous_id+sistem+kategori) % n |
-| weekly | `week_1..week_5 {timing, prediksi, saran, hindari}` | Senin 00:00 WIB | slot = minggu ke-n dari tanggal Senin |
-| monthly | `"1".."12" {timing, prediksi, saran, peluang, risiko, tanggal_penting}` | tanggal 1 00:00 WIB | bulan WIB |
+| Zodiak | daily | `sign_user` + `house` (rumah Bulan 1-12) | 144 |
+| Zodiak | weekly | `sign_user` + `fase_bulan` (Senin minggu itu) | 48 |
+| Zodiak | monthly | `sign_user` + `sun_house` (tgl 15) | 144 |
+| Shio | daily | `shio_user` + `elemen_hari_ini` | 60 |
+| Shio | monthly | `shio_user` + `shio_bulan_ini` | 144 |
+| Weton | daily | `weton_user` + `pasaran_hari_ini` | 175 |
+| Weton | weekly | `weton_user` + `fase_bulan` | 140 |
+| Numerologi | monthly | `personal_year` + `personal_month` | 81 |
+| BaZi | monthly | `day_master` + `elemen_bulan` | 120 |
+| Zi Wei | monthly | `bintang_utama` + `istana_transit` | 144 + Qi Sha, Po Jun |
 
-### 6.1 Kuota daily (per key)
-Ramalan 100, saran 20, hoki 30, warna 20, quote 10. Semua unik dalam satu kategori. Konstanta: `dynamic_loader.QUOTA_PRODUKSI`.
+Field record daily: `pesan, aksi[], hindari[], jam_baik, angka_hoki, warna_hoki`. Weekly: `timing, prediksi, saran, hindari, hari_terbaik, arah_rezeki`. Monthly: `timing, prediksi, peluang, hindari_risiko, saran, fokus_bulan_ini, fase_kunci`.
 
-Cara menyusun supaya tidak terasa template:
-- Ramalan = kalimat kecenderungan khas key (20 per key, 2 per ranah: kerja, uang, asmara, teman, energi, belajar, keputusan, komunikasi, kreativitas, ritme) + 1 dari 5 saran praktis ranah yang sama, disambung penghubung bergilir ("Karena itu,", "Sebagai langkah kecil,", "Supaya tetap terarah,", "Untuk hasil yang lebih baik,", "Kalau sempat,").
-- Hoki 30 = 12 angka + 8 jam + 5 arah + 5 kata kunci. Warna 20 dari palet elemen.
-- Item daily tidak boleh menyebut nama hari atau tanggal tertentu.
+### 6.1 Aturan isi
+- Satu record = satu kombinasi kunci. Tidak boleh ada record kembar dan tidak boleh ada pesan/prediksi yang sama persis antar record dalam satu file.
+- Khas kunci user (sifat tanda, shio, weton, dst) dan khas konteks kalender (rumah, pasaran, fase Bulan).
+- `prediksi` memakai "cenderung" atau "umumnya". `hindari` ditulis sebagai pola yang bisa diatur, bukan vonis.
+- Saran selalu berukuran (menit, hari, jam, jumlah).
+- Detail astrologi tradisional boleh, selalu berhati-hati ("secara tradisi", "sekitar"). Tidak menyebut retrograde.
+- Tanpa "—", "–", spasi ganda, atau kata vonis (pasti, sial, vonis, ditakdirkan).
+- Weton: tidak menyebut pancasuda. Shio: tidak menyebut elemen tetap, pakai polaritas Yang/Yin.
 
-### 6.2 Aturan monthly
-- Dilarang satu pola kalimat dipakai di semua bulan. Tiap field punya minimal 6 kerangka kalimat (deklaratif, kondisional "Jika...", imperatif, dua kalimat berurutan), dipilih bergeser per bulan sehingga dua bulan berurutan tidak pernah memakai kerangka yang sama.
-- Isi tiap bulan wajib khas bulan itu (suasana, fokus, risiko) dan khas key (kekuatan, pola yang diwaspadai, cara mengatur diri).
-- `prediksi` memakai "cenderung" atau "umumnya". `risiko` ditulis sebagai pola yang bisa diatur.
-- `tanggal_penting`: dua rentang tanggal. Format: `8-14 Januari untuk diskusi penting, 22 ke atas untuk rehat`. Pakai tanda hubung biasa (bukan "–"). Tanggal tidak boleh melebihi jumlah hari bulan itu (Februari maks. 28), urutan naik, rentang pertama sebelum rentang kedua. Ada 3 variasi susunan, bergilir.
+### 6.2 Validasi
+- `pytest tests/test_periodic.py`: kelengkapan kombinasi, tanpa duplikat, JSON strict valid, tanpa em dash.
+- `tests/test_periodic.py::test_semua_json_interpretasi_valid_strict` memeriksa semua JSON di `content/interpretations/`.
 
-### 6.2a Standar benchmark (Aries) untuk monthly dan weekly
-Berlaku untuk semua key. Naskah ditulis per teks, bukan dirakit dari template.
-- Khas sifat key (pola kebiasaan, mekanisme risiko) dan khas bulan atau minggunya (skenario konkret sesuai tema).
-- Panjang acuan monthly: timing 95-155 karakter, prediksi 270-420, saran 190-270, peluang 145-215, risiko 155-240.
-- Saran selalu berukuran (menit, hari, jam, jumlah). Risiko selalu disertai mekanisme ("biasanya bermula dari ...").
-- Detail astrologi tradisional boleh, selalu berhati-hati ("secara tradisi astrologi", "sekitar"): hanya musim Matahari (Aries 21 Mar-19 Apr, Taurus 20 Apr-20 Mei, Gemini 21 Mei-20 Jun, Cancer 21 Jun-22 Jul, Leo 23 Jul-22 Agu, Virgo 23 Agu-22 Sep, Libra 23 Sep-22 Okt, Scorpio 23 Okt-21 Nov, Sagittarius 22 Nov-21 Des, Capricorn 22 Des-19 Jan, Aquarius 20 Jan-18 Feb, Pisces 19 Feb-20 Mar). Tidak menyebut retrograde atau tanggal astronomi lain.
-- Dua bulan berurutan tidak boleh dibuka dengan empat kata yang sama (nama bulan dihitung sama). Tidak ada teks kembar antar bulan atau antar key.
-- Tanggal penting: tiga angka naik, nama bulan wajib ada, tidak ada angka lain.
-- Dicek otomatis oleh `dynamic_loader.validate` dan `tests/test_dynamic_loader.py`.
+## 7. Profil 10 Sistem Non-Mode-1
 
-### 6.3 Aturan weekly
-`timing` 1 kalimat, `prediksi` 1-2 kalimat dengan "cenderung/umumnya", `saran` konkret dengan ukuran, `hindari` frasa pendek tanpa titik.
+Sistem: BaZi, Zi Wei, Human Design, Golongan Darah, MBTI, Enneagram, DISC, Love Language, Big Five, Tarot.
+Lokasi: `content/interpretations/<sistem>/profile.json` (Tarot: `tarot_major.json`, `tarot_cups.json`, `tarot_pentacles.json`, `tarot_swords.json`, `tarot_wands.json`). Loader: `content/profile_flat.py`.
 
-### 6.4 Umum
-- Tone sama seperti bagian 4. Item daily berdiri sendiri, tidak merujuk item lain.
-- Tanpa "—", "–", spasi ganda, duplikat dalam satu kategori, dan kata vonis (pasti, sial, vonis, ditakdirkan).
-- Validasi: `dynamic_loader.validate(system, kind, QUOTA_PRODUKSI)`.
+```
+{"system": "<nama>", "version": 1, "data": {"<key>": {
+  "nama": "...",
+  "free": {siapa_kamu, atribut_1, atribut_2, quote},
+  "paid": {kekuatan_yang_perlu_dijaga, pr_kecil_buat_kamu, karir, asmara, keuangan, kesehatan}}}}
+```
 
-### 6.5 Shio, Weton, Numerologi
-- Struktur dan kuota sama dengan Zodiak. Key harus sama dengan file profile: Shio 12 hewan, Weton 35 "Hari Pasaran", Numerologi "1".."9","11","22","33".
-- Shio: tidak menyebut elemen tetap (kayu, logam, dst), pakai polaritas Yang/Yin saja. Weton: tanpa pancasuda; fokus saran mengikuti kelompok neptu (7-10 percaya diri/keberanian, 11-14 konsistensi/keseimbangan, 15-18 kelola emosi/ambisi). Numerologi: angka tunggal fokus pendalaman dan satu kebiasaan sampai tuntas; master 11/22/33 fokus keberlanjutan, jeda pemulihan, kurangi tekanan.
-- Tidak ada teks kembar antar key untuk ramalan, saran, quote, monthly, weekly (dites di `tests/test_dynamic_loader.py`).
-- Warna daily diambil dari palet 28 warna per kelompok internal (bukan klaim elemen ke user).
+Pemetaan tampilan: p1 = `free.siapa_kamu`, p2 = `paid.kekuatan_yang_perlu_dijaga`, p3 = `paid.pr_kecil_buat_kamu`, domains = karir, asmara, keuangan, kesehatan. Judul, tagline, dan chip dari `content/interpretations/titles.json`.
+
+| Sistem | Key JSON | Jumlah |
+|---|---|---|
+| BaZi | `jia, yi, bing, ding, wu, ji, geng, xin, ren, gui` | 10 |
+| Zi Wei | `zi_wei, tian_ji, tai_yang, wu_qu, tian_tong, lian_zhen, tian_fu, tai_yin, tan_lang, ju_men, tian_xiang, tian_liang, qi_sha, po_jun` | 14 |
+| Human Design | `generator, manifesting_generator, manifestor, projector, reflector` | 5 |
+| Golongan Darah | `a, b, ab, o` | 4 |
+| MBTI | 4 huruf huruf kecil, mis. `intj` | 16 |
+| Enneagram | `tipe_1` sampai `tipe_9` | 9 |
+| DISC | `dominance, influence, steadiness, conscientiousness` | 4 |
+| Love Language | `words_of_affirmation, quality_time, receiving_gifts, acts_of_service, physical_touch` | 5 |
+| Big Five | `<trait>_tinggi`, `<trait>_rendah` (openness, conscientiousness, extraversion, agreeableness, neuroticism). Level Sedang dialihkan ke sisi terdekat | 10 |
+| Tarot | `major_00` sampai `major_21`, `cups_01..14`, `pentacles_01..14`, `swords_01..14`, `wands_01..14` | 78 |
+
+Tiap field paid sekitar 1.000 sampai 1.300 karakter. Aturan tanda baca dan kata vonis sama seperti bagian 4. Dicek oleh `profile_flat.audit(sistem)` dan `tests/test_profile_flat.py`.

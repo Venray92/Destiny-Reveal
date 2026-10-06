@@ -1,65 +1,38 @@
-# Folder Structure — Destiny Reveal
+# Folder Structure, Destiny Reveal
 
-Status: 5 sistem berbasis tanggal lahir (Zodiak, Shio, Weton, Numerologi, Matrix Destiny) udah dirapihin. 10 sistem sisa (MBTI, Big Five, Enneagram, DISC, Love Language, BaZi, Zi Wei, Human Design, Golongan Darah, Tarot) masih 1 file per sistem, nyusul.
+Status (6 Okt 2026): semua 15 sistem sumber kontennya 100% JSON. Kamus .py lama dan views lama sudah dihapus. UI hidup cuma `views/home_v2.py` + `components/`.
 
 ```
 destiny-reveal/
-├── app.py
+├── app.py                      (entry, navbar, toast, render home_v2)
 ├── settings.py
-├── requirements.txt
-├── README.md
-├── docs/
-│   ├── folder_structure.md
-│   ├── changelog.md
-│   ├── bugs-fixed.md
-│   └── formula-notes.md
+├── assets/css/app.css
+├── components/                 (UI hidup: modal Reveal Dirimu, mini modal, navbar, dll)
+│   ├── modal.py  modal_steps.py  modal_detail.py  mini_modals.py
+│   ├── navbar.py  sections.py  solo_reveal.py  compat.py  combo.py
+│   ├── auth.py  pricing_modal.py  profile.py  help_modals.py  info_modals.py  feature_modals.py
+│   └── common.py  data.py  dialog_bus.py  flow_state.py
 ├── content/
 │   ├── interpretations/
-│   │   ├── zodiak/            (12 file, selesai dipecah)
-│   │   ├── shio/               (12 file, selesai dipecah)
-│   │   ├── weton/               (5 file, selesai dipecah)
-│   │   ├── numerologi/         (12 file, selesai dipecah)
-│   │   ├── matrix_destiny/     (22 file, selesai dipecah)
-│   │   ├── mbti.py              (1 file gemuk, belum dipecah)
-│   │   ├── big_five.py
-│   │   ├── enneagram.py         (1 file gemuk, belum dipecah)
-│   │   ├── disc.py
-│   │   ├── love_language.py     (1 file gemuk, belum dipecah)
-│   │   ├── bazi.py
-│   │   ├── ziwei.py
-│   │   ├── human_design.py
-│   │   ├── golongan_darah.py
-│   │   └── tarot.py
-│   ├── questionnaires/
-│   └── result_builder.py
-├── engine/
-│   ├── zodiak.py  shio.py  weton.py  numerologi.py  matrix_destiny.py
-│   ├── mbti_scoring.py  big_five_scoring.py  enneagram_scoring.py
-│   ├── disc_scoring.py  love_language_scoring.py
-│   └── bazi.py  ziwei.py  human_design.py  tarot.py
-├── utils/
-│   ├── card_images.py
-│   ├── date_format.py
-│   └── matrix_destiny_diagram.py
-├── views/
-│   ├── loadingpage.py           (980 baris, belum dipecah)
-│   ├── loadingpage_lengkap.py
-│   ├── loadingpage_mendalam.py  (568 baris, belum dipecah)
-│   ├── reveal_yourself.py       (506 baris, belum dipecah)
-│   ├── revealpage.py            (1621 baris, belum dipecah)
-│   └── tutorialpage.py
-└── tests/
-    ├── test_zodiak.py  test_shio.py  test_weton.py
-    ├── test_numerologi.py  test_matrix_destiny.py
+│   │   ├── titles.json         (judul, tagline, chip, ringkas per entri)
+│   │   └── <sistem>/           (profile.json, daily/weekly/monthly.json bila ada)
+│   ├── profile_loader.py       (format Mode-1: 5 sistem tanggal lahir)
+│   ├── profile_flat.py         (format flat: 10 sistem lain)
+│   ├── periodic.py             (get_daily / get_weekly / get_monthly / audit)
+│   ├── safe_json.py            (loader JSON toleran)
+│   ├── result_builder.py       (raw result + JSON -> display data)
+│   └── questionnaires/
+├── engine/                     (logic hitung per sistem)
+├── utils/                      (card_images, date_format)
+├── views/home_v2.py            (satu-satunya halaman)
+├── synthesis/                  (stub, belum dipakai)
+├── docs/                       (generator_guide, changelog, bugs-fixed, formula-notes)
+└── tests/                      (zodiak, shio, weton, numerologi, matrix_destiny, periodic, profile_flat, modal_detail, mode1_flow, rotation, combo)
 ```
 
-## Fungsi tiap folder
-- `docs/` — Dokumentasi (changelog, bug-fix, formula)
-- `content/` — Data 15 sistem (konten paragraf) + penghubung ke engine
-- `engine/` — Logic hitung (zodiak, shio, dll)
-- `utils/` — Helper (card image, date format)
-- `views/` — UI Pages (Streamlit)
-- `tests/` — Unit test
-
 ## Alur data
-User input → `engine/*` hitung raw result → `content/result_builder.py` gabungin raw result + kamus konten → `views/*` render.
+User input di modal -> `engine/*` hitung raw result -> `content/result_builder.py` ambil teks dari JSON (`profile_loader` / `profile_flat`) -> `components/*` render.
+
+## Aturan
+- Konten baru = JSON, bukan .py. Format lengkap di `docs/generator_guide.md`.
+- Copy UI: Indonesia baku ramah ("kamu"), tanpa em dash/en dash.

@@ -14,3 +14,18 @@ File interpretations yang tadinya 1 file gemuk per sistem (zodiak.py 793 baris, 
 
 ## 2 Okt 2026 (ronde 2) — Pisahin CSS & notes dari app.py
 CSS (~390 baris, tadinya 1 string raksasa di `app.py`) dipindah ke `assets/css/app.css`, dibaca & di-inject lewat `Path.read_text()`. Catatan dated/narrative (bug-fix dropdown, keputusan sinkronisasi Home↔Reveal Yourself 27 Sep) dipindah ke `docs/bugs-fixed.md` & diringkas di sini, digantikan pointer singkat di kode.
+
+## 6 Okt 2026 — Library 100% JSON, bersih-bersih legacy
+- Weton 35/35 profil, daily 175, weekly 140. Matrix Destiny, MBTI, Human Design, Zi Wei (Qi Sha diperbaiki, Po Jun baru) dilengkapi.
+- 7 JSON rusak diperbaiki, Tarot major direkonstruksi (The World dilengkapi).
+- 10 sistem non-tanggal-lahir sekarang dibaca dari JSON via `content/profile_flat.py`. Kamus .py lama dihapus (lihat DAFTAR_HAPUS_2.txt).
+- Views lama dihapus (DAFTAR_HAPUS_3.txt). Exit Mode 2/3 di modal balik ke Home dengan toast.
+- Em dash/en dash dibersihkan dari copy UI.
+- `docs/generator_guide.md` ditulis ulang (data periodik + format flat).
+
+## 6 Okt 2026 (lanjutan) — Fitur & data tambahan
+- Laporan Mingguan/Bulanan tersambung ke UI (modal "Weekly & Monthly Report"): Zodiak, Weton, Shio, Numerologi, Tarot. Belum ada pemotongan Stardust (masih dummy).
+- `components/combo.py` disambung ke detail sistem ("Kombinasi Variabelmu") untuk Zodiak, Shio, Numerologi, Matrix Destiny.
+- Big Five: teks "Sedang" (5 trait) ditulis sendiri, tidak lagi pinjam sisi tinggi/rendah.
+- Zi Wei monthly: Qi Sha dan Po Jun (12 istana masing-masing), total 168 record. Belum disambung ke UI (butuh hitung istana transit).
+- Tarot: engine menarik dari 78 kartu; kartu minor belum punya gambar (tampil sampul / tanpa gambar). Tarot periodik deterministik per hari/pekan/bulan (`engine.tarot.kartu_periodik`).
