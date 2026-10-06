@@ -84,14 +84,16 @@ def test_numerologi_personal_year_dan_month():
 
 
 def test_periode_yang_tidak_ada():
-    assert P.get_weekly("Shio", "Tikus", NOW) is None and P.get_monthly("Weton", "Senin Legi", NOW) is None
+    assert P.get_monthly("Weton", "Senin Legi", NOW) is None and P.get_weekly("BaZi", "jia", NOW) is None
     assert P.get_daily("Matrix Destiny", "1", NOW) is None and P.get_daily("Zodiak", "Bukanzodiak", NOW) is None
 
 
 # ── kelengkapan JSON: sistem yang sudah lengkap ──────────────────
 @pytest.mark.parametrize("system,kind", [("Zodiak", "daily"), ("Zodiak", "weekly"), ("Zodiak", "monthly"),
                                          ("Shio", "daily"), ("Shio", "monthly"), ("Numerologi", "monthly"),
-                                         ("Weton", "daily"), ("Weton", "weekly")])
+                                         ("Weton", "daily"), ("Weton", "weekly"),
+                                         ("Shio", "weekly"), ("Numerologi", "daily"), ("Numerologi", "weekly"),
+                                         ("BaZi", "monthly"), ("Zi Wei", "monthly")])
 def test_periodik_lengkap_tanpa_duplikat(system, kind):
     a = P.audit(system, kind)
     assert a["hilang"] == [] and a["duplikat_beda_isi"] == [] and a["duplikat_sama"] == 0, a
@@ -227,3 +229,22 @@ def test_semua_json_interpretasi_valid_strict():
     root = Path(__file__).resolve().parent.parent / "content" / "interpretations"
     for f in root.rglob("*.json"):
         json.loads(f.read_text(encoding="utf-8"))
+
+
+def test_periodik_baru_terisi_setahun_penuh():
+    tl = dt.date(1992, 12, 5)
+    cabang = ["Zi", "Chou", "Yin", "Mao", "Chen", "Si", "Wu", "Wei", "Shen", "You", "Xu", "Hai"]
+    bt = ["zi_wei", "tian_ji", "tai_yang", "wu_qu", "tian_tong", "lian_zhen", "tian_fu", "tai_yin", "tan_lang",
+          "ju_men", "tian_xiang", "tian_liang", "qi_sha", "po_jun"]
+    for i in range(366):
+        now = dt.datetime(2026, 1, 1, 8, tzinfo=WIB) + dt.timedelta(days=i)
+        assert P.get_daily("Numerologi", "x", now, tgl_lahir=tl)["pesan"], now.date()
+        if i % 7 == 0:
+            assert P.get_weekly("Numerologi", "x", now, tgl_lahir=tl)["prediksi"]
+            for s in K.SHIO_URUT:
+                assert P.get_weekly("Shio", s, now)["prediksi"]
+            for g in ("jia", "yi", "bing", "ding", "wu", "ji", "geng", "xin", "ren", "gui"):
+                assert P.get_monthly("BaZi", g, now)["prediksi"], (now.date(), g)
+            for b in bt:
+                for c in cabang:
+                    assert P.get_monthly("Zi Wei", f"{b}|{c}", now)["prediksi"], (now.date(), b, c)

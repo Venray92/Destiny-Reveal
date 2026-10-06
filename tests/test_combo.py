@@ -112,8 +112,9 @@ def test_zodiak_semua_kombinasi_dan_relasi():
     assert "berbeda karakter" in build_combo("Zodiak", {"sign": "Leo", "moon_sign": "Taurus"})[0]["text"]
 
 
-def test_zodiak_tanpa_bulan_kosong():
-    assert build_combo("Zodiak", {"sign": "Leo"}) == []
+def test_zodiak_tanpa_bulan_pakai_matahari_dan_unsur():
+    b = build_combo("Zodiak", {"sign": "Leo"})
+    assert len(b) == 2 and "Unsur Api" in b[0]["title"]
 
 
 def test_zodiak_peringatan_dekat_batas():
@@ -220,3 +221,9 @@ def test_combo_semua_kombinasi_tidak_error():
     lv = ["Rendah", "Sedang", "Tinggi"]
     for combo in itertools.product(lv, repeat=5):
         assert len(build_combo("Big Five", {"levels": dict(zip("OCEAN", combo)), "dominant_trait": "N"})) == 6
+
+
+def test_combo_zodiak_tanpa_bulan_pakai_unsur():
+    for tanda in ("Aries", "Taurus", "Gemini", "Cancer"):
+        b = build_combo("Zodiak", {"sign": tanda})
+        assert len(b) == 2 and "jam lahir" in b[1]["text"]
