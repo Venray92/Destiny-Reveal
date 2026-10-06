@@ -1,0 +1,42 @@
+{
+  "temperamen": {
+    "NT": "Kombinasi NT menggabungkan intuisi dan logika, sehingga kamu menyukai ide, sistem, dan kompetensi. Kamu cepat melihat pola dan celah, jadi pastikan temuanmu disampaikan dengan cara yang bisa diterima orang lain.",
+    "NF": "Kombinasi NF menggabungkan intuisi dan perasaan, sehingga kamu mencari makna, keaslian, dan potensi orang lain. Kamu hidup dari nilai yang kamu yakini, jadi pilih kegiatan yang selaras dengannya agar energimu terjaga.",
+    "SJ": "Kombinasi SJ menggabungkan fakta nyata dan keteraturan, sehingga kamu menghargai tanggung jawab, aturan, dan kelanjutan yang jelas. Kamu menjadi penopang tim, jadi sisihkan ruang agar kamu juga terbuka pada cara baru.",
+    "SP": "Kombinasi SP menggabungkan pengamatan langsung dan fleksibilitas, sehingga kamu bergerak cepat, praktis, dan menikmati pengalaman nyata. Kamu pandai merespons keadaan, jadi tambahkan rencana ringan agar hasil jangka panjang ikut terjaga."
+  },
+  "huruf": {
+    "E": "Huruf E tampak saat kamu mendapat energi dari berbicara, bertemu orang, dan berpikir sambil bersuara.",
+    "I": "Huruf I tampak saat kamu mengisi tenaga lewat waktu tenang dan berpikir matang sebelum bicara.",
+    "S": "Huruf S tampak saat kamu percaya pada fakta, pengalaman nyata, dan langkah yang bisa langsung dicoba.",
+    "N": "Huruf N tampak saat kamu menangkap pola, kemungkinan, dan gambaran besar sebelum rinciannya.",
+    "T": "Huruf T tampak saat kamu menimbang keputusan dari logika, konsistensi, dan sebab-akibat yang jelas.",
+    "F": "Huruf F tampak saat kamu menimbang keputusan dari nilai pribadi dan dampaknya bagi perasaan orang.",
+    "J": "Huruf J tampak saat kamu nyaman dengan rencana, jadwal, dan menutup urusan hingga tuntas.",
+    "P": "Huruf P tampak saat kamu menyukai fleksibilitas, membuka pilihan, dan menyesuaikan diri mengikuti keadaan."
+  },
+  "sumbu": {
+    "EI": {
+      "kuat": "Kecenderunganmu di sumbu ini sangat jelas, sehingga pola energimu mudah ditebak oleh dirimu dan orang sekitar. Manfaatkan itu dengan mengatur jadwal yang sesuai, lalu sesekali latih sisi sebaliknya agar tidak terjebak kebiasaan.",
+      "tipis": "Skormu di sumbu ini hampir seimbang, jadi perilakumu mudah berubah mengikuti situasi dan suasana hati. Perhatikan kondisi yang membuatmu bertenaga dan atur porsi waktu sosial dan waktu sendiri sesuai kebutuhan hari itu."
+    },
+    "SN": {
+      "kuat": "Cara kamu mengolah informasi di sumbu ini sangat jelas, sehingga kamu cepat bekerja dengan gaya favoritmu. Gandeng orang yang kuat di sisi sebaliknya agar sudut pandangmu lebih lengkap.",
+      "tipis": "Skormu di sumbu ini hampir seimbang, jadi kamu bisa berpindah antara detail nyata dan gambaran besar. Sadari mana yang sedang kamu pakai, lalu sengaja gunakan keduanya saat mengambil keputusan penting."
+    },
+    "TF": {
+      "kuat": "Cara kamu mengambil keputusan di sumbu ini sangat jelas, sehingga sikapmu konsisten dan mudah dipahami. Tanyakan pada orang yang berpikir berbeda untuk melihat hal yang mungkin terlewat.",
+      "tipis": "Skormu di sumbu ini hampir seimbang, jadi pertimbanganmu bisa condong ke logika atau perasaan tergantung konteks. Tuliskan alasan dari kedua sisi sebelum memutuskan agar pilihanmu terasa mantap."
+    },
+    "JP": {
+      "kuat": "Gaya mengatur hidup di sumbu ini sangat jelas, sehingga ritme kerjamu mudah dikenali dan dihargai. Sisakan ruang untuk keluar dari kebiasaan sesekali agar kamu tetap lentur ketika keadaan berubah.",
+      "tipis": "Skormu di sumbu ini hampir seimbang, jadi kamu bisa rapi di satu waktu dan spontan di waktu lain. Tentukan area yang perlu rencana pasti dan area yang boleh longgar agar tidak bingung sendiri."
+    }
+  },
+  "advice": {
+    "NT": "Latih mendengar perasaan orang lain sebelum membahas solusi, dan sampaikan kritik dengan menyebut hal yang sudah berjalan baik. Ubah satu ide per bulan menjadi langkah nyata supaya kecerdasanmu menghasilkan dampak.",
+    "NF": "Terjemahkan nilai dan cita-citamu menjadi satu kebiasaan harian yang konkret, dan latih menetapkan batas tanpa merasa bersalah. Mintalah data atau contoh nyata saat sedang ragu agar idealismemu tetap berpijak.",
+    "SJ": "Coba satu cara baru per bulan di pekerjaan atau rutinitas, lalu nilai hasilnya dengan tenang. Bagikan tanggung jawabmu kepada orang lain dan sisihkan waktu istirahat agar kamu tidak kelelahan menopang semuanya.",
+    "SP": "Tentukan satu target tiga bulan dan pecah menjadi langkah mingguan agar kelincahanmu mengarah ke hasil. Biasakan berhenti sejenak sebelum mengambil risiko besar untuk memikirkan akibat jangka panjangnya."
+  }
+}
