@@ -17,7 +17,7 @@ _UPDATED = "5 Oktober 2026"
 _FAQ = [
     ("🔮", "TENTANG DESTINY REVEAL", [
         ("Apa itu Destiny Reveal?",
-         "Destiny Reveal adalah platform self-discovery yang menggabungkan 15 sistem ramalan & kepribadian — dari "
+         "Destiny Reveal adalah platform self-discovery yang menggabungkan 15 sistem ramalan & kepribadian, dari "
          "Zodiak, Shio, Weton, Numerologi, Matrix Destiny, MBTI, Big Five, Enneagram, DISC, Love Language, BaZi, "
          "Zi Wei, Human Design, Golongan Darah, hingga Tarot."),
         ("Apa bedanya dengan platform ramalan lain?",
@@ -69,8 +69,8 @@ _FAQ = [
         ("Bagaimana cara mendapatkan link/kode referral?",
          "Kode referral otomatis dibuat setelah kamu mendaftar. Cek di Dashboard → Tab Referral."),
         ("Berapa komisi yang didapatkan dari referral?",
-         "- **User Biasa (Referral):** Komisi 10–15% berupa Stardust (✨).\n"
-         "- **Affiliate Partner:** Komisi 20–30% berupa Uang Tunai (Rupiah)."),
+         "- **User Biasa (Referral):** Komisi 10 sampai 15% berupa Stardust (✨).\n"
+         "- **Affiliate Partner:** Komisi 20 sampai 30% berupa Uang Tunai (Rupiah)."),
         ("Syarat untuk upgrade menjadi Affiliate Partner?",
          "1. Memiliki minimal 10 Referral Aktif\n2. Minimal 5 Referral melakukan belanja/transaksi\n"
          "3. Akumulasi Revenue transaksi referral mencapai Rp 500.000\n4. Verifikasi Email & Nomor HP aktif\n"

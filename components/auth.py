@@ -20,7 +20,7 @@ _WIB = timezone(timedelta(hours=7))
 _BLN = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
         "Oktober", "November", "Desember"]
 BONUS_KOIN = 250  # SD (setara 5 koin lama)
-_SOON = "Fitur ini belum tersedia — masih tahap pengembangan 🚧"
+_SOON = "Fitur ini belum tersedia, masih tahap pengembangan 🚧"
 
 
 # ─────────────── state helper ───────────────

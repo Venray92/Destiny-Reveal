@@ -283,7 +283,7 @@ def render_explore():
                 unsafe_allow_html=True,
             )
             with st.container(key="dhexplore_foot_lainnya"):
-                if st.button("Tentang Kami — Destiny Reveal", key="dhexplore_about_btn", use_container_width=True):
+                if st.button("Tentang Kami: Destiny Reveal", key="dhexplore_about_btn", use_container_width=True):
                     info_modals.about_dialog()
 
 
@@ -387,7 +387,7 @@ def render_testimonials():
                     f'<div class="dh-testi-text">{quote}</div>'
                     '<div class="dh-testi-foot">'
                     f'<div class="dh-testi-avatar">{initials}</div>'
-                    f'<div><div class="dh-testi-name">— {name}</div>'
+                    f'<div><div class="dh-testi-name">{name}</div>'
                     f'<div class="dh-testi-role">{role}</div></div>'
                     '</div></div>',
                     unsafe_allow_html=True,

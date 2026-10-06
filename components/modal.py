@@ -15,7 +15,7 @@ from components.flow_state import (
     STEP_FORM, STEP_LOADING, STEP_PAY, STEP_RESULT, STEP_VERIFY, current_step, set_step,
 )
 
-# (key = ry_focus_mode di reveal_yourself.py, tag, judul, pill, bullets, ribbon, info)
+# (key mode, tag, judul, pill, bullets, ribbon, koin, foot, info)
 MODAL_MODES = [
     ("instan", "MODE 1", "5 Sistem Kelahiran", "Tanpa Kuesioner",
      [("Zodiak", "♈️"), ("Shio", "🐉"), ("Weton", "🗓️"), ("Numerologi", "🔢"), ("Matrix Destiny", "🔹")],
@@ -56,8 +56,7 @@ def _cb_form_next(mode):
         # email udah pernah diverifikasi (mis. habis "Scan Orang Lain") -> langsung bayar
         set_step(STEP_PAY if st.session_state.get("dh_email_verified") else STEP_VERIFY)
     else:
-        # Mode 2 & 3: alur baru belum dibuat -> teruskan ke halaman Reveal lama
-        st.session_state.ry_focus_mode = mode
+        # Mode 2 & 3: alur belum dibuat -> tutup modal, balik ke Home dengan pemberitahuan
         st.session_state.dh_flow_exit = True
 
 
@@ -151,8 +150,9 @@ def reopen_if_pending():
 @st.dialog("Reveal Dirimu", width="large", on_dismiss=_on_dismiss)
 def _flow_dialog():
     if st.session_state.pop("dh_flow_exit", False):
-        st.session_state.dr_page = "reveal"
-        st.rerun()  # rerun penuh = dialog nutup, lanjut ke halaman Reveal
+        st.session_state.dr_page = "home"
+        st.session_state.dh_toast = "Mode Mendalam dan Mode Lengkap segera hadir. Untuk sekarang, coba Mode 1 dulu ya."
+        st.rerun()  # rerun penuh = dialog nutup, balik ke Home
     step = current_step()
     if step == STEP_VERIFY:
         modal_steps.render_verify()

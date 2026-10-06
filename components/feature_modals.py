@@ -12,7 +12,7 @@ import streamlit as st
 from components import auth
 from components.dialog_bus import request_open
 
-_COIN_TOAST = "Fitur ini belum tersedia — masih tahap pengembangan 🚧"
+_COIN_TOAST = "Fitur ini belum tersedia, masih tahap pengembangan 🚧"
 _LOGIN_LINK = "Login buat Sync Data"
 
 
@@ -65,7 +65,7 @@ def saldo():
 _SPREADS = {
     3: {
         "tab": "Tarot 3 Kartu", "koin": 50, "title": "Tarot 3 Kartu",
-        "desc": "Masa Lalu, Masa Kini, Masa Depan — Membaca alur waktu energimu dengan cepat dan akurat.",
+        "desc": "Masa Lalu, Masa Kini, Masa Depan. Membaca alur waktu energimu dengan cepat dan akurat.",
         "pos": [
             ("1. Masa Lalu", "Fondasi, pengalaman lampau, atau karma awal yang membentuk situasimu saat ini."),
             ("2. Masa Kini", "Energi dominan, tantangan langsung, dan keadaan batinmu hari ini."),
@@ -145,16 +145,92 @@ def _start_scan():
     request_open("reveal")
 
 
+_HARI_W = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
+_PAS_W = ["Legi", "Pahing", "Pon", "Wage", "Kliwon"]
+_SHIO_W = ["Tikus", "Kerbau", "Macan", "Kelinci", "Naga", "Ular", "Kuda", "Kambing", "Monyet", "Ayam", "Anjing", "Babi"]
+_ZOD_W = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn",
+          "Aquarius", "Pisces"]
+# (label field, key field) urutan tampil laporan berkala
+_FIELDS = [("timing", "⏱️ Timing"), ("prediksi", "🔮 Prediksi"), ("peluang", "🌱 Peluang"),
+           ("saran", "🧭 Saran"), ("hindari", "⚠️ Hindari"), ("hindari_risiko", "⚠️ Risiko yang Perlu Dihindari")]
+_EXTRA = [("hari_terbaik", "Hari Terbaik"), ("arah_rezeki", "Arah Rezeki"), ("fokus_mingguan", "Fokus Minggu Ini"),
+          ("fokus_bulan_ini", "Fokus Bulan Ini"), ("fase_kunci", "Fase Kunci")]
+
+
+def _render_periodic(r):
+    """Tampilkan satu laporan berkala (dict dari content.periodic)."""
+    st.markdown(f'<div class="dh-fm-info"><p><b>Periode: {html.escape(str(r["periode"]))}</b></p></div>',
+                unsafe_allow_html=True)
+    for f, label in _FIELDS:
+        if r.get(f):
+            st.markdown(f"**{label}**\n\n{r[f]}")
+    chips = [f"{lbl}: {r[f]}" for f, lbl in _EXTRA if r.get(f)]
+    if r.get("angka_pendukung"):
+        chips.append("Angka Pendukung: " + ", ".join(str(x) for x in r["angka_pendukung"]))
+    if chips:
+        st.caption("  ·  ".join(chips))
+
+
+def _render_tarot_periodik(kind):
+    """Kartu Tarot pekan/bulan ini (deterministik per periode) + uraian dari JSON."""
+    from content.result_builder import build_display_data
+    from engine.rotation import BULAN, format_periode_minggu, today_wib
+    from engine.tarot import kartu_periodik
+
+    d = today_wib()
+    kartu = kartu_periodik(kind)
+    c = build_display_data("Tarot", {"kartu": kartu}) or {}
+    periode = format_periode_minggu(d) if kind == "weekly" else f"{BULAN[d.month - 1]} {d.year}"
+    st.markdown(f'<div class="dh-fm-info"><p><b>Periode: {html.escape(periode)}</b></p></div>', unsafe_allow_html=True)
+    st.markdown(f"**🃏 {c.get('title', kartu)}**")
+    st.markdown(c.get("p1", ""))
+    if c.get("quote"):
+        st.caption(c["quote"])
+    for lbl, k in (("💼 Karier", "karir"), ("💗 Asmara", "asmara"), ("💰 Keuangan", "keuangan"), ("🌿 Kesehatan", "kesehatan")):
+        if (c.get("domains") or {}).get(k):
+            st.markdown(f"**{lbl}**\n\n{c['domains'][k]}")
+    st.markdown("**🧭 PR Kecil Buat Kamu**\n\n" + c.get("p3", ""))
+
+
 @st.dialog("Weekly & Monthly Report", width="small")
 def weekly_dialog():
+    from datetime import date
+
+    from content import periodic
+
     _top(key="wk")
-    _title("📊", "Weekly Report (100-200 SD)", "Panduan timing &amp; strategi eksekusi berkala")
-    with st.container(key="dhwk_box"):
-        st.markdown('<div class="dh-fm-warn"><b>❗ Kamu butuh melakukan scan takdir terlebih dahulu!</b>'
-                    '<p>Laporan berkala disusun berdasarkan titik komparasi Weton, BaZi, dan Zodiak hasil scan '
-                    'unikmu agar prediksi timing 100% presisi.</p></div>', unsafe_allow_html=True)
-        if st.button("Mulai Scan Takdir Dulu →", key="dhwk_go", type="primary", use_container_width=True):
-            _start_scan()
+    _title("📊", "Laporan Mingguan & Bulanan", "Panduan timing &amp; strategi eksekusi berkala")
+    tab = st.radio("Periode", ["Mingguan", "Bulanan"], horizontal=True, key="dhwk_tab", label_visibility="collapsed")
+    kind = "weekly" if tab == "Mingguan" else "monthly"
+    opsi = (["Zodiak", "Weton", "Tarot"] if kind == "weekly" else ["Zodiak", "Shio", "Numerologi", "Tarot"])
+    sistem = st.selectbox("Sistem", opsi, key=f"dhwk_sys_{kind}")
+    tgl = None
+    if sistem == "Tarot":
+        key = ""
+    elif sistem == "Zodiak":
+        key = st.selectbox("Zodiak kamu", _ZOD_W, key="dhwk_zod")
+    elif sistem == "Shio":
+        key = st.selectbox("Shio kamu", _SHIO_W, key="dhwk_shio")
+    elif sistem == "Weton":
+        c1, c2 = st.columns(2)
+        h = c1.selectbox("Hari lahir", _HARI_W, key="dhwk_hari")
+        p = c2.selectbox("Pasaran", _PAS_W, key="dhwk_pas")
+        key = f"{h} {p}"
+    else:
+        tgl = st.date_input("Tanggal lahir", value=date(1995, 1, 1), min_value=date(1930, 1, 1),
+                            max_value=date.today(), key="dhwk_tgl")
+        key = "numerologi"
+    if sistem == "Tarot":
+        _render_tarot_periodik(kind)
+        return
+    if kind == "weekly":
+        r = periodic.get_weekly(sistem, key)
+    else:
+        r = periodic.get_monthly(sistem, key, tgl_lahir=tgl)
+    if r:
+        _render_periodic(r)
+    else:
+        st.info("Laporan untuk kombinasi ini belum tersedia.")
 
 
 # ═══════════ 4. DEEP BLUEPRINT ═══════════

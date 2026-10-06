@@ -14,7 +14,7 @@ from components.dialog_bus import request_open
 from components.feature_modals import _top
 from components.modal_detail import copy_button
 
-_PAY_TOAST = "Pembayaran belum tersedia — masih tahap pengembangan 🚧"
+_PAY_TOAST = "Pembayaran belum tersedia, masih tahap pengembangan 🚧"
 TABS = [("semua", "Semua"), ("koin", "✨ Stardust"), ("fitur", "🔒 Fitur Stardust"), ("vip", "⭐ VIP"), ("ref", "🎁 Referral")]
 
 # (nama, badge, harga, per SD, jumlah SD, bonus, deskripsi)

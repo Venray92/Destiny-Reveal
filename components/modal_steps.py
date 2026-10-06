@@ -14,6 +14,7 @@ from components.flow_state import (
     MODE1_PRICE_BASE, REFERRAL_BONUS_COIN, REFERRAL_DISCOUNT, STEP_LOADING, STEP_PAY,
     STEP_RESULT, STEP_VERIFY, price_now, reset_for_new_scan, rp, set_step, valid_email,
 )
+from content.profile_loader import ALLOW_LEGACY_FALLBACK, get_profile
 from content.result_builder import build_display_data, compute_raw_result
 from components.modal_detail import cb_open_detail
 from utils.date_format import format_tanggal_lengkap
@@ -114,7 +115,7 @@ def render_verify():
                 f'Diskon {int(REFERRAL_DISCOUNT * 100)}% &amp; bonus {REFERRAL_BONUS_COIN} SD diterapkan.</div>',
                 unsafe_allow_html=True,
             )
-    st.markdown('<div class="dh-lockbox">🔒 Paket terpilih (Mode 1 — 5 Kelahiran) dan metode pembayaran '
+    st.markdown('<div class="dh-lockbox">🔒 Paket terpilih (Mode 1: 5 Kelahiran) dan metode pembayaran '
                 'akan otomatis ditampilkan segera setelah kamu memverifikasi email di atas.</div>',
                 unsafe_allow_html=True)
 
@@ -166,7 +167,7 @@ def render_pay():
     st.markdown(
         '<div class="dh-pkg"><div class="dh-pkg-row"><div>'
         '<div class="dh-pkg-label">PAKET TERPILIH:</div>'
-        '<div class="dh-pkg-title">Mode 1 — 5 Kelahiran</div>'
+        '<div class="dh-pkg-title">Mode 1: 5 Kelahiran</div>'
         '<div class="dh-pkg-sub">Zodiak, Shio, Weton, Numerologi, Matrix Destiny</div></div>'
         f'<div class="dh-pkg-price">{strike}<b>{rp(price)}</b><span>atau 200 SD</span></div></div>'
         f'<div class="dh-pkg-foot"><span>Profil: <b>{(data.get("nama") or "").upper()}</b></span>'
@@ -229,12 +230,16 @@ def compute_mode1(nama, tgl):
     for system, label in MODE1_SYSTEMS:
         raw = compute_raw_result(system, ld)
         disp = build_display_data(system, raw)
+        prof = get_profile(system, raw)  # teks dari JSON baru; kamus lama cuma cadangan (judul + entri yang belum ada)
         tag, short = _tag_and_short(system, raw) if disp else ("", system)
+        free = (prof or {}).get("free", {})
+        lama = disp if (disp and ALLOW_LEGACY_FALLBACK) else {}
         out.append({
             "system": system, "label": label, "raw": raw, "tag": tag, "short": short,
             "title": disp["title"] if disp else "Belum bisa dihitung",
-            "desc": _first_sentence(disp["p1"]) if disp else "Tahun lahir ini di luar jangkauan data sistem ini.",
-            "quote": disp.get("quote", "") if disp else "",
+            "desc": _first_sentence(free.get("siapa_kamu") or lama.get("p1", "")) if disp
+            else "Tahun lahir ini di luar jangkauan data sistem ini.",
+            "quote": (free.get("quote") or lama.get("quote", "")) if disp else "",
         })
     return out
 
@@ -244,7 +249,7 @@ def render_loading():
     st.markdown(
         '<div class="dh-step dh-step-loading"></div><div class="dh-loading">'
         '<div class="dh-spin"><span>✦</span></div>'
-        '<div class="dh-loading-title">Menyelaraskan Mode 1 — 5 Kelahiran...</div>'
+        '<div class="dh-loading-title">Menyelaraskan Mode 1: 5 Kelahiran...</div>'
         '<div class="dh-loading-sub">Memproses peta takdir dan membuat akun personalmu.</div></div>',
         unsafe_allow_html=True,
     )
@@ -265,7 +270,7 @@ def _cb_soon(msg):
 
 
 def _summary_text(nama, tgl, results):
-    lines = [f"Peta Jiwa: {nama}", f"Mode 1 — 5 Kelahiran · Lahir {format_tanggal_lengkap(tgl)}", ""]
+    lines = [f"Peta Jiwa: {nama}", f"Mode 1: 5 Kelahiran · Lahir {format_tanggal_lengkap(tgl)}", ""]
     for r in results:
         lines.append(f'{r["label"]}: {r["title"]}')
     return "\n".join(lines)
@@ -286,7 +291,7 @@ def render_result():
             '<div class="dh-step dh-step-result"></div>'
             '<div class="dh-res-badge">✓ CETAK BIRU TAKDIR BERHASIL TERUNGKAP</div>'
             f'<div class="dh-res-title">Peta Jiwa: {nama}</div>'
-            f'<div class="dh-res-info"><b>Mode 1 — 5 Kelahiran</b> · Lahir: {format_tanggal_lengkap(tgl)}{jam}'
+            f'<div class="dh-res-info"><b>Mode 1: 5 Kelahiran</b> · Lahir: {format_tanggal_lengkap(tgl)}{jam}'
             f' · Tersimpan di Akun ({email})</div>', unsafe_allow_html=True)
     with h2:
         if st.button("Buka Akunku", key="dhr_account", use_container_width=True):
@@ -321,7 +326,7 @@ def render_result():
         st.markdown(f'<div class="dh-res-saved">Tersimpan di akun: <b>{email}</b></div>', unsafe_allow_html=True)
     with f2:
         st.button("Buka Profil & Riwayat", key="dhr_profile", on_click=_cb_soon,
-                  args=("Profil & riwayat belum tersedia — masih tahap pengembangan 🚧",), use_container_width=True)
+                  args=("Profil & riwayat belum tersedia, masih tahap pengembangan 🚧",), use_container_width=True)
     with f3:
         st.button("Scan Orang Lain", key="dhr_again", type="primary", on_click=reset_for_new_scan,
                   use_container_width=True)

@@ -272,7 +272,7 @@ def _render_quiz():
             ss[k] = None if v is None else (v == "Setuju")
         elif name == "Big Five":
             st.markdown(f'<div class="dh-so-q">{n}. {_e(q["text"])}</div>', unsafe_allow_html=True)
-            v = st.radio(k, [1, 2, 3, 4, 5], format_func=lambda i: f"{i} — {_SCALE[i]}", index=None, key=k + "_r",
+            v = st.radio(k, [1, 2, 3, 4, 5], format_func=lambda i: f"{i}: {_SCALE[i]}", index=None, key=k + "_r",
                          horizontal=True, label_visibility="collapsed")
             ss[k] = v
         elif name == "DISC":
@@ -320,7 +320,7 @@ def _render_pay():
         st.markdown('<div class="dh-so-note bad">🔒 Kamu belum masuk akun. Masuk dulu supaya Saldo Stardust bisa dipakai '
                     '(akun baru dapat bonus Stardust).</div>', unsafe_allow_html=True)
     elif sisa < 0:
-        st.markdown(f'<div class="dh-so-note bad">Saldo belum cukup — kurang {-sisa} Stardust. Top-up dulu ya.</div>',
+        st.markdown(f'<div class="dh-so-note bad">Saldo belum cukup, kurang {-sisa} Stardust. Top-up dulu ya.</div>',
                     unsafe_allow_html=True)
     else:
         st.markdown('<div class="dh-so-note ok">✓ Saldo mencukupi! Klik bayar untuk memulai kalkulasi seketika.</div>',
@@ -361,7 +361,7 @@ def _render_result():
     chips = "".join(f'<span class="dh-so-chip">{_e(k)}: <b>{_e(v)}</b></span>' for k, v in (d.get("params") or []))
     st.markdown(
         '<div class="dh-so-banner"><div class="dh-so-eyebrow">HASIL RESMI SOLO REVEAL</div>'
-        f'<div class="dh-so-title">{_ICON[name]} SOLO REVEAL — {_e(name.upper())}</div>'
+        f'<div class="dh-so-title">{_ICON[name]} SOLO REVEAL: {_e(name.upper())}</div>'
         f'<div class="dh-so-bsub"><b>{_e(d.get("title", ""))}</b> · Untuk: {_e(nama)}</div>'
         + (f'<div class="dh-so-quote">&ldquo;{_e(quote)}&rdquo;</div>' if quote else "") + '</div>'
         + (f'<div class="dh-so-chips">{chips}</div>' if chips else ""), unsafe_allow_html=True)
@@ -370,14 +370,14 @@ def _render_result():
     st.download_button("📥 Download PDF", make_pdf(f"Solo Reveal - {name}", f'{d.get("title", "")} - Untuk: {nama}', pdf_secs),
                        file_name=f"solo-reveal-{name.lower().replace(' ', '-')}.pdf", mime="application/pdf",
                        key="dhso_pdf", use_container_width=True, on_click="ignore")
-    plain = [f"SOLO REVEAL — {name} · {nama}", d.get("title", ""), ""]
+    plain = [f"SOLO REVEAL: {name} · {nama}", d.get("title", ""), ""]
     for i, title in enumerate(_ASPEK):
         texts = [t for t in secs.get(i, []) if t]
         body = "".join(f"<p>{_e(t)}</p>" for t in texts) or f'<p class="dh-so-empty">{_EMPTY}</p>'
         st.markdown(f'<div class="dh-so-card"><div class="dh-so-ct"><span>{_ASPEK_ICON[i]}</span>{_e(title)}</div>{body}</div>',
                     unsafe_allow_html=True)
         plain += [title, *texts, ""]
-    cap = f"Solo Reveal {name} — {nama}\nCek takdirmu di destinyreveal.id #DestinyReveal"
+    cap = f"Solo Reveal {name}: {nama}\nCek takdirmu di destinyreveal.id #DestinyReveal"
     with st.container(key="dhso_acts"):
         a1, a2 = st.columns(2, gap="small")
         with a1:

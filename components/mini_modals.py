@@ -23,7 +23,7 @@ from components.dialog_bus import request_open
 from content import periodic
 from content.profile_loader import get_profile
 from content.result_builder import build_display_data
-from engine.tarot import TAROT_MAJOR_ARCANA
+from engine.tarot import TAROT_DECK, TAROT_MAJOR_ARCANA
 from engine.zodiak import _RENTANG_ZODIAK
 from utils.card_images import card_image_data_uri
 
@@ -104,7 +104,7 @@ def request_solo(system):
     request_open("solo", dh_solo_step="select", dh_solo_sys=system, dh_solo_err=None)
 
 
-_COIN_MSG = "Fitur Stardust belum tersedia — masih tahap pengembangan 🚧"
+_COIN_MSG = "Fitur Stardust belum tersedia, masih tahap pengembangan 🚧"
 
 
 def _soon(msg):
@@ -186,7 +186,7 @@ def _render_swap(u):
     if not u:
         st.markdown('<div class="dh-dr-warn">🔒 Masuk akun dulu supaya Stardust bisa dipakai.</div>', unsafe_allow_html=True)
     elif saldo < SWAP_PRICE:
-        st.markdown(f'<div class="dh-dr-warn">Saldo belum cukup — kurang {SWAP_PRICE - saldo} Stardust.</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="dh-dr-warn">Saldo belum cukup, kurang {SWAP_PRICE - saldo} Stardust.</div>', unsafe_allow_html=True)
     with st.container(key="dhdy_confirm"):
         c1, c2 = st.columns(2, gap="small")
         with c1:
@@ -242,7 +242,7 @@ def daily_dialog():
                         '<p>💗 Asmara: Percakapan jujur dengan orang terdekat membawa suasana yang lebih hangat…</p>'
                         '<p>💡 Nasihat: Tuntaskan satu hal kecil sebelum memulai hal baru supaya energimu tidak pecah…</p></div>',
                         unsafe_allow_html=True)
-            if st.button("🔒 Buka Analisis Lengkap Per Sistem — 150 ✨", key="dhdy_unlock", type="primary"):
+            if st.button("🔒 Buka Analisis Lengkap Per Sistem (150 ✨)", key="dhdy_unlock", type="primary"):
                 request_solo(label)
             st.markdown('<div class="dh-dr-sub">Buka analisis mendalam 6 aspek: Aspek Utama, Karier, Asmara, Karakter, '
                         'Shadow Work, &amp; Nasihat Strategis.</div>', unsafe_allow_html=True)
@@ -309,7 +309,7 @@ def _cb_tarot_draw():
     # kartu tetap sepanjang hari: kalau sudah ada tarikan hari ini, pakai yang sama
     cur = st.session_state.get("dh_tarot_draw")
     if not cur or cur.get("date") != today_wib():
-        st.session_state.dh_tarot_draw = {"date": today_wib(), "kartu": random.choice(TAROT_MAJOR_ARCANA)}
+        st.session_state.dh_tarot_draw = {"date": today_wib(), "kartu": random.choice(TAROT_DECK)}
 
 
 @st.dialog("Tarot 1 Kartu Harian", width="small")
@@ -330,13 +330,15 @@ def tarot_dialog():
         return
 
     kartu = draw["kartu"]
-    idx = TAROT_MAJOR_ARCANA.index(kartu)
+    mayor = kartu in TAROT_MAJOR_ARCANA
+    idx = TAROT_MAJOR_ARCANA.index(kartu) if mayor else None
     c = build_display_data("Tarot", {"kartu": kartu}) or {}
     nama, _, arti = (c.get("title") or kartu).partition(", ")
-    uri = next((u for u in [card_image_data_uri(f"tarot/{idx:02d}_{kartu}.png")] if u), None)
+    uri = card_image_data_uri(f"tarot/{idx:02d}_{kartu}.png") if mayor else _cover_uri()
     img = f'<img class="dh-tr-img" src="{uri}" alt="{_e(nama)}">' if uri else '<div class="dh-tr-img dh-tr-ph">🂠</div>'
+    label = f"ARCANA #{idx}" if mayor else "ARCANA MINOR"
     st.markdown(
-        f'<div class="dh-tr-wrap">{img}<div class="dh-tr-over"><b>ARCANA #{idx}</b>'
+        f'<div class="dh-tr-wrap">{img}<div class="dh-tr-over"><b>{label}</b>'
         f'<div>{_e(nama)}{f" ({_e(arti)})" if arti else ""}</div></div></div>'
         '<div class="dh-tr-cap">Kartu sinkronisitas tetap sepanjang hari ini (tanpa kocok ulang)</div>'
         f'<div class="dh-mn-msg"><div class="dh-mn-msghead"><span>PESAN INTI HARI INI:</span><b>{_e(arti or nama)}</b></div>'
@@ -384,7 +386,7 @@ def preview_dialog():
         f'<span class="dh-mn-lockico">🔒</span><b>Buka Analisis Lengkap {pick}</b>'
         '<span>Membongkar kekuatan sejati, PR batin (shadow work), serta insight karier, asmara &amp; keuangan.</span></div></div>',
         unsafe_allow_html=True)
-    if st.button("🔒 Buka Analisis Lengkap Per Sistem — 150 ✨", key="dhpv_unlock", type="primary",
+    if st.button("🔒 Buka Analisis Lengkap Per Sistem (150 ✨)", key="dhpv_unlock", type="primary",
                  use_container_width=True):
         request_solo("Zodiak")
     if st.button("Sinkronkan dengan Sistem Lainnya →", key="dhpv_sync", use_container_width=True):

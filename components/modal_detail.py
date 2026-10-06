@@ -16,6 +16,7 @@ from urllib.parse import quote as urlquote
 import streamlit as st
 import streamlit.components.v1 as components
 
+from components.combo import build_combo
 from components.flow_state import STEP_RESULT, set_step
 from content.profile_loader import ALLOW_LEGACY_FALLBACK, MODE1, get_profile
 from content.result_builder import build_display_data
@@ -192,7 +193,7 @@ def render_detail():
     if quote:  # kutipan di antara kartu dan tombol aksi
         st.markdown(f'<div class="dh-dt-quotebox">&ldquo;{_e(quote)}&rdquo;</div>', unsafe_allow_html=True)
 
-    caption = (f'"{quote}"\n\n— {nama} · {item["short"]}\nCek takdirmu di destinyreveal.id #DestinyReveal'
+    caption = (f'"{quote}"\n\n{nama} · {item["short"]}\nCek takdirmu di destinyreveal.id #DestinyReveal'
                if quote else f'{nama} · {item["short"]}\nCek takdirmu di destinyreveal.id #DestinyReveal')
     with st.container(key="dhd_actions"):
         b1, b2 = st.columns(2, gap="small")
@@ -222,6 +223,12 @@ def render_detail():
         body = "".join(f"<p>{_e(t)}</p>" for t in texts)
         st.markdown(f'<div class="dh-dt-sec dh-dt-{tone}"><div class="dh-dt-sec-t"><span class="dh-dt-ico">{icon}</span>'
                     f'{title}</div>{body}</div>', unsafe_allow_html=True)
+
+    combo_blocks = build_combo(system, raw)
+    if combo_blocks:
+        body = "".join(f"<p><b>{_e(b['title'])}</b><br>{_e(b['text'])}</p>" for b in combo_blocks)
+        st.markdown('<div class="dh-dt-sec dh-dt-params"><div class="dh-dt-sec-t"><span class="dh-dt-ico">🧩</span>'
+                    f'KOMBINASI VARIABELMU</div>{body}</div>', unsafe_allow_html=True)
 
     if detail["params"]:
         cells = "".join(f'<div class="dh-dt-pm"><span>{_e(k)}</span><b>{_e(v)}</b></div>' for k, v in detail["params"])

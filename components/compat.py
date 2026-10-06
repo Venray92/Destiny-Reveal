@@ -247,7 +247,7 @@ def _cb_go():
         ss.dh_cp_err = "Masuk akun dulu supaya Stardust bisa dipakai."
         return
     if u.get("koin", 0) < cost:
-        ss.dh_cp_err = f"Saldo belum cukup — kurang {cost - u['koin']} Stardust."
+        ss.dh_cp_err = f"Saldo belum cukup, kurang {cost - u['koin']} Stardust."
         return
     res = _compute(systems, pa, pb, rel)
     if not res:
@@ -406,7 +406,7 @@ def _render_loading():
 
 
 def _plain(r):
-    out = [f"CEK KECOCOKAN — {r['a']} & {r['b']}", r["ringkas"], "", f"SKOR: {r['total']}/100 ({r['label']})", ""]
+    out = [f"CEK KECOCOKAN: {r['a']} & {r['b']}", r["ringkas"], "", f"SKOR: {r['total']}/100 ({r['label']})", ""]
     out += [f"- {x['system']}: {x['score']} ({x['note']})" for x in r["rows"]]
     out += ["", "KEKUATAN", *r["kuat"], "", "TANTANGAN", *r["tantang"], "", "NASIHAT STRATEGIS", *r["nasihat"]]
     return "\n".join(out)

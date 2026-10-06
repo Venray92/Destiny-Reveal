@@ -79,7 +79,7 @@ def _cb_edit_save():
 
 
 def _cb_mail():
-    st.session_state.dh_pf_toast = "Kotak masuk belum tersedia — masih tahap pengembangan 🚧"
+    st.session_state.dh_pf_toast = "Kotak masuk belum tersedia, masih tahap pengembangan 🚧"
 
 
 def _cb_archive(i):
@@ -235,7 +235,7 @@ def _render_referral(u):
         f'<em>{"✓ Aktif" if i == ti else ("Selesai" if i < ti else "Terkunci")}</em><b>{_e(t[0])}</b>'
         f'<span>{t[1]}+ Teman</span><small>{_e(t[3])} · {t[2]}</small></div>' for i, t in enumerate(TIERS)) + '</div>',
         unsafe_allow_html=True)
-    st.markdown('<div class="dh-pp-note">Komisi User Biasa: 10–15% · Affiliate: 20–30% · Recurring: 10–15% '
+    st.markdown('<div class="dh-pp-note">Komisi User Biasa: 10 sampai 15% · Affiliate: 20 sampai 30% · Recurring: 10 sampai 15% '
                 '(angka demo, belum terhubung backend).</div>', unsafe_allow_html=True)
 
 
