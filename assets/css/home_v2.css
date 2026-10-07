@@ -1828,8 +1828,13 @@ div[data-testid="stVerticalBlock"][class*="st-key-dhpp_h"]:not([class*="st-key-d
 
 /* Tarot: gambar muat utuh di frame + loading kocok deck */
 .dh-tr-img { aspect-ratio: 870 / 1164; object-fit: cover; }
-.st-key-dhtr_cover .dh-tr-img { aspect-ratio: 602 / 815; }
-.dh-tr-shuf { width: min(190px, 56%); aspect-ratio: 602 / 815; margin: 18px auto 18px; border-radius: 14px; border: 1px solid #E0B48A; background: linear-gradient(160deg, #FBF3E8, #F5E6D3); box-shadow: 0 10px 26px -12px rgba(194,94,0,.35); display: flex; align-items: center; justify-content: center; }
+/* cover: sunmoon.jpg dipotong lewat CSS (buang margin abu-abu 39px kiri / 42px atas) supaya kartu muat utuh di frame */
+.dh-tr-crop { width: 100%; aspect-ratio: 602 / 815; overflow: hidden; border-radius: 14px; border: 1px solid #E0B48A; box-shadow: 0 10px 26px -10px rgba(194,94,0,.45); transition: transform .2s ease, box-shadow .2s ease; }
+.dh-tr-crop .dh-tr-cimg { display: block; width: 116.28% !important; max-width: none !important; height: auto !important; margin: -6.98% 0 0 -6.48% !important; }
+.st-key-dhtr_cover:hover .dh-tr-crop { transform: translateY(-3px) scale(1.01); box-shadow: 0 16px 30px -10px rgba(194,94,0,.55); }
+.dh-tr-shuf { width: min(196px, 60%); margin: 18px auto 18px; display: flex; align-items: center; justify-content: center; }
+.dh-tr-shuf img { width: 100%; height: auto; display: block; animation: dhShuffle 1.1s ease-in-out infinite; transform-origin: 50% 80%; }
+@keyframes dhShuffle { 0%,100% { transform: rotate(0) translateY(0); } 25% { transform: rotate(-3deg) translateY(-4px); } 75% { transform: rotate(3deg) translateY(-4px); } }
 .dh-tr-shuf i { width: 46px; height: 46px; border-radius: 50%; border: 3px solid #F0CDB8; border-top-color: #C8633B; animation: dhcpspin 1s linear infinite; }
 .dh-tr-shuft { text-align: center; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #4A2E20; }
 .dh-tr-shufs { text-align: center; font-size: 12px; color: #A8683F; margin: 6px 0 14px; }
