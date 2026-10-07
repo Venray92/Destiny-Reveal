@@ -277,18 +277,18 @@ html, body, [data-testid="stMain"], section.main, [data-testid="stAppViewContain
 }
 div[data-testid="stVerticalBlock"][class*="st-key-dhnode_"] { gap: 0 !important; }
 [class*="st-key-dhnode_"] [data-testid="stElementContainer"] { position: static !important; }
-[class*="st-key-dhnode_"] div[data-testid="stPopover"] { display: flex; justify-content: center; }
-[class*="st-key-dhnode_"] div[data-testid="stPopover"] button {
+[class*="st-key-dhnode_"] div.stButton { display: flex; justify-content: center; }
+[class*="st-key-dhnode_"] div.stButton > button {
     width: 38px !important; height: 38px !important; border-radius: 50% !important;
     padding: 0 !important; display: flex !important; align-items: center !important;
     justify-content: center !important; min-height: 0 !important;
     box-shadow: 0 6px 14px -8px rgba(45,42,38,0.35) !important;
 }
-[class*="st-key-dhnode_"] div[data-testid="stPopover"] button span[data-testid="stIconMaterial"] {
+[class*="st-key-dhnode_"] div.stButton > button span[data-testid="stIconMaterial"] {
     font-size: 17px !important;
 }
 /* Label tombol popover ("&nbsp;") disembunyikan, cuma ikon yang kelihatan */
-[class*="st-key-dhnode_"] div[data-testid="stPopover"] button p { display: none !important; }
+[class*="st-key-dhnode_"] div.stButton > button p { display: none !important; }
 
 .st-key-dhmatrix_card {
     background: var(--dh-card); border: 1.5px solid var(--dh-border); border-radius: 22px;
@@ -807,7 +807,7 @@ div[data-testid="stVerticalBlock"].st-key-dh_home_root { gap: 0 !important; marg
 .st-key-dhmatrix_wrap:has([class*="st-key-dhnode_"]:hover) .dh-matrix-center b { font-weight: 700; }
 .stApp .dh-matrix-node-label { transition: color .2s; }
 .st-key-dhmatrix_wrap [class*="st-key-dhnode_"]:hover .dh-matrix-node-label { color: #C25E00 !important; }
-.st-key-dhmatrix_wrap [class*="st-key-dhnode_"]:hover div[data-testid="stPopover"] button {
+.st-key-dhmatrix_wrap [class*="st-key-dhnode_"]:hover div.stButton > button {
     background: #C25E00 !important; border-color: #C25E00 !important;
 }
 
@@ -1907,3 +1907,63 @@ div[data-testid="stVerticalBlock"][class*="st-key-dhpp_h"]:not([class*="st-key-d
 [data-testid="stDateInputHeaderPickerPopover"] [role="option"] { background: transparent !important; color: #3A2E24 !important; }
 [data-testid="stDateInputHeaderPickerPopover"] [role="option"]:hover { background: #F0E3D3 !important; }
 [data-testid="stDateInputHeaderPickerPopover"] [role="option"][aria-selected="true"] { background: #C85A32 !important; color: #FFFFFF !important; font-weight: 700 !important; }
+
+/* ===== REVISI04 ===== */
+/* A. kartu langkah praktis: amber hangat, kontras tinggi (Reveal + Solo) */
+.dh-dt-sec.dh-dt-dark, .dh-so-card.dh-so-amber { background: linear-gradient(135deg,#FFF1D6,#FFE4B5) !important; border: 1.5px solid #E5B466 !important; box-shadow: 0 8px 22px -14px rgba(176,100,0,.55); }
+.dh-dt-sec.dh-dt-dark .dh-dt-sec-t, .dh-so-card.dh-so-amber .dh-so-ct { color: #7A3E00 !important; }
+.dh-dt-sec.dh-dt-dark p, .dh-so-card.dh-so-amber p, .dh-so-card.dh-so-amber p:nth-of-type(n+2) { color: #3F2A12 !important; }
+.dh-so-card.dh-so-amber:hover { background: linear-gradient(135deg,#FFF1D6,#FFE4B5) !important; }
+/* B3. 2 ukuran modal standar: Compact 540 / Large 900 */
+:root { --dh-modal-compact: 540px; --dh-modal-large: 900px; }
+[data-testid="stDialog"] > div:has(.dh-step-solo), [data-testid="stDialog"] > div:has(.dh-step-loading), [data-testid="stDialog"] > div:has(.dh-step-verify), [data-testid="stDialog"] > div:has(.dh-step-pay), [data-testid="stDialog"] > div:has(.dh-step-mini), [data-testid="stDialog"] > div:has(.dh-step-fm) { width: min(var(--dh-modal-compact), 94vw) !important; max-width: var(--dh-modal-compact) !important; }
+[data-testid="stDialog"] > div:has(.dh-step-solo-lg), [data-testid="stDialog"] > div:has(.dh-step-result), [data-testid="stDialog"] > div:has(.dh-step-detail) { width: min(var(--dh-modal-large), 94vw) !important; max-width: var(--dh-modal-large) !important; }
+/* C. cincin ganda diagram 15 sistem */
+.st-key-dhmatrix_wrap::before { border: 5px double #E3CFA3 !important; inset: 6% !important; }
+[class*="st-key-dhnode_"] div.stButton > button { cursor: pointer; transition: transform .2s, box-shadow .2s; }
+[class*="st-key-dhnode_"] div.stButton > button:hover { transform: scale(1.12); }
+[class*="st-key-dhnode_"] div.stButton > button p { display: none !important; }
+/* modal detail sistem */
+.dh-si-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: .08em; color: #C25E00; margin-bottom: 4px; }
+.dh-si-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #2D2A26; line-height: 1.2; }
+.dh-si-quote { font-style: italic; color: #7A3E1D; font-size: 13.5px; line-height: 1.55; margin: 8px 0 10px; }
+.dh-si-desc { font-size: 13px; line-height: 1.7; color: #4A443D; margin-bottom: 14px; }
+.dh-si-lbl { font-size: 10.5px; font-weight: 800; letter-spacing: .07em; color: #8B8378; margin: 12px 0 6px; }
+.dh-si-src { display: inline-block; background: #FFF3E3; border: 1px solid #F0D9B5; color: #7A3E00; font-size: 12px; font-weight: 700; border-radius: 100px; padding: 5px 13px; }
+.dh-si-list { margin: 0; padding-left: 18px; font-size: 13px; line-height: 1.8; color: #2D2A26; }
+.dh-si-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0 14px; }
+.dh-si-card { border-radius: 14px; padding: 12px 14px; border: 1px solid; } .dh-si-card b { font-size: 10.5px; letter-spacing: .06em; } .dh-si-card p { font-size: 12px; line-height: 1.6; margin: 6px 0 0; color: #3F2A12; }
+.dh-si-good { background: #EAF3EC; border-color: #CFE2D3; } .dh-si-good b { color: #3E6B4A; }
+.dh-si-shadow { background: #F1ECF7; border-color: #DCD1EC; } .dh-si-shadow b { color: #5B3FA0; }
+@media (max-width: 480px) { .dh-si-cards { grid-template-columns: 1fr; } }
+[data-testid="stDialog"] .st-key-dhso_grid div.stButton > button p { white-space: normal !important; overflow: visible !important; text-overflow: clip !important; font-size: 11px !important; }
+/* D. Tarot spread */
+.dh-ts-short.dh-fm-center { margin: 0 0 8px; } .dh-ts-short .dh-fm-ico-lg { width: 46px; height: 46px; font-size: 24px; margin-bottom: 6px; }
+.dh-ts-short .dh-fm-h2 { font-size: 22px; } .dh-ts-short .dh-fm-desc { font-size: 12px; margin-top: 4px; }
+.dh-fm-pos.dh-ts-short { padding: 10px; margin-bottom: 10px; } .dh-ts-short .dh-fm-posgrid { gap: 6px; max-height: 190px; overflow-y: auto; } .dh-ts-short .dh-fm-posgrid div { padding: 6px 10px; }
+.dh-ts-badgewrap { text-align: center; margin: 2px 0 10px; } .dh-ts-badge { font-size: 12px; padding: 4px 14px; }
+.dh-ts-hint { text-align: center; font-size: 12.5px; color: #8B8378; margin-bottom: 14px; }
+/* kartu: tombol transparan nutupin kartu tertutup */
+[class*="st-key-dhtsk_"] { position: relative; }
+[class*="st-key-dhtsk_"] .dh-tr-img, [class*="st-key-dhtsk_"] .dh-tr-crop { width: 100% !important; transition: transform .2s ease, box-shadow .2s ease; }
+[class*="st-key-dhtsk_"]:hover .dh-tr-crop { transform: translateY(-3px); box-shadow: 0 16px 30px -10px rgba(194,94,0,.55); }
+[class*="st-key-dhtso_"] { position: absolute !important; top: 0; left: 0; right: 0; aspect-ratio: 602 / 815; z-index: 3; margin: 0 !important; }
+[class*="st-key-dhtso_"] div.stButton, [class*="st-key-dhtso_"] button { width: 100% !important; height: 100% !important; opacity: 0; cursor: pointer; }
+.dh-ts-plabel { text-align: center; font-size: 11px; font-weight: 700; color: #7A3E1D; margin-top: 7px; line-height: 1.3; }
+.dh-ts-img.dh-tr-ph { width: 100%; }
+@media (max-width: 640px) { .st-key-dhts_grid [data-testid="stHorizontalBlock"] { flex-wrap: wrap; gap: .5rem !important; } .st-key-dhts_grid [data-testid="stColumn"] { min-width: 0 !important; flex: 0 0 calc(33.333% - .4rem) !important; max-width: calc(33.333% - .4rem) !important; } }
+.st-key-dhts_openall { max-width: 280px; margin: 14px auto 6px; }
+.dh-ts-read { background: #FAF6F0; border: 1px solid #E8E0D5; border-radius: 14px; padding: 14px 16px; margin: 12px 0; }
+.dh-ts-rpos { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: #C25E00; } .dh-ts-rposd { font-size: 11.5px; color: #8B8378; margin: 2px 0 6px; }
+.dh-ts-rname { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: #2D2A26; margin-bottom: 8px; }
+.dh-ts-rl { margin-top: 8px; } .dh-ts-rl b { font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: #8A4B00; } .dh-ts-rl p { font-size: 13px; line-height: 1.65; color: #3A3631; margin: 3px 0 0; }
+.st-key-dhts_combobtn { display: flex; justify-content: center; margin: 14px 0 6px; }
+.st-key-dhts_combobtn button { background: linear-gradient(135deg,#8B5CF6,#EC4899) !important; border: 0 !important; border-radius: 100px !important; padding: 12px 26px !important; }
+.st-key-dhts_combobtn button * { color: #fff !important; font-weight: 700 !important; }
+.st-key-dhts_combo { background: #FFF6E6; border: 1px solid #F0DCBA; border-radius: 18px; padding: 10px; margin: 12px 0; }
+.st-key-dhts_acts { margin-top: 12px; }
+.dh-ts-warn { text-align: center; padding: 18px 6px 8px; } .dh-ts-warnico { font-size: 40px; } .dh-ts-warnt { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: #4A2E20; margin: 6px 0; } .dh-ts-warns { font-size: 13px; color: #6B635A; line-height: 1.6; margin-bottom: 14px; }
+[class*="st-key-dhtsk_"] [data-testid="stElementContainer"]:not([class*="st-key-dhtso_"]) { position: static !important; }
+[class*="st-key-dhtsk_"] .dh-ts-img { width: 100% !important; aspect-ratio: 870 / 1164 !important; height: auto !important; box-sizing: border-box; margin: 0 !important; }
+.dh-ts-cn { font-weight: 600; color: #8B8378; font-size: 10.5px; }
+.dh-ts-box { display: block; line-height: 0; font-size: 0; } .dh-ts-box .dh-tr-img { display: block; }
