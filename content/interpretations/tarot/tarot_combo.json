@@ -1,0 +1,15 @@
+{
+  "system": "Tarot Combo",
+  "version": "starter-1",
+  "catatan": "STARTER: ganti/lengkapi isinya. Kunci: suit_dominant (cups/pentacles/swords/wands), major_heavy, minor_only, balanced, pairs (slug kartu diurutkan abjad, digabung '+').",
+  "suit_dominant": {
+    "cups": {"title": "Dominasi Cups: Hati yang Bicara Paling Keras", "text": "Mayoritas kartu minormu bersuit Cups, tanda bahwa perasaan, relasi, dan intuisi sedang jadi pusat cerita. Keputusan yang diambil hanya dengan logika kali ini akan terasa hampa. Beri ruang untuk emosimu, tapi cek ulang dengan fakta sebelum bertindak."},
+    "pentacles": {"title": "Dominasi Pentacles: Fokus ke Hal Nyata", "text": "Dominasi Pentacles menunjukkan tema uang, karier, kesehatan, dan hal-hal konkret. Tebaran ini mengajakmu membangun pelan tapi pasti. Yang dibutuhkan sekarang konsistensi dan rencana yang bisa diukur, bukan loncatan nekat."},
+    "swords": {"title": "Dominasi Swords: Pikiran Sedang Sibuk", "text": "Banyaknya Swords menandakan pikiran, keputusan, konflik, dan komunikasi mendominasi situasimu. Kamu cenderung overthinking. Tulis hal yang paling mengganggu, pisahkan fakta dari asumsi, lalu pilih satu langkah kecil."},
+    "wands": {"title": "Dominasi Wands: Energi untuk Bergerak", "text": "Dominasi Wands menandakan ambisi, semangat, dan dorongan untuk memulai. Energimu besar, tapi rawan terbakar habis. Pilih satu tujuan utama dan tetapkan tenggat yang masuk akal supaya api ini tidak tersebar."}
+  },
+  "major_heavy": {"title": "Banyak Major Arcana: Ini Momen Besar", "text": "Kartu Major mendominasi tebaranmu. Biasanya ini menandakan fase penting dan pelajaran hidup yang lebih besar dari urusan harian. Anggap ini titik belok: luangkan waktu untuk refleksi sebelum memutuskan."},
+  "minor_only": {"title": "Tanpa Major Arcana: Urusan Sehari-hari", "text": "Tidak ada Major Arcana berarti situasimu lebih soal kebiasaan dan keputusan harian daripada takdir besar. Kabar baiknya, ini sepenuhnya bisa kamu ubah lewat tindakan kecil yang konsisten."},
+  "balanced": {"title": "Tebaran Seimbang", "text": "Tidak ada satu tema yang terlalu dominan. Situasimu punya banyak sisi yang saling mengimbangi. Baca tiap kartu sebagai potongan puzzle yang sama, lalu cari benang merahnya."},
+  "pairs": {}
+}
