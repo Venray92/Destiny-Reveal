@@ -1546,8 +1546,9 @@ div[data-baseweb="popover"] li:hover { background: #FFF3ED !important; }
 [data-testid="stDialog"] .st-key-dhso_acts div.stButton > button[kind="primary"] * { color: #fff !important; }
 [data-testid="stDialog"] .st-key-dhso_acts [data-testid="stHorizontalBlock"] { gap: 10px !important; margin-bottom: 4px; }
 /* Daily: tombol buka analisis oranye tegas + hover */
-[data-testid="stDialog"] .st-key-dhdy_unlock button, [data-testid="stDialog"] .st-key-dhpv_unlock button { background: #E8701A !important; border: 0 !important; box-shadow: 0 8px 16px -8px rgba(232,112,26,.7) !important; transition: background .2s, transform .2s; }
-[data-testid="stDialog"] .st-key-dhdy_unlock button:hover, [data-testid="stDialog"] .st-key-dhpv_unlock button:hover { background: #C85A0C !important; transform: translateY(-2px); }
+[data-testid="stDialog"] .st-key-dhdy_unlock button, [data-testid="stDialog"] .st-key-dhpv_unlock button { background: #C85A32 !important; border: 0 !important; box-shadow: 0 8px 16px -8px rgba(200,90,50,.6) !important; transition: background .2s, transform .2s; }
+[data-testid="stDialog"] .st-key-dhdy_unlock button:hover, [data-testid="stDialog"] .st-key-dhpv_unlock button:hover { background: #B24E28 !important; transform: translateY(-2px); }
+[data-testid="stDialog"] .st-key-dhdy_unlock button:active, [data-testid="stDialog"] .st-key-dhpv_unlock button:active { background: #9E4423 !important; transform: translateY(0); }
 [data-testid="stDialog"] .st-key-dhdy_unlock button, [data-testid="stDialog"] .st-key-dhdy_unlock button *, [data-testid="stDialog"] .st-key-dhpv_unlock button * { color: #fff !important; font-weight: 800 !important; }
 [data-testid="stDialog"] .st-key-dhdy_lock .st-key-dhdy_unlock button { height: auto !important; min-height: 42px !important; padding: 8px 18px !important; }
 /* Daily: popup konfirmasi kuota */
@@ -1560,8 +1561,9 @@ div[data-baseweb="popover"] li:hover { background: #FFF3ED !important; }
 [data-testid="stDialog"] .st-key-dhdy_confirm div.stButton > button[kind="primary"] { background: #E8701A !important; border: 0 !important; }
 [data-testid="stDialog"] .st-key-dhdy_confirm div.stButton > button[kind="primary"]:hover { background: #C85A0C !important; }
 [data-testid="stDialog"] .st-key-dhdy_confirm div.stButton > button[kind="primary"] * { color: #fff !important; }
-[data-testid="stDialog"] div.st-key-dhdy_unlock div.stButton > button, [data-testid="stDialog"] div.st-key-dhdy_unlock button[kind="primary"] { background: #E8701A !important; }
-[data-testid="stDialog"] div.st-key-dhdy_unlock button[kind="primary"]:hover { background: #C85A0C !important; }
+[data-testid="stDialog"] div.st-key-dhdy_unlock div.stButton > button, [data-testid="stDialog"] div.st-key-dhdy_unlock button[kind="primary"] { background: #C85A32 !important; }
+[data-testid="stDialog"] div.st-key-dhdy_unlock button[kind="primary"]:hover { background: #B24E28 !important; }
+[data-testid="stDialog"] div.st-key-dhdy_unlock button[kind="primary"]:active { background: #9E4423 !important; }
 
 /* ===== UI25 ===== */
 .dh-dr-bal { margin-top: 10px; font-size: 12px; color: #6B635A; } .dh-dr-bal b { color: #C85A32; }
@@ -1772,8 +1774,8 @@ div[data-testid="stVerticalBlock"][class*="st-key-dhpp_h"]:not([class*="st-key-d
   background: linear-gradient(#FFFDF8, #FFFDF8) padding-box,
               conic-gradient(from var(--dh-ang), #ff5f6d, #ffc371, #f7f06b, #5ee7a0, #4cc9f0, #8e7dff, #ff6ad5, #ff5f6d) border-box;
   box-shadow: 0 0 14px rgba(142,125,255,.35), 0 0 28px rgba(76,201,240,.22), 0 0 40px rgba(255,106,213,.18);
-  animation: dh-spin 7s linear infinite; }
-@keyframes dh-spin { to { --dh-ang: 360deg; } }
+  animation: dh-combo-ang 7s linear infinite; }
+@keyframes dh-combo-ang { to { --dh-ang: 360deg; } }
 .dh-dt-combo .dh-dt-sec-t { color: #6B4FD8; }
 .dh-dt-combo .dh-dt-cb-sub { font-size: 12px; color: #7A7268; margin: -2px 0 10px; }
 .dh-dt-combo .dh-dt-cb-h { display: block; font-size: 12.5px; font-weight: 800; color: #3A3631; margin: 12px 0 4px; }
@@ -1851,3 +1853,57 @@ div[data-testid="stVerticalBlock"][class*="st-key-dhpp_h"]:not([class*="st-key-d
 [data-testid="stDialog"] .st-key-dhdy_wsel svg { color: #C8633B !important; }
 /* loading: sembunyikan elemen lama yang tersisa selama jeda 3 detik */
 [data-testid="stDialog"] [data-testid="stElementContainer"]:has(.dh-dl-load) ~ *, [data-testid="stDialog"] [data-testid="stElementContainer"]:has(.dh-tr-shuf) ~ * { display: none !important; }
+
+/* ═══════ REVISI03 ═══════ */
+/* 1) Kartu hasil Reveal Dirimu: tinggi kiri-kanan sama, quote + tombol menempel ke dasar */
+[data-testid="stDialog"] [data-testid="stColumn"]:has([class*="st-key-dhres_card_"]) { display: flex; flex-direction: column; }
+[data-testid="stDialog"] [data-testid="stColumn"]:has([class*="st-key-dhres_card_"]) > [data-testid="stVerticalBlock"] { flex: 1 1 auto; }
+[data-testid="stDialog"] [data-testid="stColumn"]:has([class*="st-key-dhres_card_"]) > [data-testid="stVerticalBlock"] > [data-testid="stLayoutWrapper"] { flex: 1 1 auto; }
+[data-testid="stDialog"] [class*="st-key-dhres_card_"] { flex: 1 1 auto; }
+[data-testid="stDialog"] [class*="st-key-dhres_card_"] > [data-testid="stElementContainer"]:has(.dh-rc-quote),
+[data-testid="stDialog"] [class*="st-key-dhres_card_"] > [data-testid="stElementContainer"]:has(button):not(:has(.dh-rc-quote)) { margin-top: auto; }
+[data-testid="stDialog"] [class*="st-key-dhres_card_"] > [data-testid="stElementContainer"]:has(.dh-rc-quote) ~ [data-testid="stElementContainer"]:has(button) { margin-top: 0; }
+.dh-rc-quote { margin-top: 0; }
+
+/* 2) Solo Reveal: Data Diri satu kartu krem (sama seperti kartu di Reveal Dirimu) */
+[data-testid="stDialog"] .st-key-dhso_data {
+    background: #FAF6EF; border: 1px solid #E4D8C8; border-radius: 16px; padding: 14px 16px 14px 16px; margin: 6px 0 6px;
+}
+[data-testid="stDialog"] .st-key-dhso_data [data-testid="stMarkdownContainer"] { margin-bottom: 0 !important; }
+
+/* 3) Ikon kalender di kanan semua input tanggal (global) */
+[data-testid="stDateInputField"] [role="group"] {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%238A6A52' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4.5' width='18' height='16.5' rx='2.5'/%3E%3Cpath d='M3 10h18M8 2.5v4M16 2.5v4'/%3E%3C/svg%3E") no-repeat right 10px center / 17px 17px;
+    padding-right: 34px; box-sizing: border-box;
+}
+
+/* 4) Tema kalender pop-up (global, semua input tanggal): krem terang, teks coklat tua, terpilih terakota */
+[data-testid="stDateInputCalendar"] {
+    background: #FAF6EF !important; color: #4A2E20 !important; border: 1px solid #E4D8C8 !important;
+    border-radius: 14px !important; box-shadow: 0 14px 30px -12px rgba(74,46,32,.38) !important;
+}
+[data-testid="stDateInputCalendar"] header, [data-testid="stDateInputCalendar"] header * { color: #4A2E20 !important; }
+[data-testid="stDateInputCalendar"] header button { background: transparent !important; border-radius: 8px !important; }
+[data-testid="stDateInputCalendar"] header button:hover:not(:disabled) { background: #F0E3D3 !important; }
+[data-testid="stDateInputCalendar"] header button:disabled, [data-testid="stDateInputCalendar"] header button:disabled * { color: rgba(74,46,32,.3) !important; }
+[data-testid="stDateInputCalendar"] thead, [data-testid="stDateInputCalendar"] thead * { color: #9A7F6C !important; font-weight: 700 !important; }
+[data-testid="stDateInputCalendar"] [role="gridcell"] [role="button"] { color: #3A2E24 !important; border-radius: 8px !important; }
+[data-testid="stDateInputCalendar"] [role="gridcell"]:not([aria-disabled="true"]) [role="button"]:hover { background: #F0E3D3 !important; }
+[data-testid="stDateInputCalendar"] [role="gridcell"][aria-disabled="true"] [role="button"] { color: rgba(74,46,32,.32) !important; }
+[data-testid="stDateInputCalendar"] [role="gridcell"][aria-selected="true"] [role="button"],
+[data-testid="stDateInputCalendar"] [role="gridcell"] [role="button"][data-selected="true"] { background: #C85A32 !important; color: #FFFFFF !important; font-weight: 700 !important; }
+[data-testid="stDateInputCalendar"] [data-today="true"]:not([data-selected="true"]) { box-shadow: inset 0 0 0 1.5px #C85A32; }
+[data-testid="stDateInputCalendar"] [data-today="true"]::after { display: none !important; }
+/* dropdown bulan/tahun (popover react-aria) ikut tema terang */
+[data-testid="stDateInputCalendar"] [role="listbox"], [role="listbox"][aria-label*="ulan"], [role="listbox"][aria-label*="ahun"] { background: #FAF6EF !important; color: #4A2E20 !important; border: 1px solid #E4D8C8; border-radius: 10px; }
+[data-testid="stDateInputCalendar"] [role="option"], [role="listbox"][aria-label*="ulan"] [role="option"], [role="listbox"][aria-label*="ahun"] [role="option"] { color: #3A2E24 !important; }
+[data-testid="stDateInputCalendar"] [role="option"][data-selected="true"], [data-testid="stDateInputCalendar"] [role="option"][aria-selected="true"] { background: #C85A32 !important; color: #fff !important; }
+/* header kalender ikut ketimpa `header {visibility:hidden}` di app.css -> bulan/tahun & panah hilang */
+[data-testid="stDateInputCalendar"] header, [data-testid="stDateInputCalendar"] header * { visibility: visible !important; }
+/* segmen tanggal yang sedang fokus: terakota (bukan merah default) */
+[data-testid="stDateInputField"] [role="spinbutton"][data-focused="true"] { background: #C85A32 !important; color: #FFFFFF !important; border-radius: 4px; }
+[data-testid="stDateInputHeaderPickerPopover"] { background: #FAF6EF !important; border: 1px solid #E4D8C8 !important; border-radius: 12px !important; box-shadow: 0 12px 26px -12px rgba(74,46,32,.35) !important; }
+[data-testid="stDateInputHeaderPickerPopover"] [role="listbox"] { background: #FAF6EF !important; border: 0 !important; }
+[data-testid="stDateInputHeaderPickerPopover"] [role="option"] { background: transparent !important; color: #3A2E24 !important; }
+[data-testid="stDateInputHeaderPickerPopover"] [role="option"]:hover { background: #F0E3D3 !important; }
+[data-testid="stDateInputHeaderPickerPopover"] [role="option"][aria-selected="true"] { background: #C85A32 !important; color: #FFFFFF !important; font-weight: 700 !important; }
