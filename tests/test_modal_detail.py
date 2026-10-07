@@ -204,7 +204,7 @@ def test_ui25_compat_and_solo_active():
     from components.compat import _compute, PRICE, SYSTEMS
     from components.solo_reveal import ACTIVE
     assert PRICE == 100 and len(SYSTEMS) == 4
-    assert set(ACTIVE) == {"Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"}
+    assert len(ACTIVE) == 15  # REVISI05: semua sistem Solo aktif
     pa = {"nama": "A", "tgl": date(1992, 12, 5)}; pb = {"nama": "B", "tgl": date(1995, 3, 14)}
     for rel in ("Asmara / Pasangan", "Keluarga"):
         r = _compute(SYSTEMS, pa, pb, rel)
