@@ -400,8 +400,8 @@ def tarot_dialog():
     idx = TAROT_MAJOR_ARCANA.index(kartu) if mayor else None
     c = build_display_data("Tarot", {"kartu": kartu}) or {}
     nama, _, arti = (c.get("title") or kartu).partition(", ")
-    uri = card_image_data_uri(f"tarot/{idx:02d}_{kartu}.png") if mayor else _cover_uri()
-    img = f'<img class="dh-tr-img" src="{uri}" alt="{_e(nama)}">' if uri else '<div class="dh-tr-img dh-tr-ph">🂠</div>'
+    uri = card_image_data_uri(f"tarot/{idx:02d}_{kartu}.png") if mayor else None  # Minor: gambar belum ada, kosong dulu
+    img = f'<img class="dh-tr-img" src="{uri}" alt="{_e(nama)}">' if uri else '<div class="dh-tr-img dh-tr-ph" style="aspect-ratio:870/1164"></div>'
     label = f"ARCANA #{idx}" if mayor else "ARCANA MINOR"
     st.markdown(
         f'<div class="dh-tr-wrap">{img}<div class="dh-tr-over"><b>{label}</b>'
