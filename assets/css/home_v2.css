@@ -1779,3 +1779,70 @@ div[data-testid="stVerticalBlock"][class*="st-key-dhpp_h"]:not([class*="st-key-d
 .dh-dt-combo .dh-dt-cb-h { display: block; font-size: 12.5px; font-weight: 800; color: #3A3631; margin: 12px 0 4px; }
 .dh-dt-combo p { font-size: 13px; line-height: 1.75; color: #3A3631; margin: 0; }
 @media (prefers-reduced-motion: reduce) { .dh-dt-combo { animation: none; } }
+
+/* ═══════════ REVISI01 ═══════════ */
+/* Ramalan Harian: 3 tab + dropdown weton + tombol konfirmasi senada tombol utama */
+[data-testid="stDialog"] div.st-key-dhdy_tabs div.stButton > button { padding: 0 4px !important; }
+[data-testid="stDialog"] div.st-key-dhdy_tabs div.stButton > button p { font-size: 12.5px !important; white-space: nowrap; }
+[data-testid="stDialog"] .st-key-dhdy_wsel [data-baseweb="select"] > div { border-radius: 12px !important; background: #FAF6F0 !important; border: 1px solid #E8E0D5 !important; min-height: 44px; }
+[data-testid="stDialog"] .st-key-dhdy_wsel [data-baseweb="select"] > div:hover { border-color: #C8633B !important; }
+[data-testid="stDialog"] .st-key-dhdy_wsel [data-baseweb="select"] * { color: #4A2E20 !important; font-weight: 600; font-size: 13.5px; }
+[data-testid="stDialog"] .st-key-dhdy_confirm div.stButton > button[kind="primary"] { background: #C8633B !important; border: 0 !important; }
+[data-testid="stDialog"] .st-key-dhdy_confirm div.stButton > button[kind="primary"]:hover { background: #B8552E !important; }
+/* loading compact (krem, tanpa gelap) */
+.dh-dl-load { text-align: center; padding: 44px 14px 46px; }
+.dh-dl-orb { position: relative; width: 62px; height: 62px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #C8633B; }
+.dh-dl-orb i { position: absolute; inset: 0; border-radius: 50%; border: 3px solid #F5DDD0; border-top-color: #C8633B; animation: dhcpspin 1s linear infinite; }
+.dh-dl-t { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: #4A2E20; line-height: 1.3; }
+.dh-dl-s { font-size: 12.5px; color: #9A7F6C; margin-top: 7px; }
+
+/* Navbar: dropdown bahasa */
+.st-key-dhnav_lang div[data-testid="stPopover"] > button, .st-key-dhnav_lang div[data-testid="stPopover"] button {
+    height: 40px !important; min-height: 40px !important; border: 1.5px solid #C8633B !important; border-radius: 100px !important;
+    background: transparent !important; padding: 0 14px !important; white-space: nowrap !important; }
+.st-key-dhnav_lang div[data-testid="stPopover"] button, .st-key-dhnav_lang div[data-testid="stPopover"] button * { color: #C8633B !important; font-weight: 700 !important; font-size: 13px !important; }
+.st-key-dhnav_lang div[data-testid="stPopover"] button:hover { background: #FDF1E8 !important; }
+[data-testid="stPopoverBody"]:has(.dh-lang-head) { width: 230px !important; min-width: 0 !important; padding: 8px !important; border-radius: 16px !important; background: #FFFFFF !important; border: 1px solid #EADFD2 !important; box-shadow: 0 14px 34px -14px rgba(90,58,40,.35) !important; }
+.dh-lang-head { font-size: 10.5px; font-weight: 700; letter-spacing: .03em; color: #8B8378; padding: 4px 10px 8px; border-bottom: 1px solid #F0E8DC; margin-bottom: 6px; }
+[data-testid="stPopoverBody"] div[class*="st-key-dhlg_"] div.stButton > button { justify-content: flex-start !important; height: 40px !important; min-height: 40px !important; border: 0 !important; background: transparent !important; border-radius: 12px !important; padding: 0 12px !important; box-shadow: none !important; }
+[data-testid="stPopoverBody"] div[class*="st-key-dhlg_"] div.stButton > button [data-testid="stMarkdownContainer"] { width: 100%; }
+[data-testid="stPopoverBody"] div[class*="st-key-dhlg_"] div.stButton > button p { text-align: left; font-size: 13px !important; color: #4A2E20 !important; font-weight: 500 !important; }
+[data-testid="stPopoverBody"] div[class*="st-key-dhlg_"] div.stButton > button strong { display: inline-block; min-width: 30px; font-size: 11px; color: #8B6B55 !important; font-weight: 800 !important; }
+[data-testid="stPopoverBody"] div[class*="st-key-dhlg_"] div.stButton > button:hover { background: #FBF4EA !important; }
+[data-testid="stPopoverBody"] div[class*="st-key-dhlg_"][class*="_on"] div.stButton > button { background: #FBEEE5 !important; }
+[data-testid="stPopoverBody"] div[class*="st-key-dhlg_"][class*="_on"] div.stButton > button p, [data-testid="stPopoverBody"] div[class*="st-key-dhlg_"][class*="_on"] div.stButton > button strong { color: #C25E00 !important; font-weight: 700 !important; }
+[data-testid="stPopoverBody"] div[class*="st-key-dhlg_"][class*="_on"] div.stButton > button::after { content: "✓"; margin-left: auto; color: #C25E00; font-weight: 800; }
+[data-testid="stPopoverBody"]:has(.dh-lang-head) [data-testid="stVerticalBlock"] { gap: 2px !important; }
+
+/* Modal Masuk: lebih tirus, warna hangat (tanpa hitam pekat), Masuk Cepat */
+[data-testid="stDialog"] > div:has(.dh-step-auth) { width: min(400px, 94vw) !important; max-width: 400px !important; }
+.dh-au-title { color: #4A2E20; } .dh-au-label { color: #5A3A28; } .dh-au-sub { color: #9A7F6C; }
+.dh-au-notice b { display: flex; align-items: center; gap: 6px; }
+[data-testid="stDialog"] .st-key-dha_email input { color: #4A2E20 !important; }
+[data-testid="stDialog"] .st-key-dha_agree [data-testid="stCheckbox"] label > div:first-of-type, [data-testid="stDialog"] .st-key-dha_agree label[data-baseweb="checkbox"] > span:first-of-type { border: 1.5px solid #C8633B !important; background-color: #FFFFFF !important; border-radius: 5px !important; }
+[data-testid="stDialog"] .st-key-dha_agree [data-testid="stCheckbox"] label:has(input:checked) > div:first-of-type, [data-testid="stDialog"] .st-key-dha_agree label[data-baseweb="checkbox"]:has(input:checked) > span:first-of-type { background-color: #C8633B !important; border-color: #C8633B !important; }
+[data-testid="stDialog"] .st-key-dha_agree [data-testid="stMarkdownContainer"] p { color: #B0522B !important; font-weight: 600; font-size: 12px; line-height: 1.5; }
+[data-testid="stDialog"] div.st-key-dha_fast div.stButton > button { background: #FDF6EE !important; border: 1.5px solid #E8A98A !important; border-radius: 100px !important; height: 40px !important; min-height: 40px !important; box-shadow: none !important; }
+[data-testid="stDialog"] div.st-key-dha_fast div.stButton > button * { color: #C25E00 !important; font-size: 12.5px !important; font-weight: 700 !important; }
+[data-testid="stDialog"] div.st-key-dha_fast div.stButton > button:hover { background: #FBEBDD !important; border-color: #C8633B !important; }
+
+/* Tarot: gambar muat utuh di frame + loading kocok deck */
+.dh-tr-img { aspect-ratio: 870 / 1164; object-fit: cover; }
+.st-key-dhtr_cover .dh-tr-img { aspect-ratio: 602 / 815; }
+.dh-tr-shuf { width: min(190px, 56%); aspect-ratio: 602 / 815; margin: 18px auto 18px; border-radius: 14px; border: 1px solid #E0B48A; background: linear-gradient(160deg, #FBF3E8, #F5E6D3); box-shadow: 0 10px 26px -12px rgba(194,94,0,.35); display: flex; align-items: center; justify-content: center; }
+.dh-tr-shuf i { width: 46px; height: 46px; border-radius: 50%; border: 3px solid #F0CDB8; border-top-color: #C8633B; animation: dhcpspin 1s linear infinite; }
+.dh-tr-shuft { text-align: center; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #4A2E20; }
+.dh-tr-shufs { text-align: center; font-size: 12px; color: #A8683F; margin: 6px 0 14px; }
+
+/* Streak: setelah hapus box hijau, rapikan jarak bawah */
+.st-key-dhsk_cta { margin-bottom: 6px; }
+[data-testid="stPopoverBody"] div[class*="st-key-dhlg_"] div.stButton > button > div { width: 100% !important; display: flex !important; justify-content: flex-start !important; }
+[data-testid="stPopoverBody"] div[class*="st-key-dhlg_"] div.stButton > button p { display: flex !important; align-items: center; width: 100%; margin: 0 !important; }
+[data-testid="stPopoverBody"] div[class*="st-key-dhlg_"] div.stButton > button strong { flex: 0 0 34px; }
+[data-testid="stDialog"] .st-key-dha_agree { margin-bottom: 6px; }
+[data-testid="stDialog"] .st-key-dhdy_wsel .react-aria-ComboBox > [role="group"] { background: #FAF6F0 !important; border: 1px solid #E8E0D5 !important; border-radius: 12px !important; min-height: 44px; transition: border-color .2s; }
+[data-testid="stDialog"] .st-key-dhdy_wsel .react-aria-ComboBox > [role="group"]:hover, [data-testid="stDialog"] .st-key-dhdy_wsel .react-aria-ComboBox > [role="group"]:focus-within { border-color: #C8633B !important; }
+[data-testid="stDialog"] .st-key-dhdy_wsel input { color: #4A2E20 !important; -webkit-text-fill-color: #4A2E20 !important; font-weight: 600 !important; font-size: 13.5px !important; }
+[data-testid="stDialog"] .st-key-dhdy_wsel svg { color: #C8633B !important; }
+/* loading: sembunyikan elemen lama yang tersisa selama jeda 3 detik */
+[data-testid="stDialog"] [data-testid="stElementContainer"]:has(.dh-dl-load) ~ *, [data-testid="stDialog"] [data-testid="stElementContainer"]:has(.dh-tr-shuf) ~ * { display: none !important; }
