@@ -12,7 +12,9 @@ from datetime import datetime, timedelta, timezone
 
 import streamlit as st
 
+from components.dialog_bus import request_open
 from components.flow_state import STEP_RESULT, set_step, valid_email
+from components.modal_detail import copy_button
 
 _WIB = timezone(timedelta(hours=7))
 _BLN = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
@@ -110,6 +112,21 @@ def _cb_quick():
     _login()
 
 
+def _cb_quick_last():
+    """Masuk Cepat: pulihkan akun terakhir yang login di sesi ini (saldo & riwayat ikut balik)."""
+    ss = st.session_state
+    last = ss.get("dh_last_user")
+    if not last:
+        return
+    ss.dh_user = dict(last["user"])
+    ss.dh_history = list(last.get("history", []))
+    ss.dh_email = ss.dh_user["email"]
+    ss.dh_email_verified = True
+    ss.dh_auth_step = "email"
+    ss.dh_auth_error = None
+    ss.dh_auth_done = True
+
+
 def _soon(msg=_SOON):
     st.toast(msg)
 
@@ -128,16 +145,22 @@ def _render_email():
     if ss.get("dh_auth_error"):
         st.error(ss.dh_auth_error)
     st.markdown(
-        '<div class="dh-au-notice"><b>🛡️ Autentikasi Verifikasi Email Langsung</b>'
-        'Kami akan mengirimkan kode verifikasi 6-digit &amp; tautan instan ke emailmu. Setelah masuk, '
-        'profil dan saldo Stardust-mu otomatis terbuka.</div>', unsafe_allow_html=True)
+        '<div class="dh-au-notice"><b><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#5F8A69" '
+        'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/>'
+        '<path d="M9 12l2 2 4-4"/></svg>Autentikasi Verifikasi Email Langsung</b>'
+        'Kami akan mengirimkan kode 6-digit ke emailmu. Setelah masuk, profil dan saldo Stardust ✨ otomatis terbuka.</div>',
+        unsafe_allow_html=True)
     st.checkbox("Saya telah membaca dan menyetujui Syarat & Ketentuan serta Kebijakan Privasi Destiny Reveal.",
                 key="dha_agree")
     st.button("Lanjutkan Verifikasi Email →", key="dha_send", type="primary", use_container_width=True,
               on_click=_cb_send, disabled=not ss.get("dha_agree"))
+    if last := ss.get("dh_last_user"):  # pernah login di sesi ini -> tawarkan Masuk Cepat
+        lu = last["user"]
+        with st.container(key="dha_fast"):
+            st.button(f"✨ ⚡ Masuk Cepat sebagai {lu['nama']} (⭐ {lu.get('koin', 0)} Stardust)", key="dha_fastbtn",
+                      on_click=_cb_quick_last, use_container_width=True)
     st.markdown('<div class="dh-au-foot">Belum punya akun? Cukup masukkan emailmu di atas, akun barumu akan '
-                f'otomatis dibuat dengan <b>{BONUS_KOIN} SD Bonus &amp; ID Referral</b>.</div>',
-                unsafe_allow_html=True)
+                'otomatis dibuat.</div>', unsafe_allow_html=True)
 
 
 # ─────────────── Langkah 3: OTP ───────────────
@@ -177,6 +200,8 @@ def _render_otp():
 # ─────────────── Langkah 4: profil ───────────────
 def _cb_logout():
     ss = st.session_state
+    if ss.get("dh_user"):  # simpan akun terakhir buat tombol "Masuk Cepat"
+        ss.dh_last_user = {"user": dict(ss.dh_user), "history": list(ss.get("dh_history", []))}
     for k in ("dh_user", "dh_email", "dh_email_verified", "dh_history", "dh_auth_step", "dh_auth_done"):
         ss.pop(k, None)
     st.rerun()

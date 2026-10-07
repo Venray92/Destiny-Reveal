@@ -104,10 +104,29 @@ def consume_pending_scroll():
 # ══════════════════════════════════════════════════════════════
 # NAVBAR — dipakai di SEMUA halaman (dipanggil dari app.py)
 # ══════════════════════════════════════════════════════════════
+LANGS = [("EN", "US", "English (Default)"), ("ID", "ID", "Indonesia"), ("ZH", "CN", "中文 (Mandarin)")]
+
+
+def _cb_lang(code):
+    st.session_state.dh_lang = code
+
+
+def _lang_picker():
+    """Dropdown bahasa (UI REVISI01). DUMMY: pilihan tersimpan di session, teks aplikasi belum diterjemahkan."""
+    cur = st.session_state.setdefault("dh_lang", "ID")
+    with st.container(key="dhnav_lang"):
+        with st.popover(cur, icon=":material/language:"):
+            st.markdown('<div class="dh-lang-head">CHOOSE LANGUAGE / 语言</div>', unsafe_allow_html=True)
+            for code, flag, name in LANGS:
+                with st.container(key=f"dhlg_{code}{'_on' if code == cur else ''}"):
+                    st.button(f"**{flag}**  {name}", key=f"dhlg_btn_{code}", on_click=_cb_lang, args=(code,),
+                              use_container_width=True)
+
+
 def render_navbar(current_page):
     with st.container(key="dhnav_wrap"):
         with st.container(key="dhnavbar"):
-            logo_col, links_col, right_col = st.columns([1.5, 2.4, 2.4])
+            logo_col, links_col, right_col = st.columns([1.3, 3.3, 2.0])
             with logo_col:
                 # logo klik -> Home (di Home: scroll ke atas; halaman lain: pindah ke Home)
                 _lh = ('href="#dh-top" class="dh-navbar-logo dh-logo-link"' if current_page == "home"
@@ -118,7 +137,7 @@ def render_navbar(current_page):
                 )
             with links_col:
                 with st.container(key="dhnav_links"):
-                    l1, d1, l2, d2, l3, d3, l4 = st.columns([2, 0.4, 2, 0.4, 2, 0.4, 3.4])
+                    l1, d1, l2, d2, l3, d3, l4 = st.columns([1.5, 0.25, 3.0, 0.25, 1.9, 0.25, 3.0])
                     with l1:
                         if current_page == "home":
                             # di Home: smooth scroll ke paling atas (anchor, bukan rerun/modal)
@@ -128,17 +147,14 @@ def render_navbar(current_page):
                     with d1:
                         st.markdown('<div class="dh-nav-sep"></div>', unsafe_allow_html=True)
                     with l2:
-                        if st.button("Reveal", key="dhnav_reveal", use_container_width=True):
+                        if st.button("Reveal Takdirku", key="dhnav_reveal", use_container_width=True):
                             open_reveal_modal()
                     with d2:
                         st.markdown('<div class="dh-nav-sep"></div>', unsafe_allow_html=True)
                     with l3:
-                        if current_page == "home":
-                            # smooth scroll ke section "Satu Data, Banyak Cara Pandang"
-                            st.markdown('<a class="dh-nav-link" href="#dh-dataflow">Tutorial</a>', unsafe_allow_html=True)
-                        elif st.button("Tutorial", key="dhnav_tutorial", use_container_width=True):
-                            st.session_state.dh_pending_scroll = "dh-dataflow"
-                            go("home")
+                        # Tutorial -> buka Modal Tutorial (jembatan .dh-open-modal), bukan scroll
+                        st.markdown('<a class="dh-nav-link dh-open-modal" href="#dh-soon" data-modal="tutorial">Tutorial</a>',
+                                    unsafe_allow_html=True)
                     with d3:
                         st.markdown('<div class="dh-nav-sep"></div>', unsafe_allow_html=True)
                     with l4:
@@ -146,18 +162,13 @@ def render_navbar(current_page):
                             st.markdown(_mega_menu_html(), unsafe_allow_html=True)
             with right_col:
                 with st.container(key="dhnav_right"):
-                    lb, cb = st.columns(2)
+                    gb, lb = st.columns(2)
+                    with gb:
+                        _lang_picker()
                     with lb:
                         _u = auth.current_user()
                         if st.button(f"👤 {_u['nama'].title()}" if _u else "👤 Masuk / Login", key="dhnav_login"):
                             auth.open_auth()
-                    with cb:
-                        with st.container(key="dhnav_cta"):
-                            if st.button(
-                                "Mulai Reveal Takdirku →", key="dhnav_cta_btn", type="primary",
-                                icon=":material/bolt:",
-                            ):
-                                open_reveal_modal()
         with st.container(key="dh_modal_trigger_wrap"):
             if st.button("buka modal", key="dh_modal_trigger"):
                 open_reveal_modal()

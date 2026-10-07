@@ -11,6 +11,7 @@ DUMMY: koin dan klaim streak belum ada backend. Isi ramalan harian dari content/
 import base64
 import html
 import random
+import time
 from datetime import datetime, timedelta, timezone
 from functools import lru_cache
 from pathlib import Path
@@ -21,6 +22,7 @@ from components import auth
 from components.dialog_bus import request_open
 
 from content import periodic
+from content import profile_loader
 from content.profile_loader import get_profile
 from content.result_builder import build_display_data
 from engine.tarot import TAROT_DECK, TAROT_MAJOR_ARCANA
@@ -28,7 +30,7 @@ from engine.zodiak import _RENTANG_ZODIAK
 from utils.card_images import card_image_data_uri
 
 _ROOT = Path(__file__).resolve().parent.parent
-_COVER = _ROOT / "assets" / "images" / "sunmoon.jpg"
+_COVER = _ROOT / "assets" / "images" / "sunmoon_card.jpg"  # sunmoon.jpg tanpa margin abu-abu
 
 GLYPH = {
     "Aries": "♈", "Taurus": "♉", "Gemini": "♊", "Cancer": "♋", "Leo": "♌", "Virgo": "♍",
@@ -40,6 +42,14 @@ SHIO_EMOJI = {"Tikus": "🐭", "Kerbau": "🐂", "Macan": "🐯", "Kelinci": "�
               "Kuda": "🐴", "Kambing": "🐐", "Monyet": "🐵", "Ayam": "🐔", "Anjing": "🐶", "Babi": "🐷"}
 _BLN = ["", "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"]
 _WIB = timezone(timedelta(hours=7))
+
+
+def weton_list():
+    """35 pilihan weton (hari + pasaran) dari key weton_profile.json (lewat profile_loader)."""
+    return profile_loader.kunci_harapan("Weton")
+
+
+_KIND_LABEL = {"zodiak": "Zodiak", "shio": "Shio", "weton": "Weton"}
 
 
 def today_wib():
@@ -127,12 +137,13 @@ def get_daily_reading(kind, name, day):
     """Return {pesan, angka, warna}: pesan harian (maks 2 kalimat) dari JSON harian baru (content/periodic.py).
     Kunci record dihitung dari kalender (Zodiak: rumah Bulan, Shio: elemen hari), bukan acak.
     Cadangan (file tidak terbaca): pesan = quote profil, angka/warna deterministik dari nama+tanggal."""
-    sistem = "Zodiak" if kind == "zodiak" else "Shio"
+    sistem = _KIND_LABEL[kind]
     e = periodic.get_daily(sistem, name, now=datetime.fromisoformat(day))
     if e and e.get("pesan"):
         return {"pesan": _first_sentences(e["pesan"], 2), "angka": _fmt_angka(e.get("angka_hoki")),
                 "warna": str(e.get("warna_hoki") or "")}
-    free = (get_profile(sistem, {"sign": name} if kind == "zodiak" else {"shio": name}) or {}).get("free", {})
+    raw = {"zodiak": {"sign": name}, "shio": {"shio": name}, "weton": dict(zip(("hari", "pasaran"), name.split()))}[kind]
+    free = (get_profile(sistem, raw) or {}).get("free", {})
     seed = random.Random(f"{kind}{name}{day}")
     n1 = seed.randint(1, 9)
     return {"pesan": free.get("quote", ""), "angka": f"{n1} & {n1 * 3}", "warna": seed.choice(_WARNA)}
@@ -179,7 +190,7 @@ def _render_swap(u):
     saldo = u["koin"] if u else 0
     st.markdown(
         '<div class="dh-dr-confirm"><div class="dh-dr-cico">🔄</div><div class="dh-dr-ctitle">Buka Sistem Lain Hari Ini</div>'
-        '<p>Kuota gratis hari ini sudah terpakai. Mau intip Zodiak atau Shio lain? Biayanya '
+        '<p>Kuota gratis hari ini sudah terpakai. Mau intip Zodiak, Shio, atau Weton lain? Biayanya '
         f'<b>{SWAP_PRICE} Stardust</b>, lalu kamu bisa pilih ulang.</p>'
         f'<div class="dh-dr-bal">Saldo kamu: <b>{saldo} ✨</b> · Sisa setelah bayar: <b>{max(saldo - SWAP_PRICE, 0) if u else 0} ✨</b></div></div>',
         unsafe_allow_html=True)
@@ -210,14 +221,39 @@ def _cb_daily_cancel():
 def _cb_daily_confirm():
     ss = st.session_state
     ss.dh_daily_confirm = False
-    ss.dh_daily_lock = {"date": today_wib(), "kind": ss.dh_daily_tab, "name": ss.dh_daily_pick}
+    ss.dh_daily_loading = {"kind": ss.dh_daily_tab, "name": ss.dh_daily_pick}
+
+
+_LOAD_SUB = {
+    "zodiak": "Membuka peta takdir harianmu...",
+    "shio": "Membaca energi shio dan keberuntungan harianmu...",
+    "weton": "Menghitung neptu dan ritme pasaran harianmu...",
+}
+
+
+def _render_daily_loading(ld):
+    """Modal loading compact (3 detik, tema krem) lalu kunci kuota harian & tampilkan hasil."""
+    label = _KIND_LABEL[ld["kind"]]
+    st.markdown(
+        '<div class="dh-step dh-step-mini"></div><div class="dh-nodismiss"></div>'
+        '<div class="dh-dl-load"><div class="dh-dl-orb"><i></i><span>✦</span></div>'
+        f'<div class="dh-dl-t">Menyelaraskan Ramalan {label} {_e(ld["name"])}...</div>'
+        f'<div class="dh-dl-s">{_LOAD_SUB[ld["kind"]]}</div></div>', unsafe_allow_html=True)
+    time.sleep(3)
+    ss = st.session_state
+    ss.dh_daily_lock = {"date": today_wib(), "kind": ld["kind"], "name": ld["name"]}
+    ss.pop("dh_daily_loading", None)
+    st.rerun(scope="fragment")
 
 
 @st.dialog("Ramalan Harian Gratis", width="small")
 def daily_dialog():
     ss = st.session_state
+    if ss.get("dh_daily_loading"):
+        _render_daily_loading(ss.dh_daily_loading)
+        return
     _head()
-    _title("🌅", "Ramalan Harian Gratis", "1x per hari · Pilih Zodiak atau Shio kelahiranmu")
+    _title("🌅", "Ramalan Harian Gratis", "1x per hari · Pilih Zodiak, Shio, atau Weton kelahiranmu")
     lock = ss.get("dh_daily_lock")
     if lock and lock.get("date") == today_wib():  # sudah dipilih hari ini -> terkunci sampai 00:00 WIB
         if ss.get("dh_daily_swap"):
@@ -225,8 +261,8 @@ def daily_dialog():
             return
         kind, name = lock["kind"], lock["name"]
         r = get_daily_reading(kind, name, lock["date"])
-        label = "Zodiak" if kind == "zodiak" else "Shio"
-        sym = GLYPH.get(name, "") + "\ufe0e" if kind == "zodiak" else SHIO_EMOJI.get(name, "")
+        label = _KIND_LABEL[kind]
+        sym = GLYPH.get(name, "") + "\ufe0e" if kind == "zodiak" else SHIO_EMOJI.get(name, "🗓️")
         st.markdown(
             '<div class="dh-dr-quota"><span class="dh-dr-ck">✓</span><div>'
             '<b>Kuota Gratis Hari Ini Sudah Digunakan</b>'
@@ -247,7 +283,7 @@ def daily_dialog():
             st.markdown('<div class="dh-dr-sub">Buka analisis mendalam 6 aspek: Aspek Utama, Karier, Asmara, Karakter, '
                         'Shadow Work, &amp; Nasihat Strategis.</div>', unsafe_allow_html=True)
         with st.container(key="dhdy_swap"):
-            st.markdown('<div class="dh-dr-swaptxt">Mau intip ramalan zodiak atau shio lain hari ini?</div>',
+            st.markdown('<div class="dh-dr-swaptxt">Mau intip ramalan zodiak, shio, atau weton lain hari ini?</div>',
                         unsafe_allow_html=True)
             st.button("Ganti Pilihan / Buka Sistem Lain (50 SD) →", key="dhdy_swapbtn", on_click=_cb_swap_open)
         if st.button("Sinkronkan dengan Sistem Lainnya →", key="dhdy_sync", use_container_width=True):
@@ -256,7 +292,7 @@ def daily_dialog():
 
     tab = ss.setdefault("dh_daily_tab", "zodiak")
     if ss.get("dh_daily_confirm") and ss.get("dh_daily_pick"):
-        kind_label = "Zodiak" if tab == "zodiak" else "Shio"
+        kind_label = _KIND_LABEL[tab]
         st.markdown('<div class="dh-dr-confirm"><div class="dh-dr-cico">⚠️</div><div class="dh-dr-ctitle">Konfirmasi Kuota Harian Gratis</div>'
                     f'<p>Apakah kamu yakin ingin melihat ramalan untuk <b>{kind_label} {_e(ss.dh_daily_pick)}</b>? '
                     'Jatah gratis ini hanya bisa digunakan <b>1x per hari</b> dan tidak dapat diganti setelah dibuka hari ini.</p></div>',
@@ -269,30 +305,38 @@ def daily_dialog():
                 st.button("Ya, Buka Ramalan", key="dhdy_yes", type="primary", on_click=_cb_daily_confirm,
                           use_container_width=True)
         return
-    items = ZODIAK_LIST if tab == "zodiak" else SHIO_LIST
+    items = {"zodiak": ZODIAK_LIST, "shio": SHIO_LIST, "weton": weton_list()}[tab]
     if ss.get("dh_daily_pick") not in items:
         ss.dh_daily_pick = items[0]
     with st.container(key="dhdy_tabs"):
-        c1, c2 = st.columns(2, gap="small")
+        c1, c2, c3 = st.columns(3, gap="small")
         with c1:
             st.button("♈︎ Zodiak Barat", key="dhdy_tab_zodiak", on_click=_cb_daily_tab, args=("zodiak",),
                       type="primary" if tab == "zodiak" else "secondary", use_container_width=True)
         with c2:
             st.button("🐍 Shio Timur", key="dhdy_tab_shio", on_click=_cb_daily_tab, args=("shio",),
                       type="primary" if tab == "shio" else "secondary", use_container_width=True)
-    st.markdown(f'<div class="dh-mn-lab2">Pilih 1 {"Rasi Zodiak" if tab == "zodiak" else "Shio"} Kelahiranmu:</div>',
-                unsafe_allow_html=True)
-    with st.container(key="dhdy_grid"):
-        for row in range(3):
-            cols = st.columns(4, gap="small")
-            for col, name in zip(cols, items[row * 4:(row + 1) * 4]):
-                with col:
-                    st.button(name, key=f"dhdy_pick_{tab}_{name}", on_click=_cb_daily_pick, args=(name,),
-                              type="primary" if ss.dh_daily_pick == name else "secondary", use_container_width=True)
+        with c3:
+            st.button("🗓️ Weton Jawa", key="dhdy_tab_weton", on_click=_cb_daily_tab, args=("weton",),
+                      type="primary" if tab == "weton" else "secondary", use_container_width=True)
+    lab = {"zodiak": "Rasi Zodiak", "shio": "Shio", "weton": "Weton (Hari + Pasaran)"}[tab]
+    st.markdown(f'<div class="dh-mn-lab2">Pilih 1 {lab} Kelahiranmu:</div>', unsafe_allow_html=True)
+    if tab == "weton":  # 35 opsi -> dropdown, bukan grid
+        with st.container(key="dhdy_wsel"):
+            ss.dh_daily_pick = st.selectbox("Weton", items, index=items.index(ss.dh_daily_pick), key="dhdy_weton_sel",
+                                            label_visibility="collapsed")
+    else:
+        with st.container(key="dhdy_grid"):
+            for row in range(3):
+                cols = st.columns(4, gap="small")
+                for col, name in zip(cols, items[row * 4:(row + 1) * 4]):
+                    with col:
+                        st.button(name, key=f"dhdy_pick_{tab}_{name}", on_click=_cb_daily_pick, args=(name,),
+                                  type="primary" if ss.dh_daily_pick == name else "secondary", use_container_width=True)
     st.markdown('<div class="dh-mn-notice"><b>ⓘ Ketentuan Kuota Ramalan Gratis:</b>'
-                'Kamu hanya dapat memilih 1 tanda (Zodiak / Shio) per hari. Hasil tersimpan otomatis dan sistem '
+                'Kamu hanya dapat memilih 1 tanda (Zodiak / Shio / Weton) per hari. Hasil tersimpan otomatis dan sistem '
                 'terkunci hingga pergantian hari (00:00 WIB).</div>', unsafe_allow_html=True)
-    label = "Zodiak" if tab == "zodiak" else "Shio"
+    label = _KIND_LABEL[tab]
     st.button(f"✨ Buka Ramalan {label} {ss.dh_daily_pick} Hari Ini", key="dhdy_cta", type="primary",
               use_container_width=True, on_click=_cb_daily_open)
 
@@ -306,10 +350,14 @@ def _cover_uri():
 
 
 def _cb_tarot_draw():
-    # kartu tetap sepanjang hari: kalau sudah ada tarikan hari ini, pakai yang sama
+    # kartu tetap sepanjang hari: kalau sudah ada tarikan hari ini, pakai yang sama.
+    # Tarikan baru -> layar "kocok deck" 3 detik dulu (lihat tarot_dialog)
     cur = st.session_state.get("dh_tarot_draw")
     if not cur or cur.get("date") != today_wib():
-        st.session_state.dh_tarot_draw = {"date": today_wib(), "kartu": random.choice(TAROT_DECK)}
+        st.session_state.dh_tarot_loading = True
+
+
+_TAROT_CAP = '<div class="dh-tr-cap">Dihitung otomatis dari sinkronisitas tanggal hari ini!</div>'
 
 
 @st.dialog("Tarot 1 Kartu Harian", width="small")
@@ -318,14 +366,22 @@ def tarot_dialog():
     _head()
     _title("🃏", "Tarot 1 Kartu Harian", "Tarik 1 kartu sinkronisitas kosmik murni untuk memandu energimu hari ini.")
     draw = ss.get("dh_tarot_draw")
+    if ss.get("dh_tarot_loading") and (not draw or draw.get("date") != today_wib()):
+        st.markdown('<div class="dh-tr-shuf"><i></i></div>'
+                    '<div class="dh-tr-shuft">Mengocok Deck Kosmik...</div>'
+                    '<div class="dh-tr-shufs">Menghubungkan frekuensi batinmu dengan arketipe hari ini</div>',
+                    unsafe_allow_html=True)
+        time.sleep(3)
+        ss.dh_tarot_draw = {"date": today_wib(), "kartu": random.choice(TAROT_DECK)}
+        ss.pop("dh_tarot_loading", None)
+        st.rerun(scope="fragment")
     if not draw or draw.get("date") != today_wib():
         uri = _cover_uri()
         with st.container(key="dhtr_cover"):
             st.markdown(f'<img class="dh-tr-img" src="{uri}" alt="Kartu tarot">' if uri else
                         '<div class="dh-tr-img dh-tr-ph">🂠</div>', unsafe_allow_html=True)
             st.button("Tarik kartu", key="dhtr_draw", on_click=_cb_tarot_draw)
-        st.markdown('<div class="dh-tr-hint">👆 Klik kartu untuk membuka kartumu hari ini</div>'
-                    '<div class="dh-tr-cap">Kartu sinkronisitas tetap sepanjang hari ini (tanpa kocok ulang)</div>',
+        st.markdown('<div class="dh-tr-hint">👆 Klik dan tarik kartu hari ini</div>' + _TAROT_CAP,
                     unsafe_allow_html=True)
         return
 
@@ -340,7 +396,7 @@ def tarot_dialog():
     st.markdown(
         f'<div class="dh-tr-wrap">{img}<div class="dh-tr-over"><b>{label}</b>'
         f'<div>{_e(nama)}{f" ({_e(arti)})" if arti else ""}</div></div></div>'
-        '<div class="dh-tr-cap">Kartu sinkronisitas tetap sepanjang hari ini (tanpa kocok ulang)</div>'
+        + _TAROT_CAP +
         f'<div class="dh-mn-msg"><div class="dh-mn-msghead"><span>PESAN INTI HARI INI:</span><b>{_e(arti or nama)}</b></div>'
         f'<p>{_e(_first_sentences(c.get("p1", ""), 3))}</p></div>',
         unsafe_allow_html=True)
@@ -348,8 +404,8 @@ def tarot_dialog():
         st.markdown('<div class="dh-mn-paywall"><b>Mau Tau Lebih Dalam?</b>'
                     '<span>Bongkar dimensi karier, dinamika asmara, dan peringatan energi tersembunyi kartu ini.</span></div>',
                     unsafe_allow_html=True)
-        st.button("🔒 Mau Tau Lebih Dalam? (50 SD)", key="dhtr_unlock", type="primary", use_container_width=True,
-                  on_click=_soon, args=(_COIN_MSG,))
+        if st.button("🔒 Mau Tau Lebih Dalam? (50 ✨)", key="dhtr_unlock", type="primary", use_container_width=True):
+            request_solo(None)  # Tarot belum aktif di Solo -> buka dari pilih sistem
     if st.button("Sinkronkan Kartu Ini dengan Zodiak & Wetonmu di Scan →", key="dhtr_sync", use_container_width=True):
         _open_reveal()
 
@@ -478,8 +534,6 @@ def streak_dialog():
             st.button("✓ Sudah Check-in Hari Ini", key="dhsk_checkin", type="primary", disabled=True)
         else:
             st.button("Check-in Hari Ini", key="dhsk_checkin", type="primary", on_click=_cb_checkin)
-    st.markdown('<div class="dh-sk-foot">✓ Stardust dan streak tersinkronisasi aman ke akun '
-                f'({_e(u["email"] if u else "belum masuk akun")}).</div>', unsafe_allow_html=True)
 
 
 DIALOGS = {"daily": daily_dialog, "tarot": tarot_dialog, "preview": preview_dialog, "streak": streak_dialog}
