@@ -1,3 +1,1 @@
-"""Paket konten love_language."""
-
-from .love_language import LOVE_LANGUAGE_CONTENT
+"""Paket konten love_language. Teks ada di file JSON folder ini (tidak ada kamus .py lagi)."""
