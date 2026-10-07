@@ -188,4 +188,7 @@ def render_navbar(current_page):
         _back = _ss.pop("dh_return_to")
         if _back in _ALL_DIALOGS:
             _ALL_DIALOGS[_back]()
+    _cc = _ss.pop("dh_cc_reopen", None)  # X di modal hasil -> buka ulang dialog yang sama (layar konfirmasi tutup)
+    if _cc and not _pend and _cc in _ALL_DIALOGS:
+        _ALL_DIALOGS[_cc]()
     reopen_if_pending()  # balik ke Modal Hasil setelah sub-modal detail ditutup (X/backdrop)

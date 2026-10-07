@@ -10,6 +10,7 @@ import time
 import streamlit as st
 
 from components import auth
+from components import close_confirm as cc
 from components.flow_state import (
     MODE1_PRICE_BASE, REFERRAL_BONUS_COIN, REFERRAL_DISCOUNT, STEP_LOADING, STEP_PAY,
     STEP_RESULT, STEP_VERIFY, price_now, reset_for_new_scan, rp, set_step, valid_email,
@@ -329,12 +330,14 @@ def render_result():
                               on_click=cb_open_detail, args=(r["system"],), use_container_width=True)
 
     st.markdown('<div class="dh-res-sep"></div>', unsafe_allow_html=True)
-    f1, f2, f3 = st.columns([2.2, 1.4, 1.1], gap="small", vertical_alignment="center")
-    with f1:
-        st.markdown(f'<div class="dh-res-saved">Tersimpan di akun: <b>{email}</b></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="dh-res-saved dh-res-saved-row">Tersimpan di akun: <b>{email}</b></div>', unsafe_allow_html=True)
+    f2, f3, f4 = st.columns([1.3, 1, 1.1], gap="small", vertical_alignment="center")
     with f2:
         st.button("Buka Profil & Riwayat", key="dhr_profile", on_click=_cb_soon,
                   args=("Profil & riwayat belum tersedia, masih tahap pengembangan 🚧",), use_container_width=True)
     with f3:
         st.button("Scan Orang Lain", key="dhr_again", type="primary", on_click=reset_for_new_scan,
+                  use_container_width=True)
+    with f4:
+        st.button("Selesai & Tutup", key="dhr_done", type="primary", on_click=cc.cb_ask, args=("reveal",),
                   use_container_width=True)

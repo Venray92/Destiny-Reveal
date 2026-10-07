@@ -6,12 +6,14 @@ DUMMY: saldo ✨ dipotong di session saja (belum ada backend/DB).
 """
 
 import html
+import time
 from datetime import date
 from urllib.parse import quote as urlquote
 
 import streamlit as st
 
 from components import auth
+from components import close_confirm as cc
 from components.dialog_bus import request_with_return
 from utils.simple_pdf import make_pdf
 from components.combo import build_combo
@@ -183,15 +185,34 @@ def _solo_detail(name, raw):
 
 
 def _cb_pay():
+    """Validasi saldo & data, lalu masuk layar loading (hitung + potong saldo ada di _render_loading)."""
     ss = st.session_state
     u = auth.current_user()
     if not u or u.get("koin", 0) < SOLO_PRICE:
         return
-    name = ss.dh_solo_sys
-    prof = ss.get("dh_solo_prof") or _profile()
-    if not prof:
+    if not (ss.get("dh_solo_prof") or _profile()):
         ss.dh_solo_err = "Data diri belum lengkap. Kembali & isi dulu ya."
         return
+    ss.dh_solo_err = None
+    _go("loading")
+
+
+def _render_loading():
+    """Layar loading (tiru Reveal Dirimu): hitung hasil, potong saldo kalau berhasil, tampil minimal ~3 detik."""
+    ss = st.session_state
+    u = auth.current_user()
+    name = ss.get("dh_solo_sys")
+    prof = ss.get("dh_solo_prof") or _profile()
+    if not (u and name and prof) or u.get("koin", 0) < SOLO_PRICE:
+        _go("pay")
+        st.rerun(scope="fragment")
+    t0 = time.time()
+    st.markdown(
+        '<div class="dh-step dh-step-loading"></div><div class="dh-nodismiss"></div>'
+        '<div class="dh-dl-load"><div class="dh-dl-orb"><i></i><span>✦</span></div>'
+        f'<div class="dh-dl-t">Menyelaraskan Solo Reveal {_e(name)}...</div>'
+        '<div class="dh-dl-s">Menghitung peta takdirmu dan menyusun 6 aspek analisis personal.</div></div>',
+        unsafe_allow_html=True)
     if _KIND[name] == "quiz":
         raw = compute_quiz_raw_result(name, ss.get("dh_solo_ans") or {})
     else:
@@ -201,11 +222,13 @@ def _cb_pay():
     detail = _solo_detail(name, raw)
     if not detail:
         ss.dh_solo_err = "Hasil sistem ini belum bisa dihitung untuk datamu (mis. tahun lahir di luar jangkauan). Saldo tidak dipotong."
-        return
+        _go("pay")
+        st.rerun(scope="fragment")
     u["koin"] -= SOLO_PRICE
     ss.dh_solo_res = {"system": name, "detail": detail, "nama": prof["nama"], "raw": raw}
-    ss.dh_solo_err = None
+    time.sleep(max(0.0, 3.0 - (time.time() - t0)))
     _go("result")
+    st.rerun(scope="fragment")
 
 
 def _cb_again():
@@ -216,10 +239,13 @@ def _cb_again():
 
 
 def _cb_close():
-    """X / Selesai & Tutup di layar hasil -> reset, klik Solo Reveal berikutnya mulai dari pilih sistem."""
+    """X di dialog. Loading -> balik ke bayar (saldo belum dipotong). Hasil -> tanya konfirmasi dulu."""
     ss = st.session_state
-    if ss.get("dh_solo_step") == "result":
-        _cb_again()
+    step = ss.get("dh_solo_step")
+    if step == "loading":
+        _go("pay")
+        return
+    cc.dismiss("solo", step == "result" and bool(ss.get("dh_solo_res")), leave=_cb_again)
 
 
 # ─────────────── data diri ───────────────
@@ -456,9 +482,8 @@ def _render_result():
             st.button(f"🔄 Pilih Sistem Kosmik Lain ({SOLO_PRICE}✨)", key="dhso_again", on_click=_cb_again,
                       use_container_width=True)
         with b2:
-            if st.button("Selesai & Tutup", key="dhso_done", type="primary", use_container_width=True):
-                _cb_again()
-                st.rerun()  # rerun penuh = dialog nutup
+            st.button("Selesai & Tutup", key="dhso_done", type="primary", use_container_width=True,
+                      on_click=cc.cb_ask, args=("solo",))
 
 
 @st.dialog("Solo Reveal", width="large", on_dismiss=_cb_close)
@@ -466,7 +491,16 @@ def solo_dialog():
     ss = st.session_state
     step = ss.get("dh_solo_step", "select")
     if step == "result" and ss.get("dh_solo_res"):
-        _render_result()
+        if cc.asking("solo"):
+            cc.render("solo", leave=_cb_again, icon="🧭", title="Yakin Mau Tutup Hasil Solo Reveal?",
+                      text="Analisis 6 aspekmu baru saja terbuka. Kalau ditutup, hasil ini tidak bisa dilihat lagi tanpa "
+                           f"membuka ulang ({SOLO_PRICE} ✨).",
+                      tip="Download PDF atau salin analisis dulu, biar bisa dibaca kapan saja.",
+                      stay="✨ Lanjut Baca", go="Ya, Tutup Hasil")
+        else:
+            _render_result()
+    elif step == "loading" and ss.get("dh_solo_sys"):
+        _render_loading()
     elif step == "quiz" and ss.get("dh_solo_sys"):
         _render_quiz()
     elif step == "pay" and ss.get("dh_solo_sys"):

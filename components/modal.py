@@ -10,7 +10,7 @@ from datetime import date
 
 import streamlit as st
 
-from components import modal_detail, modal_steps
+from components import close_confirm as cc, modal_detail, modal_steps
 from components.flow_state import (
     STEP_FORM, STEP_LOADING, STEP_PAY, STEP_RESULT, STEP_VERIFY, current_step, set_step,
 )
@@ -138,6 +138,8 @@ def _on_dismiss():
     if current_step() == "detail":
         set_step(STEP_RESULT)
         st.session_state.dh_reopen = True
+    elif current_step() == STEP_RESULT:  # X di hasil akhir: tanya dulu (dialog dibuka ulang lewat reopen_if_pending)
+        cc.dismiss("reveal", True, reopen=lambda: st.session_state.__setitem__("dh_reopen", True))
 
 
 def reopen_if_pending():
@@ -161,7 +163,13 @@ def _flow_dialog():
     elif step == STEP_LOADING:
         modal_steps.render_loading()
     elif step == STEP_RESULT:
-        modal_steps.render_result()
+        if cc.asking("reveal"):
+            cc.render("reveal", leave=None, icon="🔮", title="Yakin Mau Tutup Peta Jiwamu?",
+                      text="Cetak biru takdirmu baru saja terungkap. Kalau ditutup, kamu perlu scan ulang untuk melihatnya lagi.",
+                      tip="Ketuk Salin Ringkasan atau simpan kartu tiap sistem dulu ya.",
+                      stay="✨ Lanjut Lihat Hasil", go="Ya, Tutup")
+        else:
+            modal_steps.render_result()
     elif step == "detail":
         modal_detail.render_detail()
     else:

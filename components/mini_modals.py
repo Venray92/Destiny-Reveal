@@ -19,6 +19,7 @@ from pathlib import Path
 import streamlit as st
 
 from components import auth
+from components import close_confirm as cc
 from components.dialog_bus import request_open
 
 from content import periodic
@@ -247,11 +248,25 @@ def _render_daily_loading(ld):
     st.rerun(scope="fragment")
 
 
-@st.dialog("Ramalan Harian Gratis", width="small")
+def _cb_daily_dismiss():
+    """X: kalau lagi di layar hasil ramalan -> tanya konfirmasi dulu."""
+    ss = st.session_state
+    lock = ss.get("dh_daily_lock")
+    at_result = bool(lock and lock.get("date") == today_wib() and not ss.get("dh_daily_swap")
+                     and not ss.get("dh_daily_loading"))
+    cc.dismiss("daily", at_result)
+
+
+@st.dialog("Ramalan Harian Gratis", width="small", on_dismiss=_cb_daily_dismiss)
 def daily_dialog():
     ss = st.session_state
     if ss.get("dh_daily_loading"):
         _render_daily_loading(ss.dh_daily_loading)
+        return
+    if cc.asking("daily"):
+        cc.render("daily", leave=None, icon="🌅", title="Yakin Mau Tutup Ramalan Hari Ini?",
+                  text="Pesan harianmu sudah terbuka. Kamu bisa membukanya lagi kapan saja hari ini, tapi sebaiknya selesai baca dulu.",
+                  tip="Cek angka dan warna hokimu sebelum pergi.", stay="✨ Lanjut Baca", go="Ya, Tutup")
         return
     _head()
     _title("🌅", "Ramalan Harian Gratis", "1x per hari · Pilih Zodiak, Shio, atau Weton kelahiranmu")
@@ -386,9 +401,20 @@ def _cb_tarot_draw():
 _TAROT_CAP = '<div class="dh-tr-cap">Dihitung otomatis dari sinkronisitas tanggal hari ini!</div>'
 
 
-@st.dialog("Tarot 1 Kartu Harian", width="small")
+def _cb_tarot_dismiss():
+    """X: kalau kartu hari ini sudah terbuka -> tanya konfirmasi dulu."""
+    draw = st.session_state.get("dh_tarot_draw")
+    cc.dismiss("tarot", bool(draw and draw.get("date") == today_wib() and not st.session_state.get("dh_tarot_loading")))
+
+
+@st.dialog("Tarot 1 Kartu Harian", width="small", on_dismiss=_cb_tarot_dismiss)
 def tarot_dialog():
     ss = st.session_state
+    if cc.asking("tarot"):
+        cc.render("tarot", leave=None, icon="🃏", title="Yakin Mau Tutup Kartu Hari Ini?",
+                  text="Pesan kartu harianmu baru saja terbuka. Kamu masih bisa melihatnya lagi hari ini, tapi pastikan sudah selesai membaca.",
+                  tip="Baca juga bagian Pesan Inti sebelum pergi.", stay="✨ Lanjut Baca", go="Ya, Tutup")
+        return
     _head()
     _title("🃏", "Tarot 1 Kartu Harian", "Tarik 1 kartu sinkronisitas kosmik murni untuk memandu energimu hari ini.")
     draw = ss.get("dh_tarot_draw")
@@ -436,6 +462,9 @@ def tarot_dialog():
             request_solo(None)  # Tarot belum aktif di Solo -> buka dari pilih sistem
     if st.button("Sinkronkan Kartu Ini dengan Zodiak & Wetonmu di Scan →", key="dhtr_sync", use_container_width=True):
         _open_reveal()
+    with st.container(key="dhtr_done"):
+        st.button("Selesai & Tutup", key="dhtr_done_btn", type="primary", use_container_width=True,
+                  on_click=cc.cb_ask, args=("tarot",))
 
 
 # ═══════════ 3. PREVIEW ZODIAK ═══════════
@@ -501,7 +530,8 @@ def _cb_checkin():
         return
     s_["last"] = today_wib()
     s_["days"] = min(s_["days"] + 1, 28)
-    st.session_state.dh_sk_toast = f"✅ Check-in berhasil! Streak kamu: {s_['days']} hari"
+    st.session_state.dh_sk_pop = {"icon": "✅", "title": "Check-in Berhasil!",
+                                  "text": f"Streak kamu sekarang {s_['days']} hari. Lanjutkan besok biar apinya tetap menyala!"}
 
 
 def _cb_claim_week(i):
@@ -513,7 +543,8 @@ def _cb_claim_week(i):
         return
     s_["claimed"].append(i)
     u["koin"] = u.get("koin", 0) + _WEEKS[i][2]
-    st.session_state.dh_sk_toast = f"🎉 Selamat! +{_WEEKS[i][2]} ✨ telah berhasil masuk ke saldo kamu!"
+    st.session_state.dh_sk_pop = {"icon": "🎉", "title": "Selamat!",
+                                  "text": f"+{_WEEKS[i][2]} ✨ telah berhasil masuk ke saldo kamu."}
 
 
 def _cb_streak_login():
@@ -523,9 +554,15 @@ def _cb_streak_login():
 @st.dialog("Streak & Reward", width="small")
 def streak_dialog():
     u = auth.current_user()
+    if pop := st.session_state.pop("dh_sk_pop", None):  # popup sukses bertema, nutup sendiri ~2,5 detik
+        st.markdown(
+            '<div class="dh-step dh-step-mini"></div><div class="dh-nodismiss"></div>'
+            f'<div class="dh-sk-pop2"><div class="dh-sk-popico"><i></i><span>{pop["icon"]}</span></div>'
+            f'<div class="dh-sk-poptitle">{_e(pop["title"])}</div><div class="dh-sk-poptext">{_e(pop["text"])}</div>'
+            '<div class="dh-sk-popbar"><i></i></div></div>', unsafe_allow_html=True)
+        time.sleep(2.5)
+        st.rerun(scope="fragment")
     _head()
-    if msg := st.session_state.pop("dh_sk_toast", None):  # toast di body (bukan di callback)
-        st.toast(msg)
     s_ = _streak_state(u) if u else {"days": 0, "last": None, "claimed": []}
     days, claimed = s_["days"], s_["claimed"]
     nxt = next((i for i in range(4) if i not in claimed), None)

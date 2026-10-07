@@ -10,6 +10,7 @@ import html
 import streamlit as st
 
 from components import auth
+from components import close_confirm as cc
 from components.dialog_bus import request_open
 
 _COIN_TOAST = "Fitur ini belum tersedia, masih tahap pengembangan 🚧"
@@ -112,11 +113,15 @@ _TS_KEYS = ("dh_ts_step", "dh_ts_cards", "dh_ts_open", "dh_ts_seen", "dh_ts_pend
 def _ts_reset():
     for k in _TS_KEYS:
         st.session_state.pop(k, None)
+    cc.cb_stay("tarot_spread")
 
 
 def _cb_ts_dismiss():
-    """X / klik luar: buang hasil tebaran (loading nggak bisa ditutup)."""
-    if st.session_state.get("dh_ts_step") in ("result", "warn"):
+    """X / klik luar: hasil tebaran -> tanya konfirmasi dulu; layar peringatan -> buang hasil (loading nggak bisa ditutup)."""
+    step = st.session_state.get("dh_ts_step")
+    if step == "result":
+        cc.dismiss("tarot_spread", True, leave=_ts_reset)
+    elif step == "warn":
         _ts_reset()
 
 
@@ -184,6 +189,9 @@ def _ts_do_pending():
     elif act == "sync":
         _ts_reset()
         ss.dh_ts_sync = True
+    elif act == "close":  # Selesai & Tutup -> layar konfirmasi tutup
+        ss.dh_ts_step = "result"
+        cc.cb_ask("tarot_spread")
 
 
 def _cb_ts_see_combo():
@@ -348,6 +356,8 @@ def _ts_result():
                   on_click=_cb_ts_leave, args=("again", combo))
         st.button("Sinkronkan ke Cetak Biru Takdir →", key="dhts_sync", type="primary", use_container_width=True,
                   on_click=_cb_ts_leave, args=("sync", combo))
+        st.button("Selesai & Tutup", key="dhts_done", type="primary", use_container_width=True,
+                  on_click=_cb_ts_leave, args=("close", combo))
 
 
 def _ts_warn():
@@ -368,7 +378,13 @@ def tarot_spread_dialog():
     if step == "loading" and ss.get("dh_ts_cards"):
         _ts_loading()
     elif step == "result" and ss.get("dh_ts_cards"):
-        _ts_result()
+        if cc.asking("tarot_spread"):
+            cc.render("tarot_spread", leave=_ts_reset, icon="🃏", title="Yakin Mau Tutup Tebaran Kartumu?",
+                      text="Kartu-kartu yang baru kamu buka membawa pesan khusus untukmu. Kalau ditutup, tebaran ini hilang dan tidak bisa dibuka lagi.",
+                      tip="Baca semua kartu dan analisis kombinasinya dulu sebelum pergi.",
+                      stay="✨ Lanjut Baca Kartu", go="Ya, Tutup Tebaran")
+        else:
+            _ts_result()
     elif step == "warn" and ss.get("dh_ts_cards"):
         _ts_warn()
     else:

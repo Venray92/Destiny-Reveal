@@ -13,6 +13,7 @@ from datetime import date
 import streamlit as st
 
 from components import auth
+from components import close_confirm as cc
 from components.dialog_bus import request_with_return
 from components.modal_detail import copy_button
 from components.solo_reveal import _profile
@@ -57,24 +58,43 @@ def _score_zodiak(a, b):
     sc = _ELEM_Z.get((ea, eb)) or _ELEM_Z.get((eb, ea)) or 60
     note = f"{a['sign']} ({ea}) & {b['sign']} ({eb})"
     if sc >= 80:
-        return sc, note, ("Elemen kalian saling menguatkan, jadi energi terasa nyambung.", None)
+        return sc, note, (f"Elemen {ea} dan {eb} kalian saling menguatkan, jadi energi terasa nyambung sejak awal. "
+                          "Kalian cenderung cepat paham maksud satu sama lain tanpa perlu banyak penjelasan, "
+                          "dan itu bikin suasana bareng terasa ringan serta minim drama.", None)
     if sc >= 60:
-        return sc, note, ("Ada titik temu, asal sama-sama mau menyesuaikan tempo.", "Gaya bereaksi kalian beda, rawan salah tangkap.")
-    return sc, note, (None, "Elemen kalian cenderung beda ritme: yang satu cepat, yang lain butuh waktu.")
+        return sc, note, (f"Elemen {ea} dan {eb} punya titik temu asalkan sama-sama mau menyesuaikan tempo. "
+                          "Saat salah satu mau mengalah di waktu yang tepat, kalian bisa saling melengkapi dengan cara yang tidak dimiliki pasangan lain.",
+                          "Gaya bereaksi kalian berbeda, jadi rawan salah tangkap ketika emosi sedang naik. "
+                          "Hal kecil bisa terdengar seperti kritik, padahal niatnya cuma menyampaikan pendapat. "
+                          "Biasakan konfirmasi dulu maksud lawan bicara sebelum menyimpulkan.")
+    return sc, note, (None, f"Elemen {ea} dan {eb} cenderung beda ritme: yang satu bergerak cepat, yang lain butuh waktu mencerna. "
+                      "Tanpa kesadaran ini, satu pihak bisa merasa ditinggal dan pihak lain merasa didesak. "
+                      "Kuncinya adalah menyepakati tempo bersama, bukan memaksa satu cara jadi patokan.")
 
 
 def _score_shio(a, b):
     x, y = a["shio"], b["shio"]
     note = f"{x} & {y}"
     if x == y:
-        return 70, note, ("Kalian punya kebiasaan dan cara pandang yang mirip.", "Kelemahan yang sama bisa saling menguatkan.")
+        return 70, note, (f"Sama-sama shio {x}, kalian punya kebiasaan dan cara pandang yang mirip. "
+                          "Kamu hampir tidak perlu menjelaskan panjang lebar karena lawan bicaramu sudah paham pola pikirnya.",
+                          "Kelemahan yang sama bisa saling menguatkan. Kalau sama-sama gampang menunda atau sama-sama keras kepala, "
+                          "tidak ada yang jadi penyeimbang. Libatkan pihak ketiga atau aturan tertulis untuk hal-hal penting.")
     if any({x, y} <= t for t in _TRINE):
-        return 90, note, ("Satu 'trine' shio: nilai dan tujuan hidup gampang sejalan.", None)
+        return 90, note, (f"{x} dan {y} berada dalam satu 'trine' shio, kelompok yang secara tradisi dianggap paling seirama. "
+                          "Nilai, tujuan hidup, dan cara mengambil keputusan kalian gampang sejalan, "
+                          "jadi rencana jangka panjang terasa lebih mudah disusun bersama.", None)
     if any({x, y} == h for h in _HARMONI):
-        return 85, note, ("Pasangan harmoni shio: saling melengkapi dan menenangkan.", None)
+        return 85, note, (f"{x} dan {y} termasuk pasangan harmoni shio yang saling melengkapi dan menenangkan. "
+                          "Saat salah satu sedang kewalahan, yang lain biasanya hadir dengan sikap yang pas tanpa diminta. "
+                          "Pola ini membuat hubungan terasa aman dan saling menopang.", None)
     if (_SHIO.index(x) - _SHIO.index(y)) % 12 == 6:
-        return 40, note, (None, "Shio kalian berseberangan (bentrok): gesekan mudah muncul kalau ego naik.")
-    return 62, note, ("Tidak ada bentrok khusus, hubungan bisa dibentuk lewat usaha bersama.", None)
+        return 40, note, (None, f"{x} dan {y} berseberangan (bentrok) dalam hitungan shio, sehingga gesekan mudah muncul kalau ego sedang naik. "
+                          "Perbedaan sudut pandang bisa terasa seperti penolakan pribadi. "
+                          "Atur jeda sebelum membalas saat panas, dan fokuskan diskusi pada masalah, bukan pada orangnya.")
+    return 62, note, (f"Tidak ada bentrok khusus antara {x} dan {y}, jadi hubungan bisa dibentuk lewat usaha bersama. "
+                      "Tidak ada keselarasan otomatis, tapi juga tidak ada penghalang bawaan. "
+                      "Kualitas hubungan akan sangat ditentukan oleh kebiasaan kalian sehari-hari.", None)
 
 
 def _score_weton(a, b):
@@ -82,45 +102,99 @@ def _score_weton(a, b):
     nama, sc = _WETON8[tot % 8]
     note = f"{a['hari']} {a['pasaran']} + {b['hari']} {b['pasaran']} (neptu {tot}) = {nama}"
     if sc >= 80:
-        return sc, note, (f"Hitungan neptu jatuh di '{nama}', tergolong sangat baik.", None)
+        return sc, note, (f"Hitungan neptu kalian jatuh di '{nama}', tergolong sangat baik dalam tradisi Jawa. "
+                          "Artinya ritme rezeki, kecocokan batin, dan keharmonisan sehari-hari cenderung mendukung. "
+                          "Tetap rawat dengan kebiasaan baik supaya potensi ini terwujud nyata.", None)
     if sc >= 60:
-        return sc, note, (f"Neptu '{nama}': cukup stabil, perlu dijaga lewat komunikasi.", None)
-    return sc, note, (None, f"Neptu jatuh di '{nama}': perlu kesabaran ekstra dan kesepakatan yang jelas.")
+        return sc, note, (f"Neptu '{nama}' tergolong cukup stabil dan punya dasar yang bisa diandalkan. "
+                          "Hubungan ini tumbuh paling baik ketika kalian rutin menjaga komunikasi dan saling terbuka soal kebutuhan masing-masing.",
+                          "Kestabilan ini bukan jaminan, karena mudah goyah kalau komunikasi mulai jarang. "
+                          "Jangan menunggu masalah membesar sebelum membicarakannya.")
+    return sc, note, (None, f"Neptu kalian jatuh di '{nama}', yang dalam hitungan Jawa butuh kesabaran ekstra dan kesepakatan yang jelas. "
+                      "Pola ini sering muncul sebagai salah paham berulang atau tarik-ulur soal hal yang sama. "
+                      "Tuliskan kesepakatan penting, dan evaluasi bersama secara berkala agar tidak jadi beban terpendam.")
 
 
 def _score_num(a, b):
     la, lb = a["life_path"], b["life_path"]
     note = f"Life Path {la} & {lb}"
     if la == lb:
-        return 78, note, ("Life Path sama: kalian memahami ritme satu sama lain.", "Sifat yang sama bisa berbenturan saat sama-sama keras.")
+        return 78, note, (f"Life Path kalian sama-sama {la}, jadi kalian memahami ritme dan motivasi satu sama lain. "
+                          "Kamu bisa melihat dirimu sendiri di pasanganmu, dan itu menumbuhkan rasa dimengerti yang jarang didapat dari orang lain.",
+                          "Sifat yang sama bisa berbenturan saat sama-sama keras atau sama-sama defensif. "
+                          "Kelemahan yang sama juga tidak punya penyeimbang. Libatkan masukan dari luar untuk keputusan penting.")
     if _GRP[la] == _GRP[lb]:
-        return 88, note, ("Life Path satu kelompok energi: visi dan gaya kerja saling mendukung.", None)
-    return 62, note, ("Beda kelompok energi bisa saling mengisi kalau saling terbuka.", "Cara mengambil keputusan kalian berbeda arah.")
+        return 88, note, (f"Life Path {la} dan {lb} berada dalam satu kelompok energi, sehingga visi dan gaya kerja saling mendukung. "
+                          "Arah yang kalian tuju cenderung searah, dan perbedaan kecil di antara kalian justru terasa saling melengkapi.", None)
+    return 62, note, (f"Life Path {la} dan {lb} berasal dari kelompok energi berbeda, yang bisa saling mengisi kalau kalian saling terbuka. "
+                      "Kalian punya sudut pandang yang tidak dimiliki satu sama lain, sehingga sangat berguna sebagai pelengkap.",
+                      "Cara mengambil keputusan kalian berbeda arah, jadi rawan beda prioritas. "
+                      "Sepakati dulu kriteria keputusan bersama sebelum membahas pilihan, supaya diskusi tidak jadi adu cara.")
 
 
 _SCORERS = {"Zodiak": _score_zodiak, "Shio": _score_shio, "Weton": _score_weton, "Numerologi": _score_num}
 
 _ADVICE = {
     "Asmara / Pasangan": [
-        "Bikin ritual komunikasi mingguan: 20 menit ngobrol tanpa gawai soal harapan dan keresahan masing-masing.",
-        "Rayakan hal kecil dan sebutkan apresiasi secara langsung, jangan menunggu momen besar.",
-        "Saat konflik, sepakati aturan main dulu: tidak saling memotong dan tidak mengungkit masa lalu.",
+        "Bikin ritual komunikasi mingguan: 20 menit ngobrol tanpa gawai soal harapan dan keresahan masing-masing. "
+        "Ritual yang konsisten mencegah masalah kecil menumpuk jadi ledakan di kemudian hari.",
+        "Rayakan hal kecil dan sebutkan apresiasi secara langsung, jangan menunggu momen besar. "
+        "Ucapan sederhana seperti terima kasih atau aku bangga sama kamu sering lebih berpengaruh daripada hadiah mahal.",
+        "Saat konflik, sepakati aturan main dulu: tidak saling memotong dan tidak mengungkit masa lalu. "
+        "Kalau suasana sudah panas, ambil jeda 20 menit lalu lanjutkan dengan kepala dingin.",
+        "Bicarakan visi jangka panjang secara berkala, mulai dari keuangan, tempat tinggal, sampai urusan keluarga. "
+        "Selaras di hal besar membuat perbedaan kecil jadi lebih gampang diterima.",
+        "Sisihkan waktu berdua yang berkualitas, bukan sekadar berada di ruangan yang sama. "
+        "Aktivitas baru bersama bisa menyegarkan hubungan dan menambah cerita yang hanya kalian berdua miliki.",
     ],
     "Mitra Bisnis / Rekan Kerja": [
-        "Tulis pembagian peran, wewenang, dan target secara tertulis sebelum proyek berjalan.",
-        "Pisahkan urusan pribadi dan keuangan bisnis; evaluasi berkala tiap bulan dengan data, bukan perasaan.",
-        "Manfaatkan perbedaan gaya: satu fokus eksekusi, satu fokus strategi dan hubungan klien.",
+        "Tulis pembagian peran, wewenang, dan target secara tertulis sebelum proyek berjalan. "
+        "Kesepakatan tertulis mengurangi debat soal siapa yang bertanggung jawab ketika ada masalah.",
+        "Pisahkan urusan pribadi dan keuangan bisnis; evaluasi berkala tiap bulan dengan data, bukan perasaan. "
+        "Angka yang jelas membuat diskusi sulit jadi lebih objektif.",
+        "Manfaatkan perbedaan gaya: satu fokus eksekusi, satu fokus strategi dan hubungan klien. "
+        "Pembagian sesuai kekuatan masing-masing menghemat energi dan mempercepat hasil.",
+        "Tetapkan mekanisme pengambilan keputusan sejak awal, termasuk apa yang dilakukan kalau pendapat kalian buntu. "
+        "Tanpa aturan ini, keputusan penting bisa tertunda dan menimbulkan frustrasi.",
+        "Sampaikan masukan secara langsung dan spesifik, lalu tutup dengan solusi, bukan sekadar keluhan. "
+        "Budaya feedback yang sehat menjaga kerja sama tetap awet saat bisnis bertumbuh.",
     ],
     "Persahabatan": [
-        "Jadwalkan waktu bertemu yang rutin supaya hubungan tidak hanya hidup saat butuh.",
-        "Jujur secara halus saat ada yang mengganjal; jangan menyimpan sampai meledak.",
-        "Hargai batas masing-masing, termasuk waktu sendiri dan lingkaran pertemanan lain.",
+        "Jadwalkan waktu bertemu yang rutin supaya hubungan tidak hanya hidup saat butuh. "
+        "Pertemanan yang dirawat kecil-kecil tapi konsisten biasanya lebih tahan lama.",
+        "Jujur secara halus saat ada yang mengganjal; jangan menyimpan sampai meledak. "
+        "Sampaikan dengan kalimat aku merasa, bukan kamu selalu, supaya lawan bicara tidak langsung defensif.",
+        "Hargai batas masing-masing, termasuk waktu sendiri dan lingkaran pertemanan lain. "
+        "Memberi ruang justru membuat hubungan terasa aman dan tidak menekan.",
+        "Hadir di momen penting satu sama lain, baik saat senang maupun susah. "
+        "Kehadiran nyata di waktu yang tepat sering jadi ingatan paling kuat dalam sebuah persahabatan.",
+        "Kalau ada selisih paham, selesaikan langsung berdua sebelum cerita ke orang lain. "
+        "Cara ini menjaga kepercayaan dan mencegah masalah kecil berubah jadi gosip.",
     ],
     "Keluarga": [
-        "Dengarkan dulu sebelum menanggapi; banyak gesekan keluarga muncul dari asumsi, bukan niat buruk.",
-        "Tentukan topik sensitif yang dibahas di waktu tenang, bukan saat acara kumpul.",
-        "Tunjukkan peduli lewat tindakan kecil yang konsisten, bukan hanya kata-kata.",
+        "Dengarkan dulu sebelum menanggapi; banyak gesekan keluarga muncul dari asumsi, bukan niat buruk. "
+        "Ulangi dengan kata-katamu sendiri apa yang kamu tangkap, lalu tanya apakah itu benar.",
+        "Tentukan topik sensitif yang dibahas di waktu tenang, bukan saat acara kumpul. "
+        "Suasana santai dan privat membuat percakapan berat lebih mudah diterima.",
+        "Tunjukkan peduli lewat tindakan kecil yang konsisten, bukan hanya kata-kata. "
+        "Telepon singkat, makan bersama, atau bantuan kecil sering lebih bermakna daripada nasihat panjang.",
+        "Hormati perbedaan generasi dan cara pandang tanpa merasa harus saling menyamakan. "
+        "Cukup pahami latar belakang masing-masing dan cari titik tengah yang bisa diterima semua pihak.",
+        "Bagi tanggung jawab keluarga secara adil dan terbuka, termasuk soal waktu, tenaga, dan biaya. "
+        "Kejelasan di awal mencegah rasa tidak adil yang menumpuk diam-diam.",
     ],
+}
+_KUAT_CTX = {
+    "Asmara / Pasangan": "Dalam konteks asmara, kekuatan di atas paling terasa saat kalian sama-sama merasa aman untuk jujur. Rawat kebiasaan kecil yang membuat kalian merasa dipilih setiap hari.",
+    "Mitra Bisnis / Rekan Kerja": "Dalam konteks kerja sama, kekuatan di atas bisa jadi modal besar untuk pembagian peran yang efisien. Manfaatkan sebagai fondasi kepercayaan di setiap keputusan penting.",
+    "Persahabatan": "Dalam konteks persahabatan, kekuatan di atas membuat kalian nyaman jadi diri sendiri tanpa perlu berpura-pura. Itu aset langka yang layak dijaga.",
+    "Keluarga": "Dalam konteks keluarga, kekuatan di atas membantu kalian saling memahami lintas peran dan generasi. Gunakan sebagai jembatan saat ada perbedaan pendapat.",
+}
+_TANTANG_CTX = {
+    "Asmara / Pasangan": "Dalam konteks asmara, tantangan di atas biasanya muncul sebagai salah paham yang berulang. Sadari polanya lebih awal supaya tidak berubah jadi jarak emosional.",
+    "Mitra Bisnis / Rekan Kerja": "Dalam konteks kerja sama, tantangan di atas bisa berdampak ke keputusan dan keuangan bila dibiarkan. Atur aturan main dan evaluasi berkala sejak awal.",
+    "Persahabatan": "Dalam konteks persahabatan, tantangan di atas biasanya terasa saat salah satu pihak menyimpan unek-unek. Bicarakan lebih cepat sebelum jadi jarak.",
+    "Keluarga": "Dalam konteks keluarga, tantangan di atas sering terselip di momen kumpul yang emosional. Pilih waktu dan cara bicara yang tenang agar tidak jadi luka lama.",
 }
 _CTX = {"Asmara / Pasangan": "sebagai pasangan", "Mitra Bisnis / Rekan Kerja": "sebagai rekan kerja",
         "Persahabatan": "sebagai sahabat", "Keluarga": "sebagai keluarga"}
@@ -152,15 +226,20 @@ def _compute(systems, pa, pb, rel):
             tantang.append(f"{_ICON[s]} {s}: {t}")
     total = round(sum(r["score"] for r in rows) / len(rows))
     if not kuat:
-        kuat.append("Perbedaan kalian bisa jadi bahan belajar dan saling melengkapi kalau dikelola dengan baik.")
+        kuat.append("Perbedaan kalian bisa jadi bahan belajar dan saling melengkapi kalau dikelola dengan baik. "
+                    "Titik kuat hubungan ini bukan datang dari kemiripan otomatis, tapi dari kemauan kalian memahami cara pandang satu sama lain.")
     if not tantang:
-        tantang.append("Tidak ada tantangan besar dari sistem yang dipilih; waspadai rasa terlalu nyaman yang bikin lupa merawat hubungan.")
+        tantang.append("Tidak ada tantangan besar dari sistem yang dipilih, tapi waspadai rasa terlalu nyaman yang bikin lupa merawat hubungan. "
+                       "Hubungan yang terlihat mulus tetap butuh percakapan jujur dan usaha rutin supaya tidak jadi datar.")
     ctx = _CTX[rel]
     ringkas = (f"{pa['nama']} & {pb['nama']} {ctx} berada di level “{_label(total)}” ({total}/100) "
                f"berdasarkan {len(rows)} sistem: {', '.join(systems)}.")
+    kuat.append(_KUAT_CTX[rel])
+    tantang.append(_TANTANG_CTX[rel])
     nasihat = list(_ADVICE[rel])
     if total < 60:
-        nasihat.insert(0, "Skor ini bukan vonis. Anggap sebagai peta area yang perlu dijaga lebih sadar.")
+        nasihat.insert(0, "Skor ini bukan vonis. Anggap sebagai peta area yang perlu dijaga lebih sadar. "
+                          "Banyak hubungan dengan skor rendah tetap berjalan baik karena kedua pihak tahu persis di mana titik rawannya.")
     return {"total": total, "label": _label(total), "rows": rows, "kuat": kuat, "tantang": tantang,
             "nasihat": nasihat, "ringkas": ringkas, "rel": rel, "a": pa["nama"], "b": pb["nama"], "systems": list(systems)}
 
@@ -449,14 +528,16 @@ def _render_result():
             copy_button(_plain(r), "📋 Salin Hasil", "dhcp_copy", fs=12.5, h=46)
         with a2:
             st.button("🔄 Cek Pasangan Lain", key="dhcp_again", on_click=_cb_reset, use_container_width=True)
-        if st.button("Selesai & Tutup", key="dhcp_done", type="primary", use_container_width=True):
-            _cb_reset()
-            st.rerun()
+        st.button("Selesai & Tutup", key="dhcp_done", type="primary", use_container_width=True,
+                  on_click=cc.cb_ask, args=("compat",))
 
 
 def _cb_close():
-    if st.session_state.get("dh_cp_step") in ("result", "loading"):
+    step = st.session_state.get("dh_cp_step")
+    if step == "loading":
         _cb_reset()
+    elif step == "result":
+        cc.dismiss("compat", True, leave=_cb_reset)
 
 
 @st.dialog("Cek Kecocokan", width="large", on_dismiss=_cb_close)
@@ -465,7 +546,13 @@ def compat_dialog():
     if step == "loading" and st.session_state.get("dh_cp_res"):
         _render_loading()
     elif step == "result" and st.session_state.get("dh_cp_res"):
-        _render_result()
+        if cc.asking("compat"):
+            cc.render("compat", leave=_cb_reset, icon="💞", title="Yakin Mau Tutup Hasil Kecocokan?",
+                      text="Skor sinergi dan analisis kalian baru saja terbuka. Kalau ditutup, hasil ini hilang dan perlu dihitung ulang.",
+                      tip="Download PDF atau salin hasilnya dulu biar bisa dibaca bareng pasanganmu.",
+                      stay="✨ Lanjut Baca", go="Ya, Tutup Hasil")
+        else:
+            _render_result()
     elif step == "form" and len(st.session_state.get("dh_cp_sys", [])) == st.session_state.get("dh_cp_n", 2):
         _render_form()
     else:
