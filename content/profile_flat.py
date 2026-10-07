@@ -91,7 +91,7 @@ def get_profile(system, raw):
     e = _data(system).get(key) if key else None
     if not isinstance(e, dict) or not e.get("free"):
         return None
-    return {"key": key, "nama": e.get("nama", ""), "free": e["free"], "paid": e.get("paid") or {}}
+    return {"key": key, "nama": e.get("nama", ""), "free": e["free"], "paid": e.get("paid") or {}, "entry": e}
 
 
 def get_title(system, raw):
@@ -132,7 +132,7 @@ def get_big_five(raw):
         if r:
             ringkas.append(f"Dari sisi {_BF_NAMA[tr]} ({lv}), {r}")
     return {"key": key, "nama": e.get("nama", ""), "free": e["free"], "paid": e.get("paid") or {},
-            "title": tit, "ringkas": ringkas}
+            "title": tit, "ringkas": ringkas, "entry": e}
 
 
 def audit(system):
