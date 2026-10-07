@@ -2,7 +2,7 @@
 Modal fitur (UI14): Tarot Spreads Multi-Kartu, Cek Kecocokan, Weekly & Monthly Report,
 Deep Blueprint, Tutorial, Blog, FAQ & Bantuan. Dibuka dari kartu di section Jelajahi
 (class .dh-open-modal + data-modal -> tombol tersembunyi di navbar.py).
-DUMMY: Stardust belum dipotong, tebaran/sinergi/laporan belum ada backend (toast).
+DUMMY: saldo belum dipotong, tebaran/sinergi/laporan belum ada backend (toast).
 """
 
 import html
@@ -106,7 +106,7 @@ def _cb_ts_tab(n):
     st.session_state.dh_ts_tab = n
 
 
-_TS_KEYS = ("dh_ts_step", "dh_ts_cards", "dh_ts_open", "dh_ts_seen", "dh_ts_pending", "dh_ts_showcombo")
+_TS_KEYS = ("dh_ts_step", "dh_ts_cards", "dh_ts_open", "dh_ts_seen", "dh_ts_pending", "dh_ts_showcombo", "dh_ts_active", "dh_ts_new")
 
 
 def _ts_reset():
@@ -135,14 +135,23 @@ def _cb_ts_go():
     ss.dh_ts_step = "loading"
 
 
-def _cb_ts_flip(i):
-    o = st.session_state.setdefault("dh_ts_open", [])
+def _cb_ts_pick(i):
+    """Klik kartu: kalau masih tertutup -> terbuka (flip); lalu jadi kartu aktif."""
+    ss = st.session_state
+    o = ss.setdefault("dh_ts_open", [])
     if i not in o:
         o.append(i)
+        ss.dh_ts_new = i
+    ss.dh_ts_active = i
 
 
 def _cb_ts_all():
-    st.session_state.dh_ts_open = list(range(len(st.session_state.get("dh_ts_cards", []))))
+    ss = st.session_state
+    n = len(ss.get("dh_ts_cards", []))
+    ss.dh_ts_open = list(range(n))
+    ss.dh_ts_new = None
+    if ss.get("dh_ts_active") is None:
+        ss.dh_ts_active = 0
 
 
 def _cb_ts_combo():
@@ -193,13 +202,13 @@ def _ts_intro():
         cols = st.columns(3, gap="small")
         for col, (n, sp) in zip(cols, _SPREADS.items()):
             with col:
-                coin = f"{sp['koin']} SD" if n == tab else f":orange[{sp['koin']} SD]"
+                coin = f"{sp['koin']} ✨" if n == tab else f":orange[{sp['koin']} ✨]"
                 st.button(f"{sp['tab']}  \n{coin}", key=f"dhts_tab_{n}", on_click=_cb_ts_tab, args=(n,),
                           type="primary" if n == tab else "secondary", use_container_width=True)
     sp = _SPREADS[tab]
     st.markdown(
         '<div class="dh-fm-center dh-ts-short"><div class="dh-fm-ico dh-fm-ico-lg">🎴</div>'
-        f'<div class="dh-fm-h2">{sp["title"]}<span class="dh-fm-badge">{sp["koin"]} ✨ SD</span></div>'
+        f'<div class="dh-fm-h2">{sp["title"]}<span class="dh-fm-badge">{sp["koin"]} ✨</span></div>'
         f'<div class="dh-fm-desc">{sp["desc"]}</div></div>', unsafe_allow_html=True)
     cards = "".join(f'<div><b>{html.escape(a)}</b><span>{html.escape(b)}</span></div>' for a, b in sp["pos"])
     st.markdown(f'<div class="dh-fm-pos dh-ts-short"><div class="dh-fm-poshead">POSISI KARTU DALAM TEBARAN ({tab} KARTU):</div>'
@@ -211,13 +220,13 @@ def _ts_intro():
                 from components.dialog_bus import request_with_return
                 request_with_return("auth", "tarot_spread")
         elif u.get("koin", 0) < sp["koin"]:
-            if st.button("Top-up Stardust →", key="dhts_topup", type="primary", use_container_width=True):
+            if st.button("Top-up Saldo →", key="dhts_topup", type="primary", use_container_width=True):
                 from components.dialog_bus import request_with_return
                 request_with_return("pricing_keep", "tarot_spread", dh_pr_tab="koin")
         else:
-            st.button(f"✨ Kocok & Buka Tebaran ({sp['koin']} SD)", key="dhts_go", type="primary",
+            st.button(f"✨ Kocok & Buka Tebaran ({sp['koin']} ✨)", key="dhts_go", type="primary",
                       use_container_width=True, on_click=_cb_ts_go)
-    st.markdown(f'<div class="dh-fm-saldo">Saldo Stardust-mu saat ini: <b>{saldo()} ✨ SD</b></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="dh-fm-saldo">Saldo-mu saat ini: <b>{saldo()} ✨</b></div>', unsafe_allow_html=True)
 
 
 def _ts_loading():
@@ -238,44 +247,53 @@ def _ts_loading():
     st.rerun(scope="fragment")
 
 
-def _ts_cname(slug):
+def _ts_info(slug):
     from content.result_builder import build_display_data
-    c = build_display_data("Tarot", {"kartu": slug}) or {}
-    return f'<br><span class="dh-ts-cn">{html.escape((c.get("title") or slug).split(", ")[0])}</span>'
-
-
-def _ts_card_html(slug, i, opened, n):
-    from components.mini_modals import _cover_uri
     from engine.tarot import TAROT_MAJOR_ARCANA
-    from utils.card_images import card_image_data_uri
-    from content.result_builder import build_display_data
-    if not opened:
-        uri = _cover_uri()
-        return (f'<div class="dh-tr-crop"><img class="dh-tr-cimg" src="{uri}" alt="Kartu tertutup"></div>' if uri
-                else '<div class="dh-tr-img dh-tr-ph">🂠</div>')
-    mayor = slug in TAROT_MAJOR_ARCANA
-    uri = card_image_data_uri(f"tarot/{TAROT_MAJOR_ARCANA.index(slug):02d}_{slug}.png") if mayor else None
-    c = build_display_data("Tarot", {"kartu": slug}) or {}
-    nama = (c.get("title") or slug).split(", ")[0]
-    if uri:
-        return f'<img class="dh-tr-img dh-ts-img" src="{uri}" alt="{html.escape(nama)}">'
-    return '<div class="dh-tr-img dh-tr-ph dh-ts-img" style="aspect-ratio:870/1164"></div>'  # Minor: gambar belum ada
-
-
-def _ts_reading(slug, pos, idx):
-    from components.mini_modals import _first_sentences
-    from content.result_builder import build_display_data
     c = build_display_data("Tarot", {"kartu": slug}) or {}
     nama, _, arti = (c.get("title") or slug).partition(", ")
+    idx = TAROT_MAJOR_ARCANA.index(slug) if slug in TAROT_MAJOR_ARCANA else None
+    return c, nama, arti, idx
+
+
+def _ts_tile(slug, i, is_open, is_active, is_new):
+    """HTML 1 kartu: tertutup = sunmoon + BUKA; terbuka = art kartu (Minor: kotak kosong) + nama."""
+    from components.mini_modals import _cover_uri
+    from utils.card_images import card_image_data_uri
+    e = html.escape
+    cls = "dh-ts-tile" + (" is-open" if is_open else "") + (" is-active" if is_active else "")
+    if not is_open:
+        uri = _cover_uri()
+        art = (f'<div class="dh-tr-crop"><img class="dh-tr-cimg" src="{uri}" alt="Kartu tertutup"></div>' if uri
+               else '<div class="dh-tr-img dh-tr-ph">🂠</div>')
+        return (f'<div class="{cls}"><div class="dh-ts-num">{i + 1}</div><div class="dh-ts-art">{art}'
+                '<span class="dh-ts-buka">BUKA</span></div><div class="dh-ts-name dh-ts-lock">Terkunci</div></div>')
+    _c, nama, _arti, idx = _ts_info(slug)
+    uri = card_image_data_uri(f"tarot/{idx:02d}_{slug}.png") if idx is not None else None
+    if uri:
+        art = f'<img class="dh-tr-img dh-ts-img" src="{uri}" alt="{e(nama)}"><span class="dh-ts-idx">#{idx}</span>'
+    else:  # Minor: gambar belum ada -> kotak kosong
+        art = '<div class="dh-tr-img dh-tr-ph dh-ts-img" style="aspect-ratio:870/1164"></div>'
+    flip = " dh-ts-flip" if is_new else ""
+    return (f'<div class="{cls}"><div class="dh-ts-num">{i + 1}</div><div class="dh-ts-art{flip}">{art}</div>'
+            f'<div class="dh-ts-name">{e(nama)}</div></div>')
+
+
+def _ts_reading(slug, pos):
+    from components.mini_modals import _first_sentences
+    c, nama, arti, idx = _ts_info(slug)
     dom = c.get("domains") or {}
     e = html.escape
-    rows = [("Makna Posisi Ini", _first_sentences(c.get("p1", ""), 2)),
-            ("Nasihat Utama", c.get("quote", "")),
-            ("Karier & Rezeki", _first_sentences(dom.get("karir", ""), 2)),
-            ("Asmara & Relasi", _first_sentences(dom.get("asmara", ""), 2))]
-    body = "".join(f'<div class="dh-ts-rl"><b>{a}</b><p>{e(t)}</p></div>' for a, t in rows if t)
-    return (f'<div class="dh-ts-read"><div class="dh-ts-rpos">{e(pos[0])}</div><div class="dh-ts-rposd">{e(pos[1])}</div>'
-            f'<div class="dh-ts-rname">{e(nama)}{f" · {e(arti)}" if arti else ""}</div>{body}</div>')
+    judul = f"Arcana #{idx}: {nama}" if idx is not None else nama
+    chip = f'<span class="dh-ts-chip">{e(arti)}</span>' if arti else ""
+    blocks = [("Tentang Kartu Ini", _first_sentences(c.get("p1", ""), 2)),
+              ("Karier & Rezeki", _first_sentences(dom.get("karir", ""), 2)),
+              ("Asmara & Relasi", _first_sentences(dom.get("asmara", ""), 2))]
+    rest = "".join(f'<div class="dh-ts-rl"><b>{a}</b><p>{e(t)}</p></div>' for a, t in blocks if t)
+    adv = f'<div class="dh-ts-adv"><b>💬 Nasihat Utama:</b> {e(c["quote"])}</div>' if c.get("quote") else ""
+    return (f'<div class="dh-ts-read"><div class="dh-ts-rpos">{e(pos[0].upper())}</div>'
+            f'<div class="dh-ts-rhead"><div class="dh-ts-rname">{e(judul)}</div>{chip}</div>'
+            f'<div class="dh-ts-rl dh-ts-rmean"><b>Makna Posisi Ini:</b> {e(pos[1])}</div>{adv}{rest}</div>')
 
 
 def _ts_result():
@@ -289,11 +307,19 @@ def _ts_result():
         _ts_reset()
         st.rerun(scope="fragment")
     opened = ss.setdefault("dh_ts_open", [])
+    active, new = ss.get("dh_ts_active"), ss.get("dh_ts_new")
     combo = build_tarot_combo(cards)
-    st.markdown('<div class="dh-step dh-step-detail dh-step-tsres"></div><div class="dh-nodismiss"></div>'
-                f'<div class="dh-ts-badgewrap"><span class="dh-fm-badge dh-ts-badge">{sp["tab"]}</span></div>'
-                '<div class="dh-ts-hint">Klik kartu satu per satu untuk membukanya, atau buka semuanya sekaligus.</div>',
+    st.markdown('<div class="dh-step dh-step-detail dh-step-tsres"></div><div class="dh-nodismiss"></div>',
                 unsafe_allow_html=True)
+    h1, h2 = st.columns([2.6, 1.3], gap="small", vertical_alignment="center")
+    with h1:
+        st.markdown(f'<div class="dh-ts-eyebrow">{html.escape(sp["tab"]).upper()}</div>'
+                    '<div class="dh-ts-hint">Ketuk kartu untuk membukanya, atau buka sekaligus.</div>', unsafe_allow_html=True)
+    with h2:
+        if len(opened) < tab:
+            with st.container(key="dhts_openall"):
+                st.button("Buka Semua Kartu", key="dhts_all", on_click=_cb_ts_all, use_container_width=True)
+    st.markdown('<div class="dh-ts-sep"></div>', unsafe_allow_html=True)
     per_row = 3 if tab == 3 else 5
     with st.container(key="dhts_grid"):
         for r0 in range(0, tab, per_row):
@@ -303,17 +329,13 @@ def _ts_result():
                 if i >= tab:
                     continue
                 with col:
-                    is_open = i in opened
                     with st.container(key=f"dhtsk_{i}"):
-                        st.markdown('<div class="dh-ts-box">' + _ts_card_html(cards[i], i, is_open, tab) + '</div>' +
-                                    f'<div class="dh-ts-plabel">{html.escape(sp["pos"][i][0])}{_ts_cname(cards[i]) if is_open else ""}</div>', unsafe_allow_html=True)
-                        if not is_open:
-                            st.button("Buka", key=f"dhtso_{i}", on_click=_cb_ts_flip, args=(i,))
-    if len(opened) < tab:
-        with st.container(key="dhts_openall"):
-            st.button("🃏 Buka Semua Kartu", key="dhts_all", on_click=_cb_ts_all, use_container_width=True)
-    for i in sorted(opened):
-        st.markdown(_ts_reading(cards[i], sp["pos"][i], i), unsafe_allow_html=True)
+                        st.markdown(_ts_tile(cards[i], i, i in opened, active == i, new == i), unsafe_allow_html=True)
+                        st.button("Pilih", key=f"dhtso_{i}", on_click=_cb_ts_pick, args=(i,))
+    if active is not None and active in opened:
+        st.markdown(_ts_reading(cards[active], sp["pos"][active]), unsafe_allow_html=True)
+    else:
+        st.markdown('<div class="dh-ts-empty">Pilih satu kartu untuk membaca penjelasannya.</div>', unsafe_allow_html=True)
     if combo and len(opened) >= tab:
         if ss.get("dh_ts_showcombo"):
             with st.container(key="dhts_combo"):

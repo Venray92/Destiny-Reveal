@@ -96,12 +96,8 @@ def _cat(nama):
 
 
 def _go_solo(nama):
-    from components.solo_reveal import ACTIVE
     from components.mini_modals import request_solo
-    if nama in ACTIVE:
-        request_solo(nama)
-    else:
-        request_open("solo", dh_solo_step="dev", dh_solo_sys=nama, dh_solo_err=None)
+    request_solo(nama)
 
 
 def open_from_node(nama):

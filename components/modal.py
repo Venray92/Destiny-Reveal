@@ -19,16 +19,16 @@ from components.flow_state import (
 MODAL_MODES = [
     ("instan", "MODE 1", "5 Sistem Kelahiran", "Tanpa Kuesioner",
      [("Zodiak", "♈️"), ("Shio", "🐉"), ("Weton", "🗓️"), ("Numerologi", "🔢"), ("Matrix Destiny", "🔹")],
-     "", "200 SD", "Proses Cepat",
+     "", "200 ✨", "Proses Cepat",
      "Mode 1: Berbasis data lahir mutlak. Tidak perlu kuesioner, langsung lanjut ke verifikasi &amp; cetak biru."),
     ("mendalam", "MODE 2", "5 Sistem Psikologi", "Perlu Kuesioner",
      [("MBTI", "🧠"), ("Big Five", "📊"), ("Enneagram", "🔺"), ("DISC", "🎯"), ("Love Language", "💖")],
-     "", "200 SD", "Psikologi Jiwa",
+     "", "200 ✨", "Psikologi Jiwa",
      "Mode 2: Berbasis kuesioner singkat. Kamu akan diminta menjawab beberapa soal setelah verifikasi."),
     ("lengkap", "MODE 3", "15 Sistem Sekaligus", "",
      [("5 Sistem Kelahiran", "♈️"), ("5 Sistem Psikologi", "🧠"), ("BaZi &amp; Zi Wei", "🏮"),
       ("Human Design", "🔮"), ("Golongan Darah &amp; Tarot", "🩸")],
-     "Terlengkap", "500 SD", "Semua Terbuka",
+     "Terlengkap", "500 ✨", "Semua Terbuka",
      "Mode 3: Gabungan data lahir &amp; kuesioner. Seluruh 15 sistem dibuka dalam satu laporan."),
 ]
 _GOLDA_OPTIONS = ["A", "B", "AB", "O", "Belum tahu"]

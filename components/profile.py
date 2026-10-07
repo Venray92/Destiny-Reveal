@@ -143,8 +143,8 @@ def _render_overview(u):
             st.button("✏️ Edit Profil", key="dhpp_edit", on_click=_cb_edit_open)
     with c2:
         with st.container(key="dhpp_bal"):
-            st.markdown(f'<div class="dh-pp-bl">STARDUST BALANCE</div><div class="dh-pp-bv">{u["koin"]:,}'.replace(",", ".")
-                        + ' <span>Stardust</span></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="dh-pp-bl">SALDO</div><div class="dh-pp-bv">{u["koin"]:,}'.replace(",", ".")
+                        + ' <span>✨</span></div>', unsafe_allow_html=True)
             b1, b2 = st.columns(2, gap="small")
             with b1:
                 if st.button("Top Up", key="dhpp_topup", type="primary", use_container_width=True):
@@ -156,7 +156,7 @@ def _render_overview(u):
     st.markdown(
         '<div class="dh-pp-stats">'
         f'<div><span>Total Referral <i>👥</i></span><b>{nref}</b><em>Teman bergabung</em></div>'
-        f'<div><span>Total Earned <i>✨</i></span><b class="acc">{u.get("earned", 0)} SD</b><em>Stardust terakumulasi</em></div>'
+        f'<div><span>Total Earned <i>✨</i></span><b class="acc">{u.get("earned", 0)} ✨</b><em>terakumulasi</em></div>'
         f'<div><span>Tier Saat Ini <i>⭐</i></span><b>⭐ {tier[0]}</b><em class="g">{tier[2]} Komisi Stardust</em></div></div>',
         unsafe_allow_html=True)
     with st.container(key="dhpp_quick"):

@@ -115,7 +115,7 @@ def request_solo(system):
     request_open("solo", dh_solo_step="select", dh_solo_sys=system, dh_solo_err=None)
 
 
-_COIN_MSG = "Fitur Stardust belum tersedia, masih tahap pengembangan 🚧"
+_COIN_MSG = "Fitur ini belum tersedia, masih tahap pengembangan 🚧"
 
 
 def _soon(msg):
@@ -176,7 +176,7 @@ def _cb_swap_cancel():
 
 
 def _cb_swap_pay():
-    """Bayar 50 SD -> buang kunci harian, user bisa pilih Zodiak/Shio lain lagi."""
+    """Bayar 50 ✨ -> buang kunci harian, user bisa pilih Zodiak/Shio lain lagi."""
     ss = st.session_state
     u = auth.current_user()
     if not u or u.get("koin", 0) < SWAP_PRICE:
@@ -192,13 +192,13 @@ def _render_swap(u):
     st.markdown(
         '<div class="dh-dr-confirm"><div class="dh-dr-cico">🔄</div><div class="dh-dr-ctitle">Buka Sistem Lain Hari Ini</div>'
         '<p>Kuota gratis hari ini sudah terpakai. Mau intip Zodiak, Shio, atau Weton lain? Biayanya '
-        f'<b>{SWAP_PRICE} Stardust</b>, lalu kamu bisa pilih ulang.</p>'
+        f'<b>{SWAP_PRICE} ✨</b>, lalu kamu bisa pilih ulang.</p>'
         f'<div class="dh-dr-bal">Saldo kamu: <b>{saldo} ✨</b> · Sisa setelah bayar: <b>{max(saldo - SWAP_PRICE, 0) if u else 0} ✨</b></div></div>',
         unsafe_allow_html=True)
     if not u:
-        st.markdown('<div class="dh-dr-warn">🔒 Masuk akun dulu supaya Stardust bisa dipakai.</div>', unsafe_allow_html=True)
+        st.markdown('<div class="dh-dr-warn">🔒 Masuk akun dulu supaya saldo ✨ bisa dipakai.</div>', unsafe_allow_html=True)
     elif saldo < SWAP_PRICE:
-        st.markdown(f'<div class="dh-dr-warn">Saldo belum cukup, kurang {SWAP_PRICE - saldo} Stardust.</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="dh-dr-warn">Saldo belum cukup, kurang {SWAP_PRICE - saldo} ✨.</div>', unsafe_allow_html=True)
     with st.container(key="dhdy_confirm"):
         c1, c2 = st.columns(2, gap="small")
         with c1:
@@ -208,7 +208,7 @@ def _render_swap(u):
                 if st.button("Masuk / Daftar →", key="dhdy_swap_login", type="primary", use_container_width=True):
                     request_open("auth")
             elif saldo < SWAP_PRICE:
-                if st.button("Top-up Stardust →", key="dhdy_swap_topup", type="primary", use_container_width=True):
+                if st.button("Top-up Saldo →", key="dhdy_swap_topup", type="primary", use_container_width=True):
                     request_open("pricing_keep", dh_pr_tab="koin")
             else:
                 st.button(f"Bayar {SWAP_PRICE} ✨ & Pilih Ulang", key="dhdy_swap_yes", type="primary",
@@ -286,7 +286,7 @@ def daily_dialog():
         with st.container(key="dhdy_swap"):
             st.markdown('<div class="dh-dr-swaptxt">Mau intip ramalan zodiak, shio, atau weton lain hari ini?</div>',
                         unsafe_allow_html=True)
-            st.button("Ganti Pilihan / Buka Sistem Lain (50 SD) →", key="dhdy_swapbtn", on_click=_cb_swap_open)
+            st.button("Ganti Pilihan / Buka Sistem Lain (50 ✨) →", key="dhdy_swapbtn", on_click=_cb_swap_open)
         if st.button("Sinkronkan dengan Sistem Lainnya →", key="dhdy_sync", use_container_width=True):
             _open_reveal()
         return
@@ -513,7 +513,7 @@ def _cb_claim_week(i):
         return
     s_["claimed"].append(i)
     u["koin"] = u.get("koin", 0) + _WEEKS[i][2]
-    st.session_state.dh_sk_toast = f"🎉 Selamat! +{_WEEKS[i][2]} Stardust telah berhasil masuk ke Saldo Stardust kamu!"
+    st.session_state.dh_sk_toast = f"🎉 Selamat! +{_WEEKS[i][2]} ✨ telah berhasil masuk ke saldo kamu!"
 
 
 def _cb_streak_login():

@@ -1,8 +1,8 @@
 """
-Solo Reveal (UI23): pilih 1 dari 15 sistem -> (kuesioner, khusus 5 sistem psikologi) -> bayar 150 SD -> hasil A-F.
+Solo Reveal (UI23): pilih 1 dari 15 sistem -> (kuesioner, khusus 5 sistem psikologi) -> bayar 150 ✨ -> hasil A-F.
 Satu st.dialog, langkah ganti-ganti lewat on_click callback (dialog tetap kebuka).
 State (session_state): dh_solo_step | dh_solo_sys | dh_solo_prof | dh_solo_ans | dh_solo_res
-DUMMY: Stardust dipotong di session saja (belum ada backend/DB).
+DUMMY: saldo ✨ dipotong di session saja (belum ada backend/DB).
 """
 
 import html
@@ -21,7 +21,7 @@ from content.questionnaires.disc_soal import DISC_QUESTIONS
 from content.questionnaires.enneagram_soal import ENNEAGRAM_QUESTIONS
 from content.questionnaires.love_language_soal import LOVE_LANGUAGE_QUESTIONS
 from content.questionnaires.mbti_soal import MBTI_QUESTIONS
-from content.result_builder import compute_quiz_raw_result, compute_raw_result
+from content.result_builder import build_display_data, compute_quiz_raw_result, compute_raw_result
 
 SOLO_PRICE = 150  # Stardust
 
@@ -60,30 +60,20 @@ def _go(step):
     st.session_state.dh_solo_step = step
 
 
-ACTIVE = ("Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny")  # sistem yang sudah jalan
+ACTIVE = tuple(n for n, _i, _k in SYSTEMS)  # semua 15 sistem aktif
+_BIRTH5 = ("Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny")  # punya JSON profil A-F
 
 
 def _cb_pick(name):
     ss = st.session_state
     ss.dh_solo_sys = name
-    if name not in ACTIVE:  # 10 sistem lain masih dikembangkan -> info, tanpa potong Stardust
-        ss.dh_solo_err = None
-        _go("dev")
-
-
-def _cb_dev_ok():
-    ss = st.session_state
-    ss.pop("dh_solo_sys", None)
-    _go("select")
+    ss.dh_solo_err = None
 
 
 def _cb_to_next():
     """Dari pilih sistem: validasi data diri -> kuesioner (sistem psikologi) atau bayar."""
     ss = st.session_state
     name = ss.get("dh_solo_sys")
-    if name and name not in ACTIVE:
-        _go("dev")
-        return
     prof = _profile()
     if not name:
         ss.dh_solo_err = "Pilih salah satu sistem dulu ya."
@@ -98,6 +88,12 @@ def _cb_to_next():
         prof = {"nama": nama, "tgl": tgl, "jam": jam, "kota": (ss.get("dhso_kota") or "").strip(),
                 "golda": ss.get("dhso_golda") or ""}
         ss.dh_solo_prof = prof
+    else:  # profil sudah ada: lengkapi jam / golda dari field tambahan kalau sistemnya butuh
+        prof = dict(prof)
+        if ss.get("dhso_jam2") and not prof.get("jam"):
+            prof["jam"] = ss.dhso_jam2
+        if ss.get("dhso_golda2") and prof.get("golda") in ("", "Belum tahu", None):
+            prof["golda"] = ss.dhso_golda2
     if name in ("Zi Wei", "Human Design") and not prof.get("jam"):
         ss.dh_solo_err = f"{name} butuh Jam Lahir. Isi Jam Lahir dulu ya."
         return
@@ -124,6 +120,68 @@ def _cb_quiz_done():
     _go("pay")
 
 
+# alias key JSON per aspek (dibaca langsung dari JSON; urutan = prioritas)
+_ALIAS = {
+    "A": ("aspek_utama", "siapa_kamu"),
+    "B": ("karier_dan_keuangan", "karir", "keuangan"),
+    "C": ("asmara_dan_hubungan", "asmara"),
+    "D": ("kekuatan_karakter", "kekuatan_yang_perlu_dijaga"),
+    "E": ("shadow_work", "shadow", "sisi_gelap", "shadow_side", "blindspot"),
+    "F": ("nasihat_strategis", "nasihat", "rekomendasi"),
+}
+
+
+def _entry_aspek(entry):
+    """Teks aspek A-F dari satu entri JSON. Prioritas: sections.A-F (format A-M) -> key bernama
+    (paid/free/sections/entri) sesuai _ALIAS -> cadangan lama (E = pr_kecil_buat_kamu, F = kesehatan)."""
+    sec = entry.get("sections") if isinstance(entry.get("sections"), dict) else {}
+    pools = [sec, entry.get("paid") or {}, entry.get("free") or {}, entry]
+
+    def one(key):
+        for pool in pools:
+            v = pool.get(key)
+            if isinstance(v, str) and v.strip():
+                return v.strip()
+            if isinstance(v, list):
+                t = [str(x).strip() for x in v if str(x).strip()]
+                if t:
+                    return "\n".join(t)
+        return ""
+
+    out = {}
+    for h, keys in _ALIAS.items():
+        texts = [one(h)] if one(h) else []
+        if not texts:
+            texts = [t for t in (one(k) for k in keys) if t]
+            if h in "AEF" and texts:
+                texts = texts[:1]
+        out[h] = texts
+    if not out["E"]:
+        out["E"] = [t for t in [one("pr_kecil_buat_kamu")] if t]
+    if not out["F"]:
+        out["F"] = [t for t in [one("kesehatan")] if t]
+    return [out[h] for h in "ABCDEF"]
+
+
+def _solo_detail(name, raw):
+    """Detail A-F. 5 sistem lahir = JSON A-F. 10 sistem lain = dibaca dari entri JSON-nya (lihat _entry_aspek)."""
+    d = build_detail(name, raw)
+    if not d or name in _BIRTH5:
+        return d
+    from content import profile_flat
+    prof = profile_flat.get_big_five(raw) if name == "Big Five" else profile_flat.get_profile(name, raw)
+    entry = (prof or {}).get("entry")
+    if not entry:
+        return d
+    secs = _entry_aspek(entry)
+    if name == "Big Five":  # narasi utama + ringkasan 4 trait lain
+        disp = build_display_data(name, raw) or {}
+        if disp.get("p1"):
+            secs[0] = [disp["p1"]]
+    d["sections"] = [(ic, t, texts, tone) for (ic, t, _old, tone), texts in zip(d["sections"], secs)]
+    return d
+
+
 def _cb_pay():
     ss = st.session_state
     u = auth.current_user()
@@ -140,7 +198,7 @@ def _cb_pay():
         raw = compute_raw_result(name, {
             "tanggal_lahir": prof["tgl"], "jam_lahir": prof.get("jam"), "kota_lahir": prof.get("kota"),
             "golongan_darah": prof.get("golda"), "nama_lengkap": prof["nama"]})
-    detail = build_detail(name, raw)
+    detail = _solo_detail(name, raw)
     if not detail:
         ss.dh_solo_err = "Hasil sistem ini belum bisa dihitung untuk datamu (mis. tahun lahir di luar jangkauan). Saldo tidak dipotong."
         return
@@ -208,7 +266,7 @@ def _head(sub="Pilih 1 sistem, dapat analisis lengkap A-F"):
     st.markdown(
         '<div class="dh-step dh-step-solo"></div><div class="dh-nodismiss"></div>'
         '<div class="dh-so-head"><span class="dh-so-ico">🧭</span><div><div class="dh-so-brand">SOLO REVEAL</div>'
-        f'<div class="dh-so-hsub">{sub} · 💰 {SOLO_PRICE} Stardust</div></div></div><div class="dh-so-line"></div>',
+        f'<div class="dh-so-hsub">{sub} · {SOLO_PRICE} ✨</div></div></div><div class="dh-so-line"></div>',
         unsafe_allow_html=True)
 
 
@@ -217,7 +275,7 @@ def _render_select():
     u = auth.current_user()
     prof = _profile()
     _head()
-    st.markdown(f'<div class="dh-so-h2">Pilih Sistem<span class="dh-so-pill">Biaya: {SOLO_PRICE} Stardust</span></div>',
+    st.markdown(f'<div class="dh-so-h2">Pilih Sistem<span class="dh-so-pill">Biaya: {SOLO_PRICE} ✨</span></div>',
                 unsafe_allow_html=True)
     if prof:
         tgl = prof["tgl"].strftime("%Y-%m-%d") if hasattr(prof["tgl"], "strftime") else str(prof["tgl"])
@@ -225,13 +283,17 @@ def _render_select():
             f'<div class="dh-so-sub">Pilih 1 sistem yang mau kamu analisis secara mendalam (6 aspek A-F) untuk '
             f'{_e(prof["nama"])}.</div>'
             f'<div class="dh-so-prof"><span><i></i><b>{_e(prof["nama"])}</b> · {tgl}</span>'
-            f'<span class="dh-so-bal">Saldo: ✨ {_saldo()} SD</span></div>', unsafe_allow_html=True)
+            f'<span class="dh-so-bal">Saldo: {_saldo()} ✨</span></div>', unsafe_allow_html=True)
     else:
         st.markdown('<div class="dh-so-sub">Pilih 1 sistem yang mau kamu analisis secara mendalam (6 aspek A-F). '
                     + ('Lengkapi data dirimu dulu.' if u else 'Isi data dirimu (atau masuk akun supaya data terisi otomatis).')
                     + '</div>', unsafe_allow_html=True)
         _render_form(u)
     picked = ss.get("dh_solo_sys")
+    if prof and picked in ("Zi Wei", "Human Design") and not prof.get("jam"):
+        st.time_input(f"Jam Lahir (wajib untuk {picked})", value=None, key="dhso_jam2")
+    if prof and picked == "Golongan Darah" and prof.get("golda") in ("", "Belum tahu", None):
+        st.selectbox("Golongan Darah", _GOLDA[:4], index=None, placeholder="Pilih", key="dhso_golda2")
     st.markdown('<div class="dh-so-label">Pilih 1 dari 15 Sistem Kosmik:</div>', unsafe_allow_html=True)
     with st.container(key="dhso_grid"):
         for r in range(3):
@@ -242,23 +304,11 @@ def _render_select():
                               type="primary" if picked == name else "secondary", use_container_width=True)
     if ss.get("dh_solo_err"):
         st.error(ss.dh_solo_err)
-    label = f"Lanjutkan ke Pembayaran ({SOLO_PRICE}✨) →" if picked and _KIND[picked] != "quiz" else (
-        f"Lanjut: Isi Kuesioner {picked} →" if picked else f"Lanjutkan ke Pembayaran ({SOLO_PRICE}✨) →")
+    label = f"Lanjutkan ke Pembayaran ({SOLO_PRICE} ✨) →" if picked and _KIND[picked] != "quiz" else (
+        f"Lanjut: Isi Kuesioner {picked} →" if picked else f"Lanjutkan ke Pembayaran ({SOLO_PRICE} ✨) →")
     with st.container(key="dhso_cta"):
         st.button(label, key="dhso_next", type="primary", use_container_width=True, on_click=_cb_to_next)
 
-
-# ─────────────── info: sistem belum tersedia ───────────────
-def _render_dev():
-    name = st.session_state.dh_solo_sys
-    _head()
-    st.markdown(
-        '<div class="dh-so-dev"><div class="dh-so-devico">🚧</div><div class="dh-so-devh">Fitur Dalam Tahap Pengembangan</div>'
-        f'<p>Sistem <b>{_e(name)}</b> saat ini masih dalam tahap pengembangan dan akan segera hadir. Silakan pilih sistem '
-        'lain yang sudah tersedia (Zodiak, Shio, Weton, Numerologi, atau Matrix Destiny) untuk melanjutkan analisis.</p>'
-        '<div class="dh-so-devnote">Stardust kamu tidak dipotong.</div></div>', unsafe_allow_html=True)
-    with st.container(key="dhso_cta"):
-        st.button("Pilih Sistem Lain", key="dhso_dev_ok", type="primary", use_container_width=True, on_click=_cb_dev_ok)
 
 
 # ─────────────── langkah 1b: kuesioner (5 sistem psikologi) ───────────────
@@ -302,7 +352,7 @@ def _render_quiz():
             st.button("← Kembali", key="dhso_q_back", on_click=_go, args=("select",), use_container_width=True)
     with c2:
         with st.container(key="dhso_cta"):
-            st.button(f"Lanjutkan ke Pembayaran ({SOLO_PRICE}✨) →", key="dhso_q_next", type="primary",
+            st.button(f"Lanjutkan ke Pembayaran ({SOLO_PRICE} ✨) →", key="dhso_q_next", type="primary",
                       use_container_width=True, on_click=_cb_quiz_done)
 
 
@@ -319,15 +369,15 @@ def _render_pay():
         f'<div class="dh-so-sub">Sistem terpilih: <b class="dh-so-acc">{_e(name)}</b> {_ICON[name]}</div>'
         '<div class="dh-so-box">'
         f'<div class="dh-so-row"><span>Fitur Solo Reveal:</span><b>Analisis 6 Aspek ({_e(name)})</b></div>'
-        f'<div class="dh-so-row"><span>Harga Fitur:</span><b class="dh-so-acc">💰 {SOLO_PRICE} Stardust</b></div>'
-        f'<div class="dh-so-row"><span>Saldo Stardust Kamu:</span><b>⭐ {saldo} Stardust</b></div>'
-        f'<div class="dh-so-row dh-so-last"><span>Sisa Saldo Setelah Bayar:</span><b class="dh-so-big">⭐ {max(sisa, 0) if u else 0} Stardust</b></div>'
+        f'<div class="dh-so-row"><span>Harga Fitur:</span><b class="dh-so-acc">{SOLO_PRICE} ✨</b></div>'
+        f'<div class="dh-so-row"><span>Saldo Kamu:</span><b>{saldo} ✨</b></div>'
+        f'<div class="dh-so-row dh-so-last"><span>Sisa Saldo Setelah Bayar:</span><b class="dh-so-big">{max(sisa, 0) if u else 0} ✨</b></div>'
         '</div>', unsafe_allow_html=True)
     if not u:
-        st.markdown('<div class="dh-so-note bad">🔒 Kamu belum masuk akun. Masuk dulu supaya Saldo Stardust bisa dipakai '
-                    '(akun baru dapat bonus Stardust).</div>', unsafe_allow_html=True)
+        st.markdown('<div class="dh-so-note bad">🔒 Kamu belum masuk akun. Masuk dulu supaya saldo ✨ bisa dipakai '
+                    '(akun baru dapat bonus ✨).</div>', unsafe_allow_html=True)
     elif sisa < 0:
-        st.markdown(f'<div class="dh-so-note bad">Saldo belum cukup, kurang {-sisa} Stardust. Top-up dulu ya.</div>',
+        st.markdown(f'<div class="dh-so-note bad">Saldo belum cukup, kurang {-sisa} ✨. Top-up dulu ya.</div>',
                     unsafe_allow_html=True)
     else:
         st.markdown('<div class="dh-so-note ok">✓ Saldo mencukupi! Klik bayar untuk memulai kalkulasi seketika.</div>',
@@ -346,10 +396,10 @@ def _render_pay():
                              use_container_width=True):
                     request_with_return("auth", "solo")
             elif sisa < 0:
-                if st.button("Top-up Stardust →", key="dhso_p_topup", type="primary", use_container_width=True):
+                if st.button("Top-up Saldo →", key="dhso_p_topup", type="primary", use_container_width=True):
                     request_with_return("pricing_keep", "solo", dh_pr_tab="koin")
             else:
-                st.button(f"Bayar {SOLO_PRICE} Stardust →", key="dhso_p_pay", type="primary",
+                st.button(f"Bayar {SOLO_PRICE} ✨ →", key="dhso_p_pay", type="primary",
                           use_container_width=True, on_click=_cb_pay)
 
 
@@ -362,7 +412,7 @@ def _render_result():
     d, name, nama = res["detail"], res["system"], res["nama"]
     st.markdown('<div class="dh-step dh-step-solo dh-step-solo-lg"></div><div class="dh-nodismiss"></div>'
                 '<div class="dh-so-head"><span class="dh-so-ico">🧭</span><div><div class="dh-so-brand">SOLO REVEAL</div>'
-                f'<div class="dh-so-hsub">Pilih 1 sistem, dapat analisis lengkap A-F · 💰 {SOLO_PRICE} Stardust</div></div></div>'
+                f'<div class="dh-so-hsub">Pilih 1 sistem, dapat analisis lengkap A-F · {SOLO_PRICE} ✨</div></div></div>'
                 '<div class="dh-so-line"></div>', unsafe_allow_html=True)
     quote = d.get("quote") or ""
     chips = "".join(f'<span class="dh-so-chip">{_e(k)}: <b>{_e(v)}</b></span>' for k, v in (d.get("params") or []))
@@ -417,8 +467,6 @@ def solo_dialog():
     step = ss.get("dh_solo_step", "select")
     if step == "result" and ss.get("dh_solo_res"):
         _render_result()
-    elif step == "dev" and ss.get("dh_solo_sys"):
-        _render_dev()
     elif step == "quiz" and ss.get("dh_solo_sys"):
         _render_quiz()
     elif step == "pay" and ss.get("dh_solo_sys"):

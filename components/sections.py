@@ -173,11 +173,9 @@ def render_matrix_diagram(sistem_lookup):
                 with st.container(key=f"dhnode_{i}"):
                     st.button(" ", key=f"dhnbtn_{i}", icon=f":material/{icon}:", on_click=open_from_node, args=(nama,))
                     st.markdown(f'<div class="dh-matrix-node-label">{nama}</div>', unsafe_allow_html=True)
+        st.markdown('<div class="dh-matrix-caption">Klik pada ikon lingkaran untuk membaca ringkasan sistem</div>',
+                    unsafe_allow_html=True)
 
-    st.markdown(
-        '<div class="dh-matrix-caption">Klik pada ikon lingkaran untuk membaca ringkasan sistem</div>',
-        unsafe_allow_html=True,
-    )
 
 
 # ══════════════════════════════════════════════════════════════

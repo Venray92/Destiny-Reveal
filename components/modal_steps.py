@@ -101,7 +101,7 @@ def render_verify():
         st.markdown('<div class="dh-modal-section"><span>🎁 PUNYA KODE REFERRAL / KUPON?</span>'
                     '<i class="dh-opt">Opsional</i></div>'
                     '<div class="dh-fhint">Masukkan kode referral teman atau kode promosi untuk mendapatkan '
-                    'diskon biaya dan bonus Stardust.</div>', unsafe_allow_html=True)
+                    'diskon biaya dan bonus ✨.</div>', unsafe_allow_html=True)
         r1, r2 = st.columns([4, 1.3], gap="small", vertical_alignment="center")
         with r1:
             st.text_input("Kode Referral", placeholder="MASUKKAN KODE REFERRAL (CTH: DESTINY2026)",
@@ -113,7 +113,7 @@ def render_verify():
         if ss.get("dh_ref_applied"):
             st.markdown(
                 f'<div class="dh-okbox">✓ Kode referral "{ss.dh_ref_code}" aktif! '
-                f'Diskon {int(REFERRAL_DISCOUNT * 100)}% &amp; bonus {REFERRAL_BONUS_COIN} SD diterapkan.</div>',
+                f'Diskon {int(REFERRAL_DISCOUNT * 100)}% &amp; bonus {REFERRAL_BONUS_COIN} ✨ diterapkan.</div>',
                 unsafe_allow_html=True,
             )
     st.markdown('<div class="dh-lockbox">🔒 Paket terpilih (Mode 1: 5 Kelahiran) dan metode pembayaran '
@@ -123,7 +123,7 @@ def render_verify():
 
 # ══════════════════ LANGKAH 2: PAKET & PEMBAYARAN ══════════════════
 PAY_METHODS = [
-    ("koin", "✨", "Saldo Stardust", "200 SD"),
+    ("koin", "✨", "Saldo ✨", "200 ✨"),
     ("gopay", "📱", "GoPay", "Instan"),
     ("qris", "⬛", "QRIS", "Semua Bank"),
     ("ovo", "💜", "OVO / DANA", "E-Wallet"),
@@ -153,7 +153,7 @@ def render_pay():
     method = ss.get("dh_pay_method", "gopay")
     price = price_now()
     ref_line = (f'<div class="dh-vref">🎁 Referral Aktif: {ss.dh_ref_code} '
-                f'(Diskon {int(REFERRAL_DISCOUNT * 100)}% &amp; +{REFERRAL_BONUS_COIN} SD)</div>'
+                f'(Diskon {int(REFERRAL_DISCOUNT * 100)}% &amp; +{REFERRAL_BONUS_COIN} ✨)</div>'
                 if ss.get("dh_ref_applied") else "")
     strike = f'<s>{rp(MODE1_PRICE_BASE)}</s>' if ss.get("dh_ref_applied") else ""
 
@@ -170,7 +170,7 @@ def render_pay():
         '<div class="dh-pkg-label">PAKET TERPILIH:</div>'
         '<div class="dh-pkg-title">Mode 1: 5 Kelahiran</div>'
         '<div class="dh-pkg-sub">Zodiak, Shio, Weton, Numerologi, Matrix Destiny</div></div>'
-        f'<div class="dh-pkg-price">{strike}<b>{rp(price)}</b><span>atau 200 SD</span></div></div>'
+        f'<div class="dh-pkg-price">{strike}<b>{rp(price)}</b><span>atau 200 ✨</span></div></div>'
         f'<div class="dh-pkg-foot"><span>Profil: <b>{(data.get("nama") or "").upper()}</b></span>'
         '<span>Format: Cetak Biru Interaktif + Akun</span></div></div>',
         unsafe_allow_html=True,

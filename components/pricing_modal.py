@@ -19,12 +19,12 @@ TABS = [("semua", "Semua"), ("koin", "✨ Stardust"), ("fitur", "🔒 Fitur Star
 
 # (nama, badge, harga, per SD, jumlah SD, bonus, deskripsi)
 COIN_PACKS = [
-    ("Starter", "Coba Dulu", "Rp 10.000", "Rp 83/SD", 120, "+20%", "Cocok untuk dicoba, bisa unlock 2 sistem atau Tarot 3 Kartu."),
-    ("Basic", "Populer", "Rp 25.000", "Rp 71/SD", 350, "+40%", "Pilihan pas untuk eksplorasi beberapa sistem dan Tarot."),
-    ("Value", "Hemat", "Rp 50.000", "Rp 67/SD", 750, "+50%", "Cukup untuk Complete Bundle (15 sistem) atau Deep Blueprint."),
-    ("Pro", "Best Value", "Rp 100.000", "Rp 63/SD", 1600, "+60%", "Ideal untuk eksplorasi mendalam, report bulanan, dan kompatibilitas."),
-    ("Sultan", "Top Up / Hemat 75%", "Rp 200.000", "Rp 57/SD", 3500, "+75%", "Akses tak terbatas untuk semua analisis, report, dan Tarot."),
-    ("Kaisar", "Top Up / Bonus 100%", "Rp 500.000", "Rp 50/SD", 10000, "+100%", "Paket ultimate dengan bonus maksimal untuk penggunaan jangka panjang tanpa batas."),
+    ("Starter", "Coba Dulu", "Rp 10.000", "Rp 83/✨", 120, "+20%", "Cocok untuk dicoba, bisa unlock 2 sistem atau Tarot 3 Kartu."),
+    ("Basic", "Populer", "Rp 25.000", "Rp 71/✨", 350, "+40%", "Pilihan pas untuk eksplorasi beberapa sistem dan Tarot."),
+    ("Value", "Hemat", "Rp 50.000", "Rp 67/✨", 750, "+50%", "Cukup untuk Complete Bundle (15 sistem) atau Deep Blueprint."),
+    ("Pro", "Best Value", "Rp 100.000", "Rp 63/✨", 1600, "+60%", "Ideal untuk eksplorasi mendalam, report bulanan, dan kompatibilitas."),
+    ("Sultan", "Top Up / Hemat 75%", "Rp 200.000", "Rp 57/✨", 3500, "+75%", "Akses tak terbatas untuk semua analisis, report, dan Tarot."),
+    ("Kaisar", "Top Up / Bonus 100%", "Rp 500.000", "Rp 50/✨", 10000, "+100%", "Paket ultimate dengan bonus maksimal untuk penggunaan jangka panjang tanpa batas."),
 ]
 
 
@@ -45,7 +45,7 @@ FEATURES = [
         ("Tarot 3 Kartu", 50, "Past, Present, Future + Interpretasi Detail", "tarot_spread", {"dh_ts_tab": 3}),
         ("Tarot 5 Kartu", 100, "Cross Spread (Situasi, Rintangan, Bawah Sadar, Saran, Hasil)", "tarot_spread", {"dh_ts_tab": 5}),
         ("Tarot Celtic Cross", 150, "10 Posisi Legendaris Celtic Cross Komprehensif", "tarot_spread", {"dh_ts_tab": 10}),
-        ("Tarot Bundle", 250, "3 Spread Sekaligus (Hemat 50 SD)", "tarot_spread", {"dh_ts_tab": 3}),
+        ("Tarot Bundle", 250, "3 Spread Sekaligus (Hemat 50 ✨)", "tarot_spread", {"dh_ts_tab": 3}),
     ]),
     ("LAPORAN & KECOCOKAN (REPORT & COMPATIBILITY)", [
         ("Weekly Report", 100, "Panduan timing & prediksi mingguan (4-5 minggu)", "weekly", {}),
@@ -117,10 +117,10 @@ def _sec_coin():
                 with st.container(key=f"dhpr_coin_{sd}"):
                     st.markdown(
                         f'<div class="dh-pr-chead"><b>{nama}</b><em>{badge}</em></div>'
-                        f'<div class="dh-pr-sd">{_fmt(sd)} ✨ Stardust <i>Bonus {bonus}</i></div>'
+                        f'<div class="dh-pr-sd">{_fmt(sd)} ✨ <i>Bonus {bonus}</i></div>'
                         f'<div class="dh-pr-price">{harga}</div>'
                         f'<div class="dh-pr-cdesc">{desc}</div>', unsafe_allow_html=True)
-                    st.button(f"Beli {_fmt(sd)} Stardust", key=f"dhpr_buy_{sd}", on_click=_buy, use_container_width=True)
+                    st.button(f"Beli {_fmt(sd)} ✨", key=f"dhpr_buy_{sd}", on_click=_buy, use_container_width=True)
 
 
 def _blueprint_info():
@@ -161,7 +161,7 @@ def _sec_fitur():
                     with c1:
                         st.markdown(f'<div class="dh-pr-fn">{nama}</div>', unsafe_allow_html=True)
                     with c2:
-                        st.markdown(f'<span class="dh-pr-pill">{sd} ✨ SD</span>', unsafe_allow_html=True)
+                        st.markdown(f'<span class="dh-pr-pill">{sd} ✨</span>', unsafe_allow_html=True)
                     with c3:
                         st.markdown(f'<div class="dh-pr-fk">{html.escape(ket)}</div>', unsafe_allow_html=True)
                     with c4:

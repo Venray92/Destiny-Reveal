@@ -244,10 +244,10 @@ def _cb_go():
         ss.dh_cp_err = "Pilih Tipe Hubungan dulu."
         return
     if not u:
-        ss.dh_cp_err = "Masuk akun dulu supaya Stardust bisa dipakai."
+        ss.dh_cp_err = "Masuk akun dulu supaya saldo ✨ bisa dipakai."
         return
     if u.get("koin", 0) < cost:
-        ss.dh_cp_err = f"Saldo belum cukup, kurang {cost - u['koin']} Stardust."
+        ss.dh_cp_err = f"Saldo belum cukup, kurang {cost - u['koin']} ✨."
         return
     res = _compute(systems, pa, pb, rel)
     if not res:
@@ -374,7 +374,7 @@ def _render_form():
     st.selectbox("Tipe Hubungan", RELATIONS, index=None, placeholder="Pilih tipe hubungan", key="dhcp_rel")
     _save()
     if not u:
-        st.markdown('<div class="dh-cp-note">🔒 Kamu perlu masuk akun untuk membayar dengan Stardust.</div>', unsafe_allow_html=True)
+        st.markdown('<div class="dh-cp-note">🔒 Kamu perlu masuk akun untuk membayar dengan ✨.</div>', unsafe_allow_html=True)
     else:
         st.markdown(f'<div class="dh-cp-note ok">Saldo: <b>{u["koin"]} ✨</b> · Biaya: <b>{cost} ✨</b></div>', unsafe_allow_html=True)
     _err()
@@ -388,7 +388,7 @@ def _render_form():
                 if st.button("Masuk / Daftar untuk Bayar →", key="dhcp_login", type="primary", use_container_width=True):
                     request_with_return("auth", "compat")
             elif u["koin"] < cost:
-                if st.button("Top-up Stardust →", key="dhcp_topup", type="primary", use_container_width=True):
+                if st.button("Top-up Saldo →", key="dhcp_topup", type="primary", use_container_width=True):
                     request_with_return("pricing_keep", "compat", dh_pr_tab="koin")
             else:
                 st.button(f"Hitung Sinergi Pasangan ({cost} ✨)", key="dhcp_go", type="primary",

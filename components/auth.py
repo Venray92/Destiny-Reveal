@@ -149,7 +149,7 @@ def _render_email():
         '<div class="dh-au-notice"><b><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#5F8A69" '
         'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/>'
         '<path d="M9 12l2 2 4-4"/></svg>Autentikasi Verifikasi Email Langsung</b>'
-        'Kami akan mengirimkan kode 6-digit ke emailmu. Setelah masuk, profil dan saldo Stardust ✨ otomatis terbuka.</div>',
+        'Kami akan mengirimkan kode 6-digit ke emailmu. Setelah masuk, profil dan saldo ✨ otomatis terbuka.</div>',
         unsafe_allow_html=True)
     st.checkbox("Saya telah membaca dan menyetujui Syarat & Ketentuan serta Kebijakan Privasi Destiny Reveal.",
                 key="dha_agree")
@@ -158,7 +158,7 @@ def _render_email():
     if last := ss.get("dh_last_user"):  # pernah login di sesi ini -> tawarkan Masuk Cepat
         lu = last["user"]
         with st.container(key="dha_fast"):
-            st.button(f"✨ ⚡ Masuk Cepat sebagai {lu['nama']} (⭐ {lu.get('koin', 0)} Stardust)", key="dha_fastbtn",
+            st.button(f"✨ ⚡ Masuk Cepat sebagai {lu['nama']} ({lu.get('koin', 0)} ✨)", key="dha_fastbtn",
                       on_click=_cb_quick_last, use_container_width=True)
     st.markdown('<div class="dh-au-foot">Belum punya akun? Cukup masukkan emailmu di atas, akun barumu akan '
                 'otomatis dibuat.</div>', unsafe_allow_html=True)
