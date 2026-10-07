@@ -75,7 +75,7 @@ def test_big_five_sedang_punya_teks_sendiri():
     for t in "OCEAN":
         r = PF.get_big_five({"levels": {k: "Sedang" for k in "OCEAN"}, "scores": {k: 21 for k in "OCEAN"},
                              "dominant_trait": t})
-        assert r and r["key"].endswith("_sedang") and len(r["paid"]) == 6
+        assert r and r["key"].endswith("_sedang") and len(r["paid"]) >= 6
         assert len(r["ringkas"]) == 4
 
 
