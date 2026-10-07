@@ -118,6 +118,17 @@ def _plain_text(system_label, detail, combo=()):
     return "\n".join(out).strip()
 
 
+def render_combo_card(sys_title, blocks):
+    """Kartu Combo border pelangi (dipakai Analisis Lengkap Mode 1 dan hasil Solo Reveal)."""
+    if not blocks:
+        return
+    body = "".join(f'<span class="dh-dt-cb-h">{_e(b["title"])}</span><p>{_e(b["text"])}</p>' for b in blocks)
+    st.markdown('<div class="dh-dt-combo"><div class="dh-dt-sec-t"><span class="dh-dt-ico">🌈</span>'
+                'COMBO: KETIKA VARIABEL-VARIABELMU BERTEMU</div>'
+                f'<div class="dh-dt-cb-sub">Perpaduan beberapa unsur dalam hasil {_e(sys_title)} milikmu.</div>{body}</div>',
+                unsafe_allow_html=True)
+
+
 # ── callback ─────────────────────────────────────────────────────
 def cb_open_detail(system):
     st.session_state.dh_detail_system = system
@@ -228,13 +239,7 @@ def render_detail():
         st.markdown(f'<div class="dh-dt-sec dh-dt-{tone}"><div class="dh-dt-sec-t"><span class="dh-dt-ico">{icon}</span>'
                     f'{title}</div>{body}</div>', unsafe_allow_html=True)
 
-    combo_blocks = build_combo(system, raw)
-    if combo_blocks:  # kartu terakhir setelah seksi hasil: border pelangi
-        body = "".join(f'<span class="dh-dt-cb-h">{_e(b["title"])}</span><p>{_e(b["text"])}</p>' for b in combo_blocks)
-        st.markdown('<div class="dh-dt-combo"><div class="dh-dt-sec-t"><span class="dh-dt-ico">🌈</span>'
-                    'COMBO: KETIKA VARIABEL-VARIABELMU BERTEMU</div>'
-                    f'<div class="dh-dt-cb-sub">Perpaduan beberapa unsur dalam hasil {_e(sys_title)} milikmu.</div>{body}</div>',
-                    unsafe_allow_html=True)
+    render_combo_card(sys_title, build_combo(system, raw))  # kartu terakhir setelah seksi hasil: border pelangi
 
     if detail["params"]:
         cells = "".join(f'<div class="dh-dt-pm"><span>{_e(k)}</span><b>{_e(v)}</b></div>' for k, v in detail["params"])

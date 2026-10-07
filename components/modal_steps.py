@@ -249,18 +249,19 @@ def compute_mode1(nama, tgl, jam=None, kota=None):
 
 
 def render_loading():
+    t0 = time.time()
     data = st.session_state.get("dh_modal_data") or {}
     st.markdown(
-        '<div class="dh-step dh-step-loading"></div><div class="dh-loading">'
-        '<div class="dh-spin"><span>✦</span></div>'
-        '<div class="dh-loading-title">Menyelaraskan Mode 1: 5 Kelahiran...</div>'
-        '<div class="dh-loading-sub">Memproses peta takdir dan membuat akun personalmu.</div></div>',
+        '<div class="dh-step dh-step-loading"></div><div class="dh-nodismiss"></div>'
+        '<div class="dh-dl-load"><div class="dh-dl-orb"><i></i><span>✦</span></div>'
+        '<div class="dh-dl-t">Menyelaraskan Mode 1: 5 Kelahiran...</div>'
+        '<div class="dh-dl-s">Memproses peta takdir dan membuat akun personalmu.</div></div>',
         unsafe_allow_html=True,
     )
     st.session_state.dh_flow_result = compute_mode1(data.get("nama", ""), data.get("tgl_lahir"),
                                                       data.get("jam_lahir") or None, data.get("kota_lahir") or None)
     auth.add_history(data.get("nama", ""), data.get("tgl_lahir"), st.session_state.dh_flow_result)
-    time.sleep(2.5)
+    time.sleep(max(0.0, 3.0 - (time.time() - t0)))  # total tepat ~3 detik (hitung + tunggu)
     set_step(STEP_RESULT)
     st.rerun(scope="fragment")
 
@@ -321,7 +322,9 @@ def render_result():
                     quote = f'<div class="dh-rc-quote">"{r["quote"]}"</div>' if r["quote"] else ""
                     st.markdown(f'<div class="dh-rc-top"><span>{r["label"]}</span>{tag}</div>'
                                 f'<div class="dh-rc-title">{r["title"]}</div>'
-                                f'<div class="dh-rc-desc">{r["desc"]}</div>{quote}', unsafe_allow_html=True)
+                                f'<div class="dh-rc-desc">{r["desc"]}</div>', unsafe_allow_html=True)
+                    if quote:  # elemen terpisah supaya quote + tombol menempel ke dasar kartu (equal height)
+                        st.markdown(quote, unsafe_allow_html=True)
                     st.button(f'📷 Lihat & Simpan Kartu {r["short"]}', key=f'dhres_dl_{r["system"]}',
                               on_click=cb_open_detail, args=(r["system"],), use_container_width=True)
 

@@ -14,7 +14,8 @@ import streamlit as st
 from components import auth
 from components.dialog_bus import request_with_return
 from utils.simple_pdf import make_pdf
-from components.modal_detail import build_detail, copy_button
+from components.combo import build_combo
+from components.modal_detail import build_detail, copy_button, render_combo_card
 from content.questionnaires.big_five_soal import BIG_FIVE_QUESTIONS
 from content.questionnaires.disc_soal import DISC_QUESTIONS
 from content.questionnaires.enneagram_soal import ENNEAGRAM_QUESTIONS
@@ -139,7 +140,7 @@ def _cb_pay():
         ss.dh_solo_err = "Hasil sistem ini belum bisa dihitung untuk datamu (mis. tahun lahir di luar jangkauan). Saldo tidak dipotong."
         return
     u["koin"] -= SOLO_PRICE
-    ss.dh_solo_res = {"system": name, "detail": detail, "nama": prof["nama"]}
+    ss.dh_solo_res = {"system": name, "detail": detail, "nama": prof["nama"], "raw": raw}
     ss.dh_solo_err = None
     _go("result")
 
@@ -179,21 +180,22 @@ def _profile():
 
 
 def _render_form(u):
-    st.markdown('<div class="dh-so-sec2"><span>📅 DATA DIRI</span><em>Wajib</em></div>', unsafe_allow_html=True)
-    c1, c2 = st.columns([1.15, 1], gap="small")
-    with c1:
-        st.text_input("Nama Lengkap / Panggilan", value=(u or {}).get("nama", ""),
-                      placeholder="Contoh: Rina Anggraini", key="dhso_nama")
-    with c2:
-        st.date_input("Tanggal Lahir", value=None, min_value=date(1900, 1, 1), max_value=date.today(),
-                      format="DD/MM/YYYY", key="dhso_tgl")
-    c3, c4, c5 = st.columns(3, gap="small")
-    with c3:
-        st.time_input("Jam Lahir (Opsional)", value=None, key="dhso_jam")
-    with c4:
-        st.text_input("Tempat Lahir (Opsional)", placeholder="Contoh: Jakarta", key="dhso_kota")
-    with c5:
-        st.selectbox("Golongan Darah", _GOLDA, index=None, placeholder="Pilih", key="dhso_golda")
+    with st.container(key="dhso_data"):  # satu kartu krem untuk seluruh Data Diri
+        st.markdown('<div class="dh-modal-section"><span>📅 DATA DIRI</span><em>Wajib</em></div>', unsafe_allow_html=True)
+        c1, c2 = st.columns([1.15, 1], gap="small")
+        with c1:
+            st.text_input("Nama Lengkap / Panggilan", value=(u or {}).get("nama", ""),
+                          placeholder="Contoh: Rina Anggraini", key="dhso_nama")
+        with c2:
+            st.date_input("Tanggal Lahir", value=None, min_value=date(1900, 1, 1), max_value=date.today(),
+                          format="DD/MM/YYYY", key="dhso_tgl")
+        c3, c4, c5 = st.columns(3, gap="small")
+        with c3:
+            st.time_input("Jam Lahir (Opsional)", value=None, key="dhso_jam")
+        with c4:
+            st.text_input("Tempat Lahir (Opsional)", placeholder="Contoh: Jakarta", key="dhso_kota")
+        with c5:
+            st.selectbox("Golongan Darah", _GOLDA, index=None, placeholder="Pilih", key="dhso_golda")
 
 
 # ─────────────── langkah 1: pilih sistem ───────────────
@@ -367,6 +369,9 @@ def _render_result():
         + (f'<div class="dh-so-chips">{chips}</div>' if chips else ""), unsafe_allow_html=True)
     secs = {i: (texts or []) for i, (_ic, _t, texts, _tone) in enumerate(d["sections"])}
     pdf_secs = [(_ASPEK[i], [t for t in secs.get(i, []) if t] or [_EMPTY]) for i in range(len(_ASPEK))]
+    combo = build_combo(name, res.get("raw")) if res.get("raw") else []
+    if combo:
+        pdf_secs.append(("COMBO: KETIKA VARIABEL-VARIABELMU BERTEMU", [f'{b["title"]}: {b["text"]}' for b in combo]))
     st.download_button("📥 Download PDF", make_pdf(f"Solo Reveal - {name}", f'{d.get("title", "")} - Untuk: {nama}', pdf_secs),
                        file_name=f"solo-reveal-{name.lower().replace(' ', '-')}.pdf", mime="application/pdf",
                        key="dhso_pdf", use_container_width=True, on_click="ignore")
@@ -377,6 +382,11 @@ def _render_result():
         st.markdown(f'<div class="dh-so-card"><div class="dh-so-ct"><span>{_ASPEK_ICON[i]}</span>{_e(title)}</div>{body}</div>',
                     unsafe_allow_html=True)
         plain += [title, *texts, ""]
+    render_combo_card(name, combo)  # kartu combo di paling bawah analisis, sebelum tombol aksi
+    if combo:
+        plain += ["COMBO: KETIKA VARIABEL-VARIABELMU BERTEMU", ""]
+        for b in combo:
+            plain += [b["title"], b["text"], ""]
     cap = f"Solo Reveal {name}: {nama}\nCek takdirmu di destinyreveal.id #DestinyReveal"
     with st.container(key="dhso_acts"):
         a1, a2 = st.columns(2, gap="small")
