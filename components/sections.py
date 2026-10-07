@@ -11,6 +11,7 @@ from pathlib import Path
 
 import streamlit as st
 
+from components.system_info import open_from_node
 from components.data import CATEGORY_SYSTEMS, NODE_COLOR, NODE_ORDER
 from components import info_modals
 from components.modal import open_reveal_modal
@@ -145,9 +146,9 @@ def render_matrix_diagram(sistem_lookup):
             f'.st-key-dhmatrix_wrap:has(.st-key-dhnode_{i}:hover) .dh-matrix-lines line:nth-child({i + 1})'
             f' {{ stroke: #C25E00; stroke-width: 2.5; stroke-dasharray: none; opacity: 1; }}'
             f'.st-key-dhnode_{i} {{ top: {top:.2f}%; left: {left:.2f}%; }}'
-            f'.st-key-dhnode_{i} div[data-testid="stPopover"] button {{'
+            f'.st-key-dhmatrix_wrap .st-key-dhnode_{i} div.stButton > button {{'
             f' background: {warna} !important; border-color: {warna} !important; }}'
-            f'.st-key-dhnode_{i} div[data-testid="stPopover"] button span[data-testid="stIconMaterial"] {{'
+            f'.st-key-dhmatrix_wrap .st-key-dhnode_{i} div.stButton > button span[data-testid="stIconMaterial"] {{'
             f' color: #fff !important; }}'
         )
     st.markdown(f"<style>{''.join(pos_css)}</style>", unsafe_allow_html=True)
@@ -170,15 +171,7 @@ def render_matrix_diagram(sistem_lookup):
             )
             for i, (nama, icon) in enumerate(NODE_ORDER):
                 with st.container(key=f"dhnode_{i}"):
-                    with st.popover(" ", icon=f":material/{icon}:", use_container_width=False):
-                        info = sistem_lookup.get(nama)
-                        st.markdown(f"**{nama}**")
-                        if info:
-                            apa_ini, topik_list, ajakan, aktif = info
-                            st.write(apa_ini)
-                            for topik in topik_list:
-                                st.markdown(f"- {topik}")
-                            st.caption(ajakan)
+                    st.button(" ", key=f"dhnbtn_{i}", icon=f":material/{icon}:", on_click=open_from_node, args=(nama,))
                     st.markdown(f'<div class="dh-matrix-node-label">{nama}</div>', unsafe_allow_html=True)
 
     st.markdown(

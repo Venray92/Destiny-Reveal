@@ -106,8 +106,84 @@ def _cb_ts_tab(n):
     st.session_state.dh_ts_tab = n
 
 
-@st.dialog("Tarot Spreads Multi-Kartu", width="small")
-def tarot_spread_dialog():
+_TS_KEYS = ("dh_ts_step", "dh_ts_cards", "dh_ts_open", "dh_ts_seen", "dh_ts_pending", "dh_ts_showcombo")
+
+
+def _ts_reset():
+    for k in _TS_KEYS:
+        st.session_state.pop(k, None)
+
+
+def _cb_ts_dismiss():
+    """X / klik luar: buang hasil tebaran (loading nggak bisa ditutup)."""
+    if st.session_state.get("dh_ts_step") in ("result", "warn"):
+        _ts_reset()
+
+
+def _cb_ts_go():
+    """Bayar (potong SD dummy) lalu tarik kartu & masuk layar loading."""
+    import random
+    from engine.tarot import TAROT_DECK
+    ss = st.session_state
+    n = ss.get("dh_ts_tab", 3)
+    u = auth.current_user()
+    if not u or u.get("koin", 0) < _SPREADS[n]["koin"]:
+        return
+    u["koin"] -= _SPREADS[n]["koin"]
+    ss.dh_ts_cards = random.sample(TAROT_DECK, n)
+    ss.dh_ts_open, ss.dh_ts_seen, ss.dh_ts_showcombo = [], False, False
+    ss.dh_ts_step = "loading"
+
+
+def _cb_ts_flip(i):
+    o = st.session_state.setdefault("dh_ts_open", [])
+    if i not in o:
+        o.append(i)
+
+
+def _cb_ts_all():
+    st.session_state.dh_ts_open = list(range(len(st.session_state.get("dh_ts_cards", []))))
+
+
+def _cb_ts_combo():
+    st.session_state.dh_ts_seen = True
+    st.session_state.dh_ts_showcombo = True
+
+
+def _ts_need_warn(combo):
+    ss = st.session_state
+    return bool(combo) and not ss.get("dh_ts_seen")
+
+
+def _cb_ts_leave(action, combo):
+    """Tebar ulang / sinkron: kalau ada combo yang belum dibuka -> layar peringatan dulu."""
+    ss = st.session_state
+    if _ts_need_warn(combo):
+        ss.dh_ts_pending, ss.dh_ts_step = action, "warn"
+    else:
+        ss.dh_ts_pending = action
+        _ts_do_pending()
+
+
+def _ts_do_pending():
+    ss = st.session_state
+    act = ss.pop("dh_ts_pending", None)
+    if act == "again":
+        keep = ss.get("dh_ts_tab", 3)
+        _ts_reset()
+        ss.dh_ts_tab, ss.dh_ts_step = keep, "intro"
+    elif act == "sync":
+        _ts_reset()
+        ss.dh_ts_sync = True
+
+
+def _cb_ts_see_combo():
+    st.session_state.dh_ts_step = "result"
+    _cb_ts_combo()
+    st.session_state.pop("dh_ts_pending", None)
+
+
+def _ts_intro():
     ss = st.session_state
     _top(key="ts")
     tab = ss.setdefault("dh_ts_tab", 3)
@@ -122,16 +198,162 @@ def tarot_spread_dialog():
                           type="primary" if n == tab else "secondary", use_container_width=True)
     sp = _SPREADS[tab]
     st.markdown(
-        '<div class="dh-fm-center"><div class="dh-fm-ico dh-fm-ico-lg">🎴</div>'
+        '<div class="dh-fm-center dh-ts-short"><div class="dh-fm-ico dh-fm-ico-lg">🎴</div>'
         f'<div class="dh-fm-h2">{sp["title"]}<span class="dh-fm-badge">{sp["koin"]} ✨ SD</span></div>'
         f'<div class="dh-fm-desc">{sp["desc"]}</div></div>', unsafe_allow_html=True)
     cards = "".join(f'<div><b>{html.escape(a)}</b><span>{html.escape(b)}</span></div>' for a, b in sp["pos"])
-    st.markdown(f'<div class="dh-fm-pos"><div class="dh-fm-poshead">POSISI KARTU DALAM TEBARAN ({tab} KARTU):</div>'
+    st.markdown(f'<div class="dh-fm-pos dh-ts-short"><div class="dh-fm-poshead">POSISI KARTU DALAM TEBARAN ({tab} KARTU):</div>'
                 f'<div class="dh-fm-posgrid">{cards}</div></div>', unsafe_allow_html=True)
+    u = auth.current_user()
     with st.container(key="dhfm_cta_ts"):
-        st.button(f"✨ Kocok & Buka Tebaran ({sp['koin']} SD)", key="dhts_go", type="primary",
-                  use_container_width=True, on_click=_soon)
+        if not u:
+            if st.button("Masuk / Daftar untuk Membuka Tebaran →", key="dhts_login", type="primary", use_container_width=True):
+                from components.dialog_bus import request_with_return
+                request_with_return("auth", "tarot_spread")
+        elif u.get("koin", 0) < sp["koin"]:
+            if st.button("Top-up Stardust →", key="dhts_topup", type="primary", use_container_width=True):
+                from components.dialog_bus import request_with_return
+                request_with_return("pricing_keep", "tarot_spread", dh_pr_tab="koin")
+        else:
+            st.button(f"✨ Kocok & Buka Tebaran ({sp['koin']} SD)", key="dhts_go", type="primary",
+                      use_container_width=True, on_click=_cb_ts_go)
     st.markdown(f'<div class="dh-fm-saldo">Saldo Stardust-mu saat ini: <b>{saldo()} ✨ SD</b></div>', unsafe_allow_html=True)
+
+
+def _ts_loading():
+    import time
+    from components.mini_modals import _loadcard_uri
+    ss = st.session_state
+    sp = _SPREADS[ss.get("dh_ts_tab", 3)]
+    lc = _loadcard_uri()
+    st.markdown(
+        '<div class="dh-step dh-step-fm dh-step-tsload"></div><div class="dh-nodismiss"></div>'
+        f'<div class="dh-ts-badgewrap"><span class="dh-fm-badge dh-ts-badge">{sp["tab"]}</span></div>'
+        + (f'<div class="dh-tr-shuf"><img src="{lc}" alt="Deck kosmik"></div>' if lc else '<div class="dh-tr-shuf"><i></i></div>')
+        + '<div class="dh-tr-shuft">Mengocok 78 Arcana Kosmik...</div>'
+        '<div class="dh-tr-shufs">Menghubungkan frekuensi batinmu dengan tebaran kartu</div>',
+        unsafe_allow_html=True)
+    time.sleep(3)
+    ss.dh_ts_step = "result"
+    st.rerun(scope="fragment")
+
+
+def _ts_cname(slug):
+    from content.result_builder import build_display_data
+    c = build_display_data("Tarot", {"kartu": slug}) or {}
+    return f'<br><span class="dh-ts-cn">{html.escape((c.get("title") or slug).split(", ")[0])}</span>'
+
+
+def _ts_card_html(slug, i, opened, n):
+    from components.mini_modals import _cover_uri
+    from engine.tarot import TAROT_MAJOR_ARCANA
+    from utils.card_images import card_image_data_uri
+    from content.result_builder import build_display_data
+    if not opened:
+        uri = _cover_uri()
+        return (f'<div class="dh-tr-crop"><img class="dh-tr-cimg" src="{uri}" alt="Kartu tertutup"></div>' if uri
+                else '<div class="dh-tr-img dh-tr-ph">🂠</div>')
+    mayor = slug in TAROT_MAJOR_ARCANA
+    uri = card_image_data_uri(f"tarot/{TAROT_MAJOR_ARCANA.index(slug):02d}_{slug}.png") if mayor else None
+    c = build_display_data("Tarot", {"kartu": slug}) or {}
+    nama = (c.get("title") or slug).split(", ")[0]
+    if uri:
+        return f'<img class="dh-tr-img dh-ts-img" src="{uri}" alt="{html.escape(nama)}">'
+    return '<div class="dh-tr-img dh-tr-ph dh-ts-img" style="aspect-ratio:870/1164"></div>'  # Minor: gambar belum ada
+
+
+def _ts_reading(slug, pos, idx):
+    from components.mini_modals import _first_sentences
+    from content.result_builder import build_display_data
+    c = build_display_data("Tarot", {"kartu": slug}) or {}
+    nama, _, arti = (c.get("title") or slug).partition(", ")
+    dom = c.get("domains") or {}
+    e = html.escape
+    rows = [("Makna Posisi Ini", _first_sentences(c.get("p1", ""), 2)),
+            ("Nasihat Utama", c.get("quote", "")),
+            ("Karier & Rezeki", _first_sentences(dom.get("karir", ""), 2)),
+            ("Asmara & Relasi", _first_sentences(dom.get("asmara", ""), 2))]
+    body = "".join(f'<div class="dh-ts-rl"><b>{a}</b><p>{e(t)}</p></div>' for a, t in rows if t)
+    return (f'<div class="dh-ts-read"><div class="dh-ts-rpos">{e(pos[0])}</div><div class="dh-ts-rposd">{e(pos[1])}</div>'
+            f'<div class="dh-ts-rname">{e(nama)}{f" · {e(arti)}" if arti else ""}</div>{body}</div>')
+
+
+def _ts_result():
+    from components.modal_detail import render_combo_card
+    from components.tarot_combo import build_tarot_combo
+    ss = st.session_state
+    tab = ss.get("dh_ts_tab", 3)
+    sp = _SPREADS[tab]
+    cards = ss.get("dh_ts_cards") or []
+    if len(cards) != tab:
+        _ts_reset()
+        st.rerun(scope="fragment")
+    opened = ss.setdefault("dh_ts_open", [])
+    combo = build_tarot_combo(cards)
+    st.markdown('<div class="dh-step dh-step-detail dh-step-tsres"></div><div class="dh-nodismiss"></div>'
+                f'<div class="dh-ts-badgewrap"><span class="dh-fm-badge dh-ts-badge">{sp["tab"]}</span></div>'
+                '<div class="dh-ts-hint">Klik kartu satu per satu untuk membukanya, atau buka semuanya sekaligus.</div>',
+                unsafe_allow_html=True)
+    per_row = 3 if tab == 3 else 5
+    with st.container(key="dhts_grid"):
+        for r0 in range(0, tab, per_row):
+            cols = st.columns(per_row, gap="small")
+            for j, col in enumerate(cols):
+                i = r0 + j
+                if i >= tab:
+                    continue
+                with col:
+                    is_open = i in opened
+                    with st.container(key=f"dhtsk_{i}"):
+                        st.markdown('<div class="dh-ts-box">' + _ts_card_html(cards[i], i, is_open, tab) + '</div>' +
+                                    f'<div class="dh-ts-plabel">{html.escape(sp["pos"][i][0])}{_ts_cname(cards[i]) if is_open else ""}</div>', unsafe_allow_html=True)
+                        if not is_open:
+                            st.button("Buka", key=f"dhtso_{i}", on_click=_cb_ts_flip, args=(i,))
+    if len(opened) < tab:
+        with st.container(key="dhts_openall"):
+            st.button("🃏 Buka Semua Kartu", key="dhts_all", on_click=_cb_ts_all, use_container_width=True)
+    for i in sorted(opened):
+        st.markdown(_ts_reading(cards[i], sp["pos"][i], i), unsafe_allow_html=True)
+    if combo and len(opened) >= tab:
+        if ss.get("dh_ts_showcombo"):
+            with st.container(key="dhts_combo"):
+                render_combo_card(sp["title"], combo)
+        else:
+            with st.container(key="dhts_combobtn"):
+                st.button("✨ Lihat Hasil Analisis Kombinasi Kartu ✨", key="dhts_combo_btn", on_click=_cb_ts_combo)
+    with st.container(key="dhts_acts"):
+        st.button("← Tebar Ulang / Pilih Jenis Spread Lain", key="dhts_again", use_container_width=True,
+                  on_click=_cb_ts_leave, args=("again", combo))
+        st.button("Sinkronkan ke Cetak Biru Takdir →", key="dhts_sync", type="primary", use_container_width=True,
+                  on_click=_cb_ts_leave, args=("sync", combo))
+
+
+def _ts_warn():
+    st.markdown('<div class="dh-step dh-step-fm"></div><div class="dh-nodismiss"></div>'
+                '<div class="dh-ts-warn"><div class="dh-ts-warnico">⚠️</div>'
+                '<div class="dh-ts-warnt">Ada Analisis Kombinasi yang Belum Kamu Lihat</div>'
+                '<div class="dh-ts-warns">Kombinasi kartu di tebaranmu punya pembacaan khusus. Kalau lanjut sekarang, '
+                'hasil tebaran ini akan hilang dan kamu tidak bisa membukanya lagi.</div></div>', unsafe_allow_html=True)
+    st.button("✨ Lihat Analisis Kombinasi Dulu", key="dhts_w_see", type="primary", use_container_width=True,
+              on_click=_cb_ts_see_combo)
+    st.button("Tetap Lanjut", key="dhts_w_go", use_container_width=True, on_click=_ts_do_pending)
+
+
+@st.dialog("Tarot Spreads Multi-Kartu", width="large", on_dismiss=_cb_ts_dismiss)
+def tarot_spread_dialog():
+    ss = st.session_state
+    step = ss.get("dh_ts_step", "intro")
+    if step == "loading" and ss.get("dh_ts_cards"):
+        _ts_loading()
+    elif step == "result" and ss.get("dh_ts_cards"):
+        _ts_result()
+    elif step == "warn" and ss.get("dh_ts_cards"):
+        _ts_warn()
+    else:
+        if ss.get("dh_ts_sync"):  # habis "Tetap Lanjut" -> sinkron
+            ss.pop("dh_ts_sync", None)
+            request_open("reveal")
+        _ts_intro()
 
 
 # ═══════════ 2. CEK KECOCOKAN ═══════════
@@ -268,6 +490,7 @@ def blueprint_dialog():
 
 
 def _open_spread(n):
+    _ts_reset()  # buka dari kartu Jelajahi = mulai dari awal
     st.session_state.dh_ts_tab = n
     tarot_spread_dialog()
 

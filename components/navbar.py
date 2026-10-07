@@ -12,13 +12,14 @@ from components.compat import DIALOGS as _COMPAT_DIALOGS
 from components.help_modals import DIALOGS as _HELP_DIALOGS
 from components.solo_reveal import DIALOGS as _SOLO_DIALOGS
 from components.info_modals import DIALOGS as _INFO_DIALOGS
+from components.system_info import DIALOGS as _SYSINFO_DIALOGS
 from components.pricing_modal import DIALOGS as _PRICING_DIALOGS, pricing_dialog
 from components.common import go
 from components.mini_modals import DIALOGS as _MINI_DIALOGS
 from components.modal import open_reveal_modal, reopen_if_pending
 
 
-_ALL_DIALOGS = {**_MINI_DIALOGS, **_FEATURE_DIALOGS, **_PRICING_DIALOGS, **_INFO_DIALOGS, **_HELP_DIALOGS, **_SOLO_DIALOGS, **_COMPAT_DIALOGS, "gohome": lambda: go("home")}
+_ALL_DIALOGS = {**_MINI_DIALOGS, **_FEATURE_DIALOGS, **_PRICING_DIALOGS, **_INFO_DIALOGS, **_HELP_DIALOGS, **_SOLO_DIALOGS, **_SYSINFO_DIALOGS, **_COMPAT_DIALOGS, "gohome": lambda: go("home")}
 # dialog yang cuma bisa dibuka lewat dialog_bus.request_open (bukan dari kartu Home)
 _BUS_ONLY = {"auth": auth.open_auth, "reveal": open_reveal_modal, "pricing_keep": pricing_dialog}
 

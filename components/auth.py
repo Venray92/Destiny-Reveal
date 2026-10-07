@@ -20,6 +20,7 @@ _WIB = timezone(timedelta(hours=7))
 _BLN = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
         "Oktober", "November", "Desember"]
 BONUS_KOIN = 250  # SD (setara 5 koin lama)
+DUMMY_SALDO = 20000  # saldo awal akun dummy buat testing
 _SOON = "Fitur ini belum tersedia, masih tahap pengembangan 🚧"
 
 
@@ -43,7 +44,7 @@ def ensure_user(email):
     email = email.strip()
     if not ss.get("dh_user") or ss.dh_user["email"] != email:
         now = datetime.now(_WIB)
-        ss.dh_user = {"email": email, "nama": _nama_dari_email(email), "koin": BONUS_KOIN,
+        ss.dh_user = {"email": email, "nama": _nama_dari_email(email), "koin": DUMMY_SALDO,
                       "joined": f"{_BLN[now.month]} {now.year}", "ref": _ref_code(email)}
     ss.dh_email = email
     ss.dh_email_verified = True

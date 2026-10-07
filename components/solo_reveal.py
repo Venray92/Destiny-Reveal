@@ -104,6 +104,7 @@ def _cb_to_next():
     if name == "Golongan Darah" and prof.get("golda") in ("", "Belum tahu"):
         ss.dh_solo_err = "Golongan Darah butuh pilihan golongan darahmu (A/B/AB/O)."
         return
+    ss.dh_solo_prof = prof  # selalu simpan, juga kalau profil dari data Reveal
     ss.dh_solo_err = None
     _go("quiz" if _KIND[name] == "quiz" else "pay")
 
@@ -128,7 +129,11 @@ def _cb_pay():
     u = auth.current_user()
     if not u or u.get("koin", 0) < SOLO_PRICE:
         return
-    name, prof = ss.dh_solo_sys, ss.dh_solo_prof
+    name = ss.dh_solo_sys
+    prof = ss.get("dh_solo_prof") or _profile()
+    if not prof:
+        ss.dh_solo_err = "Data diri belum lengkap. Kembali & isi dulu ya."
+        return
     if _KIND[name] == "quiz":
         raw = compute_quiz_raw_result(name, ss.get("dh_solo_ans") or {})
     else:
@@ -202,7 +207,7 @@ def _render_form(u):
 def _head(sub="Pilih 1 sistem, dapat analisis lengkap A-F"):
     st.markdown(
         '<div class="dh-step dh-step-solo"></div><div class="dh-nodismiss"></div>'
-        '<div class="dh-so-head"><span class="dh-so-ico">🎯</span><div><div class="dh-so-brand">SOLO REVEAL</div>'
+        '<div class="dh-so-head"><span class="dh-so-ico">🧭</span><div><div class="dh-so-brand">SOLO REVEAL</div>'
         f'<div class="dh-so-hsub">{sub} · 💰 {SOLO_PRICE} Stardust</div></div></div><div class="dh-so-line"></div>',
         unsafe_allow_html=True)
 
@@ -355,8 +360,8 @@ def _render_result():
         _go("select")
         return _render_select()
     d, name, nama = res["detail"], res["system"], res["nama"]
-    st.markdown('<div class="dh-step dh-step-solo"></div><div class="dh-nodismiss"></div>'
-                '<div class="dh-so-head"><span class="dh-so-ico">🎯</span><div><div class="dh-so-brand">SOLO REVEAL</div>'
+    st.markdown('<div class="dh-step dh-step-solo dh-step-solo-lg"></div><div class="dh-nodismiss"></div>'
+                '<div class="dh-so-head"><span class="dh-so-ico">🧭</span><div><div class="dh-so-brand">SOLO REVEAL</div>'
                 f'<div class="dh-so-hsub">Pilih 1 sistem, dapat analisis lengkap A-F · 💰 {SOLO_PRICE} Stardust</div></div></div>'
                 '<div class="dh-so-line"></div>', unsafe_allow_html=True)
     quote = d.get("quote") or ""
@@ -379,7 +384,8 @@ def _render_result():
     for i, title in enumerate(_ASPEK):
         texts = [t for t in secs.get(i, []) if t]
         body = "".join(f"<p>{_e(t)}</p>" for t in texts) or f'<p class="dh-so-empty">{_EMPTY}</p>'
-        st.markdown(f'<div class="dh-so-card"><div class="dh-so-ct"><span>{_ASPEK_ICON[i]}</span>{_e(title)}</div>{body}</div>',
+        acc = " dh-so-amber" if i == len(_ASPEK) - 1 else ""
+        st.markdown(f'<div class="dh-so-card{acc}"><div class="dh-so-ct"><span>{_ASPEK_ICON[i]}</span>{_e(title)}</div>{body}</div>',
                     unsafe_allow_html=True)
         plain += [title, *texts, ""]
     render_combo_card(name, combo)  # kartu combo di paling bawah analisis, sebelum tombol aksi
