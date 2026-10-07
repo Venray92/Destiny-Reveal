@@ -25,7 +25,7 @@ from content import periodic
 from content import profile_loader
 from content.profile_loader import get_profile
 from content.result_builder import build_display_data
-from engine.tarot import TAROT_DECK, TAROT_MAJOR_ARCANA
+from engine.tarot import TAROT_MAJOR_ARCANA, kartu_harian
 from engine.zodiak import _RENTANG_ZODIAK
 from utils.card_images import card_image_data_uri
 
@@ -357,6 +357,24 @@ def _loadcard_uri():
     return "data:image/png;base64," + base64.b64encode(_LOADCARD.read_bytes()).decode("ascii")
 
 
+def _pilih_kartu():
+    """Login + profil punya tanggal lahir -> rumus numerologi; selain itu seed tanggal + email/id sesi."""
+    import uuid
+    ss = st.session_state
+    u = auth.current_user()
+    tgl = ((u or {}).get("profil") or {}).get("tgl")
+    if tgl is not None and not hasattr(tgl, "day"):  # jaga-jaga kalau tersimpan sebagai teks ISO
+        try:
+            tgl = datetime.fromisoformat(str(tgl)).date()
+        except ValueError:
+            tgl = None
+    if u:
+        key = u["email"]
+    else:
+        key = ss.setdefault("dh_anon_key", uuid.uuid4().hex)
+    return kartu_harian(tgl, key)
+
+
 def _cb_tarot_draw():
     # kartu tetap sepanjang hari: kalau sudah ada tarikan hari ini, pakai yang sama.
     # Tarikan baru -> layar "kocok deck" 3 detik dulu (lihat tarot_dialog)
@@ -382,7 +400,7 @@ def tarot_dialog():
                     '<div class="dh-tr-shufs">Menghubungkan frekuensi batinmu dengan arketipe hari ini</div>',
                     unsafe_allow_html=True)
         time.sleep(3)
-        ss.dh_tarot_draw = {"date": today_wib(), "kartu": random.choice(TAROT_DECK)}
+        ss.dh_tarot_draw = {"date": today_wib(), "kartu": _pilih_kartu()}
         ss.pop("dh_tarot_loading", None)
         st.rerun(scope="fragment")
     if not draw or draw.get("date") != today_wib():
