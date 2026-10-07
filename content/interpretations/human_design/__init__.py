@@ -1,3 +1,1 @@
-"""Paket konten human_design."""
-
-from .human_design import HUMAN_DESIGN_CONTENT
+"""Paket konten human_design. Teks ada di file JSON folder ini (tidak ada kamus .py lagi)."""
