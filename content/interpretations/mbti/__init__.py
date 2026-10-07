@@ -1,3 +1,1 @@
-"""Paket konten mbti."""
-
-from .mbti import MBTI_CONTENT
+"""Paket konten mbti. Teks ada di file JSON folder ini (tidak ada kamus .py lagi)."""
