@@ -42,3 +42,19 @@ def kartu_periodik(kind, now=None, user_key="") -> str:
     per = {"daily": d.isoformat(), "weekly": week_start(d).isoformat(), "monthly": f"{d.year}-{d.month:02d}"}[kind]
     h = hashlib.sha256(f"{kind}|{per}|{user_key}".encode()).digest()
     return TAROT_DECK[int.from_bytes(h[:4], "big") % len(TAROT_DECK)]
+
+
+def kartu_harian(tgl_lahir=None, user_key="", now=None) -> str:
+    """Kartu harian deterministik dari 78 kartu (stabil sepanjang hari WIB).
+    Ada tgl_lahir: seed = tanggal lahir + tanggal hari ini (personal, sama di device mana pun).
+    Tanpa tgl_lahir: seed = tanggal hari ini + user_key (email / id sesi)."""
+    import hashlib
+
+    from engine.rotation import today_wib
+    d = today_wib(now)
+    if tgl_lahir is not None and hasattr(tgl_lahir, "day"):
+        basis = f"lahir|{tgl_lahir.isoformat()}|{d.isoformat()}"
+    else:
+        basis = f"user|{user_key}|{d.isoformat()}"
+    h = hashlib.sha256(f"tarot|{basis}".encode()).digest()
+    return TAROT_DECK[int.from_bytes(h[:4], "big") % len(TAROT_DECK)]
