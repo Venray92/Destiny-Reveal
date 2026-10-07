@@ -1967,3 +1967,37 @@ div[data-testid="stVerticalBlock"][class*="st-key-dhpp_h"]:not([class*="st-key-d
 [class*="st-key-dhtsk_"] .dh-ts-img { width: 100% !important; aspect-ratio: 870 / 1164 !important; height: auto !important; box-sizing: border-box; margin: 0 !important; }
 .dh-ts-cn { font-weight: 600; color: #8B8378; font-size: 10.5px; }
 .dh-ts-box { display: block; line-height: 0; font-size: 0; } .dh-ts-box .dh-tr-img { display: block; }
+
+/* ===== REVISI05 ===== */
+.st-key-dhmatrix_card .dh-matrix-caption { margin: 22px 0 0 !important; text-align: center; font-size: 13px !important; font-weight: 600; color: #5B534A !important; }
+/* Tarot spread: kartu aktif + hover (REVISI05) */
+[class*="st-key-dhtsk_"] { position: relative; cursor: pointer; }
+[class*="st-key-dhtso_"] { position: absolute !important; inset: 0 !important; aspect-ratio: auto !important; height: 100% !important; width: 100% !important; z-index: 5; margin: 0 !important; }
+[class*="st-key-dhtso_"] div.stButton, [class*="st-key-dhtso_"] button { width: 100% !important; height: 100% !important; opacity: 0; cursor: pointer; }
+.dh-ts-tile { position: relative; background: #fff; border: 1.5px solid #E8E0D5; border-radius: 16px; padding: 8px 8px 10px; text-align: center; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease; }
+[class*="st-key-dhtsk_"]:hover .dh-ts-tile { transform: translateY(-4px); border-color: #E8A06E; box-shadow: 0 14px 26px -14px rgba(194,94,0,.55); }
+.dh-ts-tile.is-active { background: #FEF3DC; border-color: #C8633B; box-shadow: 0 0 0 3px rgba(200,99,59,.22), 0 14px 28px -14px rgba(194,94,0,.6); }
+.dh-ts-num { font-size: 12px; font-weight: 800; color: #C8633B; margin-bottom: 5px; }
+.dh-ts-art { position: relative; line-height: 0; }
+.dh-ts-art .dh-tr-crop, .dh-ts-art .dh-tr-img { width: 100% !important; margin: 0 !important; box-shadow: none; }
+.dh-ts-buka { position: absolute; left: 50%; bottom: 14%; transform: translateX(-50%); background: rgba(35,28,22,.82); color: #FFD9B0; font-size: 11px; font-weight: 800; letter-spacing: .12em; line-height: 1; padding: 7px 14px; border-radius: 100px; border: 1px solid rgba(255,217,176,.55); }
+.dh-ts-idx { position: absolute; left: 8px; bottom: 8px; background: rgba(0,0,0,.6); color: #fff; font-size: 10.5px; font-weight: 800; line-height: 1; padding: 4px 7px; border-radius: 8px; }
+.dh-ts-name { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; color: #2D2A26; margin-top: 8px; line-height: 1.25; } .dh-ts-lock { color: #8B8378; }
+.dh-ts-flip { animation: dhTsFlip .6s ease; }
+@keyframes dhTsFlip { 0% { transform: perspective(700px) rotateY(90deg); opacity: .2; } 100% { transform: perspective(700px) rotateY(0); opacity: 1; } }
+.dh-ts-eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .06em; color: #C25E00; }
+.dh-ts-hint { font-size: 12.5px; color: #6B635A; margin-top: 2px; } .dh-ts-sep { height: 1px; background: #EFE7DC; margin: 6px 0 14px; }
+.st-key-dhts_openall { max-width: none; margin: 0; }
+.st-key-dhts_openall button { border-radius: 100px !important; }
+.dh-ts-read { background: #FAF6F0; border: 1px solid #E8E0D5; border-radius: 16px; padding: 18px 20px; margin: 16px 0 12px; }
+.dh-ts-rpos { font-size: 11.5px; font-weight: 800; letter-spacing: .06em; color: #C8633B; font-family: 'Plus Jakarta Sans', sans-serif; }
+.dh-ts-rhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-bottom: 1px solid #EADFD2; padding: 4px 0 12px; margin-bottom: 12px; }
+.dh-ts-rname { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; color: #2D2A26; line-height: 1.25; }
+.dh-ts-chip { background: #fff; border: 1px solid #E8E0D5; border-radius: 100px; padding: 6px 14px; font-size: 12px; font-weight: 600; color: #4A443D; }
+.dh-ts-rmean { font-size: 13.5px; line-height: 1.6; color: #2D2A26; margin-bottom: 10px; } .dh-ts-rmean b { font-weight: 800; }
+.dh-ts-adv { background: #fff; border: 1px solid #E8E0D5; border-radius: 12px; padding: 12px 14px; font-size: 13px; line-height: 1.6; color: #3A3631; margin-bottom: 6px; } .dh-ts-adv b { color: #2D2A26; }
+.dh-ts-empty { text-align: center; font-size: 13px; color: #8B8378; background: #FAF6F0; border: 1px dashed #E2D4C0; border-radius: 14px; padding: 22px 14px; margin: 16px 0 12px; }
+@media (max-width: 640px) { .dh-ts-name { font-size: 11px; } .dh-ts-buka { font-size: 9px; padding: 5px 9px; } .dh-ts-tile { padding: 5px 5px 8px; border-radius: 12px; } }
+.dh-ts-hint { text-align: left !important; margin: 2px 0 0 !important; }
+.st-key-dhts_openall { margin-right: 42px !important; }
+@media (max-width: 640px) { .st-key-dhts_openall { margin-right: 0 !important; } }
