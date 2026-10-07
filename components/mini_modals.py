@@ -30,7 +30,8 @@ from engine.zodiak import _RENTANG_ZODIAK
 from utils.card_images import card_image_data_uri
 
 _ROOT = Path(__file__).resolve().parent.parent
-_COVER = _ROOT / "assets" / "images" / "sunmoon_card.jpg"  # sunmoon.jpg tanpa margin abu-abu
+_COVER = _ROOT / "assets" / "images" / "sunmoon.jpg"
+_LOADCARD = _ROOT / "assets" / "images" / "loadingcard.png"  # kartu "Deck Kosmik" buat state kocok
 
 GLYPH = {
     "Aries": "♈", "Taurus": "♉", "Gemini": "♊", "Cancer": "♋", "Leo": "♌", "Virgo": "♍",
@@ -349,6 +350,13 @@ def _cover_uri():
     return "data:image/jpeg;base64," + base64.b64encode(_COVER.read_bytes()).decode("ascii")
 
 
+@lru_cache(maxsize=1)
+def _loadcard_uri():
+    if not _LOADCARD.is_file():
+        return None
+    return "data:image/png;base64," + base64.b64encode(_LOADCARD.read_bytes()).decode("ascii")
+
+
 def _cb_tarot_draw():
     # kartu tetap sepanjang hari: kalau sudah ada tarikan hari ini, pakai yang sama.
     # Tarikan baru -> layar "kocok deck" 3 detik dulu (lihat tarot_dialog)
@@ -367,7 +375,9 @@ def tarot_dialog():
     _title("🃏", "Tarot 1 Kartu Harian", "Tarik 1 kartu sinkronisitas kosmik murni untuk memandu energimu hari ini.")
     draw = ss.get("dh_tarot_draw")
     if ss.get("dh_tarot_loading") and (not draw or draw.get("date") != today_wib()):
-        st.markdown('<div class="dh-tr-shuf"><i></i></div>'
+        _lc = _loadcard_uri()
+        st.markdown((f'<div class="dh-tr-shuf"><img src="{_lc}" alt="Deck kosmik"></div>' if _lc else
+                     '<div class="dh-tr-shuf"><i></i></div>') +
                     '<div class="dh-tr-shuft">Mengocok Deck Kosmik...</div>'
                     '<div class="dh-tr-shufs">Menghubungkan frekuensi batinmu dengan arketipe hari ini</div>',
                     unsafe_allow_html=True)
@@ -378,7 +388,7 @@ def tarot_dialog():
     if not draw or draw.get("date") != today_wib():
         uri = _cover_uri()
         with st.container(key="dhtr_cover"):
-            st.markdown(f'<img class="dh-tr-img" src="{uri}" alt="Kartu tarot">' if uri else
+            st.markdown(f'<div class="dh-tr-crop"><img class="dh-tr-cimg" src="{uri}" alt="Kartu tarot"></div>' if uri else
                         '<div class="dh-tr-img dh-tr-ph">🂠</div>', unsafe_allow_html=True)
             st.button("Tarik kartu", key="dhtr_draw", on_click=_cb_tarot_draw)
         st.markdown('<div class="dh-tr-hint">👆 Klik dan tarik kartu hari ini</div>' + _TAROT_CAP,
