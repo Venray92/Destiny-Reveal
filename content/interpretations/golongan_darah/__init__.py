@@ -1,3 +1,1 @@
-"""Paket konten golongan_darah."""
-
-from .golongan_darah import GOLONGAN_DARAH_CONTENT
+"""Paket konten golongan_darah. Teks ada di file JSON folder ini (tidak ada kamus .py lagi)."""
