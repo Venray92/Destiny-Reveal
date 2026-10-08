@@ -1,5 +1,5 @@
 """
-Solo Reveal (UI23): pilih 1 dari 15 sistem -> (kuesioner, khusus 5 sistem psikologi) -> bayar 150 ✨ -> hasil A-F.
+Solo Reveal (UI23): pilih 1 dari 15 sistem -> (kuesioner, khusus 5 sistem psikologi) -> bayar 200 ✨ -> hasil A-F.
 Satu st.dialog, langkah ganti-ganti lewat on_click callback (dialog tetap kebuka).
 State (session_state): dh_solo_step | dh_solo_sys | dh_solo_prof | dh_solo_ans | dh_solo_res
 DUMMY: saldo ✨ dipotong di session saja (belum ada backend/DB).
@@ -11,6 +11,7 @@ from datetime import date
 from urllib.parse import quote as urlquote
 
 import streamlit as st
+from content import pricing as P
 
 from components import auth
 from components import close_confirm as cc
@@ -25,7 +26,7 @@ from content.questionnaires.love_language_soal import LOVE_LANGUAGE_QUESTIONS
 from content.questionnaires.mbti_soal import MBTI_QUESTIONS
 from content.result_builder import build_display_data, compute_quiz_raw_result, compute_raw_result
 
-SOLO_PRICE = 150  # Stardust
+SOLO_PRICE = P.SOLO  # Stardust
 
 # (nama sistem di engine, ikon, jenis) — jenis "lahir" = dihitung dari data lahir, "quiz" = kuesioner
 SYSTEMS = [

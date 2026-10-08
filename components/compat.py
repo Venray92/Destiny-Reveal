@@ -1,5 +1,5 @@
 """
-Cek Kecocokan (UI25) — wizard 4 langkah dalam satu st.dialog:
+Soul Match (UI25) — wizard 4 langkah dalam satu st.dialog:
   select (jumlah & jenis sistem) -> form (2 orang) -> loading -> result.
 State: dh_cp_step | dh_cp_n | dh_cp_sys (list) | dh_cp_res.
 Skor dihitung dari engine (Zodiak/Shio/Weton/Numerologi) pakai aturan kecocokan sederhana.
@@ -11,6 +11,7 @@ import time
 from datetime import date
 
 import streamlit as st
+from content import pricing as P
 
 from components import auth
 from components import close_confirm as cc
@@ -20,7 +21,7 @@ from components.solo_reveal import _profile
 from content.result_builder import compute_raw_result
 from utils.simple_pdf import make_pdf
 
-PRICE = 100  # Stardust per sistem
+PRICE = P.COMPAT  # Stardust per sistem
 SYSTEMS = ["Zodiak", "Shio", "Weton", "Numerologi"]
 _ICON = {"Zodiak": "♈", "Shio": "🐉", "Weton": "🗓️", "Numerologi": "🔢"}
 _INFO = [
@@ -349,7 +350,7 @@ def _cb_reset():
 # ─────────────── tampilan ───────────────
 def _head(sub):
     st.markdown('<div class="dh-step dh-step-cp"></div>'
-                f'<div class="dh-cp-head"><span class="dh-cp-ico">💖</span><div><div class="dh-cp-brand">Cek Kecocokan</div>'
+                f'<div class="dh-cp-head"><span class="dh-cp-ico">💖</span><div><div class="dh-cp-brand">Soul Match</div>'
                 f'<div class="dh-cp-hsub">{sub}</div></div></div><div class="dh-cp-line"></div>', unsafe_allow_html=True)
 
 
@@ -519,9 +520,9 @@ def _render_result():
     secs = [("Ringkasan", [r["ringkas"]]), ("Skor Per Sistem", [f"{x['system']}: {x['score']} - {x['note']}" for x in r["rows"]]),
             ("Poin Kekuatan", r["kuat"]), ("Poin Tantangan", r["tantang"]), ("Nasihat Strategis", r["nasihat"])]
     with st.container(key="dhcp_acts"):
-        st.download_button("📥 Download PDF", make_pdf(f"Cek Kecocokan - {r['a']} & {r['b']}",
+        st.download_button("📥 Download PDF", make_pdf(f"Soul Match - {r['a']} & {r['b']}",
                            f"Skor {r['total']}/100 - {r['label']}", secs),
-                           file_name="cek-kecocokan.pdf", mime="application/pdf", key="dhcp_pdf",
+                           file_name="soul-match.pdf", mime="application/pdf", key="dhcp_pdf",
                            use_container_width=True, on_click="ignore")
         a1, a2 = st.columns(2, gap="small")
         with a1:
@@ -540,7 +541,7 @@ def _cb_close():
         cc.dismiss("compat", True, leave=_cb_reset)
 
 
-@st.dialog("Cek Kecocokan", width="large", on_dismiss=_cb_close)
+@st.dialog("Soul Match", width="large", on_dismiss=_cb_close)
 def compat_dialog():
     step = st.session_state.get("dh_cp_step", "select")
     if step == "loading" and st.session_state.get("dh_cp_res"):

@@ -1,5 +1,5 @@
 """
-Modal fitur (UI14): Tarot Spreads Multi-Kartu, Cek Kecocokan, Weekly & Monthly Report,
+Modal fitur (UI14): Tarot Spreads, Soul Match, Weekly & Monthly Report,
 Deep Blueprint, Tutorial, Blog, FAQ & Bantuan. Dibuka dari kartu di section Jelajahi
 (class .dh-open-modal + data-modal -> tombol tersembunyi di navbar.py).
 DUMMY: saldo belum dipotong, tebaran/sinergi/laporan belum ada backend (toast).
@@ -8,6 +8,7 @@ DUMMY: saldo belum dipotong, tebaran/sinergi/laporan belum ada backend (toast).
 import html
 
 import streamlit as st
+from content import pricing as P
 
 from components import auth
 from components import close_confirm as cc
@@ -65,7 +66,7 @@ def saldo():
 # ═══════════ 1. TAROT SPREADS MULTI-KARTU ═══════════
 _SPREADS = {
     3: {
-        "tab": "Tarot 3 Kartu", "koin": 50, "title": "Tarot 3 Kartu",
+        "tab": "Tarot 3 Kartu", "koin": P.TAROT[3], "title": "Tarot 3 Kartu",
         "desc": "Masa Lalu, Masa Kini, Masa Depan. Membaca alur waktu energimu dengan cepat dan akurat.",
         "pos": [
             ("1. Masa Lalu", "Fondasi, pengalaman lampau, atau karma awal yang membentuk situasimu saat ini."),
@@ -74,7 +75,7 @@ _SPREADS = {
         ],
     },
     5: {
-        "tab": "Tarot 5 Kartu", "koin": 100, "title": "Tarot 5 Kartu",
+        "tab": "Tarot 5 Kartu", "koin": P.TAROT[5], "title": "Tarot 5 Kartu",
         "desc": "Analisis mendalam 5 dimensi: Situasi, Rintangan, Fondasi Bawah Sadar, Solusi Tindakan, dan Hasil.",
         "pos": [
             ("1. Situasi Saat Ini", "Kondisi riil yang sedang kamu hadapi dan pusat perhatian pikiranmu."),
@@ -85,7 +86,7 @@ _SPREADS = {
         ],
     },
     10: {
-        "tab": "Tarot Celtic Cross", "koin": 150, "title": "Tarot Celtic Cross",
+        "tab": "Tarot Celtic Cross", "koin": P.TAROT[10], "title": "Tarot Celtic Cross",
         "desc": "Format tebaran 10 kartu legendaris paling komprehensif dalam sejarah esoteris Barat.",
         "pos": [
             ("1. Situasi Inti", "Pusat permasalahan atau tema utama hidupmu saat ini."),
@@ -371,7 +372,7 @@ def _ts_warn():
     st.button("Tetap Lanjut", key="dhts_w_go", use_container_width=True, on_click=_ts_do_pending)
 
 
-@st.dialog("Tarot Spreads Multi-Kartu", width="large", on_dismiss=_cb_ts_dismiss)
+@st.dialog("Tarot Spreads", width="large", on_dismiss=_cb_ts_dismiss)
 def tarot_spread_dialog():
     ss = st.session_state
     step = ss.get("dh_ts_step", "intro")

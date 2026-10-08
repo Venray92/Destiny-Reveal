@@ -17,6 +17,7 @@ from functools import lru_cache
 from pathlib import Path
 
 import streamlit as st
+from content import pricing as P
 
 from components import auth
 from components import close_confirm as cc
@@ -165,7 +166,7 @@ def _cb_daily_open():
     st.session_state.dh_daily_confirm = True
 
 
-SWAP_PRICE = 50  # Stardust
+SWAP_PRICE = P.SWAP  # Stardust
 
 
 def _cb_swap_open():
@@ -294,14 +295,14 @@ def daily_dialog():
                         '<p>💗 Asmara: Percakapan jujur dengan orang terdekat membawa suasana yang lebih hangat…</p>'
                         '<p>💡 Nasihat: Tuntaskan satu hal kecil sebelum memulai hal baru supaya energimu tidak pecah…</p></div>',
                         unsafe_allow_html=True)
-            if st.button("🔒 Buka Analisis Lengkap Per Sistem (150 ✨)", key="dhdy_unlock", type="primary"):
+            if st.button(f"🔒 Buka Analisis Lengkap Per Sistem ({P.fmt(P.SOLO)} ✨)", key="dhdy_unlock", type="primary"):
                 request_solo(label)
             st.markdown('<div class="dh-dr-sub">Buka analisis mendalam 6 aspek: Aspek Utama, Karier, Asmara, Karakter, '
                         'Shadow Work, &amp; Nasihat Strategis.</div>', unsafe_allow_html=True)
         with st.container(key="dhdy_swap"):
             st.markdown('<div class="dh-dr-swaptxt">Mau intip ramalan zodiak, shio, atau weton lain hari ini?</div>',
                         unsafe_allow_html=True)
-            st.button("Ganti Pilihan / Buka Sistem Lain (50 ✨) →", key="dhdy_swapbtn", on_click=_cb_swap_open)
+            st.button(f"Ganti Pilihan / Buka Sistem Lain ({P.SWAP} ✨) →", key="dhdy_swapbtn", on_click=_cb_swap_open)
         if st.button("Sinkronkan dengan Sistem Lainnya →", key="dhdy_sync", use_container_width=True):
             _open_reveal()
         return
@@ -499,7 +500,7 @@ def preview_dialog():
         f'<span class="dh-mn-lockico">🔒</span><b>Buka Analisis Lengkap {pick}</b>'
         '<span>Membongkar kekuatan sejati, PR batin (shadow work), serta insight karier, asmara &amp; keuangan.</span></div></div>',
         unsafe_allow_html=True)
-    if st.button("🔒 Buka Analisis Lengkap Per Sistem (150 ✨)", key="dhpv_unlock", type="primary",
+    if st.button(f"🔒 Buka Analisis Lengkap Per Sistem ({P.fmt(P.SOLO)} ✨)", key="dhpv_unlock", type="primary",
                  use_container_width=True):
         request_solo("Zodiak")
     if st.button("Sinkronkan dengan Sistem Lainnya →", key="dhpv_sync", use_container_width=True):
@@ -573,8 +574,8 @@ def streak_dialog():
         ptxt, pct = f"{done} / 7 Hari menuju +{_WEEKS[nxt][2]}✨ Gratis", round(done / 7 * 100)
     tip = ('<i class="dh-sk-ti" tabindex="0">ℹ️ Apa yang bisa didapat dengan 180✨?<i class="dh-sk-pop">'
            '<i class="dh-sk-pophead">💡 Dengan mengumpulkan 180✨ per bulan, kamu bisa unlock:</i>'
-           '<i>✅ 3 Sistem Kelahiran (150✨)</i><i>✅ 1 Weekly Report + 1 Tarot 3 Kartu (150✨)</i>'
-           '<i>✅ 1 Tarot Celtic Cross (150✨)</i></i></i>')
+           '<i>✅ 1 Tarot Celtic Cross (150✨)</i><i>✅ 1 Tarot 5 Kartu + 1 Tarot 3 Kartu (150✨)</i>'
+           '<i>✅ 3 Ramalan Harian Lengkap (150✨)</i></i></i>')
     st.markdown(
         '<div class="dh-sk-flame">🔥</div><div class="dh-sk-title">Streak &amp; Reward</div>'
         '<div class="dh-mn-notice dh-sk-info"><b>📌 Cara Menaikkan Streak:</b>'

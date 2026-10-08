@@ -10,6 +10,7 @@ from functools import lru_cache
 from pathlib import Path
 
 import streamlit as st
+from content import pricing as P
 
 from components.system_info import open_from_node
 from components.data import CATEGORY_SYSTEMS, NODE_COLOR, NODE_ORDER
@@ -248,11 +249,11 @@ def render_explore():
             st.markdown(
                 '<div class="dh-explore-card-badge">PAKAI STARDUST &amp; VIP</div>'
                 + _head("💎", "#eef2fb", "PREMIUM", "Panduan mendalam &amp; akurasi tinggi")
-                + _item("Solo Reveal", "Pilih 1 sistem untuk analisis mendalam", _price("150✨"), modal="solo")
-                + _item("Tarot Spreads Multi-Kartu", "3 Kartu (50✨), 5 Kartu (100✨), Celtic Cross (150✨)", _price("50-150✨"), modal="tarot_spread")
-                + _item("Cek Kecocokan", "Bandingkan 2 orang langsung (Weton &amp; Zodiak)", _price("100✨"), modal="compat")
-                + _item("Weekly &amp; Monthly Report", "Timing pekan (100✨) &amp; analisis bulan (200✨)", _price("100-200✨"), modal="weekly")
-                + _item("Deep Blueprint (15 Sistem)", "Laporan lengkap 15 sistem sekaligus + PDF", _price("VIP", vip=True), modal="blueprint"),
+                + _item("Solo Reveal", "Pilih 1 sistem untuk analisis mendalam", _price(f"{P.fmt(P.SOLO)}✨"), modal="solo")
+                + _item("Tarot Spreads", "3 spread: Past-Present-Future, Cross, Celtic Cross (10 kartu)", _price("50-150✨"), modal="tarot_spread")
+                + _item("Soul Match", "Analisis kecocokan untuk pasangan, kerja, sahabat, &amp; keluarga", _price(f"{P.COMPAT}✨"), modal="compat")
+                + _item("Weekly &amp; Monthly Report", "Panduan timing mingguan &amp; analisis bulanan lengkap", _price(f"{P.WEEKLY}-{P.MONTHLY}✨"), modal="weekly")
+                + _item("Blueprint Mendalam", "Analisis A-M per 1 sistem ATAU 15 sistem sekaligus + PDF", _price("VIP", vip=True), modal="blueprint"),
                 unsafe_allow_html=True,
             )
             with st.container(key="dhexplore_foot_premium"):
@@ -365,7 +366,7 @@ def render_testimonials():
         ("BD", "Budi, 28, Surabaya", "Brand Strategist",
          "Awalnya cuma iseng, tapi hasilnya bikin aku mikir. Saran kariernya masuk akal, dan aku jadi tau harus fokus ke mana."),
         ("SR", "Sarah, 22, Bandung", "Content Creator",
-         "Suka banget sama fitur Cek Kecocokan! Aku sama pacar jadi lebih ngerti cara komunikasi masing-masing."),
+         "Suka banget sama fitur Soul Match! Aku sama pacar jadi lebih ngerti cara komunikasi masing-masing."),
     ]
     cols = st.columns(3, gap="medium")
     for col, (initials, name, role, quote) in zip(cols, testis):
@@ -423,7 +424,7 @@ def render_footer():
         '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="tutorial">Tutorial</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="blog">Blog</a></div>'
         '<div><div class="dh-footer-col-title">FITUR</div>'
         '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="daily">Ramalan Harian</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="tarot">Tarot 1 Kartu</a>'
-        '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="tarot_spread">Tarot Spreads Multi-Kartu</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="compat">Cek Kecocokan</a>'
+        '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="tarot_spread">Tarot Spreads</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="compat">Soul Match</a>'
         '<a href="#dh-soon" class="dh-footer-link highlight dh-open-modal" data-modal="pricing_ref">🎁 Program Referral</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="pricing">Daftar Harga &amp; VIP</a></div>'
         '<div><div class="dh-footer-col-title">BANTUAN</div>'
         '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="faq">FAQ</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="contact">Contact</a>'

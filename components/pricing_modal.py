@@ -13,19 +13,13 @@ from components import auth
 from components.dialog_bus import request_open
 from components.feature_modals import _top
 from components.modal_detail import copy_button
+from content import pricing as P
 
 _PAY_TOAST = "Pembayaran belum tersedia, masih tahap pengembangan 🚧"
 TABS = [("semua", "Semua"), ("koin", "✨ Stardust"), ("fitur", "🔒 Fitur Stardust"), ("vip", "⭐ VIP"), ("ref", "🎁 Referral")]
 
-# (nama, badge, harga, per SD, jumlah SD, bonus, deskripsi)
-COIN_PACKS = [
-    ("Starter", "Coba Dulu", "Rp 10.000", "Rp 83/✨", 120, "+20%", "Cocok untuk dicoba, bisa unlock 2 sistem atau Tarot 3 Kartu."),
-    ("Basic", "Populer", "Rp 25.000", "Rp 71/✨", 350, "+40%", "Pilihan pas untuk eksplorasi beberapa sistem dan Tarot."),
-    ("Value", "Hemat", "Rp 50.000", "Rp 67/✨", 750, "+50%", "Cukup untuk Complete Bundle (15 sistem) atau Deep Blueprint."),
-    ("Pro", "Best Value", "Rp 100.000", "Rp 63/✨", 1600, "+60%", "Ideal untuk eksplorasi mendalam, report bulanan, dan kompatibilitas."),
-    ("Sultan", "Top Up / Hemat 75%", "Rp 200.000", "Rp 57/✨", 3500, "+75%", "Akses tak terbatas untuk semua analisis, report, dan Tarot."),
-    ("Kaisar", "Top Up / Bonus 100%", "Rp 500.000", "Rp 50/✨", 10000, "+100%", "Paket ultimate dengan bonus maksimal untuk penggunaan jangka panjang tanpa batas."),
-]
+# (nama, badge, harga, per ✨, jumlah ✨, bonus, deskripsi) — dari content/pricing.py
+COIN_PACKS = [(n, bd, P.rp(r), P.per_coin(r, c), c, bn, d) for n, bd, r, c, bn, d in P.COIN_PACKS]
 
 
 def _fmt(n):
@@ -35,25 +29,25 @@ def _fmt(n):
 # (kategori, [(nama, SD, keterangan, dialog tujuan, state)])
 FEATURES = [
     ("ANALISIS SISTEM LAHIR & PSIKOLOGI", [
-        ("Buka 1 Sistem (Daily) Lengkap", 50, "Buka lengkap ramalan harian", "daily", {}),
-        ("Buka 1 Sistem (Single)", 150, "Analisis A-F lengkap untuk 1 sistem pilihan", "reveal", {}),
-        ("Bundle 5 Sistem Kelahiran", 200, "A-F lengkap untuk Zodiak, Shio, Weton, Numerologi, Matrix Destiny (Hemat 20%)", "reveal", {"dh_modal_mode": "instan"}),
-        ("Bundle 5 Tes Psikologi", 200, "A-F lengkap untuk MBTI, Big Five, Enneagram, DISC, Love Language (Hemat 20%)", "reveal", {"dh_modal_mode": "mendalam"}),
-        ("Complete Bundle (15 Sistem)", 500, "A-F lengkap untuk SELURUH 15 sistem (Hemat 67% 🔥)", "reveal", {"dh_modal_mode": "lengkap"}),
+        ("Buka 1 Sistem (Daily) Lengkap", P.DAILY_FULL, "Buka lengkap ramalan harian", "daily", {}),
+        ("Buka 1 Sistem (Single)", P.SOLO, "Analisis A-F lengkap untuk 1 sistem pilihan", "reveal", {}),
+        ("Bundle 5 Sistem Kelahiran", P.BUNDLE_BIRTH, "A-F lengkap untuk Zodiak, Shio, Weton, Numerologi, Matrix Destiny (Hemat 20%)", "reveal", {"dh_modal_mode": "instan"}),
+        ("Bundle 5 Tes Psikologi", P.BUNDLE_PSY, "A-F lengkap untuk MBTI, Big Five, Enneagram, DISC, Love Language (Hemat 20%)", "reveal", {"dh_modal_mode": "mendalam"}),
+        ("Complete Bundle (15 Sistem)", P.BUNDLE_ALL, "A-F lengkap untuk SELURUH 15 sistem (Hemat 60% 🔥)", "reveal", {"dh_modal_mode": "lengkap"}),
     ]),
     ("TAROT MULTI KARTU", [
-        ("Tarot 3 Kartu", 50, "Past, Present, Future + Interpretasi Detail", "tarot_spread", {"dh_ts_tab": 3}),
-        ("Tarot 5 Kartu", 100, "Cross Spread (Situasi, Rintangan, Bawah Sadar, Saran, Hasil)", "tarot_spread", {"dh_ts_tab": 5}),
-        ("Tarot Celtic Cross", 150, "10 Posisi Legendaris Celtic Cross Komprehensif", "tarot_spread", {"dh_ts_tab": 10}),
-        ("Tarot Bundle", 250, "3 Spread Sekaligus (Hemat 50 ✨)", "tarot_spread", {"dh_ts_tab": 3}),
+        ("Tarot 3 Kartu", P.TAROT[3], "Past, Present, Future + Interpretasi Detail", "tarot_spread", {"dh_ts_tab": 3}),
+        ("Tarot 5 Kartu", P.TAROT[5], "Cross Spread (Situasi, Rintangan, Bawah Sadar, Saran, Hasil)", "tarot_spread", {"dh_ts_tab": 5}),
+        ("Tarot Celtic Cross", P.TAROT[10], "10 Posisi Legendaris Celtic Cross Komprehensif", "tarot_spread", {"dh_ts_tab": 10}),
+        ("Tarot Bundle", P.TAROT_BUNDLE, "3 Spread Sekaligus (Hemat 50 ✨)", "tarot_spread", {"dh_ts_tab": 3}),
     ]),
     ("LAPORAN & KECOCOKAN (REPORT & COMPATIBILITY)", [
-        ("Weekly Report", 100, "Panduan timing & prediksi mingguan (4-5 minggu)", "weekly", {}),
-        ("Monthly Report", 200, "Prediksi bulanan komprehensif + saran strategis & risiko (12 bulan)", "weekly", {}),
-        ("Deep Blueprint Report", 300, "Analisis A-M (13 Section) super mendalam", "blueprint", {}),
-        ("Compatibility (1 Sistem)", 100, "Analisis kecocokan 2 orang (Nama + Tanggal Lahir)", "compat", {}),
-        ("Compatibility (2 Sistem)", 180, "Kecocokan 2 orang pada 2 sistem", "compat", {}),
-        ("Compatibility (3 Sistem)", 250, "Kecocokan 2 orang pada 3 sistem", "compat", {}),
+        ("Weekly Report", P.WEEKLY, "Panduan timing & prediksi mingguan (4-5 minggu)", "weekly", {}),
+        ("Monthly Report", P.MONTHLY, "Prediksi bulanan komprehensif + saran strategis & risiko (12 bulan)", "weekly", {}),
+        ("Blueprint Mendalam", P.BLUEPRINT, "Analisis A-M (13 Section) super mendalam", "blueprint", {}),
+        ("Soul Match (1 Sistem)", P.COMPAT, "Analisis kecocokan 2 orang (Nama + Tanggal Lahir)", "compat", {}),
+        ("Soul Match (2 Sistem)", 180, "Kecocokan 2 orang pada 2 sistem", "compat", {}),
+        ("Soul Match (3 Sistem)", 250, "Kecocokan 2 orang pada 3 sistem", "compat", {}),
     ]),
 ]
 VIP_BENEFITS = ["Semua 15 sistem kebuka tanpa batas", "10 Deep Report / bulan",
@@ -65,7 +59,7 @@ VIP_PLANS = [
     ("3 BULAN", "VIP 3 Bulan", "Rp 249.000", "(~Rp 83.000/bln)", "Hemat Rp 48.000 dibanding bulanan.", "Pilih 3 Bulan", "out", "HEMAT 16%"),
     ("6 BULAN", "VIP 6 Bulan", "Rp 449.000", "(~Rp 74.833/bln)", "Hemat Rp 145.000 untuk setengah tahun.", "Pilih 6 Bulan", "out", "HEMAT 24%"),
     ("1 TAHUN", "VIP 1 Tahun", "Rp 799.000", "(~Rp 66.583/bln)", "Pilihan paling hemat untuk setahun penuh.", "Pilih Tahunan", "out", "PALING POPULER · HEMAT 33%"),
-    ("SEKALI BAYAR", "VIP Lifetime", "Rp 1.999.000", "(Sekali Bayar)", "Akses seumur hidup tanpa biaya langganan bulanan selamanya.", "Pilih Lifetime", "out", "ALL ACCESS"),
+    ("SEKALI BAYAR", "VIP Lifetime", P.rp(P.VIP_LIFETIME), "(Sekali Bayar)", "Akses seumur hidup tanpa biaya langganan bulanan selamanya.", "Pilih Lifetime", "out", "ALL ACCESS"),
 ]
 COMMISSION = [
     ("USER BIASA (REFERRAL)", "Referral Stardust", "10 - 15%",
@@ -161,7 +155,7 @@ def _sec_fitur():
                     with c1:
                         st.markdown(f'<div class="dh-pr-fn">{nama}</div>', unsafe_allow_html=True)
                     with c2:
-                        st.markdown(f'<span class="dh-pr-pill">{sd} ✨</span>', unsafe_allow_html=True)
+                        st.markdown(f'<span class="dh-pr-pill">{P.fmt(sd)} ✨</span>', unsafe_allow_html=True)
                     with c3:
                         st.markdown(f'<div class="dh-pr-fk">{html.escape(ket)}</div>', unsafe_allow_html=True)
                     with c4:

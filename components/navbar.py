@@ -4,6 +4,7 @@ buat elemen HTML statis yang harus buka modal Reveal.
 """
 
 import streamlit as st
+from content import pricing as P
 import streamlit.components.v1 as components
 
 from components import auth, dialog_bus
@@ -49,8 +50,8 @@ def _mega_menu_html():
         _mega_item("Tarot 3 Kartu (50✨)", "Masa Lalu, Kini, Masa Depan", modal="tarot_spread_3"),
         _mega_item("Tarot 5 Kartu (100✨)", "Situasi, Rintangan, Saran &amp; Hasil", modal="tarot_spread_5"),
         _mega_item("Celtic Cross (150✨)", "10 Posisi Tebaran Komprehensif", modal="tarot_spread_10"),
-        _mega_item("Cek Kecocokan (100✨/sistem)", "Bandingkan 2 orang (1-4 sistem)", modal="compat"),
-        _mega_item("Weekly (100✨) / Monthly (200✨)", "Prediksi berkala &amp; timing eksekusi", modal="weekly"),
+        _mega_item(f"Soul Match ({P.COMPAT}✨/sistem)", "Bandingkan 2 orang (1-4 sistem)", modal="compat"),
+        _mega_item(f"Weekly ({P.WEEKLY}✨) / Monthly ({P.MONTHLY}✨)", "Prediksi berkala &amp; timing eksekusi", modal="weekly"),
         '<div class="dh-mega-foot"><a href="#dh-soon" class="dh-open-modal" data-modal="pricing_koin">✨ Stardust</a><i>·</i>'
         '<a href="#dh-soon" class="dh-open-modal" data-modal="pricing_vip">⭐ VIP</a><i>·</i><a href="#dh-soon" class="dh-open-modal" data-modal="pricing">💰 List Harga</a></div>',
     ])

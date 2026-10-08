@@ -1,5 +1,5 @@
 """
-Konfirmasi tutup untuk semua modal hasil akhir (Reveal Dirimu, Solo Reveal, Cek Kecocokan, Tarot, Ramalan Harian).
+Konfirmasi tutup untuk semua modal hasil akhir (Reveal Dirimu, Solo Reveal, Soul Match, Tarot, Ramalan Harian).
 Dipakai dua jalur:
   - tombol "Selesai & Tutup"  -> on_click=cb_ask(key)  -> layar konfirmasi tampil di dalam dialog yang sama
   - X di pojok dialog         -> on_dismiss=dismiss(...) -> dialog dibuka ulang (navbar) dengan layar konfirmasi

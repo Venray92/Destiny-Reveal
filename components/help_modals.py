@@ -7,6 +7,7 @@ DUMMY: form pesan belum ada backend (toast).
 import re
 
 import streamlit as st
+from content import pricing as P
 
 from components import auth
 from components.feature_modals import _close_btn, _top
@@ -41,8 +42,8 @@ _FAQ = [
          "- **Paid (A-F):** Laporan lengkap standar mencakup 6 seksi analisis utama.\n"
          "- **Deep (A-M):** Laporan mendalam mencakup 12 seksi komprehensif + panduan shadow work."),
         ("Berapa biaya Stardust (✨) untuk unlock fitur?",
-         "- 1 Sistem (A-F): 150✨\n- 1 Sistem (A-M): 300✨\n- Bundle 15 Sistem (A-F): 500✨\n- Bundle 15 Sistem (A-M): 1.500✨"),
-        ("Jika sudah unlock versi A-F, apakah bisa upgrade ke A-M?", "Bisa. Kamu cukup membayar selisihnya sebesar 150✨."),
+         f"- 1 Sistem (A-F): {P.fmt(P.SOLO)}✨\n- Blueprint Mendalam (A-M): {P.fmt(P.BLUEPRINT)}✨\n- Complete Bundle 15 Sistem (A-F): {P.fmt(P.BUNDLE_ALL)}✨"),
+        ("Jika sudah unlock versi A-F, apakah bisa upgrade ke A-M?", "Bisa. Kamu cukup membayar selisihnya."),
     ]),
     ("💳", "TENTANG PEMBAYARAN", [
         ("Metode pembayaran apa saja yang tersedia?",
@@ -61,7 +62,7 @@ _FAQ = [
          "- Bebas dari iklan (Ad-Free Experience)\n- Prioritas antrean pemrosesan data & akses fitur baru lebih awal"),
         ("Berapa tarif berlangganan VIP?",
          "- Bulanan: Rp 99.000 / bulan\n- 3 Bulan: Rp 249.000\n- 6 Bulan: Rp 449.000\n- 1 Tahun: Rp 799.000\n"
-         "- Lifetime Access: Rp 1.999.000 (Bayar sekali untuk selamanya)"),
+         "- Lifetime Access: Rp 2.499.000 (Bayar sekali untuk selamanya)"),
         ("Apakah VIP bisa dibayar menggunakan Stardust (✨)?",
          "Tidak. Langganan VIP hanya dapat dibayar menggunakan mata uang Rupiah (IDR)."),
     ]),
@@ -236,26 +237,26 @@ def tutorial_dialog():
         + _sec("3. 📖 BIAYA UNLOCK &amp; CARA BACA HASIL",
                "<p>Setiap sistem memiliki 12 seksi analisis (A-M):</p>" + _li([
                    "<b>FREE PREVIEW:</b> Gratis preview 3-5 baris ringkasan utama (Seksi A).",
-                   "<b>PAID REPORT (Seksi A-F):</b> Unlock 6 seksi analisis standar seharga <b>150✨</b>.",
-                   "<b>DEEP REPORT (Seksi A-M):</b> Unlock 12 seksi analisis mendalam + panduan Shadow Work seharga <b>300✨</b>.",
-                   "<b>UPGRADE A-F KE A-M:</b> Cukup bayar selisihnya sebesar <b>150✨</b>."]))
+                   "<b>PAID REPORT (Seksi A-F):</b> Unlock 6 seksi analisis standar seharga <b>200✨</b>.",
+                   "<b>DEEP REPORT (Seksi A-M):</b> Unlock 12 seksi analisis mendalam + panduan Shadow Work seharga <b>800✨</b>.",
+                   "<b>UPGRADE A-F KE A-M:</b> Cukup bayar selisihnya."]))
         + _sec("4. 💎 PENGGUNAAN STARDUST (✨)",
                "<p>Stardust (✨) adalah mata uang digital internal untuk unlock fitur premium:</p>" + _li([
                    "<b>Cara Dapatkan ✨:</b> Top-up saldo, Daily Check-in (Streak 30 hari = 180✨), program Referral, dan reward Milestone.",
-                   "<b>Paket Top-Up:</b>" + _li(["Starter: Rp 10.000 ➔ 120✨", "Basic: Rp 25.000 ➔ 350✨", "Value: Rp 50.000 ➔ 750✨",
-                                                "Pro: Rp 100.000 ➔ 1.600✨", "Sultan: Rp 200.000 ➔ 3.500✨"])]))
+                   "<b>Paket Top-Up:</b>" + _li(["Starter: Rp 10.000 ➔ 120✨", "Basic: Rp 25.000 ➔ 320✨", "Value: Rp 50.000 ➔ 700✨",
+                                                "Pro: Rp 100.000 ➔ 1.500✨", "Sultan: Rp 200.000 ➔ 3.200✨", "Kaisar: Rp 500.000 ➔ 8.500✨"])]))
         + _sec("5. 🎴 FITUR TAROT SPREADS", _li([
             "<b>Tarot Harian (Gratis):</b> Draw 1 kartu gratis setiap hari.", "<b>Tarot 3 Kartu:</b> Past-Present-Future (50✨).",
             "<b>Tarot 5 Kartu:</b> Cross Spread / Problem Solution (100✨).",
             "<b>Celtic Cross:</b> 10 Kartu analisis situasi mendalam (150✨)."]))
-        + _sec("6. 💕 CEK KECOCOKAN (COMPATIBILITY)",
+        + _sec("6. 💕 SOUL MATCH (KECOCOKAN)",
                "<p>Analisis hubungan &amp; tingkat kecocokan 2 orang berdasarkan kompilasi sistem pilihanmu:</p>" + _li([
                    "Input data nama &amp; tanggal lahir kedua belah pihak.", "Biaya unlock analisis kecocokan: <b>100✨</b>."]))
         + _sec("7. 👑 VIP MEMBERSHIP",
                "<p>Dapatkan akses tanpa batas ke seluruh platform:</p>" + _li([
                    "✅ Bebas unlock 15 sistem tanpa Stardust", "✅ Kuota 10 Deep Report (A-M) / bulan",
                    "✅ Export PDF Laporan Lengkap", "✅ Bebas Iklan &amp; Akses Prioritas",
-                   "<b>Pilihan Paket VIP:</b> Bulanan (Rp 99rb), 3 Bulan (Rp 249rb), 6 Bulan (Rp 449rb), 1 Tahun (Rp 799rb), dan Lifetime (Rp 1.999.000)."]))
+                   "<b>Pilihan Paket VIP:</b> Bulanan (Rp 99rb), 3 Bulan (Rp 249rb), 6 Bulan (Rp 449rb), 1 Tahun (Rp 799rb), dan Lifetime (Rp 2.499.000)."]))
         + _sec("🛠️ TROUBLESHOOTING RINGKAS", _li([
             "<b>Laporan tidak muncul?</b> Refresh halaman atau cek folder spam email kamu.",
             "<b>Saldo ✨ hilang?</b> Pastikan kamu sudah Login (jika dalam mode Guest, saldo tersimpan di browser lokal).",

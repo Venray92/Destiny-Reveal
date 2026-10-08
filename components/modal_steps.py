@@ -8,6 +8,7 @@ DUMMY: magic link, validasi kode referral, dan pembayaran belum ada backend.
 import time
 
 import streamlit as st
+from content import pricing as P
 
 from components import auth
 from components import close_confirm as cc
@@ -124,7 +125,7 @@ def render_verify():
 
 # ══════════════════ LANGKAH 2: PAKET & PEMBAYARAN ══════════════════
 PAY_METHODS = [
-    ("koin", "✨", "Saldo ✨", "200 ✨"),
+    ("koin", "✨", "Saldo ✨", P.coin(P.BUNDLE_BIRTH)),
     ("gopay", "📱", "GoPay", "Instan"),
     ("qris", "⬛", "QRIS", "Semua Bank"),
     ("ovo", "💜", "OVO / DANA", "E-Wallet"),
@@ -171,7 +172,7 @@ def render_pay():
         '<div class="dh-pkg-label">PAKET TERPILIH:</div>'
         '<div class="dh-pkg-title">Mode 1: 5 Kelahiran</div>'
         '<div class="dh-pkg-sub">Zodiak, Shio, Weton, Numerologi, Matrix Destiny</div></div>'
-        f'<div class="dh-pkg-price">{strike}<b>{rp(price)}</b><span>atau 200 ✨</span></div></div>'
+        f'<div class="dh-pkg-price">{strike}<b>{rp(price)}</b><span>atau {P.coin(P.BUNDLE_BIRTH)}</span></div></div>'
         f'<div class="dh-pkg-foot"><span>Profil: <b>{(data.get("nama") or "").upper()}</b></span>'
         '<span>Format: Cetak Biru Interaktif + Akun</span></div></div>',
         unsafe_allow_html=True,

@@ -1,7 +1,7 @@
 """
 Modal User Profile (UI26): header (Mail + Logout), tab Overview / Referral / Riwayat, form Edit Profil.
 State: dh_pf_tab | dh_pf_edit | dh_pf_err | dh_pf_toast. Data profil disimpan di dh_user["profil"] dan
-disinkron ke dh_solo_prof supaya autofill Solo Reveal / Cek Kecocokan ikut berubah.
+disinkron ke dh_solo_prof supaya autofill Solo Reveal / Soul Match ikut berubah.
 DUMMY: referral, komisi, Mail, dan arsip belum ada backend (session saja).
 """
 
@@ -176,7 +176,7 @@ def _render_overview(u):
 def _render_edit(u):
     ss = st.session_state
     st.markdown('<div class="dh-pp-edith">✏️ Edit Profil</div><div class="dh-pp-edsub">Data ini dipakai otomatis (autofill) '
-                'di Solo Reveal, Cek Kecocokan, dan pembacaan lainnya.</div>', unsafe_allow_html=True)
+                'di Solo Reveal, Soul Match, dan pembacaan lainnya.</div>', unsafe_allow_html=True)
     with st.container(key="dhpp_editcard"):
         c1, c2 = st.columns(2, gap="medium")
         with c1:
