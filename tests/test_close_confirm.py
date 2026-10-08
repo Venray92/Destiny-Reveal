@@ -1,4 +1,4 @@
-"""Tes konfirmasi tutup modal hasil + teks Cek Kecocokan yang lebih panjang."""
+"""Tes konfirmasi tutup modal hasil + teks Soul Match yang lebih panjang."""
 from datetime import date
 
 import streamlit as st

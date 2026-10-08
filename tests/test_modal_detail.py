@@ -95,7 +95,7 @@ def test_ui16_spread_triggers():
 # ---- UI17 (Stardust) ----
 def test_ui17_stardust_packs():
     from components.pricing_modal import COIN_PACKS, TABS
-    assert [p[4] for p in COIN_PACKS] == [120, 350, 750, 1600, 3500, 10000]
+    assert [p[4] for p in COIN_PACKS] == [120, 320, 700, 1500, 3200, 8500]
     assert [p[2] for p in COIN_PACKS] == ["Rp 10.000", "Rp 25.000", "Rp 50.000", "Rp 100.000", "Rp 200.000", "Rp 500.000"]
     assert [t[1] for t in TABS] == ["Semua", "✨ Stardust", "🔒 Fitur Stardust", "⭐ VIP", "🎁 Referral"]
 
@@ -103,10 +103,11 @@ def test_ui17_stardust_packs():
 def test_ui17_fitur_and_vip():
     from components.pricing_modal import FEATURES, VIP_PLANS
     prices = {n: sd for _, rows in FEATURES for n, sd, *_ in rows}
-    assert len(prices) == 15 and prices["Buka 1 Sistem (Single)"] == 150 and prices["Buka 1 Sistem (Daily) Lengkap"] == 50
-    assert prices["Complete Bundle (15 Sistem)"] == 500 and prices["Deep Blueprint Report"] == 300
-    assert prices["Tarot Celtic Cross"] == 150 and prices["Compatibility (3 Sistem)"] == 250
-    assert [p[2] for p in VIP_PLANS] == ["Rp 99.000", "Rp 249.000", "Rp 449.000", "Rp 799.000", "Rp 1.999.000"]
+    assert len(prices) == 15 and prices["Buka 1 Sistem (Single)"] == 200 and prices["Buka 1 Sistem (Daily) Lengkap"] == 50
+    assert prices["Complete Bundle (15 Sistem)"] == 1200 and prices["Blueprint Mendalam"] == 800
+    assert prices["Weekly Report"] == 300 and prices["Monthly Report"] == 600
+    assert prices["Tarot Celtic Cross"] == 150 and prices["Soul Match (3 Sistem)"] == 250
+    assert [p[2] for p in VIP_PLANS] == ["Rp 99.000", "Rp 249.000", "Rp 449.000", "Rp 799.000", "Rp 2.499.000"]
 
 
 # ---- UI18 ----
@@ -114,7 +115,7 @@ def test_ui18_blueprint_am():
     from components.pricing_modal import BLUEPRINT_AM, FEATURES
     assert [k for k, *_ in BLUEPRINT_AM] == list("ABCDEFGHIJKLM")
     ket = {n: k for _, rows in FEATURES for n, _, k, *_ in rows}
-    assert "13 Section" in ket["Deep Blueprint Report"]
+    assert "13 Section" in ket["Blueprint Mendalam"]
 
 
 # ---- UI19 ----
@@ -155,7 +156,7 @@ def test_ui21_faq_sections():
 def test_ui22_faq_unlock_prices():
     from components.help_modals import _FAQ
     txt = str(_FAQ)
-    assert "1 Sistem (A-F): 150✨" in txt and "1 Sistem (A-M): 300✨" in txt and "sebesar 150✨" in txt
+    assert "1 Sistem (A-F): 200✨" in txt and "(A-M): 800✨" in txt and "(A-F): 1.200✨" in txt
     assert "sebesar 100✨" not in txt
 
 
@@ -167,7 +168,7 @@ def test_ui22_blog_posts():
 # ---- UI23 ----
 def test_ui23_solo_systems_and_price():
     from components.solo_reveal import SYSTEMS, SOLO_PRICE, DIALOGS
-    assert SOLO_PRICE == 150 and len(SYSTEMS) == 15 and len({n for n, _i, _k in SYSTEMS}) == 15
+    assert SOLO_PRICE == 200 and len(SYSTEMS) == 15 and len({n for n, _i, _k in SYSTEMS}) == 15
     assert [n for n, _i, k in SYSTEMS if k == "quiz"] == ["MBTI", "Big Five", "Enneagram", "DISC", "Love Language"]
     assert "solo" in DIALOGS
 
@@ -191,7 +192,7 @@ def test_ui24_labels_and_pdf():
     import pathlib
     from utils.simple_pdf import make_pdf
     mm = pathlib.Path("components/mini_modals.py").read_text()
-    assert "Buka Analisis Lengkap Per Sistem (150 ✨)" in mm
+    assert "Buka Analisis Lengkap Per Sistem ({P.fmt(P.SOLO)} ✨)" in mm
     assert "Sinkronkan dengan Sistem Lainnya →" in mm
     assert "Konfirmasi Kuota Harian Gratis" in mm and "Ya, Buka Ramalan" in mm
     assert "Weton & Shio Milikmu" not in mm and "Weton & Numerologi Lengkap" not in mm
