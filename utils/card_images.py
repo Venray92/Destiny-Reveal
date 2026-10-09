@@ -34,8 +34,36 @@ SYSTEM_CARD_IMAGE_FALLBACK = {
     "Zi Wei": "ziwei/ziwei.png",
     "Human Design": "human_design/generator.png",
     "Golongan Darah": "golongan_darah/o.png",
-    "Tarot": "tarot/00_fool.png",
+    "Tarot": "tarot/major/00_fool.jpg",
 }
+
+# Folder suit Tarot minor di assets/cards/tarot/ (slug engine "swords" -> folder "sword")
+_TAROT_SUIT_DIR = {"cups": "cups", "pentacles": "pentacles", "swords": "sword", "wands": "wands"}
+_TAROT_COURT = {"page": 11, "knight": 12, "queen": 13, "king": 14}
+
+
+def tarot_relative_path(slug: str):
+    """Slug kartu engine ("fool", "cups_03", "swords_page") -> path relatif
+    file gambar di assets/cards/tarot/, atau None kalau filenya belum ada.
+    Cari lewat prefix nomor (00_..., 03_...), jadi tahan beda nama/ekstensi."""
+    from engine.tarot import TAROT_MAJOR_ARCANA
+    if slug in TAROT_MAJOR_ARCANA:
+        folder, num = "major", TAROT_MAJOR_ARCANA.index(slug)
+    else:
+        suit, _, rank = slug.partition("_")
+        if suit not in _TAROT_SUIT_DIR:
+            return None
+        folder = _TAROT_SUIT_DIR[suit]
+        num = _TAROT_COURT.get(rank) or (int(rank) if rank.isdigit() else None)
+        if num is None:
+            return None
+    base = ASSETS_ROOT / "tarot" / folder
+    if not base.is_dir():
+        return None
+    for f in sorted(base.glob(f"{num:02d}[_.]*")):
+        if f.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp"):
+            return f"tarot/{folder}/{f.name}"
+    return None
 
 
 def card_relative_path_for_result(system: str, raw_result: dict | None):
@@ -126,12 +154,7 @@ def card_relative_path_for_result(system: str, raw_result: dict | None):
         kartu = raw_result.get("kartu")
         if not kartu:
             return None
-        from engine.tarot import TAROT_MAJOR_ARCANA
-        try:
-            idx = TAROT_MAJOR_ARCANA.index(kartu)
-        except ValueError:
-            return None
-        return f"tarot/{idx:02d}_{kartu}.png"
+        return tarot_relative_path(kartu)
 
     return None
 
@@ -151,14 +174,15 @@ def card_image_data_uri(relative_path: str):
     if not path.is_file():
         return None
     encoded = base64.b64encode(path.read_bytes()).decode("ascii")
-    return f"data:image/png;base64,{encoded}"
+    mime = "image/jpeg" if path.suffix.lower() in (".jpg", ".jpeg") else f"image/{path.suffix.lower().lstrip('.')}"
+    return f"data:{mime};base64,{encoded}"
 
 
 def _resolve_relative_path(system, raw_result):
     relative_path = card_relative_path_for_result(system, raw_result)
     if relative_path:
         return relative_path
-    # Tarot minor (cups_03 dst) belum punya gambar: jangan pinjam gambar The Fool
+    # Tarot: kalau file kartunya belum ada, jangan pinjam gambar The Fool
     if system == "Tarot" and (raw_result or {}).get("kartu"):
         return None
     return SYSTEM_CARD_IMAGE_FALLBACK.get(system)
