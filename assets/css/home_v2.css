@@ -306,98 +306,67 @@ div[data-testid="stVerticalBlock"][class*="st-key-dhnode_"] { gap: 0 !important;
 }
 .stApp .dh-proof-dot { color: var(--dh-success); margin-right: 6px; }
 
-/* ── EXPLORE SECTION (3 kolom) ────────────────────────────────── */
-/* Card = st.container(key="dhexplore_card_*") beneran (bukan div markdown),
-   biar tombol/link bawah ikut KEBUNGKUS di dalam kartu. Tinggi 3 kartu
-   disamain lewat flex-stretch (pola sama kayak drfillheight di app.css). */
-[data-testid="stColumn"]:has([class*="st-key-dhexplore_card"]) { display: flex !important; flex-direction: column !important; }
-[data-testid="stVerticalBlock"]:has(> [data-testid="stLayoutWrapper"] > [class*="st-key-dhexplore_card"]),
-[data-testid="stLayoutWrapper"]:has(> [class*="st-key-dhexplore_card"]) {
-    display: flex !important; flex-direction: column !important; flex: 1 !important; min-height: 0 !important;
+/* ── EXPLORE SECTION: grid 6 kategori (REVISI01) ───────────────── */
+/* Lebar grid = lebar container "Satu Data" (sama-sama 3 kolom, gap 20px, 100% lebar section) */
+.dh-cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
+.dh-cat {
+    position: relative; overflow: hidden; cursor: pointer; text-align: center; box-sizing: border-box;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FDF8F2 100%); border: 1.5px solid #EADFD2; border-radius: 18px;
+    padding: 24px 18px 20px 18px; display: flex; flex-direction: column; align-items: center;
+    transition: transform .22s cubic-bezier(.2,.8,.2,1), border-color .22s, box-shadow .22s, opacity .2s;
+    -webkit-tap-highlight-color: transparent; outline: none;
 }
-div[data-testid="stVerticalBlock"][class*="st-key-dhexplore_card"] {
-    background: var(--dh-card); border: 1.5px solid var(--dh-border); border-radius: 18px;
-    padding: 24px 24px 20px 24px; flex: 1 !important; box-sizing: border-box; position: relative;
-    gap: 0 !important; display: flex !important; flex-direction: column !important;
+.dh-cat:hover, .dh-cat:focus-visible {
+    transform: translateY(-5px) scale(1.015); border-color: #D9743F;
+    box-shadow: 0 14px 30px -12px rgba(200,98,53,0.35), 0 0 0 3px rgba(217,116,63,0.10);
 }
-/* Konten atas (head + item) tumbuh ngisi ruang, footer (tombol) nempel di dasar kartu */
-div[class*="st-key-dhexplore_card"] > [data-testid="stElementContainer"]:first-child { flex: 1 1 auto; }
-/* Streamlit ngasih position:relative ke stElementContainer -> badge ngacu ke
-   situ (kegeser ke dalam padding). Paksa static biar nempel ke pojok kartu. */
-div[class*="st-key-dhexplore_card"] [data-testid="stElementContainer"] { position: static !important; }
-.stApp .dh-explore-card-badge {
-    position: absolute; top: -2px; right: -2px; background: var(--dh-primary); color: #fff;
-    font-size: 9.5px; font-weight: 800; letter-spacing: 0.04em; padding: 6px 14px;
-    border-radius: 0 18px 0 12px; z-index: 2;
+.dh-cat-deco { position: absolute; top: -34px; right: -34px; width: 96px; height: 96px; border-radius: 50%; background: rgba(240,200,170,0.28); pointer-events: none; }
+.dh-cat-icon { width: 46px; height: 46px; border-radius: 12px; background: #fff; border: 1px solid #EADFD2; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 12px; position: relative; }
+.dh-cat-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 18px; color: #2D2A26; line-height: 1.25; position: relative; }
+.dh-cat-sub { font-family: 'Lora', serif; font-style: italic; font-size: 12.5px; color: #8A8178; margin: 6px 0 14px 0; line-height: 1.45; position: relative; }
+.dh-cat-line { width: 100%; height: 1px; background: #EADFD2; margin: auto 0 14px 0; }
+.dh-cat-badge { font-size: 10px; font-weight: 800; letter-spacing: .04em; padding: 4px 12px; border-radius: 100px; display: inline-flex; align-items: center; gap: 5px; border: 1px solid transparent; }
+.dh-cat-badge.free { background: #E8F5E9; color: #2E7D32; border-color: #BFE0C2; }
+.dh-cat-badge.prem { background: #FDEDE4; color: #C25E00; border-color: #F2C9B0; }
+.dh-cat-badge.soon { background: #F1EDE6; color: #8A8178; border-color: #E0D8CB; }
+.dh-cat-data { display: none !important; }
+.dh-cat.dh-cat-away { opacity: 0; transition: none; }
+@media (max-width: 700px) {
+    .dh-cat-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .dh-cat { padding: 18px 10px 16px 10px; }
+    .dh-cat-title { font-size: 15px; } .dh-cat-sub { font-size: 11px; }
 }
-.stApp .dh-explore-head { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-.stApp .dh-explore-icon {
-    width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center;
-    justify-content: center; font-size: 16px; flex-shrink: 0;
-}
-.stApp .dh-explore-title { font-weight: 800; font-size: 14.5px; color: var(--dh-text-dark); }
-.stApp .dh-explore-subtitle { font-size: 11.5px; color: var(--dh-text-muted); }
-.stApp a.dh-explore-item {
-    display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    padding: 11px 12px; margin-bottom: 8px; border-radius: 10px;
-    background: #FAF6EF; border: 1px solid transparent; cursor: pointer;
-    text-decoration: none !important; transition: background .15s, border-color .15s;
-}
-.stApp a.dh-explore-item:hover { background: #FDF3E0; border-color: #EBCFA6; }
-.stApp a.dh-explore-item:hover .dh-explore-item-title { color: var(--dh-primary); }
-.stApp a.dh-explore-item:hover .dh-explore-item-arrow { color: var(--dh-primary); }
-.stApp .dh-explore-item-title { font-size: 13px; font-weight: 700; color: var(--dh-text-dark); transition: color .15s; }
-.stApp .dh-explore-item-sub { font-size: 11px; color: var(--dh-text-muted); margin-top: 2px; }
-.stApp .dh-explore-item-arrow { color: var(--dh-text-muted); flex-shrink: 0; transition: color .15s; }
-.stApp .dh-explore-item-price {
-    flex-shrink: 0; font-size: 10.5px; font-weight: 800; color: var(--dh-primary-dark);
-    background: var(--dh-warning-bg); border-radius: 100px; padding: 4px 11px; white-space: nowrap;
-}
-.stApp .dh-explore-item-price.vip { background: var(--dh-primary); color: #fff; }
 
-/* Footer kartu: garis pemisah + tombol-tombolnya (di dalam kartu) */
-[class*="st-key-dhexplore_foot"] {
-    border-top: 1px solid var(--dh-border); padding-top: 16px; margin-top: 14px; gap: 0.6rem !important;
-}
-[class*="st-key-dhexplore_card"] div.stButton > button {
-    border-radius: 100px !important; font-size: 13px !important; padding: 9px 18px !important;
-    min-height: 0 !important; white-space: nowrap !important;
-}
-[class*="st-key-dhexplore_card"] div.stButton > button[kind="secondary"] {
-    background: var(--dh-card) !important; border: 1.5px solid #EBC9B6 !important;
-    color: var(--dh-primary-dark) !important; font-weight: 700 !important;
-}
-.st-key-dhexplore_card_lainnya div.stButton > button[kind="secondary"] {
-    border-color: var(--dh-border) !important; color: var(--dh-text-dark) !important;
-}
-[class*="st-key-dhexplore_card"] div.stButton > button[kind="secondary"]:hover {
-    border-color: var(--dh-primary) !important; color: var(--dh-primary) !important;
-}
-/* "Paket Koin" krem + "Upgrade VIP" oranye, 1 baris sejajar */
-.st-key-dhexplore_foot_premium [data-testid="stHorizontalBlock"] { gap: 0.6rem !important; }
-.stApp a.dh-explore-pricelink {
-    display: block !important; text-align: center !important; margin: 0 !important;
-    padding: 9px 12px !important; border-radius: 100px !important; background: var(--dh-bg-alt) !important;
-    color: var(--dh-text-muted) !important; font-size: 12px !important; font-weight: 600 !important;
-    text-decoration: none !important;
-}
-.stApp a.dh-explore-pricelink:hover { color: var(--dh-primary) !important; }
-
-/* Card PREMIUM (tengah) dikasih border highlight biar menonjol */
-div[data-testid="stVerticalBlock"].st-key-dhexplore_card_premium {
-    border: 2px solid rgba(200,98,53,0.35);
-}
-/* Hover kartu luar (UI4): border oranye + shadow + naik 3px. Item di dalamnya
-   punya hover sendiri (bg krem) dan tetap jalan karena beda elemen. */
-div[data-testid="stVerticalBlock"][class*="st-key-dhexplore_card"] {
-    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
-}
-div[data-testid="stVerticalBlock"][class*="st-key-dhexplore_card"]:hover {
-    border-color: #D97706; box-shadow: 0 8px 24px rgba(217,119,6,0.12); transform: translateY(-3px);
-}
-div[data-testid="stVerticalBlock"].st-key-dhexplore_card_premium:hover {
-    border-color: #C25E00; box-shadow: 0 12px 32px rgba(194,94,0,0.24);
-}
+/* Overlay modal (shared element transition). Di-append JS ke <body>, jadi TANPA prefix .stApp */
+.dh-ov { position: fixed; inset: 0; z-index: 999990; background: rgba(253,251,247,0); backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
+    transition: background .45s ease, backdrop-filter .45s ease, -webkit-backdrop-filter .45s ease; overscroll-behavior: contain; }
+.dh-ov.go { background: rgba(120,100,80,0.28); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.dh-ov-modal { position: fixed; overflow: hidden; box-sizing: border-box; border-radius: 18px; border: 1.5px solid #D9743F;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FDF8F2 100%); box-shadow: 0 30px 80px -24px rgba(100,70,40,0.45);
+    transition: left .5s cubic-bezier(.2,.8,.2,1), top .5s cubic-bezier(.2,.8,.2,1), width .5s cubic-bezier(.2,.8,.2,1), height .5s cubic-bezier(.2,.8,.2,1), border-radius .5s; }
+.dh-ov-ghost { position: absolute; inset: 0; margin: 0 !important; transform: none !important; box-shadow: none !important; border: 0 !important; border-radius: 0 !important;
+    pointer-events: none; opacity: 1; transition: opacity .25s ease; }
+.dh-ov.go .dh-ov-ghost { opacity: 0; }
+.dh-ov-inner { position: relative; padding: 22px 22px 20px 22px; opacity: 0; transition: opacity .2s ease; font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif; }
+.dh-ov.go .dh-ov-inner { opacity: 1; transition: opacity .3s ease .2s; }
+.dh-ov-x { position: absolute; top: 14px; right: 14px; width: 30px; height: 30px; border-radius: 50%; border: 0; background: transparent; color: #6B6258; font-size: 16px; cursor: pointer; z-index: 3; }
+.dh-ov-x:hover { background: #F3EBDF; color: #C25E00; }
+.dh-ov-head { display: flex; align-items: center; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid #EADFD2; margin-bottom: 14px; padding-right: 30px; }
+.dh-ov-head .dh-cat-icon { width: 52px; height: 52px; margin: 0; flex-shrink: 0; font-size: 24px; }
+.dh-ov-head .dh-cat-title { font-size: 20px; text-align: left; }
+.dh-ov-head .dh-cat-sub { margin: 3px 0 6px 0; text-align: left; }
+.dh-ov-item { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; margin-bottom: 9px; border-radius: 12px; background: #fff;
+    border: 1px solid #EADFD2; text-decoration: none !important; cursor: pointer; transition: background .15s, border-color .15s, transform .15s; }
+.dh-ov-item:hover { background: #FDF3E0; border-color: #EBCFA6; transform: translateX(2px); }
+.dh-ov-item-title { font-size: 13.5px; font-weight: 700; color: #2D2A26; }
+.dh-ov-item-sub { font-size: 11.5px; color: #8A8178; margin-top: 2px; line-height: 1.4; }
+.dh-ov-item:hover .dh-ov-item-title, .dh-ov-item:hover .dh-ov-arrow { color: #C25E00; }
+.dh-ov-arrow { color: #8A8178; flex-shrink: 0; transition: color .15s; }
+.dh-ov-price { flex-shrink: 0; font-size: 10.5px; font-weight: 800; color: #A04A00; background: #FDF1DC; border-radius: 100px; padding: 4px 11px; white-space: nowrap; }
+.dh-ov-soon { text-align: center; padding: 26px 10px 14px 10px; }
+.dh-ov-soon-ic { width: 64px; height: 64px; margin: 0 auto 12px auto; border-radius: 50%; background: #FDEDE4; display: flex; align-items: center; justify-content: center; }
+.dh-ov-soon-t { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #2D2A26; }
+.dh-ov-soon-s { font-size: 12.5px; color: #8A8178; margin-top: 4px; }
 
 /* ── DATA FLOW CARDS (redesign dr-bulk-card lama, namespace baru) ─ */
 .stApp .dh-flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
