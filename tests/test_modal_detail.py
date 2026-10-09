@@ -143,7 +143,7 @@ def test_ui21_nav_uses_sparkle():
     from components import navbar
     import inspect
     src = inspect.getsource(navbar)
-    assert "Tarot 3 Kartu (50✨)" in src and "Celtic Cross (150✨)" in src and "Klaim ✨ gratis" in src
+    assert "Tarot 3 Kartu" in src and "Celtic Cross" in src and "(50✨)" not in src and "(150✨)" not in src
     assert "(50 SD)" not in src
 
 
@@ -221,5 +221,5 @@ def test_ui26_profile_and_return_flow():
     assert "Arsip" in FILTERS and hasattr(dialog_bus, "request_with_return")
     cp = pathlib.Path("components/compat.py").read_text()
     assert "help=_TIP" not in cp and "dhcp_info" in cp and "dhcp_card_" in cp
-    assert 'request_with_return("auth", "compat")' in cp
+    assert 'request_with_return("auth", f"compat_{rel_key}")' in cp
     assert "Kotak Masuk Mail" not in pathlib.Path("components/profile.py").read_text()

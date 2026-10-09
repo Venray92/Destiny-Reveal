@@ -12,7 +12,7 @@ def test_six_categories_and_items():
     assert "Gacha Kartu Tarot" in daily and "Daily Checkin" in daily and "Ramalan Kartu Harian" in daily
     assert "Tarot 1 Kartu" not in daily and "Streak" not in daily
     assert 'data-modal="solo"' in cats["self"][6] and "dh-open-reveal" in cats["self"][6]
-    assert 'data-modal="compat"' in cats["rel"][6]
+    assert all(f'data-modal="compat_{k}"' in cats["rel"][6] for k in ("asmara", "keluarga", "teman", "bisnis"))
     assert 'data-modal="tarot_spread"' in cats["guid"][6] and 'data-modal="weekly"' in cats["guid"][6]
     for k in ("biz", "my"):
         assert cats[k][4] == "COMING SOON" and "Coming Soon" in cats[k][6] and "dh-ov-item" not in cats[k][6]
