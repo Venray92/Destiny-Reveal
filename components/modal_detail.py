@@ -16,6 +16,7 @@ from urllib.parse import quote as urlquote
 import streamlit as st
 import streamlit.components.v1 as components
 
+from components import life_chart
 from components.combo import build_combo
 from components.flow_state import STEP_RESULT, set_step
 from content.profile_loader import ALLOW_LEGACY_FALLBACK, MODE1, get_profile
@@ -207,6 +208,11 @@ def render_detail():
 
     if quote:  # kutipan di antara kartu dan tombol aksi
         st.markdown(f'<div class="dh-dt-quotebox">&ldquo;{_e(quote)}&rdquo;</div>', unsafe_allow_html=True)
+
+    _tg = (ss.get("dh_modal_data") or {}).get("tgl_lahir")
+    if system in life_chart.SYSTEMS and _tg:  # dashboard visual: Roda Takdir / grafik usia 20-60
+        st.markdown('<div class="dh-dt-eyebrow" style="margin-top:14px">PETA SIKLUS HIDUPMU</div>', unsafe_allow_html=True)
+        life_chart.render(system, _tg, height=700 if system == "Matrix Destiny" else 560)
 
     caption = (f'"{quote}"\n\n{nama} · {item["short"]}\nCek takdirmu di destinyreveal.id #DestinyReveal'
                if quote else f'{nama} · {item["short"]}\nCek takdirmu di destinyreveal.id #DestinyReveal')

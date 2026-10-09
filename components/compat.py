@@ -1,7 +1,7 @@
 """
-Soul Match (UI25) — wizard 4 langkah dalam satu st.dialog:
-  select (jumlah & jenis sistem) -> form (2 orang) -> loading -> result.
-State: dh_cp_step | dh_cp_n | dh_cp_sys (list) | dh_cp_res.
+Soul Match (UI25, Batch 3) — 4 entri terpisah (Asmara, Keluarga, Teman, Partner Bisnis), satu st.dialog:
+  [pick, hanya dari entri umum] -> form (data 2 orang + pilih sistem + bayar) -> loading -> result.
+State: dh_cp_step | dh_cp_rel_key | dh_cp_n | dh_cp_sys (list) | dh_cp_res. Skor total = rata-rata berbobot per jenis hubungan (WEIGHTS).
 Skor dihitung dari engine (Zodiak/Shio/Weton/Numerologi) pakai aturan kecocokan sederhana.
 DUMMY: Stardust dipotong di session saja (belum ada backend).
 """
@@ -14,6 +14,7 @@ import streamlit as st
 from content import pricing as P
 
 from components import auth
+from components import form_kit
 from components import close_confirm as cc
 from components.dialog_bus import request_with_return
 from components.modal_detail import copy_button
@@ -31,6 +32,22 @@ _INFO = [
     ("🔢", "Numerologi", "Membaca frekuensi angka takdir & pola hubungan secara logis."),
 ]
 RELATIONS = ["Asmara / Pasangan", "Mitra Bisnis / Rekan Kerja", "Persahabatan", "Keluarga"]
+# kunci entri -> (nama relasi, ikon, judul pendek, deskripsi)
+REL_KEYS = {
+    "asmara": ("Asmara / Pasangan", "💖", "Asmara", "Pasangan atau calon pasangan"),
+    "keluarga": ("Keluarga", "🏡", "Keluarga", "Orang tua, saudara, atau anggota keluarga"),
+    "teman": ("Persahabatan", "🤝", "Teman", "Sahabat dan lingkar pertemanan"),
+    "bisnis": ("Mitra Bisnis / Rekan Kerja", "💼", "Partner Bisnis", "Rekan bisnis atau kolega kerja"),
+}
+# Bobot sistem per jenis hubungan (jumlah 1.0). Dinormalisasi ulang kalau cuma sebagian sistem dipilih.
+# Dasar: Weton = tabel jodoh Jawa (kuat untuk asmara & keluarga); Zodiak = elemen/gaya komunikasi (teman);
+# Numerologi = pola keputusan Life Path, Shio = trine/harmoni/bentrok (kerja sama dan relasi tahan lama).
+WEIGHTS = {
+    "Asmara / Pasangan": {"Zodiak": 0.25, "Shio": 0.25, "Weton": 0.30, "Numerologi": 0.20},
+    "Keluarga": {"Zodiak": 0.20, "Shio": 0.25, "Weton": 0.35, "Numerologi": 0.20},
+    "Persahabatan": {"Zodiak": 0.35, "Shio": 0.20, "Weton": 0.20, "Numerologi": 0.25},
+    "Mitra Bisnis / Rekan Kerja": {"Zodiak": 0.15, "Shio": 0.30, "Weton": 0.20, "Numerologi": 0.35},
+}
 GENDERS = ["Perempuan", "Laki-laki", "Lainnya / Tidak ingin menyebut"]
 LOADING_SEC = 2.2
 
@@ -220,12 +237,15 @@ def _compute(systems, pa, pb, rel):
         if ra.get("placeholder") or rb.get("placeholder"):
             return None
         sc, note, (k, t) = _SCORERS[s](ra, rb)
-        rows.append({"system": s, "score": sc, "note": note})
+        rows.append({"system": s, "score": sc, "note": note})  # bobot diisi setelah semua sistem terkumpul
         if k:
             kuat.append(f"{_ICON[s]} {s}: {k}")
         if t:
             tantang.append(f"{_ICON[s]} {s}: {t}")
-    total = round(sum(r["score"] for r in rows) / len(rows))
+    wsum = sum(WEIGHTS[rel][r["system"]] for r in rows)
+    for r in rows:
+        r["w"] = round(WEIGHTS[rel][r["system"]] / wsum * 100)
+    total = round(sum(r["score"] * WEIGHTS[rel][r["system"]] for r in rows) / wsum)
     if not kuat:
         kuat.append("Perbedaan kalian bisa jadi bahan belajar dan saling melengkapi kalau dikelola dengan baik. "
                     "Titik kuat hubungan ini bukan datang dari kemiripan otomatis, tapi dari kemauan kalian memahami cara pandang satu sama lain.")
@@ -250,6 +270,11 @@ def _go(step):
     st.session_state.dh_cp_step = step
 
 
+def _rel_name():
+    k = st.session_state.get("dh_cp_rel_key")
+    return REL_KEYS[k][0] if k in REL_KEYS else None
+
+
 def _cb_count(n):
     ss = st.session_state
     ss.dh_cp_n = n
@@ -272,32 +297,15 @@ def _cb_toggle(name):
     ss.dh_cp_err = None
 
 
-def _cb_next():
-    ss = st.session_state
-    if len(ss.get("dh_cp_sys", [])) != ss.get("dh_cp_n", 2):
-        ss.dh_cp_err = f"Pilih tepat {ss.get('dh_cp_n', 2)} sistem dulu ya."
-        return
-    ss.dh_cp_err = None
+def _cb_pick_rel(key):
+    st.session_state.dh_cp_rel_key = key
+    st.session_state.dh_cp_err = None
     _go("form")
 
 
-def _cb_fill_me():
-    ss = st.session_state
-    prof = _profile()
-    u = auth.current_user()
-    if u and not ss.get("dhcp_a_nama"):
-        ss.dhcp_a_nama = u.get("nama", "")
-    if prof:
-        ss.dhcp_a_nama = prof["nama"]
-        if hasattr(prof["tgl"], "year"):
-            ss.dhcp_a_tgl = prof["tgl"]
-        ss.dhcp_a_jam = prof.get("jam")
-        ss.dhcp_a_kota = prof.get("kota", "")
-        if prof.get("gender") in GENDERS:
-            ss.dhcp_a_gender = prof["gender"]
-        ss.dh_cp_err = None
-    else:
-        ss.dh_cp_err = "Profil akunmu belum punya data lahir. Isi tanggal lahir manual, atau lakukan scan Reveal Dirimu dulu."
+def _cb_change_rel():
+    st.session_state.dh_cp_rel_key = None
+    _go("pick")
 
 
 def _person(side):
@@ -310,18 +318,16 @@ def _cb_go():
     ss = st.session_state
     u = auth.current_user()
     systems = ss.get("dh_cp_sys", [])
+    n = ss.get("dh_cp_n", 2)
     cost = PRICE * len(systems)
     pa, pb = _person("a"), _person("b")
-    rel = ss.get("dhcp_rel")
+    rel = _rel_name()
     for lab, p in (("Pihak Pertama", pa), ("Pihak Kedua", pb)):
         if not p["nama"] or not p["tgl"]:
             ss.dh_cp_err = f"Nama dan Tanggal Lahir {lab} wajib diisi."
             return
-        if not p["gender"]:
-            ss.dh_cp_err = f"Pilih Jenis Kelamin {lab}."
-            return
-    if not rel:
-        ss.dh_cp_err = "Pilih Tipe Hubungan dulu."
+    if len(systems) != n:
+        ss.dh_cp_err = f"Pilih tepat {n} sistem dulu ya."
         return
     if not u:
         ss.dh_cp_err = "Masuk akun dulu supaya saldo ✨ bisa dipakai."
@@ -341,21 +347,24 @@ def _cb_go():
 
 
 def _cb_reset():
+    """Bersihkan form & hasil; jenis hubungan tetap (kembali ke form kalau sudah dipilih)."""
     ss = st.session_state
     for k in ("dh_cp_res", "dh_cp_sys", "dh_cp_n", "dh_cp_err", *_FORM_KEYS, *("_sv_" + k for k in _FORM_KEYS)):
         ss.pop(k, None)
-    _go("select")
+    _go("form" if ss.get("dh_cp_rel_key") in REL_KEYS else "pick")
 
 
 # ─────────────── tampilan ───────────────
 def _head(sub):
+    key = st.session_state.get("dh_cp_rel_key")
+    ico, ttl = (REL_KEYS[key][1], f"Soul Match · {REL_KEYS[key][2]}") if key in REL_KEYS else ("💖", "Soul Match")
     st.markdown('<div class="dh-step dh-step-cp"></div>'
-                f'<div class="dh-cp-head"><span class="dh-cp-ico">💖</span><div><div class="dh-cp-brand">Soul Match</div>'
+                f'<div class="dh-cp-head"><span class="dh-cp-ico">{ico}</span><div><div class="dh-cp-brand">{_e(ttl)}</div>'
                 f'<div class="dh-cp-hsub">{sub}</div></div></div><div class="dh-cp-line"></div>', unsafe_allow_html=True)
 
 
 def _stepper(n):
-    labels = ["Pilih Sistem", "Data Kalian", "Hasil"]
+    labels = ["Data & Sistem", "Hasil"]
     st.markdown('<div class="dh-cp-steps">' + "".join(
         f'<span class="{"on" if i == n else ("done" if i < n else "")}"><b>{i + 1}</b>{_e(t)}</span>'
         for i, t in enumerate(labels)) + '</div>', unsafe_allow_html=True)
@@ -366,13 +375,21 @@ def _err():
         st.error(st.session_state.dh_cp_err)
 
 
-def _render_select():
+def _render_pick():
+    """Dibuka lewat entri umum (menu/footer): pilih jenis hubungan dulu."""
+    _head("Pilih jenis hubungan yang mau dicek")
+    with st.container(key="dhcp_pick"):
+        for key, (_nm, ico, ttl, desc) in REL_KEYS.items():
+            st.button(f"{ico}  **{ttl}**  \n{desc}", key=f"dhcp_pk_{key}", on_click=_cb_pick_rel, args=(key,),
+                      use_container_width=True)
+
+
+def _systems_picker():
     ss = st.session_state
     n = ss.setdefault("dh_cp_n", 2)
     sel = ss.setdefault("dh_cp_sys", [])
-    _head(f"Bandingkan 2 orang · {PRICE} ✨ per sistem")
-    _stepper(0)
-    st.markdown('<div class="dh-cp-lab">1. Mau pakai berapa sistem?</div>', unsafe_allow_html=True)
+    w = WEIGHTS[_rel_name()]
+    st.markdown('<div class="dh-cp-lab">Mau pakai berapa sistem?</div>', unsafe_allow_html=True)
     with st.container(key="dhcp_cnt"):
         cols = st.columns(4, gap="small")
         for i, col in enumerate(cols, 1):
@@ -381,7 +398,7 @@ def _render_select():
                           type="primary" if n == i else "secondary", use_container_width=True)
     lc, ic, _sp, cc = st.columns([2.1, 0.8, 2.6, 2.2], gap="small", vertical_alignment="center")
     with lc:
-        st.markdown(f'<div class="dh-cp-lab" style="margin:0">2. Pilih {n} Sistem</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="dh-cp-lab" style="margin:0">Pilih {n} Sistem</div>', unsafe_allow_html=True)
     with ic:
         with st.container(key="dhcp_info"):
             with st.popover("ⓘ", help=None):
@@ -395,12 +412,11 @@ def _render_select():
             cols = st.columns(2, gap="small")
             for col, name in zip(cols, SYSTEMS[r:r + 2]):
                 with col:
-                    st.button(f"{_ICON[name]}  **{name}**", key=f"dhcp_s_{name}", on_click=_cb_toggle, args=(name,),
-                              type="primary" if name in sel else "secondary", use_container_width=True)
-    st.markdown('<div class="dh-cp-hint">Klik ⓘ di samping judul untuk melihat perbedaan ke-4 sistem.</div>', unsafe_allow_html=True)
-    _err()
-    with st.container(key="dhcp_cta"):
-        st.button(f"Lanjut →  ({PRICE * n} ✨)", key="dhcp_next", type="primary", use_container_width=True, on_click=_cb_next)
+                    st.button(f"{_ICON[name]}  **{name}** · bobot {round(w[name] * 100)}%", key=f"dhcp_s_{name}",
+                              on_click=_cb_toggle, args=(name,), type="primary" if name in sel else "secondary",
+                              use_container_width=True)
+    st.markdown('<div class="dh-cp-hint">Bobot menunjukkan seberapa besar tiap sistem menentukan skor untuk jenis hubungan ini.</div>',
+                unsafe_allow_html=True)
 
 
 def _side(side, title):
@@ -411,10 +427,10 @@ def _side(side, title):
                       format="DD/MM/YYYY", key=f"dhcp_{side}_tgl")
         st.time_input("Jam Lahir (Opsional)", value=None, key=f"dhcp_{side}_jam")
         st.text_input("Tempat Lahir (Opsional)", placeholder="Contoh: Jakarta", key=f"dhcp_{side}_kota")
-        st.selectbox("Jenis Kelamin", GENDERS, index=None, placeholder="Pilih", key=f"dhcp_{side}_gender")
+        st.selectbox("Jenis Kelamin (Opsional)", GENDERS, index=None, placeholder="Pilih", key=f"dhcp_{side}_gender")
 
 
-_FORM_KEYS = [f"dhcp_{x}_{f}" for x in "ab" for f in ("nama", "tgl", "jam", "kota", "gender")] + ["dhcp_rel"]
+_FORM_KEYS = [f"dhcp_{x}_{f}" for x in "ab" for f in ("nama", "tgl", "jam", "kota", "gender")]
 
 
 def _restore():
@@ -436,22 +452,19 @@ def _render_form():
     ss = st.session_state
     _restore()
     u = auth.current_user()
+    rel_key = ss.get("dh_cp_rel_key")
     systems = ss.get("dh_cp_sys", [])
     cost = PRICE * len(systems)
-    _head("Isi data kedua belah pihak")
-    _stepper(1)
-    st.markdown('<div class="dh-cp-chips">' + "".join(f'<span>{_ICON[s]} {_e(s)}</span>' for s in systems) + '</div>',
-                unsafe_allow_html=True)
-    if u:
-        with st.container(key="dhcp_me"):
-            st.button(f"👤 Pakai data profil: {u.get('nama', 'Saya')}", key="dhcp_fill", on_click=_cb_fill_me,
-                      use_container_width=True)
+    _head(f"{REL_KEYS[rel_key][3]} · isi data kedua belah pihak")
+    _stepper(0)
+    st.markdown('<div class="dh-modal-section"><span>📅 DATA KALIAN</span><em>Wajib</em></div>', unsafe_allow_html=True)
+    form_kit.data_bar("dhcp_a", f"compat_{rel_key}")
     c1, c2 = st.columns(2, gap="medium")
     with c1:
-        _side("a", "Pihak Pertama")
+        _side("a", "Pihak Pertama (Kamu)")
     with c2:
         _side("b", "Pihak Kedua")
-    st.selectbox("Tipe Hubungan", RELATIONS, index=None, placeholder="Pilih tipe hubungan", key="dhcp_rel")
+    _systems_picker()
     _save()
     if not u:
         st.markdown('<div class="dh-cp-note">🔒 Kamu perlu masuk akun untuk membayar dengan ✨.</div>', unsafe_allow_html=True)
@@ -461,17 +474,17 @@ def _render_form():
     b1, b2 = st.columns([1, 2.2], gap="small")
     with b1:
         with st.container(key="dhcp_back"):
-            st.button("← Kembali", key="dhcp_b_back", on_click=_go, args=("select",), use_container_width=True)
+            st.button("Ganti Jenis", key="dhcp_b_back", on_click=_cb_change_rel, use_container_width=True)
     with b2:
         with st.container(key="dhcp_cta"):
             if not u:
                 if st.button("Masuk / Daftar untuk Bayar →", key="dhcp_login", type="primary", use_container_width=True):
-                    request_with_return("auth", "compat")
+                    request_with_return("auth", f"compat_{rel_key}")
             elif u["koin"] < cost:
                 if st.button("Top-up Saldo →", key="dhcp_topup", type="primary", use_container_width=True):
-                    request_with_return("pricing_keep", "compat", dh_pr_tab="koin")
+                    request_with_return("pricing_keep", f"compat_{rel_key}", dh_pr_tab="koin")
             else:
-                st.button(f"Hitung Sinergi Pasangan ({cost} ✨)", key="dhcp_go", type="primary",
+                st.button(f"Hitung Sinergi {REL_KEYS[rel_key][2]} ({cost} ✨)", key="dhcp_go", type="primary",
                           use_container_width=True, on_click=_cb_go)
 
 
@@ -496,8 +509,8 @@ def _render_result():
     ss = st.session_state
     r = ss.get("dh_cp_res")
     if not r:
-        _go("select")
-        return _render_select()
+        _cb_reset()
+        return _render_form() if ss.get("dh_cp_step") == "form" else _render_pick()
     _head("Hasil analisis kecocokan")
     st.markdown('<div class="dh-nodismiss"></div>', unsafe_allow_html=True)
     ang = round(r["total"] * 3.6)
@@ -509,7 +522,7 @@ def _render_result():
         f'<div class="dh-cp-lab2">{_e(r["label"])}</div></div></div>'
         f'<div class="dh-cp-card"><div class="dh-cp-ct">📖 Ringkasan</div><p>{_e(r["ringkas"])}</p></div>', unsafe_allow_html=True)
     rows = "".join(
-        f'<div class="dh-cp-row"><div class="dh-cp-rh"><span>{_ICON[x["system"]]} {_e(x["system"])}</span><b>{x["score"]}</b></div>'
+        f'<div class="dh-cp-row"><div class="dh-cp-rh"><span>{_ICON[x["system"]]} {_e(x["system"])} <small>· bobot {x["w"]}%</small></span><b>{x["score"]}</b></div>'
         f'<div class="dh-cp-bar"><i style="width:{x["score"]}%"></i></div><div class="dh-cp-rn">{_e(x["note"])}</div></div>'
         for x in r["rows"])
     st.markdown(f'<div class="dh-cp-card"><div class="dh-cp-ct">📊 Skor Per Sistem</div>{rows}</div>', unsafe_allow_html=True)
@@ -528,7 +541,7 @@ def _render_result():
         with a1:
             copy_button(_plain(r), "📋 Salin Hasil", "dhcp_copy", fs=12.5, h=46)
         with a2:
-            st.button("🔄 Cek Pasangan Lain", key="dhcp_again", on_click=_cb_reset, use_container_width=True)
+            st.button("🔄 Cek Orang Lain", key="dhcp_again", on_click=_cb_reset, use_container_width=True)
         st.button("Selesai & Tutup", key="dhcp_done", type="primary", use_container_width=True,
                   on_click=cc.cb_ask, args=("compat",))
 
@@ -543,26 +556,42 @@ def _cb_close():
 
 @st.dialog("Soul Match", width="large", on_dismiss=_cb_close)
 def compat_dialog():
-    step = st.session_state.get("dh_cp_step", "select")
-    if step == "loading" and st.session_state.get("dh_cp_res"):
+    ss = st.session_state
+    step = ss.get("dh_cp_step", "pick")
+    if ss.get("dh_cp_rel_key") not in REL_KEYS:
+        step = "pick"
+    if step == "loading" and ss.get("dh_cp_res"):
         _render_loading()
-    elif step == "result" and st.session_state.get("dh_cp_res"):
+    elif step == "result" and ss.get("dh_cp_res"):
         if cc.asking("compat"):
             cc.render("compat", leave=_cb_reset, icon="💞", title="Yakin Mau Tutup Hasil Kecocokan?",
                       text="Skor sinergi dan analisis kalian baru saja terbuka. Kalau ditutup, hasil ini hilang dan perlu dihitung ulang.",
-                      tip="Download PDF atau salin hasilnya dulu biar bisa dibaca bareng pasanganmu.",
+                      tip="Download PDF atau salin hasilnya dulu biar bisa dibaca bareng orangnya.",
                       stay="✨ Lanjut Baca", go="Ya, Tutup Hasil")
         else:
             _render_result()
-    elif step == "form" and len(st.session_state.get("dh_cp_sys", [])) == st.session_state.get("dh_cp_n", 2):
-        _render_form()
+    elif step == "pick":
+        _render_pick()
     else:
-        _render_select()
+        _render_form()
 
 
-def open_compat():
-    st.session_state.dh_cp_err = None
+def open_compat(rel_key=None):
+    """rel_key=None: entri umum (pilih jenis dulu). Ganti jenis dibanding sebelumnya -> form & hasil direset."""
+    ss = st.session_state
+    ss.dh_cp_err = None
+    if rel_key is None:
+        if ss.get("dh_cp_step") not in ("result", "loading"):
+            ss.dh_cp_rel_key = None
+            _go("pick")
+    elif ss.get("dh_cp_rel_key") != rel_key:
+        for k in ("dh_cp_res", "dh_cp_sys", "dh_cp_n", *_FORM_KEYS, *("_sv_" + k for k in _FORM_KEYS)):
+            ss.pop(k, None)
+        ss.dh_cp_rel_key = rel_key
+        _go("form")
+    elif ss.get("dh_cp_step") not in ("result", "loading"):
+        _go("form")
     compat_dialog()
 
 
-DIALOGS = {"compat": open_compat}
+DIALOGS = {"compat": open_compat, **{f"compat_{k}": (lambda k=k: open_compat(k)) for k in REL_KEYS}}

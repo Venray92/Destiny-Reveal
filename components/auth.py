@@ -42,6 +42,9 @@ def ensure_user(email):
     """Buat akun baru (250 SD bonus + ID referral) atau pakai yang ada. Dipanggil juga dari alur Reveal."""
     ss = st.session_state
     email = email.strip()
+    last = (ss.get("dh_last_user") or {}).get("user")
+    if (not ss.get("dh_user") or ss.dh_user["email"] != email) and last and last.get("email") == email:
+        ss.dh_user = dict(last)  # login ulang akun yang sama di sesi ini: data & saldo ikut balik
     if not ss.get("dh_user") or ss.dh_user["email"] != email:
         now = datetime.now(_WIB)
         ss.dh_user = {"email": email, "nama": _nama_dari_email(email), "koin": DUMMY_SALDO,
@@ -95,10 +98,13 @@ def _cb_resend():
 
 def _login():
     ss = st.session_state
-    ensure_user(ss.dh_auth_email)
-    ss.dh_auth_step = "email"
+    u = ensure_user(ss.dh_auth_email)
     ss.dh_auth_error = None
-    ss.dh_auth_done = True  # dialog dibuka ulang sebagai profil di run berikutnya
+    if u.get("profil"):
+        ss.dh_auth_step = "email"
+        ss.dh_auth_done = True  # dialog dibuka ulang sebagai profil di run berikutnya
+    else:
+        ss.dh_auth_step = "register"  # akun baru: isi data diri dulu (components/form_kit.py)
 
 
 def _cb_verify():
@@ -228,6 +234,10 @@ def profile_dialog():
 # ─────────────── dialog masuk (email -> OTP) ───────────────
 @st.dialog("Masuk", width="small")
 def auth_dialog():
+    if st.session_state.get("dh_auth_step") == "register" and current_user():
+        from components.form_kit import render_register
+        render_register()
+        return
     if st.session_state.pop("dh_auth_done", False) or current_user():
         st.session_state.dh_auth_done = True
         st.rerun()
@@ -237,12 +247,13 @@ def auth_dialog():
         _render_email()
 
 
-def open_auth():
-    """Dari tombol navbar: sudah login -> profil, belum -> modal masuk."""
+def open_auth(keep_return=False):
+    """Dari tombol navbar: sudah login -> profil, belum -> modal masuk. keep_return=True: lewat dialog_bus."""
     if current_user():
         profile_dialog()
     else:
-        st.session_state.pop("dh_return_to", None)  # login dari navbar = bukan balik ke modal lain
+        if not keep_return:
+            st.session_state.pop("dh_return_to", None)  # login dari navbar = bukan balik ke modal lain
         st.session_state.dh_auth_step = "email"
         st.session_state.dh_auth_error = None
         auth_dialog()

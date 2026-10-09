@@ -10,7 +10,6 @@ from functools import lru_cache
 from pathlib import Path
 
 import streamlit as st
-from content import pricing as P
 
 from components.system_info import open_from_node
 from components.data import CATEGORY_SYSTEMS, NODE_COLOR, NODE_ORDER
@@ -219,7 +218,6 @@ _ARROW = '<span class="dh-ov-arrow">→</span>'
 
 
 def _categories():
-    tarot = f"{P.TAROT[3]}-{P.TAROT[10]}✨"
     soon = ('<div class="dh-ov-soon"><div class="dh-ov-soon-ic">' + _wrench(30) + '</div>'
             '<div class="dh-ov-soon-t">Coming Soon</div>'
             '<div class="dh-ov-soon-s">Fitur ini sedang dalam pengembangan.</div></div>')
@@ -228,18 +226,28 @@ def _categories():
         ("daily", "🌅", "Daily Free Reveal", "Gratis · Aktivitas harian · Reward", "GRATIS", "free",
          _ov_item("Ramalan Kartu Harian", "1x per hari, pilih Zodiak atau Shio", _ARROW, "daily")
          + _ov_item("Gacha Kartu Tarot", "Tarik kartu deck tertutup dengan animasi shuffle", _ARROW, "tarot")
+         + _ov_item("Skor Energi Hari Ini", "Skor 0-100 dari Zodiak, Shio, Weton &amp; Numerologi", _ARROW, "energi")
+         + _ov_item("Afirmasi Harian", "Kartu afirmasi gabungan 4 sistem + langkah kecil", _ARROW, "afirmasi")
+         + _ov_item("Kalender Energi", "Tanggal bisnis baik, rawan konflik &amp; peluang romansa tiap bulan", _ARROW, "kalender")
          + _ov_item("Preview Zodiak", "12 rasi, modality, planet &amp; quote", _ARROW, "preview")
-         + _ov_item("Daily Checkin", "Check-in mingguan = +30 s/d +60✨ gratis", _ARROW, "streak")),
+         + _ov_item("Daily Checkin", "Check-in mingguan, klaim reward gratis", _ARROW, "streak")),
         ("self", "🎯", "Self Discovery", "Karakter · Potensi · Identitas · Siklus hidup", "PREMIUM", "prem",
-         _ov_item("Solo Reveal", "Pilih 1 sistem untuk analisis mendalam", _ov_price(f"{P.fmt(P.SOLO)}✨"), "solo")
+         _ov_item("Solo Reveal", "Pilih 1 sistem untuk analisis mendalam", _ARROW, "solo")
+         + _ov_item("Career DNA", "Profil minat karier, peran cocok &amp; rencana 30 hari", _ARROW, "career")
+         + _ov_item("Strength &amp; Blind Spot", "Kekuatan utama, titik buta &amp; latihan harian", _ARROW, "strength")
+         + _ov_item("Blueprint Mendalam", "Analisis A-M super mendalam 1 atau 15 sistem", _ARROW, "blueprint")
          + _ov_item("Batch Reveal", "Reveal Dirimu: banyak sistem sekaligus dari satu kali isi data", _ARROW, reveal=True)),
         ("rel", "💞", "Relationships", "Pasangan · Sahabat · Keluarga · Partner bisnis", "PREMIUM", "prem",
-         _ov_item("Soul Match", "Analisis kecocokan untuk pasangan, kerja, sahabat, &amp; keluarga",
-                  _ov_price(f"{P.COMPAT}✨"), "compat")),
+         _ov_item("Soul Match Asmara", "Kecocokan pasangan atau calon pasangan", _ARROW, "compat_asmara")
+         + _ov_item("Soul Match Keluarga", "Orang tua, saudara, dan anggota keluarga", _ARROW, "compat_keluarga")
+         + _ov_item("Soul Match Teman", "Sahabat dan lingkar pertemanan", _ARROW, "compat_teman")
+         + _ov_item("Soul Match Partner Bisnis", "Rekan bisnis dan kolega kerja", _ARROW, "compat_bisnis")),
         ("guid", "🧭", "Guidance &amp; Timing", "Tarot · Weekly · Monthly · Decision Reveal", "PREMIUM", "prem",
-         _ov_item("Tarot Spread", "3 spread: Past-Present-Future, Cross, Celtic Cross (10 kartu)", _ov_price(tarot), "tarot_spread")
+         _ov_item("Tarot Spread", "3 spread: Past-Present-Future, Cross, Celtic Cross (10 kartu)", _ARROW, "tarot_spread")
+         + _ov_item("Decision Reveal", "Bimbang antara dua pilihan? Bandingkan A vs B dengan 7 kartu", _ARROW, "decision")
+         + _ov_item("Yearly Forecast", "Shio × shio tahun, Personal Year &amp; kurva energi 12 bulan", _ARROW, "yearly")
          + _ov_item("Weekly &amp; Monthly Report", "Panduan timing mingguan &amp; analisis bulanan lengkap",
-                    _ov_price(f"{P.WEEKLY}-{P.MONTHLY}✨"), "weekly")),
+                    _ARROW, "weekly")),
         ("biz", "💼", "Destiny Business", "Team insights · Leadership · Organizational development", "COMING SOON", "soon", soon),
         ("my", "📔", "My Destiny", "Journal · Timeline · Goals · History · Reflection", "COMING SOON", "soon", soon),
     ]

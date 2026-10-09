@@ -14,9 +14,11 @@ import streamlit as st
 from content import pricing as P
 
 from components import auth
+from components import form_kit
 from components import close_confirm as cc
 from components.dialog_bus import request_with_return
 from utils.simple_pdf import make_pdf
+from components import life_chart
 from components.combo import build_combo
 from components.modal_detail import build_detail, copy_button, render_combo_card
 from content.questionnaires.big_five_soal import BIG_FIVE_QUESTIONS
@@ -272,6 +274,7 @@ def _profile():
 def _render_form(u):
     with st.container(key="dhso_data"):  # satu kartu krem untuk seluruh Data Diri
         st.markdown('<div class="dh-modal-section"><span>📅 DATA DIRI</span><em>Wajib</em></div>', unsafe_allow_html=True)
+        form_kit.data_bar("dhso", "solo")
         c1, c2 = st.columns([1.15, 1], gap="small")
         with c1:
             st.text_input("Nama Lengkap / Panggilan", value=(u or {}).get("nama", ""),
@@ -449,6 +452,10 @@ def _render_result():
         f'<div class="dh-so-bsub"><b>{_e(d.get("title", ""))}</b> · Untuk: {_e(nama)}</div>'
         + (f'<div class="dh-so-quote">&ldquo;{_e(quote)}&rdquo;</div>' if quote else "") + '</div>'
         + (f'<div class="dh-so-chips">{chips}</div>' if chips else ""), unsafe_allow_html=True)
+    _tg = (st.session_state.get("dh_solo_prof") or {}).get("tgl")
+    if name in life_chart.SYSTEMS and _tg:  # dashboard visual: Roda Takdir / grafik usia 20-60
+        st.markdown('<div style="font-weight:800;letter-spacing:.8px;font-size:12px;color:#B2552C;margin:14px 0 8px">🧭 PETA SIKLUS HIDUPMU</div>', unsafe_allow_html=True)
+        life_chart.render(name, _tg, height=700 if name == "Matrix Destiny" else 560)
     secs = {i: (texts or []) for i, (_ic, _t, texts, _tone) in enumerate(d["sections"])}
     pdf_secs = [(_ASPEK[i], [t for t in secs.get(i, []) if t] or [_EMPTY]) for i in range(len(_ASPEK))]
     combo = build_combo(name, res.get("raw")) if res.get("raw") else []

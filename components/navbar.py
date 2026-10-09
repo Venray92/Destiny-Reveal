@@ -6,7 +6,6 @@ buat elemen HTML statis yang harus buka modal Reveal.
 import json
 
 import streamlit as st
-from content import pricing as P
 import streamlit.components.v1 as components
 
 from components import auth, dialog_bus
@@ -16,15 +15,20 @@ from components.help_modals import DIALOGS as _HELP_DIALOGS
 from components.solo_reveal import DIALOGS as _SOLO_DIALOGS
 from components.info_modals import DIALOGS as _INFO_DIALOGS
 from components.system_info import DIALOGS as _SYSINFO_DIALOGS
+from components.daily_energy import DIALOGS as _ENERGY_DIALOGS
+from components.energy_calendar import DIALOGS as _CAL_DIALOGS
+from components.self_discovery import DIALOGS as _SD_DIALOGS
+from components.decision import DIALOGS as _DC_DIALOGS
+from components.yearly import DIALOGS as _YR_DIALOGS
 from components.pricing_modal import DIALOGS as _PRICING_DIALOGS, pricing_dialog
 from components.common import go
 from components.mini_modals import DIALOGS as _MINI_DIALOGS
 from components.modal import open_reveal_modal, reopen_if_pending
 
 
-_ALL_DIALOGS = {**_MINI_DIALOGS, **_FEATURE_DIALOGS, **_PRICING_DIALOGS, **_INFO_DIALOGS, **_HELP_DIALOGS, **_SOLO_DIALOGS, **_SYSINFO_DIALOGS, **_COMPAT_DIALOGS, "gohome": lambda: go("home")}
+_ALL_DIALOGS = {**_MINI_DIALOGS, **_FEATURE_DIALOGS, **_PRICING_DIALOGS, **_INFO_DIALOGS, **_HELP_DIALOGS, **_SOLO_DIALOGS, **_SYSINFO_DIALOGS, **_COMPAT_DIALOGS, **_ENERGY_DIALOGS, **_CAL_DIALOGS, **_SD_DIALOGS, **_DC_DIALOGS, **_YR_DIALOGS, "gohome": lambda: go("home")}
 # dialog yang cuma bisa dibuka lewat dialog_bus.request_open (bukan dari kartu Home)
-_BUS_ONLY = {"auth": auth.open_auth, "reveal": open_reveal_modal, "pricing_keep": pricing_dialog}
+_BUS_ONLY = {"auth": lambda: auth.open_auth(keep_return=True), "reveal": open_reveal_modal, "pricing_keep": pricing_dialog}
 
 
 # ══════════════════════════════════════════════════════════════
@@ -46,14 +50,25 @@ def _mega_menu_html():
         _mega_item("Ramalan Harian", "Pilih Zodiak atau Shio (1× per hari)", modal="daily"),
         _mega_item("Tarot 1 Kartu", "Tarik 1 kartu sinkronisitas hari ini", modal="tarot"),
         _mega_item("Preview Zodiak", "Kelebihan &amp; kekurangan elemenmu", modal="preview"),
-        _mega_item("Streak &amp; Reward", "Klaim ✨ gratis tiap minggu", modal="streak"),
+        _mega_item("Skor Energi Hari Ini", "Skor 0-100 dari 4 sistem", modal="energi"),
+        _mega_item("Kalender Energi", "Tanggal bisnis, konflik &amp; romansa bulanan", modal="kalender"),
+        _mega_item("Afirmasi Harian", "Kartu afirmasi gabungan 4 sistem", modal="afirmasi"),
+        _mega_item("Streak &amp; Reward", "Klaim reward gratis tiap minggu", modal="streak"),
     ])
     koin = "".join([
-        _mega_item("Tarot 3 Kartu (50✨)", "Masa Lalu, Kini, Masa Depan", modal="tarot_spread_3"),
-        _mega_item("Tarot 5 Kartu (100✨)", "Situasi, Rintangan, Saran &amp; Hasil", modal="tarot_spread_5"),
-        _mega_item("Celtic Cross (150✨)", "10 Posisi Tebaran Komprehensif", modal="tarot_spread_10"),
-        _mega_item(f"Soul Match ({P.COMPAT}✨/sistem)", "Bandingkan 2 orang (1-4 sistem)", modal="compat"),
-        _mega_item(f"Weekly ({P.WEEKLY}✨) / Monthly ({P.MONTHLY}✨)", "Prediksi berkala &amp; timing eksekusi", modal="weekly"),
+        _mega_item("Tarot 3 Kartu", "Masa Lalu, Kini, Masa Depan", modal="tarot_spread_3"),
+        _mega_item("Tarot 5 Kartu", "Situasi, Rintangan, Saran &amp; Hasil", modal="tarot_spread_5"),
+        _mega_item("Celtic Cross", "10 Posisi Tebaran Komprehensif", modal="tarot_spread_10"),
+        _mega_item("Career DNA", "Profil minat karier + rencana 30 hari", modal="career"),
+        _mega_item("Strength &amp; Blind Spot", "Kekuatan, titik buta &amp; latihan harian", modal="strength"),
+        _mega_item("Blueprint Mendalam", "Analisis A-M 1 atau 15 sistem", modal="blueprint"),
+        _mega_item("Soul Match Asmara", "Kecocokan pasangan", modal="compat_asmara"),
+        _mega_item("Soul Match Keluarga", "Kecocokan keluarga", modal="compat_keluarga"),
+        _mega_item("Soul Match Teman", "Kecocokan sahabat", modal="compat_teman"),
+        _mega_item("Soul Match Partner Bisnis", "Kecocokan rekan bisnis", modal="compat_bisnis"),
+        _mega_item("Decision Reveal", "Pilihan A vs B dengan 7 kartu", modal="decision"),
+        _mega_item("Yearly Forecast", "Peta satu tahun: Shio, Personal Year &amp; 12 bulan", modal="yearly"),
+        _mega_item("Weekly / Monthly", "Prediksi berkala &amp; timing eksekusi", modal="weekly"),
         '<div class="dh-mega-foot"><a href="#dh-soon" class="dh-open-modal" data-modal="pricing_koin">✨ Stardust</a><i>·</i>'
         '<a href="#dh-soon" class="dh-open-modal" data-modal="pricing_vip">⭐ VIP</a><i>·</i><a href="#dh-soon" class="dh-open-modal" data-modal="pricing">💰 List Harga</a></div>',
     ])

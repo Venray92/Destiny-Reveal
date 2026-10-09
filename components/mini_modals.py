@@ -20,6 +20,7 @@ import streamlit as st
 from content import pricing as P
 
 from components import auth
+from components import form_kit
 from components import close_confirm as cc
 from components.dialog_bus import request_open
 
@@ -29,7 +30,7 @@ from content.profile_loader import get_profile
 from content.result_builder import build_display_data
 from engine.tarot import TAROT_MAJOR_ARCANA, kartu_harian
 from engine.zodiak import _RENTANG_ZODIAK
-from utils.card_images import card_image_data_uri, tarot_relative_path
+from utils.card_images import card_image_data_uri
 
 _ROOT = Path(__file__).resolve().parent.parent
 _COVER = _ROOT / "assets" / "images" / "sunmoon.jpg"
@@ -261,6 +262,8 @@ def _cb_daily_dismiss():
 @st.dialog("Ramalan Harian Gratis", width="small", on_dismiss=_cb_daily_dismiss)
 def daily_dialog():
     ss = st.session_state
+    if not form_kit.login_gate("daily"):
+        return
     if ss.get("dh_daily_loading"):
         _render_daily_loading(ss.dh_daily_loading)
         return
@@ -411,6 +414,8 @@ def _cb_tarot_dismiss():
 @st.dialog("Tarot 1 Kartu Harian", width="small", on_dismiss=_cb_tarot_dismiss)
 def tarot_dialog():
     ss = st.session_state
+    if not form_kit.login_gate("tarot"):
+        return
     if cc.asking("tarot"):
         cc.render("tarot", leave=None, icon="🃏", title="Yakin Mau Tutup Kartu Hari Ini?",
                   text="Pesan kartu harianmu baru saja terbuka. Kamu masih bisa melihatnya lagi hari ini, tapi pastikan sudah selesai membaca.",
@@ -445,8 +450,7 @@ def tarot_dialog():
     idx = TAROT_MAJOR_ARCANA.index(kartu) if mayor else None
     c = build_display_data("Tarot", {"kartu": kartu}) or {}
     nama, _, arti = (c.get("title") or kartu).partition(", ")
-    _rp = tarot_relative_path(kartu)
-    uri = card_image_data_uri(_rp) if _rp else None
+    uri = card_image_data_uri(f"tarot/{idx:02d}_{kartu}.png") if mayor else None  # Minor: gambar belum ada, kosong dulu
     img = f'<img class="dh-tr-img" src="{uri}" alt="{_e(nama)}">' if uri else '<div class="dh-tr-img dh-tr-ph" style="aspect-ratio:870/1164"></div>'
     label = f"ARCANA #{idx}" if mayor else "ARCANA MINOR"
     st.markdown(
@@ -477,6 +481,8 @@ def _cb_pv_pick(name):
 @st.dialog("Preview Zodiak", width="small")
 def preview_dialog():
     ss = st.session_state
+    if not form_kit.login_gate("preview"):
+        return
     _head()
     pick = ss.setdefault("dh_pv_pick", "Aries")
     _title(f'<span class="dh-mn-glyph">{GLYPH[pick]}&#xFE0E;</span>', "Preview Zodiak",
@@ -555,6 +561,8 @@ def _cb_streak_login():
 
 @st.dialog("Streak & Reward", width="small")
 def streak_dialog():
+    if not form_kit.login_gate("streak"):
+        return
     u = auth.current_user()
     if pop := st.session_state.pop("dh_sk_pop", None):  # popup sukses bertema, nutup sendiri ~2,5 detik
         st.markdown(

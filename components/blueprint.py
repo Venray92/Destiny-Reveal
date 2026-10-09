@@ -16,6 +16,7 @@ import streamlit as st
 
 from components import auth
 from components import close_confirm as cc
+from components import life_chart
 from components.dialog_bus import request_with_return
 from content import blueprint_calc as BC
 from content import pricing as P
@@ -389,6 +390,12 @@ def _idcard(r):
 def _tab_synth(r):
     y = r["synth"]
     out = f'<div class="dh-bp-card"><div class="dh-bp-ct">🧬 ARKETIPE INTI</div>{_paras(y["arketipe"])}</div>'
+    if r.get("tgl"):  # dashboard visual: Roda Takdir + grafik usia 20-60 (Matrix Destiny)
+        st.markdown(out, unsafe_allow_html=True)
+        st.markdown('<div class="dh-bp-ct" style="margin:6px 2px 8px">🧭 PETA SIKLUS HIDUP</div>', unsafe_allow_html=True)
+        life_chart.render("Matrix Destiny", r["tgl"], height=700)
+        out = ""
+    out += ''
     box = lambda items, cls: "".join(f'<div class="{cls}"><small>{_e(s)}</small><p>{_fx(t)}</p></div>' for s, t in items)
     if y["super"]:
         out += f'<div class="dh-bp-ct2">💪 {len(y["super"])} SUPERPOWER UTAMA</div><div class="dh-bp-grid">{box(y["super"], "sp")}</div>'
@@ -480,6 +487,8 @@ def _render_result():
         (_tab_synth if tab == 0 else _tab_systems)(r)
     else:
         s = r["systems"][0]
+        if s["name"] in life_chart.SYSTEMS and r.get("tgl"):
+            life_chart.render(s["name"], r["tgl"], height=700 if s["name"] == "Matrix Destiny" else 560)
         st.markdown(f'<div class="dh-bp-card"><div class="dh-bp-ct">{s["icon"]} {_e(s["name"].upper())}'
                     f'{" · " + _e(s["title"]) if s.get("title") else ""}</div>{_sys_body(s)}</div>', unsafe_allow_html=True)
     data, pages = _pdf_cached(r)
