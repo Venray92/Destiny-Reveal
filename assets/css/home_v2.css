@@ -2197,3 +2197,76 @@ div[data-testid="stVerticalBlock"].st-key-dhbp_actions { margin-top: 6px; }
 [data-testid="stDialog"] [data-testid="stElementContainer"]:has(.dh-bp-tiles) ~ * { display: none !important; }
 [data-testid="stDialog"] div.st-key-dhbp_tabs div.stButton > button p, [data-testid="stDialog"] div.st-key-dhbp_rtabs div.stButton > button p { font-size: 13px !important; font-weight: 700 !important; }
 [data-testid="stDialog"] div.st-key-dhbp_rtabs div.stButton > button p { font-size: 12px !important; }
+
+/* ── Batch 1: Skor Energi & Afirmasi ── */
+.dh-en-top { display: flex; align-items: center; gap: 18px; margin: 4px 0 14px; }
+.dh-en-ring { --p: 50; width: 112px; height: 112px; flex: none; border-radius: 50%; display: grid; place-items: center;
+  background: conic-gradient(#C96234 calc(var(--p) * 1%), #EFE6D8 0); }
+.dh-en-ringin { width: 88px; height: 88px; border-radius: 50%; background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.dh-en-ringin b { font-family: 'Playfair Display', serif; font-size: 32px; line-height: 1; color: #2D2A26; }
+.dh-en-ringin span { font-size: 10.5px; color: #8B8378; }
+.dh-en-tier { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #C96234; }
+.dh-en-tip { font-size: 13px; line-height: 1.5; color: #4A443D; margin: 2px 0 4px; }
+.dh-en-date { font-size: 11.5px; color: #8B8378; }
+.dh-en-rows { display: flex; flex-direction: column; gap: 10px; }
+.dh-en-row { background: #FFFFFF; border: 1px solid #E8E0D5; border-radius: 14px; padding: 11px 14px; }
+.dh-en-rh { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: #2D2A26; }
+.dh-en-bar { height: 7px; background: #F1E9DC; border-radius: 99px; margin: 7px 0 6px; overflow: hidden; }
+.dh-en-bar i { display: block; height: 100%; background: linear-gradient(90deg, #E8A06A, #C96234); border-radius: 99px; }
+.dh-en-row p { margin: 0; font-size: 12px; line-height: 1.5; color: #6B635A; }
+.dh-en-note { font-size: 11px; color: #8B8378; margin: 12px 0 2px; line-height: 1.5; }
+.dh-en-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 10px; }
+.dh-en-chips span { font-size: 11.5px; background: #FFF6EA; border: 1px solid #F0DFC4; color: #6B4A2B; border-radius: 99px; padding: 4px 10px; }
+.dh-en-chips i { font-style: normal; margin-right: 4px; }
+
+/* ── Batch 2: Kalender Energi ── */
+[data-testid="stDialog"] > div:has(.dh-step-cal) { width: min(760px, 94vw) !important; max-width: 760px !important; }
+.dh-cal-month { text-align: center; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #2D2A26; }
+.dh-cal-sum { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 10px; }
+.dh-cal-sum span { font-size: 12px; font-weight: 700; border-radius: 99px; padding: 4px 12px; color: #fff; }
+.dh-cal-sum .b { background: #3F8F5E; } .dh-cal-sum .k { background: #C0392B; } .dh-cal-sum .r { background: #D6568B; }
+.dh-cal-pay { background: #FFF6EA; border: 1px solid #F0DFC4; border-radius: 14px; padding: 12px 14px; margin: 10px 0; display: flex; flex-direction: column; gap: 3px; font-size: 12.5px; color: #4A443D; }
+.dh-cal-pay b:first-child { font-size: 14px; color: #2D2A26; }
+.dh-cal-paid { background: #E9F1EA; border: 1px solid #CFDFD2; border-radius: 12px; padding: 10px 14px; margin: 10px 0; font-size: 12.5px; color: #3F6B4D; }
+
+/* ── Batch 3: Soul Match pilih jenis ── */
+[data-testid="stDialog"] .st-key-dhcp_pick div.stButton > button { background: #FAF7F2 !important; border: 1px solid #E8E0D5 !important; border-radius: 14px !important; min-height: 68px !important; justify-content: flex-start !important; text-align: left !important; padding: 10px 16px !important; box-shadow: none !important; }
+[data-testid="stDialog"] .st-key-dhcp_pick div.stButton > button:hover { border-color: #C85A32 !important; background: #FFF8F2 !important; }
+[data-testid="stDialog"] .st-key-dhcp_pick div.stButton > button p { text-align: left !important; font-size: 13px !important; color: #2D2A26 !important; }
+.dh-cp-rh small { font-weight: 500; color: #8B8378; font-size: 11px; }
+
+/* ═══ Self Discovery: Career DNA + Strength & Blind Spot (Batch 4) ═══ */
+.dh-sd-code { font-family: 'Playfair Display', serif; font-size: 54px; font-weight: 800; letter-spacing: 6px; color: #B2552C; line-height: 1.1; margin: 2px 0 4px; }
+.dh-sd-rwrap { display: grid; grid-template-columns: minmax(180px, 260px) 1fr; gap: 14px; align-items: center; }
+.dh-sd-radar { width: 100%; height: auto; }
+.dh-sd-radar .g { fill: none; stroke: #E6D5C0; stroke-width: 1; }
+.dh-sd-radar .v { fill: rgba(200,90,50,.38); stroke: #C85A32; stroke-width: 2.2; stroke-linejoin: round; }
+.dh-sd-radar text { font-size: 15px; font-weight: 700; fill: #8B7B6B; text-anchor: middle; } .dh-sd-radar text.top { fill: #B2552C; font-size: 17px; }
+.dh-sd-lvs { display: flex; flex-direction: column; gap: 6px; }
+.dh-sd-lv { display: grid; grid-template-columns: 24px 1fr 34px; align-items: center; gap: 8px; font-size: 12.5px; color: #6F655B; padding: 5px 9px; border-radius: 10px; background: #F8F2EA; }
+.dh-sd-lv b { color: #8B7B6B; } .dh-sd-lv em { font-style: normal; text-align: right; font-weight: 700; }
+.dh-sd-lv.top { background: #FFF1E3; color: #3A2A20; } .dh-sd-lv.top b, .dh-sd-lv.top em { color: #B2552C; }
+.dh-sd-sys { border-left: 3px solid #F0CDB6; padding: 3px 0 3px 12px; margin-bottom: 10px; } .dh-sd-sys b { color: #3A2A20; font-size: 13px; } .dh-sd-sys p { margin: 3px 0 0 !important; font-size: 12.8px !important; }
+.dh-sd-bar { display: grid; grid-template-columns: 120px 1fr 32px; gap: 8px; align-items: center; font-size: 12.5px; color: #6F655B; margin-bottom: 6px; }
+.dh-sd-bar > div { height: 9px; background: #F3EBE2; border-radius: 99px; overflow: hidden; } .dh-sd-bar i { display: block; height: 100%; background: linear-gradient(90deg, #E8A67F, #C85A32); border-radius: 99px; }
+.dh-sd-bar b { text-align: right; color: #3A2A20; }
+.dh-bp-grid .bl b { color: #3A2A20; font-size: 13.5px; margin-bottom: 3px; } .dh-bp-grid .bl p.tw { margin-top: 6px; color: #6E8F5E; font-size: 12.3px; }
+@media (max-width: 560px) { .dh-sd-rwrap { grid-template-columns: 1fr; } .dh-sd-bar { grid-template-columns: 90px 1fr 28px; } }
+
+/* ═══ Decision Reveal (Batch 5) ═══ */
+.dh-dc-pol { display: inline-block; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 999px; margin-right: 6px; }
+.dh-dc-pol.dukung { background: #E8F1DF; color: #4F7A3C; } .dh-dc-pol.netral { background: #F3EBE2; color: #8B7B6B; } .dh-dc-pol.waspada { background: #FBE6DE; color: #B2552C; }
+.dh-dc-verdict p { margin-top: 10px !important; font-weight: 600; color: #3A2A20 !important; }
+.dh-dc-opt { padding: 8px 10px; border-radius: 12px; margin-bottom: 8px; background: #F8F2EA; border: 1.5px solid transparent; }
+.dh-dc-opt.on { background: #FFF1E3; border-color: #E8A06E; }
+.dh-dc-on { display: grid; grid-template-columns: 24px 1fr auto; gap: 8px; align-items: center; font-size: 13px; color: #3A2A20; } .dh-dc-on b { color: #B2552C; } .dh-dc-on em { font-style: normal; font-weight: 800; color: #B2552C; }
+.dh-dc-bar { height: 8px; background: #EADFD2; border-radius: 99px; overflow: hidden; margin-top: 7px; } .dh-dc-bar i { display: block; height: 100%; background: linear-gradient(90deg, #E8A67F, #C85A32); }
+div.st-key-dhdc_acts { margin-top: 4px; } [data-testid="stDialog"] div.st-key-dhdc_acts [data-testid="stDownloadButton"] button { border-radius: 999px !important; height: 46px !important; font-weight: 700 !important; }
+
+/* ═══ Yearly Forecast (Batch 6) ═══ */
+.dh-yr-chart { width: 100%; height: auto; margin: 4px 0 2px; }
+.dh-yr-chart .b.hi { fill: #6E8F5E; } .dh-yr-chart .b.mid { fill: #E8A67F; } .dh-yr-chart .b.lo { fill: #C0564B; }
+.dh-yr-chart .v { font-size: 9px; font-weight: 700; fill: #6F655B; text-anchor: middle; } .dh-yr-chart .m { font-size: 9px; fill: #8B7B6B; text-anchor: middle; }
+.dh-yr-chart .s { font-size: 10px; text-anchor: middle; } .dh-yr-chart .s.g { fill: #4F7A3C; } .dh-yr-chart .s.r { fill: #B2552C; }
+.dh-yr-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; font-weight: 700; margin-top: 4px; } .dh-yr-legend .g { color: #4F7A3C; } .dh-yr-legend .r { color: #B2552C; }
+div.st-key-dhyr_year [role="radiogroup"] { gap: 8px 18px; }
