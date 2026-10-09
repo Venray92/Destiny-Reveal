@@ -44,7 +44,8 @@ FEATURES = [
     ("LAPORAN & KECOCOKAN (REPORT & COMPATIBILITY)", [
         ("Weekly Report", P.WEEKLY, "Panduan timing & prediksi mingguan (4-5 minggu)", "weekly", {}),
         ("Monthly Report", P.MONTHLY, "Prediksi bulanan komprehensif + saran strategis & risiko (12 bulan)", "weekly", {}),
-        ("Blueprint Mendalam", P.BLUEPRINT, "Analisis A-M (13 Section) super mendalam", "blueprint", {}),
+        ("Blueprint Mendalam", P.BLUEPRINT, "Deep Dive: analisis A-M (13 Section) super mendalam untuk 1 sistem", "blueprint", {}),
+        ("Complete Blueprint (15 Sistem)", P.BLUEPRINT_ALL, "Analisis A-M seluruh 15 sistem + Grand Synthesis & PDF", "blueprint", {"dh_bp_tab": "complete"}),
         ("Soul Match (1 Sistem)", P.COMPAT, "Analisis kecocokan 2 orang (Nama + Tanggal Lahir)", "compat", {}),
         ("Soul Match (2 Sistem)", 180, "Kecocokan 2 orang pada 2 sistem", "compat", {}),
         ("Soul Match (3 Sistem)", 250, "Kecocokan 2 orang pada 3 sistem", "compat", {}),

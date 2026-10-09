@@ -29,7 +29,7 @@ from content.profile_loader import get_profile
 from content.result_builder import build_display_data
 from engine.tarot import TAROT_MAJOR_ARCANA, kartu_harian
 from engine.zodiak import _RENTANG_ZODIAK
-from utils.card_images import card_image_data_uri
+from utils.card_images import card_image_data_uri, tarot_relative_path
 
 _ROOT = Path(__file__).resolve().parent.parent
 _COVER = _ROOT / "assets" / "images" / "sunmoon.jpg"
@@ -445,7 +445,8 @@ def tarot_dialog():
     idx = TAROT_MAJOR_ARCANA.index(kartu) if mayor else None
     c = build_display_data("Tarot", {"kartu": kartu}) or {}
     nama, _, arti = (c.get("title") or kartu).partition(", ")
-    uri = card_image_data_uri(f"tarot/{idx:02d}_{kartu}.png") if mayor else None  # Minor: gambar belum ada, kosong dulu
+    _rp = tarot_relative_path(kartu)
+    uri = card_image_data_uri(_rp) if _rp else None
     img = f'<img class="dh-tr-img" src="{uri}" alt="{_e(nama)}">' if uri else '<div class="dh-tr-img dh-tr-ph" style="aspect-ratio:870/1164"></div>'
     label = f"ARCANA #{idx}" if mayor else "ARCANA MINOR"
     st.markdown(

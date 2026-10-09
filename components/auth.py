@@ -242,6 +242,7 @@ def open_auth():
     if current_user():
         profile_dialog()
     else:
+        st.session_state.pop("dh_return_to", None)  # login dari navbar = bukan balik ke modal lain
         st.session_state.dh_auth_step = "email"
         st.session_state.dh_auth_error = None
         auth_dialog()
