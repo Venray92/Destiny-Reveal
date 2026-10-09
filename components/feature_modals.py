@@ -455,79 +455,9 @@ def _render_tarot_periodik(kind):
     st.markdown("**🧭 PR Kecil Buat Kamu**\n\n" + c.get("p3", ""))
 
 
-@st.dialog("Weekly & Monthly Report", width="small")
-def weekly_dialog():
-    from datetime import date
-
-    from content import periodic
-
-    _top(key="wk")
-    _title("📊", "Laporan Mingguan & Bulanan", "Panduan timing &amp; strategi eksekusi berkala")
-    tab = st.radio("Periode", ["Mingguan", "Bulanan"], horizontal=True, key="dhwk_tab", label_visibility="collapsed")
-    kind = "weekly" if tab == "Mingguan" else "monthly"
-    opsi = (["Zodiak", "Shio", "Weton", "Numerologi", "Tarot"] if kind == "weekly"
-            else ["Zodiak", "Shio", "Numerologi", "BaZi", "Zi Wei", "Tarot"])
-    sistem = st.selectbox("Sistem", opsi, key=f"dhwk_sys_{kind}")
-    tgl, key = None, ""
-    if sistem == "Zodiak":
-        key = st.selectbox("Zodiak kamu", _ZOD_W, key="dhwk_zod")
-    elif sistem == "Shio":
-        key = st.selectbox("Shio kamu", _SHIO_W, key="dhwk_shio")
-    elif sistem == "Weton":
-        c1, c2 = st.columns(2)
-        h = c1.selectbox("Hari lahir", _HARI_W, key="dhwk_hari")
-        p = c2.selectbox("Pasaran", _PAS_W, key="dhwk_pas")
-        key = f"{h} {p}"
-    elif sistem in ("Numerologi", "BaZi", "Zi Wei"):
-        tgl = st.date_input("Tanggal lahir", value=date(1995, 1, 1), min_value=date(1930, 1, 1),
-                            max_value=date.today(), key="dhwk_tgl")
-        if sistem == "BaZi":
-            try:
-                from engine.bazi import hitung_bazi
-                key = hitung_bazi(tgl)["day_master"]
-            except Exception:
-                st.info("Hitungan BaZi belum bisa dijalankan untuk tanggal ini.")
-                return
-        elif sistem == "Zi Wei":
-            jam = st.selectbox("Jam lahir", list(range(24)), format_func=lambda j: f"{j:02d}:00", key="dhwk_jam")
-            try:
-                from engine.ziwei import hitung_ziwei
-                zw = hitung_ziwei(tgl, jam)
-                slug = {"ziwei": "zi_wei", "tianji": "tian_ji", "taiyang": "tai_yang", "wuqu": "wu_qu",
-                        "tiantong": "tian_tong", "lianzhen": "lian_zhen", "tianfu": "tian_fu", "taiyin": "tai_yin",
-                        "tanlang": "tan_lang", "jumen": "ju_men", "tianxiang": "tian_xiang",
-                        "tianliang": "tian_liang", "qisha": "qi_sha", "pojun": "po_jun"}[zw["bintang"]]
-                key = f"{slug}|{zw['ming_gong']}"
-            except Exception:
-                st.info("Hitungan Zi Wei belum bisa dijalankan untuk data ini.")
-                return
-    if sistem == "Tarot":
-        _render_tarot_periodik(kind)
-        return
-    if kind == "weekly":
-        r = periodic.get_weekly(sistem, key, tgl_lahir=tgl)
-    else:
-        r = periodic.get_monthly(sistem, key, tgl_lahir=tgl)
-    if r:
-        _render_periodic(r)
-    else:
-        st.info("Laporan untuk kombinasi ini belum tersedia.")
-
-
-# ═══════════ 4. DEEP BLUEPRINT ═══════════
-@st.dialog("Deep Blueprint", width="small")
-def blueprint_dialog():
-    _top(key="bp")
-    _title("🔷", "Deep Blueprint", "15 Sistem sekaligus dalam 1 laporan lengkap (VIP Only)")
-    st.markdown(
-        '<div class="dh-fm-info"><p>Deep Blueprint menggabungkan seluruh 15 dimensi: Zodiak, Shio, Weton, Numerologi, '
-        'Matrix Destiny, BaZi, Zi Wei, Human Design, MBTI, Big Five, Enneagram, DISC, Love Language, Golongan Darah, '
-        'dan Tarot.</p><p class="mut">Disajikan dalam bentuk booklet PDF personal ~18 halaman dengan analisis jalur '
-        'kekayaan, penyembuhan luka masa lalu, dan panduan belahan jiwa.</p></div>', unsafe_allow_html=True)
-    with st.container(key="dhfm_cta_bp"):
-        if st.button("Mulai Pembacaan Mode Lengkap (Mode 3) →", key="dhbp_go", type="primary",
-                     use_container_width=True):
-            request_open("reveal", dh_modal_mode="lengkap")
+# Weekly/Monthly Report & Deep Blueprint: versi baru (modal besar) ada di file sendiri
+from components.weekly_report import weekly_dialog  # noqa: E402
+from components.blueprint import blueprint_dialog  # noqa: E402
 
 
 def _open_spread(n):
