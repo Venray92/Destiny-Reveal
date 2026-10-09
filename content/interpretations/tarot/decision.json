@@ -1,0 +1,860 @@
+{
+ "major_00": {
+  "sebagai_opsi": "Pilihan ini menawarkan awal baru yang penuh kebebasan tanpa beban masa lalu. Kamu diajak melangkah dengan keberanian dan keterbukaan penuh terhadap segala kemungkinan yang ada.",
+  "sebagai_risiko": "Risiko utama terletak pada sikap terlalu berani tanpa perhitungan yang matang. Terlalu spontan dalam opsi ini berpotensi memicu kejutan tak terduga karena kurangnya persiapan diri.",
+  "faktor_tersembunyi": "Ada dorongan bawah sadar yang sangat kuat untuk melepaskan diri dari rutinitas dan aturan lama. Kebebasan yang dicari menuntut kesiapan diri menghadapi ketidakpastian.",
+  "arah_saran": "Tuliskan daftar risiko terbesar dari langkah ini dan siapkan satu rencana cadangan sederhana.",
+  "kata_kunci": [
+   "Awal Baru",
+   "Kebebasan",
+   "Spontanitas"
+  ]
+ },
+ "major_01": {
+  "sebagai_opsi": "Pilihan ini memberikanmu ruang penuh untuk memanfaatkan seluruh potensi, daya, dan keahlian secara maksimal. Kamu memiliki segala sarana yang dibutuhkan untuk mewujudkan rencana.",
+  "sebagai_risiko": "Risiko dari jalur ini adalah kecenderungan terlalu percaya diri hingga terkesan memanipulasi keadaan. Fokus yang terpecah karena merasa mampu memegang segalanya bisa menurunkan kualitas.",
+  "faktor_tersembunyi": "Keterampilan atau aset terselubung yang selama ini kamu sepelekan sebenarnya menjadi kunci sukses utama.",
+  "arah_saran": "Inventarisasi seluruh keahlian yang kamu miliki dan gunakan satu modal utama tersebut secara nyata.",
+  "kata_kunci": [
+   "Potensi",
+   "Eksekusi",
+   "Kemampuan"
+  ]
+ },
+ "major_02": {
+  "sebagai_opsi": "Pilihan ini mengandalkan ketenangan, pengamatan mendalam, serta intuisi tajam sebelum mengambil tindakan. Langkah ini mengutamakan kebijaksanaan dibanding terburu-buru mengejar hasil.",
+  "sebagai_risiko": "Potensi hambatan muncul jika kamu terlalu pasif dan menyimpan informasi penting sendirian. Terlalu lama menunggu kejelasan rahasia bisa membuat kamu kehilangan momentum yang tepat.",
+  "faktor_tersembunyi": "Ada informasi penting atau dinamika terselubung di balik layar yang belum sepenuhnya terungkap ke permukaan.",
+  "arah_saran": "Luangkan waktu hening sejenak tanpa gangguan luar untuk mendengarkan keheningan dan kata hati.",
+  "kata_kunci": [
+   "Intuisi",
+   "Ketenangan",
+   "Kerahasiaan"
+  ]
+ },
+ "major_03": {
+  "sebagai_opsi": "Pilihan ini membawa energi pertumbuhan yang melimpah, kenyamanan, serta hasil yang memuaskan. Langkah ini menciptakan suasana yang sangat kondusif untuk memelihara perkembangan ide.",
+  "sebagai_risiko": "Risiko terletak pada zona nyaman yang membuat kamu terlalu santai dan kurang disiplin. Kenyamanan berlebih berisiko menurunkan daya juang serta ketegasan dalam mengejar target.",
+  "faktor_tersembunyi": "Dukungan emosional dan kenyamanan lingkungan memegang peranan jauh lebih besar daripada kalkulasi teknis.",
+  "arah_saran": "Berikan perhatian khusus pada hal-hal dasar yang membutuhkan perawatan agar keputusan dapat tumbuh baik.",
+  "kata_kunci": [
+   "Pertumbuhan",
+   "Kelimpahan",
+   "Kenyamanan"
+  ]
+ },
+ "major_04": {
+  "sebagai_opsi": "Pilihan ini menawarkan kepastian, kendali penuh, serta struktur organisasi yang sangat kokoh. Jalur ini memberikan kestabilan jangka panjang melalui kedisiplinan dan aturan yang jelas.",
+  "sebagai_risiko": "Sikap terlalu kaku dan dominan berpotensi memicu resistensi atau suasana yang menekan. Keraguan untuk bersikap fleksibel dapat menutup celah bagi inovasi penting yang dibutuhkan.",
+  "faktor_tersembunyi": "Kebutuhan mendasar akan rasa aman dan kendali pribadi menjadi alasan utama di balik tertariknya kamu.",
+  "arah_saran": "Buat aturan serta tenggat waktu tertulis yang jelas untuk memandu eksekusi keputusan minggu ini.",
+  "kata_kunci": [
+   "Struktur",
+   "Kendali",
+   "Kestabilan"
+  ]
+ },
+ "major_05": {
+  "sebagai_opsi": "Pilihan ini sejalan dengan tradisi, nilai-nilai baku, dan petunjuk dari sosok terpuji. Melangkah lewat jalur konvensional ini memberi rasa aman serta kepastian yang teruji oleh waktu.",
+  "sebagai_risiko": "Risikonya adalah terjebak dalam formalitas dan aturan kaku yang membatasi kreativitas pribadi. Kamu berpotensi mengorbankan keinginan asli hanya demi memenuhi ekspektasi lingkungan.",
+  "faktor_tersembunyi": "Pengaruh norma sosial atau nasihat dari figur otoritas memegang kendali kuat atas sudut pandangmu.",
+  "arah_saran": "Diskusi dan mintalah pandangan dari sosok senior atau ahli yang kamu percaya sebagai acuan.",
+  "kata_kunci": [
+   "Tradisi",
+   "Bimbingan",
+   "Norma"
+  ]
+ },
+ "major_06": {
+  "sebagai_opsi": "Pilihan ini menawarkan keselarasan nilai, kerja sama yang harmonis, dan persetujuan yang saling menguntungkan. Langkah ini mendorong sinergi yang kuat antara dua hal yang saling melengkapi.",
+  "sebagai_risiko": "Keraguan di persimpangan jalan berpotensi membuat kamu terlalu lama bimbang dan terombang-ambing. Terlalu banyak kompromi bisa membuat kamu kehilangan identitas serta prinsip pribadi.",
+  "faktor_tersembunyi": "Dilema moral internal menuntut kepastian mengenai apa yang sebenarnya paling berharga bagi dirimu.",
+  "arah_saran": "Tuliskan tiga prioritas nilai paling utama lalu pastikan langkahmu tidak bertentangan darinya.",
+  "kata_kunci": [
+   "Keselarasan",
+   "Pilihan",
+   "Kemitraan"
+  ]
+ },
+ "major_07": {
+  "sebagai_opsi": "Pilihan ini memicu tekad pantang menyerah, kecepatan bergerak, dan kemenangan atas rintangan. Dengan fokus penuh, kamu mampu mengendalikan arah keputusan menuju keberhasilan nyata.",
+  "sebagai_risiko": "Sikap terlalu ambisius dan terburu-buru berisiko memicu gesekan atau kelelahan fisik. Memaksa kehendak tanpa melihat kondisi sekitar dapat menimbulkan hambatan baru yang tak perlu.",
+  "faktor_tersembunyi": "Konflik antara dua dorongan yang berbeda di dalam diri sedang membutuhkan penyelarasan fokus.",
+  "arah_saran": "Tentukan satu target utama dan fokuskan seluruh energi untuk menyelesaikannya dalam waktu dekat.",
+  "kata_kunci": [
+   "Tekad",
+   "Fokus",
+   "Kemenangan"
+  ]
+ },
+ "major_08": {
+  "sebagai_opsi": "Pilihan ini menawarkan pendekatan yang tenang namun memiliki daya tahan dan keberanian luar biasa. Kamu diajak menyelesaikan persoalan menggunakan kesabaran serta keteguhan hati.",
+  "sebagai_risiko": "Terlalu lama menahan kompromi atau memendam emosi dapat membuatmu lelah secara mental. Risikonya adalah bersikap terlalu toleran pada hal yang seharusnya ditindak dengan tegas.",
+  "faktor_tersembunyi": "Kekuatan sejati keputusan ini tidak terletak pada paksaan, melainkan pada kemampuan mengendalikan diri.",
+  "arah_saran": "Latih ketenangan diri saat berhadapan dengan tekanan dan atasi masalah lewat tutur kata halus.",
+  "kata_kunci": [
+   "Ketabahan",
+   "Kesabaran",
+   "Pengendalian"
+  ]
+ },
+ "major_09": {
+  "sebagai_opsi": "Pilihan ini memberikan ruang untuk perenungan mandiri, penataan ulang tujuan, dan pencarian kebenaran sejati. Langkah ini mengutamakan kedalaman pemikiran di atas tren luar.",
+  "sebagai_risiko": "Kecenderungan menarik diri secara berlebihan berpotensi membuatmu terisolasi dari bantuan luar. Terlalu asyik berteori dan menganalisis bisa menunda aksi nyata yang seharusnya diambil.",
+  "faktor_tersembunyi": "Ada kebutuhan mendalam untuk sejenak menjauh dari kebisingan luar demi kejelasan arah hidup.",
+  "arah_saran": "Evaluasi kembali rencana secara mendalam tanpa pengaruh atau masukan dari orang lain.",
+  "kata_kunci": [
+   "Perenungan",
+   "Pencarian",
+   "Kemandirian"
+  ]
+ },
+ "major_10": {
+  "sebagai_opsi": "Pilihan ini membawa pergeseran momentum, peluang tak terduga, dan dinamika yang bergerak cepat. Jalur ini membuka kesempatan baru yang dapat mengubah alur keadaan secara signifikan.",
+  "sebagai_risiko": "Risikonya adalah terlalu bergantung pada keberuntungan tanpa melakukan antisipasi perubahan. Perubahan arah yang mendadak bisa membuat kamu kewalahan jika tidak siap beradaptasi.",
+  "faktor_tersembunyi": "Faktor luar dan siklus waktu yang berada di luar kendalimu sedang memegang peranan penting.",
+  "arah_saran": "Manfaatkan momentum yang muncul tiba-tiba dengan mengambil satu peluang kecil tanpa menunda.",
+  "kata_kunci": [
+   "Perubahan",
+   "Peluang",
+   "Siklus"
+  ]
+ },
+ "major_11": {
+  "sebagai_opsi": "Pilihan ini mengedepankan keadilan, pertimbangan logis, dan kejelasan konsekuensi dari setiap tindakan. Langkah ini memberikan kepastian hukum, kejujuran, serta keseimbangan keputusan.",
+  "sebagai_risiko": "Terlalu dingin dan kaku dalam memperhitungkan logika berisiko mengabaikan sisi empati kemanusiaan. Sikap terlalu menuntut kesempurnaan fakta bisa berujung pada keputusan yang tidak ramah.",
+  "faktor_tersembunyi": "Tindakan di masa lalu kini mulai menunjukkan dampak balasan yang memengaruhi pilihan saat ini.",
+  "arah_saran": "Timbang fakta obyektif secara jujur dan ambil sikap tegas yang paling adil bagi semua pihak.",
+  "kata_kunci": [
+   "Keadilan",
+   "Kejujuran",
+   "Keseimbangan"
+  ]
+ },
+ "major_12": {
+  "sebagai_opsi": "Pilihan ini mengajakmu melepaskan kendali sejenak dan melihat situasi dari sudut pandang yang berbeda. Pengorbanan jangka pendek di jalur ini membuka pemahaman baru yang lebih mendalam.",
+  "sebagai_risiko": "Risiko terbesar adalah terjebak dalam rasa frustrasi karena merasa kemajuan terhenti total. Menunda tindakan terlalu lama dengan alasan pengorbanan bisa berujung pada kesia-siaan.",
+  "faktor_tersembunyi": "Ada pola pikir lama yang harus dikorbankan agar kamu bisa keluar dari kebuntuan saat ini.",
+  "arah_saran": "Hentikan sejenak usaha memaksa keadaan dan ubah caramu dalam memandang hambatan tersebut.",
+  "kata_kunci": [
+   "Penundaan",
+   "Perspektif",
+   "Pengorbanan"
+  ]
+ },
+ "major_13": {
+  "sebagai_opsi": "Pilihan ini menandai penutupan fase lama secara tuntas untuk memberi jalan bagi pembaharuan total. Jalur ini memotong hal-hal yang tidak lagi relevan agar tumbuh kesempatan baru.",
+  "sebagai_risiko": "Rasa takut melepaskan hal lama berisiko membuat proses transisi terasa jauh lebih menyakitkan. Mempertahankan hal yang sudah berakhir hanya akan menghambat munculnya pembaruan.",
+  "faktor_tersembunyi": "Sesuatu dalam situasi ini sebenarnya sudah selesai dan hanya menunggu keikhlasanmu melepaskan.",
+  "arah_saran": "Selesaikan atau lepaskan satu kewajiban masa lalu yang selama ini memberatkan langkahmu.",
+  "kata_kunci": [
+   "Transformasi",
+   "Pelepasan",
+   "Pembaruan"
+  ]
+ },
+ "major_14": {
+  "sebagai_opsi": "Pilihan ini membawa energi keseimbangan, kompromi yang bijak, dan pengelolaan emosi yang stabil. Melangkah di jalur ini menghasilkan penyelarasan harmonis antara berbagai kebutuhan.",
+  "sebagai_risiko": "Terlalu berhati-hati dalam menjaga keseimbangan berisiko membuat tindakanmu terkesan hambar. Kompromi berlebihan berpotensi memperlambat tempo gerakan serta menyamarkan arah tujuan.",
+  "faktor_tersembunyi": "Kemampuan memadukan dua elemen yang saling bertolak belakang menjadi kunci penyelesaian.",
+  "arah_saran": "Cari titik tengah yang paling ramah dan gabungkan dua ide berbeda menjadi satu solusi seimbang.",
+  "kata_kunci": [
+   "Keseimbangan",
+   "Kompromi",
+   "Pengendalian"
+  ]
+ },
+ "major_15": {
+  "sebagai_opsi": "Pilihan ini menawarkan dorongan hasrat yang sangat kuat, keuntungan materi, dan ketertarikan tinggi. Jalur ini memberikan energi pemikat yang mampu menggerakkan situasi secara intens.",
+  "sebagai_risiko": "Waspadai ketergantungan, obsesi, atau rasa terikat pada keuntungan jangka pendek yang menjebak. Abaikan godaan pintas yang berpotensi membatasi kebebasan diri di masa depan.",
+  "faktor_tersembunyi": "Rasa takut kekurangan atau obsesi tersembunyi sedang membayangi pertimbangan rasionalmu.",
+  "arah_saran": "Cermati keterikatan berlebih pada pilihan ini dan batasi hal-hal yang mulai mengendalikanmu.",
+  "kata_kunci": [
+   "Keterikatan",
+   "Hasrat",
+   "Waspada"
+  ]
+ },
+ "major_16": {
+  "sebagai_opsi": "Pilihan ini meruntuhkan pondasi yang rapuh demi membebaskanmu dari ilusi atau kepalsuan. Meskipun penuh kejutan, jalur ini membongkar hambatan dan memberi kejelasan secara cepat.",
+  "sebagai_risiko": "Waspadai risiko guncangan mendadak yang merusak rencana yang sudah disusun rapi. Bertahan pada struktur yang tidak kokoh hanya akan memperbesar dampak kekecewaan.",
+  "faktor_tersembunyi": "Ada kenyataan tersembunyi yang selama ini diabaikan dan kini siap memecah pandangan lama.",
+  "arah_saran": "Lepaskan ekspektasi kaku dan bersiaplah merespons perubahan mendadak dengan lapang dada.",
+  "kata_kunci": [
+   "Perubahan",
+   "Kejelasan",
+   "Pelepasan"
+  ]
+ },
+ "major_17": {
+  "sebagai_opsi": "Pilihan ini membawa pemulihan, harapan baru, dan inspirasi yang menerangi alur keputusanmu. Jalur ini memberikan ketenangan hati serta keyakinan akan masa depan yang lebih baik.",
+  "sebagai_risiko": "Terlalu fokus pada impian ideal berisiko membuatmu kurang memperhatikan detail praktis di lapangan. Mengharapkan kesempurnaan tanpa langkah nyata bisa membuat harapan terasa lambat terwujud.",
+  "faktor_tersembunyi": "Kepercayaan diri dan rasa optimis yang mulai tumbuh kembali menjadi bahan bakar utamamu.",
+  "arah_saran": "Tetapkan satu target jangka panjang yang menginspirasi lalu ambil langkah kecil menuju ke sana.",
+  "kata_kunci": [
+   "Harapan",
+   "Inspirasi",
+   "Pemulihan"
+  ]
+ },
+ "major_18": {
+  "sebagai_opsi": "Pilihan ini mengajakmu menjelajahi area yang penuh imajinasi, kepekaan, dan kedalaman rasa. Jalur ini menuntut kehati-hatian dalam memilah antara intuisi dan ilusi belaka.",
+  "sebagai_risiko": "Waspadai ketidakpastian, keraguan, atau informasi yang membingungkan serta tidak jelas. Risiko salah paham atau terbayang ketakutan sendiri sangat tinggi jika tidak waspada.",
+  "faktor_tersembunyi": "Kecemasan atau trauma masa lalu sedang memengaruhi persepsimu terhadap situasi saat ini.",
+  "arah_saran": "Verifikasi ulang semua asumsi dan hindari membuat keputusan besar saat pikiran sedang ragu.",
+  "kata_kunci": [
+   "Keraguan",
+   "Imajinasi",
+   "Kewaspadaan"
+  ]
+ },
+ "major_19": {
+  "sebagai_opsi": "Pilihan ini memancarkan kejelasan total, kegembiraan, serta energi positif yang sangat kuat. Jalur ini menawarkan transparansi, pencapaian yang membanggakan, dan rasa percaya diri.",
+  "sebagai_risiko": "Risikonya adalah sikap terlalu polos atau mengabaikan detail kecil karena terbuai suasana gembira. Terlalu pamer atau tidak waspada bisa mengundang perhatian yang kurang menguntungkan.",
+  "faktor_tersembunyi": "Kejujuran dan keterbukaan tanpa ada yang ditutupi menjadi sumber kekuatan utama saat ini.",
+  "arah_saran": "Bagikan kegembiraan atau kemajuan langkahmu secara terbuka untuk membangun dukungan positif.",
+  "kata_kunci": [
+   "Kejelasan",
+   "Kegembiraan",
+   "Optimisme"
+  ]
+ },
+ "major_20": {
+  "sebagai_opsi": "Pilihan ini membawa panggilan untuk melangkah ke tingkat berikutnya berdasarkan evaluasi jujur. Jalur ini memberikan kesempatan untuk memperbaiki masa lalu dan membuat keputusan tegas.",
+  "sebagai_risiko": "Sikap terlalu menghakimi diri sendiri atau orang lain dapat menyulitkan proses melangkah maju. Terjebak dalam penyesalan masa lalu berisiko membuatmu ragu menyambut panggilan baru.",
+  "faktor_tersembunyi": "Kesadaran baru mengenai tujuan hidup sedang memanggilmu untuk meninggalkan pola lama.",
+  "arah_saran": "Ambil keputusan tegas hari ini untuk menyelesaikan urusan menggantung yang masih tersisa.",
+  "kata_kunci": [
+   "Panggilan",
+   "Keputusan",
+   "Pembaruan"
+  ]
+ },
+ "major_21": {
+  "sebagai_opsi": "Pilihan ini menawarkan pencapaian utuh, penyelesaian siklus secara sempurna, dan kepuasan total. Langkah ini membuka pintu menuju babak baru setelah berhasil menyelesaikan fase penting.",
+  "sebagai_risiko": "Risiko dari kelengkapan ini adalah rasa enggan bergerak setelah mencapai puncak keberhasilan. Terlalu nyaman dengan pencapaian saat ini berpotensi membuat pertumbuhan berikutnya tertahan.",
+  "faktor_tersembunyi": "Seluruh pengalaman dari pembelajaran masa lalu kini telah menyatu untuk mendukung langkahmu.",
+  "arah_saran": "Selesaikan detail terakhir dari tahap ini lalu bersiaplah merencanakan tujuan berikutnya.",
+  "kata_kunci": [
+   "Pencapaian",
+   "Kutuhan",
+   "Penyelesaian"
+  ]
+ },
+ "wands_01": {
+  "sebagai_opsi": "Pilihan ini menawarkan percikan semangat baru, dorongan kreativitas, dan peluang besar untuk memulai sesuatu. Kamu diajak melangkah dengan antusiasme tinggi untuk mengejar aspirasi yang menyala.",
+  "sebagai_risiko": "Risiko utama terletak pada gairah sesaat yang membara namun cepat padam jika tidak diimbangi konsistensi. Sikap terlalu terburu-buru berpotensi membuat kamu mengabaikan perencanaan matang.",
+  "faktor_tersembunyi": "Ada potensi kreatif dan dorongan energi yang sangat besar dalam dirimu yang siap disalurkan ke arah yang tepat.",
+  "arah_saran": "Salurkan energi Ace of Wands dengan mengeksekusi satu langkah pertama paling krusial tanpa menundanya lagi.",
+  "kata_kunci": [
+   "Inspirasi",
+   "Semangat",
+   "Inisiatif"
+  ]
+ },
+ "wands_02": {
+  "sebagai_opsi": "Pilihan ini memberikan ruang untuk merencanakan visi masa depan dan mengeksplorasi potensi yang lebih luas. Kamu berada di posisi aman untuk mempertimbangkan arah langkah berikutnya.",
+  "sebagai_risiko": "Risikonya adalah kamu terlalu nyaman di zona perencanaan hingga enggan mengambil tindakan nyata. Sikap ragu-ragu dalam melangkah keluar berpotensi membuat peluang berlalu begitu saja.",
+  "faktor_tersembunyi": "Keinginan tersembunyi untuk memperluas jangkauan dan keluar dari batas kenyamanan sedang memanggilmu dari dalam.",
+  "arah_saran": "Tentukan sasaran jangka panjang dari Two of Wands dan pilih satu strategi utama untuk merealisasikannya.",
+  "kata_kunci": [
+   "Perencanaan",
+   "Visi",
+   "Pilihan"
+  ]
+ },
+ "wands_03": {
+  "sebagai_opsi": "Pilihan ini menawarkan momentum perkembangan yang mantap dan prospek jangka panjang yang menjanjikan. Hasil dari fondasi yang kamu bangun mulai menunjukkan kemajuan yang membesarkan hati.",
+  "sebagai_risiko": "Risiko muncul jika kamu terlalu cepat puas dan hanya menunggu hasil tanpa terus memantau prosesnya. Rasa percaya diri berlebih berpotensi membuat kamu kurang antisipatif terhadap perubahan.",
+  "faktor_tersembunyi": "Kerja keras dan persiapan di masa lalu kini mulai membentuk jalan masuk bagi kesempatan baru yang lebih luas.",
+  "arah_saran": "Pantau perkembangan situasi dengan Three of Wands dan siapkan langkah lanjutan untuk menyambut hasilnya.",
+  "kata_kunci": [
+   "Ekspansi",
+   "Kemajuan",
+   "Prospek"
+  ]
+ },
+ "wands_04": {
+  "sebagai_opsi": "Pilihan ini membawa energi stabilitas, keharmonisan, dan pencapaian tahap awal yang layak dirayakan. Jalur ini memberikan rasa aman serta suasana pendukung yang sangat kondusif.",
+  "sebagai_risiko": "Risikonya adalah kamu terjebak dalam kenyamanan momen perayaan sehingga enggan melanjutkan perjuangan. Terlalu puas pada pencapaian sementara bisa memperlambat pertumbuhanmu ke depan.",
+  "faktor_tersembunyi": "Dukungan kuat dari lingkungan sekitar menjadi pilar utama yang memperkokoh keberhasilan opsi ini.",
+  "arah_saran": "Rayakan pencapaian kecil bersama Four of Wands untuk mempererat hubungan dan memperkuat fondasi tim.",
+  "kata_kunci": [
+   "Stabilitas",
+   "Selebrasi",
+   "Fondasi"
+  ]
+ },
+ "wands_05": {
+  "sebagai_opsi": "Pilihan ini menawarkan persaingan sehat yang memacu pertumbuhan dan menguji ketangguhan dirimu. Situasi yang dinamis ini memaksa kamu untuk lebih kreatif dalam mempertahankan argumen.",
+  "sebagai_risiko": "Waspadai risiko gesekan, perdebatan yang menguras energi, dan perbedaan pendapat yang berlarut-larut. Terlalu fokus pada kompetisi bisa mengalihkan perhatianmu dari tujuan utama.",
+  "faktor_tersembunyi": "Konflik kecil yang muncul sebenarnya merupakan ujian untuk menyelaraskan berbagai kepala dan ide.",
+  "arah_saran": "Dengarkan sudut pandang berbeda dengan Four of Wands atau Five of Wands secara objektif lalu cari solusi netral.",
+  "kata_kunci": [
+   "Kompetisi",
+   "Dinamika",
+   "Tantangan"
+  ]
+ },
+ "wands_06": {
+  "sebagai_opsi": "Pilihan ini membawa peluang keberhasilan yang diakui publik, rasa percaya diri, dan pencapaian positif. Langkah ini memberikan apresiasi serta dorongan moral yang sangat kuat untuk maju.",
+  "sebagai_risiko": "Risiko terletak pada munculnya rasa jumawa atau kebergantungan pada pujian dan pengakuan luar. Sikap tinggi hati berpotensi memicu keretakan dalam kerja sama di kemudian hari.",
+  "faktor_tersembunyi": "Pencapaian yang terlihat di permukaan sebenarnya merupakan buah dari dedikasi dan kerja keras sebelumnya.",
+  "arah_saran": "Apresiasi kontribusi orang lain yang menyertai Six of Wands agar kesuksesan bersama tetap terjaga dengan baik.",
+  "kata_kunci": [
+   "Kemenangan",
+   "Pengakuan",
+   "Apresiasi"
+  ]
+ },
+ "wands_07": {
+  "sebagai_opsi": "Pilihan ini menuntut kamu untuk mempertahankan posisi, prinsip, atau hasil karya dari tekanan luar. Jalur ini menguji keberanian dan keteguhan hatimu saat berdiri di atas keyakinan sendiri.",
+  "sebagai_risiko": "Risikonya adalah rasa lelah karena terus-menerus merasa tersudut atau bersikap defensif secara berlebihan. Terlalu tertutup pada masukan luar bisa membuat kamu melewatkan bantuan berharga.",
+  "faktor_tersembunyi": "Posisi yang kamu pegang saat ini sebenarnya memiliki keunggulan dibanding tuntutan dari luar.",
+  "arah_saran": "Pertahankan pendirianmu bersama Seven of Wands dengan argumen yang kuat dan batasan yang jelas minggu ini.",
+  "kata_kunci": [
+   "Pertahanan",
+   "Keteguhan",
+   "Prinsip"
+  ]
+ },
+ "wands_08": {
+  "sebagai_opsi": "Pilihan ini membawa momentum pergerakan yang sangat cepat, komunikasi lancar, dan perkembangan pesat. Segala hal berjalan tanpa hambatan berarti untuk mencapai titik tujuan.",
+  "sebagai_risiko": "Risiko utama adalah keputusan terburu-buru akibat arus informasi dan perubahan yang terlalu cepat. Kurangnya ketelitian dalam mencermati detail berpotensi menimbulkan kekeliruan kecil.",
+  "faktor_tersembunyi": "Hambatan yang sebelumnya mengulur waktu kini telah hilang, membuat jalan di depan menjadi terbuka lebar.",
+  "arah_saran": "Respons pesan dan kesempatan dari Eight of Wands secara sigap tanpa menunda-nunda keputusan.",
+  "kata_kunci": [
+   "Kecepatan",
+   "Komunikasi",
+   "Momentum"
+  ]
+ },
+ "wands_09": {
+  "sebagai_opsi": "Pilihan ini mencerminkan daya tahan tinggi dan ketangguhan dalam menghadapi tahap akhir ujian. Kamu diajak bertahan sedikit lagi karena benteng pertahananmu sudah cukup kuat.",
+  "sebagai_risiko": "Risikonya adalah sikap terlalu waspada atau prasangka buruk akibat pengalaman pahit masa lalu. Terlalu curiga pada situasi sekitar bisa membuat kamu kelelahan secara mental.",
+  "faktor_tersembunyi": "Rasa lelah yang kamu rasakan sebenarnya menandakan bahwa kamu sudah sangat dekat dengan garis finis.",
+  "arah_saran": "Jaga stamina dan benteng pertahananmu dengan Nine of Wands sambil tetap terbuka pada peluang baru.",
+  "kata_kunci": [
+   "Ketangguhan",
+   "Kewaspadaan",
+   "Daya Tahan"
+  ]
+ },
+ "wands_10": {
+  "sebagai_opsi": "Pilihan ini menawarkan tanggung jawab besar yang membawa hasil berharga jika berhasil diselesaikan. Jalur ini membuktikan kapasitas dan komitmen tinggimu dalam memikul beban.",
+  "sebagai_risiko": "Waspadai risiko beban berlebih yang memicu kejenuhan, stres berat, dan kelelahan fisik. Memikul segala hal sendirian tanpa delegasi akan membuat keputusan ini terasa menekan.",
+  "faktor_tersembunyi": "Sebagian beban yang kamu pikul saat ini sebenarnya bisa dibagi atau dilepaskan kepada orang lain.",
+  "arah_saran": "Evaluasi prioritasmu bersama Ten of Wands dan delegasikan tugas yang tidak harus kamu kerjakan sendiri.",
+  "kata_kunci": [
+   "Beban",
+   "Tanggung Jawab",
+   "Kelelahan"
+  ]
+ },
+ "wands_page": {
+  "sebagai_opsi": "Pilihan ini membawa rasa ingin tahu yang segar, eksplorasi ide baru, dan pesan yang memicu antusiasme. Jalur ini memberikan kesempatan belajar yang menyenangkan tanpa beban berlebih.",
+  "sebagai_risiko": "Risikonya adalah fokus yang mudah teralih dan sikap kurang terencana dalam mengeksekusi gagasan. Terlalu banyak ide tanpa realisasi nyata hanya akan menghabiskan waktu bertindak.",
+  "faktor_tersembunyi": "Minat kecil yang baru muncul memiliki potensi berkembang menjadi peluang besar jika ditekuni.",
+  "arah_saran": "Pelajari topik baru terkait keputusanmu bersama Page of Wands dan coba terapkan dalam skala kecil.",
+  "kata_kunci": [
+   "Antusiasme",
+   "Eksplorasi",
+   "Rasa Ingin Tahu"
+  ]
+ },
+ "wands_knight": {
+  "sebagai_opsi": "Pilihan ini memancarkan dorongan aksi yang agresif, keberanian mengambil risiko, dan semangat membara. Kamu diajak bergerak cepat melompati rintangan demi mengejar target.",
+  "sebagai_risiko": "Risiko terletak pada sikap tidak sabaran dan ketidakstabilan fokus yang mudah berpindah tujuan. Tindakan impulsif tanpa memikirkan dampak jangka panjang bisa memicu penyesalan.",
+  "faktor_tersembunyi": "Gairah yang bergejolak perlu diarahkan pada satu titik agar tidak terbuang secara sia-sia.",
+  "arah_saran": "Arahkan energi dinamis Knight of Wands untuk mengeksekusi tindakan nyata secara terukur minggu ini.",
+  "kata_kunci": [
+   "Aksi",
+   "Keberanian",
+   "Impulsif"
+  ]
+ },
+ "wands_queen": {
+  "sebagai_opsi": "Pilihan ini menawarkan kepemimpinan yang hangat, rasa percaya diri tinggi, dan pesona yang memikat. Kamu diajak mengelola situasi dengan mandiri, kreatif, dan penuh energi positif.",
+  "sebagai_risiko": "Risikonya adalah keinginan untuk selalu menjadi pusat perhatian atau bersikap terlalu dominan. Kebutuhan akan validasi luar berpotensi kaburkan fokus utama yang ingin dicapai.",
+  "faktor_tersembunyi": "Daya tarik pribadi dan keyakinan dirimu merupakan aset terkuat dalam memengaruhi alur keputusan.",
+  "arah_saran": "Tunjukkan rasa percaya diri bersama Queen of Wands saat menyampaikan ide atau memimpin langkahmu.",
+  "kata_kunci": [
+   "Percaya Diri",
+   "Kemandirian",
+   "Kreativitas"
+  ]
+ },
+ "wands_king": {
+  "sebagai_opsi": "Pilihan ini membawa visi kepemimpinan yang matang, kewirausahaan, dan penguasaan arah yang jelas. Kamu memiliki kemampuan untuk menginspirasi serta mengeksekusi rencana besar secara efisien.",
+  "sebagai_risiko": "Risiko muncul dari sifat terlalu menuntut atau memaksakan standar pribadi kepada orang lain. Sikap yang terlalu fokus pada hasil akhir berpotensi mengabaikan proses emosional.",
+  "faktor_tersembunyi": "Pengalaman serta kemampuan kepemimpinan yang kamu miliki sudah cukup untuk mengendalikan situasi.",
+  "arah_saran": "Ambil kendali keputusan bersama King of Wands dan tetapkan arah strategis yang tegas bagi tim.",
+  "kata_kunci": [
+   "Kepemimpinan",
+   "Visi",
+   "Ketegasan"
+  ]
+ },
+ "cups_01": {
+  "sebagai_opsi": "Pilihan ini menawarkan aliran emosi yang melimpah, kedamaian batin, dan kebahagiaan yang tulus dari dalam hati. Kamu diajak untuk membuka diri pada kesempatan baru yang membawa kesegaran jiwa.",
+  "sebagai_risiko": "Risiko utama adalah kecenderungan terbawa perasaan secara berlebihan hingga mengabaikan fakta objektif. Terlalu mengandalkan suasana hati dapat membuatmu bertindak kurang realistis.",
+  "faktor_tersembunyi": "Ada kebutuhan emosional yang sangat mendalam dan kerinduan akan ketenangan jiwa yang memicu keputusan ini.",
+  "arah_saran": "Salurkan energi Ace of Cups dengan mengekspresikan perasanmu secara jujur dan terbuka kepada pihak terkait.",
+  "kata_kunci": [
+   "Ketulusan",
+   "Kebahagiaan",
+   "Keheningan"
+  ]
+ },
+ "cups_02": {
+  "sebagai_opsi": "Pilihan ini membawa energi kemitraan yang setara, rasa saling menghargai, dan ikatan emosional yang sangat kuat. Langkah ini membuka ruang bagi kerja sama yang harmonis dan penuh empati.",
+  "sebagai_risiko": "Risikonya adalah munculnya ketergantungan pada persetujuan orang lain sebelum berani melangkah. Terlalu fokus pada kenyamanan hubungan berpotensi mengaburkan prioritas pribadimu.",
+  "faktor_tersembunyi": "Dukungan dan rasa saling percaya dari satu orang terdekat memegang kunci penting dalam keputusan ini.",
+  "arah_saran": "Bangun komunikasi dua arah yang hangat bersama Two of Cups untuk menyelaraskan kesepakatan minggu ini.",
+  "kata_kunci": [
+   "Kemitraan",
+   "Keseimbangan",
+   "Koneksi"
+  ]
+ },
+ "cups_03": {
+  "sebagai_opsi": "Pilihan ini menawarkan kebersamaan yang hangat, dukungan lingkungan sosial, dan momen berbagi kegembiraan. Jalur ini memberikan energi pemulihan melalui kebersamaan yang menyenangkan.",
+  "sebagai_risiko": "Risiko terletak pada suasana yang terlalu santai hingga fokus utama dari tujuan keputusan justru terabaikan. Terlalu banyak masukan luar bisa membuatmu sulit mengambil langkah tegas.",
+  "faktor_tersembunyi": "Kebutuhan untuk diterima dan dirayakan oleh kelompok sosial sekitar turut memengaruhi sudut pandangmu.",
+  "arah_saran": "Manfaatkan momen kebersamaan bersama Three of Cups untuk mendapatkan dukungan positif bagi rencanamu.",
+  "kata_kunci": [
+   "Kebersamaan",
+   "Dukungan",
+   "Keceriaan"
+  ]
+ },
+ "cups_04": {
+  "sebagai_opsi": "Pilihan ini mengandalkan waktu jeda untuk mengevaluasi kembali apa yang sebenarnya berharga bagi dirimu. Jalur ini memberi ruang untuk merenung dan menolak tawaran yang kurang sesuai.",
+  "sebagai_risiko": "Waspadai sikap acuh tak acuh dan kebiasaan mengurung diri dari kesempatan baru yang muncul di depan mata. Terlalu fokus pada rasa jenuh dapat membuatmu melewatkan peluang emas.",
+  "faktor_tersembunyi": "Perasaan tidak puas yang kamu rasakan sebenarnya bersumber dari kejenuhan pada pola lama yang monoton.",
+  "arah_saran": "Amati kembali tawaran sekitar bersama Four of Cups dan bukalah diri pada peluang kecil yang terabaikan.",
+  "kata_kunci": [
+   "Evaluasi",
+   "Kejenuhan",
+   "Penolakan"
+  ]
+ },
+ "cups_05": {
+  "sebagai_opsi": "Pilihan ini mengajakmu mengakui kekecewaan masa lalu sebagai cermin pembelajaran sebelum melangkah lagi. Langkah ini melatih daya tahan emosional dalam menerima hal yang tidak sesuai rencana.",
+  "sebagai_risiko": "Waspadai kecenderungan untuk terus meratapi hal yang sudah hilang hingga lupa melihat potensi tersisa. Terjebak dalam rasa bersalah berpotensi menghentikan laju perkembanganmu.",
+  "faktor_tersembunyi": "Masih ada sisa harapan dan sumber daya yang utuh di sekitarmu meski kamu merasa kehilangan sesuatu.",
+  "arah_saran": "Alihkan fokus pandanganmu bersama Five of Cups pada apa yang masih tersisa dan dapat kamu bangun kembali.",
+  "kata_kunci": [
+   "Penyesalan",
+   "Penerimaan",
+   "Pembelajaran"
+  ]
+ },
+ "cups_06": {
+  "sebagai_opsi": "Pilihan ini membawa kenyamanan dari kenangan manis, ketulusan lama, dan rasa aman yang familiar. Jalur ini menyegarkan kembali semangatmu lewat hal-hal sederhana yang menenangkan.",
+  "sebagai_risiko": "Risikonya adalah terjebak dalam nostalgia masa lalu sehingga enggan beradaptasi dengan kenyataan baru. Terlalu mendewakan pola lama berpotensi menghambat pertumbuhan di masa kini.",
+  "faktor_tersembunyi": "Pengalaman atau hubungan dari masa lalu memiliki pengaruh terselubung terhadap pilihan yang kamu buat.",
+  "arah_saran": "Gunakan kebaikan dan kesederhanaan masa lalu bersama Six of Cups sebagai pendorong langkah barumu.",
+  "kata_kunci": [
+   "Nostalgia",
+   "Ketulusan",
+   "Kenyamanan"
+  ]
+ },
+ "cups_07": {
+  "sebagai_opsi": "Pilihan ini menawarkan banyak imajinasi, aneka opsi menarik, dan ruang bagi daya cipta yang luas. Kamu diberi kesempatan untuk bermimpi dan mengeksplorasi berbagai kemungkinan.",
+  "sebagai_risiko": "Waspadai ilusi, harapan palsu, serta kesulitan dalam menentukan pilihan karena terlalu banyak angan-angan. Mengagungkan opsi di dalam pikiran tanpa aksi nyata hanya menghabiskan energi.",
+  "faktor_tersembunyi": "Beberapa opsi yang terlihat menarik di permukaan sebenarnya hanyalah angan-angan tanpa fondasi kuat.",
+  "arah_saran": "Saring seluruh opsi bersama Seven of Cups dan pilih satu tujuan paling realistis untuk dieksekusi.",
+  "kata_kunci": [
+   "Imajinasi",
+   "Pilihan",
+   "Kewaspadaan"
+  ]
+ },
+ "cups_08": {
+  "sebagai_opsi": "Pilihan ini menandai keberanian untuk meninggalkan situasi yang tidak lagi memberi kepuasan batin. Jalur ini membawamu melangkah menuju pencarian kebenaran dan makna yang lebih tinggi.",
+  "sebagai_risiko": "Risikonya adalah melarikan diri dari masalah tanpa benar-benar menyelesaikan tanggung jawab yang ada. Rasa tidak puas yang terus-menerus berisiko membuatmu tak pernah merasa cukup.",
+  "faktor_tersembunyi": "Pencapaian materi saat ini terasa hampa karena tidak lagi sejalan dengan kebutuhan jiwamu.",
+  "arah_saran": "Evaluasi ketulusan hatimu bersama Eight of Cups dan beranikan diri beranjak dari hal yang hampa.",
+  "kata_kunci": [
+   "Pelepasan",
+   "Pencarian",
+   "Keberanian"
+  ]
+ },
+ "cups_09": {
+  "sebagai_opsi": "Pilihan ini menawarkan kepuasan pribadi, pencapaian keinginan hati, dan rasa bersyukur yang mendalam. Langkah ini memberikan kenyamanan emosional serta kepuasan atas hasil usaha sendiri.",
+  "sebagai_risiko": "Risiko terletak pada sikap berpuas diri secara berlebihan hingga cenderung egois atau memanjakan diri. Terlalu nyaman menikmati hasil berpotensi membuat kamu kehilangan kepekaan sosial.",
+  "faktor_tersembunyi": "Keinginan pribadi untuk merasa dihargai dan bahagia menjadi pendorong utama di balik opsi ini.",
+  "arah_saran": "Nikmati hasil usahamu bersama Nine of Cups dan salurkan rasa syukur itu dalam tindakan nyata.",
+  "kata_kunci": [
+   "Kepuasan",
+   "Rasa Syukur",
+   "Kenyamanan"
+  ]
+ },
+ "cups_10": {
+  "sebagai_opsi": "Pilihan ini membawa energi keharmonisan jangka panjang, kebahagiaan bersama, dan kedamaian yang utuh. Jalur ini menciptakan suasana pendukung yang sangat baik bagi masa depan.",
+  "sebagai_risiko": "Risikonya adalah memaksakan gambaran hubungan ideal hingga mengabaikan konflik kecil yang perlu diselesaikan. Terlalu menuntut kesempurnaan bisa menimbulkan beban emosional tak perlu.",
+  "faktor_tersembunyi": "Nilai-nilai kebersamaan dan kedamaian dalam keluarga menjadi pilar dasar bagi pilihan ini.",
+  "arah_saran": "Jaga suasana harmonis bersama Ten of Cups dengan mengutamakan dialog yang penuh empati minggu ini.",
+  "kata_kunci": [
+   "Keharmonisan",
+   "Kedamaian",
+   "Keluarga"
+  ]
+ },
+ "cups_page": {
+  "sebagai_opsi": "Pilihan ini membawa kejutan manis, intuisi kreatif yang baru tumbuh, dan pesan yang menyentuh hati. Langkah ini memberikan kesempatan untuk belajar mengekspresikan emosi dengan jujur.",
+  "sebagai_risiko": "Risikonya adalah sikap terlalu naif dan kurang sensitif terhadap kerumitan masalah yang sebenarnya. Terlalu emosional saat merespons keadaan bisa membuat tindakanmu kurang terarah.",
+  "faktor_tersembunyi": "Fasat sensitif dan intuisi halusmu sebenarnya sedang memberikan sinyal penting terkait keputusan ini.",
+  "arah_saran": "Sambut ide kreatif atau tawaran baru bersama Page of Cups dengan hati terbuka tanpa prasangka buruk.",
+  "kata_kunci": [
+   "Inspirasi",
+   "Kejujuran",
+   "Kelembutan"
+  ]
+ },
+ "cups_knight": {
+  "sebagai_opsi": "Pilihan ini menawarkan pendekatan yang puitis, diplomatis, dan didorong oleh impian serta nilai estetika. Langkah ini membawa pesan kebaikan dan usaha mengejar cita-cita dengan hati.",
+  "sebagai_risiko": "Risikonya adalah terjebak dalam romantisme berlebihan sehingga abaikan realita yang menuntut logika. Terlalu cepat terbuai oleh janji manis bisa membuat kamu kecewa di kemudian hari.",
+  "faktor_tersembunyi": "Ada harapan idealis yang sangat kuat memikat hatimu untuk memilih jalur yang lebih indah ini.",
+  "arah_saran": "Sampaikan niat baikmu bersama Knight of Cups lewat pendekatan yang santun namun tetap realistis.",
+  "kata_kunci": [
+   "Idealisme",
+   "Diplomasi",
+   "Harapan"
+  ]
+ },
+ "cups_queen": {
+  "sebagai_opsi": "Pilihan ini mengedepankan empati yang mendalam, kepekaan emosional, dan pengasuhan yang penuh kasih. Kamu diajak memimpin situasi menggunakan kearifan batin serta kepedulian tulus.",
+  "sebagai_risiko": "Risiko utama adalah menyerap emosi negatif orang lain secara berlebihan hingga membuatmu lelah secara mental. Terlalu subjektif dalam menimbang masalah bisa mengaburkan ketegasan logismu.",
+  "faktor_tersembunyi": "Kepekaan perasaanmu memiliki ketajaman luar biasa dalam menilai ketulusan di balik opsi ini.",
+  "arah_saran": "Dengarkan bisikan intuisimu bersama Queen of Queen atau Queen of Cups lalu tetapkan batasan emosi yang sehat.",
+  "kata_kunci": [
+   "Empati",
+   "Intuisi",
+   "Kearifan"
+  ]
+ },
+ "cups_king": {
+  "sebagai_opsi": "Pilihan ini menawarkan kematangan emosional, ketenangan di tengah badai, dan kontrol emosi yang bijaksana. Langkah ini menciptakan rasa aman dan keseimbangan antara perasaan serta logika.",
+  "sebagai_risiko": "Risikonya adalah terlihat terlalu tenang hingga terkesan dingin atau menyembunyikan perasaan asli. Terlalu menekan emosi di dalam batin berpotensi memicu ketegangan tersembunyi.",
+  "faktor_tersembunyi": "Kapasitasmu dalam menenangkan situasi bergolak merupakan aset terbesar yang sedang kamu miliki.",
+  "arah_saran": "Pimpin situasi sulit bersama King of Cups dengan sikap tenang dan pertimbangan perasaan yang seimbang.",
+  "kata_kunci": [
+   "Kematangan",
+   "Ketenangan",
+   "Keseimbangan"
+  ]
+ },
+ "swords_01": {
+  "sebagai_opsi": "Pilihan ini menawarkan kejernihan berpikir, kebenaran mutlak, dan kemampuan menembus keraguan secara tegas. Kamu diajak mengambil keputusan berani berlandaskan logika jujur tanpa terpengaruh emosi.",
+  "sebagai_risiko": "Risiko utama terletak pada sikap terlalu tajam dan dingin hingga berpotensi memicu gesekan atau melukai perasaan. Ketegasan berlebih tanpa empati bisa menimbulkan resistensi dari lingkungan sekitar.",
+  "faktor_tersembunyi": "Ada fakta krusial yang selama ini tersamar kini siap terungkap untuk memberikan kejelasan total padamu.",
+  "arah_saran": "Gunakan kejernihan Ace of Swords untuk menyampaikan keputusan yang jujur dan objektif minggu ini.",
+  "kata_kunci": [
+   "Kejernihan",
+   "Ketegasan",
+   "Kebenaran"
+  ]
+ },
+ "swords_02": {
+  "sebagai_opsi": "Pilihan ini mengandalkan posisi netral, penimbangan fakta secara seimbang, dan penundaan reaksi hingga suasana tenang. Jalur ini memberi ruang untuk melindungi diri dari tekanan luar yang membingungkan.",
+  "sebagai_risiko": "Risikonya adalah kecenderungan menutup mata dari kenyataan dan terjebak dalam kebuntuan akibat ragu melangkah. Menolak melihat fakta objektif hanya akan mengulur waktu tanpa menyelesaikan masalah.",
+  "faktor_tersembunyi": "Dilema yang kamu rasakan sebenarnya bersumber dari keengganan menghadapi konsekuensi dari kedua pilihan.",
+  "arah_saran": "Buka mata hatimu bersama Two of Swords dan kumpulkan fakta objektif sebelum menentukan arah langkah.",
+  "kata_kunci": [
+   "Keseimbangan",
+   "Kebuntuan",
+   "Penimbangan"
+  ]
+ },
+ "swords_03": {
+  "sebagai_opsi": "Pilihan ini mengajakmu menerima kenyataan pahit sebagai proses pemulihan dan pembersihan dari ilusi yang menyesatkan. Jalur ini memberikan pemahaman berharga meski harus melewati kejujuran yang menorehkan luka.",
+  "sebagai_risiko": "Waspadai kecenderungan larut dalam rasa sakit hati, penyesalan berlarut, atau pikiran negatif yang menguras energi. Terlalu lama meratapi kekecewaan berpotensi menutup jalanmu untuk bangkit kembali.",
+  "faktor_tersembunyi": "Kekecewaan yang muncul saat ini sebenarnya membebaskanmu dari harapan tidak realistis di masa depan.",
+  "arah_saran": "Akui rasa sakit itu bersama Three of Swords lalu lepaskan beban emosional tersebut secara perlahan.",
+  "kata_kunci": [
+   "Kekecewaan",
+   "Penerimaan",
+   "Pemulihan"
+  ]
+ },
+ "swords_04": {
+  "sebagai_opsi": "Pilihan ini menawarkan jeda istirahat, pemulihan mental, dan kontemplasi tenang jauh dari kebisingan masalah. Jalur ini memberikan ruang bagi pikiranmu untuk memulihkan energi sebelum bertindak kembali.",
+  "sebagai_risiko": "Risikonya adalah kebiasaan menunda tindakan nyata dan terlalu lama mengisolasi diri dari situasi eksternal. Berdiam diri melebihi batas waktu yang dibutuhkan berpotensi membuat kamu kehilangan momentum.",
+  "faktor_tersembunyi": "Kelelahan mental yang menumpuk merupakan alasan utama mengapa pikiranmu merasa sulit fokus saat ini.",
+  "arah_saran": "Ambil jeda istirahat bersama Four of Swords untuk menjernihkan pikiran sebelum membuat komitmen baru.",
+  "kata_kunci": [
+   "Istirahat",
+   "Pemulihan",
+   "Kontemplasi"
+  ]
+ },
+ "swords_05": {
+  "sebagai_opsi": "Pilihan ini menuntut kamu untuk bersikap realistis dalam mengamankan kepentingan pribadi di tengah situasi yang rumit. Jalur ini mengajarkan cara membatasi kerugian dan bersiap menghadapi perbedaan pendapat.",
+  "sebagai_risiko": "Waspadai risiko kemenangan hampa yang diraih lewat paksaan atau konflik berlarut yang merusak hubungan. Memenangkan argumen dengan cara keras hanya akan meninggalkan rasa pahit dan penyesalan.",
+  "faktor_tersembunyi": "Ada perbedaan kepentingan yang terselubung sehingga diskusi terasa alot dan penuh ketegangan.",
+  "arah_saran": "Evaluasi kembali konflikmu bersama Five of Swords dan pilih mana pertempuran yang memang layak dihadapi.",
+  "kata_kunci": [
+   "Perselisihan",
+   "Kompromi",
+   "Kewaspadaan"
+  ]
+ },
+ "swords_06": {
+  "sebagai_opsi": "Pilihan ini membawa perjalanan transisi menuju situasi yang lebih tenang dan teratur meninggalkan masa sulit. Jalur ini memberikan pemulihan bertahap menuju masa depan yang lebih stabil.",
+  "sebagai_risiko": "Risikonya adalah rasa enggan melepaskan kenangan lama walau kamu sudah berpindah ke situasi baru. Proses transisi yang lambat berpotensi memicu rasa ragu saat melangkah ke wilayah tak dikenal.",
+  "faktor_tersembunyi": "Masa-masa tersulit sebenarnya sudah berada di belakangmu dan arah perbaikan mulai terbuka lebar.",
+  "arah_saran": "Lanjutkan langkahmu menuju ketenangan bersama Six of Swords tanpa perlu menoleh lagi ke belakang.",
+  "kata_kunci": [
+   "Transisi",
+   "Ketenteraman",
+   "Pembaruan"
+  ]
+ },
+ "swords_07": {
+  "sebagai_opsi": "Pilihan ini mengandalkan kelincahan strategi, kecerdikan, dan taktik diplomatis untuk mencapai tujuan tanpa konfrontasi langsung. Jalur ini memberi ruang bagi pendekatan independen yang cerdas.",
+  "sebagai_risiko": "Waspadai sikap kurang transparan, tindakan main belakang, atau penyembunyian fakta yang memicu ketidakpercayaan. Cara-cara pintas yang berisiko berpotensi bumerang bagi reputasimu kelak.",
+  "faktor_tersembunyi": "Ada informasi penting yang sengaja disembunyikan atau tidak disampaikan secara utuh kepadamu.",
+  "arah_saran": "Cermati detail kesepakatan bersama Seven of Swords dan pastikan semua langkah dilakukan secara terbuka.",
+  "kata_kunci": [
+   "Strategi",
+   "Kecerdikan",
+   "Kewaspadaan"
+  ]
+ },
+ "swords_08": {
+  "sebagai_opsi": "Pilihan ini menyadarkanmu akan batasan yang ada sehingga mendorongmu mencari celah keluar secara cermat. Jalur ini mengajarkan cara mengenali hambatan pikiran agar bisa melepaskan diri dari krisis.",
+  "sebagai_risiko": "Waspadai jebakan pikiran sendiri yang membuatmu merasa terperangkap padahal jalan keluar tersedia. Rasa takut berlebih berpotensi melumpuhkan keberanianmu untuk mengambil keputusan nyata.",
+  "faktor_tersembunyi": "Sebagian besar hambatan yang membuatmu merasa terikat sebenarnya diciptakan oleh kekhawatiran sendiri.",
+  "arah_saran": "Ubah sudut pandangmu bersama Eight of Swords dan ambil satu langkah kecil untuk membebaskan diri.",
+  "kata_kunci": [
+   "Keterbatasan",
+   "Kesadaran",
+   "Pembebasan"
+  ]
+ },
+ "swords_09": {
+  "sebagai_opsi": "Pilihan ini memaksa kamu untuk menghadapi kekhawatiran terdalam dan membongkar kecemasan pikiran secara terbuka. Langkah ini menjadi titik balik untuk mengurai keraguan yang membayangi ketenanganmu.",
+  "sebagai_risiko": "Waspadai kecenderungan membesar-besarkan masalah hingga memicu rasa cemas berlebih dan insomnia. Terlalu fokus pada skenario terburuk berpotensi menguras stamina mentalmu tanpa kepastian.",
+  "faktor_tersembunyi": "Kekhawatiran yang membebanimu saat ini sebagian besar belum tentu terjadi di dunia nyata.",
+  "arah_saran": "Uraikan ketakutanmu bersama Nine of Swords di atas kertas untuk memilah mana kecemasan yang nyata.",
+  "kata_kunci": [
+   "Kecemasan",
+   "Evaluasi",
+   "Ketenangan"
+  ]
+ },
+ "swords_10": {
+  "sebagai_opsi": "Pilihan ini menandai titik akhir dari masa sulit dan penutupan babak lama secara tuntas tanpa ada yang tersisa. Jalur ini memberikan kepastian bahwa situasi terburuk telah usai dan fajar baru siap menyingsing.",
+  "sebagai_risiko": "Waspadai perasaan menjadi korban keadaan yang membuatmu enggan bangkit dari kegagalan masa lalu. Memelihara rasa drama berisiko memperlambat proses pemulihan yang seharusnya sudah dimulai.",
+  "faktor_tersembunyi": "Situasi sulit ini telah mencapai puncaknya sehingga tidak ada lagi hal buruk yang perlu dikhawatirkan.",
+  "arah_saran": "Terima penutupan ini bersama Ten of Swords dengan lapang dada dan bersiaplah memulai lembaran baru.",
+  "kata_kunci": [
+   "Penutupan",
+   "Titik Balik",
+   "Pembaruan"
+  ]
+ },
+ "swords_page": {
+  "sebagai_opsi": "Pilihan ini menawarkan rasa ingin tahu yang tinggi, sikap kritis, dan pengumpulan informasi secara cermat. Jalur ini memberikan energi kewaspadaan awal dan dorongan untuk mempelajari hal baru.",
+  "sebagai_risiko": "Risikonya adalah sikap terlalu curiga, suka mencampuri urusan orang, atau terburu-buru menyimpulkan sesuatu. Ketergesaan menyampaikan argumen tanpa bukti kuat berpotensi memicu salah paham.",
+  "faktor_tersembunyi": "Informasi kecil yang baru kamu ketahui memiliki potensi menjadi acuan penting dalam keputusan.",
+  "arah_saran": "Kumpulkan data faktual bersama Page of Swords secara teliti sebelum menyampaikan argumenmu.",
+  "kata_kunci": [
+   "Kewaspadaan",
+   "Rasa Ingin Tahu",
+   "Analisis"
+  ]
+ },
+ "swords_knight": {
+  "sebagai_opsi": "Pilihan ini memancarkan keberanian bertindak, keputusasaan mengejar kebenaran, dan komunikasi yang sangat langsung. Jalur ini memberikan energi pendorong untuk menerobos hambatan secara cepat.",
+  "sebagai_risiko": "Risiko utama adalah sikap terlalu agresif, terburu-buru, dan kurang memperhitungkan dampak emosional. Berbicara atau bertindak tanpa dipikirkan matang-matang berpotensi memicu penyesalan.",
+  "faktor_tersembunyi": "Dorongan untuk segera menyelesaikan masalah bisa membuat kamu mengabaikan saran penting sekitar.",
+  "arah_saran": "Kendalikan kecepatan analisismu bersama Knight of Swords agar keputusan tetap tajam namun aman.",
+  "kata_kunci": [
+   "Keberanian",
+   "Kecepatan",
+   "Ketegasan"
+  ]
+ },
+ "swords_queen": {
+  "sebagai_opsi": "Pilihan ini mengedepankan pemikiran mandiri, penilaian obyektif, dan ketegasan yang didasari pengalaman hidup. Jalur ini membebaskanmu dari campur tangan emosional agar dapat melihat kebenaran.",
+  "sebagai_risiko": "Risikonya adalah terlihat terlalu dingin, sinis, atau sulit tersentuh oleh empati orang lain. Pertahanan diri yang terlalu rapat berpotensi membuat lingkungan merasa segan mendekat.",
+  "faktor_tersembunyi": "Pengalaman pahit masa lalu telah membentuk batasan diri yang sangat kuat dan objektif dalam dirimu.",
+  "arah_saran": "Gunakan pemikiran rasional bersama Queen of Swords untuk menetapkan batasan yang jelas minggu ini.",
+  "kata_kunci": [
+   "Independensi",
+   "Obyektivitas",
+   "Batasan"
+  ]
+ },
+ "swords_king": {
+  "sebagai_opsi": "Pilihan ini membawa otoritas intelektual, keahlian tinggi, dan keputusannya berlandaskan keadilan serta kebenaran. Jalur ini memberikan panduan strategis yang sangat terstruktur dan bijaksana.",
+  "sebagai_risiko": "Risiko terletak pada sikap terlalu otoriter, kaku pada aturan, dan kurang memberi ruang kompromi emosional. Pendekatan yang terlalu rasional berisiko membuat situasi terasa menekan.",
+  "faktor_tersembunyi": "Standar logika dan etika yang tinggi menjadi pilar utama yang menentukan kelayakan opsi ini.",
+  "arah_saran": "Ambil kepemimpinan rasional bersama King of Swords dan putuskan masalah dengan prinsip adil.",
+  "kata_kunci": [
+   "Otoritas",
+   "Logika",
+   "Keadilan"
+  ]
+ },
+ "pentacles_01": {
+  "sebagai_opsi": "Pilihan ini menawarkan peluang emas yang sangat solid, potensi keuntungan nyata, dan landasan material yang kuat. Kamu diajak meraih kesempatan berharga yang memberikan kestabilan jangka panjang.",
+  "sebagai_risiko": "Risiko utama adalah kecenderungan terlalu berfokus pada hasil materi hingga mengabaikan nilai kualitatif. Terlalu bergantung pada jaminan fisik bisa membuatmu kurang peka terhadap aspek emosional.",
+  "faktor_tersembunyi": "Ada potensi sumber daya tersembunyi yang siap dieksekusi begitu kamu memutuskan untuk memulai langkah ini.",
+  "arah_saran": "Manfaatkan tawaran Ace of Pentacles dengan mengamankan kesepakatan praktis pertama dalam minggu ini.",
+  "kata_kunci": [
+   "Peluang",
+   "Kestabilan",
+   "Wujud Nyata"
+  ]
+ },
+ "pentacles_02": {
+  "sebagai_opsi": "Pilihan ini mengandalkan fleksibilitas, kemampuan mengalir, dan adaptasi linhat dalam mengelola dua prioritas sekaligus. Jalur ini memberikan ruang untuk menjaga keseimbangan di tengah perubahan.",
+  "sebagai_risiko": "Risikonya adalah kelelahan akibat terus-menerus membagi fokus hingga tak ada hal yang selesai optimal. Terlalu banyak beralih perhatian berpotensi memicu kekeliruan kecil yang merugikan.",
+  "faktor_tersembunyi": "Kemampuan beradaptasi yang kamu miliki menjadi penentu utama agar semua urusan tetap berjalan seimbang.",
+  "arah_saran": "Atur ulang alokasi waktu dan sumber dayamu bersama Two of Pentacles agar kedua prioritas tetap terkendali.",
+  "kata_kunci": [
+   "Keseimbangan",
+   "Fleksibilitas",
+   "Penyesuaian"
+  ]
+ },
+ "pentacles_03": {
+  "sebagai_opsi": "Pilihan ini menawarkan ruang kolaborasi profesional, penyempurnaan keahlian, dan kerja sama tim yang solid. Langkah ini menghargai proses belajar dan pembangunan fondasi secara berkualitas.",
+  "sebagai_risiko": "Risiko terletak pada ketergantungan berlebih terhadap persetujuan tim atau standar kaku dari luar. Terlalu banyak kompromi teknis berpotensi memperlambat tempo eksekusi yang kamu inginkan.",
+  "faktor_tersembunyi": "Sinergi keterampilan dengan orang lain akan melipatgandakan mutu akhir dari keputusan yang diambil.",
+  "arah_saran": "Gunakan komunikasi profesional bersama Three of Pentacles untuk menyelaraskan peran dan tugas masing-masing.",
+  "kata_kunci": [
+   "Kolaborasi",
+   "Keahlian",
+   "Kerja Sama"
+  ]
+ },
+ "pentacles_04": {
+  "sebagai_opsi": "Pilihan ini menawarkan rasa aman, perlindungan atas aset yang ada, dan kehati-hatian dalam menjaga stabilitas. Jalur ini mengutamakan pemeliharaan posisi agar terhindar dari risiko kerugian.",
+  "sebagai_risiko": "Risikonya adalah sikap terlalu posesif, kaku, dan takut mengambil risiko hingga menutup peluang tumbuh. Terlalu protektif pada rasa aman berisiko membuat situasi stagnan dan membosankan.",
+  "faktor_tersembunyi": "Rasa cemas kehilangan kontrol sebenarnya menjadi alasan utama di balik keinginanmu bertahan pada posisi ini.",
+  "arah_saran": "Kelola asetmu bersama Four of Pentacles secara bijak tanpa menutup diri dari pembaharuan yang diperlukan.",
+  "kata_kunci": [
+   "Penghematan",
+   "Keamanan",
+   "Kewaspadaan"
+  ]
+ },
+ "pentacles_05": {
+  "sebagai_opsi": "Pilihan ini mengajakmu menyadari keterbatasan yang ada dan berani mencari bantuan saat berada di posisi sulit. Jalur ini menguji daya tahan serta membentuk mentalitas pantang menyerah.",
+  "sebagai_risiko": "Waspadai perasaan terisolasi, fokus berlebih pada kekurangan, atau meratapi situasi yang serba terbatas. Terjebak dalam rasa putus asa berpotensi membuat kamu mengabaikan pertolongan di sekitar.",
+  "faktor_tersembunyi": "Bantuan dan solusi sebenarnya berada sangat dekat, hanya saja kamu perlu menurunkan gengsi untuk meraihnya.",
+  "arah_saran": "Buka diri bersama Five of Pentacles dan mintalah dukungan nyata dari sosok yang kamu percayai.",
+  "kata_kunci": [
+   "Keterbatasan",
+   "Daya Tahan",
+   "Dukungan"
+  ]
+ },
+ "pentacles_06": {
+  "sebagai_opsi": "Pilihan ini membawa energi pertukaran yang adil, kemurahan hati, dan keseimbangan antara memberi serta menerima. Jalur ini membuka jalan bagi dukungan finansial atau bantuan fasilitas yang tepat.",
+  "sebagai_risiko": "Risiko terletak pada potensi ketimpangan relasi atau merasa berutang budi atas bantuan yang diterima. Kebergantungan pada kebaikan pihak lain berisiko mengurangi batas kemandirianmu.",
+  "faktor_tersembunyi": "Dinamika alokasi sumber daya yang adil memegang kunci utama dalam kelancaran keputusan ini.",
+  "arah_saran": "Atur skema pembagian yang seimbang bersama Six of Pentacles agar kedua pihak merasa sama-sama dihargai.",
+  "kata_kunci": [
+   "Keseimbangan",
+   "Dukungan",
+   "Keadilan"
+  ]
+ },
+ "pentacles_07": {
+  "sebagai_opsi": "Pilihan ini menawarkan ruang evaluasi atas investasi waktu dan tenaga yang telah kamu tanamkan sebelumnya. Jalur ini mengajarkan kesabaran untuk menunggu hasil tumbuh secara alamiah.",
+  "sebagai_risiko": "Risikonya adalah rasa tidak sabar yang memicu keputusasaan di tengah proses yang sedang berjalan. Berhenti terlalu cepat berpotensi membuat seluruh usaha yang sudah ditanam menjadi sia-sia.",
+  "faktor_tersembunyi": "Proses pertumbuhan sedang berlangsung di bawah permukaan meski hasilnya belum terlihat secara kasat mata.",
+  "arah_saran": "Lakukan evaluasi berkala bersama Seven of Pentacles untuk menilai perkembangan investasi usahamu saat ini.",
+  "kata_kunci": [
+   "Evaluasi",
+   "Kesabaran",
+   "Investasi"
+  ]
+ },
+ "pentacles_08": {
+  "sebagai_opsi": "Pilihan ini menawarkan kesempatan untuk mengasah dedikasi, ketelitian, dan penguasaan keterampilan secara mandiri. Langkah ini menjamin peningkatan mutu karya melalui konsistensi kerja.",
+  "sebagai_risiko": "Risiko muncul jika kamu terlalu terjebak dalam detail kecil hingga kehilangan gambaran besar tujuan. Bekerja tanpa henti berisiko memicu kelelahan fisik dan rasa jenuh yang tidak disadari.",
+  "faktor_tersembunyi": "Kedisiplinan serta rutinitas harian yang konsisten merupakan modal terbesar bagi kesuksesan opsi ini.",
+  "arah_saran": "Fokuskan perhatianmu bersama Eight of Pentacles untuk menyelesaikan satu tugas teknis dengan ketelitian tinggi.",
+  "kata_kunci": [
+   "Kedisiplinan",
+   "Ketelitian",
+   "Dedikasi"
+  ]
+ },
+ "pentacles_09": {
+  "sebagai_opsi": "Pilihan ini menawarkan kemandirian materi, kenyamanan pribadi, dan hasil yang sangat memuaskan atas usaha sendiri. Jalur ini memberikan kebebasan menikmati hidup dengan rasa percaya diri.",
+  "sebagai_risiko": "Risikonya adalah kecenderungan mengisolasi diri atau terlalu mengandalkan kenyamanan pribadi semata. Sikap terlalu independen berpotensi membuat kamu enggan menerima masukan atau kerja sama.",
+  "faktor_tersembunyi": "Kerja keras mandiri yang telah kamu lakukan kini siap membuahkan kenyamanan yang patut dinikmati.",
+  "arah_saran": "Apresiasi pencapaian dirimu bersama Nine of Pentacles dan nikmati hasil kerja kerasmu secara bijak.",
+  "kata_kunci": [
+   "Kemandirian",
+   "Kenyamanan",
+   "Pencapaian"
+  ]
+ },
+ "pentacles_10": {
+  "sebagai_opsi": "Pilihan ini membawa energi kemakmuran jangka panjang, fondasi keluarga yang kuat, dan warisan nilai yang stabil. Langkah ini menjamin keamanan serta keberlanjutan bagi generasi mendatang.",
+  "sebagai_risiko": "Risiko terletak pada beban tradisi atau aturan keluarga yang kaku dan mengikat kebebasan pribadimu. Terlalu patuh pada standar lama berpotensi menghambat inovasi yang ingin kamu bawa.",
+  "faktor_tersembunyi": "Dukungan sistemik atau struktur keluarga besar memegang peranan sangat kuat dalam keputusan ini.",
+  "arah_saran": "Perkokoh aturan dan sistem jangka panjang bersama Ten of Pentacles demi menjaga stabilitas bersama.",
+  "kata_kunci": [
+   "Kemakmuran",
+   "Kestabilan",
+   "Jangka Panjang"
+  ]
+ },
+ "pentacles_page": {
+  "sebagai_opsi": "Pilihan ini membawa kabar baik terkait peluang praktis, kesempatan belajar, dan minat baru yang prospektif. Jalur ini memberi ruang untuk membangun keterampilan dasar secara terencana.",
+  "sebagai_risiko": "Risikonya adalah terlalu banyak memperhitungkan teori tanpa keberanian mengeksekusi secara nyata. Sikap lambat mengambil keputusan berisiko membuat peluang bagus menguap begitu saja.",
+  "faktor_tersembunyi": "Satu kesempatan kecil yang tampak sepele memiliki potensi menjadi sumber kemajuan yang stabil.",
+  "arah_saran": "Pelajari fakta teknis bersama Page of Pentacles dan mulailah satu eksperimen praktis dalam skala kecil.",
+  "kata_kunci": [
+   "Peluang",
+   "Pembelajaran",
+   "Perencanaan"
+  ]
+ },
+ "pentacles_knight": {
+  "sebagai_opsi": "Pilihan ini menawarkan pendekatan yang sangat terstruktur, metodis, dan penuh tanggung jawab hingga tuntas. Jalur ini memberikan kepastian kerja melalui rutinitas yang stabil dan teruji.",
+  "sebagai_risiko": "Risiko muncul dari sifat terlalu lambat, kaku, dan lamban dalam beradaptasi terhadap perubahan dinamis. Sikap yang terlalu konservatif berpotensi membuat alur keputusan terasa menjenuhkan.",
+  "faktor_tersembunyi": "Konsistensi tanpa henti yang kamu tunjukkan menjadi faktor pembeda utama dari pesaing lain.",
+  "arah_saran": "Jalankan rencana terstrukturmu bersama Knight of Pentacles secara konsisten dan patuhi jadwal kerja.",
+  "kata_kunci": [
+   "Konsistensi",
+   "Tanggung Jawab",
+   "Metodis"
+  ]
+ },
+ "pentacles_queen": {
+  "sebagai_opsi": "Pilihan ini mengedepankan pengelolaan sumber daya yang efisien, suasana yang mengayomi, dan kepraktisan hidup. Kamu diajak menciptakan lingkungan yang stabil, nyaman, dan berlimpah.",
+  "sebagai_risiko": "Risikonya adalah terlalu sibuk mengurus kebutuhan praktis orang lain hingga melupakan ambisi pribadi. Keterikatan pada kenyamanan fisik berpotensi membatasi ruang gerakmu untuk berkembang.",
+  "faktor_tersembunyi": "Kecerdasan praktis dan naluri pemeliharaan yang kamu miliki adalah kunci utama menjaga kelancaran.",
+  "arah_saran": "Kelola anggaran dan fasilitas bersama Queen of Pentacles secara efisien untuk menciptakan kenyamanan.",
+  "kata_kunci": [
+   "Pengelolaan",
+   "Kepraktisan",
+   "Kenyamanan"
+  ]
+ },
+ "pentacles_king": {
+  "sebagai_opsi": "Pilihan ini membawa puncak penguasaan materi, kepemimpinan bisnis yang matang, dan keberhasilan finansial. Jalur ini memberikan kestabilan tingkat tinggi serta kekuasaan dalam mengontrol hasil.",
+  "sebagai_risiko": "Risiko terletak pada sikap terlalu berfokus pada kekuasaan materi dan kurang peka terhadap aspek emosional. Sikap terlampau pragmatis berpotensi membuat hubungan terkesan transaksional.",
+  "faktor_tersembunyi": "Pengalaman dan wewenang yang kamu miliki sudah sangat cukup untuk mengendalikan alur keputusan ini.",
+  "arah_saran": "Ambil kendali finansial bersama King of King atau King of Pentacles dengan menetapkan standar tinggi yang terukur.",
+  "kata_kunci": [
+   "Kekuasaan",
+   "Kestabilan",
+   "Pencapaian"
+  ]
+ }
+}
