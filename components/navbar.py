@@ -3,6 +3,8 @@ Navbar floating (dipakai SEMUA halaman) + mega menu "Jelajahi" + jembatan klik
 buat elemen HTML statis yang harus buka modal Reveal.
 """
 
+import json
+
 import streamlit as st
 from content import pricing as P
 import streamlit.components.v1 as components
@@ -91,6 +93,65 @@ w.eval("document.addEventListener('click',function(e){var t=e.target.closest&&e.
 </script>"""
 
 
+# Kartu kategori Jelajahi -> modal (hero animation) + tombol hero smooth scroll. Dipasang ke window parent
+# lewat <script> sekali saja (flag __dhCatBound), jadi browser yang sudah terbuka butuh hard reload.
+CAT_JS = r'''
+var d=document, cur=null, DUR=520;
+function rectOf(el){var r=el.getBoundingClientRect();return {l:r.left,t:r.top,w:r.width,h:r.height};}
+function setGeo(m,g){m.style.left=g.l+'px';m.style.top=g.t+'px';m.style.width=g.w+'px';m.style.height=g.h+'px';}
+function openCat(card){
+  if(cur||card.classList.contains('dh-cat-away'))return;
+  var data=card.querySelector('.dh-cat-data'); if(!data)return;
+  var from=rectOf(card);
+  var ov=d.createElement('div'); ov.className='dh-ov';
+  var m=d.createElement('div'); m.className='dh-ov-modal';
+  var ghost=card.cloneNode(true); var gd=ghost.querySelector('.dh-cat-data'); if(gd)gd.remove();
+  ghost.className='dh-cat dh-ov-ghost'; ghost.removeAttribute('tabindex');
+  var icon=card.querySelector('.dh-cat-icon').outerHTML, title=card.querySelector('.dh-cat-title').outerHTML,
+      sub=card.querySelector('.dh-cat-sub').outerHTML, badge=card.querySelector('.dh-cat-badge').outerHTML;
+  var inner=d.createElement('div'); inner.className='dh-ov-inner';
+  inner.innerHTML='<button class="dh-ov-x" aria-label="Tutup">✕</button><div class="dh-ov-head">'+icon+'<div>'+title+sub+badge+'</div></div><div class="dh-ov-body">'+data.innerHTML+'</div>';
+  m.appendChild(inner); m.appendChild(ghost); ov.appendChild(m); d.body.appendChild(ov);
+  // ukur ukuran akhir (modal di tengah layar)
+  var W=Math.min(480,d.documentElement.clientWidth*0.92); m.style.transition='none'; m.style.width=W+'px'; m.style.height='auto'; m.style.left='0px'; m.style.top='0px';
+  var H=Math.min(inner.offsetHeight, window.innerHeight*0.88);
+  var to={l:(d.documentElement.clientWidth-W)/2,t:Math.max(16,(window.innerHeight-H)/2),w:W,h:H};
+  inner.style.width=W+'px'; inner.style.maxHeight=H+'px'; inner.style.overflowY='auto';
+  setGeo(m,from); void m.offsetWidth; m.style.transition='';
+  card.classList.add('dh-cat-away');
+  cur={ov:ov,m:m,card:card,to:to};
+  requestAnimationFrame(function(){requestAnimationFrame(function(){ov.classList.add('go'); setGeo(m,to);});});
+}
+function done(){ if(!cur)return; cur.card.classList.remove('dh-cat-away'); cur.ov.remove(); cur=null; }
+function closeCat(instant){
+  if(!cur)return; if(instant){done();return;}
+  var c=cur; c.ov.classList.remove('go'); setGeo(c.m, rectOf(c.card));
+  setTimeout(function(){ if(cur===c)done(); },DUR);
+}
+d.addEventListener('click',function(e){
+  var t=e.target; if(!t||!t.closest)return;
+  if(cur){
+    if(t.closest('.dh-ov-x')){closeCat();return;}
+    if(t.closest('.dh-ov-item')){closeCat(true);return;}      // biar handler .dh-open-modal/.dh-open-reveal tetap jalan
+    if(t.closest('.dh-ov')&&!t.closest('.dh-ov-modal')){e.preventDefault();e.stopPropagation();closeCat();return;}  // klik backdrop
+    return;
+  }
+  var card=t.closest('.dh-cat'); if(card){e.preventDefault();openCat(card);return;}
+  var hb=t.closest('.st-key-dhhero_cta');                      // "Mulai Reveal Takdirku" = smooth scroll
+  if(hb){e.preventDefault();e.stopPropagation();var a=d.getElementById('dh-explore');if(a)a.scrollIntoView({behavior:'smooth',block:'start'});}
+},true);
+d.addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&cur){e.preventDefault();closeCat();return;}
+  if((e.key==='Enter'||e.key===' ')&&e.target&&e.target.classList&&e.target.classList.contains('dh-cat')&&!cur){e.preventDefault();openCat(e.target);}
+},true);
+d.addEventListener('wheel',function(e){ if(cur&&!(e.target.closest&&e.target.closest('.dh-ov-inner')))e.preventDefault(); },{passive:false,capture:true});
+window.addEventListener('resize',function(){ closeCat(true); });
+'''
+_CAT_BRIDGE = ("<script>(function(){var w=window.parent;if(w.__dhCatBound)return;w.__dhCatBound=true;"
+               "var s=w.document.createElement('script');s.textContent=" + json.dumps(CAT_JS) + ";w.document.head.appendChild(s);})();</script>")
+
+
+
 def consume_pending_scroll():
     """Dipanggil dari Home: kalau user klik 'Tutorial' dari halaman lain, abis balik
     ke Home langsung smooth-scroll ke section tujuan."""
@@ -177,7 +238,7 @@ def render_navbar(current_page):
             for _k, _fn in _ALL_DIALOGS.items():
                 if st.button(f"buka {_k}", key=f"dh_trig_{_k}"):
                     _fn()
-            components.html(_BRIDGE_JS, height=0)
+            components.html(_BRIDGE_JS + _CAT_BRIDGE, height=0)
     auth.reopen_if_pending()  # habis login -> profil
     _pend = dialog_bus.pop_pending()  # dialog lain minta buka dialog baru
     _ss = st.session_state

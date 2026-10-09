@@ -14,7 +14,6 @@ from content import pricing as P
 
 from components.system_info import open_from_node
 from components.data import CATEGORY_SYSTEMS, NODE_COLOR, NODE_ORDER
-from components import info_modals
 from components.modal import open_reveal_modal
 
 
@@ -62,7 +61,9 @@ def render_hero():
                 "Mulai Reveal Takdirku →", key="dhhero_cta", type="primary",
                 icon=":material/bolt:", use_container_width=True,
             ):
-                open_reveal_modal()
+                # normalnya diambil alih JS (smooth scroll tanpa rerun); ini fallback kalau JS belum aktif
+                st.session_state.dh_pending_scroll = "dh-explore"
+                st.rerun()
     with c2:
         st.markdown(
             '<a href="#dh-matrix" class="dh-btn-anchor-secondary">Lihat 15 Sistem Matrix</a>',
@@ -191,91 +192,82 @@ def render_social_proof():
 
 
 # ══════════════════════════════════════════════════════════════
-# EXPLORE SECTION
+# EXPLORE SECTION (REVISI01: grid 6 kategori + modal hero-animation)
+# Kartu = HTML statis; animasi kartu -> modal dikerjakan JS di navbar.py (CAT_JS).
+# Isi modal disimpan di .dh-cat-data (tersembunyi) dan diklon JS saat kartu diklik.
 # ══════════════════════════════════════════════════════════════
+_WRENCH_D = ("M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.9 4.9C.8 7.3 1.2 10.2 3.2 12.1"
+             "c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.1-2.1c.5-.4.5-1 0-1.6z")
+
+
+def _wrench(size, color="#C86235"):
+    return f'<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="{color}"><path d="{_WRENCH_D}"/></svg>'
+
+
+def _ov_item(title, sub, right, modal=None, reveal=False):
+    cls = "dh-open-reveal" if reveal else ("dh-open-modal" if modal else "")
+    dm = f' data-modal="{modal}"' if modal and not reveal else ""
+    return (f'<a href="#dh-soon" class="dh-ov-item {cls}"{dm}><div><div class="dh-ov-item-title">{title}</div>'
+            f'<div class="dh-ov-item-sub">{sub}</div></div>{right}</a>')
+
+
+def _ov_price(txt):
+    return f'<span class="dh-ov-price">{txt}</span>'
+
+
+_ARROW = '<span class="dh-ov-arrow">→</span>'
+
+
+def _categories():
+    tarot = f"{P.TAROT[3]}-{P.TAROT[10]}✨"
+    soon = ('<div class="dh-ov-soon"><div class="dh-ov-soon-ic">' + _wrench(30) + '</div>'
+            '<div class="dh-ov-soon-t">Coming Soon</div>'
+            '<div class="dh-ov-soon-s">Fitur ini sedang dalam pengembangan.</div></div>')
+    # (key, ikon, judul, sub, badge, kelas badge, isi modal)
+    return [
+        ("daily", "🌅", "Daily Free Reveal", "Gratis · Aktivitas harian · Reward", "GRATIS", "free",
+         _ov_item("Ramalan Kartu Harian", "1x per hari, pilih Zodiak atau Shio", _ARROW, "daily")
+         + _ov_item("Gacha Kartu Tarot", "Tarik kartu deck tertutup dengan animasi shuffle", _ARROW, "tarot")
+         + _ov_item("Preview Zodiak", "12 rasi, modality, planet &amp; quote", _ARROW, "preview")
+         + _ov_item("Daily Checkin", "Check-in mingguan = +30 s/d +60✨ gratis", _ARROW, "streak")),
+        ("self", "🎯", "Self Discovery", "Karakter · Potensi · Identitas · Siklus hidup", "PREMIUM", "prem",
+         _ov_item("Solo Reveal", "Pilih 1 sistem untuk analisis mendalam", _ov_price(f"{P.fmt(P.SOLO)}✨"), "solo")
+         + _ov_item("Batch Reveal", "Reveal Dirimu: banyak sistem sekaligus dari satu kali isi data", _ARROW, reveal=True)),
+        ("rel", "💞", "Relationships", "Pasangan · Sahabat · Keluarga · Partner bisnis", "PREMIUM", "prem",
+         _ov_item("Soul Match", "Analisis kecocokan untuk pasangan, kerja, sahabat, &amp; keluarga",
+                  _ov_price(f"{P.COMPAT}✨"), "compat")),
+        ("guid", "🧭", "Guidance &amp; Timing", "Tarot · Weekly · Monthly · Decision Reveal", "PREMIUM", "prem",
+         _ov_item("Tarot Spread", "3 spread: Past-Present-Future, Cross, Celtic Cross (10 kartu)", _ov_price(tarot), "tarot_spread")
+         + _ov_item("Weekly &amp; Monthly Report", "Panduan timing mingguan &amp; analisis bulanan lengkap",
+                    _ov_price(f"{P.WEEKLY}-{P.MONTHLY}✨"), "weekly")),
+        ("biz", "💼", "Destiny Business", "Team insights · Leadership · Organizational development", "COMING SOON", "soon", soon),
+        ("my", "📔", "My Destiny", "Journal · Timeline · Goals · History · Reflection", "COMING SOON", "soon", soon),
+    ]
+
+
 def render_explore():
     st.markdown('<div id="dh-explore" class="dh-anchor"></div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="dh-section-head">'
         '<div class="dh-section-title">Jelajahi Destiny Reveal</div>'
-        '<div class="dh-section-sub">Dari yang gratis sampai premium, semua ada di sini.</div>'
+        '<div class="dh-section-sub">Pilih kategori yang mau kamu eksplorasi hari ini.</div>'
         '</div>',
         unsafe_allow_html=True,
     )
-
-    ec1, ec2, ec3 = st.columns(3, gap="medium")
-
-    def _item(title, sub, right, modal=None):
-        # Seluruh kotak = link dummy (href fragmen kosong yang gak ada target-nya,
-        # biar klik gak lompat ke atas halaman). Ganti href kalau fiturnya udah jadi.
-        return (
-            f'<a href="#dh-soon" class="dh-explore-item{" dh-open-modal" if modal else ""}"'
-            f'{f" data-modal={chr(34)}{modal}{chr(34)}" if modal else ""}><div>'
-            f'<div class="dh-explore-item-title">{title}</div>'
-            f'<div class="dh-explore-item-sub">{sub}</div></div>{right}</a>'
+    cards = ""
+    for key, icon, title, sub, badge, bcls, body in _categories():
+        wrench = _wrench(11, "#8A8178") + " " if bcls == "soon" else ""
+        cards += (
+            f'<div class="dh-cat" data-cat="{key}" role="button" tabindex="0">'
+            '<span class="dh-cat-deco"></span>'
+            f'<div class="dh-cat-icon">{icon}</div>'
+            f'<div class="dh-cat-title">{title}</div>'
+            f'<div class="dh-cat-sub">{sub}</div>'
+            '<div class="dh-cat-line"></div>'
+            f'<span class="dh-cat-badge {bcls}">{wrench}{badge}</span>'
+            f'<div class="dh-cat-data" style="display:none">{body}</div></div>'
         )
-
-    arrow = '<span class="dh-explore-item-arrow">→</span>'
-
-    def _price(txt, vip=False):
-        return f'<span class="dh-explore-item-price{" vip" if vip else ""}">{txt}</span>'
-
-    def _head(icon, bg, title, sub):
-        return (
-            '<div class="dh-explore-head">'
-            f'<div class="dh-explore-icon" style="background:{bg};">{icon}</div>'
-            f'<div><div class="dh-explore-title">{title}</div>'
-            f'<div class="dh-explore-subtitle">{sub}</div></div></div>'
-        )
-
-    # Tiap kartu = st.container(key="dhexplore_card_*") beneran, jadi tombol
-    # footer ikut kebungkus di dalam kartu (bukan nongol di luar border).
-    with ec1:
-        with st.container(key="dhexplore_card_gratis"):
-            st.markdown(
-                _head("🆓", "#FDF6E3", "GRATIS", "Eksplorasi tanpa biaya harian")
-                + _item("Ramalan Harian Gratis", "1x per hari, pilih Zodiak atau Shio", arrow, modal="daily")
-                + _item("Tarot 1 Kartu Harian", "Tarik kartu deck tertutup dengan animasi shuffle", arrow, modal="tarot")
-                + _item("Preview Zodiak", "12 rasi, modality, planet &amp; quote", arrow, modal="preview")
-                + _item("Streak &amp; Reward", "Streak mingguan = +30 s/d +60✨ gratis", arrow, modal="streak"),
-                unsafe_allow_html=True,
-            )
-            with st.container(key="dhexplore_foot_gratis"):
-                if st.button("Mulai Reveal →", key="dhexplore_gratis_btn", use_container_width=True):
-                    open_reveal_modal()
-
-    with ec2:
-        with st.container(key="dhexplore_card_premium"):
-            st.markdown(
-                '<div class="dh-explore-card-badge">PAKAI STARDUST &amp; VIP</div>'
-                + _head("💎", "#eef2fb", "PREMIUM", "Panduan mendalam &amp; akurasi tinggi")
-                + _item("Solo Reveal", "Pilih 1 sistem untuk analisis mendalam", _price(f"{P.fmt(P.SOLO)}✨"), modal="solo")
-                + _item("Tarot Spreads", "3 spread: Past-Present-Future, Cross, Celtic Cross (10 kartu)", _price("50-150✨"), modal="tarot_spread")
-                + _item("Soul Match", "Analisis kecocokan untuk pasangan, kerja, sahabat, &amp; keluarga", _price(f"{P.COMPAT}✨"), modal="compat")
-                + _item("Weekly &amp; Monthly Report", "Panduan timing mingguan &amp; analisis bulanan lengkap", _price(f"{P.WEEKLY}-{P.MONTHLY}✨"), modal="weekly")
-                + _item("Blueprint Mendalam", "Analisis A-M per 1 sistem ATAU 15 sistem sekaligus + PDF", _price("VIP", vip=True), modal="blueprint"),
-                unsafe_allow_html=True,
-            )
-            with st.container(key="dhexplore_foot_premium"):
-                st.markdown(
-                    '<a href="#dh-soon" class="dh-explore-pricelink dh-open-modal" data-modal="pricing">'
-                    '🔒 Lihat Daftar Harga Final Lengkap →</a>',
-                    unsafe_allow_html=True,
-                )
-
-    with ec3:
-        with st.container(key="dhexplore_card_lainnya"):
-            st.markdown(
-                _head('<svg class="dh-spark-blue" width="22" height="22" viewBox="0 0 24 24" fill="#3B6FD4"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>', "#eef2fb", "LAINNYA", "Referral, wawasan &amp; bantuan pengguna")
-                + _item("🎁 Program Referral &amp; Affiliate", "Komisi 10-30% + Bonus Milestone VIP", arrow, modal="pricing_ref")
-                + _item("Tutorial", "Panduan pakai website &amp; cara baca hasil", arrow, modal="tutorial")
-                + _item("Blog", "Artikel tentang self-discovery &amp; potensi diri", arrow, modal="blog")
-                + _item("FAQ &amp; Bantuan", "Pertanyaan yang sering ditanya", arrow, modal="faq"),
-                unsafe_allow_html=True,
-            )
-            with st.container(key="dhexplore_foot_lainnya"):
-                if st.button("Tentang Kami: Destiny Reveal", key="dhexplore_about_btn", use_container_width=True):
-                    info_modals.about_dialog()
+    st.markdown(f'<div class="dh-cat-grid">{cards}</div>', unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════
