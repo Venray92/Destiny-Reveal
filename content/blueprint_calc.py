@@ -334,7 +334,7 @@ def build_blueprint(prof, systems, quiz_answers, mode, now_year=None):
         if s in systems:
             b = B.get(s)
             systems_out.append({"n": i, "name": s, "icon": ICON[s], "desc": DESC[s], "ok": bool(b), **(b or {})})
-    res = {"nama": prof["nama"], "lahir": lahir, "head": head, "id": f"BP-{now_year}-{sid}", "systems": systems_out,
+    res = {"nama": prof["nama"], "tgl": prof["tgl"], "lahir": lahir, "head": head, "id": f"BP-{now_year}-{sid}", "systems": systems_out,
            "complete": len(systems) > 1, "mode": mode, "n_ok": sum(1 for x in systems_out if x["ok"])}
     if res["complete"]:
         res["synth"] = _synthesis(prof, raws, B, now_year)

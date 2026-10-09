@@ -14,6 +14,11 @@ SWAP = 50
 TAROT = {3: 50, 5: 100, 10: 150}
 TAROT_BUNDLE = 250
 COMPAT = 100           # per sistem
+CAREER_DNA = 300        # Career DNA (PERKIRAAN, Stev belum putuskan)
+STRENGTH = 250          # Strength & Blind Spot (PERKIRAAN)
+DECISION = 120          # Decision Reveal 7 kartu (PERKIRAAN: di antara Tarot 5=100 dan 10=150)
+YEARLY = 700            # Yearly Forecast (PERKIRAAN: lebih besar dari Monthly 600)
+CALENDAR_MONTH = 400   # Kalender Energi: detail 4 sistem per hari, 1 bulan kalender (PERKIRAAN, Stev belum putuskan)
 
 # ── paket Stardust: (nama, badge, harga Rp, jumlah ✨, bonus, deskripsi) ──
 COIN_PACKS = [
