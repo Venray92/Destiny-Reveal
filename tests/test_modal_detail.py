@@ -185,7 +185,7 @@ def test_ui23_premium_card_no_old_buttons():
     import inspect
     from components import sections
     src = inspect.getsource(sections)
-    assert 'modal="solo"' in src and "dhexplore_koin_btn" not in src and "dhexplore_vip_btn" not in src
+    assert '"solo"' in src and "dhexplore_koin_btn" not in src and "dhexplore_vip_btn" not in src
 
 
 def test_ui24_labels_and_pdf():

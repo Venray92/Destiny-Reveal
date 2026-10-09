@@ -19,7 +19,7 @@ def test_terpasang_di_ui():
     assert solo_reveal.SOLO_PRICE == P.SOLO and compat.PRICE == P.COMPAT and mini_modals.SWAP_PRICE == P.SWAP
     assert any(v[2] == "Rp 2.499.000" for v in pricing_modal.VIP_PLANS)
     sec = pathlib.Path("components/sections.py").read_text()
-    for t in ("Soul Match", "Blueprint Mendalam", "Tarot Spreads"):
+    for t in ("Soul Match", "Tarot Spread"):  # REVISI01: Blueprint tidak ada di grid kategori
         assert t in sec
     for f in pathlib.Path("components").glob("*.py"):
         assert "Cek Kecocokan" not in f.read_text(), f.name
