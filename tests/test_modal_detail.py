@@ -103,7 +103,7 @@ def test_ui17_stardust_packs():
 def test_ui17_fitur_and_vip():
     from components.pricing_modal import FEATURES, VIP_PLANS
     prices = {n: sd for _, rows in FEATURES for n, sd, *_ in rows}
-    assert len(prices) == 15 and prices["Buka 1 Sistem (Single)"] == 200 and prices["Buka 1 Sistem (Daily) Lengkap"] == 50
+    assert len(prices) == 16 and prices["Buka 1 Sistem (Single)"] == 200 and prices["Buka 1 Sistem (Daily) Lengkap"] == 50
     assert prices["Complete Bundle (15 Sistem)"] == 1200 and prices["Blueprint Mendalam"] == 800
     assert prices["Weekly Report"] == 300 and prices["Monthly Report"] == 600
     assert prices["Tarot Celtic Cross"] == 150 and prices["Soul Match (3 Sistem)"] == 250
