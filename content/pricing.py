@@ -4,7 +4,8 @@
 SOLO = 200
 WEEKLY = 300
 MONTHLY = 600
-BLUEPRINT = 800
+BLUEPRINT = 800        # Deep Dive: A-M 1 sistem
+BLUEPRINT_ALL = 1200   # Complete Blueprint: A-M 15 sistem (ASUMSI, belum ada di tabel harga: cek lagi)
 BUNDLE_ALL = 1200      # Complete Bundle 15 sistem
 BUNDLE_BIRTH = 200     # Mode 1: 5 sistem kelahiran
 BUNDLE_PSY = 200       # Mode 2: 5 tes psikologi
