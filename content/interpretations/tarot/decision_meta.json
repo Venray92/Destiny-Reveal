@@ -1,0 +1,392 @@
+{
+ "major_00": {
+  "nama": "0 - The Fool",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "major_01": {
+  "nama": "I - The Magician",
+  "polarity": "dukung",
+  "intensitas": 3
+ },
+ "major_02": {
+  "nama": "II - The High Priestess",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "major_03": {
+  "nama": "III - The Empress",
+  "polarity": "dukung",
+  "intensitas": 3
+ },
+ "major_04": {
+  "nama": "IV - The Emperor",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "major_05": {
+  "nama": "V - The Hierophant",
+  "polarity": "netral",
+  "intensitas": 1
+ },
+ "major_06": {
+  "nama": "VI - The Lovers",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "major_07": {
+  "nama": "VII - The Chariot",
+  "polarity": "dukung",
+  "intensitas": 3
+ },
+ "major_08": {
+  "nama": "VIII - Strength",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "major_09": {
+  "nama": "IX - The Hermit",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "major_10": {
+  "nama": "X - Wheel of Fortune",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "major_11": {
+  "nama": "XI - Justice",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "major_12": {
+  "nama": "XII - The Hanged Man",
+  "polarity": "waspada",
+  "intensitas": 1
+ },
+ "major_13": {
+  "nama": "XIII - Death",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "major_14": {
+  "nama": "XIV - Temperance",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "major_15": {
+  "nama": "XV - The Devil",
+  "polarity": "waspada",
+  "intensitas": 3
+ },
+ "major_16": {
+  "nama": "XVI - The Tower",
+  "polarity": "waspada",
+  "intensitas": 3
+ },
+ "major_17": {
+  "nama": "XVII - The Star",
+  "polarity": "dukung",
+  "intensitas": 3
+ },
+ "major_18": {
+  "nama": "XVIII - The Moon",
+  "polarity": "waspada",
+  "intensitas": 2
+ },
+ "major_19": {
+  "nama": "XIX - The Sun",
+  "polarity": "dukung",
+  "intensitas": 3
+ },
+ "major_20": {
+  "nama": "XX - Judgement",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "major_21": {
+  "nama": "XXI - The World",
+  "polarity": "dukung",
+  "intensitas": 3
+ },
+ "wands_01": {
+  "nama": "Ace of Wands",
+  "polarity": "dukung",
+  "intensitas": 3
+ },
+ "wands_02": {
+  "nama": "Two of Wands",
+  "polarity": "dukung",
+  "intensitas": 1
+ },
+ "wands_03": {
+  "nama": "Three of Wands",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "wands_04": {
+  "nama": "Four of Wands",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "wands_05": {
+  "nama": "Five of Wands",
+  "polarity": "waspada",
+  "intensitas": 1
+ },
+ "wands_06": {
+  "nama": "Six of Wands",
+  "polarity": "dukung",
+  "intensitas": 3
+ },
+ "wands_07": {
+  "nama": "Seven of Wands",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "wands_08": {
+  "nama": "Eight of Wands",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "wands_09": {
+  "nama": "Nine of Wands",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "wands_10": {
+  "nama": "Ten of Wands",
+  "polarity": "waspada",
+  "intensitas": 2
+ },
+ "wands_page": {
+  "nama": "Page of Wands",
+  "polarity": "dukung",
+  "intensitas": 1
+ },
+ "wands_knight": {
+  "nama": "Knight of Wands",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "wands_queen": {
+  "nama": "Queen of Wands",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "wands_king": {
+  "nama": "King of Wands",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "cups_01": {
+  "nama": "Ace of Cups",
+  "polarity": "dukung",
+  "intensitas": 3
+ },
+ "cups_02": {
+  "nama": "Two of Cups",
+  "polarity": "dukung",
+  "intensitas": 3
+ },
+ "cups_03": {
+  "nama": "Three of Cups",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "cups_04": {
+  "nama": "Four of Cups",
+  "polarity": "waspada",
+  "intensitas": 1
+ },
+ "cups_05": {
+  "nama": "Five of Cups",
+  "polarity": "waspada",
+  "intensitas": 2
+ },
+ "cups_06": {
+  "nama": "Six of Cups",
+  "polarity": "netral",
+  "intensitas": 1
+ },
+ "cups_07": {
+  "nama": "Seven of Cups",
+  "polarity": "waspada",
+  "intensitas": 2
+ },
+ "cups_08": {
+  "nama": "Eight of Cups",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "cups_09": {
+  "nama": "Nine of Cups",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "cups_10": {
+  "nama": "Ten of Cups",
+  "polarity": "dukung",
+  "intensitas": 3
+ },
+ "cups_page": {
+  "nama": "Page of Cups",
+  "polarity": "dukung",
+  "intensitas": 1
+ },
+ "cups_knight": {
+  "nama": "Knight of Cups",
+  "polarity": "netral",
+  "intensitas": 1
+ },
+ "cups_queen": {
+  "nama": "Queen of Cups",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "cups_king": {
+  "nama": "King of Cups",
+  "polarity": "netral",
+  "intensitas": 1
+ },
+ "swords_01": {
+  "nama": "Ace of Swords",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "swords_02": {
+  "nama": "Two of Swords",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "swords_03": {
+  "nama": "Three of Swords",
+  "polarity": "waspada",
+  "intensitas": 2
+ },
+ "swords_04": {
+  "nama": "Four of Swords",
+  "polarity": "netral",
+  "intensitas": 1
+ },
+ "swords_05": {
+  "nama": "Five of Swords",
+  "polarity": "waspada",
+  "intensitas": 2
+ },
+ "swords_06": {
+  "nama": "Six of Swords",
+  "polarity": "dukung",
+  "intensitas": 1
+ },
+ "swords_07": {
+  "nama": "Seven of Swords",
+  "polarity": "waspada",
+  "intensitas": 2
+ },
+ "swords_08": {
+  "nama": "Eight of Swords",
+  "polarity": "waspada",
+  "intensitas": 2
+ },
+ "swords_09": {
+  "nama": "Nine of Swords",
+  "polarity": "waspada",
+  "intensitas": 3
+ },
+ "swords_10": {
+  "nama": "Ten of Swords",
+  "polarity": "waspada",
+  "intensitas": 3
+ },
+ "swords_page": {
+  "nama": "Page of Swords",
+  "polarity": "netral",
+  "intensitas": 1
+ },
+ "swords_knight": {
+  "nama": "Knight of Swords",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "swords_queen": {
+  "nama": "Queen of Swords",
+  "polarity": "netral",
+  "intensitas": 1
+ },
+ "swords_king": {
+  "nama": "King of Swords",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "pentacles_01": {
+  "nama": "Ace of Pentacles",
+  "polarity": "dukung",
+  "intensitas": 3
+ },
+ "pentacles_02": {
+  "nama": "Two of Pentacles",
+  "polarity": "netral",
+  "intensitas": 1
+ },
+ "pentacles_03": {
+  "nama": "Three of Pentacles",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "pentacles_04": {
+  "nama": "Four of Pentacles",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "pentacles_05": {
+  "nama": "Five of Pentacles",
+  "polarity": "waspada",
+  "intensitas": 2
+ },
+ "pentacles_06": {
+  "nama": "Six of Pentacles",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "pentacles_07": {
+  "nama": "Seven of Pentacles",
+  "polarity": "netral",
+  "intensitas": 2
+ },
+ "pentacles_08": {
+  "nama": "Eight of Pentacles",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "pentacles_09": {
+  "nama": "Nine of Pentacles",
+  "polarity": "dukung",
+  "intensitas": 3
+ },
+ "pentacles_10": {
+  "nama": "Ten of Pentacles",
+  "polarity": "dukung",
+  "intensitas": 3
+ },
+ "pentacles_page": {
+  "nama": "Page of Pentacles",
+  "polarity": "dukung",
+  "intensitas": 1
+ },
+ "pentacles_knight": {
+  "nama": "Knight of Pentacles",
+  "polarity": "dukung",
+  "intensitas": 1
+ },
+ "pentacles_queen": {
+  "nama": "Queen of Pentacles",
+  "polarity": "dukung",
+  "intensitas": 2
+ },
+ "pentacles_king": {
+  "nama": "King of Pentacles",
+  "polarity": "dukung",
+  "intensitas": 3
+ }
+}
