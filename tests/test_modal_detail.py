@@ -192,8 +192,9 @@ def test_ui24_labels_and_pdf():
     import pathlib
     from utils.simple_pdf import make_pdf
     mm = pathlib.Path("components/mini_modals.py").read_text()
-    assert "Buka Analisis Lengkap Per Sistem ({P.fmt(P.SOLO)} ✨)" in mm
-    assert "Sinkronkan dengan Sistem Lainnya →" in mm
+    # Revisi01: tombol tanpa nominal, tombol "Sinkronkan" dihapus
+    assert '"🔒 Buka Analisis Lengkap Per Sistem"' in mm and "{P.fmt(P.SOLO)} ✨)" not in mm
+    assert "Sinkronkan" not in mm and "Mau Tau Lebih Dalam? (50" not in mm
     assert "Konfirmasi Kuota Harian Gratis" in mm and "Ya, Buka Ramalan" in mm
     assert "Weton & Shio Milikmu" not in mm and "Weton & Numerologi Lengkap" not in mm
     pdf = make_pdf("T", "S", [("A", ["halo dunia"])])
