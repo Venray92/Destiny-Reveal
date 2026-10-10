@@ -1,0 +1,347 @@
+{
+ "MBTI|intj": {
+  "teks": "Keunggulan terbesarmu muncul saat menangani perancangan strategis, riset mendalam, serta mendapat otonomi penuh. Produktivitas dan gagasanmu akan terhambat jika terjebak pada pekerjaan repetitif serta birokrasi kaku."
+ },
+ "MBTI|intp": {
+  "teks": "Lingkungan kerja terbaik untukmu menyediakan kebebasan mengeksplorasi ide, fleksibilitas tinggi, dan persoalan rumit. Daya pikir kreatifmu bakal surut bila berada di bawah kendali mikromanajemen atau aturan ketat."
+ },
+ "MBTI|entj": {
+  "teks": "Potensi kariermu melesat tinggi sewaktu memegang peran manajerial, pimpinan eksekutif, wirausaha, maupun konsultan strategi. Kamu membutuhkan kebebasan mengambil kendali, membangun sistem, dan mengukur hasil secara jelas."
+ },
+ "MBTI|entp": {
+  "teks": "Kamu bakal berkembang optimal pada iklim kerja dinamis yang memberikan ruang kreasi serta tantangan segar. Ranah bisnis, konsultan kreatif, pemasaran, riset strategi, hingga hukum sangat ideal untukmu."
+ },
+ "MBTI|infj": {
+  "teks": "Perjalanan kariermu terasa memuaskan saat menangani tanggung jawab berorientasi makna dan nilai kemanusiaan. Bidang psikologi, konseling, penulisan, pendidikan, hingga UX design sangat selaras dengan potensimu."
+ },
+ "MBTI|infp": {
+  "teks": "Peran yang memberikan kebebasan berekspresi, sejalan dengan prinsip pribadi, dan membawa dampak positif sangat cocok untukmu. Kamu tepat berkarya di ranah seni, konseling, desain, riset sosial, atau lembaga kemanusiaan."
+ },
+ "MBTI|enfj": {
+  "teks": "Performa kerjamu sangat bersinar dalam kepemimpinan yang berfokus membangun potensi manusia serta budaya organisasi. Posisi di bidang HRD, pelatihan kepemimpinan, pendidikan, PR, maupun manajemen nirlaba sangat cocok."
+ },
+ "MBTI|enfp": {
+  "teks": "Dunia kerja yang menawarkan variasi, kebebasan berekspresi, serta sentuhan emosional positif akan melejitkan kemampuanmu. Industri kreatif, pemasaran, jurnalistik, life coaching, hingga wirausaha sosial sangat pas."
+ },
+ "MBTI|istj": {
+  "teks": "Keahlianmu menonjol pada posisi yang memerlukan ketelitian ekstra, alur kerja terstruktur, dan patuh standar profesional. Tanggung jawab di bidang akuntansi, hukum, audit, manajemen operasional, atau teknik sangat pas."
+ },
+ "MBTI|isfj": {
+  "teks": "Kariermu bertumbuh pesat dalam ekosistem teratur, tenang, serta berorientasi pada pelayanan dan kepedulian nyata. Peran di bidang medis, keperawatan, pendidikan PAUD, HRD, atau administrasi kesehatan sangat tepat."
+ },
+ "MBTI|estj": {
+  "teks": "Kemampuanmu menonjol di peran kepemimpinan operasional, manajemen eksekutif, hukum, militer, atau administrasi bisnis. Kamu membutuhkan ruang kerja dengan alur jelas, indikator terukur, serta kepatuhan standar."
+ },
+ "MBTI|esfj": {
+  "teks": "Potensimu terpancar kuat pada tanggung jawab yang melibatkan pelayanan masyarakat, hubungan antarmanusia, dan pengelolaan komunitas. Bidang event organizer, PR, pendidikan, hingga customer service sangat ideal."
+ },
+ "MBTI|istp": {
+  "teks": "Kamu memerlukan peran yang memberi kemandirian tinggi, tantangan praktis, serta bebas dari pengawasan ketat. Pekerjaan di ranah rekayasa teknik, analisis forensik, manajemen krisis, atau pengembang lunak sangat sesuai."
+ },
+ "MBTI|isfp": {
+  "teks": "Performa kerjamu sangat optimal di posisi yang memberikan kebebasan berekspresi, keindahan visual, serta suasana tenang. Ranah seni rupa, desain grafis, fotografi, tata busana, hingga interior sangat selaras."
+ },
+ "MBTI|estp": {
+  "teks": "Kamu sangat unggul pada peran yang aktif, bergerak cepat, bebas dari rutinitas kaku, serta berfokus hasil. Pekerjaan di bidang penjualan, wirausaha, penanganan krisis, pemasaran lapangan, hingga bursa saham sangat cocok."
+ },
+ "MBTI|esfp": {
+  "teks": "Kariermu berkembang pesat dalam suasana kerja yang dinamis, kaya interaksi sosial, kreatif, serta berorientasi hiburan. Peran sebagai MC, hubungan masyarakat, dunia kuliner, pariwisata, hingga seni pertunjukan sangat pas."
+ },
+ "Big Five|openness_tinggi": {
+  "teks": "Kemampuan terbaikmu muncul pada tugas yang menuntut inovasi, pemecahan masalah rumit, dan ekspresi kreatif. Posisi di riset dan pengembangan, desain, industri kreatif, penulisan, maupun strategi pemasaran sangat sesuai."
+ },
+ "Big Five|openness_rendah": {
+  "teks": "Kariermu berkembang pesat saat menangani peran yang mengutamakan kepatuhan standar, operasional stabil, dan segi praktis. Peran di bidang administrasi, manufaktur, keahlian teknis, logistik, atau akuntansi sangat cocok."
+ },
+ "Big Five|conscientiousness_tinggi": {
+  "teks": "Kamu sangat unggul di posisi manajerial, analisis keuangan, eksekutif, hukum, medis, atau manajemen proyek. Atasan sangat mengandalkanmu karena ketepatan waktu, keandalan, dan konsistensi kualitas kerja yang selalu terjaga."
+ },
+ "Big Five|conscientiousness_rendah": {
+  "teks": "Lingkungan kerja fleksibel yang menilai hasil akhir tanpa terkekang birokrasi kaku merupakan tempat terbaikmu. Pekerjaan di industri kreatif, seni pertunjukan, lapangan, perancangan ide, atau penanganan krisis sangat tepat."
+ },
+ "Big Five|extraversion_tinggi": {
+  "teks": "Kariermu melejit pesat di posisi yang banyak melibatkan interaksi publik, kepemimpinan tim, dan komunikasi intensif. Ranah hubungan masyarakat, pemasaran, penjualan, pembawa acara, hingga manajemen acara sangat selaras."
+ },
+ "Big Five|extraversion_rendah": {
+  "teks": "Kamu menonjol pada peran yang memerlukan fokus tinggi, penelitian mendalam, serta independensi penuh. Pekerjaan di bidang sains, riset data, rekayasa perangkat lunak, penulisan, atau analisis keuangan sangat sesuai."
+ },
+ "Big Five|agreeableness_tinggi": {
+  "teks": "Potensimu bersinar pada tanggung jawab yang menuntut kerja sama tim, kepedulian emosional, dan pelayanan masyarakat. Peran di bidang HRD, konseling, keperawatan, pendidikan, maupun layanan pelanggan sangat ideal."
+ },
+ "Big Five|agreeableness_rendah": {
+  "teks": "Kemampuanmu sangat menonjol di posisi yang membutuhkan negosiasi tingkat tinggi, analisis kritis, audit, dan penyelesaian masalah teknis. Bidang hukum, analisis risiko, manajemen krisis, atau strategi kompetitif sangat cocok."
+ },
+ "Big Five|neuroticism_tinggi": {
+  "teks": "Keahlianmu sangat teruji di posisi yang memerlukan tingkat kewaspadaan tinggi, manajemen risiko, serta kontrol kualitas. Pekerjaan sebagai safety officer, auditor internal, analis risiko keuangan, atau peneliti medis sangat pas."
+ },
+ "Big Five|neuroticism_rendah": {
+  "teks": "Kamu sangat tangguh pada peran yang menuntut ketenangan ekstra, pengelolaan krisis, dan kepemimpinan di bawah tekanan. Karier di manajemen krisis, penerbangan, bedah medis, atau bursa saham sangat selaras."
+ },
+ "Big Five|openness_sedang": {
+  "teks": "Kamu tepat berada di peran yang menggabungkan dua sisi, seperti manajer produk, analis bisnis, atau pengelola proyek. Kemampuanmu memahami kebutuhan tim kreatif sekaligus operasional menjadikannya jembatan yang dicari."
+ },
+ "Big Five|conscientiousness_sedang": {
+  "teks": "Dunia kerja yang membutuhkan keandalan sekaligus fleksibilitas, seperti koordinator proyek atau pemasar, sangat cocok untukmu. Atasan menilai caramu bekerja cukup stabil dan mandiri tanpa perlu diawasi secara ketat."
+ },
+ "Big Five|extraversion_sedang": {
+  "teks": "Peluang kariermu terbuka lebar karena kamu mampu bekerja secara mandiri maupun berkolaborasi dalam tim. Peran seperti manajer, konsultan, pendidik, atau penjual berbasis relasi sangat sesuai dengan karaktermu."
+ },
+ "Big Five|agreeableness_sedang": {
+  "teks": "Posisi yang memerlukan koordinasi, negosiasi, atau pelayanan seperti mediator, HRD, dan pengelola kemitraan sangat ideal. Kamu pandai menjalin relasi baik tanpa mudah goyah oleh tekanan luar."
+ },
+ "Big Five|neuroticism_sedang": {
+  "teks": "Kamu cukup mampu bertahan menghadapi tekanan harian di posisi penanggung jawab proyek, analis, atau tenaga kesehatan. Kamu tetap andal memenuhi tenggat waktu, meski butuh menjaga suasana hati saat beban kerja memuncak."
+ },
+ "Enneagram|tipe_1": {
+  "teks": "Performa kerjamu sangat unggul dalam tanggung jawab yang menuntut kerapian, standar etika tinggi, dan manajemen kualitas. Pekerjaan di bidang audit, hukum, riset medis, akademisi, atau manajemen operasional sangat cocok."
+ },
+ "Enneagram|tipe_2": {
+  "teks": "Kamu sangat bersinar di posisi yang mengandalkan kecerdasan emosional tinggi, pembinaan relasi, dan pelayanan masyarakat. Bidang HRD, konseling, keperawatan, pendidikan, atau manajemen hubungan pelanggan sangat sesuai."
+ },
+ "Enneagram|tipe_3": {
+  "teks": "Kariermu melesat dalam lingkungan dinamis yang menyediakan kepemimpinan serta sistem penilaian kinerja yang transparan. Peran di manajemen eksekutif, wirausaha, pemasaran strategis, atau konsultan bisnis sangat tepat."
+ },
+ "Enneagram|tipe_4": {
+  "teks": "Kamu memerlukan peran yang memberi kebebasan berekspresi, menghargai keunikan pribadi, serta kaya nilai estetika. Karier di bidang seni rupa, penulisan kreatif, desain grafis, musik, atau tata busana sangat ideal."
+ },
+ "Enneagram|tipe_5": {
+  "teks": "Kamu berkembang optimal pada peran yang membutuhkan kemahiran teknis, pengolahan data mendalam, serta kemandirian kerja. Pekerjaan di riset sains, rekayasa perangkat lunak, analisis keuangan, atau akademisi sangat pas."
+ },
+ "Enneagram|tipe_6": {
+  "teks": "Keahlianmu menonjol di posisi yang mengutamakan manajemen risiko, pengawasan keselamatan, analisis hukum, dan keandalan harian. Bidang audit internal, HSE, manajemen krisis, atau manajemen proyek sangat cocok."
+ },
+ "Enneagram|tipe_7": {
+  "teks": "Kamu membutuhkan tempat kerja yang menawarkan variasi tinggi, kebebasan berkreasi, fleksibilitas mobilitas, serta tantangan inovatif. Ranah wirausaha, konsultan kreatif, pemasaran, atau pariwisata sangat ideal."
+ },
+ "Enneagram|tipe_8": {
+  "teks": "Potensimu terpancar di posisi kepemimpinan tingkat tinggi, manajemen eksekutif, wirausaha, hukum pembelaan, atau penanganan krisis. Kamu memerlukan wewenang penuh serta kebebasan dari kendali mikromanajemen."
+ },
+ "Enneagram|tipe_9": {
+  "teks": "Kamu sangat bersinar dalam posisi yang memerlukan diplomasi, keahlian mediasi, konseling, pelayanan, dan kerja sama tim. Pekerjaan di bidang HRD, mediasi hukum, pendidikan, psikologi, atau keperawatan sangat pas."
+ },
+ "DISC|dominance": {
+  "teks": "Performa kerjamu menonjol di pimpinan eksekutif, manajemen operasional, wirausaha, atau manajemen krisis yang butuh eksekusi cepat. Kamu cocok pada lingkungan kompetitif yang memberikan otonomi dan indikator terukur."
+ },
+ "DISC|influence": {
+  "teks": "Kamu sangat bersinar pada posisi yang menuntut interaksi publik, keahlian persuasi, komunikasi kreatif, serta pembangunan jaringan. Ranah hubungan masyarakat, pemasaran, penjualan, MC, atau event organizer sangat cocok."
+ },
+ "DISC|steadiness": {
+  "teks": "Kariermu berkembang di posisi yang membutuhkan pelayanan masyarakat, pembinaan relasi, kerja sama tim, dan kepatuhan alur kerja. Peran di bidang HRD, customer service, keperawatan, hingga administrasi sangat pas."
+ },
+ "DISC|conscientiousness": {
+  "teks": "Kamu sangat unggul dalam tanggung jawab yang memerlukan pengolahan data mendalam, audit kualitas, rekayasa teknis, atau riset spesialis. Bidang akuntansi, auditor internal, rekayasa perangkat lunak, atau QA sangat pas."
+ },
+ "Zodiak|Aries": {
+  "teks": "Kamu adalah perintis yang tangguh, pemimpin lapangan karismatik, atau pengambil keputusan cepat saat situasi krisis. Lingkungan dinamis seperti membangun bisnis mandiri jauh lebih cocok dibanding rutinitas lambat."
+ },
+ "Zodiak|Taurus": {
+  "teks": "Potensi profesionalmu sangat terpancar pada bidang yang menuntut tekad kuat, standar kualitas tinggi, dan hasil nyata jangka panjang. Sektor manajemen keuangan, investasi properti, kuliner, hingga operasional sangat sesuai."
+ },
+ "Zodiak|Gemini": {
+  "teks": "Dunia kariermu sangat bersinar di bidang yang mengandalkan kemampuan komunikasi, penulisan kreatif, pemasaran digital, hingga media. Kamu pembelajar cepat yang mahir menghubungkan berbagai pihak dalam waktu singkat."
+ },
+ "Zodiak|Cancer": {
+  "teks": "Kamu sangat bersinar dalam peran yang melibatkan pemeliharaan, pelayanan emosional, industri kuliner, properti, hingga pengelolaan HRD. Kepekaan intuisimu unggul menciptakan layanan atau produk yang menyentuh hati."
+ },
+ "Zodiak|Leo": {
+  "teks": "Kemampuanmu menonjol sebagai pemimpin tim inspiratif, kreator konten visioner, pengisi panggung, atau pengusaha berambisi besar. Kinerjamu mencapai puncak saat kontribusi kreatif dan kepemimpinanmu diakui secara layak."
+ },
+ "Zodiak|Virgo": {
+  "teks": "Kariermu sangat terang dalam bidang analitis, pemrosesan data, pelayanan kesehatan, riset ilmiah, editing, serta administrasi sistem. Kamu sangat mahir membangun sistem kerja efisien dan memastikan kepatuhan detail teknis."
+ },
+ "Zodiak|Libra": {
+  "teks": "Kamu bersinar pada pekerjaan yang membutuhkan kelincahan diplomasi, keadilan hukum, desain estetika, dan manajemen relasi klien. Bakat alamimu sebagai penengah mampu meredakan konflik dan menghasilkan kesepakatan adil."
+ },
+ "Zodiak|Scorpio": {
+  "teks": "Potensimu sangat unggul pada ranah yang memerlukan analisis mendalam, investigasi tajam, ketahanan mental, serta strategi jangka panjang. Sektor riset, psikologi, keuangan krisis, hingga hukum strategis sangat selaras."
+ },
+ "Zodiak|Sagittarius": {
+  "teks": "Dunia usahamu sangat bersinar di ranah dinamis dengan ruang eksplorasi luas, seperti pendidikan tinggi, pariwisata, hingga penerbitan. Intuisimu tajam membaca gambaran besar dan menangkap peluang masa depan."
+ },
+ "Zodiak|Capricorn": {
+  "teks": "Kamu adalah pembangun struktur sejati yang unggul di manajemen eksekutif, analisis keuangan, hukum, rekayasa, dan ekspansi bisnis. Keahlianmu teruji dalam mengendalikan risiko serta menjaga reputasi profesional."
+ },
+ "Zodiak|Aquarius": {
+  "teks": "Kariermu bersinar di ekosistem kerja inovatif yang memberi kebebasan berpikir, seperti teknologi tinggi, riset sistem, dan konsultasi. Kamu cepat mengenali pola masa depan serta merancang solusi tidak biasa."
+ },
+ "Zodiak|Pisces": {
+  "teks": "Kamu berkembang pesat pada bidang yang membutuhkan empati tinggi, intuisi halus, imajinasi artistik, seperti seni, konseling, dan keperawatan. Kepekaan batinmu sering membimbing penemuan ide kreatif yang menyentuh."
+ },
+ "Shio|Tikus": {
+  "teks": "Kariermu sangat cemerlang di bidang yang mengandalkan analisis tajam, strategi negosiasi, perdagangan dinamis, dan manajemen risiko. Naluri bisnismu peka menangkap peluang keuntungan yang sering terlewatkan pihak lain."
+ },
+ "Shio|Kerbau": {
+  "teks": "Kamu unggul pada pekerjaan yang menuntut ketekunan tinggi, disiplin ketat, dan ketelitian kerja seperti konstruksi, operasional, atau akuntansi. Kamu pekerja keras tepercaya untuk menyelesaikan tugas rumit secara sempurna."
+ },
+ "Shio|Macan": {
+  "teks": "Potensimu bersinar dalam peran kepemimpinan puncak, wirausahawan mandiri, pengacara litigasi, atau tugas yang membutuhkan keputusan cepat. Karisma alamimu efektif menggerakkan tim meraih target-target besar."
+ },
+ "Shio|Kelinci": {
+  "teks": "Dunia kerjamu sangat cerah pada bidang yang mengandalkan kepekaan seni, desain estetika, diplomasi, hukum, atau konseling emosional. Kamu berbakat membangun jaringan kerja sama harmonis yang membuat orang merasa dihargai."
+ },
+ "Shio|Naga": {
+  "teks": "Kamu sangat cemerlang sebagai pendiri bisnis perintis, pimpinan eksekutif, penggagas produk, atau tokoh publik yang berpandangan luas. Keahlian alamimu efektif menarik modal, memperluas kemitraan, dan membakar semangat tim."
+ },
+ "Shio|Ular": {
+  "teks": "Kinerjamu unggul di bidang yang membutuhkan kedalaman analisis, riset ilmiah, psikologi, strategi keuangan, serta perancangan sistem. Kamu sosok pekerja teratur, berfokus tinggi, dan terencana dalam mengeksekusi tugas."
+ },
+ "Shio|Kuda": {
+  "teks": "Kariermu bersinar cemerlang pada ranah yang dinamis, bergerak cepat, dan kaya interaksi publik. Industri penjualan, pemasaran kreatif, pariwisata, media, hingga wirausaha mandiri sangat pas dengan energimu."
+ },
+ "Shio|Kambing": {
+  "teks": "Kamu sangat unggul di bidang kreatif dan pelayanan empati, seperti seni rupa, desain interior, pendidikan anak, atau pekerjaan sosial. Bakat alamimu mampu menciptakan suasana nyaman, estetik, dan menenangkan bagi klien."
+ },
+ "Shio|Monyet": {
+  "teks": "Dunia kerjamu sangat cemerlang di bidang yang menuntut inovasi cepat, penyelesaian masalah kreatif, serta komunikasi lincah. Sektor teknologi digital, pengembangan produk, pemasaran, atau hiburan sangat sesuai."
+ },
+ "Shio|Ayam": {
+  "teks": "Potensi profesionalmu terpancar pada bidang yang memerlukan ketelitian tinggi, akurasi data, serta manajemen standar kualitas. Sektor akuntansi, manajemen operasional, editing, hingga audit kualitas sangat pas."
+ },
+ "Shio|Anjing": {
+  "teks": "Dunia usahamu sangat terang pada bidang yang berlandaskan integritas moral tinggi, pelayanan publik, dan penegakan hukum. Ranah hukum, kepolisian, pendidikan, pelayanan kesehatan, atau nirlaba sangat selaras."
+ },
+ "Shio|Babi": {
+  "teks": "Kamu bersinar cemerlang pada bidang yang mengandalkan keramahan sosial, pelayanan tulus, serta hubungan masyarakat yang hangat. Industri kuliner, perhotelan, pariwisata, hingga penjualan berbasis relasi sangat cocok."
+ },
+ "Weton|Senin Legi": {
+  "teks": "Fokus kariermu optimal di bidang berorientasi empati dan kreativitas seperti pendidikan, kesehatan, konseling, maupun pengelolaan komunitas. Kemampuan mendengarkan yang baik membuatmu selalu diandalkan untuk membina relasi kerja."
+ },
+ "Weton|Senin Pahing": {
+  "teks": "Lingkungan kerja yang membutuhkan sentuhan seni, komunikasi, dan pelayanan publik sangat cocok dengan potensimu. Sikap perhatian yang kamu tunjukkan membuat rekan tim dan klien merasa sangat dihargai."
+ },
+ "Weton|Senin Pon": {
+  "teks": "Kamu sangat berkembang pada posisi yang menuntut kepekaan emosional serta kreasi ide seperti dunia penulisan atau pelayanan pelanggan. Keterampilan membimbing dan mengayomi menjadi nilai tambah utama di tempat kerja."
+ },
+ "Weton|Senin Wage": {
+  "teks": "Bidang kesehatan, pengajaran, dan hubungan masyarakat merupakan ruang kerja yang pas untuk menyalurkan bakat alamimu. Orang lain betah bekerja bersamamu karena caramu mendengarkan selalu memberikan rasa nyaman."
+ },
+ "Weton|Senin Kliwon": {
+  "teks": "Peran di sektor kreatif, pendampingan sosial, serta manajemen komunitas melatih efektivitas kerjamu secara maksimal. Kepedulian tulus yang kamu miliki menjadi kekuatan utama dalam membangun kerja sama tim."
+ },
+ "Weton|Selasa Legi": {
+  "teks": "Kariermu bertumbuh pesat pada peran yang membutuhkan inisiatif tinggi serta kelincahan berkomunikasi seperti penjualan dan manajemen proyek. Cara penyampaian idemu yang meyakinkan tanpa terkesan menggurui sangat disukai."
+ },
+ "Weton|Selasa Pahing": {
+  "teks": "Pekerjaan penuh tantangan dan kejelasan wewenang seperti operasional, teknik, atau hukum akan memicu performa terbaikmu. Kegigihan serta disiplin diri membuatmu mampu menuntaskan target yang tergolong rumit."
+ },
+ "Weton|Selasa Pon": {
+  "teks": "Sektor yang mengandalkan ketelitian serta pembuktian nyata seperti keuangan, logistik, dan produksi sangat sesuai untukmu. Kamu mahir merapikan alur kerja dan menyelesaikan tugas tanpa perlu banyak publikasi."
+ },
+ "Weton|Selasa Wage": {
+  "teks": "Posisi yang memerlukan daya analisis, ketekunan, serta independensi seperti riset dan konsultasi teknologi sangat cocok untukmu. Kamu dikenal bekerja secara rapi, tahan tekanan, serta selalu penuh perhitungan."
+ },
+ "Weton|Selasa Kliwon": {
+  "teks": "Kinerjamu bersinar di bidang yang menuntut kepemimpinan, naluri bisnis, dan visi jangka panjang seperti manajemen strategis. Kemampuan membaca dinamika pasar dan karakter orang membantu menentukan langkah dengan tepat."
+ },
+ "Weton|Rabu Legi": {
+  "teks": "Kamu sangat unggul pada tugas yang mengandalkan wawasan serta kelancaran komunikasi seperti humas, pemasaran, atau edukasi. Kemahiran bernegosiasi mempermudah dirimu menemukan titik temu di antara berbagai pihak."
+ },
+ "Weton|Rabu Pahing": {
+  "teks": "Dunia manajemen, hukum, dan keuangan yang membutuhkan kalkulasi strategi serta kepemimpinan tegas sangat cocok untukmu. Kamu tanggap melihat peluang baru dan tidak ragu memperjuangkannya di depan umum."
+ },
+ "Weton|Rabu Pon": {
+  "teks": "Pekerjaan analitis dengan alur komunikasi jelas seperti audit, riset, atau IT proses sangat menyerap keahlianmu. Kemampuan menyampaikan hal rumit secara sistematis membuat kekeliruan detail mudah kamu temukan."
+ },
+ "Weton|Rabu Wage": {
+  "teks": "Profesi seperti pengajar, penulis, dan konsultan yang berpusat pada pertukaran informasi sangat pas untuk potensimu. Ketangkasan beradaptasi di lingkungan baru memudahkan dirimu menjalin jaringan relasi."
+ },
+ "Weton|Rabu Kliwon": {
+  "teks": "Posisi di bidang pemasaran, konsultasi, atau pengembangan produk memanfaatkan kecakapan komunikasimu secara optimal. Luwes bergaul membuat alur koordinasi kerja dengan kolega senantiasa berjalan lancar."
+ },
+ "Weton|Kamis Legi": {
+  "teks": "Bidang pendidikan, hukum, dan konsultasi yang menjunjung kebijaksanaan serta integritas merupakan arena kerja idealmu. Ketenangan dan rasa tanggung jawab yang kamu tunjukkan membuat atasan memberi kepercayaan penuh."
+ },
+ "Weton|Kamis Pahing": {
+  "teks": "Peran sebagai pembimbing, manajer, atau penasihat di lembaga sosial sangat selaras dengan pembawaan dirimu. Sikap yang matang dan konsisten membentuk reputasi profesional yang sangat disegani."
+ },
+ "Weton|Kamis Pon": {
+  "teks": "Sektor pelayanan publik, kesehatan, dan manajemen organisasi membutuhkan figur tepercaya seperti dirimu. Cara kerjamu yang tenang dan konsisten memberikan rasa aman bagi seluruh anggota tim."
+ },
+ "Weton|Kamis Wage": {
+  "teks": "Posisi pengarah atau konsultan hukum yang mengutamakan kredibilitas serta pengayoman sangat sesuai dengan bakatmu. Rekan kerja kerap meminta pertimbangan padamu sebelum mengambil keputusan strategis."
+ },
+ "Weton|Kamis Kliwon": {
+  "teks": "Kariermu berkembang pesat di lembaga edukasi, sosial, atau manajemen yang berlandaskan rasa saling percaya. Sikap dewasa dan pengayomanmu menjadi pilar kestabilan di lingkungan kerja."
+ },
+ "Weton|Jumat Legi": {
+  "teks": "Ekosistem kerja yang memadukan keindahan seni dan interaksi manusia seperti desain atau diplomasi sangat pas untukmu. Kemampuan interpersonal yang hangat membuat setiap rekan merasa nyaman berkolaborasi."
+ },
+ "Weton|Jumat Pahing": {
+  "teks": "Industri kreatif, kuliner, mode, dan hubungan masyarakat adalah tempat terbaik untuk memamerkan bakat alamimu. Keterampilan sosial yang luwes memudahkan dirimu mencairkan suasana di tempat kerja."
+ },
+ "Weton|Jumat Pon": {
+  "teks": "Pekerjaan di bidang pelayanan jasa, desain visual, serta komunikasi publik mengasah potensi terbaik dalam dirimu. Keahlian menciptakan atmosfer kerja yang menyenangkan menjadi keunggulan utamamu."
+ },
+ "Weton|Jumat Wage": {
+  "teks": "Profesi di bidang kreatif, perhotelan, maupun diplomasi bisnis sangat mendukung keahlian berinteraksi yang kamu miliki. Cara komunikasimu yang persuasif dan santun selalu disukai oleh para mitra kerja."
+ },
+ "Weton|Jumat Kliwon": {
+  "teks": "Ranah industri kreatif, kehumasan, dan pelayanan gaya hidup memberikan panggung yang tepat bagi talentamu. Pembawaan diri yang ramah mempermudah alur diplomasi dan negosiasi dengan rekan eksternal."
+ },
+ "Weton|Sabtu Legi": {
+  "teks": "Lingkungan kerja yang menuntut ketahanan serta akurasi tinggi seperti teknik, akuntansi, dan operasional sangat cocok untukmu. Atasan sangat mengandalkan konsistensi performamu dalam menjaga mutu pekerjaan."
+ },
+ "Weton|Sabtu Pahing": {
+  "teks": "Bidang penelitian, administrasi sistem, dan manajemen produksi memerlukan tingkat fokus ketat yang kamu kuasai. Ketahanan kerja yang stabil membuat setiap tanggung jawab selesai tepat pada waktunya."
+ },
+ "Weton|Sabtu Pon": {
+  "teks": "Karier di sektor hukum, audit, dan rekayasa teknik sangat cocok dengan karakter kerjamu yang disiplin. Prinsip ketelitian yang kamu pegang teguh mampu meminimalkan risiko kesalahan operasional."
+ },
+ "Weton|Sabtu Wage": {
+  "teks": "Pekerjaan berorientasi sistem seperti pengolahan data, keungan, atau analisis operasional sangat menyerap potensimu. Rekan setim menggantungkan kelancaran proyek pada ketekunan kerja yang kamu miliki."
+ },
+ "Weton|Sabtu Kliwon": {
+  "teks": "Tanggung jawab di bidang administrasi publik, riset teknis, serta manufaktur sangat selaras dengan kapasitasmu. Konsistensi dan daya tahan kerja yang tinggi menjadikan reputasimu selalu teruji."
+ },
+ "Weton|Minggu Legi": {
+  "teks": "Peran yang memerlukan karisma kepemimpinan serta daya pikat publik seperti pengusaha atau manajer sangat cocok untukmu. Energi positif yang kamu pancarkan efektif membakar semangat kerja seluruh tim."
+ },
+ "Weton|Minggu Pahing": {
+  "teks": "Posisi pembicara, eksekutif penjualan, atau kreator panggung pertunjukan mengoptimalkan bakat kepemimpinanmu. Kehadiranmu di ruang diskusi selalu berhasil menggerakkan orang lain menuju target."
+ },
+ "Weton|Minggu Pon": {
+  "teks": "Sektor pelayanan publik, wirausaha, serta manajemen kelompok sangat membutuhkan figur yang komunikatif sepertimu. Dorongan semangat yang kamu berikan sanggup meningkatkan produktivitas tim."
+ },
+ "Weton|Minggu Wage": {
+  "teks": "Kariermu melesat di panggung kepemimpinan, negosiasi bisnis, serta pengelolaan acara ber skala besar. Kemampuan membakar antusiasme kelompok menjadi modal utama dalam mengejar sasaran."
+ },
+ "Weton|Minggu Kliwon": {
+  "teks": "Profesi sebagai manajer, motivator, atau pengembang bisnis sangat selaras dengan gaya kerja energik yang kamu punya. Kepemimpinanmu yang kuat terbukti sanggup menyatukan berbagai kepala."
+ },
+ "Numerologi|1": {
+  "teks": "Panggung profesionalmu bertumpu pada peran perintis serta pengambil keputusan strategis dalam organisasi. Membangun divisi baru atau mengeksekusi langkah cepat saat krisis merupakan habitat kerjamu."
+ },
+ "Numerologi|2": {
+  "teks": "Lingkungan kerja berorientasi diplomasi, empati, serta kolaborasi seperti HRD dan pelayanan publik sangat pas untukmu. Bakat alamimu bertumpu pada keahlian menjaga keseimbangan dan menyelaraskan tim."
+ },
+ "Numerologi|3": {
+  "teks": "Ranah komunikasi kreatif, media, dan seni pertunjukan menjadi arena terbaik untuk mengekspresikan gagasanku. Kemampuan menyampaikan pesan secara menarik membuat pesan bisnismu mudah diterima publik."
+ },
+ "Numerologi|4": {
+  "teks": "Posisi yang mengutamakan presisi data, tata kelola, dan operasional seperti audit atau teknik sangat cocok untukmu. Kedisiplinanmu merancang alur kerja memastikan setiap proyek berjalan tanpa cela."
+ },
+ "Numerologi|5": {
+  "teks": "Sektor beritme cepat yang menawarkan fleksibilitas serta pergerakan tinggi seperti pemasaran digital sangat ideal untukmu. Jiwa adaptifmu berkembang pesat saat menangani tantangan yang terus berganti."
+ },
+ "Numerologi|6": {
+  "teks": "Kariermu menguat di bidang pelayanan berempati tinggi seperti kesehatan, konseling, serta perancangan estetika. Keterampilan mengayomi membuat suasana kerja dan hubungan klien senantiasa harmonis."
+ },
+ "Numerologi|7": {
+  "teks": "Peran spesialis yang menuntut pengolahan data rinci, analisis R&D, serta perancangan strategi adalah tempatmu bersinar. Fokus kontemplatif yang kamu miliki sanggup memecahkan persoalan paling rumit."
+ },
+ "Numerologi|8": {
+  "teks": "Tanggung jawab pengelolaan kapital, ekspansi bisnis, dan kepemimpinan eksekutif sangat sesuai dengan kapasitasmu. Kemampuan merancang arah pertumbuhan organisasi menjadikanmu figur yang disegani."
+ },
+ "Numerologi|9": {
+  "teks": "Sektor sosial, nirlaba, serta edukasi publik yang membawa dampak luas menjadi panggung utama pengembangan kariermu. Visi kemanusiaan yang kamu usung sanggup menggerakkan banyak orang secara nyata."
+ },
+ "Numerologi|11": {
+  "teks": "Gaya kerjamu unggul di bidang yang membutuhkan pemikiran visioner, kepekaan psikologis, serta daya pengaruh sosial. Menjadi konselor, pembicara, atau penulis terobosan memandu banyak orang secara intensif."
+ },
+ "Numerologi|22": {
+  "teks": "Kapasitas profesionalmu bersinar saat mengeksekusi proyek berskala raksasa menjadi wujud industri yang konkret. Peran arsitek, pengembang infrastruktur, atau eksekutif global sangat selaras dengan visimu."
+ },
+ "Numerologi|33": {
+  "teks": "Arena pelayanan masyarakat, pembimbingan holistik, dan edukasi moral merupakan ruang pengabdian karier terbaikmu. Peran mentor atau pendiri yayasan sosial memaksimalkan dedikasimu bagi sesama."
+ }
+}

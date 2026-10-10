@@ -1,0 +1,110 @@
+{
+ "zodiak__selaras": {
+  "asmara": "Hal ini bikin obrolan sehari-hari terasa santai dan rencana kencan selalu menyenangkan. Kalian mudah menemukan ritme nyaman tanpa perlu memaksakan keinginan masing-masing.",
+  "keluarga": "Suasana kumpul keluarga jadi lebih hangat karena kalian mudah memahami peran masing-masing. Komunikasi yang mengalir membantu menyelaraskan urusan rumah tangga tanpa perdebatan panjang.",
+  "teman": "Momen nongkrong selalu seru karena kalian punya frekuensi humor dan minat yang sejalan. Saat salah satu butuh teman cerita, kehadiranmu dan dia selalu terasa pas.",
+  "bisnis": "Kerja sama berjalan efisien karena ide-ide baru bisa langsung ditangkap dan dieksekusi bersama. Pembagian tugas terasa alami tanpa harus saling mendikte arah keputusan."
+ },
+ "zodiak__beda_ritme": {
+  "asmara": "Perbedaan kecepatan merespons sering bikin salah satu merasa diabaikan atau dikejar-kejar. Cobalah saling memberi ruang dan sepakati waktu khusus untuk mengobrolkan perasaan.",
+  "keluarga": "Perbedaan tempo dalam menyelesaikan urusan rumah bisa memicu kekesalan antaranggota keluarga. Diskusikan pembagian tanggung jawab secara tenang agar tidak ada pihak yang merasa terbebankan.",
+  "teman": "Gaya berkomunikasi yang berbeda kadang menimbulkan kebingungan saat menentukan rencana jalan bareng. Pahami batas kenyamanan masing-masing dan jangan ragu bertanya secara langsung.",
+  "bisnis": "Kecepatan eksekusi yang tidak seirama berisiko menghambat pencapaian target atau hasil kerja bersama. Tetapkan tenggat waktu yang realistis dan komunikasikan progres secara berkala."
+ },
+ "shio__sama": {
+  "asmara": "Kebiasaan yang mirip bikin kalian sangat paham keinginan pasangan secara spontan. Namun saat sama-sama emosi, cobalah menahan diri agar masalah kecil tidak membesar.",
+  "keluarga": "Sikap yang identik memudahkan kalian menyepakati tradisi atau aturan dalam lingkup keluarga. Sisi dominan yang setara perlu diredam dengan saling mengalah saat diskusi.",
+  "teman": "Gaya liburan dan pilihan tempat kumpul kalian sangat se frekuensi dari awal. Apabila terjadi beda pendapat, carilah penengah netral agar pertemanan tetap terjaga.",
+  "bisnis": "Kalian punya naluri bisnis yang searah sehingga mudah menentukan visi operasional harian. Sepakati aturan tertulis agar keputusan penting tidak didasari oleh ego semata."
+ },
+ "shio__trine": {
+  "asmara": "Kalian punya sudut pandang seirama mengenai arah hubungan dan masa depan bersama. Kebiasaan sehari-hari terasa saling melengkapi sehingga rasa aman terbangun dengan alami.",
+  "keluarga": "Dukungan emosional antaranggota keluarga terasa sangat kuat dalam berbagai situasi sulit. Kalian selalu siap bahu-membahu untuk menjaga keutuhan serta kenyamanan rumah.",
+  "teman": "Hubungan pertemanan ini sangat awet karena didasari oleh rasa percaya dan saling menghargai. Kalian selalu hadir memberi dukungan tulus setiap kali dibutuhkan.",
+  "bisnis": "Kemitraan terasa sangat solid karena tujuan finansial dan strategi kerja sejalan sejak awal. Diskusi seputar target usaha selalu membuahkan hasil yang produktif."
+ },
+ "shio__harmoni": {
+  "asmara": "Kehadiran satu sama lain membawa ketenangan dan kenyamanan mendalam bagi pasangan. Saat terjadi dinamika, kalian selalu menemukan cara lembut untuk saling menenangkan.",
+  "keluarga": "Tanggung jawab domestik terasa lebih ringan karena kalian saling menopang secara sukarela. Sikap saling pengertian ini menciptakan suasana rumah yang sangat harmonis.",
+  "teman": "Pertemanan kalian diwarnai kepedulian tinggi tanpa perlu banyak kepura-puraan. Kamu dan dia bisa saling mengandalkan dalam keadaan senang maupun penuh tantangan.",
+  "bisnis": "Kerja sama bisnis berjalan stabil berkat adanya rasa saling percaya terhadap keahlian mitra. Pembagian porsi kerja terasa adil dan saling melengkapi kelemahan masing-masing."
+ },
+ "shio__bentrok": {
+  "asmara": "Perbedaan karakter yang tajam sering memicu perdebatan mengenai hal-hal sepele. Redam kebiasaan menyindir dan utamakan mendengarkan sebelum menyampaikan sanggahan.",
+  "keluarga": "Beda pendapat antar generasi atau peran keluarga rentan menimbulkan ketegangan emosional. Hindari menyalahkan pribadi dan fokuslah mencari jalan keluar secara kekeluargaan.",
+  "teman": "Selisih paham soal batas pribadi atau rencana bersama bisa merenggangkan ikatan kawan. Luangkan waktu untuk bicara jujur tanpa perlu saling memaksakan kehendak.",
+  "bisnis": "Sudut pandang operasional yang bertolak belakang dapat menghambat kelancaran proyek bersama. Buat kesepakatan tertulis mengenai wewenang masing-masing agar tidak terjadi tumpang tindih."
+ },
+ "shio__netral": {
+  "asmara": "Hubungan kalian berkembang murni berdasarkan komitmen dan komunikasi yang terus dirawat. Kualitas momen berdua sangat ditentukan oleh kebiasaan saling menghargai.",
+  "keluarga": "Dinamika dalam keluarga berjalan relatif tenang tanpa ada gesekan batin yang dominan. Keharmonisan rumah tangga bergantung pada keterbukaan dan rasa peduli harian.",
+  "teman": "Pertemanan ini fleksibel dan bisa tumbuh makin erat jika sering menghabiskan waktu bersama. Kejujuran dalam berinteraksi menjadi pondasi utama keakraban kalian.",
+  "bisnis": "Profesionalisme menjadi kunci utama agar kolaborasi kerja tetap menghasilkan profit ideal. Tetapkan aturan main yang transparan agar alur kerja berjalan sesuai rencana."
+ },
+ "weton__pegat": {
+  "asmara": "Kesalahpahaman kecil sering kali berulang jika tidak diselesaikan sampai ke akarnya. Luangkan waktu khusus untuk evaluasi hubungan secara rutin agar emosi tidak menumpuk.",
+  "keluarga": "Tarik-ulur mengenai urusan rumah tangga bisa menciptakan jarak jika dibiarkan melarut. Buatlah pembagian peran yang jelas dan kompromikan setiap keputusan bersama.",
+  "teman": "Konflik berkala soal jadwal atau salah tangkap maksud ucapan dapat merusak suasana kumpul. Segera luruskan masalah saat dingin daripada memendam rasa kecewa sendirian.",
+  "bisnis": "Perbedaan persepsi soal pengelolaan aset atau prioritas kerja berisiko memicu perselisihan. Dokumentasikan seluruh perjanjian kerja dan alokasi dana secara mendetail."
+ },
+ "weton__ratu": {
+  "asmara": "Rasa saling menyayangi tumbuh dengan sangat alami dan membawa kebahagiaan harian. Kalian mudah menikmati kebersamaan serta saling menguatkan dalam kondisi apa pun.",
+  "keluarga": "Kehidupan keluarga terasa hangat dan mendapat banyak kemudahan dalam menjalani keseharian. Sikap saling menghormati bikin suasana rumah senantiasa tentram.",
+  "teman": "Pertemanan kalian diwarnai keakraban yang tulus dan selalu membawa energi positif. Pergi berlibur atau sekadar mengobrol santai selalu terasa menyenangkan.",
+  "bisnis": "Usaha bersama berkembang dengan pesat karena ide dan eksekusi berjalan sangat harmonis. Kemudahan membangun jaringan bikin pencapaian target terasa lebih lancar."
+ },
+ "weton__jodoh": {
+  "asmara": "Kekompakan kalian membuat setiap tantangan asmara terasa lebih mudah dilalui bersama. Chemistry yang kuat membimbing kalian menuju hubungan yang makin stabil.",
+  "keluarga": "Ikatan antaranggota keluarga terasa sangat erat dan saling menentramkan jiwa. Keputusan besar keluarga selalu bisa diambil dengan mufakat yang menenangkan.",
+  "teman": "Kalian saling menerima kelebihan dan kekurangan tanpa banyak menuntut perubahan. Sahabat sejati yang selalu siap mendukung langkah satu sama lain di tiap fase.",
+  "bisnis": "Kemitraan bisnis berjalan sangat serasi karena kepercayaan di antara kalian sangat kuat. Pembagian keuntungan dan arah ekpansi selalu dicapai tanpa gesekan."
+ },
+ "weton__topo": {
+  "asmara": "Fondasi ikatan kalian cukup kuat namun butuh keterbukaan rasa secara berkelanjutan. Jangan biarkan rutinitas menghilangkan kebiasaan mengobrol dari hati ke hati.",
+  "keluarga": "Keluarga berjalan stabil meski kadang terasa monoton jika kurang interaksi bermakna. Sering-seringlah mengadakan acara kumpul bersama agar kehangatan terus terjaga.",
+  "teman": "Pertemanan terjalin baik tetapi butuh inisiatif agar tidak saling menjauh karena kesibukan. Sapalah terlebih dahulu dan jadwalkan kebersamaan secara konsisten.",
+  "bisnis": "Sistem kerja yang dibangun cukup solid untuk menjaga kelangsungan proyek bersama. Tetap adakan rapat rutin agar perbedaan pemikiran bisa segera diselaraskan."
+ },
+ "weton__tinari": {
+  "asmara": "Kehidupan berpasangan terasa penuh kepuasan emosional dan kejutan manis sehari-hari. Kebiasaan saling mendukung bikin hubungan kalian selalu tampak segar.",
+  "keluarga": "Kebutuhan dan kesejahteraan keluarga cenderung tercukupi berkat kerja sama yang baik. Suasana rumah tangga selalu diliputi rasa syukur dan kebahagiaan bersama.",
+  "teman": "Kalian selalu menemukan alasan untuk bersenang-senang dan merayakan pencapaian kawan. Kejujuran dan keceriaan jadi daya tarik utama dalam lingkaran pertemanan ini.",
+  "bisnis": "Peluang keuntungan terbuka lebar saat kalian mengombinasikan keahlian masing-masing. Proyek yang dijalankan bersama sering memberikan hasil yang memuaskan."
+ },
+ "weton__padu": {
+  "asmara": "Adu argumen sering terjadi akibat hal sepele yang dibesar-besarkan oleh gengsi. Pelajari gaya komunikasi pasangan dan belajar mengalah demi menjaga kedamaian.",
+  "keluarga": "Perselisihan pendapat mengenai tata cara rumah tangga rentan mengganggu kenyamanan. Cari titik tengah yang adil tanpa harus mengedepankan ego masing-masing.",
+  "teman": "Perbedaan selera atau gaya bicara kadang memicu perdebatan hangat saat nongkrong. Batasi topik yang sensitif agar interaksi pertemanan tetap terasa menyenangkan.",
+  "bisnis": "Diskusi strategi bisnis rawan berubah jadi perdebatan kusir jika tidak ada acuan objektif. Gunakan data dan fakta nyata dalam mengambil keputusan rapat bersama."
+ },
+ "weton__sujanan": {
+  "asmara": "Rasa curiga atau cemas berlebih mudah muncul jika komunikasi mulai tertutup. Bangun rasa percaya dengan selalu jujur mengenai kegiatan dan perasaanmu.",
+  "keluarga": "Isu prasangka antaranggota keluarga bisa merusak rasa kekeluargaan jika dibiarkan. Bicarakan setiap keraguan secara terbuka tanpa menuduh pihak mana pun.",
+  "teman": "Keraguan akan kesetiaan kawan dapat memicu jarak dalam hubungan pertemanan ini. Jagalah rahasia bersama dan hindari membicarakan teman di belakang.",
+  "bisnis": "Kecurigaan soal transparansi keuangan berpotensi merusak kerja sama yang dibina. Terapkan pembukuan yang jelas dan bisa diakses bersama setiap saat."
+ },
+ "weton__pesthi": {
+  "asmara": "Ketenangan dan kedamaian menjadi ciri khas utama dari perjalanan asmara kalian. Kehadiran pasangan selalu berhasil menjadi tempat pulang paling nyaman.",
+  "keluarga": "Kehidupan rumah tangga berlangsung rukun dan jarang diterpa konflik emosional berat. Toleransi yang tinggi antaranggota keluarga menjaga keharmonisan rumah.",
+  "teman": "Pertemanan terasa sangat sejuk tanpa ada persaingan atau rasa iri satu sama lain. Kalian bisa saling percaya sepenuhnya dalam suka maupun situasi sulit.",
+  "bisnis": "Kerja sama bisnis berjalan sangat tenteram karena kedua pihak saling memegang komitmen. Keputusan penting selalu diambil dengan kepala dingin dan kesepakatan."
+ },
+ "numerologi__sama": {
+  "asmara": "Memahami pasangan terasa sangat mudah karena kamu seperti melihat cermin diri sendiri. Hati-hati saat sama-sama emosi agar tidak saling melukai perasaan.",
+  "keluarga": "Pola pikir yang setara bikin kalian kompak dalam mengatur kebutuhan rumah tangga. Jangan biarkan sifat keras kepala yang sama menghambat kompromi keluarga.",
+  "teman": "Kalian punya gaya hidup dan selera kegiatan yang sangat identik sejak awal kenal. Saat terjadi bentrok pendapat, minta saran kawan lain agar objektif.",
+  "bisnis": "Ambisi yang serupa mendorong usaha berkembang cepat sesuai ekspektasi bersama. Gunakan jasa konsultan atau pihak luar untuk mengevaluasi kelemahan bisnis."
+ },
+ "numerologi__satu_kelompok": {
+  "asmara": "Impian masa depan dan nilai hubungan kalian bergerak ke arah yang sangat serasi. Perbedaan kecil di antara kalian justru menambah keseruan perjalanan cinta.",
+  "keluarga": "Kalian mudah menyatukan pandangan mengenai pola asuh atau pengelolaan rumah tangga. Setiap anggota keluarga merasa didukung untuk berkembang bersama.",
+  "teman": "Nongkrong atau mengerjakan hobi bareng terasa selalu seru karena visi kalian sejalan. Saling memberi semangat saat kawan mengejar cita-citanya.",
+  "bisnis": "Inovasi usaha mudah terwujud karena gaya eksekusi kalian saling melengkapi. Strategi ekspansi bisa dirancang dengan lancar tanpa banyak perdebatan."
+ },
+ "numerologi__beda_kelompok": {
+  "asmara": "Karakter yang berbeda memberikan warna baru yang melengkapi kehidupan berpasangan. Tentukan tolok ukur bersama agar perbedaan cara pandang tidak jadi pemicu argumen.",
+  "keluarga": "Perspektif unik masing-masing memperkaya cara keluarga menyelesaikan masalah harian. Sepakati prinsip dasar keluarga sebelum mengambil langkah strategis.",
+  "teman": "Pertemanan ini saling memperluas wawasan karena latar belakang pemikiran yang beragam. Hormati batas pribadi agar perbedaan gaya hidup tidak memicu jarak.",
+  "bisnis": "Sudut pandang berbeda membantu bisnis melihat peluang dari berbagai sisi. Buat kriteria penilaian risikonya terlebih dahulu sebelum memilih langkah kerja."
+ }
+}
