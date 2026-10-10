@@ -40,10 +40,10 @@ def test_scroll_submenu_maks_5():
 
 
 def test_revisi02_font_dibawa_repo():
-    from utils.affirmation_card import _FONT_DIR, _font
-    for n in ("Lora-Italic-Variable.ttf", "DejaVuSerif-Bold.ttf", "DejaVuSans-Bold.ttf", "DejaVuSerif-Italic.ttf"):
-        assert (_FONT_DIR / n).is_file()
-    assert _font(["Lora-Italic-Variable.ttf"], 30).size == 30  # bukan font bitmap bawaan
+    from utils.share_card import _FD, font
+    for n in ("Lora-Italic-Variable.ttf", "Lora-Variable.ttf", "Poppins-Regular.ttf", "Poppins-Medium.ttf", "Poppins-Bold.ttf"):
+        assert (_FD / n).is_file()
+    assert "assets/fonts" in font("serif", 30).path.replace("\\", "/")  # bukan font bitmap bawaan
 
 
 def test_revisi02_preview_tanpa_kartu_lock_dan_kalender_satu_iframe():
@@ -80,8 +80,8 @@ def test_tarot_semua_kartu_punya_gambar():
 
 def test_trait_cards_font_dari_repo():
     from utils import trait_cards as t
-    f = t._f(t._SANS_B, 34)
-    assert "assets/fonts" in f.path.replace("\\", "/")
+    from utils.share_card import font
+    assert "assets/fonts" in font("sans_b", 34).path.replace("\\", "/")
     assert t.kartu_kekuatan("Rina", ["A", "B"], ["C"])[:4] == b"\x89PNG" or t.kartu_kekuatan("Rina", ["A", "B"], ["C"])
 
 
@@ -90,3 +90,108 @@ def test_tarot_nama_di_bawah_gambar():
     assert ".dh-tr-wrap + .dh-tr-over" in css
     src = _t("components/mini_modals.py")
     assert "{img}</div>'" in src and 'class="dh-tr-over"' in src
+
+
+def test_revisi03_batch1():
+    import importlib
+    for m in ("components.aspek_info", "components.solo_reveal", "components.blueprint", "components.self_discovery"):
+        importlib.import_module(m)
+    from components.aspek_info import AF, AM
+    assert [x[0] for x in AF] == list("ABCDEF") and [x[0] for x in AM] == list("ABCDEFGHIJKLM")
+    assert "Gunakan Data Saya" in _t("components/form_kit.py")
+    solo = _t("components/solo_reveal.py")
+    assert "Biaya:" not in solo and "{sub} · {SOLO_PRICE}" not in solo
+    mm = _t("components/mini_modals.py")
+    assert "Konfirmasi Buka Sistem Lain" in mm and "Ya, Gunakan" in mm and "Konfirmasi Kuota Harian Gratis" in mm
+    assert "cc.layer(" in _t("components/self_discovery.py")
+
+
+def test_revisi03_batch2_quiz_kit():
+    import importlib
+    from content import blueprint_calc as BC
+    qk = importlib.import_module("components.quiz_kit")
+    for mod in ("components.solo_reveal", "components.self_discovery", "components.blueprint"):
+        importlib.import_module(mod)
+    assert "Mohon jawab seluruh pertanyaan" in qk.INC_TEXT and qk.INC_TITLE == "Pengisian Belum Lengkap"
+    items = BC.plan("singkat", ["MBTI", "Big Five", "DISC", "Love Language"])
+    got = {}
+    get = lambda s, q: got.get((s, q))
+    assert qk._first_missing(items, get) == 0
+    for it in items:
+        got[(it["sys"], it["q"]["id"])] = 1
+    assert qk._first_missing(items, get) is None
+    for it in items[:: max(1, len(items) // 8)]:
+        assert qk.options(it["sys"], it["q"], {v: str(v) for v in range(1, 6)})
+
+
+def test_revisi03_batch3_confirm_layer():
+    import importlib, pathlib
+    for mod in ("energy_calendar", "mini_modals", "blueprint", "compat", "decision", "feature_modals", "modal",
+                "self_discovery", "solo_reveal", "weekly_report", "yearly"):
+        src = pathlib.Path(f"components/{mod}.py").read_text(encoding="utf-8")
+        assert "cc.render(" not in src, mod
+        assert "cc.wrap(" in src, mod
+        importlib.import_module(f"components.{mod}")
+
+
+def test_revisi03_batch4_result_kit():
+    import importlib
+    rk = importlib.import_module("components.result_kit")
+    for mod in ("components.solo_reveal", "components.blueprint", "components.self_discovery", "components.modal_detail"):
+        importlib.import_module(mod)
+    # radar hanya dari skor asli
+    assert rk.quiz_axes("Zodiak", {"sign": "Leo"}) is None
+    assert rk.quiz_axes("Big Five", {"scores": {"O": 7, "C": 35, "E": 21, "A": 14, "N": 28}}) == [
+        ("Keterbukaan", 0), ("Kedisiplinan", 100), ("Ekstraversi", 50), ("Keramahan", 25), ("Sensitivitas", 75)]
+    assert rk.quiz_axes("DISC", {"counts": {"D": 5, "I": 5, "S": 5, "C": 5}})[0][1] == 25
+    assert rk.mbti_pairs({"counts": {"E": 3, "I": 1, "S": 0, "N": 4, "T": 2, "F": 2, "J": 1, "P": 3}})[0][4] == 75
+    assert "<svg" in rk.radar_svg([("a", 10), ("b", 50), ("c", 90)])
+    assert rk.dashboard("Zodiak", {"sign": "Leo"}) == ""
+    assert rk.has_card("Zodiak", {"sign": "Pisces"}) and not rk.has_card("Human Design", {"placeholder": True})
+    html_ = rk.insight_cards([("x", "A", ["Kalimat satu. Kalimat dua."]), ("y", "B", [])])
+    assert html_.count("<details") == 1 and "Kalimat satu." in html_
+
+
+def test_revisi03_batch5_multi_system_modes():
+    import importlib
+    from datetime import date
+    mm = importlib.import_module("components.modal_multi")
+    from content import pricing as P
+    from content import blueprint_calc as BC
+    assert mm.MODES["instan"][2] == P.BUNDLE_BIRTH == 200 and mm.MODES["mendalam"][2] == P.BUNDLE_PSY == 200
+    assert mm.MODES["lengkap"][2] == P.BUNDLE_ALL == 1200 and len(mm.MODES["lengkap"][3]) == 15
+    data = {"nama": "Rina", "tgl_lahir": date(1995, 3, 14), "jam_lahir": "10:00", "kota_lahir": "Jakarta", "golongan_darah": "O"}
+    ans = {}
+    for it in BC.plan("singkat", mm.PSY5):
+        ans.setdefault(it["sys"], {})[it["q"]["id"]] = (True if it["sys"] in ("MBTI", "Enneagram") else
+                                                      3 if it["sys"] == "Big Five" else "A")
+    r2 = mm.compute_systems("mendalam", data, "singkat", ans)
+    assert [r["system"] for r in r2] == mm.PSY5 and all(r["raw"] and r["title"] != "Belum bisa dihitung" for r in r2)
+    r3 = mm.compute_systems("lengkap", data, "singkat", ans)
+    assert len(r3) == 15 and sum(1 for r in r3 if r["title"] != "Belum bisa dihitung") >= 13
+    assert all({"system", "label", "raw", "tag", "short", "title", "desc", "quote"} <= set(r) for r in r3)
+
+
+def test_revisi03_batch6_share_card_story():
+    import io
+    from PIL import Image
+    from utils import trait_cards as t
+    rel = {k: 50 + i * 8 for i, k in enumerate("RIASEC")}
+    for b in (t.kartu_karier("Tes", "ESC", "Penggerak", rel, ["A", "B"]), t.kartu_kekuatan("Tes", ["X", "Y"], ["Z"]),
+              t.kartu_keputusan("A", "B", 3, -1, "A", "Langkah."),
+              t.kartu_tahunan("Tes", 2027, "Kuda", "Kambing", "Harmoni", 70, "Baik", ["Feb"], ["Mei"], [50] * 12)):
+        assert Image.open(io.BytesIO(b)).size == (2160, 3840)
+
+
+def test_revisi03_batch4b_actions_dan_kartu_laporan():
+    import io
+    from PIL import Image
+    from utils import trait_cards as t
+    b = t.kartu_laporan("WEEKLY REPORT", "Rina", "78%", "Harmonis", [("Karier", 80), ("Asmara", 60)], "TOP", ["a", "b"])
+    assert Image.open(io.BytesIO(b)).size == (2160, 3840)
+    for f in ("components/yearly.py", "components/decision.py", "components/weekly_report.py", "components/compat.py",
+              "components/feature_modals.py", "components/modal_steps.py"):
+        assert "RK.actions(" in _t(f)
+    from components import result_kit as RK
+    assert "Tutup" in _t("components/result_kit.py") and callable(RK.actions)
+    assert RK.sections_text("A", "b", [("X", ["y"])]).endswith("By Destiny Reveal")

@@ -50,7 +50,7 @@ def test_kartu_png_ukuran_dan_watermark():
     a = DE.afirmasi(TGL, HARI)
     png = buat_kartu("Rina", "Jumat, 9 Oktober 2026", a["kalimat"], a["langkah"])
     im = Image.open(io.BytesIO(png))
-    assert im.size == (1080, 1350)
+    assert im.size == (2160, 3840)
     ref = Image.open(io.BytesIO(buat_kartu("Rina", "Jumat, 9 Oktober 2026", a["kalimat"], a["langkah"])))
     assert im.tobytes() == ref.tobytes()
 
