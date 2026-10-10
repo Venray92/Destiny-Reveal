@@ -142,3 +142,13 @@ def pinnacle(tgl):
 
 def usia(tgl, today):
     return today.year - tgl.year - ((today.month, today.day) < (tgl.month, tgl.day))
+
+
+def konteks(tgl, today):
+    """Konteks personal hari ini: usia, fase Pinnacle yang sedang berjalan, Personal Year tahun ini."""
+    from content import periodic
+    from content.yearly_calc import TEMA_PY
+    u = usia(tgl, today)
+    fase = next((p for p in pinnacle(tgl) if u >= p["usia_awal"] and (p["usia_akhir"] is None or u <= p["usia_akhir"])), None)
+    py = periodic.personal_year(tgl, today.year)
+    return {"usia": u, "fase": fase, "py": py, "py_tema": TEMA_PY.get(py, "")}

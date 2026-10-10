@@ -22,9 +22,9 @@ CALENDAR_MONTH = 400   # Kalender Energi: detail 4 sistem per hari, 1 bulan kale
 
 # ── paket Stardust: (nama, badge, harga Rp, jumlah ✨, bonus, deskripsi) ──
 COIN_PACKS = [
-    ("Starter", "Coba Dulu", 10000, 120, "+20%", "Cocok untuk dicoba, bisa unlock Tarot 3 Kartu atau Ramalan Harian lengkap."),
-    ("Basic", "Populer", 25000, 320, "+28%", "Pas untuk 1 Weekly Report atau 1 Solo Reveal + Tarot 5 Kartu."),
-    ("Value", "Hemat", 50000, 700, "+40%", "Cukup untuk 3 Solo Reveal atau 1 Monthly Report + Tarot 3 Kartu."),
+    ("Starter", "Coba Dulu", 10000, 120, "+20%", "Cocok untuk dicoba, bisa unlock Tarot 3 Kartu atau Ramalan Kartu Harian lengkap."),
+    ("Basic", "Populer", 25000, 320, "+28%", "Pas untuk 1 Weekly Report atau 1 One-System Blueprint + Tarot 5 Kartu."),
+    ("Value", "Hemat", 50000, 700, "+40%", "Cukup untuk 3 One-System Blueprint atau 1 Monthly Report + Tarot 3 Kartu."),
     ("Pro", "Best Value", 100000, 1500, "+50%", "Cukup untuk Complete Bundle (15 sistem) atau Deep Blueprint + Monthly Report."),
     ("Sultan", "Top Up / Hemat 60%", 200000, 3200, "+60%", "Akses luas untuk semua analisis, report, dan Tarot."),
     ("Kaisar", "Top Up / Bonus 70%", 500000, 8500, "+70%", "Paket ultimate dengan bonus maksimal untuk penggunaan jangka panjang."),
