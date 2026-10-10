@@ -24,10 +24,11 @@ st.markdown(
     unsafe_allow_html=True,
 )
 _CSS_PATH = Path(__file__).resolve().parent / "assets" / "css" / "app.css"
-_CSS_HOME_V2_PATH = Path(__file__).resolve().parent / "assets" / "css" / "home_v2.css"
+_CSS_PARTS_DIR = Path(__file__).resolve().parent / "assets" / "css" / "parts"  # urut nama file (01_, 02_, ...)
+_CSS_HOME_V2 = "".join(f.read_text(encoding="utf-8") for f in sorted(_CSS_PARTS_DIR.glob("*.css")))
 st.markdown(
     f"<style>\n{_CSS_PATH.read_text(encoding='utf-8')}\n"
-    f"{_CSS_HOME_V2_PATH.read_text(encoding='utf-8')}\n</style>",
+    f"{_CSS_HOME_V2}\n</style>",
     unsafe_allow_html=True,
 )
 
