@@ -11,6 +11,7 @@ from datetime import date
 from functools import lru_cache
 from pathlib import Path
 
+from content import baru_loader as BL
 from content import periodic
 from content import profile_flat as pf
 from content import profile_loader as pl
@@ -176,15 +177,18 @@ def _t(x):
     return x.strip() if isinstance(x, str) and x.strip() else ""
 
 
-def _blocks(system, raw):
-    """{title, utama, karier, asmara, nasihat (list paragraf), extra [(label, teks)]} atau None."""
+def _blocks(system, raw, bp=False):
+    """{title, utama, karier, asmara, nasihat (list paragraf), extra [(label, teks)]} atau None.
+    bp=True (khusus Blueprint): pakai parafrase Gemini (blueprint_baru/) per aspek kalau ada, supaya beda kata dari One-System Blueprint."""
     if not raw or raw.get("placeholder"):
         return None
     if system in _BIRTH5:
         p = pl.get_profile(system, raw)
         if not p:
             return None
-        s = p.get("sections") or {}
+        s = dict(p.get("sections") or {})
+        if bp:
+            s.update(BL.bp_baru(system, p["key"]))
         g = lambda k: [_t(s.get(k))] if _t(s.get(k)) else []
         extra = [(_AM[k], _t(s.get(k))) for k in "DEGHIJKLM" if _t(s.get(k))]
         ttl = (pl.get_title(system, raw) or {}).get("title", "")
@@ -194,7 +198,12 @@ def _blocks(system, raw):
     if not p:
         return None
     e = p.get("entry") or {}
-    free, paid = e.get("free") or {}, e.get("paid") or {}
+    free, paid = dict(e.get("free") or {}), dict(e.get("paid") or {})
+    if bp:
+        nb = BL.bp_baru(system, p["key"])
+        if "siapa_kamu" in nb:
+            free["siapa_kamu"] = nb["siapa_kamu"]
+        paid.update({k: v for k, v in nb.items() if k != "siapa_kamu"})
     deep = _deep(system).get(p["key"]) or {}
     lst = lambda *xs: [t for t in (_t(x) for x in xs) if t]
     ttl = ((p.get("title") if system == "Big Five" else pf.get_title(system, raw)) or {}).get("title", "") or e.get("nama", "")
@@ -301,7 +310,7 @@ def build_blueprint(prof, systems, quiz_answers, mode, now_year=None):
     for s in systems:
         try:
             raws[s] = quiz_raw(s, quiz_answers.get(s) or {}, mode) if KIND[s] == "quiz" else compute_raw_result(s, ld)
-            B[s] = _blocks(s, raws[s])
+            B[s] = _blocks(s, raws[s], bp=True)
         except Exception:
             raws[s], B[s] = {}, None
     if not any(B.values()):
@@ -335,7 +344,7 @@ def build_blueprint(prof, systems, quiz_answers, mode, now_year=None):
             b = B.get(s)
             systems_out.append({"n": i, "name": s, "icon": ICON[s], "desc": DESC[s], "ok": bool(b), **(b or {})})
     res = {"nama": prof["nama"], "tgl": prof["tgl"], "lahir": lahir, "head": head, "id": f"BP-{now_year}-{sid}", "systems": systems_out,
-           "complete": len(systems) > 1, "mode": mode, "n_ok": sum(1 for x in systems_out if x["ok"])}
+           "complete": len(systems) > 1, "mode": mode, "n_ok": sum(1 for x in systems_out if x["ok"]), "raws": raws}
     if res["complete"]:
         res["synth"] = _synthesis(prof, raws, B, now_year)
     return res
