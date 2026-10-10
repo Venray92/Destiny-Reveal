@@ -37,3 +37,16 @@ def test_day_text_kalender():
 
 def test_scroll_submenu_maks_5():
     assert "its.length>5" in _t("components/navbar.py") and "dh-ov-scroll" in _t("assets/css/home_v2.css")
+
+
+def test_revisi02_font_dibawa_repo():
+    from utils.affirmation_card import _FONT_DIR, _font
+    for n in ("Lora-Italic-Variable.ttf", "DejaVuSerif-Bold.ttf", "DejaVuSans-Bold.ttf", "DejaVuSerif-Italic.ttf"):
+        assert (_FONT_DIR / n).is_file()
+    assert _font(["Lora-Italic-Variable.ttf"], 30).size == 30  # bukan font bitmap bawaan
+
+
+def test_revisi02_preview_tanpa_kartu_lock_dan_kalender_satu_iframe():
+    assert "dh-mn-lock" not in _t("components/mini_modals.py")
+    ec = _t("components/energy_calendar.py")
+    assert "_copy_dynamic" not in ec and 'id="cp"' in ec and "dhcal_hidden" in ec
