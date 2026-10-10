@@ -205,3 +205,20 @@ def test_revisi_baru_batch_a():
         assert _t(f).count('dh-nodismiss') >= 3
     mm = _t("components/modal_multi.py")
     assert "Mulai Kuesioner?" in mm and "dh_mx_modesel" in mm
+
+
+def test_revisi2_resume_dan_footer_css():
+    import streamlit as st
+    from pathlib import Path
+    from utils import resume
+    calls = []
+    resume.register("zz_a", lambda: calls.append("a"))
+    st.session_state.pop("dh_resume_feat", None)
+    resume.enter("zz_a")
+    resume.enter("pricing")  # bukan fitur -> tidak memutus
+    resume.enter("zz_a")
+    assert calls == []
+    resume.enter("daily")  # fitur lain -> progres zz_a dibuang
+    assert calls == ["a"]
+    css = Path("assets/css/parts/20_revisi2_quiz_footer.css").read_text()
+    assert "height: 44px" in css and "min-height: 440px" in css and "st-key-dhsd_acts" in css
