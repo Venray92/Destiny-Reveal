@@ -134,4 +134,5 @@ def render(prefix, items, get, put, qi_key, title, who, on_exit, on_done, scale=
         cc.layer(f"{prefix}inc", lambda: _screen(*args), on_go=_cb_fix, icon="📝", title=INC_TITLE, text=INC_TEXT,
                  stay=None, go="Lengkapi Sekarang", go_args=(prefix, qi_key, items, get))
     else:
-        _screen(*args)
+        with cc.bg(f"{prefix}inc"):
+            _screen(*args)

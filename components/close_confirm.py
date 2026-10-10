@@ -69,13 +69,18 @@ def render(key, leave, icon="🌙", title="Yakin Mau Pergi Sekarang?",
                 st.rerun()  # rerun penuh = dialog nutup
 
 
+def bg(key):
+    """Wadah layar utama. SELALU dipakai (ada layer maupun tidak) supaya konten tidak di-remount saat layer muncul."""
+    return st.container(key=f"dhcc_bg_{key}")
+
+
 def layer(key, main_fn, on_go=None, on_stay=None, icon="❔", title="Yakin?", text="", stay="Batal", go="Ya, Lanjut",
           go_args=(), tip=None, leave=None, stay_args=()):
     """Konfirmasi sebagai LAYER di atas modal utama (modal utama tetap tampil, buram di belakang).
     main_fn() = render layar utama. on_go / on_stay = callback tombol (jalan sebelum rerun).
     leave != None -> tombol 'go' menutup beneran: flag dibuang, leave() dipanggil, rerun penuh (dialog nutup)."""
     e = html.escape
-    with st.container(key=f"dhcc_bg_{key}"):
+    with bg(key):
         main_fn()
     with st.container(key=f"dhcc_layer_{key}"):
         with st.container(key=f"dhcc_card_{key}"):
@@ -107,7 +112,8 @@ def wrap(key, main_fn, leave=None, icon="🌙", title="Yakin Mau Pergi Sekarang?
          tip="Salin atau simpan dulu kalau masih mau dibaca nanti.", stay="✨ Lanjut Baca", go="Ya, Tutup"):
     """Pengganti render(): layar hasil tetap tampil (buram), konfirmasi tutup jadi layer di atasnya."""
     if not asking(key):
-        main_fn()
+        with bg(key):
+            main_fn()
         return
     layer(key, main_fn, on_stay=cb_stay, stay_args=(key,), icon=icon, title=title, text=html.escape(text),
           stay=stay, go=go, tip=tip, leave=leave or (lambda: None))

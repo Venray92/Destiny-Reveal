@@ -139,7 +139,8 @@ def render_mode():
                  title="Mulai Kuesioner?", text=f"Apakah kamu yakin ingin melanjutkan dengan kuesioner mode <b>{nm}</b>?",
                  stay="Batal / Beralih", go="Ya, Lanjutkan")
     else:
-        _mode_screen()
+        with cc.bg("mxmode"):
+            _mode_screen()
 
 
 def _mode_screen():
