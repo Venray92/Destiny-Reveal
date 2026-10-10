@@ -31,7 +31,7 @@ from content.profile_loader import get_profile
 from content.result_builder import build_display_data
 from engine.tarot import TAROT_MAJOR_ARCANA, kartu_harian
 from engine.zodiak import _RENTANG_ZODIAK
-from utils.card_images import card_image_data_uri
+from utils.card_images import card_image_data_uri_small, tarot_image_rel
 
 _ROOT = Path(__file__).resolve().parent.parent
 _COVER = _ROOT / "assets" / "images" / "sunmoon.jpg"
@@ -465,14 +465,16 @@ def tarot_dialog():
     idx = TAROT_MAJOR_ARCANA.index(kartu) if mayor else None
     c = build_display_data("Tarot", {"kartu": kartu}) or {}
     nama, _, arti = (c.get("title") or kartu).partition(", ")
-    uri = card_image_data_uri(f"tarot/{idx:02d}_{kartu}.png") if mayor else None  # Minor: gambar belum ada -> kartu ilustrasi bawaan
+    rel = tarot_image_rel(kartu)
+    uri = card_image_data_uri_small(rel) if rel else None  # gambar hilang/rusak -> kartu ilustrasi bawaan
     face = _tarot_face(kartu, idx, nama)
     img = (f'<div class="dh-tr-img dh-tr-face">{face}</div>' +
            (f'<img class="dh-tr-img dh-tr-art" src="{uri}" alt="{_e(nama)}" onerror="this.remove()">' if uri else ""))
     label = f"ARCANA #{idx}" if mayor else "ARCANA MINOR"
     st.markdown(
-        f'<div class="dh-tr-wrap">{img}<div class="dh-tr-over"><b>{label}</b>'
-        f'<div>{_e(nama)}{f" ({_e(arti)})" if arti else ""}</div></div></div>'
+        f'<div class="dh-tr-wrap">{img}</div>'
+        f'<div class="dh-tr-over"><b>{label}</b>'
+        f'<div>{_e(nama)}{f" ({_e(arti)})" if arti else ""}</div></div>'
         + _TAROT_CAP +
         f'<div class="dh-mn-msg"><div class="dh-mn-msghead"><span>PESAN INTI HARI INI:</span><b>{_e(arti or nama)}</b></div>'
         f'<p>{_e(_first_sentences(c.get("p1", ""), 3))}</p></div>',

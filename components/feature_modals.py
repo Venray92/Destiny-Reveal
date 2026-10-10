@@ -268,7 +268,7 @@ def _ts_info(slug):
 def _ts_tile(slug, i, is_open, is_active, is_new):
     """HTML 1 kartu: tertutup = sunmoon + BUKA; terbuka = art kartu (Minor: kotak kosong) + nama."""
     from components.mini_modals import _cover_uri
-    from utils.card_images import card_image_data_uri
+    from utils.card_images import card_image_data_uri_small, tarot_image_rel
     e = html.escape
     cls = "dh-ts-tile" + (" is-open" if is_open else "") + (" is-active" if is_active else "")
     if not is_open:
@@ -278,10 +278,12 @@ def _ts_tile(slug, i, is_open, is_active, is_new):
         return (f'<div class="{cls}"><div class="dh-ts-num">{i + 1}</div><div class="dh-ts-art">{art}'
                 '<span class="dh-ts-buka">BUKA</span></div><div class="dh-ts-name dh-ts-lock">Terkunci</div></div>')
     _c, nama, _arti, idx = _ts_info(slug)
-    uri = card_image_data_uri(f"tarot/{idx:02d}_{slug}.png") if idx is not None else None
+    rel = tarot_image_rel(slug)
+    uri = card_image_data_uri_small(rel) if rel else None
     if uri:
-        art = f'<img class="dh-tr-img dh-ts-img" src="{uri}" alt="{e(nama)}"><span class="dh-ts-idx">#{idx}</span>'
-    else:  # Minor: gambar belum ada -> kotak kosong
+        tag = f'<span class="dh-ts-idx">#{idx}</span>' if idx is not None else ""
+        art = f'<img class="dh-tr-img dh-ts-img" src="{uri}" alt="{e(nama)}">{tag}'
+    else:  # gambar hilang/rusak -> kotak kosong
         art = '<div class="dh-tr-img dh-tr-ph dh-ts-img" style="aspect-ratio:870/1164"></div>'
     flip = " dh-ts-flip" if is_new else ""
     return (f'<div class="{cls}"><div class="dh-ts-num">{i + 1}</div><div class="dh-ts-art{flip}">{art}</div>'

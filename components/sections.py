@@ -1,7 +1,7 @@
 """
 Section-section halaman Home v2 (hero, diagram matrix, social proof, jelajahi,
 satu-data, testimoni, CTA akhir, footer). Dipanggil dari views/home_v2.py.
-CSS: assets/css/home_v2.css (namespace "dh-").
+CSS: assets/css/parts/*.css, dimuat urut nama (namespace "dh-").
 """
 
 import base64
