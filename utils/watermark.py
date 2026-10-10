@@ -11,13 +11,17 @@ TEXT = "By Destiny Reveal"
 _FONTS = ["DejaVuSerif-Italic.ttf", "DejaVuSans-Oblique.ttf", "DejaVuSans.ttf"]
 
 
+_FONT_DIR = Path(__file__).resolve().parent.parent / "assets" / "fonts"  # font dibawa repo, bukan andalkan font server
+
+
 def _font(size):
     for n in _FONTS:
-        try:
-            return ImageFont.truetype(n, size)
-        except OSError:
-            continue
-    return ImageFont.load_default()
+        for src in (str(_FONT_DIR / n), n):
+            try:
+                return ImageFont.truetype(src, size)
+            except OSError:
+                continue
+    return ImageFont.load_default(size)
 
 
 def add_watermark(img, text=TEXT, side="right", bottom=None, pad=None):
