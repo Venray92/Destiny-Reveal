@@ -1,0 +1,30 @@
+/* REVISI03 Batch 2 - modal kuesioner modern (Career-DNA style), tengah layar */
+[data-testid="stDialog"]:has(.dh-step-quiz) { align-items: center !important; }
+[data-testid="stDialog"] > div:has(.dh-step-quiz) { width: min(760px, 94vw) !important; max-width: 760px !important; min-height: min(660px, 88vh); margin: auto !important; border-radius: 24px !important; background: #FDFBF7 !important; box-shadow: 0 24px 70px rgba(90,50,20,.22) !important; }
+[data-testid="stDialog"]:has(.dh-step-quiz) { background: rgba(253,251,247,.45) !important; backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important; }
+.dh-qz-who { display: flex; align-items: center; gap: 12px; margin: 2px 0 12px; padding-right: 40px; }
+.dh-qz-av { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #C86D3B, #A85226); color: #fff; font-weight: 800; font-size: 18px; display: flex; align-items: center; justify-content: center; flex: none; }
+.dh-qz-who b { display: block; font-size: 15px; color: #3A2A20; }
+.dh-qz-who small { display: block; font-size: 12px; color: #8B7B6B; }
+.dh-qz-scr { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: #F9EBDF; border: 1px solid #EBCFB8; border-radius: 12px; padding: 9px 14px; margin-bottom: 14px; }
+.dh-qz-scr span { font-weight: 800; color: #A85226; font-size: 13.5px; }
+.dh-qz-scr em { font-style: normal; font-size: 12px; color: #8B7B6B; font-weight: 700; }
+.dh-qz-pt { display: flex; justify-content: space-between; align-items: center; margin: 0 0 8px; }
+.dh-qz-pt b { color: #3A2A20; font-size: 13.5px; }
+.dh-qz-pt span { background: #F9DFD2; color: #B2552C; padding: 3px 11px; border-radius: 999px; font-size: 11.5px; font-weight: 700; }
+.dh-qz-q { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; color: #3A2A20; line-height: 1.5; margin: 8px 0 18px; min-height: 96px; }
+div.st-key-dhbp_opts div.stButton > button[kind="primary"] { background: #C86D3B !important; border-color: #A85226 !important; }
+div.st-key-dhbp_opts div.stButton > button[kind="primary"] p { color: #fff !important; }
+div[class*="_qfoot"] { margin-top: 18px; padding-top: 14px; border-top: 1px solid #EFE4D6; }
+div[class*="_qfoot"] div.stButton > button { height: 48px !important; border-radius: 14px !important; font-weight: 800 !important; }
+div[class*="_qfoot"] div.stButton > button[kind="primary"] { background: #C86D3B !important; border: 0 !important; }
+div[class*="_qfoot"] div.stButton > button[kind="primary"] p { color: #fff !important; }
+div[class*="_qfoot"] div.stButton > button[kind="secondary"] { background: #fff !important; border: 1.5px solid #E2D2C0 !important; }
+div[class*="_qfoot"] div.stButton > button[kind="secondary"] p { color: #6B4A33 !important; }
+@media (max-width: 640px) { .dh-qz-q { font-size: 18px; min-height: 0; } }
+div.st-key-dhbp_opts div.stButton > button[kind="primary"] { border-radius: 14px !important; box-shadow: none !important; min-height: 50px !important; }
+div.st-key-dhbp_opts div.stButton > button[kind="primary"]:hover { transform: none; }
+
+/* Batch 3: backdrop-filter di stDialog bikin layer position:fixed nempel ke konten (bukan viewport) -> matikan saat ada layer */
+[data-testid="stDialog"]:has([class*="st-key-dhcc_layer_"]) { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+[data-testid="stDialog"] > div:has([class*="st-key-dhcc_layer_"]) { transform: none !important; filter: none !important; }

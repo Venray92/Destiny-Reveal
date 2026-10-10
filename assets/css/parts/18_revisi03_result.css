@@ -1,0 +1,39 @@
+/* REVISI03 Batch 4 - dashboard hasil (kartu visual, radar, insight cards) */
+.rk-panel { background: #fff; border: 1px solid #EFE0CF; border-radius: 18px; padding: 14px 14px 12px; box-shadow: 0 6px 22px -14px rgba(120,70,30,.35); }
+.rk-ph { font-weight: 800; letter-spacing: .8px; font-size: 12px; color: #B2552C; margin: 0 0 8px; }
+.rk-radar { width: 100%; height: auto; display: block; }
+.rk-ring { fill: none; stroke: #F0E2D2; stroke-width: 1; }
+.rk-ax { stroke: #F0E2D2; stroke-width: 1; }
+.rk-poly { fill: rgba(200,109,59,.28); stroke: #C86D3B; stroke-width: 2.2; stroke-linejoin: round; }
+.rk-dot { fill: #A85226; stroke: #fff; stroke-width: 1.5; }
+.rk-lb { font-size: 13px; font-weight: 700; fill: #6B4A33; }
+.rk-v { font-size: 12px; font-weight: 800; fill: #C86D3B; }
+.rk-bds { font-size: 12.5px; color: #6B4A33; margin-top: 4px; }
+.rk-bd { display: inline-block; background: #F9DFD2; color: #A85226; border-radius: 999px; padding: 3px 11px; margin: 3px 4px 0 0; font-size: 12px; font-weight: 700; }
+.rk-bd b { color: #8A3E1A; }
+.rk-note { font-size: 11.5px; color: #8B7B6B; margin-top: 8px; }
+.rk-pairs { display: flex; flex-direction: column; gap: 12px; padding: 4px 2px; }
+.rk-pr { display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: 8px; align-items: center; font-size: 12px; color: #8B7B6B; font-weight: 600; }
+.rk-pr .r { text-align: right; } .rk-pr .on { color: #A85226; font-weight: 800; }
+.rk-pb { height: 9px; background: #F0E2D2; border-radius: 99px; overflow: hidden; } .rk-pb i { display: block; height: 100%; background: linear-gradient(90deg, #C86D3B, #D9A441); border-radius: 99px; }
+div[class*="_cardacts"] div.stButton > button, div[class*="_cardacts"] div.stDownloadButton > button, div[class*="_cardacts"] [data-testid="stLinkButton"] a, div[class*="_cardacts"] a[kind] { height: 46px !important; border-radius: 999px !important; background: #C86D3B !important; border: 0 !important; color: #fff !important; }
+div[class*="_cardacts"] * { color: #fff !important; font-weight: 700 !important; }
+.rk-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 6px 0 14px; }
+@media (min-width: 720px) { .rk-grid { grid-template-columns: 1fr 1fr; } }
+.rk-ic { background: #fff; border: 1px solid #EFE0CF; border-radius: 16px; padding: 12px 14px; transition: border-color .15s, box-shadow .15s; }
+.rk-ic:hover, .rk-ic[open] { border-color: #C86D3B; box-shadow: 0 8px 24px -16px rgba(168,82,38,.6); }
+.rk-ic summary { list-style: none; cursor: pointer; display: flex; gap: 10px; align-items: flex-start; }
+.rk-ic summary::-webkit-details-marker { display: none; }
+.rk-ico { font-size: 22px; line-height: 1.2; }
+.rk-ic summary > div { flex: 1; min-width: 0; } .rk-ic summary b { display: block; font-size: 12.5px; color: #A85226; letter-spacing: .4px; }
+.rk-ic summary em { display: block; font-style: normal; font-size: 13.5px; color: #3A2A20; line-height: 1.5; margin-top: 3px; }
+.rk-ic summary i { font-style: normal; font-size: 11px; font-weight: 800; color: #C86D3B; white-space: nowrap; }
+.rk-body { margin-top: 10px; padding-top: 10px; border-top: 1px dashed #EBCFB8; } .rk-body p { font-size: 13.5px; line-height: 1.7; color: #4A3A2E; margin: 0 0 8px; }
+div.st-key-dhso_acts div.stButton > button, div.st-key-dhso_acts div.stDownloadButton > button { height: 48px !important; border-radius: 999px !important; font-weight: 800 !important; }
+div.st-key-dhso_acts div.stDownloadButton > button, div.st-key-dhso_acts div.stButton > button { background: #C86D3B !important; border: 0 !important; }
+div.st-key-dhso_acts div.stDownloadButton > button *, div.st-key-dhso_acts div.stButton > button * { color: #fff !important; }
+div.st-key-dhso_acts div.stButton > button[kind="primary"] { background: #A85226 !important; border: 0 !important; }
+div.st-key-dhso_acts div.stButton > button[kind="primary"] * { color: #fff !important; }
+.dh-dt-imgwrap { display: flex; justify-content: center; margin: 0 auto 12px; }
+.dh-dt-imgwrap .dh-dt-img { width: min(320px, 86%); height: auto; }
+div[class*="_cardacts"] [data-testid="stDownloadButton"] button, div[class*="_cardacts"] [data-testid="stDownloadButton"] button * { opacity: 1 !important; color: #fff !important; -webkit-text-fill-color: #fff !important; }
