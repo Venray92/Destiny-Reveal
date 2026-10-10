@@ -2297,3 +2297,6 @@ div.st-key-dhyr_year [role="radiogroup"] { gap: 8px 18px; }
 .st-key-dhtr_cover:hover .dh-tr-crop { animation-play-state: paused; }
 .dh-tr-hint { animation: dhTrHint 1.8s ease-in-out infinite; }
 @keyframes dhTrHint { 0%,100% { opacity: .75; } 50% { opacity: 1; } }
+
+/* Revisi02: tombol Selesai Kalender dipicu dari dalam iframe -> sembunyikan tombol aslinya (tetap ada di DOM) */
+.st-key-dhcal_hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; margin: 0 !important; padding: 0 !important; }
