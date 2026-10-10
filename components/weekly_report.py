@@ -17,6 +17,8 @@ from components.dialog_bus import request_open, request_with_return
 from content import pricing as P
 from content import weekly_calc as W
 from engine.rotation import BULAN
+from components import result_kit as RK
+from utils import trait_cards
 from utils.simple_pdf import make_pdf
 
 _e = html.escape
@@ -289,8 +291,8 @@ def _tab_aspek(r):
                 f'<p>&ldquo;{_e(r["quote"])}&rdquo;</p><em>— Destiny Reveal</em></div>', unsafe_allow_html=True)
 
 
-def _pdf(r):
-    sec = [("INDEKS HARMONI", [f'{r["harmoni"]["idx"]}% - {r["harmoni"]["label"]} · Elemen dominan: {r["elemen"]}', r["sub"]]),
+def _secs(r):
+    return [("INDEKS HARMONI", [f'{r["harmoni"]["idx"]}% - {r["harmoni"]["label"]} · Elemen dominan: {r["elemen"]}', r["sub"]]),
            ("TOP 3 PRIORITAS", [f'{p["title"]} - Best day: {p["best"]} - Priority: {p["level"]} ({p["pct"]}%)' for p in r["prio"]]),
            (r["bars_judul"], [f'{b["label"]}: {b["pct"]}% {b["tag"]}' for b in r["bars"]] + [r["insight"]]),
            ("TEMA & ARUS ENERGI", r["tema"]),
@@ -298,7 +300,12 @@ def _pdf(r):
            ("ASPEK", [f"{t}: {x}" for _i, t, x in r["aspek"]]),
            ("HOKI", [f'Angka: {r["hoki"]["angka"]} · Warna: {r["hoki"]["warna"]} · Arah: {r["hoki"]["arah"]}', r["quote"]]),
            ("SANGAT DIANJURKAN (DO'S)", r["dos"]), ("HINDARI (DON'TS)", r["donts"])]
-    return make_pdf(r["judul"].title(), f'Untuk: {r["nama"]} · Periode: {r["periode"]}', sec)
+
+
+def _pdf(r):
+    if not r.get("_pdf"):
+        r["_pdf"] = make_pdf(r["judul"].title(), f'Untuk: {r["nama"]} · Periode: {r["periode"]}', _secs(r))
+    return r["_pdf"]
 
 
 def _tab_aksi(r):
@@ -307,15 +314,13 @@ def _tab_aksi(r):
                 f'<div class="dont"><b>⛔ HINDARI (DON\'TS)</b><ul>{li(r["donts"])}</ul></div></div>', unsafe_allow_html=True)
     cap = (f'{r["judul"].title()} {r["periode"]} · Indeks Harmoni {r["harmoni"]["idx"]}% ({r["harmoni"]["label"]}). '
            f'Hari terbaik: {r["best_txt"]}. Cek laporanmu di Destiny Reveal.')
-    with st.container(key="dhwk_actions"):
-        c1, c2, c3 = st.columns([1.7, 1, 1], gap="small")
-        with c1:
-            st.download_button("⬇️ Download PDF Laporan", _pdf(r), file_name=f'{r["kind"]}-report.pdf', mime="application/pdf",
-                               key="dhwk_pdf", type="primary", use_container_width=True, on_click="ignore")
-        with c2:
-            st.link_button("Share", f"https://wa.me/?text={urlquote(cap)}", use_container_width=True, icon=":material/share:")
-        with c3:
-            st.button("Tutup", key="dhwk_done", on_click=cc.cb_ask, args=("weekly",), use_container_width=True)
+    if not r.get("_png"):
+        r["_png"] = trait_cards.kartu_laporan(r["judul"].upper(), f'{r["nama"]} · {r["periode"]}', f'{r["harmoni"]["idx"]}%',
+                                              f'Indeks Harmoni · {r["harmoni"]["label"]}', [(b["label"], b["pct"]) for b in r["bars"]],
+                                              "TOP 3 PRIORITAS", [p["title"] for p in r["prio"]])
+    sec = _secs(r)
+    RK.actions("dhwk", (cc.cb_ask, ("weekly",)), pdf=_pdf(r), png=r["_png"], wa=cap, name=f'{r["kind"]}-report',
+               text=RK.sections_text(r["judul"].title(), f'Untuk: {r["nama"]} - Periode: {r["periode"]}', sec))
 
 
 def _render_result():
@@ -345,13 +350,10 @@ def weekly_dialog():
         request_with_return("auth", "weekly")
     step = ss.get("dh_wk_step", "buy")
     if step == "result" and ss.get("dh_wk_res"):
-        if cc.asking("weekly"):
-            cc.render("weekly", leave=_reset_view, icon="📊", title="Yakin Mau Tutup Laporan Ini?",
+        cc.wrap("weekly", _render_result, leave=_reset_view, icon="📊", title="Yakin Mau Tutup Laporan Ini?",
                       text="Laporan periode ini sudah tersimpan. Kamu bisa membukanya lagi dari menu ini tanpa bayar ulang, "
                            "selama periodenya masih sama.",
                       tip="Download PDF dulu kalau mau dibaca offline.", stay="✨ Lanjut Baca", go="Ya, Tutup Laporan")
-        else:
-            _render_result()
     elif step == "loading":
         _render_loading()
     else:

@@ -270,11 +270,13 @@ def daily_dialog():
     if ss.get("dh_daily_loading"):
         _render_daily_loading(ss.dh_daily_loading)
         return
-    if cc.asking("daily"):
-        cc.render("daily", leave=None, icon="🌅", title="Yakin Mau Tutup Halaman Ini?",
-                  text="Apakah kamu yakin ingin menutup halaman ini? Pastikan teks hasil sudah disalin.",
-                  tip=None, stay="Batal", go="Ya, Tutup")
-        return
+    cc.wrap("daily", lambda: _daily_body(paid), leave=None, icon="🌅", title="Yakin Mau Tutup Halaman Ini?",
+            text="Apakah kamu yakin ingin menutup halaman ini? Pastikan teks hasil sudah disalin.",
+            tip=None, stay="Batal", go="Ya, Tutup")
+
+
+def _daily_body(paid):
+    ss = st.session_state
     _head(block=paid)
     _title("🌅", "Ramalan Kartu Harian", "1x per hari · Pilih Zodiak, Shio, atau Weton kelahiranmu")
     lock = ss.get("dh_daily_lock")
@@ -322,16 +324,25 @@ def daily_dialog():
     tab = ss.setdefault("dh_daily_tab", "zodiak")
     if ss.get("dh_daily_confirm") and ss.get("dh_daily_pick"):
         kind_label = _KIND_LABEL[tab]
-        st.markdown('<div class="dh-dr-confirm"><div class="dh-dr-cico">⚠️</div><div class="dh-dr-ctitle">Konfirmasi Kuota Harian Gratis</div>'
-                    f'<p>Apakah kamu yakin ingin melihat ramalan untuk <b>{kind_label} {_e(ss.dh_daily_pick)}</b>? '
-                    'Jatah gratis ini hanya bisa digunakan <b>1x per hari</b> dan tidak dapat diganti setelah dibuka hari ini.</p></div>',
-                    unsafe_allow_html=True)
+        paid_mode = ss.get("dh_daily_paid") == today_wib()  # sudah buka sistem lain berbayar hari ini
+        if paid_mode:
+            ttl = "Konfirmasi Buka Sistem Lain"
+            desc = (f'Apakah kamu yakin ingin melihat ramalan untuk <b>{kind_label} {_e(ss.dh_daily_pick)}</b>? '
+                    f'Pembukaan sistem tambahan ini akan menggunakan <b>{SWAP_PRICE} ✨</b> dari saldomu.')
+            yes = f"Ya, Gunakan {SWAP_PRICE} ✨"
+        else:
+            ttl = "Konfirmasi Kuota Harian Gratis"
+            desc = (f'Apakah kamu yakin ingin melihat ramalan untuk <b>{kind_label} {_e(ss.dh_daily_pick)}</b>? '
+                    'Jatah gratis ini hanya bisa digunakan <b>1x per hari</b>.')
+            yes = "Ya, Buka Ramalan"
+        st.markdown(f'<div class="dh-dr-confirm"><div class="dh-dr-cico">⚠️</div><div class="dh-dr-ctitle">{ttl}</div>'
+                    f'<p>{desc}</p></div>', unsafe_allow_html=True)
         with st.container(key="dhdy_confirm"):
             c1, c2 = st.columns(2, gap="small")
             with c1:
                 st.button("Batal", key="dhdy_cancel", on_click=_cb_daily_cancel, use_container_width=True)
             with c2:
-                st.button("Ya, Buka Ramalan", key="dhdy_yes", type="primary", on_click=_cb_daily_confirm,
+                st.button(yes, key="dhdy_yes", type="primary", on_click=_cb_daily_confirm,
                           use_container_width=True)
         return
     items = {"zodiak": ZODIAK_LIST, "shio": SHIO_LIST, "weton": weton_list()}[tab]

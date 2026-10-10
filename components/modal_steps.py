@@ -19,6 +19,8 @@ from components.flow_state import (
 from content.profile_loader import ALLOW_LEGACY_FALLBACK, get_profile
 from content.result_builder import build_display_data, compute_raw_result
 from components.modal_detail import cb_open_detail
+from components import modal_multi
+from components import result_kit as RK
 from engine.zodiak import hitung_bulan
 from utils.date_format import format_tanggal_lengkap
 
@@ -278,10 +280,24 @@ def _cb_soon(msg):
 
 
 def _summary_text(nama, tgl, results):
-    lines = [f"Peta Jiwa: {nama}", f"Mode 1: 5 Kelahiran · Lahir {format_tanggal_lengkap(tgl)}", ""]
+    lines = [f"Peta Jiwa: {nama}", f"{modal_multi.title()} · Lahir {format_tanggal_lengkap(tgl)}", ""]
     for r in results:
         lines.append(f'{r["label"]}: {r["title"]}')
     return "\n".join(lines)
+
+
+def _dashboard(results, tgl):
+    """Dashboard ringkas Mode 2/3: radar/bar skor ASLI sistem kuesioner (+ Roda Takdir & Pinnacle di Mode 3)."""
+    if not modal_multi.needs_quiz():
+        return
+    RK.score_panels([(r["system"], r["raw"]) for r in results if r["system"] in modal_multi.PSY5],
+                    heading="📊 PROFIL SKOR KEPRIBADIANMU")
+    if tgl and any(r["system"] == "Matrix Destiny" for r in results):
+        from components import life_chart
+        st.markdown('<div class="rk-ph" style="margin:12px 2px 8px">🧭 RODA TAKDIR & SIKLUS HIDUP</div>', unsafe_allow_html=True)
+        life_chart.render("Matrix Destiny", tgl, height=700)
+        st.markdown('<div class="rk-ph" style="margin:12px 2px 8px">📈 PINNACLE &amp; PERSONAL YEAR</div>', unsafe_allow_html=True)
+        life_chart.render("Numerologi", tgl, height=560)
 
 
 def render_result():
@@ -290,7 +306,7 @@ def render_result():
     results = ss.get("dh_flow_result") or []
     nama, tgl = data.get("nama", ""), data.get("tgl_lahir")
     jam = f' · {data["jam_lahir"]} WIB' if data.get("jam_lahir") else ""
-    email = ss.get("dh_email", "")
+    email = (auth.current_user() or {}).get("email") or ss.get("dh_email", "")
 
     # kolom ke-4 kosong = ruang buat tombol X dialog (X di kanan tombol Salin Ringkasan)
     h1, h2, h3, _x = st.columns([3.1, 1, 1.4, 0.32], gap="small", vertical_alignment="top")
@@ -299,7 +315,7 @@ def render_result():
             '<div class="dh-step dh-step-result"></div>'
             '<div class="dh-res-badge">✓ CETAK BIRU TAKDIR BERHASIL TERUNGKAP</div>'
             f'<div class="dh-res-title">Peta Jiwa: {nama}</div>'
-            f'<div class="dh-res-info"><b>Mode 1: 5 Kelahiran</b> · Lahir: {format_tanggal_lengkap(tgl)}{jam}'
+            f'<div class="dh-res-info"><b>{modal_multi.title()}</b> · Lahir: {format_tanggal_lengkap(tgl)}{jam}'
             f' · Tersimpan di Akun ({email})</div>', unsafe_allow_html=True)
     with h2:
         if st.button("Buka Akunku", key="dhr_account", use_container_width=True):
@@ -315,7 +331,8 @@ def render_result():
                 'sistem untuk mengunduh gambar kartu estetik dan membagikannya ke Story sosmed!</div>',
                 unsafe_allow_html=True)
 
-    for row in (results[0:2], results[2:4], results[4:5]):
+    _dashboard(results, tgl)
+    for row in [results[i:i + 2] for i in range(0, len(results), 2)]:
         cols = st.columns(2, gap="small")
         for col, r in zip(cols, row):
             with col:
@@ -332,13 +349,15 @@ def render_result():
 
     st.markdown('<div class="dh-res-sep"></div>', unsafe_allow_html=True)
     st.markdown(f'<div class="dh-res-saved dh-res-saved-row">Tersimpan di akun: <b>{email}</b></div>', unsafe_allow_html=True)
-    f2, f3, f4 = st.columns([1.3, 1, 1.1], gap="small", vertical_alignment="center")
-    with f2:
+    from components import result_kit as RK
+    from utils.simple_pdf import make_pdf
+    secs = [(f'{r["label"]} - {r["title"]}', [x for x in (r["desc"], r["quote"]) if x]) for r in results]
+    ttl = f"Peta Jiwa: {nama}"
+    wa = f'{ttl} ({modal_multi.title()}). Cek takdirmu di destinyreveal.id #DestinyReveal'
+
+    def _extra():
         st.button("Buka Profil & Riwayat", key="dhr_profile", on_click=_cb_soon,
                   args=("Profil & riwayat belum tersedia, masih tahap pengembangan 🚧",), use_container_width=True)
-    with f3:
-        st.button("Scan Orang Lain", key="dhr_again", type="primary", on_click=reset_for_new_scan,
-                  use_container_width=True)
-    with f4:
-        st.button("Selesai & Tutup", key="dhr_done", type="primary", on_click=cc.cb_ask, args=("reveal",),
-                  use_container_width=True)
+        st.button("Scan Orang Lain", key="dhr_again", on_click=reset_for_new_scan, use_container_width=True)
+    RK.actions("dhr", (cc.cb_ask, ("reveal",)), pdf=make_pdf(ttl, f"{modal_multi.title()} - Lahir: {format_tanggal_lengkap(tgl)}", secs),
+               text=_summary_text(nama, tgl, results), wa=wa, name="cetak-biru-takdir", extra=_extra)

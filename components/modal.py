@@ -11,9 +11,9 @@ from datetime import date
 import streamlit as st
 from content import pricing as P
 
-from components import close_confirm as cc, modal_detail, modal_steps
+from components import auth, close_confirm as cc, form_kit, modal_detail, modal_multi, modal_steps
 from components.flow_state import (
-    STEP_FORM, STEP_LOADING, STEP_PAY, STEP_RESULT, STEP_VERIFY, current_step, set_step,
+    STEP_FORM, STEP_LOADING, STEP_PAY, STEP_RESULT, current_step, set_step,
 )
 
 # (key mode, tag, judul, pill, bullets, ribbon, koin, foot, info)
@@ -53,12 +53,7 @@ def _cb_form_next(mode):
         "kota_lahir": (st.session_state.get("dhm_kota") or "").strip(),
         "golongan_darah": st.session_state.get("dhm_golda") or "",
     }
-    if mode == "instan":
-        # email udah pernah diverifikasi (mis. habis "Scan Orang Lain") -> langsung bayar
-        set_step(STEP_PAY if st.session_state.get("dh_email_verified") else STEP_VERIFY)
-    else:
-        # Mode 2 & 3: alur belum dibuat -> tutup modal, balik ke Home dengan pemberitahuan
-        st.session_state.dh_flow_exit = True
+    modal_multi.go_after_form()
 
 
 def _render_form():
@@ -73,12 +68,18 @@ def _render_form():
         unsafe_allow_html=True,
     )
 
+    if auth.current_user() and not st.session_state.get("dhm_prefilled"):  # isi otomatis dari profil (sekali per buka)
+        st.session_state.dhm_prefilled = True
+        if form_kit.my_data() and not st.session_state.get("dhm_nama") and not st.session_state.get("dhm_tgl"):
+            form_kit._cb_fill("dhm", "reveal")
+            st.session_state.pop("dhm_filled", None)
     with st.container(key="dhmodal_sec1"):
         st.markdown(
             '<div class="dh-modal-section"><span>📅 TANGGAL LAHIR &amp; IDENTITAS DASAR</span>'
             '<em>Wajib</em></div>',
             unsafe_allow_html=True,
         )
+        form_kit.data_bar("dhm", "reveal")
         c1, c2 = st.columns([1.15, 1], gap="small")
         with c1:
             st.text_input("Nama Lengkap / Panggilan", placeholder="Contoh: Rina Anggraini", key="dhm_nama")
@@ -129,7 +130,7 @@ def _render_form():
         st.error(st.session_state.dh_flow_error)
     _l, _m, _r = st.columns([1, 2.2, 1])
     with _m:
-        st.button("Lanjut ke Verifikasi & Buka Hasil →", key="dhmodal_cta", type="primary",
+        st.button("Lanjutkan →", key="dhmodal_cta", type="primary",
                   use_container_width=True, on_click=_cb_form_next, args=(mode,))
 
 
@@ -152,25 +153,20 @@ def reopen_if_pending():
 
 @st.dialog("Multi-System Blueprint", width="large", on_dismiss=_on_dismiss)
 def _flow_dialog():
-    if st.session_state.pop("dh_flow_exit", False):
-        st.session_state.dr_page = "home"
-        st.session_state.dh_toast = "Mode Mendalam dan Mode Lengkap segera hadir. Untuk sekarang, coba Mode 1 dulu ya."
-        st.rerun()  # rerun penuh = dialog nutup, balik ke Home
     step = current_step()
-    if step == STEP_VERIFY:
-        modal_steps.render_verify()
+    if step == modal_multi.STEP_MODE:
+        modal_multi.render_mode()
+    elif step == modal_multi.STEP_QUIZ:
+        modal_multi.render_quiz()
     elif step == STEP_PAY:
-        modal_steps.render_pay()
+        modal_multi.render_pay()
     elif step == STEP_LOADING:
-        modal_steps.render_loading()
+        modal_multi.render_loading()
     elif step == STEP_RESULT:
-        if cc.asking("reveal"):
-            cc.render("reveal", leave=None, icon="🔮", title="Yakin Mau Tutup Peta Jiwamu?",
+        cc.wrap("reveal", modal_steps.render_result, leave=None, icon="🔮", title="Yakin Mau Tutup Peta Jiwamu?",
                       text="Cetak biru takdirmu baru saja terungkap. Kalau ditutup, kamu perlu scan ulang untuk melihatnya lagi.",
                       tip="Ketuk Salin Ringkasan atau simpan kartu tiap sistem dulu ya.",
                       stay="✨ Lanjut Lihat Hasil", go="Ya, Tutup")
-        else:
-            modal_steps.render_result()
     elif step == "detail":
         modal_detail.render_detail()
     else:
@@ -179,7 +175,11 @@ def _flow_dialog():
 
 def open_reveal_modal():
     """Dipanggil dari tombol/link Reveal mana pun: buka modal dari langkah awal."""
-    set_step(STEP_FORM)
+    if st.session_state.pop("dh_mx_resume", False) and current_step() in (STEP_PAY, modal_multi.STEP_QUIZ, modal_multi.STEP_MODE):
+        pass  # balik dari login/top-up: lanjut di langkah terakhir
+    else:
+        set_step(STEP_FORM)
+        st.session_state.pop("dhm_prefilled", None)
     st.session_state.dh_flow_error = None
     _flow_dialog()
 

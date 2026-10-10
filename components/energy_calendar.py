@@ -200,11 +200,14 @@ def kalender_dialog():
         return
     ss = st.session_state
     u = auth.current_user()
-    if cc.asking("kalender"):
-        cc.render("kalender", leave=None, icon="🗓️", title="Yakin Mau Tutup Halaman Ini?",
-                  text="Apakah kamu yakin ingin menutup halaman ini? Pastikan teks hasil sudah disalin.",
-                  tip=None, stay="Batal", go="Ya, Tutup")
-        return
+    cc.wrap("kalender", _kalender_body, leave=None, icon="🗓️", title="Yakin Mau Tutup Halaman Ini?",
+            text="Apakah kamu yakin ingin menutup halaman ini? Pastikan teks hasil sudah disalin.",
+            tip=None, stay="Batal", go="Ya, Tutup")
+
+
+def _kalender_body():
+    ss = st.session_state
+    u = auth.current_user()
     st.markdown('<div class="dh-step dh-step-cal"></div>' + ('<div class="dh-nodismiss"></div>' if _cur_paid() else '') +
                 '<div class="dh-mn-title"><div class="dh-mn-ico">🗓️</div><div><div class="dh-mn-h">Kalender Energi</div>'
                 '<div class="dh-mn-sub">Tanggal penting bulananmu dari Zodiak · Shio · Weton · Numerologi · BaZi</div></div></div>',

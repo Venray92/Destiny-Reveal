@@ -7,10 +7,12 @@ DUMMY: Stardust dipotong di session saja (belum ada backend).
 """
 
 import html
+import re
 import time
 from datetime import date
 
 import streamlit as st
+from content import baru_loader as BL
 from content import pricing as P
 
 from components import auth
@@ -20,6 +22,8 @@ from components.dialog_bus import request_with_return
 from components.modal_detail import copy_button
 from components.solo_reveal import _profile
 from content.result_builder import compute_raw_result
+from components import result_kit as RK
+from utils import trait_cards
 from utils.simple_pdf import make_pdf
 
 PRICE = P.COMPAT  # Stardust per sistem
@@ -69,6 +73,28 @@ _SHIO = ["Tikus", "Kerbau", "Macan", "Kelinci", "Naga", "Ular", "Kuda", "Kambing
 _WETON8 = {1: ("Pegat", 38), 2: ("Ratu", 90), 3: ("Jodoh", 88), 4: ("Topo", 74), 5: ("Tinari", 92),
            6: ("Padu", 56), 7: ("Sujanan", 50), 0: ("Pesthi", 95)}
 _GRP = {1: 0, 5: 0, 7: 0, 2: 1, 4: 1, 8: 1, 3: 2, 6: 2, 9: 2, 11: 1, 22: 1, 33: 2}
+
+
+_REL_KEY = {"Asmara / Pasangan": "asmara", "Keluarga": "keluarga", "Persahabatan": "teman", "Mitra Bisnis / Rekan Kerja": "bisnis"}
+
+
+def _skenario(s, a, b, sc):
+    """Id skenario (untuk teks konteks per relasi), sama dengan kunci di compat/konteks.json."""
+    if s == "Zodiak":
+        return "selaras" if sc >= 80 else "beda_ritme" if sc < 60 else None
+    if s == "Shio":
+        x, y = a["shio"], b["shio"]
+        if x == y:
+            return "sama"
+        if any({x, y} <= t for t in _TRINE):
+            return "trine"
+        if any({x, y} == h for h in _HARMONI):
+            return "harmoni"
+        return "bentrok" if (_SHIO.index(x) - _SHIO.index(y)) % 12 == 6 else "netral"
+    if s == "Weton":
+        return _WETON8[(a["neptu"] + b["neptu"]) % 8][0].lower()
+    la, lb = a["life_path"], b["life_path"]
+    return "sama" if la == lb else "satu_kelompok" if _GRP[la] == _GRP[lb] else "beda_kelompok"
 
 
 def _score_zodiak(a, b):
@@ -237,6 +263,15 @@ def _compute(systems, pa, pb, rel):
         if ra.get("placeholder") or rb.get("placeholder"):
             return None
         sc, note, (k, t) = _SCORERS[s](ra, rb)
+        ctx = BL.compat_konteks(s, _skenario(s, ra, rb, sc) or "", _REL_KEY[rel])  # konteks per jenis hubungan (Gemini)
+        if ctx:
+            p1, _, p2 = ctx.partition(". ")
+            if k and t:
+                k, t = f"{k} {p1.rstrip('.')}.", f"{t} {p2 or p1}"
+            elif k:
+                k = f"{k} {ctx}"
+            elif t:
+                t = f"{t} {ctx}"
         rows.append({"system": s, "score": sc, "note": note})  # bobot diisi setelah semua sistem terkumpul
         if k:
             kuat.append(f"{_ICON[s]} {s}: {k}")
@@ -532,18 +567,13 @@ def _render_result():
                     + "".join(f"<p>{_e(t)}</p>" for t in items) + '</div>', unsafe_allow_html=True)
     secs = [("Ringkasan", [r["ringkas"]]), ("Skor Per Sistem", [f"{x['system']}: {x['score']} - {x['note']}" for x in r["rows"]]),
             ("Poin Kekuatan", r["kuat"]), ("Poin Tantangan", r["tantang"]), ("Nasihat Strategis", r["nasihat"])]
-    with st.container(key="dhcp_acts"):
-        st.download_button("📥 Download PDF", make_pdf(f"Soul Match - {r['a']} & {r['b']}",
-                           f"Skor {r['total']}/100 - {r['label']}", secs),
-                           file_name="soul-match.pdf", mime="application/pdf", key="dhcp_pdf",
-                           use_container_width=True, on_click="ignore")
-        a1, a2 = st.columns(2, gap="small")
-        with a1:
-            copy_button(_plain(r), "📋 Salin Hasil", "dhcp_copy", fs=12.5, h=46)
-        with a2:
-            st.button("🔄 Cek Orang Lain", key="dhcp_again", on_click=_cb_reset, use_container_width=True)
-        st.button("Selesai & Tutup", key="dhcp_done", type="primary", use_container_width=True,
-                  on_click=cc.cb_ask, args=("compat",))
+    if not r.get("_png"):
+        r["_png"] = trait_cards.kartu_laporan("SOUL MATCH", f'{r["a"]} & {r["b"]}', f'{r["total"]}/100', f'{r["label"]} · {r["rel"]}',
+                                              [(x["system"], x["score"]) for x in r["rows"]], "KEKUATAN HUBUNGAN", [t for t in r["kuat"][:3]])
+    wa = f'Soul Match {r["a"]} & {r["b"]}: {r["total"]}/100 ({r["label"]}). Cek takdirmu di destinyreveal.id #DestinyReveal'
+    RK.actions("dhcp", (cc.cb_ask, ("compat",)), pdf=make_pdf(f"Soul Match - {r['a']} & {r['b']}", f"Skor {r['total']}/100 - {r['label']}", secs),
+               text=_plain(r), png=r["_png"], wa=wa, name="soul-match",
+               extra=lambda: st.button("🔄 Cek Orang Lain", key="dhcp_again", on_click=_cb_reset, use_container_width=True))
 
 
 def _cb_close():
@@ -563,13 +593,10 @@ def compat_dialog():
     if step == "loading" and ss.get("dh_cp_res"):
         _render_loading()
     elif step == "result" and ss.get("dh_cp_res"):
-        if cc.asking("compat"):
-            cc.render("compat", leave=_cb_reset, icon="💞", title="Yakin Mau Tutup Hasil Kecocokan?",
+        cc.wrap("compat", _render_result, leave=_cb_reset, icon="💞", title="Yakin Mau Tutup Hasil Kecocokan?",
                       text="Skor sinergi dan analisis kalian baru saja terbuka. Kalau ditutup, hasil ini hilang dan perlu dihitung ulang.",
                       tip="Download PDF atau salin hasilnya dulu biar bisa dibaca bareng orangnya.",
                       stay="✨ Lanjut Baca", go="Ya, Tutup Hasil")
-        else:
-            _render_result()
     elif step == "pick":
         _render_pick()
     else:

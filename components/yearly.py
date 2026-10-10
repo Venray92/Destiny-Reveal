@@ -17,7 +17,9 @@ from components.dialog_bus import request_with_return
 from content import pricing as P
 from content import yearly_calc as YC
 from engine.rotation import today_wib
+from components import result_kit as RK
 from utils import trait_cards
+from utils.simple_pdf import make_pdf
 
 _e = html.escape
 _KEYS = ("dh_yr_step", "dh_yr_res", "dh_yr_err", "dh_yr_png")
@@ -200,13 +202,14 @@ def _render_result():
         ss.dh_yr_png = trait_cards.kartu_tahunan(r["nama"], r["year"], r["shio_kamu"], r["shio_tahun"], r["rel_label"], r["skor"],
                                                  r["tier"], [x["bulan"][:3] for x in r["terbaik"]],
                                                  [x["bulan"][:3] for x in r["terjaga"]], [x["skor"] for x in r["kurva"]])
-    with st.container(key="dhbp_actions"):
-        c1, c2 = st.columns([2, 1], gap="small")
-        with c1:
-            st.download_button("⬇️ Simpan Kartu PNG", ss.dh_yr_png, file_name=f"yearly-{r['year']}.png", mime="image/png",
-                               key="dhyr_png", type="primary", use_container_width=True, on_click="ignore")
-        with c2:
-            st.button("Tutup", key="dhyr_done", on_click=_cb_close, use_container_width=True)
+    secs = [("Ringkasan Tahun", [r["ringkas"] if "ringkas" in r else r["ringkasan"], f'Hubungan shio: {r["rel_info"]}']),
+            ("Bulan Terbaik", [nm(r["terbaik"])]), ("Perlu Dijaga", [nm(r["terjaga"])])] + \
+           [(lb, [tx]) for lb, tx in r["sections"]] + [("3 Langkah Tahun Ini", list(r["tips"]))]
+    sub = f'{r["shio_kamu"]} x {r["shio_tahun"]} - Skor {r["skor"]} ({r["tier"]})'
+    ttl = f'Yearly Forecast {r["year"]}'
+    wa = f'{ttl} {r["nama"]}: skor {r["skor"]} ({r["tier"]}). Cek takdirmu di destinyreveal.id #DestinyReveal'
+    RK.actions("dhyr", (_cb_close, ()), pdf=make_pdf(ttl, f'Untuk: {r["nama"]} - {sub}', secs),
+               text=RK.sections_text(ttl, f'{r["nama"]} - {sub}', secs), png=ss.dh_yr_png, wa=wa, name=f"yearly-{r['year']}")
 
 
 @st.dialog("Yearly Forecast", width="large", on_dismiss=_cb_dismiss)
@@ -216,12 +219,9 @@ def yearly_dialog():
         request_with_return("auth", "yearly")
     step = ss.get("dh_yr_step", "start")
     if step == "result" and ss.get("dh_yr_res"):
-        if cc.asking("yearly"):
-            cc.render("yearly", leave=_reset, icon="🗓️", title="Yakin Mau Tutup Forecast Ini?",
+        cc.wrap("yearly", _render_result, leave=_reset, icon="🗓️", title="Yakin Mau Tutup Forecast Ini?",
                       text="Forecast ini sudah tersimpan. Buka lagi dari menu ini tanpa bayar ulang (isi data dan tahun yang sama).",
                       tip="Simpan kartu PNG dulu kalau mau dibagikan.", stay="✨ Lanjut Baca", go="Ya, Tutup")
-        else:
-            _render_result()
     elif step == "loading":
         _render_loading()
     else:

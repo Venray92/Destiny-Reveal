@@ -17,6 +17,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from components import life_chart
+from components import result_kit as RK
 from components.combo import build_combo
 from components.flow_state import STEP_RESULT, set_step
 from content.profile_loader import ALLOW_LEGACY_FALLBACK, MODE1, get_profile
@@ -144,17 +145,20 @@ def _e(text):
     return html.escape(str(text)).replace("\n", "<br>")
 
 
-def copy_button(text, label, key, fs=13, h=40):
+def copy_button(text, label, key, fs=13, h=40, brown=False):
     """Tombol salin MURNI ke clipboard (JS). Layar gak berubah, cuma teks tombol
     jadi '✓ Tersalin!' 2 detik."""
     payload = json.dumps(text).replace("</", "<\\/")
+    css = ("html,body{margin:0;background:transparent}"
+           "button{width:100%;height:{H}px;border-radius:100px;border:1px solid #E9C9A8;background:#FFFFFF;"
+           "color:#C25E00;font:700 {FS}px 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;transition:background .15s}"
+           "button:hover{background:#FFF6EA}button.ok{background:#EAF3EC;border-color:#BBD4C0;color:#4A6B53}"
+           ).replace("{FS}", str(fs)).replace("{H}", str(h))
+    if brown:
+        css += "button{background:#C86D3B;border-color:#C86D3B;color:#fff}button:hover{background:#A85226}button.ok{background:#EAF3EC;border-color:#BBD4C0;color:#4A6B53}"
     components.html(
         '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&display=swap" rel="stylesheet">'
-        "<style>html,body{margin:0;background:transparent}"
-        "button{width:100%;height:{H}px;border-radius:100px;border:1px solid #E9C9A8;background:#FFFFFF;"
-        "color:#C25E00;font:700 {FS}px 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;transition:background .15s}"
-        "button:hover{background:#FFF6EA}button.ok{background:#EAF3EC;border-color:#BBD4C0;color:#4A6B53}</style>"
-        .replace("{FS}", str(fs)).replace("{H}", str(h)) +
+        f"<style>{css}</style>" +
         f'<button id="b" type="button">{html.escape(label)}</button>'
         f"<script>var T={payload},L={json.dumps(label)},b=document.getElementById('b');"
         "function ok(){b.textContent='✓ Tersalin!';b.className='ok';setTimeout(function(){b.textContent=L;b.className='';},2000)}"
@@ -209,6 +213,9 @@ def render_detail():
     if quote:  # kutipan di antara kartu dan tombol aksi
         st.markdown(f'<div class="dh-dt-quotebox">&ldquo;{_e(quote)}&rdquo;</div>', unsafe_allow_html=True)
 
+    _pn = RK.dashboard(system, raw)  # radar/bar skor asli (sistem kuesioner Mode 2/3)
+    if _pn:
+        st.markdown(_pn, unsafe_allow_html=True)
     _tg = (ss.get("dh_modal_data") or {}).get("tgl_lahir")
     if system in life_chart.SYSTEMS and _tg:  # dashboard visual: Roda Takdir / grafik usia 20-60
         st.markdown('<div class="dh-dt-eyebrow" style="margin-top:14px">PETA SIKLUS HIDUPMU</div>', unsafe_allow_html=True)

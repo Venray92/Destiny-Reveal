@@ -15,7 +15,12 @@ from urllib.parse import quote as urlquote
 import streamlit as st
 
 from components import auth
+from components import form_kit
 from components import close_confirm as cc
+from components import quiz_kit as QK
+from components import result_kit as RK
+from components.modal_detail import copy_button
+from components.aspek_info import heading_with_info
 from components import life_chart
 from components.dialog_bus import request_with_return
 from content import blueprint_calc as BC
@@ -77,8 +82,27 @@ def _cb_tab(t):
     _ss().dh_bp_err = None
 
 
-def _cb_sys():
-    _ss().dh_bp_sys = _ss().get("dhbp_sysel")
+def _cb_sys(name):
+    _ss().dh_bp_sys = name
+
+
+def _prefill(prof):
+    """Isi form data diri dari profil (sekali, selama field belum ada di state)."""
+    ss = _ss()
+    p = prof or form_kit.my_data() or {}
+    if not p or "dhbp_nama" in ss:
+        return
+    tgl = p.get("tgl")
+    if isinstance(tgl, str):
+        try:
+            tgl = date.fromisoformat(tgl[:10])
+        except ValueError:
+            tgl = None
+    ss.dhbp_nama = p.get("nama") or ""
+    ss.dhbp_tgl = tgl
+    ss.dhbp_jam = p.get("jam") or None
+    ss.dhbp_kota = p.get("kota") or ""
+    ss.dhbp_golda = p.get("golda") if p.get("golda") in _GOLDA else None
 
 
 def _cb_rtab(i):
@@ -188,38 +212,43 @@ def _render_start():
                 st.button(lb, key=f"dhbp_tab_{t}", on_click=_cb_tab, args=(t,), type="primary" if t == tab else "secondary",
                           use_container_width=True)
     if tab == "dive":
-        st.markdown('<div class="dh-bp-note">Pilih 1 sistem, dapat analisis lengkap A-M.</div>', unsafe_allow_html=True)
+        heading_with_info('<div class="dh-bp-note">Pilih 1 sistem, dapat analisis lengkap A-M.</div>', "bp", "AM")
         cur = _scope()[0]
-        st.selectbox("Pilih Sistem", BC.NAMES, index=BC.NAMES.index(cur), key="dhbp_sysel", label_visibility="collapsed",
-                     format_func=lambda n: f"{BC.ICON[n]}  {n}", on_change=_cb_sys)
+        with st.container(key="dhso_grid"):  # grid sama dengan One-System Blueprint (CSS dishare)
+            for r in range(3):
+                cols = st.columns(5, gap="small")
+                for col, n in zip(cols, BC.NAMES[r * 5:(r + 1) * 5]):
+                    with col:
+                        st.button(f"{BC.ICON[n]}  \n**{n}**", key=f"dhbp_pick_{n}", on_click=_cb_sys, args=(n,),
+                                  type="primary" if cur == n else "secondary", use_container_width=True)
         s = _scope()[0]
         st.markdown(f'<div class="dh-bp-sysdesc"><b>{BC.ICON[s]} {_e(s)}</b><span>{_e(BC.DESC[s])}</span></div>',
                     unsafe_allow_html=True)
     else:
-        st.markdown('<div class="dh-bp-note">Analisis A-M untuk seluruh <b>15 sistem</b> + Grand Synthesis, roadmap 10 tahun, '
-                    'dan PDF lengkap.</div>', unsafe_allow_html=True)
+        heading_with_info('<div class="dh-bp-note">Analisis A-M untuk seluruh <b>15 sistem</b> + Grand Synthesis, roadmap 10 tahun, '
+                          'dan PDF lengkap.</div>', "bp", "AM")
         st.markdown('<div class="dh-bp-chips">' + "".join(f'<i>{BC.ICON[n]} {_e(n)}</i>' for n in BC.NAMES) + '</div>',
                     unsafe_allow_html=True)
 
     from components.solo_reveal import _profile
     prof = _profile() or {}
+    _prefill(prof)
     with st.container(key="dhbp_card"):
         st.markdown('<div class="dh-bp-sec">VERIFIKASI PARAMETER PROFIL</div>', unsafe_allow_html=True)
+        form_kit.data_bar("dhbp", "blueprint")
         c1, c2 = st.columns([1.15, 1], gap="small")
         with c1:
-            st.text_input("Nama Lengkap / Panggilan", value=prof.get("nama") or (u or {}).get("nama", ""), key="dhbp_nama")
+            st.text_input("Nama Lengkap / Panggilan", key="dhbp_nama")
         with c2:
-            st.date_input("Tanggal Lahir", value=prof.get("tgl"), min_value=date(1900, 1, 1), max_value=date.today(),
+            st.date_input("Tanggal Lahir", value=None, min_value=date(1900, 1, 1), max_value=date.today(),
                           format="DD/MM/YYYY", key="dhbp_tgl")
         c3, c4, c5 = st.columns(3, gap="small")
         with c3:
-            st.time_input("Jam Lahir (Opsional)", value=prof.get("jam") or None, key="dhbp_jam")
+            st.time_input("Jam Lahir (Opsional)", value=None, key="dhbp_jam")
         with c4:
-            st.text_input("Kota Lahir (Opsional)", value=prof.get("kota") or "", placeholder="Contoh: Jakarta", key="dhbp_kota")
+            st.text_input("Kota Lahir (Opsional)", placeholder="Contoh: Jakarta", key="dhbp_kota")
         with c5:
-            g = prof.get("golda")
-            st.selectbox("Golongan Darah", _GOLDA, index=_GOLDA.index(g) if g in _GOLDA else None, placeholder="Pilih",
-                         key="dhbp_golda")
+            st.selectbox("Golongan Darah", _GOLDA, index=None, placeholder="Pilih", key="dhbp_golda")
         if tab == "complete":
             st.markdown('<div class="dh-bp-note sm">Jam lahir dibutuhkan untuk Zi Wei &amp; Human Design, golongan darah untuk '
                         'sistem Golongan Darah. Kalau kosong, sistem itu dilewati.</div>', unsafe_allow_html=True)
@@ -248,7 +277,7 @@ def _render_mode():
     t_s = "~2-3 menit" if full else f"~{max(1, round(n_s * 7 / 60))} menit"
     t_l = "~5-7 menit" if full else f"~{max(1, round(n_l * 7 / 60))} menit"
     qs = ", ".join(s for s in BC.QUIZ if s in sc)
-    st.markdown(f'<div class="dh-bp-note">Kuesioner untuk: <b>{_e(qs)}</b>. Satu pertanyaan per layar, langsung lanjut tiap kamu menjawab.</div>',
+    st.markdown(f'<div class="dh-bp-note">Kuesioner untuk: <b>{_e(qs)}</b>. Satu pertanyaan per layar, semua wajib dijawab.</div>',
                 unsafe_allow_html=True)
     cards = [("singkat", "⚡ Kuesioner Singkat", t_s, n_s, "Estimasi cepat dari soal pilihan. Akurasi cukup untuk gambaran awal."),
              ("lengkap", "🎯 Kuesioner Lengkap", t_l, n_l, "Seluruh bank soal. Hasil kepribadian paling akurat.")]
@@ -262,43 +291,22 @@ def _render_mode():
     st.button("← Kembali", key="dhbp_mode_back", on_click=_go, args=("start",), type="tertiary")
 
 
-# ─────────────── layar: kuesioner (auto-slide) ───────────────
+# ─────────────── layar: kuesioner ───────────────
+def _qget(sys_, qid):
+    return (_ss().get("dh_bp_ans") or {}).get(sys_, {}).get(qid)
+
+
+def _qput(sys_, qid, val):
+    _ss().setdefault("dh_bp_ans", {}).setdefault(sys_, {})[qid] = val
+
+
 def _render_quiz():
     ss = _ss()
     items = BC.plan(ss.get("dh_bp_mode") or "singkat", _scope())
-    n = len(items)
-    qi = min(max(ss.get("dh_bp_qi", 0), 0), n - 1)
-    it = items[qi]
-    s, q = it["sys"], it["q"]
-    st.markdown(
-        '<div class="dh-step dh-step-bp"></div><div class="dh-nodismiss"></div>'
-        f'<div class="dh-bp-qtop"><span>{BC.ICON[s]} {_e(s)}</span><b>Soal {qi + 1} / {n}</b></div>'
-        f'<div class="dh-bp-prog"><i style="width:{round(qi / n * 100)}%"></i></div>', unsafe_allow_html=True)
-    with st.container(key=f"dhbp_slide_{qi}"):  # key beda tiap soal -> animasi slide-in
-        if s in ("MBTI", "Enneagram", "Big Five"):
-            st.markdown(f'<div class="dh-bp-q">{_e(q["text"])}</div>', unsafe_allow_html=True)
-        elif s == "DISC":
-            st.markdown('<div class="dh-bp-q">Pilih kata yang <b>paling</b> menggambarkan dirimu:</div>', unsafe_allow_html=True)
-        else:
-            st.markdown('<div class="dh-bp-q">Mana yang lebih sesuai buat kamu?</div>', unsafe_allow_html=True)
-        with st.container(key="dhbp_opts"):
-            if s in ("MBTI", "Enneagram"):
-                c1, c2 = st.columns(2, gap="small")
-                for col, lb, v in ((c1, "👍 Setuju", True), (c2, "👎 Tidak Setuju", False)):
-                    with col:
-                        st.button(lb, key=f"dhbp_a_{qi}_{int(v)}", on_click=_cb_ans, args=(s, q["id"], v), use_container_width=True)
-            elif s == "Big Five":
-                for v in (5, 4, 3, 2, 1):
-                    st.button(f"{v}  ·  {_SCALE[v]}", key=f"dhbp_a_{qi}_{v}", on_click=_cb_ans, args=(s, q["id"], v),
-                              use_container_width=True)
-            elif s == "DISC":
-                for L in "ABCD":
-                    st.button(q["options"][L], key=f"dhbp_a_{qi}_{L}", on_click=_cb_ans, args=(s, q["id"], L), use_container_width=True)
-            else:
-                for L in "AB":
-                    st.button(f"{L}.  {q[L]['text']}", key=f"dhbp_a_{qi}_{L}", on_click=_cb_ans, args=(s, q["id"], L),
-                              use_container_width=True)
-    st.button("← Kembali", key="dhbp_qback", on_click=_cb_qback, type="tertiary")
+    prof = ss.get("dh_solo_prof") or {}
+    meta = " · ".join(str(x) for x in (prof.get("tgl"), prof.get("kota")) if x)
+    QK.render("dhbp", items, _qget, _qput, "dh_bp_qi", "Kuesioner Blueprint",
+              (prof.get("nama"), meta), lambda: _go("mode"), lambda: _go("pay"), _SCALE)
 
 
 # ─────────────── layar: bayar ───────────────
@@ -389,13 +397,36 @@ def _idcard(r):
         life_chart.strip(r["nama"], r["tgl"])
 
 
+def _score_panels(r):
+    """Panel skor ASLI (radar/bar) untuk sistem kuesioner yang ikut di blueprint ini."""
+    raws = r.get("raws") or {}
+    RK.score_panels([(s, raws.get(s)) for s in ("MBTI", "Big Five", "Enneagram", "DISC", "Love Language")],
+                    heading="📊 PROFIL SKOR KEPRIBADIAN", cls="dh-bp-ct")
+
+
+def _card_gallery(r):
+    """Kartu visual per sistem (assets/cards) + Simpan PNG + WhatsApp. Pilih sistem lewat pills."""
+    raws = r.get("raws") or {}
+    names = [s["name"] for s in r["systems"] if s["ok"] and RK.has_card(s["name"], raws.get(s["name"]))]
+    if not names:
+        return
+    st.markdown('<div class="dh-bp-ct" style="margin:10px 2px 8px">🃏 KARTU TAKDIRMU</div>', unsafe_allow_html=True)
+    pick = st.pills("Pilih kartu", names, default=names[0], key="dhbp_cardpick", label_visibility="collapsed") or names[0]
+    cap = f'{r["nama"]} · Kartu {pick}\nCek takdirmu di destinyreveal.id #DestinyReveal'
+    RK.card_visual(pick, raws.get(pick), r["nama"], cap, "dhbprc")
+
+
 def _tab_synth(r):
     y = r["synth"]
     out = f'<div class="dh-bp-card"><div class="dh-bp-ct">🧬 ARKETIPE INTI</div>{_paras(y["arketipe"])}</div>'
     if r.get("tgl"):  # dashboard visual: Roda Takdir + grafik usia 20-60 (Matrix Destiny)
         st.markdown(out, unsafe_allow_html=True)
+        _card_gallery(r)
+        _score_panels(r)
         st.markdown('<div class="dh-bp-ct" style="margin:6px 2px 8px">🧭 PETA SIKLUS HIDUP</div>', unsafe_allow_html=True)
         life_chart.render("Matrix Destiny", r["tgl"], height=700)
+        st.markdown('<div class="dh-bp-ct" style="margin:10px 2px 8px">📈 PINNACLE &amp; PERSONAL YEAR</div>', unsafe_allow_html=True)
+        life_chart.render("Numerologi", r["tgl"], height=560)
         out = ""
     out += ''
     box = lambda items, cls: "".join(f'<div class="{cls}"><small>{_e(s)}</small><p>{_fx(t)}</p></div>' for s, t in items)
@@ -478,6 +509,7 @@ def _render_result():
         st.rerun(scope="fragment")
     st.markdown('<div class="dh-step dh-step-bp"></div>', unsafe_allow_html=True)
     _idcard(r)
+    heading_with_info('<div class="dh-bp-h3">Analisis A-M</div>', "bp_res", "AM")
     tab = ss.get("dh_bp_rtab", 0)
     if r["complete"]:
         with st.container(key="dhbp_rtabs"):
@@ -489,20 +521,50 @@ def _render_result():
         (_tab_synth if tab == 0 else _tab_systems)(r)
     else:
         s = r["systems"][0]
+        _raw1 = (r.get("raws") or {}).get(s["name"])
+        _cap1 = f'{r["nama"]} · Deep Blueprint {s["name"]}\nCek takdirmu di destinyreveal.id #DestinyReveal'
+        _pn = RK.dashboard(s["name"], _raw1)
+        if s["ok"] and RK.has_card(s["name"], _raw1) and _pn:
+            _c1, _c2 = st.columns([1, 1.15], gap="medium")
+            with _c1:
+                RK.card_visual(s["name"], _raw1, r["nama"], _cap1, "dhbprc")
+            with _c2:
+                st.markdown(_pn, unsafe_allow_html=True)
+        elif s["ok"] and RK.has_card(s["name"], _raw1):
+            RK.card_visual(s["name"], _raw1, r["nama"], _cap1, "dhbprc")
+        elif _pn:
+            st.markdown(_pn, unsafe_allow_html=True)
         if s["name"] in life_chart.SYSTEMS and r.get("tgl"):
             life_chart.render(s["name"], r["tgl"], height=700 if s["name"] == "Matrix Destiny" else 560)
         st.markdown(f'<div class="dh-bp-card"><div class="dh-bp-ct">{s["icon"]} {_e(s["name"].upper())}'
-                    f'{" · " + _e(s["title"]) if s.get("title") else ""}</div>{_sys_body(s)}</div>', unsafe_allow_html=True)
+                    f'{" · " + _e(s["title"]) if s.get("title") else ""}</div></div>', unsafe_allow_html=True)
+        if not s["ok"]:
+            st.markdown(_sys_body(s), unsafe_allow_html=True)
+        else:  # kartu insight (sorotan + expand) menggantikan tembok teks
+            _ic = {"utama": "🔹", "karier": "💼", "asmara": "💗", "nasihat": "🧭"}
+            items = [(_ic[k], lb[2:], [_plain(t) for t in s[k]]) for k, lb in _BLOCKS if s.get(k)]
+            items += [("🧩", a, [_plain(b)]) for a, b in (s.get("extra") or [])]
+            st.markdown(RK.insight_cards(items), unsafe_allow_html=True)
     data, pages = _pdf_cached(r)
     cap = f'Deep Blueprint {r["nama"]} ({r["id"]}) sudah jadi di Destiny Reveal.'
+    plain = [f'DEEP BLUEPRINT · {r["nama"]} ({r["id"]})', f'Lahir: {r["lahir"]}', ""]
+    if r.get("synth"):
+        plain += ["ARKETIPE INTI", *[_plain(t) for t in r["synth"]["arketipe"]], ""]
+    for s_ in r["systems"]:
+        plain.append(f'{s_["icon"]} {s_["name"]}' + (f' · {s_["title"]}' if s_.get("title") else ""))
+        plain += [_plain(t) for t in (s_.get("utama") or [])[:2]] + [""]
+    plain.append("Cek takdirmu di destinyreveal.id #DestinyReveal")
     with st.container(key="dhbp_actions"):
-        c1, c2, c3 = st.columns([1.9, 1.2, 0.8], gap="small")
+        c1, c2 = st.columns(2, gap="small")
         with c1:
-            st.download_button(f"⬇️ Download Full PDF {pages} Halaman", data, file_name="deep-blueprint.pdf", mime="application/pdf",
-                               key="dhbp_pdf", type="primary", use_container_width=True, on_click="ignore")
+            st.download_button(f"Download PDF ({pages} Hal.)", data, file_name="deep-blueprint.pdf", mime="application/pdf",
+                               key="dhbp_pdf", use_container_width=True, on_click="ignore", icon=":material/download:")
         with c2:
-            st.link_button("Share Blueprint", f"https://wa.me/?text={urlquote(cap)}", use_container_width=True, icon=":material/share:")
+            copy_button("\n".join(plain).strip(), "📋 Salin Teks", "dhbp_copy", fs=12.5, h=48, brown=True)
+        c3, c4 = st.columns(2, gap="small")
         with c3:
+            st.link_button("Share WhatsApp", f"https://wa.me/?text={urlquote(cap)}", use_container_width=True, icon=":material/share:")
+        with c4:
             st.button("Tutup", key="dhbp_done", on_click=cc.cb_ask, args=("blueprint",), use_container_width=True)
 
 
@@ -513,13 +575,10 @@ def blueprint_dialog():
         request_with_return("auth", "blueprint")
     step = ss.get("dh_bp_step", "start")
     if step == "result" and ss.get("dh_bp_res"):
-        if cc.asking("blueprint"):
-            cc.render("blueprint", leave=_reset_view, icon="🔷", title="Yakin Mau Tutup Blueprint Ini?",
+        cc.wrap("blueprint", _render_result, leave=_reset_view, icon="🔷", title="Yakin Mau Tutup Blueprint Ini?",
                       text="Blueprint ini sudah tersimpan. Kamu bisa membukanya lagi dari menu ini tanpa bayar ulang "
                            "(isi data yang sama).",
                       tip="Download PDF dulu kalau mau dibaca offline.", stay="✨ Lanjut Baca", go="Ya, Tutup Blueprint")
-        else:
-            _render_result()
     elif step == "mode":
         _render_mode()
     elif step == "quiz":

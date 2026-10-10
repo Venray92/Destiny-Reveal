@@ -67,3 +67,47 @@ def render(key, leave, icon="🌙", title="Yakin Mau Pergi Sekarang?",
                 if leave:
                     leave()
                 st.rerun()  # rerun penuh = dialog nutup
+
+
+def layer(key, main_fn, on_go=None, on_stay=None, icon="❔", title="Yakin?", text="", stay="Batal", go="Ya, Lanjut",
+          go_args=(), tip=None, leave=None, stay_args=()):
+    """Konfirmasi sebagai LAYER di atas modal utama (modal utama tetap tampil, buram di belakang).
+    main_fn() = render layar utama. on_go / on_stay = callback tombol (jalan sebelum rerun).
+    leave != None -> tombol 'go' menutup beneran: flag dibuang, leave() dipanggil, rerun penuh (dialog nutup)."""
+    e = html.escape
+    with st.container(key=f"dhcc_bg_{key}"):
+        main_fn()
+    with st.container(key=f"dhcc_layer_{key}"):
+        with st.container(key=f"dhcc_card_{key}"):
+            st.markdown(
+                '<div class="dh-nodismiss"></div>'
+                f'<div class="dh-cc dh-cc-lay"><div class="dh-cc-orb"><i></i><span>{icon}</span></div>'
+                f'<div class="dh-cc-t">{e(title)}</div><div class="dh-cc-s">{text}</div>'
+                + (f'<div class="dh-cc-tip">💡 {e(tip)}</div>' if tip else "") + '</div>',
+                unsafe_allow_html=True)
+            if stay is None:  # mode satu tombol (popup info)
+                st.button(go, key=f"dhccl_go_{key}", type="primary", on_click=on_go, args=go_args, use_container_width=True)
+                return
+            c1, c2 = st.columns(2, gap="small")
+            with c1:
+                st.button(stay, key=f"dhccl_stay_{key}", on_click=on_stay, args=stay_args, use_container_width=True)
+            with c2:
+                if leave is not None or on_go is None:
+                    if st.button(go, key=f"dhccl_go_{key}", type="primary", use_container_width=True):
+                        st.session_state.pop(_flag(key), None)
+                        if leave:
+                            leave()
+                        st.rerun()  # rerun penuh = dialog nutup
+                else:
+                    st.button(go, key=f"dhccl_go_{key}", type="primary", on_click=on_go, args=go_args, use_container_width=True)
+
+
+def wrap(key, main_fn, leave=None, icon="🌙", title="Yakin Mau Pergi Sekarang?",
+         text="Hasil bacaanmu masih hangat. Kalau ditutup, halaman ini tidak bisa dibuka lagi.",
+         tip="Salin atau simpan dulu kalau masih mau dibaca nanti.", stay="✨ Lanjut Baca", go="Ya, Tutup"):
+    """Pengganti render(): layar hasil tetap tampil (buram), konfirmasi tutup jadi layer di atasnya."""
+    if not asking(key):
+        main_fn()
+        return
+    layer(key, main_fn, on_stay=cb_stay, stay_args=(key,), icon=icon, title=title, text=html.escape(text),
+          stay=stay, go=go, tip=tip, leave=leave or (lambda: None))

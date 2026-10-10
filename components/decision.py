@@ -17,7 +17,9 @@ from components import close_confirm as cc
 from components.dialog_bus import request_with_return
 from content import decision_calc as DC
 from content import pricing as P
+from components import result_kit as RK
 from utils import trait_cards
+from utils.simple_pdf import make_pdf
 
 _e = html.escape
 _KEYS = ("dh_dc_step", "dh_dc_cards", "dh_dc_open", "dh_dc_active", "dh_dc_new", "dh_dc_err", "dh_dc_png")
@@ -206,9 +208,14 @@ def _render_result():
                     unsafe_allow_html=True)
         if not ss.get("dh_dc_png"):
             ss.dh_dc_png = trait_cards.kartu_keputusan(a, b, r["skor"]["A"], r["skor"]["B"], r["unggul"], arah)
-        with st.container(key="dhdc_acts"):
-            st.download_button("⬇️ Simpan Kartu PNG", ss.dh_dc_png, file_name="decision-reveal.png", mime="image/png",
-                               key="dhdc_png", use_container_width=True, on_click="ignore")
+        secs = [("Hasil", [f'A ({a}): {r["skor"]["A"]:+d}', f'B ({b}): {r["skor"]["B"]:+d}', r["verdict"]]), ("Arah Saran 7 Hari", [arah])]
+        wa = f'Decision Reveal: {r["verdict"]} Cek takdirmu di destinyreveal.id #DestinyReveal'
+        st.markdown('<div style="height:6px"></div>', unsafe_allow_html=True)
+        RK.actions("dhdc", (_cb_close, ()), pdf=make_pdf("Decision Reveal", f"A: {a} - B: {b}", secs),
+                   text=RK.sections_text("Decision Reveal", f"A: {a} - B: {b}", secs), png=ss.dh_dc_png, wa=wa,
+                   name="decision-reveal",
+                   extra=lambda: st.button("← Tebar Ulang dengan Pilihan Lain", key="dhdc_again", use_container_width=True, on_click=_cb_again))
+        return
     with st.container(key="dhts_acts"):
         st.button("← Tebar Ulang dengan Pilihan Lain", key="dhdc_again", use_container_width=True, on_click=_cb_again)
         st.button("Selesai & Tutup", key="dhdc_done", type="primary", use_container_width=True, on_click=_cb_close)
@@ -221,12 +228,9 @@ def decision_dialog():
         request_with_return("auth", "decision")
     step = ss.get("dh_dc_step", "start")
     if step == "result":
-        if cc.asking("decision"):
-            cc.render("decision", leave=_reset, icon="⚖️", title="Yakin Mau Tutup Hasil Ini?",
+        cc.wrap("decision", _render_result, leave=_reset, icon="⚖️", title="Yakin Mau Tutup Hasil Ini?",
                       text="Tebaran ini tidak bisa dibuka lagi setelah ditutup. Menebar ulang butuh Stardust baru.",
                       tip="Simpan kartu PNG dulu kalau mau dibagikan.", stay="✨ Lanjut Baca", go="Ya, Tutup")
-        else:
-            _render_result()
     elif step == "loading":
         _render_loading()
     else:

@@ -55,7 +55,7 @@ def data_bar(prefix, back):
             if st.button("🔑 Masuk untuk isi data otomatis", key=f"{prefix}_bar_login", use_container_width=True):
                 request_with_return("auth", back)
         elif my_data():
-            st.button("📥 Gunakan Data Saya", key=f"{prefix}_bar_fill", on_click=_cb_fill, args=(prefix, back),
+            st.button("🔄 Gunakan Data Saya", key=f"{prefix}_bar_fill", on_click=_cb_fill, args=(prefix, back),
                       use_container_width=True)
             if st.session_state.pop(f"{prefix}_filled", False):
                 st.caption("✓ Data akunmu sudah diisikan ke form.")

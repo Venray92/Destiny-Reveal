@@ -354,6 +354,32 @@ def _ts_result():
         else:
             with st.container(key="dhts_combobtn"):
                 st.button("✨ Lihat Hasil Analisis Kombinasi Kartu ✨", key="dhts_combo_btn", on_click=_cb_ts_combo)
+    if len(opened) >= tab:
+        from components import result_kit as RK
+        from utils import trait_cards
+        from utils.simple_pdf import make_pdf
+        who = (auth.current_user() or {}).get("nama") or "Kamu"
+        rows = []
+        for sl, ps in zip(cards, sp["pos"]):
+            _c, nm, ar, _ix = _ts_info(sl)
+            rows.append(f"{ps[0]}: {nm}" + (f" ({ar})" if ar else ""))
+        key = (tuple(cards), who)
+        if ss.get("dh_ts_png_key") != key:
+            ss.dh_ts_png = trait_cards.kartu_laporan("TAROT SPREAD", who, sp["title"], f"{tab} kartu", None, "TEBARANMU",
+                                                     [r_.split(" (")[0] for r_ in rows])
+            ss.dh_ts_png_key = key
+        secs = [("Tebaran Kartu", rows)] + [(ps[0], [ps[1]]) for ps in sp["pos"]]
+        wa = f'{sp["title"]}: ' + ", ".join(r_.split(": ", 1)[1].split(" (")[0] for r_ in rows) + ". Cek takdirmu di destinyreveal.id #DestinyReveal"
+
+        def _extra():
+            st.button("← Tebar Ulang / Pilih Jenis Spread Lain", key="dhts_again", use_container_width=True,
+                      on_click=_cb_ts_leave, args=("again", combo))
+            st.button("Sinkronkan ke Cetak Biru Takdir →", key="dhts_sync", use_container_width=True,
+                      on_click=_cb_ts_leave, args=("sync", combo))
+        RK.actions("dhts", (_cb_ts_leave, ("close", combo)), pdf=make_pdf(sp["title"], f"Untuk: {who}", secs),
+                   text=RK.sections_text(sp["title"], f"Untuk: {who}", secs), png=ss.dh_ts_png, wa=wa,
+                   name="tarot-spread", extra=_extra)
+        return
     with st.container(key="dhts_acts"):
         st.button("← Tebar Ulang / Pilih Jenis Spread Lain", key="dhts_again", use_container_width=True,
                   on_click=_cb_ts_leave, args=("again", combo))
@@ -381,13 +407,10 @@ def tarot_spread_dialog():
     if step == "loading" and ss.get("dh_ts_cards"):
         _ts_loading()
     elif step == "result" and ss.get("dh_ts_cards"):
-        if cc.asking("tarot_spread"):
-            cc.render("tarot_spread", leave=_ts_reset, icon="🃏", title="Yakin Mau Tutup Tebaran Kartumu?",
+        cc.wrap("tarot_spread", _ts_result, leave=_ts_reset, icon="🃏", title="Yakin Mau Tutup Tebaran Kartumu?",
                       text="Kartu-kartu yang baru kamu buka membawa pesan khusus untukmu. Kalau ditutup, tebaran ini hilang dan tidak bisa dibuka lagi.",
                       tip="Baca semua kartu dan analisis kombinasinya dulu sebelum pergi.",
                       stay="✨ Lanjut Baca Kartu", go="Ya, Tutup Tebaran")
-        else:
-            _ts_result()
     elif step == "warn" and ss.get("dh_ts_cards"):
         _ts_warn()
     else:

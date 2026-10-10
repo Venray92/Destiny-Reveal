@@ -16,11 +16,15 @@ import streamlit as st
 
 from components import auth, form_kit
 from components import close_confirm as cc
+from components import quiz_kit as QK
 from components.dialog_bus import request_with_return
 from content import blueprint_calc as BC
 from content import career_calc as CC
 from content import pricing as P
 from utils import trait_cards
+from components.modal_detail import copy_button
+from utils.simple_pdf import make_pdf
+from urllib.parse import quote as urlquote
 
 _e = html.escape
 _SCALE = {1: "Sangat Tidak Setuju", 2: "Tidak Setuju", 3: "Netral", 4: "Setuju", 5: "Sangat Setuju"}
@@ -68,7 +72,7 @@ def _go(step):
 
 def _reset_view():
     ss = _ss()
-    for k in ("dh_sd_res", "dh_sd_err", "dh_sd_qi", "dh_sd_ans", "dh_sd_mode"):
+    for k in ("dh_sd_res", "dh_sd_err", "dh_sd_qi", "dh_sd_ans", "dh_sd_mode", "dh_sd_modesel", "dh_sd_modeconf"):
         ss.pop(k, None)
     ss.dh_sd_step = "start"
 
@@ -104,7 +108,21 @@ def _cb_start():
 def _cb_mode(m):
     ss = _ss()
     ss.dh_sd_mode, ss.dh_sd_qi, ss.dh_sd_ans = m, 0, {}
+    ss.pop("dh_sd_modeconf", None)
     _go("quiz")
+
+
+def _cb_modesel(m):
+    _ss().dh_sd_modesel = m  # state pilihan Cepat / Deep (belum lanjut)
+
+
+def _cb_modeask():
+    if _ss().get("dh_sd_modesel"):
+        _ss().dh_sd_modeconf = True
+
+
+def _cb_modestay():
+    _ss().pop("dh_sd_modeconf", None)
 
 
 def _cb_ans(sys_, qid, val):
@@ -186,10 +204,24 @@ def _menit(n):
 
 
 def _render_mode():
+    ss = _ss()
+    sel = ss.get("dh_sd_modesel")
+    if ss.get("dh_sd_modeconf") and sel:
+        nm = "Cepat" if sel == "singkat" else "Deep"
+        cc.layer("sdmode", _mode_screen, on_go=lambda: _cb_mode(sel), on_stay=_cb_modestay, icon="📝",
+                 title="Mulai Kuesioner?", text=f"Apakah kamu yakin ingin melanjutkan dengan kuesioner mode <b>{nm}</b>?",
+                 stay="Batal / Beralih", go="Ya, Lanjutkan")
+    else:
+        _mode_screen()
+
+
+def _mode_screen():
+    ss = _ss()
+    sel = ss.get("dh_sd_modesel")
     _head("Pilih kedalaman kuesioner kepribadianmu.")
     n_s, n_l = len(BC.plan("singkat", CC.QUIZ_SYSTEMS)), len(BC.plan("lengkap", CC.QUIZ_SYSTEMS))
     st.markdown('<div class="dh-bp-note">Kuesioner: <b>MBTI, Big Five, Enneagram, DISC</b>. Satu pertanyaan per layar, '
-                'langsung lanjut tiap kamu menjawab.</div>', unsafe_allow_html=True)
+                'semua wajib dijawab.</div>', unsafe_allow_html=True)
     cards = [("singkat", "⚡ Cepat", n_s, "Gambaran awal yang cukup baik.",
               "Tiap dimensi dinilai dari sedikit soal (MBTI 4 soal per dimensi, Big Five 3 per sifat, Enneagram 2 per tipe). "
               "Hasil bisa bergeser kalau kamu menjawab ulang."),
@@ -199,11 +231,14 @@ def _render_mode():
     c1, c2 = st.columns(2, gap="small")
     for col, (m, ttl, n, tag, ds) in zip((c1, c2), cards):
         with col:
-            st.markdown(f'<div class="dh-bp-mcard"><b>{ttl}</b><em>~{_menit(n)} menit · {n} soal</em>'
+            st.markdown(f'<div class="dh-bp-mcard{" is-sel" if sel == m else ""}"><b>{ttl}</b><em>~{_menit(n)} menit · {n} soal</em>'
                         f'<p><b style="display:inline;font-size:12.5px">{tag}</b> {ds}</p></div>', unsafe_allow_html=True)
             with st.container(key=f"dhbp_mode_{m}"):
-                st.button("Pilih", key=f"dhsd_pick_{m}", on_click=_cb_mode, args=(m,),
-                          type="primary" if m == "lengkap" else "secondary", use_container_width=True)
+                st.button("Dipilih ✓" if sel == m else "Pilih", key=f"dhsd_pick_{m}", on_click=_cb_modesel, args=(m,),
+                          type="primary" if sel == m else "secondary", use_container_width=True)
+    with st.container(key="dhbp_cta"):
+        st.button("Mulai Kuesioner →", key="dhsd_mode_go", type="primary", on_click=_cb_modeask,
+                  disabled=not sel, use_container_width=True)
     st.button("← Kembali", key="dhsd_mode_back", on_click=_go, args=("start",), type="tertiary")
 
 
@@ -223,34 +258,27 @@ def _render_reuse():
     st.button("← Kembali", key="dhsd_reuse_back", on_click=_go, args=("start",), type="tertiary")
 
 
+def _qget(sys_, qid):
+    return (_ss().get("dh_sd_ans") or {}).get(sys_, {}).get(qid)
+
+
+def _qput(sys_, qid, val):
+    _ss().setdefault("dh_sd_ans", {}).setdefault(sys_, {})[qid] = val
+
+
+def _qdone():
+    ss = _ss()
+    ss.setdefault("dh_sd_traits", {})[_pkey(ss.dh_sd_prof)] = {"mode": ss.dh_sd_mode, "ans": ss.dh_sd_ans}
+    _go("pay")
+
+
 def _render_quiz():
     ss = _ss()
     items = BC.plan(ss.get("dh_sd_mode") or "singkat", CC.QUIZ_SYSTEMS)
-    n = len(items)
-    qi = min(max(ss.get("dh_sd_qi", 0), 0), n - 1)
-    s, q = items[qi]["sys"], items[qi]["q"]
-    st.markdown('<div class="dh-step dh-step-bp"></div><div class="dh-nodismiss"></div>'
-                f'<div class="dh-bp-qtop"><span>{BC.ICON[s]} {_e(s)}</span><b>Soal {qi + 1} / {n}</b></div>'
-                f'<div class="dh-bp-prog"><i style="width:{round(qi / n * 100)}%"></i></div>', unsafe_allow_html=True)
-    with st.container(key=f"dhbp_slide_{qi}"):
-        if s == "DISC":
-            st.markdown('<div class="dh-bp-q">Pilih kata yang <b>paling</b> menggambarkan dirimu:</div>', unsafe_allow_html=True)
-        else:
-            st.markdown(f'<div class="dh-bp-q">{_e(q["text"])}</div>', unsafe_allow_html=True)
-        with st.container(key="dhbp_opts"):
-            if s in ("MBTI", "Enneagram"):
-                c1, c2 = st.columns(2, gap="small")
-                for col, lb, v in ((c1, "👍 Setuju", True), (c2, "👎 Tidak Setuju", False)):
-                    with col:
-                        st.button(lb, key=f"dhsd_a_{qi}_{int(v)}", on_click=_cb_ans, args=(s, q["id"], v), use_container_width=True)
-            elif s == "Big Five":
-                for v in (5, 4, 3, 2, 1):
-                    st.button(f"{v}  ·  {_SCALE[v]}", key=f"dhsd_a_{qi}_{v}", on_click=_cb_ans, args=(s, q["id"], v),
-                              use_container_width=True)
-            else:
-                for L in "ABCD":
-                    st.button(q["options"][L], key=f"dhsd_a_{qi}_{L}", on_click=_cb_ans, args=(s, q["id"], L), use_container_width=True)
-    st.button("← Kembali", key="dhsd_qback", on_click=_cb_qback, type="tertiary")
+    prof = ss.get("dh_sd_prof") or {}
+    meta = " · ".join(str(x) for x in (prof.get("tgl"), prof.get("kota")) if x)
+    QK.render("dhsd", items, _qget, _qput, "dh_sd_qi", "Kuesioner " + ("Career DNA" if _feat() == "career" else "Strength & Blind Spot"),
+              (prof.get("nama"), meta), lambda: _go("mode"), _qdone, _SCALE)
 
 
 def _render_pay():
@@ -391,6 +419,48 @@ def _res_strength(r):
     return out
 
 
+def _pl(t):
+    return re.sub(r"\*\*(.+?)\*\*", r"\1", str(t or ""))
+
+
+def _sections(r):
+    """Isi hasil sebagai [(judul, [baris])] untuk PDF + Salin Teks (data sama dengan layar)."""
+    sc = lambda items: [f'{x["name"]}' + (f' · {x["title"]}' if x.get("title") else "") + f': {_pl(x["teks"])}' for x in items]
+    if "plan" in r:
+        out = [("KODE & ARKETIPE", [f'{r["code"]} · {r["arketipe"]}']),
+               ("INTI KARIERMU", [r["inti"], f'Lingkungan kerja ideal: {r["lingkungan"]}', f'Yang menggerakkanmu: {r["motivasi"]}']),
+               ("PERAN YANG COCOK", list(r["peran"])), ("INDUSTRI YANG COCOK", list(r["industri"]))]
+        if r["sistem"]:
+            out.append(("KARIER MENURUT KEPRIBADIANMU", sc(r["sistem"])))
+        if r["sinyal"]:
+            out.append(("SINYAL DARI TANGGAL LAHIRMU", sc(r["sinyal"])))
+        out.append(("RENCANA AKSI 30 HARI", [f"{a}: {b}" for a, b in r["plan"]]))
+        return out
+    out = [("KEKUATAN UTAMA", list(r["tags"]) + sc(r["kuat"])),
+           ("TITIK BUTA", [f"{s}: {lab}. {gej}" + (f" Cara menyiasati: {pen}" if pen else "") for s, _t, lab, gej, pen in r["blind"]])]
+    if r["overuse"]:
+        out.append(("KEKUATAN YANG JADI BUMERANG", [r["overuse"]]))
+    if r["practice"]:
+        out.append(("LATIHAN HARIAN", sc(r["practice"])))
+    return out
+
+
+def _plain_result(r):
+    ttl = "CAREER DNA" if "plan" in r else "STRENGTH & BLIND SPOT"
+    lines = [f'{ttl} · {r["nama"]} ({r["id"]})', ""]
+    for t, xs in _sections(r):
+        lines += [t, *xs, ""]
+    lines.append("Cek takdirmu di destinyreveal.id #DestinyReveal")
+    return "\n".join(lines)
+
+
+def _pdf_result(r):
+    if not r.get("_pdf"):
+        ttl = "Career DNA" if "plan" in r else "Strength & Blind Spot"
+        r["_pdf"] = make_pdf(ttl, f'Untuk: {r["nama"]} · {r["id"]}', [(t, xs or ["-"]) for t, xs in _sections(r)])
+    return r["_pdf"]
+
+
 def _card_png(r):
     if r.get("_png"):
         return r["_png"]
@@ -409,13 +479,22 @@ def _render_result():
         st.rerun(scope="fragment")
     st.markdown('<div class="dh-step dh-step-bp"></div>', unsafe_allow_html=True)
     st.markdown(_res_career(r) if "plan" in r else _res_strength(r), unsafe_allow_html=True)
+    cap = f'{FEAT[_feat()]["h"].title()} {r["nama"]}\nCek takdirmu di destinyreveal.id #DestinyReveal'
     with st.container(key="dhbp_actions"):
-        c1, c2 = st.columns([2, 1], gap="small")
+        c1, c2 = st.columns(2, gap="small")
         with c1:
-            st.download_button("⬇️ Simpan Kartu PNG", _card_png(r), file_name=f"{_feat()}-{r['id']}.png", mime="image/png",
-                               key="dhsd_png", type="primary", use_container_width=True, on_click="ignore")
+            st.download_button("Download PDF", _pdf_result(r), file_name=f"{_feat()}-{r['id']}.pdf", mime="application/pdf",
+                               key="dhsd_pdf", use_container_width=True, on_click="ignore", icon=":material/download:")
         with c2:
-            st.button("Tutup", key="dhsd_done", on_click=cc.cb_ask, args=(_feat(),), use_container_width=True)
+            copy_button(_plain_result(r), "📋 Salin Teks", "dhsd_copy", fs=12.5, h=48, brown=True)
+        c3, c4 = st.columns(2, gap="small")
+        with c3:
+            st.download_button("Save Image", _card_png(r), file_name=f"{_feat()}-{r['id']}.png", mime="image/png",
+                               key="dhsd_png", use_container_width=True, on_click="ignore", icon=":material/image:")
+        with c4:
+            st.link_button("Share WhatsApp", f"https://wa.me/?text={urlquote(cap)}", use_container_width=True,
+                           icon=":material/share:")
+        st.button("Tutup", key="dhsd_done", on_click=cc.cb_ask, args=(_feat(),), use_container_width=True)
 
 
 def _dialog_body(feat):
@@ -427,12 +506,9 @@ def _dialog_body(feat):
         request_with_return("auth", feat)
     step = ss.get("dh_sd_step", "start")
     if step == "result" and ss.get("dh_sd_res"):
-        if cc.asking(_feat()):
-            cc.render(_feat(), leave=_reset_view, icon=FEAT[feat]["ico"], title="Yakin Mau Tutup Hasil Ini?",
+        cc.wrap(_feat(), _render_result, leave=_reset_view, icon=FEAT[feat]["ico"], title="Yakin Mau Tutup Hasil Ini?",
                       text="Hasil ini sudah tersimpan. Buka lagi dari menu ini tanpa bayar ulang (isi data yang sama).",
                       tip="Simpan kartu PNG dulu kalau mau dibagikan.", stay="✨ Lanjut Baca", go="Ya, Tutup")
-        else:
-            _render_result()
     elif step == "reuse" and ss.get("dh_sd_prof"):
         _render_reuse()
     elif step == "mode":

@@ -16,6 +16,9 @@ from content import pricing as P
 from components import auth
 from components import form_kit
 from components import close_confirm as cc
+from components import quiz_kit as QK
+from components import result_kit as RK
+from components.aspek_info import heading_with_info
 from components.dialog_bus import request_with_return
 from utils.simple_pdf import make_pdf
 from components import life_chart
@@ -103,22 +106,13 @@ def _cb_to_next():
     if not name:
         ss.dh_solo_err = "Pilih salah satu sistem dulu ya."
         return
-    if not prof:
-        nama = (ss.get("dhso_nama") or "").strip()
-        tgl = ss.get("dhso_tgl")
-        if not nama or not tgl:
-            ss.dh_solo_err = "Isi Nama Lengkap dan Tanggal Lahir dulu ya (bertanda Wajib)."
-            return
-        jam = ss.get("dhso_jam")
-        prof = {"nama": nama, "tgl": tgl, "jam": jam, "kota": (ss.get("dhso_kota") or "").strip(),
-                "golda": ss.get("dhso_golda") or ""}
-        ss.dh_solo_prof = prof
-    else:  # profil sudah ada: lengkapi jam / golda dari field tambahan kalau sistemnya butuh
-        prof = dict(prof)
-        if ss.get("dhso_jam2") and not prof.get("jam"):
-            prof["jam"] = ss.dhso_jam2
-        if ss.get("dhso_golda2") and prof.get("golda") in ("", "Belum tahu", None):
-            prof["golda"] = ss.dhso_golda2
+    nama = (ss.get("dhso_nama") or "").strip()
+    tgl = ss.get("dhso_tgl")
+    if not nama or not tgl:
+        ss.dh_solo_err = "Isi Nama Lengkap dan Tanggal Lahir dulu ya (bertanda Wajib)."
+        return
+    prof = {"nama": nama, "tgl": tgl, "jam": ss.get("dhso_jam"), "kota": (ss.get("dhso_kota") or "").strip(),
+            "golda": ss.get("dhso_golda") or ""}
     if name in ("Zi Wei", "Human Design") and not prof.get("jam"):
         ss.dh_solo_err = f"{name} butuh Jam Lahir. Isi Jam Lahir dulu ya."
         return
@@ -129,6 +123,10 @@ def _cb_to_next():
     ss.dh_solo_err = None
     if _KIND[name] != "quiz" and _open_owned(name, prof):
         return
+    if _KIND[name] == "quiz":
+        ss.dh_solo_qi = 0
+        for q in _BANK[name]:
+            ss.pop(f"dhsoq_{q['id']}", None)
     _go("quiz" if _KIND[name] == "quiz" else "pay")
 
 
@@ -297,14 +295,32 @@ def _profile():
     return None
 
 
+def _prefill_form(prof):
+    """Isi field form dari profil (akun / data scan) sekali, selama field belum ada di state."""
+    ss = st.session_state
+    p = prof or form_kit.my_data() or {}
+    if not p or "dhso_nama" in ss:
+        return
+    tgl = p.get("tgl")
+    if isinstance(tgl, str):
+        try:
+            tgl = date.fromisoformat(tgl[:10])
+        except ValueError:
+            tgl = None
+    ss.dhso_nama = p.get("nama") or ""
+    ss.dhso_tgl = tgl
+    ss.dhso_jam = p.get("jam") or None
+    ss.dhso_kota = p.get("kota") or ""
+    ss.dhso_golda = p.get("golda") if p.get("golda") in _GOLDA else None
+
+
 def _render_form(u):
     with st.container(key="dhso_data"):  # satu kartu krem untuk seluruh Data Diri
         st.markdown('<div class="dh-modal-section"><span>📅 DATA DIRI</span><em>Wajib</em></div>', unsafe_allow_html=True)
         form_kit.data_bar("dhso", "solo")
         c1, c2 = st.columns([1.15, 1], gap="small")
         with c1:
-            st.text_input("Nama Lengkap / Panggilan", value=(u or {}).get("nama", ""),
-                          placeholder="Contoh: Rina Anggraini", key="dhso_nama")
+            st.text_input("Nama Lengkap / Panggilan", placeholder="Contoh: Rina Anggraini", key="dhso_nama")
         with c2:
             st.date_input("Tanggal Lahir", value=None, min_value=date(1900, 1, 1), max_value=date.today(),
                           format="DD/MM/YYYY", key="dhso_tgl")
@@ -322,7 +338,7 @@ def _head(sub="Pilih 1 sistem, dapat analisis lengkap A-F"):
     st.markdown(
         '<div class="dh-step dh-step-solo"></div><div class="dh-nodismiss"></div>'
         '<div class="dh-so-head"><span class="dh-so-ico">🧭</span><div><div class="dh-so-brand">ONE-SYSTEM BLUEPRINT</div>'
-        f'<div class="dh-so-hsub">{sub} · {SOLO_PRICE} ✨</div></div></div><div class="dh-so-line"></div>',
+        f'<div class="dh-so-hsub">{sub}</div></div></div><div class="dh-so-line"></div>',
         unsafe_allow_html=True)
 
 
@@ -331,25 +347,16 @@ def _render_select():
     u = auth.current_user()
     prof = _profile()
     _head()
-    st.markdown(f'<div class="dh-so-h2">Pilih Sistem<span class="dh-so-pill">Biaya: {SOLO_PRICE} ✨</span></div>',
-                unsafe_allow_html=True)
-    if prof:
-        tgl = prof["tgl"].strftime("%Y-%m-%d") if hasattr(prof["tgl"], "strftime") else str(prof["tgl"])
-        st.markdown(
-            f'<div class="dh-so-sub">Pilih 1 sistem yang mau kamu analisis secara mendalam (6 aspek A-F) untuk '
-            f'{_e(prof["nama"])}.</div>'
-            f'<div class="dh-so-prof"><span><i></i><b>{_e(prof["nama"])}</b> · {tgl}</span>'
-            f'<span class="dh-so-bal">Saldo: {_saldo()} ✨</span></div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="dh-so-sub">Pilih 1 sistem yang mau kamu analisis secara mendalam (6 aspek A-F). '
-                    + ('Lengkapi data dirimu dulu.' if u else 'Isi data dirimu (atau masuk akun supaya data terisi otomatis).')
-                    + '</div>', unsafe_allow_html=True)
-        _render_form(u)
+    heading_with_info('<div class="dh-so-h2">Pilih Sistem</div>', "solo", "AF")
+    if u:
+        _prefill_form(prof)
+        st.markdown(f'<div class="dh-so-prof"><span><i></i><b>{_e(u.get("nama") or "Kamu")}</b></span>'
+                    f'<span class="dh-so-bal">Saldo: {_saldo()} ✨</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="dh-so-sub">Pilih 1 sistem untuk dianalisis mendalam (6 aspek A-F). '
+                + ('Cek data dirimu di bawah, ubah kalau perlu.' if u else
+                   'Isi data dirimu (atau masuk akun supaya terisi otomatis).') + '</div>', unsafe_allow_html=True)
+    _render_form(u)
     picked = ss.get("dh_solo_sys")
-    if prof and picked in ("Zi Wei", "Human Design") and not prof.get("jam"):
-        st.time_input(f"Jam Lahir (wajib untuk {picked})", value=None, key="dhso_jam2")
-    if prof and picked == "Golongan Darah" and prof.get("golda") in ("", "Belum tahu", None):
-        st.selectbox("Golongan Darah", _GOLDA[:4], index=None, placeholder="Pilih", key="dhso_golda2")
     st.markdown('<div class="dh-so-label">Pilih 1 dari 15 Sistem Kosmik:</div>', unsafe_allow_html=True)
     with st.container(key="dhso_grid"):
         for r in range(3):
@@ -368,48 +375,22 @@ def _render_select():
 
 
 # ─────────────── langkah 1b: kuesioner (5 sistem psikologi) ───────────────
+def _qget(sys_, qid):
+    return st.session_state.get(f"dhsoq_{qid}")
+
+
+def _qput(sys_, qid, val):
+    st.session_state[f"dhsoq_{qid}"] = val
+
+
 def _render_quiz():
     ss = st.session_state
     name = ss.dh_solo_sys
-    bank = _BANK[name]
-    _head(f"Kuesioner {name}")
-    st.markdown(f'<div class="dh-so-h2">Kuesioner {_e(name)}<span class="dh-so-pill">{len(bank)} soal</span></div>'
-                '<div class="dh-so-sub">Jawab jujur sesuai dirimu sehari-hari. Hasil dihitung dari jawabanmu.</div>',
-                unsafe_allow_html=True)
-    for n, q in enumerate(bank, 1):
-        k = f"dhsoq_{q['id']}"
-        if name in ("MBTI", "Enneagram"):
-            st.markdown(f'<div class="dh-so-q">{n}. {_e(q["text"])}</div>', unsafe_allow_html=True)
-            v = st.radio(k, ["Setuju", "Tidak Setuju"], index=None, key=k + "_r", horizontal=True,
-                         label_visibility="collapsed")
-            ss[k] = None if v is None else (v == "Setuju")
-        elif name == "Big Five":
-            st.markdown(f'<div class="dh-so-q">{n}. {_e(q["text"])}</div>', unsafe_allow_html=True)
-            v = st.radio(k, [1, 2, 3, 4, 5], format_func=lambda i: f"{i}: {_SCALE[i]}", index=None, key=k + "_r",
-                         horizontal=True, label_visibility="collapsed")
-            ss[k] = v
-        elif name == "DISC":
-            st.markdown(f'<div class="dh-so-q">{n}. Pilih SATU kata yang PALING menggambarkan dirimu:</div>',
-                        unsafe_allow_html=True)
-            v = st.radio(k, ["A", "B", "C", "D"], format_func=lambda L, q=q: q["options"][L], index=None,
-                         key=k + "_r", horizontal=True, label_visibility="collapsed")
-            ss[k] = v
-        else:  # Love Language
-            st.markdown(f'<div class="dh-so-q">{n}. Pilih pernyataan yang paling menggambarkan dirimu:</div>',
-                        unsafe_allow_html=True)
-            v = st.radio(k, ["A", "B"], format_func=lambda L, q=q: f"{L}. {q[L]['text']}", index=None,
-                         key=k + "_r", label_visibility="collapsed")
-            ss[k] = v
-    if ss.get("dh_solo_err"):
-        st.error(ss.dh_solo_err)
-    c1, c2 = st.columns([1, 2.2], gap="small")
-    with c1:
-        with st.container(key="dhso_back"):
-            st.button("← Kembali", key="dhso_q_back", on_click=_go, args=("select",), use_container_width=True)
-    with c2:
-        with st.container(key="dhso_cta"):
-            st.button(f"Lanjutkan ke Pembayaran ({SOLO_PRICE} ✨) →", key="dhso_q_next", type="primary",
-                      use_container_width=True, on_click=_cb_quiz_done)
+    items = [{"sys": name, "q": q} for q in _BANK[name]]
+    prof = ss.get("dh_solo_prof") or {}
+    meta = " · ".join(str(x) for x in (prof.get("tgl"), prof.get("kota")) if x)
+    QK.render("dhsoqz", items, _qget, _qput, "dh_solo_qi", f"Kuesioner {name}", (prof.get("nama"), meta),
+              lambda: _go("select"), _cb_quiz_done, _SCALE)
 
 
 # ─────────────── langkah 2: pembayaran ───────────────
@@ -468,7 +449,7 @@ def _render_result():
     d, name, nama = res["detail"], res["system"], res["nama"]
     st.markdown('<div class="dh-step dh-step-solo dh-step-solo-lg"></div><div class="dh-nodismiss"></div>'
                 '<div class="dh-so-head"><span class="dh-so-ico">🧭</span><div><div class="dh-so-brand">ONE-SYSTEM BLUEPRINT</div>'
-                f'<div class="dh-so-hsub">Pilih 1 sistem, dapat analisis lengkap A-F · {SOLO_PRICE} ✨</div></div></div>'
+                f'<div class="dh-so-hsub">Pilih 1 sistem, dapat analisis lengkap A-F</div></div></div>'
                 '<div class="dh-so-line"></div>', unsafe_allow_html=True)
     quote = d.get("quote") or ""
     chips = "".join(f'<span class="dh-so-chip">{_e(k)}: <b>{_e(v)}</b></span>' for k, v in (d.get("params") or []))
@@ -483,44 +464,57 @@ def _render_result():
         st.markdown('<div class="dh-so-note ok">✓ Hasil ini sudah kamu beli sebelumnya, jadi dibuka gratis.</div>', unsafe_allow_html=True)
     if _tg:
         life_chart.strip(nama, _tg)
-    if name in life_chart.SYSTEMS and _tg:  # dashboard visual: Roda Takdir / grafik usia 20-60
-        st.markdown('<div style="font-weight:800;letter-spacing:.8px;font-size:12px;color:#B2552C;margin:14px 0 8px">🧭 PETA SIKLUS HIDUPMU</div>', unsafe_allow_html=True)
-        life_chart.render(name, _tg, height=700 if name == "Matrix Destiny" else 560)
+    raw = res.get("raw")
     secs = {i: (texts or []) for i, (_ic, _t, texts, _tone) in enumerate(d["sections"])}
+    cap = f"One-System Blueprint {name}: {nama}\nCek takdirmu di destinyreveal.id #DestinyReveal"
+    if quote:
+        cap = f'"{quote}"\n\n' + cap
+    # dashboard atas: kartu visual (assets/cards) + radar/bar skor ASLI (hanya sistem kuesioner)
+    panel = RK.dashboard(name, raw)
+    has_card = RK.has_card(name, raw)
+    if has_card and panel:
+        c1, c2 = st.columns([1, 1.15], gap="medium")
+        with c1:
+            RK.card_visual(name, raw, nama, cap, "dhsorc")
+        with c2:
+            st.markdown(panel, unsafe_allow_html=True)
+    elif has_card:
+        RK.card_visual(name, raw, nama, cap, "dhsorc")
+    elif panel:
+        st.markdown(panel, unsafe_allow_html=True)
+    if name in life_chart.SYSTEMS and _tg:  # dashboard visual: Roda Takdir / grafik usia 20-60
+        st.markdown('<div class="rk-ph" style="margin:14px 0 8px">🧭 PETA SIKLUS HIDUPMU</div>', unsafe_allow_html=True)
+        life_chart.render(name, _tg, height=700 if name == "Matrix Destiny" else 560)
     pdf_secs = [(_ASPEK[i], [t for t in secs.get(i, []) if t] or [_EMPTY]) for i in range(len(_ASPEK))]
-    combo = build_combo(name, res.get("raw")) if res.get("raw") else []
+    combo = build_combo(name, raw) if raw else []
     if combo:
         pdf_secs.append(("COMBO: KETIKA VARIABEL-VARIABELMU BERTEMU", [f'{b["title"]}: {b["text"]}' for b in combo]))
-    st.download_button("📥 Download PDF", make_pdf(f"One-System Blueprint - {name}", f'{d.get("title", "")} - Untuk: {nama}', pdf_secs),
-                       file_name=f"solo-reveal-{name.lower().replace(' ', '-')}.pdf", mime="application/pdf",
-                       key="dhso_pdf", use_container_width=True, on_click="ignore")
+    heading_with_info('<div class="dh-so-h3">Analisis 6 Aspek</div>', "solo_res", "AF")
     plain = [f"ONE-SYSTEM BLUEPRINT: {name} · {nama}", d.get("title", ""), ""]
+    items = []
     for i, title in enumerate(_ASPEK):
         texts = [t for t in secs.get(i, []) if t]
-        body = "".join(f"<p>{_e(t)}</p>" for t in texts) or f'<p class="dh-so-empty">{_EMPTY}</p>'
-        acc = " dh-so-amber" if i == len(_ASPEK) - 1 else ""
-        st.markdown(f'<div class="dh-so-card{acc}"><div class="dh-so-ct"><span>{_ASPEK_ICON[i]}</span>{_e(title)}</div>{body}</div>',
-                    unsafe_allow_html=True)
+        items.append((_ASPEK_ICON[i], title, texts or [_EMPTY]))
         plain += [title, *texts, ""]
+    st.markdown(RK.insight_cards(items), unsafe_allow_html=True)
     render_combo_card(name, combo)  # kartu combo di paling bawah analisis, sebelum tombol aksi
     if combo:
         plain += ["COMBO: KETIKA VARIABEL-VARIABELMU BERTEMU", ""]
         for b in combo:
             plain += [b["title"], b["text"], ""]
-    cap = f"One-System Blueprint {name}: {nama}\nCek takdirmu di destinyreveal.id #DestinyReveal"
     with st.container(key="dhso_acts"):
         a1, a2 = st.columns(2, gap="small")
         with a1:
-            copy_button("\n".join(plain).strip(), "📋 Salin Seluruh Analisis", "dhso_copy", fs=12.5, h=46)
+            st.download_button("Download PDF", make_pdf(f"One-System Blueprint - {name}", f'{d.get("title", "")} - Untuk: {nama}', pdf_secs),
+                               file_name=f"solo-reveal-{name.lower().replace(' ', '-')}.pdf", mime="application/pdf",
+                               key="dhso_pdf", use_container_width=True, on_click="ignore", icon=":material/download:")
         with a2:
-            st.link_button("Share ke WhatsApp", f"https://wa.me/?text={urlquote(cap)}", use_container_width=True,
-                           key="dhso_wa", icon=":material/share:")
+            copy_button("\n".join(plain).strip(), "📋 Salin Teks", "dhso_copy", fs=12.5, h=46, brown=True)
         b1, b2 = st.columns(2, gap="small")
         with b1:
-            st.button(f"🔄 Pilih Sistem Kosmik Lain ({SOLO_PRICE}✨)", key="dhso_again", on_click=_cb_again,
-                      use_container_width=True)
+            st.button(f"🔄 Sistem Lain ({SOLO_PRICE}✨)", key="dhso_again", on_click=_cb_again, use_container_width=True)
         with b2:
-            st.button("Selesai & Tutup", key="dhso_done", type="primary", use_container_width=True,
+            st.button("Tutup", key="dhso_done", type="primary", use_container_width=True,
                       on_click=cc.cb_ask, args=("solo",))
 
 
@@ -529,14 +523,11 @@ def solo_dialog():
     ss = st.session_state
     step = ss.get("dh_solo_step", "select")
     if step == "result" and ss.get("dh_solo_res"):
-        if cc.asking("solo"):
-            cc.render("solo", leave=_cb_again, icon="🧭", title="Yakin Mau Tutup Hasil One-System Blueprint?",
+        cc.wrap("solo", _render_result, leave=_cb_again, icon="🧭", title="Yakin Mau Tutup Hasil One-System Blueprint?",
                       text="Analisis 6 aspekmu aman tersimpan. Kamu bisa membukanya lagi GRATIS kapan saja: pilih sistem yang sama "
                            "dengan data diri yang sama.",
                       tip="Download PDF atau salin analisis kalau mau dibaca tanpa membuka aplikasi.",
                       stay="✨ Lanjut Baca", go="Ya, Tutup Hasil")
-        else:
-            _render_result()
     elif step == "loading" and ss.get("dh_solo_sys"):
         _render_loading()
     elif step == "quiz" and ss.get("dh_solo_sys"):
