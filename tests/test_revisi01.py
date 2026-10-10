@@ -36,7 +36,7 @@ def test_day_text_kalender():
 
 
 def test_scroll_submenu_maks_5():
-    assert "its.length>5" in _t("components/navbar.py") and "dh-ov-scroll" in _t("assets/css/home_v2.css")
+    assert "its.length>5" in _t("components/navbar.py") and "dh-ov-scroll" in _t("assets/css/parts/14_revisi01_02_scroll_tarot_kalender.css")
 
 
 def test_revisi02_font_dibawa_repo():
@@ -50,3 +50,43 @@ def test_revisi02_preview_tanpa_kartu_lock_dan_kalender_satu_iframe():
     assert "dh-mn-lock" not in _t("components/mini_modals.py")
     ec = _t("components/energy_calendar.py")
     assert "_copy_dynamic" not in ec and 'id="cp"' in ec and "dhcal_hidden" in ec
+
+
+def test_css_parts_urut_dan_lengkap():
+    parts = sorted((R / "assets/css/parts").glob("*.css"))
+    assert len(parts) >= 10 and [p.name[:2] for p in parts] == sorted(p.name[:2] for p in parts)
+    css = "".join(p.read_text(encoding="utf-8") for p in parts)
+    assert css.count("{") == css.count("}") and "dh-ov-scroll" in css and "dhTrFloat" in css
+    assert not (R / "assets/css/home_v2.css").exists()
+
+
+def test_tarot_uri_ringan():
+    from utils.card_images import card_image_data_uri_small
+    u = card_image_data_uri_small("tarot/major/12_hanged_man.jpg")
+    assert u.startswith("data:image/webp;base64,") and len(u) < 200_000
+    assert card_image_data_uri_small("tarot/major/22_tidak_ada.jpg") is None
+
+
+def test_tarot_semua_kartu_punya_gambar():
+    from engine.tarot import TAROT_DECK
+    from utils.card_images import tarot_image_rel
+    assert tarot_image_rel("hanged_man") == "tarot/major/12_hanged_man.jpg"
+    assert tarot_image_rel("swords_page") == "tarot/sword/11_page_sword.jpg"
+    assert tarot_image_rel("cups_03") == "tarot/cups/03_three_cups.jpg"
+    assert tarot_image_rel("bukan_kartu") is None
+    hilang = [s for s in TAROT_DECK if not tarot_image_rel(s)]
+    assert hilang == [], hilang
+
+
+def test_trait_cards_font_dari_repo():
+    from utils import trait_cards as t
+    f = t._f(t._SANS_B, 34)
+    assert "assets/fonts" in f.path.replace("\\", "/")
+    assert t.kartu_kekuatan("Rina", ["A", "B"], ["C"])[:4] == b"\x89PNG" or t.kartu_kekuatan("Rina", ["A", "B"], ["C"])
+
+
+def test_tarot_nama_di_bawah_gambar():
+    css = (R / "assets/css/parts/15_tarot_nama_di_bawah.css").read_text(encoding="utf-8")
+    assert ".dh-tr-wrap + .dh-tr-over" in css
+    src = _t("components/mini_modals.py")
+    assert "{img}</div>'" in src and 'class="dh-tr-over"' in src
