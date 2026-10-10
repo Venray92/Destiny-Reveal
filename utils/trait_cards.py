@@ -3,6 +3,7 @@
 import io
 import math
 import textwrap
+from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -16,13 +17,17 @@ _SANS = ["DejaVuSans.ttf"]
 INK, ACC, MUTE = (45, 42, 38), (201, 98, 52), (139, 131, 120)
 
 
+_FONT_DIR = Path(__file__).resolve().parent.parent / "assets" / "fonts"  # font dibawa repo, bukan andalkan font server
+
+
 def _f(names, size):
     for n in names:
-        try:
-            return ImageFont.truetype(n, size)
-        except OSError:
-            continue
-    return ImageFont.load_default()
+        for src in (str(_FONT_DIR / n), n):
+            try:
+                return ImageFont.truetype(src, size)
+            except OSError:
+                continue
+    return ImageFont.load_default(size)
 
 
 def _base(judul):

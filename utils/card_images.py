@@ -36,8 +36,34 @@ SYSTEM_CARD_IMAGE_FALLBACK = {
     "Zi Wei": "ziwei/ziwei.png",
     "Human Design": "human_design/generator.png",
     "Golongan Darah": "golongan_darah/o.png",
-    "Tarot": "tarot/00_fool.png",
+    "Tarot": "tarot/major/00_fool.jpg",
 }
+
+
+_MINOR_NAMA = ["ace", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+               "page", "knight", "queen", "king"]
+_MINOR_FOLDER = {"cups": "cups", "pentacles": "pentacles", "swords": "sword", "wands": "wands"}
+
+
+def tarot_image_rel(slug):
+    """slug kartu (fool / hanged_man / cups_03 / swords_page) -> path relatif gambar, atau None.
+    Major: tarot/major/NN_slug.jpg; Minor: tarot/<suit>/NN_<nama>_<suit>.jpg (NN 01-14; folder 'sword' tunggal)."""
+    if not slug:
+        return None
+    from engine.tarot import TAROT_MAJOR_ARCANA
+    if slug in TAROT_MAJOR_ARCANA:
+        rel = f"tarot/major/{TAROT_MAJOR_ARCANA.index(slug):02d}_{slug}.jpg"
+    else:
+        suit, _, rank = slug.partition("_")
+        if suit not in _MINOR_FOLDER:
+            return None
+        n = int(rank) if rank.isdigit() else 11 + ["page", "knight", "queen", "king"].index(rank) if rank in ("page", "knight", "queen", "king") else 0
+        if not 1 <= n <= 14:
+            return None
+        f = _MINOR_FOLDER[suit]
+        rel = f"tarot/{f}/{n:02d}_{_MINOR_NAMA[n - 1]}_{f}.jpg"
+    f = ASSETS_ROOT / rel
+    return rel if f.is_file() and f.stat().st_size > 1024 else None  # file kosong/rusak dianggap tidak ada
 
 
 def card_relative_path_for_result(system: str, raw_result: dict | None):
@@ -125,15 +151,7 @@ def card_relative_path_for_result(system: str, raw_result: dict | None):
         return f"golongan_darah/{golda.lower()}.png" if golda else None
 
     if system == "Tarot":
-        kartu = raw_result.get("kartu")
-        if not kartu:
-            return None
-        from engine.tarot import TAROT_MAJOR_ARCANA
-        try:
-            idx = TAROT_MAJOR_ARCANA.index(kartu)
-        except ValueError:
-            return None
-        return f"tarot/{idx:02d}_{kartu}.png"
+        return tarot_image_rel((raw_result or {}).get("kartu"))
 
     return None
 
@@ -153,6 +171,29 @@ def card_image_data_uri(relative_path: str):
     if not path.is_file():
         return None
     return watermarked_data_uri(path)
+
+
+@st.cache_data(show_spinner=False)
+def card_image_data_uri_small(relative_path: str, width: int = 520):
+    """Versi ringan buat tampil di modal: WebP lebar `width`, watermark tetap ada.
+    Aslinya ±2,3 MB base64 per kartu (bikin render telat/gagal di koneksi/server lemot)."""
+    path = ASSETS_ROOT / relative_path
+    if not path.is_file():
+        return None
+    import io
+
+    from PIL import Image
+
+    from utils.watermark import add_watermark
+    try:
+        with Image.open(path) as im:
+            im = add_watermark(im)
+        im = im.resize((width, round(width * im.height / im.width)), Image.LANCZOS)
+        buf = io.BytesIO()
+        im.save(buf, format="WEBP", quality=86, method=6)
+        return "data:image/webp;base64," + base64.b64encode(buf.getvalue()).decode("ascii")
+    except Exception:
+        return card_image_data_uri(relative_path)  # fallback ke versi penuh
 
 
 def _resolve_relative_path(system, raw_result):
