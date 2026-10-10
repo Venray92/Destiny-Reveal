@@ -11,6 +11,7 @@ import hashlib
 from datetime import date
 
 from content import blueprint_calc as BC
+from content import baru_loader as BL
 from content.blueprint_calc import _blocks, _kal
 from content.result_builder import compute_raw_result
 
@@ -260,11 +261,13 @@ def build_career(prof, raws, mode):
     for s in QUIZ_SYSTEMS:
         b = _blocks(s, raws.get(s) or {})
         if b and b.get("karier"):
-            sistem.append({"name": s, "icon": BC.ICON[s], "title": b["title"], "teks": _kal(b["karier"][0], 2, 360)})
+            sistem.append({"name": s, "icon": BC.ICON[s], "title": b["title"],
+                           "teks": BL.career_baru("career", f"{s}|{b['key']}") or _kal(b["karier"][0], 2, 360)})
     for s, raw in _birth_raws(prof).items():
         b = _blocks(s, raw)
         if b and b.get("karier"):
-            sinyal.append({"name": s, "icon": BC.ICON[s], "title": b["title"], "teks": _kal(b["karier"][0], 2, 320)})
+            sinyal.append({"name": s, "icon": BC.ICON[s], "title": b["title"],
+                           "teks": BL.career_baru("career", f"{s}|{b['key']}") or _kal(b["karier"][0], 2, 320)})
     L = LETTER[o[0]]
     return {"id": _sid(prof, "CD"), "nama": prof["nama"], "mode": mode, "rel": r["rel"], "share": r["share"], "order": o,
             "code": a["code"], "arketipe": a["nama"], "tipis": a["tipis"], "inti": L["inti"], "lingkungan": L["lingkungan"],
@@ -282,7 +285,8 @@ def build_strength(prof, raws, mode):
     for s in QUIZ_SYSTEMS:  # kekuatan dari teks library per sistem
         b = _blocks(s, raws.get(s) or {})
         if b and b.get("kuat"):
-            kuat.append({"name": s, "icon": BC.ICON[s], "title": b["title"], "teks": _kal(b["kuat"][0], 2, 300)})
+            kuat.append({"name": s, "icon": BC.ICON[s], "title": b["title"],
+                         "teks": BL.career_baru("strength", f"{s}|{b['key']}|kuat") or _kal(b["kuat"][0], 2, 300)})
     tags = []
     for l in o[:3]:
         tags += [t for t in STRENGTH_TAG[l] if t not in tags][:2 if l == o[0] else 1]
@@ -299,13 +303,15 @@ def build_strength(prof, raws, mode):
     for s in ("MBTI", "Enneagram"):
         b = _blocks(s, raws.get(s) or {})
         if b and b.get("shadow"):
-            blind.append((s, b["title"], b["title"] or s, _kal(b["shadow"][0], 2, 300), ""))
+            blind.append((s, b["title"], b["title"] or s,
+                          BL.career_baru("strength", f"{s}|{b['key']}|blindspot") or _kal(b["shadow"][0], 2, 300), ""))
     blind = blind[:5]
     practice = []
     for s in QUIZ_SYSTEMS:
         b = _blocks(s, raws.get(s) or {})
         if b and b.get("nasihat"):
-            practice.append({"name": s, "icon": BC.ICON[s], "teks": _kal(b["nasihat"][0], 2, 260)})
+            practice.append({"name": s, "icon": BC.ICON[s],
+                             "teks": BL.career_baru("strength", f"{s}|{b['key']}|latihan") or _kal(b["nasihat"][0], 2, 260)})
     bars = {}
     if b5.get("scores"):
         names = {"O": "Keterbukaan", "C": "Ketelitian", "E": "Ekstraversi", "A": "Keramahan", "N": "Sensitivitas Emosi"}
