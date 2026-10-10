@@ -118,9 +118,6 @@ def afirmasi_dialog():
     st.image(img, use_container_width=True)
     chips = "".join(f'<span><i>{_ICON[k]}</i>{_E(v)}</span>' for k, v in a["sumber"].items())
     st.markdown(f'<div class="dh-en-chips">{chips}</div>', unsafe_allow_html=True)
-    st.download_button("Simpan Kartu PNG", data=img, file_name=f"afirmasi-{a['tanggal'].isoformat()}.png",
-                       mime="image/png", key="dhen_dl", on_click="ignore", use_container_width=True,
-                       icon=":material/download:")
     teks = "\n".join(a["kalimat"]) + f"\n\nLangkah kecil: {a['langkah']}\n#DestinyReveal"
     copy_button(teks, "📋 Salin Teks Afirmasi", "dhen_copy")
 

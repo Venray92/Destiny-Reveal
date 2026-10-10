@@ -22,6 +22,7 @@ from content import pricing as P
 from components import auth
 from components import form_kit
 from components import close_confirm as cc
+from components.modal_detail import copy_button
 from components.dialog_bus import request_open
 
 from content import periodic
@@ -89,11 +90,11 @@ def _first_sentences(text, n=2):
     return out if out.endswith((".", "!", "?")) else out + "."
 
 
-def _head():
+def _head(block=False):
     email = st.session_state.get("dh_email")
     badge = (f'✓ Akun Terhubung ({_e(email)})' if email else "Belum masuk akun")
     st.markdown(
-        '<div class="dh-step dh-step-mini"></div><div class="dh-nodismiss"></div>'
+        '<div class="dh-step dh-step-mini"></div>' + ('<div class="dh-nodismiss"></div>' if block else '') +
         f'<div class="dh-mn-status"><span>Status:</span><b class="{"" if email else "off"}">{badge}</b></div>'
         '<div class="dh-mn-div"></div>', unsafe_allow_html=True)
 
@@ -185,6 +186,7 @@ def _cb_swap_pay():
     if not u or u.get("koin", 0) < SWAP_PRICE:
         return
     u["koin"] -= SWAP_PRICE
+    ss.dh_daily_paid = today_wib()  # konten berbayar -> tombol salin & konfirmasi tutup aktif
     ss.dh_daily_swap = False
     ss.dh_daily_confirm = False
     ss.pop("dh_daily_lock", None)
@@ -254,25 +256,26 @@ def _cb_daily_dismiss():
     """X: kalau lagi di layar hasil ramalan -> tanya konfirmasi dulu."""
     ss = st.session_state
     lock = ss.get("dh_daily_lock")
-    at_result = bool(lock and lock.get("date") == today_wib() and not ss.get("dh_daily_swap")
-                     and not ss.get("dh_daily_loading"))
+    at_result = bool(lock and lock.get("date") == today_wib() and ss.get("dh_daily_paid") == today_wib()
+                     and not ss.get("dh_daily_swap") and not ss.get("dh_daily_loading"))
     cc.dismiss("daily", at_result)
 
 
 @st.dialog("Ramalan Kartu Harian", width="small", on_dismiss=_cb_daily_dismiss)
 def daily_dialog():
     ss = st.session_state
+    paid = ss.get("dh_daily_paid") == today_wib()
     if not form_kit.login_gate("daily"):
         return
     if ss.get("dh_daily_loading"):
         _render_daily_loading(ss.dh_daily_loading)
         return
     if cc.asking("daily"):
-        cc.render("daily", leave=None, icon="🌅", title="Yakin Mau Tutup Ramalan Hari Ini?",
-                  text="Pesan harianmu sudah terbuka. Kamu bisa membukanya lagi kapan saja hari ini, tapi sebaiknya selesai baca dulu.",
-                  tip="Cek angka dan warna hokimu sebelum pergi.", stay="✨ Lanjut Baca", go="Ya, Tutup")
+        cc.render("daily", leave=None, icon="🌅", title="Yakin Mau Tutup Halaman Ini?",
+                  text="Apakah kamu yakin ingin menutup halaman ini? Pastikan teks hasil sudah disalin.",
+                  tip=None, stay="Batal", go="Ya, Tutup")
         return
-    _head()
+    _head(block=paid)
     _title("🌅", "Ramalan Kartu Harian", "1x per hari · Pilih Zodiak, Shio, atau Weton kelahiranmu")
     lock = ss.get("dh_daily_lock")
     if lock and lock.get("date") == today_wib():  # sudah dipilih hari ini -> terkunci sampai 00:00 WIB
@@ -298,7 +301,7 @@ def daily_dialog():
                         '<p>💗 Asmara: Percakapan jujur dengan orang terdekat membawa suasana yang lebih hangat…</p>'
                         '<p>💡 Nasihat: Tuntaskan satu hal kecil sebelum memulai hal baru supaya energimu tidak pecah…</p></div>',
                         unsafe_allow_html=True)
-            if st.button(f"🔒 Buka Analisis Lengkap Per Sistem ({P.fmt(P.SOLO)} ✨)", key="dhdy_unlock", type="primary"):
+            if st.button("🔒 Buka Analisis Lengkap Per Sistem", key="dhdy_unlock", type="primary"):
                 request_solo(label)
             st.markdown('<div class="dh-dr-sub">Buka analisis mendalam 6 aspek: Aspek Utama, Karier, Asmara, Karakter, '
                         'Shadow Work, &amp; Nasihat Strategis.</div>', unsafe_allow_html=True)
@@ -306,8 +309,14 @@ def daily_dialog():
             st.markdown('<div class="dh-dr-swaptxt">Mau intip ramalan zodiak, shio, atau weton lain hari ini?</div>',
                         unsafe_allow_html=True)
             st.button(f"Ganti Pilihan / Buka Sistem Lain ({P.SWAP} ✨) →", key="dhdy_swapbtn", on_click=_cb_swap_open)
-        if st.button("Sinkronkan dengan Sistem Lainnya →", key="dhdy_sync", use_container_width=True):
-            _open_reveal()
+        if paid:  # sudah bayar (ganti sistem 50 ✨): salin + selesai (dengan konfirmasi)
+            c1, c2 = st.columns(2, gap="small")
+            with c1:
+                copy_button(f"{label} {name} · Pesan Hari Ini\n{r['pesan']}\nAngka Hoki: {r['angka']}\nWarna Hoki: {r['warna']}\n#DestinyReveal",
+                            "📋 Salin Teks", "dhdy_copy", fs=13, h=46)
+            with c2:
+                st.button("Selesai & Tutup", key="dhdy_done_btn", type="primary", use_container_width=True,
+                          on_click=cc.cb_ask, args=("daily",))
         return
 
     tab = ss.setdefault("dh_daily_tab", "zodiak")
@@ -362,6 +371,23 @@ def daily_dialog():
 
 
 # ═══════════ 2. TAROT 1 KARTU HARIAN ═══════════
+_ROMAN = ["0", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI",
+          "XVII", "XVIII", "XIX", "XX", "XXI"]
+_SUIT_SYM = {"cups": "🏺", "pentacles": "🪙", "swords": "⚔️", "wands": "🔥"}
+
+
+def _tarot_face(kartu, idx, nama):
+    """Muka kartu bawaan (CSS) — tampil kalau gambar kartu belum ada / gagal dimuat; gambar asli menimpa di atasnya."""
+    if idx is not None:
+        top, mid = _ROMAN[idx], "✦"
+    else:
+        suit, _, rank = kartu.partition("_")
+        top = rank.upper() if not rank.isdigit() else str(int(rank))
+        mid = _SUIT_SYM.get(suit, "✦")
+    return (f'<span class="dh-trf-n">{_e(top)}</span><span class="dh-trf-s">{mid}</span>'
+            f'<span class="dh-trf-t">{_e(nama)}</span>')
+
+
 @lru_cache(maxsize=1)
 def _cover_uri():
     if not _COVER.is_file():
@@ -405,21 +431,10 @@ def _cb_tarot_draw():
 _TAROT_CAP = '<div class="dh-tr-cap">Dihitung otomatis dari sinkronisitas tanggal hari ini!</div>'
 
 
-def _cb_tarot_dismiss():
-    """X: kalau kartu hari ini sudah terbuka -> tanya konfirmasi dulu."""
-    draw = st.session_state.get("dh_tarot_draw")
-    cc.dismiss("tarot", bool(draw and draw.get("date") == today_wib() and not st.session_state.get("dh_tarot_loading")))
-
-
-@st.dialog("Gacha Kartu Tarot", width="small", on_dismiss=_cb_tarot_dismiss)
+@st.dialog("Gacha Kartu Tarot", width="small")
 def tarot_dialog():
     ss = st.session_state
     if not form_kit.login_gate("tarot"):
-        return
-    if cc.asking("tarot"):
-        cc.render("tarot", leave=None, icon="🃏", title="Yakin Mau Tutup Kartu Hari Ini?",
-                  text="Pesan kartu harianmu baru saja terbuka. Kamu masih bisa melihatnya lagi hari ini, tapi pastikan sudah selesai membaca.",
-                  tip="Baca juga bagian Pesan Inti sebelum pergi.", stay="✨ Lanjut Baca", go="Ya, Tutup")
         return
     _head()
     _title("🃏", "Gacha Kartu Tarot", "Tarik 1 kartu sinkronisitas kosmik murni untuk memandu energimu hari ini.")
@@ -450,8 +465,10 @@ def tarot_dialog():
     idx = TAROT_MAJOR_ARCANA.index(kartu) if mayor else None
     c = build_display_data("Tarot", {"kartu": kartu}) or {}
     nama, _, arti = (c.get("title") or kartu).partition(", ")
-    uri = card_image_data_uri(f"tarot/{idx:02d}_{kartu}.png") if mayor else None  # Minor: gambar belum ada, kosong dulu
-    img = f'<img class="dh-tr-img" src="{uri}" alt="{_e(nama)}">' if uri else '<div class="dh-tr-img dh-tr-ph" style="aspect-ratio:870/1164"></div>'
+    uri = card_image_data_uri(f"tarot/{idx:02d}_{kartu}.png") if mayor else None  # Minor: gambar belum ada -> kartu ilustrasi bawaan
+    face = _tarot_face(kartu, idx, nama)
+    img = (f'<div class="dh-tr-img dh-tr-face">{face}</div>' +
+           (f'<img class="dh-tr-img dh-tr-art" src="{uri}" alt="{_e(nama)}" onerror="this.remove()">' if uri else ""))
     label = f"ARCANA #{idx}" if mayor else "ARCANA MINOR"
     st.markdown(
         f'<div class="dh-tr-wrap">{img}<div class="dh-tr-over"><b>{label}</b>'
@@ -464,13 +481,8 @@ def tarot_dialog():
         st.markdown('<div class="dh-mn-paywall"><b>Mau Tau Lebih Dalam?</b>'
                     '<span>Bongkar dimensi karier, dinamika asmara, dan peringatan energi tersembunyi kartu ini.</span></div>',
                     unsafe_allow_html=True)
-        if st.button("🔒 Mau Tau Lebih Dalam? (50 ✨)", key="dhtr_unlock", type="primary", use_container_width=True):
-            request_solo(None)  # Tarot belum aktif di Solo -> buka dari pilih sistem
-    if st.button("Sinkronkan Kartu Ini dengan Zodiak & Wetonmu di Scan →", key="dhtr_sync", use_container_width=True):
-        _open_reveal()
-    with st.container(key="dhtr_done"):
-        st.button("Selesai & Tutup", key="dhtr_done_btn", type="primary", use_container_width=True,
-                  on_click=cc.cb_ask, args=("tarot",))
+        if st.button("🔒 Mau Tau Lebih Dalam?", key="dhtr_unlock", type="primary", use_container_width=True):
+            request_solo("Tarot")  # langsung ke One-System Blueprint dengan Tarot terpilih
 
 
 # ═══════════ 3. PREVIEW ZODIAK ═══════════
@@ -507,11 +519,9 @@ def preview_dialog():
         f'<span class="dh-mn-lockico">🔒</span><b>Buka Analisis Lengkap {pick}</b>'
         '<span>Membongkar kekuatan sejati, PR batin (shadow work), serta insight karier, asmara &amp; keuangan.</span></div></div>',
         unsafe_allow_html=True)
-    if st.button(f"🔒 Buka Analisis Lengkap Per Sistem ({P.fmt(P.SOLO)} ✨)", key="dhpv_unlock", type="primary",
+    if st.button("🔒 Buka Analisis Lengkap Per Sistem", key="dhpv_unlock", type="primary",
                  use_container_width=True):
         request_solo("Zodiak")
-    if st.button("Sinkronkan dengan Sistem Lainnya →", key="dhpv_sync", use_container_width=True):
-        _open_reveal()
 
 
 # ═══════════ 4. STREAK & REWARD ═══════════

@@ -129,6 +129,9 @@ function openCat(card){
   m.appendChild(inner); m.appendChild(ghost); ov.appendChild(m); d.body.appendChild(ov);
   // ukur ukuran akhir (modal di tengah layar)
   var W=Math.min(480,d.documentElement.clientWidth*0.92); m.style.transition='none'; m.style.width=W+'px'; m.style.height='auto'; m.style.left='0px'; m.style.top='0px';
+  var its=inner.querySelectorAll('.dh-ov-item');
+  if(its.length>5){var bd=inner.querySelector('.dh-ov-body');bd.classList.add('dh-ov-scroll');
+    bd.style.maxHeight=Math.ceil(its[4].getBoundingClientRect().bottom-its[0].getBoundingClientRect().top)+'px';}
   var H=Math.min(inner.offsetHeight, window.innerHeight*0.88);
   var to={l:(d.documentElement.clientWidth-W)/2,t:Math.max(16,(window.innerHeight-H)/2),w:W,h:H};
   inner.style.width=W+'px'; inner.style.maxHeight=H+'px'; inner.style.overflowY='auto';

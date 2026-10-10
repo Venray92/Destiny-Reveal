@@ -13,6 +13,7 @@ import streamlit.components.v1 as components
 from content import pricing as P
 
 from components import auth, form_kit
+from components import close_confirm as cc
 from components.daily_energy import _loaded, _need_tgl, _tgl_lahir
 from components.dialog_bus import request_open
 from content import energy_calendar as C
@@ -141,7 +142,10 @@ function panel(){var x=D.days.filter(function(y){return y.n===sel})[0],p=documen
   h+='<div class="meta"><span>Jam baik: '+esc(d.jam_baik)+'</span><span>Angka: '+esc([].concat(d.angka).join(', '))+'</span><span>Warna: '+esc(d.warna)+'</span></div></div>'}
  else if(!D.paid){h+='<div class="lock">🔒 <b>Detail per hari</b>: pesan, langkah, hal yang dihindari, jam baik, angka, dan warna dari Zodiak, Shio, Weton &amp; Numerologi terbuka setelah kamu membuka bulan ini di bawah.<div class="bl">Hari ini cocok untuk mengambil langkah yang sudah lama kamu pikirkan. Pilih jam baik dan fokus pada satu prioritas utama.</div></div>'}
  p.innerHTML=h;[].forEach.call(p.querySelectorAll('.tabs button'),function(b){b.onclick=function(){sys=b.dataset.k;panel()}})}
-grid();panel();
+function fit(){try{var h=document.documentElement.scrollHeight;var f=window.frameElement;if(f){f.style.transition='height .3s ease';f.style.height=h+'px';f.setAttribute('height',h);var e=f.parentElement;for(var i=0;i<3&&e&&e.getAttribute('data-testid')!=='stVerticalBlock';i++){e.style.height=h+'px';e.style.minHeight=h+'px';e=e.parentElement}}}catch(e){}}
+function pub(){try{window.parent.__dhCalSel=sel}catch(e){}}
+var _g=grid,_p=panel;grid=function(){_g();pub();fit()};panel=function(){_p();pub();fit()};
+grid();panel();window.addEventListener('resize',fit);
 </script></body></html>"""
 
 
@@ -150,14 +154,65 @@ def _calendar_html(data):
     return _HTML.replace("__DATA__", js)
 
 
+def _day_text(d, y, bulan):
+    """Ringkasan satu tanggal (4 sistem) untuk tombol salin."""
+    hari = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"][d["wd"]]
+    out = [f'Kalender Energi · {hari}, {d["n"]} {bulan} {y}', f'Skor energi {d["skor"]} ({d["tier"]})']
+    for m in d["marks"]:
+        out.append(f'- {m["why"]}')
+    for sis, x in (d.get("detail") or {}).items():
+        out.append(f"\n[{sis}]\n{x['pesan']}")
+        if x.get("aksi"):
+            out.append("Yang bisa dilakukan: " + "; ".join(x["aksi"]))
+        if x.get("hindari"):
+            out.append("Hindari: " + "; ".join(x["hindari"]))
+        ang = x["angka"]
+        ang = ", ".join(str(v) for v in ang) if isinstance(ang, (list, tuple)) else ang
+        out.append(f"Jam baik: {x['jam_baik']} · Angka: {ang} · Warna: {x['warna']}")
+    return "\n".join(out) + "\n#DestinyReveal"
+
+
+def _copy_dynamic(texts, default):
+    """Tombol salin: teks tanggal terpilih (dibaca dari window.parent.__dhCalSel yang diisi iframe kalender)."""
+    payload = json.dumps(texts, ensure_ascii=False).replace("</", "<\\/")
+    components.html(
+        '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&display=swap" rel="stylesheet">'
+        "<style>html,body{margin:0;background:transparent}"
+        "button{width:100%;height:46px;border-radius:100px;border:1px solid #E9C9A8;background:#FFFFFF;"
+        "color:#C25E00;font:700 14px 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;transition:background .15s}"
+        "button:hover{background:#FFF6EA}button.ok{background:#EAF3EC;border-color:#BBD4C0;color:#4A6B53}</style>"
+        '<button id="b" type="button">📋 Salin Teks Hasil Seluruhnya</button>'
+        f"<script>var D={payload},DEF={default},b=document.getElementById('b');"
+        "function ok(){b.textContent='✓ Tersalin!';b.className='ok';setTimeout(function(){b.textContent='📋 Salin Teks Hasil Seluruhnya';b.className=''},2000)}"
+        "function T(){var n=DEF;try{if(window.parent.__dhCalSel)n=window.parent.__dhCalSel}catch(e){}return D[n]||D[DEF]||''}"
+        "function fb(t){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity=0;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(e){}document.body.removeChild(a)}"
+        "b.onclick=function(){var t=T();if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){fb(t)})}else{fb(t)}};"
+        "</script>", height=50)
+
+
+def _cur_paid():
+    u = auth.current_user()
+    return bool(u and _is_paid(u, _ym()))
+
+
+def _cb_cal_dismiss():
+    """X: kalau bulan yang lagi dibuka sudah dibayar -> tanya konfirmasi dulu. Gratis -> langsung nutup."""
+    cc.dismiss("kalender", _cur_paid())
+
+
 # ─────────────── dialog ───────────────
-@st.dialog("Kalender Energi", width="large")
+@st.dialog("Kalender Energi", width="large", on_dismiss=_cb_cal_dismiss)
 def kalender_dialog():
     if not form_kit.login_gate("kalender"):
         return
     ss = st.session_state
     u = auth.current_user()
-    st.markdown('<div class="dh-step dh-step-cal"></div><div class="dh-nodismiss"></div>'
+    if cc.asking("kalender"):
+        cc.render("kalender", leave=None, icon="🗓️", title="Yakin Mau Tutup Halaman Ini?",
+                  text="Apakah kamu yakin ingin menutup halaman ini? Pastikan teks hasil sudah disalin.",
+                  tip=None, stay="Batal", go="Ya, Tutup")
+        return
+    st.markdown('<div class="dh-step dh-step-cal"></div>' + ('<div class="dh-nodismiss"></div>' if _cur_paid() else '') +
                 '<div class="dh-mn-title"><div class="dh-mn-ico">🗓️</div><div><div class="dh-mn-h">Kalender Energi</div>'
                 '<div class="dh-mn-sub">Tanggal penting bulananmu dari Zodiak · Shio · Weton · Numerologi · BaZi</div></div></div>',
                 unsafe_allow_html=True)
@@ -183,10 +238,19 @@ def kalender_dialog():
     st.markdown(f'<div class="dh-cal-sum"><span class="b">{s["bisnis"]} hari bisnis baik</span>'
                 f'<span class="k">{s["konflik"]} rawan konflik</span><span class="r">{s["romansa"]} peluang romansa</span></div>',
                 unsafe_allow_html=True)
-    components.html(_calendar_html(data), height=980, scrolling=True)
+    components.html(_calendar_html(data), height=620, scrolling=False)
     if paid:
-        st.markdown('<div class="dh-cal-paid">✓ Detail bulan ini sudah terbuka. Klik tanggal lalu pilih sistem.</div>',
+        st.markdown('<div class="dh-cal-paid">✅ Akses Terbuka · Detail bulan ini sudah terbuka. Klik tanggal lalu pilih sistem.</div>',
                     unsafe_allow_html=True)
+        texts = {d["n"]: _day_text(d, ym[0], BULAN[ym[1] - 1]) for d in data["days"]}
+        dflt = data["today"] or next((d["n"] for d in data["days"] if d["marks"]), data["days"][0]["n"])
+        with st.container(key="dhcal_bot"):
+            c1, c2 = st.columns(2, gap="small")
+            with c1:
+                _copy_dynamic(texts, dflt)
+            with c2:
+                st.button("Selesai & Tutup", key="dhcal_done_btn", type="primary", use_container_width=True,
+                          on_click=cc.cb_ask, args=("kalender",))
         return
     saldo = u.get("koin", 0)
     st.markdown(f'<div class="dh-cal-pay"><b>Buka detail {BULAN[ym[1] - 1]} {ym[0]}</b><span>Pesan, langkah, hindari, jam baik, '
