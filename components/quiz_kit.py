@@ -1,6 +1,6 @@
 """
 Layar kuesioner bersama (Solo, Career DNA, Strength, Blueprint).
-1 soal per layar, TANPA auto-lanjut. Footer: Kembali / Selanjutnya / Selesaikan.
+1 soal per layar, pilih jawaban = otomatis lanjut. Footer: Kembali / Selanjutnya (untuk cek ulang) / Selesaikan.
 Selesaikan dengan soal kosong -> popup "Pengisian Belum Lengkap" (layer di atas modal).
 """
 
@@ -35,8 +35,11 @@ def _qtext(s, q):
     return _Q_DEFAULT
 
 
-def _cb_pick(put, s, qid, val):
+def _cb_pick(put, s, qid, val, qi_key=None, last=True):
+    """Pilih jawaban -> langsung lanjut ke soal berikutnya (soal terakhir tetap menunggu Selesaikan)."""
     put(s, qid, val)
+    if qi_key and not last:
+        st.session_state[qi_key] = st.session_state.get(qi_key, 0) + 1
 
 
 def _cb_move(qi_key, d):
@@ -94,6 +97,7 @@ def _screen(prefix, items, get, put, qi_key, title, who, on_exit, on_done, scale
         f'<div class="dh-bp-prog"><i style="width:{round((qi + 1) / n * 100)}%"></i></div>',
         unsafe_allow_html=True)
     cur = get(s, q["id"])
+    last = qi >= n - 1
     with st.container(key=f"dhbp_slide_{prefix}{qi}"):
         st.markdown(f'<div class="dh-qz-q">{_qtext(s, q)}</div>', unsafe_allow_html=True)
         with st.container(key="dhbp_opts"):
@@ -102,13 +106,12 @@ def _screen(prefix, items, get, put, qi_key, title, who, on_exit, on_done, scale
                 cols = st.columns(2, gap="small")
                 for col, (v, lb) in zip(cols, ops):
                     with col:
-                        st.button(lb, key=f"{prefix}_a_{qi}_{int(v)}", on_click=_cb_pick, args=(put, s, q["id"], v),
+                        st.button(lb, key=f"{prefix}_a_{qi}_{int(v)}", on_click=_cb_pick, args=(put, s, q["id"], v, qi_key, last),
                                   type="primary" if cur is not None and cur == v else "secondary", use_container_width=True)
             else:
                 for v, lb in ops:
-                    st.button(lb, key=f"{prefix}_a_{qi}_{v}", on_click=_cb_pick, args=(put, s, q["id"], v),
+                    st.button(lb, key=f"{prefix}_a_{qi}_{v}", on_click=_cb_pick, args=(put, s, q["id"], v, qi_key, last),
                               type="primary" if cur is not None and cur == v else "secondary", use_container_width=True)
-    last = qi >= n - 1
     with st.container(key=f"{prefix}_qfoot"):
         c1, c2 = st.columns(2, gap="small")
         with c1:
@@ -119,7 +122,7 @@ def _screen(prefix, items, get, put, qi_key, title, who, on_exit, on_done, scale
                           args=(prefix, qi_key, items, get, on_done), use_container_width=True)
             else:
                 st.button("Selanjutnya", key=f"{prefix}_qnext", type="primary", on_click=_cb_move,
-                          args=(qi_key, 1), use_container_width=True)
+                          args=(qi_key, 1), use_container_width=True, disabled=cur is None)
 
 
 def render(prefix, items, get, put, qi_key, title, who, on_exit, on_done, scale=None):

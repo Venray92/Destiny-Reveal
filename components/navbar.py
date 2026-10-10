@@ -218,7 +218,7 @@ def render_navbar(current_page):
                 )
             with links_col:
                 with st.container(key="dhnav_links"):
-                    l1, d1, l2, d2, l3, d3, l4 = st.columns([1.5, 0.25, 3.0, 0.25, 1.9, 0.25, 3.0])
+                    l1, d1, l3, d3, l4 = st.columns([1.5, 0.25, 1.9, 0.25, 3.0])
                     with l1:
                         if current_page == "home":
                             # di Home: smooth scroll ke paling atas (anchor, bukan rerun/modal)
@@ -226,11 +226,6 @@ def render_navbar(current_page):
                         elif st.button("Home", key="dhnav_home", use_container_width=True):
                             go("home")
                     with d1:
-                        st.markdown('<div class="dh-nav-sep"></div>', unsafe_allow_html=True)
-                    with l2:
-                        if st.button("Reveal Takdirku", key="dhnav_reveal", use_container_width=True):
-                            open_reveal_modal()
-                    with d2:
                         st.markdown('<div class="dh-nav-sep"></div>', unsafe_allow_html=True)
                     with l3:
                         # Tutorial -> buka Modal Tutorial (jembatan .dh-open-modal), bukan scroll

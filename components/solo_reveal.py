@@ -509,7 +509,7 @@ def _render_result():
                                file_name=f"solo-reveal-{name.lower().replace(' ', '-')}.pdf", mime="application/pdf",
                                key="dhso_pdf", use_container_width=True, on_click="ignore", icon=":material/download:")
         with a2:
-            copy_button("\n".join(plain).strip(), "📋 Salin Teks", "dhso_copy", fs=12.5, h=46, brown=True)
+            copy_button("\n".join(plain).strip(), "📋 Salin Teks", "dhso_copy", fs=13, h=44)
         b1, b2 = st.columns(2, gap="small")
         with b1:
             st.button(f"🔄 Sistem Lain ({SOLO_PRICE}✨)", key="dhso_again", on_click=_cb_again, use_container_width=True)

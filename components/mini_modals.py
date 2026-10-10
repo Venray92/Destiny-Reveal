@@ -326,10 +326,9 @@ def _daily_body(paid):
         kind_label = _KIND_LABEL[tab]
         paid_mode = ss.get("dh_daily_paid") == today_wib()  # sudah buka sistem lain berbayar hari ini
         if paid_mode:
-            ttl = "Konfirmasi Buka Sistem Lain"
-            desc = (f'Apakah kamu yakin ingin melihat ramalan untuk <b>{kind_label} {_e(ss.dh_daily_pick)}</b>? '
-                    f'Pembukaan sistem tambahan ini akan menggunakan <b>{SWAP_PRICE} ✨</b> dari saldomu.')
-            yes = f"Ya, Gunakan {SWAP_PRICE} ✨"
+            ttl = "Konfirmasi Pilihan"  # 50 ✨ sudah dibayar di langkah "Pilih Ulang"
+            desc = f'Apakah kamu yakin ingin melihat ramalan untuk <b>{kind_label} {_e(ss.dh_daily_pick)}</b>?'
+            yes = "Ya"
         else:
             ttl = "Konfirmasi Kuota Harian Gratis"
             desc = (f'Apakah kamu yakin ingin melihat ramalan untuk <b>{kind_label} {_e(ss.dh_daily_pick)}</b>? '

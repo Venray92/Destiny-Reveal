@@ -163,7 +163,7 @@ def _cb_pay_back():
 # ─────────────── layar ───────────────
 def _head(sub=None):
     f = FEAT[_feat()]
-    st.markdown('<div class="dh-step dh-step-bp"></div>'
+    st.markdown('<div class="dh-step dh-step-bp"></div><div class="dh-nodismiss"></div>'
                 f'<div class="dh-bp-head"><span class="dh-bp-ico">{f["ico"]}</span><div><div class="dh-bp-h">{f["h"]}</div>'
                 f'<div class="dh-bp-hs">{sub or f["sub"]}</div></div></div>', unsafe_allow_html=True)
 
@@ -477,7 +477,7 @@ def _render_result():
     if not r:
         _go("start")
         st.rerun(scope="fragment")
-    st.markdown('<div class="dh-step dh-step-bp"></div>', unsafe_allow_html=True)
+    st.markdown('<div class="dh-step dh-step-bp"></div><div class="dh-nodismiss"></div>', unsafe_allow_html=True)
     st.markdown(_res_career(r) if "plan" in r else _res_strength(r), unsafe_allow_html=True)
     cap = f'{FEAT[_feat()]["h"].title()} {r["nama"]}\nCek takdirmu di destinyreveal.id #DestinyReveal'
     with st.container(key="dhbp_actions"):

@@ -59,7 +59,7 @@ def _cb_form_next(mode):
 def _render_form():
     mode = st.session_state.get("dh_modal_mode", "instan")
     st.markdown(
-        '<div class="dh-step dh-step-form"></div>'
+        '<div class="dh-step dh-step-form"></div><div class="dh-nodismiss"></div>'
         '<div class="dh-modal-head">'
         '<div class="dh-modal-eyebrow">LANGKAH AWAL · PENEMUAN DIRI</div>'
         '<div class="dh-modal-title">Multi-System Blueprint</div>'

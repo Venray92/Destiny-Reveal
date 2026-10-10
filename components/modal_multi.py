@@ -11,6 +11,7 @@ from datetime import datetime
 import streamlit as st
 
 from components import auth
+from components import close_confirm as cc
 from components import quiz_kit as QK
 from components.dialog_bus import request_with_return
 from components.flow_state import STEP_FORM, STEP_LOADING, STEP_PAY, STEP_RESULT, set_step
@@ -110,27 +111,63 @@ def _items():
     return BC.plan(st.session_state.get("dh_mx_qmode") or "singkat", info()[3])
 
 
-# ─────────────── layar: pilih kedalaman kuesioner ───────────────
+# ─────────────── layar: pilih kedalaman kuesioner (pola sama dengan Career DNA) ───────────────
+def _cb_modesel(m):
+    st.session_state.dh_mx_modesel = m
+
+
+def _cb_modeask():
+    if st.session_state.get("dh_mx_modesel"):
+        st.session_state.dh_mx_modeconf = True
+
+
+def _cb_modestay():
+    st.session_state.pop("dh_mx_modeconf", None)
+
+
+def _cb_modego(m):
+    st.session_state.pop("dh_mx_modeconf", None)
+    _cb_qmode(m)
+
+
 def render_mode():
+    ss = st.session_state
+    sel = ss.get("dh_mx_modesel")
+    if ss.get("dh_mx_modeconf") and sel:
+        nm = "Cepat" if sel == "singkat" else "Deep"
+        cc.layer("mxmode", _mode_screen, on_go=lambda: _cb_modego(sel), on_stay=_cb_modestay, icon="📝",
+                 title="Mulai Kuesioner?", text=f"Apakah kamu yakin ingin melanjutkan dengan kuesioner mode <b>{nm}</b>?",
+                 stay="Batal / Beralih", go="Ya, Lanjutkan")
+    else:
+        _mode_screen()
+
+
+def _mode_screen():
+    sel = st.session_state.get("dh_mx_modesel")
     ttl, sub, _p, sc = info()
     n_s, n_l = len(BC.plan("singkat", sc)), len(BC.plan("lengkap", sc))
     st.markdown(
-        '<div class="dh-step dh-step-bp"></div>'
+        '<div class="dh-step dh-step-bp"></div><div class="dh-nodismiss"></div>'
         f'<div class="dh-bp-head"><span class="dh-bp-ico">🔮</span><div><div class="dh-bp-h">{_E(ttl.upper())}</div>'
-        '<div class="dh-bp-hs">Satu langkah lagi: pilih kedalaman kuesioner kepribadianmu.</div></div></div>'
-        f'<div class="dh-bp-note">Kuesioner untuk: <b>{_E(", ".join(s for s in BC.QUIZ if s in sc))}</b>. '
+        '<div class="dh-bp-hs">Pilih kedalaman kuesioner kepribadianmu.</div></div></div>'
+        f'<div class="dh-bp-note">Kuesioner: <b>{_E(", ".join(s for s in BC.QUIZ if s in sc))}</b>. '
         'Satu pertanyaan per layar, semua wajib dijawab.</div>', unsafe_allow_html=True)
-    cards = [("singkat", "⚡ Kuesioner Singkat", f"~{max(1, round(n_s * 7 / 60))} menit", n_s,
-              "Estimasi cepat dari soal pilihan. Akurasi cukup untuk gambaran awal."),
-             ("lengkap", "🎯 Kuesioner Lengkap", f"~{max(1, round(n_l * 7 / 60))} menit", n_l,
-              "Seluruh bank soal. Hasil kepribadian paling akurat.")]
+    cards = [("singkat", "⚡ Cepat", n_s, "Gambaran awal yang cukup baik.",
+              "Tiap dimensi dinilai dari sedikit soal. Hasil bisa bergeser kalau kamu menjawab ulang."),
+             ("lengkap", "🎯 Deep", n_l, "Paling akurat &amp; stabil.",
+              "Seluruh bank soal. Lebih sedikit tertukar akibat satu jawaban yang meleset.")]
     c1, c2 = st.columns(2, gap="small")
-    for col, (m, t, tm, n, ds) in zip((c1, c2), cards):
+    for col, (m, t, n, tag, ds) in zip((c1, c2), cards):
         with col:
-            st.markdown(f'<div class="dh-bp-mcard"><b>{t}</b><em>{tm} · {n} soal</em><p>{ds}</p></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="dh-bp-mcard{" is-sel" if sel == m else ""}"><b>{t}</b>'
+                        f'<em>~{max(1, round(n * 7 / 60))} menit · {n} soal</em>'
+                        f'<p><b style="display:inline;font-size:12.5px">{tag}</b> {ds}</p></div>', unsafe_allow_html=True)
             with st.container(key=f"dhbp_mode_{m}"):
-                st.button("Pilih", key=f"dhmx_pick_{m}", on_click=_cb_qmode, args=(m,),
-                          type="primary" if m == "lengkap" else "secondary", use_container_width=True)
+                st.button("Dipilih ✓" if sel == m else "Pilih", key=f"dhmx_pick_{m}", on_click=_cb_modesel, args=(m,),
+                          type="primary" if sel == m else "secondary", use_container_width=True)
+    with st.container(key="dhbp_cta"):
+        st.button("Mulai Kuesioner →", key="dhmx_mode_go", type="primary", on_click=_cb_modeask,
+                  disabled=not sel, use_container_width=True)
     st.button("← Kembali", key="dhmx_mode_back", on_click=_cb_back_form, type="tertiary")
 
 
@@ -155,7 +192,7 @@ def render_pay():
     ttl, sub, pr, sc = info()
     d = ss.get("dh_modal_data") or {}
     st.markdown(
-        '<div class="dh-step dh-step-bp"></div>'
+        '<div class="dh-step dh-step-bp"></div><div class="dh-nodismiss"></div>'
         '<div class="dh-bp-head"><span class="dh-bp-ico">🔮</span><div><div class="dh-bp-h">MULTI-SYSTEM BLUEPRINT</div>'
         '<div class="dh-bp-hs">Konfirmasi pembayaran</div></div></div>', unsafe_allow_html=True)
     if not u:

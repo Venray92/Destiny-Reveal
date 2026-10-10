@@ -195,7 +195,7 @@ def _cb_pay():
 # ─────────────── layar: start ───────────────
 def _head(sub):
     st.markdown(
-        '<div class="dh-step dh-step-bp"></div>'
+        '<div class="dh-step dh-step-bp"></div><div class="dh-nodismiss"></div>'
         '<div class="dh-bp-head"><span class="dh-bp-ico">🔷</span><div><div class="dh-bp-h">DEEP BLUEPRINT</div>'
         f'<div class="dh-bp-hs">{sub}</div></div></div>', unsafe_allow_html=True)
 
@@ -507,7 +507,7 @@ def _render_result():
     if not r:
         _go("start")
         st.rerun(scope="fragment")
-    st.markdown('<div class="dh-step dh-step-bp"></div>', unsafe_allow_html=True)
+    st.markdown('<div class="dh-step dh-step-bp"></div><div class="dh-nodismiss"></div>', unsafe_allow_html=True)
     _idcard(r)
     heading_with_info('<div class="dh-bp-h3">Analisis A-M</div>', "bp_res", "AM")
     tab = ss.get("dh_bp_rtab", 0)
