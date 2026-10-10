@@ -41,10 +41,12 @@
 [data-testid="stDialog"] div.st-key-dhbp_actions div.stButton > button { background: var(--dh-brown-d) !important; border-color: var(--dh-brown-d) !important; }
 
 /* konfirmasi sebagai layer di atas modal utama */
-[class*="st-key-dhcc_bg_"] { filter: blur(3px); opacity: .55; pointer-events: none; user-select: none; transition: filter .2s ease; }
-[class*="st-key-dhcc_layer_"] { position: fixed !important; inset: 0; z-index: 1000300; display: flex !important; align-items: center; justify-content: center; padding: 18px; background: rgba(74,46,32,.22); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+[class*="st-key-dhcc_bg_"] { transition: filter .25s ease, opacity .25s ease; }
+[data-testid="stDialog"]:has([class*="st-key-dhcc_layer_"]) [class*="st-key-dhcc_bg_"] { filter: blur(3px); opacity: .55; pointer-events: none; user-select: none; }
+[class*="st-key-dhcc_layer_"] { position: fixed !important; inset: 0; z-index: 1000300; display: flex !important; align-items: center; justify-content: center; padding: 18px; background: rgba(74,46,32,.22); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); animation: dhccFade .22s ease both; }
 [class*="st-key-dhcc_card_"] { width: min(430px, 92vw) !important; margin: 0 auto !important; background: #FFFCF7; border: 1px solid #F0CDB6; border-radius: 22px; padding: 14px 18px 20px; box-shadow: 0 26px 60px -20px rgba(74,46,32,.55); animation: dhccPop .22s ease both; }
 [class*="st-key-dhcc_card_"] .dh-cc { padding-top: 12px; }
+@keyframes dhccFade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes dhccPop { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: none; } }
 [class*="st-key-dhcc_card_"] div.stButton > button { height: 46px !important; border-radius: 999px !important; font-weight: 700 !important; background: #FFF !important; border: 1.5px solid #E8B79C !important; }
 [class*="st-key-dhcc_card_"] div.stButton > button * { color: var(--dh-brown-d) !important; font-weight: 700 !important; font-size: 13.5px !important; }

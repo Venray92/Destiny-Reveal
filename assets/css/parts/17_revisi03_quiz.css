@@ -27,4 +27,7 @@ div.st-key-dhbp_opts div.stButton > button[kind="primary"]:hover { transform: no
 
 /* Batch 3: backdrop-filter di stDialog bikin layer position:fixed nempel ke konten (bukan viewport) -> matikan saat ada layer */
 [data-testid="stDialog"]:has([class*="st-key-dhcc_layer_"]) { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+/* blur latar dipindah ke pseudo-element supaya tidak "hilang" mendadak saat layer muncul */
+[data-testid="stDialog"]:has([class*="st-key-dhcc_layer_"])::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+[data-testid="stDialog"]:has(.dh-step-solo):has([class*="st-key-dhcc_layer_"])::before { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 [data-testid="stDialog"] > div:has([class*="st-key-dhcc_layer_"]) { transform: none !important; filter: none !important; }
