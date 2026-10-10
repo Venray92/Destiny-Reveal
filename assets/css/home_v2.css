@@ -2270,3 +2270,7 @@ div.st-key-dhdc_acts { margin-top: 4px; } [data-testid="stDialog"] div.st-key-dh
 .dh-yr-chart .s { font-size: 10px; text-anchor: middle; } .dh-yr-chart .s.g { fill: #4F7A3C; } .dh-yr-chart .s.r { fill: #B2552C; }
 .dh-yr-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; font-weight: 700; margin-top: 4px; } .dh-yr-legend .g { color: #4F7A3C; } .dh-yr-legend .r { color: #B2552C; }
 div.st-key-dhyr_year [role="radiogroup"] { gap: 8px 18px; }
+
+/* Konteks personal (usia, fase hidup, Personal Year) */
+.dh-pers { display: flex; flex-wrap: wrap; gap: 6px 14px; background: #FFF8EE; border: 1px solid #F0DFC8; border-radius: 12px; padding: 10px 14px; margin: 12px 0; font-size: 12.5px; color: #6B5646; }
+.dh-pers b { color: #B2552C; }
