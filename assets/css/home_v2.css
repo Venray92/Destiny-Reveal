@@ -2274,3 +2274,26 @@ div.st-key-dhyr_year [role="radiogroup"] { gap: 8px 18px; }
 /* Konteks personal (usia, fase hidup, Personal Year) */
 .dh-pers { display: flex; flex-wrap: wrap; gap: 6px 14px; background: #FFF8EE; border: 1px solid #F0DFC8; border-radius: 12px; padding: 10px 14px; margin: 12px 0; font-size: 12.5px; color: #6B5646; }
 .dh-pers b { color: #B2552C; }
+
+/* Revisi01: daftar sub-menu maks 5 item, sisanya scroll internal (header & padding diam) */
+.dh-ov-body.dh-ov-scroll { overflow-y: auto; overscroll-behavior: contain; padding-right: 6px; margin-right: -6px; scrollbar-width: thin; scrollbar-color: #E3C9A8 transparent; }
+.dh-ov-body.dh-ov-scroll::-webkit-scrollbar { width: 6px; }
+.dh-ov-body.dh-ov-scroll::-webkit-scrollbar-thumb { background: #E3C9A8; border-radius: 99px; }
+
+/* Revisi01 Tarot: muka kartu bawaan (fallback) + gambar menimpa penuh */
+.dh-tr-wrap { position: relative; }
+.dh-tr-wrap .dh-tr-face { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 16px 10px 88px; box-sizing: border-box;
+    background: radial-gradient(circle at 50% 38%, #4A3A6B 0%, #271C3F 60%, #160F27 100%); border: 2px solid #D9B26B; color: #F1D9A0; }
+.dh-tr-wrap .dh-tr-face::before { content: ""; position: absolute; inset: 6px; border: 1px solid rgba(217,178,107,.55); border-radius: 10px; pointer-events: none; }
+.dh-trf-n { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 18px; letter-spacing: .12em; }
+.dh-trf-s { font-size: 46px; line-height: 1; filter: drop-shadow(0 0 10px rgba(241,217,160,.55)); }
+.dh-trf-t { display: none; }
+.dh-tr-wrap .dh-tr-art { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; object-fit: cover; }
+.dh-tr-wrap .dh-tr-over { z-index: 2; }
+/* Tarot: kartu awal glowing + floating halus */
+@keyframes dhTrFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+@keyframes dhTrAura { 0%,100% { box-shadow: 0 0 16px 3px rgba(240,180,90,.38), 0 0 44px 12px rgba(194,94,0,.20); } 50% { box-shadow: 0 0 26px 7px rgba(255,205,120,.62), 0 0 70px 22px rgba(214,110,40,.32); } }
+.st-key-dhtr_cover .dh-tr-crop { border-radius: 14px; animation: dhTrFloat 3.4s ease-in-out infinite, dhTrAura 2.6s ease-in-out infinite; }
+.st-key-dhtr_cover:hover .dh-tr-crop { animation-play-state: paused; }
+.dh-tr-hint { animation: dhTrHint 1.8s ease-in-out infinite; }
+@keyframes dhTrHint { 0%,100% { opacity: .75; } 50% { opacity: 1; } }
