@@ -6,7 +6,7 @@ Home v2 — entry point tipis. Kodenya dipecah ke paket components/:
   components/modal_steps.py verifikasi email -> pembayaran -> loading -> hasil (Mode 1)
   components/flow_state.py  state & konstanta alur modal
   components/data.py        data statis (node diagram, kategori filter)
-CSS: assets/css/home_v2.css (namespace "dh-"). app.py tetap manggil
+CSS: assets/css/parts/*.css, dimuat urut nama (namespace "dh-"). app.py tetap manggil
 render_navbar(...) dan render(...) dari modul ini.
 
 Konten (koin, login, referral, VIP, pembayaran) masih DUMMY — belum ada backend.
