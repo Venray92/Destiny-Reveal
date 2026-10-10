@@ -213,12 +213,12 @@ def test_revisi2_resume_dan_footer_css():
     from utils import resume
     calls = []
     resume.register("zz_a", lambda: calls.append("a"))
-    st.session_state.pop("dh_resume_feat", None)
+    resume.register("zz_b", lambda: calls.append("b"))
     resume.enter("zz_a")
-    resume.enter("pricing")  # bukan fitur -> tidak memutus
-    resume.enter("zz_a")
+    resume.enter("daily")  # cuma buka fitur lain -> progres tetap
     assert calls == []
-    resume.enter("daily")  # fitur lain -> progres zz_a dibuang
+    resume.scanned("zz_b")  # scan fitur lain -> progres zz_a dibuang
     assert calls == ["a"]
     css = Path("assets/css/parts/20_revisi2_quiz_footer.css").read_text()
-    assert "height: 44px" in css and "min-height: 440px" in css and "st-key-dhsd_acts" in css
+    assert "height: 44px" in css and "min-height: 440px" in css and "st-key-dhsd_acts" in css and "st-key-dhcl_acts" in css
+    assert "rotate(90deg)" in css and "dh-step-bp" in css
