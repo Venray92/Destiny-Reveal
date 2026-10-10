@@ -40,3 +40,17 @@ def test_usia_dan_payload():
     assert L.usia(date(1995, 3, 14), date(2026, 3, 13)) == 30 and L.usia(date(1995, 3, 14), date(2026, 3, 14)) == 31
     assert life_chart.payload("Numerologi", date(1995, 3, 14), date(2026, 10, 9))["age"] == 31
     assert "roda" in life_chart.payload("Matrix Destiny", date(1995, 3, 14), date(2026, 10, 9))
+
+
+def test_konteks_personal():
+    from datetime import date
+    k = L.konteks(date(1995, 3, 14), date(2026, 10, 10))
+    assert k["usia"] == 31 and k["fase"]["no"] == 1 and k["fase"]["angka"] == 8 and k["py"] == 9
+
+
+def test_solo_owned_key():
+    from datetime import date
+    from components import solo_reveal as S
+    p = {"nama": "Rina", "tgl": date(1995, 3, 14)}
+    assert S._okey("Zodiak", p) == "Zodiak|Rina|1995-03-14"
+    assert S._okey("MBTI", p, {"q2": 1, "q1": 0}) == "MBTI|Rina|1995-03-14|q1=0,q2=1"
