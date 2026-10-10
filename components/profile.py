@@ -176,7 +176,7 @@ def _render_overview(u):
 def _render_edit(u):
     ss = st.session_state
     st.markdown('<div class="dh-pp-edith">✏️ Edit Profil</div><div class="dh-pp-edsub">Data ini dipakai otomatis (autofill) '
-                'di Solo Reveal, Soul Match, dan pembacaan lainnya.</div>', unsafe_allow_html=True)
+                'di One-System Blueprint, Soul Match, dan pembacaan lainnya.</div>', unsafe_allow_html=True)
     with st.container(key="dhpp_editcard"):
         c1, c2 = st.columns(2, gap="medium")
         with c1:

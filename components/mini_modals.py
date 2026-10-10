@@ -259,7 +259,7 @@ def _cb_daily_dismiss():
     cc.dismiss("daily", at_result)
 
 
-@st.dialog("Ramalan Harian Gratis", width="small", on_dismiss=_cb_daily_dismiss)
+@st.dialog("Ramalan Kartu Harian", width="small", on_dismiss=_cb_daily_dismiss)
 def daily_dialog():
     ss = st.session_state
     if not form_kit.login_gate("daily"):
@@ -273,7 +273,7 @@ def daily_dialog():
                   tip="Cek angka dan warna hokimu sebelum pergi.", stay="✨ Lanjut Baca", go="Ya, Tutup")
         return
     _head()
-    _title("🌅", "Ramalan Harian Gratis", "1x per hari · Pilih Zodiak, Shio, atau Weton kelahiranmu")
+    _title("🌅", "Ramalan Kartu Harian", "1x per hari · Pilih Zodiak, Shio, atau Weton kelahiranmu")
     lock = ss.get("dh_daily_lock")
     if lock and lock.get("date") == today_wib():  # sudah dipilih hari ini -> terkunci sampai 00:00 WIB
         if ss.get("dh_daily_swap"):
@@ -411,7 +411,7 @@ def _cb_tarot_dismiss():
     cc.dismiss("tarot", bool(draw and draw.get("date") == today_wib() and not st.session_state.get("dh_tarot_loading")))
 
 
-@st.dialog("Tarot 1 Kartu Harian", width="small", on_dismiss=_cb_tarot_dismiss)
+@st.dialog("Gacha Kartu Tarot", width="small", on_dismiss=_cb_tarot_dismiss)
 def tarot_dialog():
     ss = st.session_state
     if not form_kit.login_gate("tarot"):
@@ -422,7 +422,7 @@ def tarot_dialog():
                   tip="Baca juga bagian Pesan Inti sebelum pergi.", stay="✨ Lanjut Baca", go="Ya, Tutup")
         return
     _head()
-    _title("🃏", "Tarot 1 Kartu Harian", "Tarik 1 kartu sinkronisitas kosmik murni untuk memandu energimu hari ini.")
+    _title("🃏", "Gacha Kartu Tarot", "Tarik 1 kartu sinkronisitas kosmik murni untuk memandu energimu hari ini.")
     draw = ss.get("dh_tarot_draw")
     if ss.get("dh_tarot_loading") and (not draw or draw.get("date") != today_wib()):
         _lc = _loadcard_uri()
@@ -559,7 +559,7 @@ def _cb_streak_login():
     request_open("auth")
 
 
-@st.dialog("Streak & Reward", width="small")
+@st.dialog("Daily Checkin", width="small")
 def streak_dialog():
     if not form_kit.login_gate("streak"):
         return
@@ -584,9 +584,9 @@ def streak_dialog():
     tip = ('<i class="dh-sk-ti" tabindex="0">ℹ️ Apa yang bisa didapat dengan 180✨?<i class="dh-sk-pop">'
            '<i class="dh-sk-pophead">💡 Dengan mengumpulkan 180✨ per bulan, kamu bisa unlock:</i>'
            '<i>✅ 1 Tarot Celtic Cross (150✨)</i><i>✅ 1 Tarot 5 Kartu + 1 Tarot 3 Kartu (150✨)</i>'
-           '<i>✅ 3 Ramalan Harian Lengkap (150✨)</i></i></i>')
+           '<i>✅ 3 Ramalan Kartu Harian Lengkap (150✨)</i></i></i>')
     st.markdown(
-        '<div class="dh-sk-flame">🔥</div><div class="dh-sk-title">Streak &amp; Reward</div>'
+        '<div class="dh-sk-flame">🔥</div><div class="dh-sk-title">Daily Checkin</div>'
         '<div class="dh-mn-notice dh-sk-info"><b>📌 Cara Menaikkan Streak:</b>'
         'Buka website tiap hari buat naikin streak (+1 setiap kali kamu membuka fitur gratis harian).'
         f'{tip}</div>'

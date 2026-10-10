@@ -268,7 +268,7 @@ def _ts_info(slug):
 def _ts_tile(slug, i, is_open, is_active, is_new):
     """HTML 1 kartu: tertutup = sunmoon + BUKA; terbuka = art kartu (Minor: kotak kosong) + nama."""
     from components.mini_modals import _cover_uri
-    from utils.card_images import card_image_data_uri, tarot_relative_path
+    from utils.card_images import card_image_data_uri
     e = html.escape
     cls = "dh-ts-tile" + (" is-open" if is_open else "") + (" is-active" if is_active else "")
     if not is_open:
@@ -278,11 +278,9 @@ def _ts_tile(slug, i, is_open, is_active, is_new):
         return (f'<div class="{cls}"><div class="dh-ts-num">{i + 1}</div><div class="dh-ts-art">{art}'
                 '<span class="dh-ts-buka">BUKA</span></div><div class="dh-ts-name dh-ts-lock">Terkunci</div></div>')
     _c, nama, _arti, idx = _ts_info(slug)
-    _rp = tarot_relative_path(slug)
-    uri = card_image_data_uri(_rp) if _rp else None
+    uri = card_image_data_uri(f"tarot/{idx:02d}_{slug}.png") if idx is not None else None
     if uri:
-        _tag = f'<span class="dh-ts-idx">#{idx}</span>' if idx is not None else ""
-        art = f'<img class="dh-tr-img dh-ts-img" src="{uri}" alt="{e(nama)}">{_tag}'
+        art = f'<img class="dh-tr-img dh-ts-img" src="{uri}" alt="{e(nama)}"><span class="dh-ts-idx">#{idx}</span>'
     else:  # Minor: gambar belum ada -> kotak kosong
         art = '<div class="dh-tr-img dh-tr-ph dh-ts-img" style="aspect-ratio:870/1164"></div>'
     flip = " dh-ts-flip" if is_new else ""
@@ -374,7 +372,7 @@ def _ts_warn():
     st.button("Tetap Lanjut", key="dhts_w_go", use_container_width=True, on_click=_ts_do_pending)
 
 
-@st.dialog("Tarot Spreads", width="large", on_dismiss=_cb_ts_dismiss)
+@st.dialog("Tarot Spread", width="large", on_dismiss=_cb_ts_dismiss)
 def tarot_spread_dialog():
     ss = st.session_state
     step = ss.get("dh_ts_step", "intro")
@@ -455,20 +453,18 @@ def _render_tarot_periodik(kind):
     st.markdown("**🧭 PR Kecil Buat Kamu**\n\n" + c.get("p3", ""))
 
 
-# Weekly/Monthly Report & Deep Blueprint: versi baru (modal besar) ada di file sendiri
-from components.weekly_report import weekly_dialog  # noqa: E402
-from components.blueprint import blueprint_dialog  # noqa: E402
-
-
 def _open_spread(n):
     _ts_reset()  # buka dari kartu Jelajahi = mulai dari awal
     st.session_state.dh_ts_tab = n
     tarot_spread_dialog()
 
 
+from components.weekly_report import weekly_dialog  # noqa: E402  (Weekly & Monthly: modul sendiri)
+from components.blueprint import blueprint_dialog  # noqa: E402  (Deep Blueprint: modul sendiri)
+
 DIALOGS = {
     "tarot_spread_3": lambda: _open_spread(3), "tarot_spread_5": lambda: _open_spread(5),
     "tarot_spread_10": lambda: _open_spread(10),
     "tarot_spread": tarot_spread_dialog, "weekly": weekly_dialog,
-    "blueprint": blueprint_dialog, 
+    "blueprint": blueprint_dialog,
 }

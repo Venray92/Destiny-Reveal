@@ -67,7 +67,7 @@ def _render_form():
         '<div class="dh-step dh-step-form"></div>'
         '<div class="dh-modal-head">'
         '<div class="dh-modal-eyebrow">LANGKAH AWAL · PENEMUAN DIRI</div>'
-        '<div class="dh-modal-title">Reveal Dirimu</div>'
+        '<div class="dh-modal-title">Multi-System Blueprint</div>'
         '<div class="dh-modal-sub">Isi tanggal lahir dan tentukan mode pembacaan yang kamu inginkan.</div>'
         '</div>',
         unsafe_allow_html=True,
@@ -150,7 +150,7 @@ def reopen_if_pending():
         open_reveal_modal()
 
 
-@st.dialog("Reveal Dirimu", width="large", on_dismiss=_on_dismiss)
+@st.dialog("Multi-System Blueprint", width="large", on_dismiss=_on_dismiss)
 def _flow_dialog():
     if st.session_state.pop("dh_flow_exit", False):
         st.session_state.dr_page = "home"

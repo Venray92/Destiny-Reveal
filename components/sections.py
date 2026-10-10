@@ -224,29 +224,29 @@ def _categories():
     # (key, ikon, judul, sub, badge, kelas badge, isi modal)
     return [
         ("daily", "🌅", "Daily Free Reveal", "Gratis · Aktivitas harian · Reward", "GRATIS", "free",
-         _ov_item("Ramalan Kartu Harian", "1x per hari, pilih Zodiak atau Shio", _ARROW, "daily")
-         + _ov_item("Gacha Kartu Tarot", "Tarik kartu deck tertutup dengan animasi shuffle", _ARROW, "tarot")
-         + _ov_item("Skor Energi Hari Ini", "Skor 0-100 dari Zodiak, Shio, Weton &amp; Numerologi", _ARROW, "energi")
-         + _ov_item("Afirmasi Harian", "Kartu afirmasi gabungan 4 sistem + langkah kecil", _ARROW, "afirmasi")
-         + _ov_item("Kalender Energi", "Tanggal bisnis baik, rawan konflik &amp; peluang romansa tiap bulan", _ARROW, "kalender")
-         + _ov_item("Preview Zodiak", "12 rasi, modality, planet &amp; quote", _ARROW, "preview")
-         + _ov_item("Daily Checkin", "Check-in mingguan, klaim reward gratis", _ARROW, "streak")),
+         _ov_item("Ramalan Kartu Harian", "Cek pesan harian &amp; energi takdirmu hari ini", _ARROW, "daily")
+         + _ov_item("Gacha Kartu Tarot", "Tarik 1 kartu tarot harianmu untuk petunjuk singkat hari ini", _ARROW, "tarot")
+         + _ov_item("Skor Energi Hari Ini", "Ukur skor energi harianmu 0–100 dari 4 sistem", _ARROW, "energi")
+         + _ov_item("Afirmasi Harian", "Dapatkan kalimat penguat jiwa &amp; panduan langkah kecil harian", _ARROW, "afirmasi")
+         + _ov_item("Kalender Energi", "Peta tanggal baik bisnis, potensi konflik &amp; hari hoki romansa", _ARROW, "kalender")
+         + _ov_item("Preview Zodiak", "Ringkasan karakter rasi bintang, elemen &amp; quote inspiratif", _ARROW, "preview")
+         + _ov_item("Daily Checkin", "Klaim bonus Stardust gratis dengan check-in rutin", _ARROW, "streak")),
         ("self", "🎯", "Self Discovery", "Karakter · Potensi · Identitas · Siklus hidup", "PREMIUM", "prem",
-         _ov_item("Solo Reveal", "Pilih 1 sistem untuk analisis mendalam", _ARROW, "solo")
-         + _ov_item("Career DNA", "Profil minat karier, peran cocok &amp; rencana 30 hari", _ARROW, "career")
-         + _ov_item("Strength &amp; Blind Spot", "Kekuatan utama, titik buta &amp; latihan harian", _ARROW, "strength")
-         + _ov_item("Blueprint Mendalam", "Analisis A-M super mendalam 1 atau 15 sistem", _ARROW, "blueprint")
-         + _ov_item("Batch Reveal", "Reveal Dirimu: banyak sistem sekaligus dari satu kali isi data", _ARROW, reveal=True)),
+         _ov_item("One-System Blueprint", "Analisis Standar 6 aspek kehidupan dari 1 sistem pilihanmu", _ARROW, "solo")
+         + _ov_item("Career DNA", "Bedah potensi karier, peran ideal &amp; rencana sukses 30 hari", _ARROW, "career")
+         + _ov_item("Strength &amp; Blind Spot", "Mengenali kekuatan tersembunyi &amp; titik buta yang perlu dikelola", _ARROW, "strength")
+         + _ov_item("Blueprint Mendalam", "Laporan 13 aspek (A–M) untuk 1 atau 15 sistem, plus Grand Synthesis &amp; roadmap 10 tahun", _ARROW, "blueprint")
+         + _ov_item("Multi-System Blueprint", "Baca 5 sistem kelahiran, 5 sistem psikologi, atau 15 sistem sekaligus dalam satu laporan", _ARROW, reveal=True)),
         ("rel", "💞", "Relationships", "Pasangan · Sahabat · Keluarga · Partner bisnis", "PREMIUM", "prem",
-         _ov_item("Soul Match Asmara", "Kecocokan pasangan atau calon pasangan", _ARROW, "compat_asmara")
-         + _ov_item("Soul Match Keluarga", "Orang tua, saudara, dan anggota keluarga", _ARROW, "compat_keluarga")
-         + _ov_item("Soul Match Teman", "Sahabat dan lingkar pertemanan", _ARROW, "compat_teman")
-         + _ov_item("Soul Match Partner Bisnis", "Rekan bisnis dan kolega kerja", _ARROW, "compat_bisnis")),
+         _ov_item("Soul Match Asmara", "Cek tingkat kecocokan, dinamika hubungan &amp; potensi konflik pasangan", _ARROW, "compat_asmara")
+         + _ov_item("Soul Match Keluarga", "Pahami pola komunikasi &amp; cara mempererat hubungan dengan keluarga", _ARROW, "compat_keluarga")
+         + _ov_item("Soul Match Teman", "Cek chemistry, kekuatan &amp; tantangan persahabatan plus saran merawatnya", _ARROW, "compat_teman")
+         + _ov_item("Soul Match Partner Bisnis", "Cek kecocokan kerja sama, saran pembagian peran &amp; potensi gesekan", _ARROW, "compat_bisnis")),
         ("guid", "🧭", "Guidance &amp; Timing", "Tarot · Weekly · Monthly · Decision Reveal", "PREMIUM", "prem",
-         _ov_item("Tarot Spread", "3 spread: Past-Present-Future, Cross, Celtic Cross (10 kartu)", _ARROW, "tarot_spread")
-         + _ov_item("Decision Reveal", "Bimbang antara dua pilihan? Bandingkan A vs B dengan 7 kartu", _ARROW, "decision")
-         + _ov_item("Yearly Forecast", "Shio × shio tahun, Personal Year &amp; kurva energi 12 bulan", _ARROW, "yearly")
-         + _ov_item("Weekly &amp; Monthly Report", "Panduan timing mingguan &amp; analisis bulanan lengkap",
+         _ov_item("Tarot Spread", "Pembacaan 3, 5, hingga 10 kartu untuk gambaran alur situasi rumit", _ARROW, "tarot_spread")
+         + _ov_item("Decision Reveal", "Bimbang dua pilihan? Bandingkan opsi A vs B dengan tebaran 7 kartu tarot", _ARROW, "decision")
+         + _ov_item("Yearly Forecast", "Proyeksi 12 bulan kurva energi, siklus keberuntungan &amp; tantangan personalmu", _ARROW, "yearly")
+         + _ov_item("Weekly &amp; Monthly Report", "Panduan timing mingguan &amp; bulanan: navigasi siklus rezeki, energi puncak, serta momentum keputusan terbaik",
                     _ARROW, "weekly")),
         ("biz", "💼", "Destiny Business", "Team insights · Leadership · Organizational development", "COMING SOON", "soon", soon),
         ("my", "📔", "My Destiny", "Journal · Timeline · Goals · History · Reflection", "COMING SOON", "soon", soon),
@@ -423,8 +423,8 @@ def render_footer():
         '<a href="#dh-top" class="dh-footer-link">Home</a><a href="#dh-soon" class="dh-footer-link dh-open-reveal">Reveal</a>'
         '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="tutorial">Tutorial</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="blog">Blog</a></div>'
         '<div><div class="dh-footer-col-title">FITUR</div>'
-        '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="daily">Ramalan Harian</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="tarot">Tarot 1 Kartu</a>'
-        '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="tarot_spread">Tarot Spreads</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="compat">Soul Match</a>'
+        '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="daily">Ramalan Kartu Harian</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="tarot">Gacha Kartu Tarot</a>'
+        '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="tarot_spread">Tarot Spread</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="compat">Soul Match</a>'
         '<a href="#dh-soon" class="dh-footer-link highlight dh-open-modal" data-modal="pricing_ref">🎁 Program Referral</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="pricing">Daftar Harga &amp; VIP</a></div>'
         '<div><div class="dh-footer-col-title">BANTUAN</div>'
         '<a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="faq">FAQ</a><a href="#dh-soon" class="dh-footer-link dh-open-modal" data-modal="contact">Contact</a>'

@@ -69,6 +69,26 @@ ACTIVE = tuple(n for n, _i, _k in SYSTEMS)  # semua 15 sistem aktif
 _BIRTH5 = ("Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny")  # punya JSON profil A-F
 
 
+def _okey(name, prof, ans=None):
+    """Kunci hasil yang sudah dibeli: sistem + orang (+ jawaban kuesioner, supaya tes ulang dengan jawaban beda = hasil baru)."""
+    k = f"{name}|{prof.get('nama', '')}|{prof['tgl'].isoformat()}"
+    if ans:
+        k += "|" + ",".join(f"{a}={ans[a]}" for a in sorted(ans))
+    return k
+
+
+def _open_owned(name, prof, ans=None):
+    """Kalau sudah dibeli: buka hasilnya gratis. Return True kalau dibuka."""
+    ss = st.session_state
+    res = (ss.get("dh_solo_store") or {}).get(_okey(name, prof, ans))
+    if not res:
+        return False
+    ss.dh_solo_res = res
+    ss.dh_solo_free = True
+    _go("result")
+    return True
+
+
 def _cb_pick(name):
     ss = st.session_state
     ss.dh_solo_sys = name
@@ -107,6 +127,8 @@ def _cb_to_next():
         return
     ss.dh_solo_prof = prof  # selalu simpan, juga kalau profil dari data Reveal
     ss.dh_solo_err = None
+    if _KIND[name] != "quiz" and _open_owned(name, prof):
+        return
     _go("quiz" if _KIND[name] == "quiz" else "pay")
 
 
@@ -122,6 +144,8 @@ def _cb_quiz_done():
         ans[q["id"]] = v
     ss.dh_solo_ans = ans
     ss.dh_solo_err = None
+    if ss.get("dh_solo_prof") and _open_owned(name, ss.dh_solo_prof, ans):
+        return
     _go("pay")
 
 
@@ -213,7 +237,7 @@ def _render_loading():
     st.markdown(
         '<div class="dh-step dh-step-loading"></div><div class="dh-nodismiss"></div>'
         '<div class="dh-dl-load"><div class="dh-dl-orb"><i></i><span>✦</span></div>'
-        f'<div class="dh-dl-t">Menyelaraskan Solo Reveal {_e(name)}...</div>'
+        f'<div class="dh-dl-t">Menyelaraskan One-System Blueprint {_e(name)}...</div>'
         '<div class="dh-dl-s">Menghitung peta takdirmu dan menyusun 6 aspek analisis personal.</div></div>',
         unsafe_allow_html=True)
     if _KIND[name] == "quiz":
@@ -229,6 +253,8 @@ def _render_loading():
         st.rerun(scope="fragment")
     u["koin"] -= SOLO_PRICE
     ss.dh_solo_res = {"system": name, "detail": detail, "nama": prof["nama"], "raw": raw}
+    ss.dh_solo_free = False
+    ss.setdefault("dh_solo_store", {})[_okey(name, prof, ss.get("dh_solo_ans") if _KIND[name] == "quiz" else None)] = ss.dh_solo_res
     time.sleep(max(0.0, 3.0 - (time.time() - t0)))
     _go("result")
     st.rerun(scope="fragment")
@@ -236,7 +262,7 @@ def _render_loading():
 
 def _cb_again():
     ss = st.session_state
-    for k in ("dh_solo_res", "dh_solo_ans", "dh_solo_sys"):
+    for k in ("dh_solo_res", "dh_solo_ans", "dh_solo_sys", "dh_solo_free"):
         ss.pop(k, None)
     _go("select")
 
@@ -295,7 +321,7 @@ def _render_form(u):
 def _head(sub="Pilih 1 sistem, dapat analisis lengkap A-F"):
     st.markdown(
         '<div class="dh-step dh-step-solo"></div><div class="dh-nodismiss"></div>'
-        '<div class="dh-so-head"><span class="dh-so-ico">🧭</span><div><div class="dh-so-brand">SOLO REVEAL</div>'
+        '<div class="dh-so-head"><span class="dh-so-ico">🧭</span><div><div class="dh-so-brand">ONE-SYSTEM BLUEPRINT</div>'
         f'<div class="dh-so-hsub">{sub} · {SOLO_PRICE} ✨</div></div></div><div class="dh-so-line"></div>',
         unsafe_allow_html=True)
 
@@ -398,7 +424,7 @@ def _render_pay():
         '<div class="dh-so-h2">Konfirmasi Pembayaran</div>'
         f'<div class="dh-so-sub">Sistem terpilih: <b class="dh-so-acc">{_e(name)}</b> {_ICON[name]}</div>'
         '<div class="dh-so-box">'
-        f'<div class="dh-so-row"><span>Fitur Solo Reveal:</span><b>Analisis 6 Aspek ({_e(name)})</b></div>'
+        f'<div class="dh-so-row"><span>Fitur One-System Blueprint:</span><b>Analisis 6 Aspek ({_e(name)})</b></div>'
         f'<div class="dh-so-row"><span>Harga Fitur:</span><b class="dh-so-acc">{SOLO_PRICE} ✨</b></div>'
         f'<div class="dh-so-row"><span>Saldo Kamu:</span><b>{saldo} ✨</b></div>'
         f'<div class="dh-so-row dh-so-last"><span>Sisa Saldo Setelah Bayar:</span><b class="dh-so-big">{max(sisa, 0) if u else 0} ✨</b></div>'
@@ -441,18 +467,22 @@ def _render_result():
         return _render_select()
     d, name, nama = res["detail"], res["system"], res["nama"]
     st.markdown('<div class="dh-step dh-step-solo dh-step-solo-lg"></div><div class="dh-nodismiss"></div>'
-                '<div class="dh-so-head"><span class="dh-so-ico">🧭</span><div><div class="dh-so-brand">SOLO REVEAL</div>'
+                '<div class="dh-so-head"><span class="dh-so-ico">🧭</span><div><div class="dh-so-brand">ONE-SYSTEM BLUEPRINT</div>'
                 f'<div class="dh-so-hsub">Pilih 1 sistem, dapat analisis lengkap A-F · {SOLO_PRICE} ✨</div></div></div>'
                 '<div class="dh-so-line"></div>', unsafe_allow_html=True)
     quote = d.get("quote") or ""
     chips = "".join(f'<span class="dh-so-chip">{_e(k)}: <b>{_e(v)}</b></span>' for k, v in (d.get("params") or []))
     st.markdown(
-        '<div class="dh-so-banner"><div class="dh-so-eyebrow">HASIL RESMI SOLO REVEAL</div>'
-        f'<div class="dh-so-title">{_ICON[name]} SOLO REVEAL: {_e(name.upper())}</div>'
+        '<div class="dh-so-banner"><div class="dh-so-eyebrow">HASIL RESMI ONE-SYSTEM BLUEPRINT</div>'
+        f'<div class="dh-so-title">{_ICON[name]} ONE-SYSTEM BLUEPRINT: {_e(name.upper())}</div>'
         f'<div class="dh-so-bsub"><b>{_e(d.get("title", ""))}</b> · Untuk: {_e(nama)}</div>'
         + (f'<div class="dh-so-quote">&ldquo;{_e(quote)}&rdquo;</div>' if quote else "") + '</div>'
         + (f'<div class="dh-so-chips">{chips}</div>' if chips else ""), unsafe_allow_html=True)
     _tg = (st.session_state.get("dh_solo_prof") or {}).get("tgl")
+    if st.session_state.get("dh_solo_free"):
+        st.markdown('<div class="dh-so-note ok">✓ Hasil ini sudah kamu beli sebelumnya, jadi dibuka gratis.</div>', unsafe_allow_html=True)
+    if _tg:
+        life_chart.strip(nama, _tg)
     if name in life_chart.SYSTEMS and _tg:  # dashboard visual: Roda Takdir / grafik usia 20-60
         st.markdown('<div style="font-weight:800;letter-spacing:.8px;font-size:12px;color:#B2552C;margin:14px 0 8px">🧭 PETA SIKLUS HIDUPMU</div>', unsafe_allow_html=True)
         life_chart.render(name, _tg, height=700 if name == "Matrix Destiny" else 560)
@@ -461,10 +491,10 @@ def _render_result():
     combo = build_combo(name, res.get("raw")) if res.get("raw") else []
     if combo:
         pdf_secs.append(("COMBO: KETIKA VARIABEL-VARIABELMU BERTEMU", [f'{b["title"]}: {b["text"]}' for b in combo]))
-    st.download_button("📥 Download PDF", make_pdf(f"Solo Reveal - {name}", f'{d.get("title", "")} - Untuk: {nama}', pdf_secs),
+    st.download_button("📥 Download PDF", make_pdf(f"One-System Blueprint - {name}", f'{d.get("title", "")} - Untuk: {nama}', pdf_secs),
                        file_name=f"solo-reveal-{name.lower().replace(' ', '-')}.pdf", mime="application/pdf",
                        key="dhso_pdf", use_container_width=True, on_click="ignore")
-    plain = [f"SOLO REVEAL: {name} · {nama}", d.get("title", ""), ""]
+    plain = [f"ONE-SYSTEM BLUEPRINT: {name} · {nama}", d.get("title", ""), ""]
     for i, title in enumerate(_ASPEK):
         texts = [t for t in secs.get(i, []) if t]
         body = "".join(f"<p>{_e(t)}</p>" for t in texts) or f'<p class="dh-so-empty">{_EMPTY}</p>'
@@ -477,7 +507,7 @@ def _render_result():
         plain += ["COMBO: KETIKA VARIABEL-VARIABELMU BERTEMU", ""]
         for b in combo:
             plain += [b["title"], b["text"], ""]
-    cap = f"Solo Reveal {name}: {nama}\nCek takdirmu di destinyreveal.id #DestinyReveal"
+    cap = f"One-System Blueprint {name}: {nama}\nCek takdirmu di destinyreveal.id #DestinyReveal"
     with st.container(key="dhso_acts"):
         a1, a2 = st.columns(2, gap="small")
         with a1:
@@ -494,16 +524,16 @@ def _render_result():
                       on_click=cc.cb_ask, args=("solo",))
 
 
-@st.dialog("Solo Reveal", width="large", on_dismiss=_cb_close)
+@st.dialog("One-System Blueprint", width="large", on_dismiss=_cb_close)
 def solo_dialog():
     ss = st.session_state
     step = ss.get("dh_solo_step", "select")
     if step == "result" and ss.get("dh_solo_res"):
         if cc.asking("solo"):
-            cc.render("solo", leave=_cb_again, icon="🧭", title="Yakin Mau Tutup Hasil Solo Reveal?",
-                      text="Analisis 6 aspekmu baru saja terbuka. Kalau ditutup, hasil ini tidak bisa dilihat lagi tanpa "
-                           f"membuka ulang ({SOLO_PRICE} ✨).",
-                      tip="Download PDF atau salin analisis dulu, biar bisa dibaca kapan saja.",
+            cc.render("solo", leave=_cb_again, icon="🧭", title="Yakin Mau Tutup Hasil One-System Blueprint?",
+                      text="Analisis 6 aspekmu aman tersimpan. Kamu bisa membukanya lagi GRATIS kapan saja: pilih sistem yang sama "
+                           "dengan data diri yang sama.",
+                      tip="Download PDF atau salin analisis kalau mau dibaca tanpa membuka aplikasi.",
                       stay="✨ Lanjut Baca", go="Ya, Tutup Hasil")
         else:
             _render_result()

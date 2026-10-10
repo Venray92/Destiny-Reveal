@@ -3,9 +3,11 @@ Dashboard siklus hidup interaktif (Batch 7): Roda Takdir + Grafik Usia 20-60 (Ma
 Satu iframe (components.html), klik titik/segmen -> penjelasan fase tanpa rerun Streamlit. Data dari content/life_cycle.py.
 """
 
+import html
 import json
 from datetime import date
 
+import streamlit as st
 import streamlit.components.v1 as components
 
 from content import life_cycle as LC
@@ -127,3 +129,16 @@ def render(system, tgl, height=640):
     data = json.dumps(payload(system, tgl), ensure_ascii=False).replace("</", "<\\/")
     components.html(_HTML.replace("__DATA__", data), height=height, scrolling=True)
     return True
+
+
+def strip(nama, tgl):
+    """Baris konteks personal di atas hasil: usia, fase hidup (Pinnacle), Personal Year tahun ini."""
+    try:
+        k = LC.konteks(tgl, today_wib())
+    except Exception:
+        return
+    f = k["fase"]
+    fase = f'<span>Fase hidup <b>Pinnacle {f["no"]} · angka {f["angka"]}</b> ({f["tema"]})</span>' if f else ""
+    st.markdown(
+        f'<div class="dh-pers"><span>Untuk <b>{html.escape(str(nama))}</b>, usia <b>{k["usia"]}</b></span>{fase}'
+        f'<span>Tahun ini <b>Personal Year {k["py"]}</b> ({k["py_tema"]})</span></div>', unsafe_allow_html=True)

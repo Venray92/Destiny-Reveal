@@ -385,6 +385,8 @@ def _idcard(r):
         '<div class="dh-bp-id"><div class="dh-bp-id-top"><span class="dh-bp-badge">DEEP BLUEPRINT</span>'
         f'<em>ID: {_e(r["id"])}</em></div><div class="dh-bp-id-n">{_e(r["nama"])}</div>'
         f'<div class="dh-bp-id-l">Lahir: {_e(r["lahir"])}</div><div class="dh-bp-id-c">{chips}</div></div>', unsafe_allow_html=True)
+    if r.get("tgl"):
+        life_chart.strip(r["nama"], r["tgl"])
 
 
 def _tab_synth(r):

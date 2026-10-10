@@ -28,9 +28,9 @@ _FAQ = [
     ("💎", "TENTANG STARDUST (✨)", [
         ("Apa itu Stardust (✨)?",
          "Stardust (✨) adalah mata uang digital internal di Destiny Reveal yang digunakan untuk membuka (unlock) "
-         "fitur premium seperti Laporan Lengkap, Tarot Spreads, Compatibility Report, dan fitur analisis lainnya."),
+         "fitur premium seperti Laporan Lengkap, Tarot Spread, Compatibility Report, dan fitur analisis lainnya."),
         ("Bagaimana cara mendapatkan Stardust (✨)?",
-         "Kamu bisa mendapatkan Stardust melalui:\n\n- Top-up saldo (mulai dari Rp 10.000)\n- Daily Check-in (Streak)\n"
+         "Kamu bisa mendapatkan Stardust melalui:\n\n- Top-up saldo (mulai dari Rp 10.000)\n- Daily Checkin (Streak)\n"
          "- Program Referral & Undang Teman\n- Reward Milestone & Event Spesial"),
         ("Apakah Stardust (✨) bisa kadaluarsa?", "Tidak. Stardust berlaku selamanya dan tidak memiliki tanggal kadaluarsa."),
         ("Apakah Stardust (✨) bisa di-refund?",
@@ -242,7 +242,7 @@ def tutorial_dialog():
                    "<b>UPGRADE A-F KE A-M:</b> Cukup bayar selisihnya."]))
         + _sec("4. 💎 PENGGUNAAN STARDUST (✨)",
                "<p>Stardust (✨) adalah mata uang digital internal untuk unlock fitur premium:</p>" + _li([
-                   "<b>Cara Dapatkan ✨:</b> Top-up saldo, Daily Check-in (Streak 30 hari = 180✨), program Referral, dan reward Milestone.",
+                   "<b>Cara Dapatkan ✨:</b> Top-up saldo, Daily Checkin (Streak 30 hari = 180✨), program Referral, dan reward Milestone.",
                    "<b>Paket Top-Up:</b>" + _li(["Starter: Rp 10.000 ➔ 120✨", "Basic: Rp 25.000 ➔ 320✨", "Value: Rp 50.000 ➔ 700✨",
                                                 "Pro: Rp 100.000 ➔ 1.500✨", "Sultan: Rp 200.000 ➔ 3.200✨", "Kaisar: Rp 500.000 ➔ 8.500✨"])]))
         + _sec("5. 🎴 FITUR TAROT SPREADS", _li([
