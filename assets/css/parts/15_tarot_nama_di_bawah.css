@@ -1,0 +1,6 @@
+/* Tarot hasil: nama kartu di BAWAH gambar (bukan overlay yang nutupin kartu) */
+.dh-tr-wrap .dh-tr-over { display: none !important; }
+.dh-tr-wrap + .dh-tr-over { position: static; margin: 10px auto 0; padding: 0; background: none; border-radius: 0; color: #4A2E20; text-align: center; }
+.dh-tr-wrap + .dh-tr-over b { display: block; font-size: 10px; letter-spacing: .08em; color: #C25E00; }
+.dh-tr-wrap + .dh-tr-over div { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; line-height: 1.25; color: #4A2E20; }
+.dh-tr-wrap .dh-tr-face { padding: 16px 10px; }

@@ -1,0 +1,219 @@
+/* ══════════════════════════════════════════════════════════════
+   HOME V2 — design baru (ref: ui baru/1-6.png, font dan warna.txt)
+   Semua class dinamespace "dh-" (Destiny Home v2) biar GAK bentrok
+   sama class lama (.dr-*) yang masih dipakai halaman lain (loading,
+   reveal, tutorial). Palet & font SENGAJA beda dari .dr-* lama,
+   khusus buat Home v2 ini.
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+    --dh-bg: #FAF7F2;
+    --dh-bg-alt: #F5EEE3;
+    --dh-primary: #C86235;
+    --dh-primary-dark: #B2552C;
+    --dh-text-dark: #2D2A26;
+    --dh-text-muted: #8B8378;
+    --dh-border: #E8E0D5;
+    --dh-card: #FFFFFF;
+    --dh-success: #7A9B76;
+    --dh-warning-bg: #FDF6E3;
+}
+
+/* ── NAVBAR (floating pill, dipakai di SEMUA halaman) ─────────────
+   Container key = class beneran yang nempel ke DOM (.st-key-xxx),
+   bukan markdown div open/close terpisah — itu gak kebungkus (lihat
+   docs/bugs-fixed.md). */
+/* position:sticky gak kepake di Streamlit (ada ancestor stMain/
+   element-container yang overflow-nya ngeganggu sticky context), jadi
+   dipakein position:fixed biar beneran freeze di atas pas discroll. */
+.st-key-dhnav_wrap {
+    position: fixed; top: 0.75rem; left: 0; right: 0; z-index: 999;
+    display: flex; justify-content: center; padding: 0 2rem; box-sizing: border-box;
+}
+.st-key-dhnavbar { width: 100%; max-width: 1200px; margin: 0 auto; }
+.st-key-dhnavbar {
+    background: var(--dh-card); border: 1.5px solid var(--dh-border);
+    border-radius: 100px; padding: 8px 24px;
+    box-shadow: 0 10px 30px -16px rgba(45,42,38,0.18);
+}
+/* Semua kolom nav: isi di-center vertikal, tanpa gap lebar antar kolom */
+.st-key-dhnavbar [data-testid="stHorizontalBlock"] { align-items: center !important; gap: 0.5rem !important; }
+.st-key-dhnavbar [data-testid="stColumn"] { display: flex !important; flex-direction: column !important; justify-content: center !important; }
+.st-key-dhnavbar [data-testid="stVerticalBlock"] { gap: 0 !important; }
+/* Streamlit ngasih margin-bottom:-1rem ke markdown container -> logo keliatan turun dari tengah */
+.st-key-dhnavbar [data-testid="stMarkdownContainer"] { margin-bottom: 0 !important; }
+.st-key-dhnavbar div.stButton > button { border-radius: 100px !important; }
+/* Baris menu tengah: kolom divider ikut stretch setinggi tombol, biar garis sejajar tengah */
+.st-key-dhnavbar .st-key-dhnav_links [data-testid="stHorizontalBlock"] { align-items: stretch !important; gap: 0.25rem !important; }
+.st-key-dhnavbar .st-key-dhnav_links [data-testid="stColumn"] > [data-testid="stVerticalBlock"] { height: 100%; justify-content: center !important; }
+/* Divider tipis simetris antar item menu (garis 1px, bukan karakter "|"
+   biar sejajar tengah dengan teks menu) */
+.stApp .dh-nav-sep { width: 1px; height: 16px; background: #D9D0C3; margin: 0 auto; }
+/* Login & CTA: tinggi sama persis (40px), lebar natural, rata kanan */
+.st-key-dhnav_right [data-testid="stHorizontalBlock"] { justify-content: flex-end !important; gap: 0.75rem !important; }
+.st-key-dhnav_right [data-testid="stColumn"] { flex: 0 0 auto !important; width: auto !important; min-width: 0 !important; }
+.st-key-dhnavbar .st-key-dhnav_right div.stButton > button {
+    height: 40px !important; min-height: 40px !important; padding: 0 1.25rem !important;
+    white-space: nowrap !important; width: auto !important;
+}
+.st-key-dhnavbar .st-key-dhnav_right div.stButton > button[kind="secondary"] {
+    background: transparent !important; border: 1.5px solid var(--dh-border) !important;
+    color: var(--dh-text-dark) !important; font-weight: 600 !important; font-size: 13px !important;
+}
+.st-key-dhnavbar .st-key-dhnav_right div.stButton > button[kind="secondary"]:hover {
+    border-color: var(--dh-primary) !important; color: var(--dh-primary) !important;
+}
+.stApp .dh-navbar-logo {
+    font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700;
+    color: var(--dh-text-dark); white-space: nowrap; display: flex; align-items: center; gap: 6px;
+}
+.stApp .dh-navbar-logo .dh-spark { color: var(--dh-primary); }
+.st-key-dhnav_cta div.stButton > button[kind="primary"] {
+    background: var(--dh-primary) !important; border-color: var(--dh-primary) !important;
+    font-weight: 700 !important; font-size: 13px !important; white-space: nowrap !important;
+}
+.st-key-dhnav_cta div.stButton > button[kind="primary"]:hover {
+    background: var(--dh-primary-dark) !important; border-color: var(--dh-primary-dark) !important;
+}
+.st-key-dhnavbar .st-key-dhnav_links div.stButton > button {
+    background: transparent !important; border: none !important; padding: 4px 2px !important;
+    height: auto !important;
+    font-size: 13.5px !important; font-weight: 600 !important; color: var(--dh-text-dark) !important;
+    min-height: 0 !important; box-shadow: none !important;
+}
+.st-key-dhnavbar .st-key-dhnav_links div.stButton > button { transition: background .15s, color .15s; border-radius: 100px !important; padding: 6px 14px !important; }
+.st-key-dhnavbar .st-key-dhnav_links div.stButton > button:hover,
+.st-key-dhnavbar .st-key-dhnav_links div[data-testid="stPopover"] button:hover {
+    background: #FBF4EA !important; color: #D97706 !important;
+}
+.st-key-dhnavbar .st-key-dhnav_links div.stButton > button:hover p { color: #D97706 !important; }
+.st-key-dhnav_links div.stButton > button p { font-weight: 600 !important; }
+/* "Jelajahi ▾" — trigger popover, JANGAN punya pill background sendiri,
+   biar nyatu polos kayak item nav lain. */
+.st-key-dhnav_links div[data-testid="stPopover"] button {
+    background: transparent !important; border: none !important; padding: 4px 2px !important;
+    font-size: 13.5px !important; font-weight: 600 !important; color: var(--dh-text-dark) !important;
+    min-height: 0 !important; box-shadow: none !important;
+}
+.st-key-dhnav_links div[data-testid="stPopover"] button:hover { color: #D97706 !important; }
+.st-key-dhnavbar .st-key-dhnav_links div[data-testid="stPopover"] button { border-radius: 100px !important; padding: 6px 12px !important; transition: background .15s, color .15s; }
+.st-key-dhnavbar .st-key-dhnav_links div[data-testid="stPopover"] button:hover p { color: #D97706 !important; }
+.st-key-dhnavbar .st-key-dhnav_links div[data-testid="stPopover"] button p { white-space: nowrap !important; overflow: visible !important; text-overflow: clip !important; }
+/* Chevron dropdown di "Jelajahi": app.css nyembunyiin panah popover secara global
+   (buat chip lain), di sini dimunculin lagi khusus nav. */
+.st-key-dhnavbar .st-key-dhnav_links button[data-testid="stPopoverButton"] div[aria-hidden="true"] {
+    display: flex !important; color: var(--dh-text-muted); margin-left: 2px;
+}
+
+/* ── HERO ─────────────────────────────────────────────────────── */
+.stApp .dh-hero {
+    text-align: center; padding: 34px 0 10px 0;
+    background: radial-gradient(ellipse 55% 60% at 50% 15%, rgba(200,98,53,0.07) 0%, rgba(200,98,53,0) 70%);
+}
+.stApp .dh-hero-badge {
+    display: inline-flex; align-items: center; gap: 7px; padding: 7px 16px;
+    border: 1px solid var(--dh-border); border-radius: 100px; background: var(--dh-card);
+    font-size: 12.5px; color: var(--dh-text-muted); margin-bottom: 26px;
+}
+.stApp .dh-hero-title {
+    font-family: 'Playfair Display', serif; font-weight: 700; font-size: 44px;
+    line-height: 1.25; color: var(--dh-text-dark); max-width: 760px; margin: 0 auto 20px auto;
+}
+.stApp .dh-hero-sub {
+    font-family: 'Lora', serif; font-size: 16.5px; line-height: 1.75; color: var(--dh-text-muted);
+    max-width: 640px; margin: 0 auto 30px auto;
+}
+.stApp .dh-hero-caption { font-size: 12.5px; color: var(--dh-text-muted); margin-top: 16px; }
+
+/* Tombol CTA hero (primary) disamain tinggi 48px dengan tombol sekunder */
+.st-key-dhhero_cta_primary div.stButton > button {
+    height: 48px !important; min-height: 48px !important; padding: 0 1.5rem !important;
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    white-space: nowrap !important;
+}
+/* Smooth scroll buat anchor (#dh-matrix): scroller aslinya container Streamlit, bukan <html> */
+html, body, [data-testid="stMain"], section.main, [data-testid="stAppViewContainer"] { scroll-behavior: smooth; }
+
+/* Semua tombol primary/secondary di Home discope lewat 1 root key
+   (.st-key-dh_home_root), biar gak bocor ke halaman lain. */
+.st-key-dh_home_root div.stButton > button[kind="primary"] {
+    background: var(--dh-primary) !important; border-color: var(--dh-primary) !important;
+    border-radius: 100px !important; font-weight: 700 !important; white-space: nowrap !important;
+    box-shadow: 0 14px 28px -12px rgba(200,98,53,0.55) !important;
+}
+.st-key-dh_home_root div.stButton > button[kind="primary"]:hover {
+    background: var(--dh-primary-dark) !important; border-color: var(--dh-primary-dark) !important;
+}
+.st-key-dh_home_root div.stButton > button[kind="secondary"] {
+    border-radius: 100px !important; border-color: var(--dh-border) !important;
+    color: var(--dh-text-dark) !important; font-weight: 700 !important; background: var(--dh-card) !important;
+}
+.st-key-dh_home_root div.stButton > button[kind="secondary"]:hover {
+    border-color: var(--dh-primary) !important; color: var(--dh-primary) !important;
+}
+
+/* Tombol sekunder hero ("Lihat 15 Sistem Matrix") — plain <a>, bukan
+   st.button, jadi class CSS biasa nempel langsung. */
+.stApp a.dh-btn-anchor-secondary {
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    height: 48px !important; width: 100% !important; padding: 0 1.5rem !important; box-sizing: border-box !important;
+    white-space: nowrap !important;
+    border-radius: 100px !important; border: 1.5px solid var(--dh-border) !important;
+    color: var(--dh-text-dark) !important; font-weight: 700 !important; font-size: 14px !important;
+    background: var(--dh-card) !important; text-decoration: none !important;
+}
+.stApp a.dh-btn-anchor-secondary:hover { border-color: var(--dh-primary) !important; color: var(--dh-primary) !important; }
+
+/* ── HERO IMAGE CARD ──────────────────────────────────────────── */
+.stApp .dh-hero-card {
+    position: relative; max-width: 980px; margin: 30px auto 0 auto; border-radius: 22px;
+    overflow: hidden; aspect-ratio: 1376 / 768; min-height: 320px; border: 1.5px solid var(--dh-border);
+    background-color: #5b544a; background-size: cover; background-position: center;
+    display: flex; align-items: flex-end;
+}
+/* Dark gradient overlay (bawah + kiri) biar teks putih tetep legible di
+   atas foto poster "Celestial Harmony" apa pun warnanya. */
+.stApp .dh-hero-card::before {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background:
+        linear-gradient(180deg, rgba(20,16,12,0) 45%, rgba(20,16,12,0.78) 100%),
+        linear-gradient(90deg, rgba(20,16,12,0.45) 0%, rgba(20,16,12,0) 50%);
+}
+.stApp .dh-hero-card-overlay {
+    position: relative; z-index: 2; padding: 26px 34px 30px 34px; max-width: 560px;
+}
+.stApp .dh-hero-card-badge {
+    display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 100px;
+    background: #FFFFFF; color: var(--dh-primary); font-size: 11.5px; font-weight: 700;
+    letter-spacing: 0.03em; margin-bottom: 14px;
+}
+.stApp .dh-hero-card-title { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; color: #FFFFFF; line-height: 1.4; margin-bottom: 8px; }
+.stApp .dh-hero-card-sub { font-size: 12.5px; color: #e8ddc9; line-height: 1.55; }
+
+/* ── SECTION SHELL ────────────────────────────────────────────── */
+/* Scope ke st.container(key=...) beneran (lihat home_v2.py render()),
+   bukan markdown div open/close — itu gak kebungkus di DOM. */
+.st-key-dh_section_explore,
+.st-key-dh_section_testimonials { padding: 56px 0; }
+/* Data Flow section = putih (beda dari base cream), cocok sama mockup
+   1_7.png — card-nya sendiri yang krem, bukan section-nya. */
+.st-key-dh_section_dataflow {
+    padding: 56px 0; background: #FFFFFF;
+    border-top: 1px solid var(--dh-border); border-bottom: 1px solid var(--dh-border);
+}
+/* Final CTA = full-bleed (lepas dari boxed container Streamlit) + radial
+   warm glow di tengah, fade ke putih di tepi — sesuai mockup 1_9.png. */
+.st-key-dh_section_finalcta {
+    position: relative !important; left: 50% !important; right: 50% !important; width: 100vw !important;
+    max-width: none !important; margin-left: -50vw !important; margin-right: -50vw !important; box-sizing: border-box;
+    padding: 56px max(5vw, calc(50vw - 600px)) 56px max(5vw, calc(50vw - 600px));
+    background: radial-gradient(ellipse 70% 100% at 50% 50%, rgba(200,98,53,0.08) 0%, #FFFFFF 75%);
+    border-top: 1px solid var(--dh-border); border-bottom: 1px solid var(--dh-border);
+}
+.stApp .dh-section-head { text-align: center; margin-bottom: 34px; }
+.stApp .dh-section-title {
+    font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700;
+    color: var(--dh-text-dark); line-height: 1.3; margin-bottom: 8px;
+}
+.stApp .dh-section-sub { font-family: 'Lora', serif; font-size: 14.5px; color: var(--dh-text-muted); }
+

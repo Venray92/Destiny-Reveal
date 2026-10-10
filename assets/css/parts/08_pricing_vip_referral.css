@@ -1,0 +1,163 @@
+/* ===== UI16: logo navbar klik -> Home + hover ===== */
+.stApp a.dh-navbar-logo.dh-logo-link { color: #2D2D2D; text-decoration: none !important; cursor: pointer; transition: color .2s ease; }
+.stApp a.dh-navbar-logo.dh-logo-link:hover, .stApp a.dh-navbar-logo.dh-logo-link:hover .dh-spark { color: #C85A32; }
+
+/* ===== UI17: Stardust ===== */
+.dh-pr-sd { font-size: 13px; font-weight: 700; color: #2D2A26; margin-top: 2px; }
+.dh-pr-sd i { font-style: normal; font-size: 10.5px; font-weight: 700; color: #2E7D4F; background: #E6F4EA; padding: 2px 8px; border-radius: 100px; margin-left: 6px; }
+.dh-pr-cat { background: #F4EEE4; padding: 7px 14px; font-size: 10px; font-weight: 800; letter-spacing: .06em; color: #8B6B3A; border-top: 1px solid #EFE9DD; }
+.dh-pr-ribbon { white-space: nowrap; }
+@media (max-width: 640px) { .dh-pr-vipgrid { grid-template-columns: 1fr !important; } }
+.dh-pr-unit { font-size: 11px; color: #8B8378; min-height: 16px; margin-top: -2px; }
+.dh-pr-cd3 { min-height: 54px; }
+div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_"] { min-height: 252px; justify-content: space-between; }
+/* mobile: tab pill tetap horizontal (Streamlit nge-stack kolom di <640px) */
+@media (max-width: 640px) {
+  [data-testid="stDialog"] div[class*="st-key-dhpr_tabs"] [data-testid="stHorizontalBlock"],
+  [data-testid="stDialog"] div[class*="st-key-dhts_tabs"] [data-testid="stHorizontalBlock"] { flex-direction: row !important; flex-wrap: wrap !important; gap: 4px !important; }
+  [data-testid="stDialog"] div[class*="st-key-dhpr_tabs"] [data-testid="stColumn"] { flex: 1 1 30% !important; min-width: 30% !important; width: auto !important; }
+  [data-testid="stDialog"] div[class*="st-key-dhts_tabs"] [data-testid="stColumn"] { flex: 1 1 30% !important; min-width: 0 !important; width: auto !important; }
+  [data-testid="stDialog"] div[class*="st-key-dhpr_tabs"] { border-radius: 20px !important; }
+}
+
+/* ===== UI18 ===== */
+.dh-pr-sd, .dh-pr-sd { color: #C25E00; }
+div[data-testid="stVerticalBlock"][class*="st-key-dhpr_coin_"], div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_"] { transition: border-color .2s, background .2s, box-shadow .2s; }
+div[data-testid="stVerticalBlock"][class*="st-key-dhpr_coin_"]:hover { border-color: #C25E00; background: #FDF3E4; box-shadow: 0 6px 16px -10px rgba(194,94,0,.55); }
+[data-testid="stDialog"] div[class*="st-key-dhpr_coin_"]:hover div.stButton > button { background: #FBDCC8 !important; border-color: #C25E00 !important; }
+[data-testid="stDialog"] div[class*="st-key-dhpr_coin_"]:hover div.stButton > button * { color: #9A4600 !important; }
+/* VIP: semua card seragam (border berwarna), highlight cuma pas hover */
+div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_"] { border: 1.5px solid #E9B99A; background: #FFFFFF; }
+div[data-testid="stVerticalBlock"][class*="st-key-dhpr_plan_"]:hover { border-color: #D9722F; background: #FDF3DF; box-shadow: 0 6px 16px -10px rgba(217,114,47,.6); }
+[data-testid="stDialog"] div[class*="st-key-dhpr_plan_"] div.stButton > button { background: #FFFFFF !important; border: 1px solid #C85A32 !important; transition: all .2s; }
+[data-testid="stDialog"] div[class*="st-key-dhpr_plan_"] div.stButton > button * { color: #C85A32 !important; font-weight: 700 !important; font-size: 12.5px !important; }
+[data-testid="stDialog"] div[class*="st-key-dhpr_plan_"]:hover div.stButton > button { background: #C85A32 !important; }
+[data-testid="stDialog"] div[class*="st-key-dhpr_plan_"]:hover div.stButton > button * { color: #FFFFFF !important; }
+/* header tabel fitur sejajar dgn baris */
+div[data-testid="stVerticalBlock"].st-key-dhpr_head { background: #FAF6F0; padding: 10px 14px; gap: 0 !important; }
+div[data-testid="stVerticalBlock"].st-key-dhpr_head [data-testid="stHorizontalBlock"] { gap: 8px !important; }
+.dh-pr-hd { font-size: 10px; font-weight: 800; letter-spacing: .05em; color: #6B635A; line-height: 1; }
+/* tombol info Deep Blueprint */
+div.st-key-dhpr_info [data-testid="stPopover"] > button, div.st-key-dhpr_info button { min-height: 0 !important; height: 24px !important; width: 24px !important; padding: 0 !important; border-radius: 50% !important; background: #FAF6F0 !important; border: 1px solid #E2D9CE !important; }
+div.st-key-dhpr_info button p, div.st-key-dhpr_info button span { font-size: 12px !important; }
+div.st-key-dhpr_info button svg { display: none; }
+.dh-pr-tiphead { font-weight: 800; font-size: 12px; color: #2D2A26; margin-bottom: 6px; }
+.dh-pr-tip { display: grid; gap: 4px; min-width: 250px; }
+.dh-pr-tip > div { display: flex; gap: 8px; align-items: baseline; font-size: 11.5px; color: #3A3631; }
+.dh-pr-tip b { color: #C25E00; width: 14px; flex: none; }
+.dh-pr-tip code { background: #FAF6F0; color: #8B6B3A; padding: 1px 5px; border-radius: 5px; font-size: 10.5px; margin-right: 4px; }
+@media (max-width: 640px) { div.st-key-dhpr_head { display: none; } }
+
+/* ===== UI19: info Deep Blueprint inline + Referral baru ===== */
+div.st-key-dhpr_bp_ket [data-testid="stHorizontalBlock"] { gap: 6px !important; flex-wrap: nowrap !important; align-items: center !important; }
+div.st-key-dhpr_bp_ket [data-testid="stColumn"] { flex: 0 1 auto !important; width: auto !important; min-width: 0 !important; }
+div.st-key-dhpr_bp_ket [data-testid="stColumn"]:last-child { flex: 0 0 auto !important; }
+.dh-pr-refcards div { display: flex; flex-direction: column; gap: 2px; }
+.dh-pr-refcards u { text-decoration: none; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 13.5px; color: #2D2A26; margin-top: 2px; }
+.dh-pr-refcards b { font-size: 18px; margin: 0; }
+.dh-pr-mssub { font-size: 11px; color: #6B635A; margin: -3px 0 10px; line-height: 1.45; }
+.dh-pr-msgrid { grid-template-columns: repeat(2, 1fr) !important; }
+.dh-pr-msgrid > div { justify-content: space-between; }
+.dh-pr-msgrid span { font-size: 11.5px; font-weight: 700; color: #2D2A26; }
+.dh-pr-msgrid i { font-size: 12px; }
+.dh-pr-msgrid b { font-size: 11.5px !important; color: #C25E00 !important; margin: 0 !important; display: inline !important; }
+.dh-pr-tierhead { font-size: 11px; font-weight: 800; letter-spacing: .06em; color: #6B635A; margin: 14px 0 8px; }
+.dh-pr-tiers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 14px; padding: 8px 2px 4px; }
+.dh-pr-tier { background: #FFFFFF; border: 1px solid #E8E0D5; border-radius: 14px; padding: 12px 6px 10px; display: flex; flex-direction: column; align-items: center; gap: 3px; text-align: center; cursor: pointer; transition: transform .2s ease, border-color .2s, background .2s, box-shadow .2s; min-height: 98px; }
+.dh-pr-tier i { font-style: normal; font-size: 20px; line-height: 1.2; }
+.dh-pr-tier b { font-size: 12.5px; color: #2D2A26; }
+.dh-pr-tier em { font-style: normal; font-size: 11.5px; font-weight: 700; color: #C25E00; }
+.dh-pr-tier small { font-size: 10px; color: #8B8378; margin-top: auto; }
+.dh-pr-tier s { text-decoration: none; margin-top: auto; background: #C85A32; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 10px; border-radius: 100px; }
+.dh-pr-tier.on { border: 1.5px solid #C85A32; background: #FDF3DF; }
+.dh-pr-tier:hover { border-color: #C85A32; background: #FDF3E4; transform: translateY(-3px); box-shadow: 0 8px 16px -10px rgba(200,90,50,.6); }
+@media (max-width: 640px) { .dh-pr-tiers { display: flex; overflow-x: auto; padding-bottom: 8px; } .dh-pr-tier { flex: 0 0 96px; } .dh-pr-refcards { grid-template-columns: 1fr; } }
+
+/* ===== UI20 ===== */
+/* tooltip syarat Affiliate (CSS only: hover / fokus) */
+.dh-pr-refcards .dh-pr-ti { position: relative; display: inline-block; align-self: flex-start; margin-top: auto; padding-top: 8px; font-style: normal; font-size: 10.5px; font-weight: 700; color: #C25E00; cursor: pointer; outline: none; }
+.dh-pr-refcards .dh-pr-ti:hover, .dh-pr-refcards .dh-pr-ti:focus-within { color: #8F4400; }
+.dh-pr-refcards .dh-pr-pop { display: none; position: absolute; z-index: 30; left: -60px; top: 100%; width: 290px; background: #fff; border: 1px solid #E8E0D5; border-radius: 12px; padding: 12px 14px; box-shadow: 0 14px 30px -12px rgba(45,42,38,.35); font-style: normal; font-weight: 500; color: #3A3631; text-align: left; }
+.dh-pr-refcards .dh-pr-ti:hover .dh-pr-pop, .dh-pr-refcards .dh-pr-ti:focus .dh-pr-pop, .dh-pr-refcards .dh-pr-ti:focus-within .dh-pr-pop { display: block; }
+.dh-pr-refcards .dh-pr-pophead { display: block; font-style: normal; font-weight: 800; font-size: 11px; color: #2D2A26; margin-bottom: 8px; line-height: 1.4; }
+.dh-pr-refcards .dh-pr-popi { display: flex; gap: 8px; align-items: baseline; font-style: normal; font-size: 11px; line-height: 1.45; margin-bottom: 4px; }
+.dh-pr-refcards .dh-pr-popi i { font-style: normal; font-weight: 800; color: #C25E00; flex: none; width: 12px; }
+/* cara kerja program */
+.dh-pr-how { display: grid; gap: 8px; margin-bottom: 14px; }
+.dh-pr-how > div { background: #FAF7F2; border: 1px solid #E8E0D5; border-radius: 14px; padding: 12px 14px; }
+.dh-pr-how b { display: block; font-size: 12px; color: #2D2A26; margin-bottom: 8px; }
+.dh-pr-how p { margin: 0; font-size: 11.5px; line-height: 1.6; color: #4A453F; }
+.dh-pr-how u { text-decoration: none; font-weight: 700; color: #C25E00; }
+.dh-pr-steps { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.dh-pr-steps span { background: #fff; border: 1px solid #E8E0D5; border-radius: 100px; padding: 4px 11px; font-size: 11px; font-weight: 600; color: #3A3631; }
+.dh-pr-steps i { font-style: normal; color: #C25E00; font-size: 12px; }
+/* streak mingguan */
+.dh-sk-info { position: relative; }
+.dh-sk-ti { position: relative; display: block; margin-top: 8px; font-style: normal; font-size: 11px; font-weight: 700; color: #C25E00; cursor: pointer; outline: none; }
+.dh-sk-pop { display: none; position: absolute; z-index: 30; left: 50%; transform: translateX(-50%); top: 100%; width: 290px; margin-top: 6px; background: #fff; border: 1px solid #E8E0D5; border-radius: 12px; padding: 12px 14px; box-shadow: 0 14px 30px -12px rgba(45,42,38,.35); font-style: normal; font-weight: 500; color: #3A3631; text-align: left; }
+.dh-sk-pop i { display: block; font-style: normal; font-size: 11.5px; line-height: 1.6; }
+.dh-sk-pop .dh-sk-pophead { font-weight: 800; color: #2D2A26; margin-bottom: 4px; }
+.dh-sk-ti:hover .dh-sk-pop, .dh-sk-ti:focus .dh-sk-pop, .dh-sk-ti:focus-within .dh-sk-pop { display: block; }
+@media (max-width: 640px) { .dh-pr-refcards .dh-pr-pop { left: 0; width: 250px; } }
+
+/* ===== UI21: Streak & Reward (box Week klik, tombol compact), halaman Bantuan ===== */
+.dh-sk-info { text-align: left !important; }
+.dh-sk-info .dh-sk-ti { text-align: left; }
+.dh-sk-pop { left: 0 !important; transform: none !important; }
+[data-testid="stDialog"] .st-key-dhsk_weeks div.stButton > button { height: 84px !important; padding: 8px 4px !important; border-radius: 12px !important; background: #FAF6F0 !important; border: 1px solid #E8E0D5 !important; box-shadow: none !important; line-height: 1.5; transition: transform .2s, border-color .2s, box-shadow .2s; }
+[data-testid="stDialog"] .st-key-dhsk_weeks div.stButton > button p { text-align: center; font-size: 11px !important; line-height: 1.55 !important; color: #8B8378 !important; margin: 0; }
+[data-testid="stDialog"] .st-key-dhsk_weeks div.stButton > button strong { color: #2D2A26 !important; font-size: 12.5px; }
+[data-testid="stDialog"] .st-key-dhsk_weeks div.stButton > button:last-child strong:last-of-type { color: #C8633B !important; }
+[data-testid="stDialog"] .st-key-dhsk_weeks div.stButton > button[kind="primary"] { background: #FDF3E4 !important; border: 1.5px solid #C8633B !important; cursor: pointer; }
+[data-testid="stDialog"] .st-key-dhsk_weeks div.stButton > button[kind="primary"]:hover { transform: translateY(-3px); box-shadow: 0 8px 16px -10px rgba(200,99,59,.6) !important; }
+[data-testid="stDialog"] .st-key-dhsk_weeks div.stButton > button:disabled { opacity: .75; cursor: not-allowed; }
+.st-key-dhsk_cta { align-items: center; } .st-key-dhsk_cta div.stButton { display: flex; justify-content: center; width: 100%; }
+[data-testid="stDialog"] .st-key-dhsk_cta div.stButton > button { width: fit-content !important; min-width: 220px; max-width: 280px; padding: 0 28px !important; height: 46px !important; border-radius: 100px !important; background: #C85A32 !important; border: 0 !important; margin: 0 auto; }
+[data-testid="stDialog"] .st-key-dhsk_cta div.stButton > button * { color: #fff !important; font-weight: 700 !important; }
+[data-testid="stDialog"] .st-key-dhsk_cta div.stButton > button:disabled { background: #B9B0A4 !important; opacity: 1; }
+@media (max-width: 640px) { [data-testid="stDialog"] .st-key-dhsk_weeks [data-testid="stHorizontalBlock"] { flex-wrap: wrap; } [data-testid="stDialog"] .st-key-dhsk_weeks [data-testid="stColumn"] { min-width: calc(50% - 8px) !important; } }
+.dh-hp-h1 { font-family: 'Playfair Display', serif; font-size: 27px; font-weight: 700; color: #2D2A26; margin: 2px 0 6px; }
+.dh-hp-h2 { font-size: 12.5px; font-weight: 800; letter-spacing: .06em; color: #C25E00; margin: 18px 0 8px; }
+.dh-hp-h3 { font-size: 13.5px; font-weight: 800; color: #2D2A26; margin-bottom: 6px; }
+.dh-hp-lead { font-size: 13px; color: #6B635A; margin: 0 0 12px; }
+.dh-hp-upd { font-size: 11.5px; color: #8B8378; margin-bottom: 12px; }
+.dh-hp-sec, .dh-hp-card { background: #FAF7F2; border: 1px solid #E8E0D5; border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }
+.dh-hp-sec p, .dh-hp-sec li, .dh-hp-card li { font-size: 12.5px; line-height: 1.65; color: #3A3631; }
+.dh-hp-sec p { margin: 0 0 8px; } .dh-hp-sec ul, .dh-hp-card ul { margin: 0 0 8px; padding-left: 18px; }
+.dh-hp-card ul { list-style: none; padding: 0; }
+.dh-hp-card li { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; flex-wrap: wrap; }
+.dh-hp-card li span { color: #8B8378; } .dh-hp-card li b { color: #2D2A26; word-break: break-all; text-align: right; }
+.dh-hp-ct { font-size: 12.5px; font-weight: 800; color: #2D2A26; margin-bottom: 6px; }
+.dh-hp-note { font-size: 11px; color: #8B8378; font-style: italic; margin-top: 4px; }
+[data-testid="stDialog"] [data-testid="stExpander"] { background: #FAF7F2; border: 1px solid #E8E0D5 !important; border-radius: 12px; margin-bottom: 8px; }
+[data-testid="stDialog"] [data-testid="stExpander"] summary p { font-size: 13px; font-weight: 700; color: #2D2A26; }
+[data-testid="stDialog"] [data-testid="stExpander"] li, [data-testid="stDialog"] [data-testid="stExpander"] p { font-size: 12.5px; line-height: 1.6; color: #3A3631; }
+.st-key-dhsk_cta { margin-top: 14px; }
+[data-testid="stDialog"] [data-testid="stFormSubmitButton"] button[kind="primaryFormSubmit"], [data-testid="stDialog"] [data-testid="stFormSubmitButton"] button { background: #C85A32 !important; border: 0 !important; border-radius: 100px !important; height: 46px !important; }
+[data-testid="stDialog"] [data-testid="stFormSubmitButton"] button * { color: #fff !important; font-weight: 700 !important; }
+
+/* ===== UI22: paksa light mode di semua modal (tanpa hitam), Tutorial & Blog ===== */
+[data-testid="stDialog"] [data-testid="stExpander"], [data-testid="stDialog"] [data-testid="stExpander"] details { background: #FAF7F2 !important; border: 1px solid #E8E0D5 !important; border-radius: 12px !important; color: #2D2A26 !important; }
+[data-testid="stDialog"] [data-testid="stExpander"] summary, [data-testid="stDialog"] [data-testid="stExpander"] details[open] > summary, [data-testid="stDialog"] [data-testid="stExpander"] summary:hover, [data-testid="stDialog"] [data-testid="stExpander"] summary:focus { background: #FFF3ED !important; color: #7A3E1D !important; }
+[data-testid="stDialog"] [data-testid="stExpander"] details:not([open]) > summary { background: transparent !important; }
+[data-testid="stDialog"] [data-testid="stExpander"] summary *, [data-testid="stDialog"] [data-testid="stExpander"] details[open] > summary * { color: #7A3E1D !important; }
+[data-testid="stDialog"] [data-testid="stExpander"] details:not([open]) > summary * { color: #2D2A26 !important; }
+[data-testid="stDialog"] [data-testid="stExpander"] [data-testid="stExpanderDetails"] { background: #FFFFFF !important; }
+[data-testid="stDialog"] textarea, [data-testid="stDialog"] [data-baseweb="textarea"], [data-testid="stDialog"] [data-baseweb="textarea"] > div { background: #FFFFFF !important; background-color: #FFFFFF !important; color: #1F2937 !important; border-color: #E5E7EB !important; }
+[data-testid="stDialog"] textarea::placeholder, [data-testid="stDialog"] input::placeholder { color: #9CA3AF !important; -webkit-text-fill-color: #9CA3AF; }
+[data-testid="stDialog"] [data-baseweb="textarea"] { border: 1px solid #E5E7EB !important; border-radius: 10px !important; }
+[data-testid="stDialog"] input, [data-testid="stDialog"] [data-baseweb="input"], [data-testid="stDialog"] [data-baseweb="input"] > div, [data-testid="stDialog"] [data-baseweb="select"] > div { background: #FFFFFF !important; color: #1F2937 !important; }
+[data-testid="stDialog"] [data-baseweb="select"] * { color: #1F2937 !important; }
+div[data-baseweb="popover"] ul, div[data-baseweb="popover"] li, div[data-baseweb="menu"] { background: #FFFFFF !important; color: #1F2937 !important; }
+div[data-baseweb="popover"] li:hover { background: #FFF3ED !important; }
+.dh-hp-steps { display: grid; gap: 10px; }
+.dh-hp-step { display: flex; gap: 12px; align-items: flex-start; background: #fff; border: 1px solid #E8E0D5; border-radius: 12px; padding: 10px 12px; }
+.dh-hp-step i { flex: none; width: 26px; height: 26px; border-radius: 50%; background: #C85A32; color: #fff; font-style: normal; font-weight: 800; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+.dh-hp-step b { display: block; font-size: 13px; color: #2D2A26; } .dh-hp-step span { font-size: 12.5px; color: #6B635A; line-height: 1.55; }
+.dh-hp-sec li ul { margin-top: 4px; }
+.dh-hp-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+.dh-hp-chips span { background: #FFF3ED; border: 1px solid #F0CDB8; color: #7A3E1D; border-radius: 100px; padding: 5px 11px; font-size: 11.5px; font-weight: 600; }
+.dh-hp-post { display: flex; gap: 12px; background: #FAF7F2; border: 1px solid #E8E0D5; border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; }
+.dh-hp-pn { flex: none; width: 28px; height: 28px; border-radius: 8px; background: #FFF3ED; color: #C85A32; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+.dh-hp-post b { display: block; font-size: 13.5px; color: #2D2A26; line-height: 1.45; } .dh-hp-post em { display: block; font-size: 11px; color: #8B8378; font-style: normal; margin: 3px 0 5px; } .dh-hp-post p { font-size: 12.5px; line-height: 1.6; color: #3A3631; margin: 0; }
+

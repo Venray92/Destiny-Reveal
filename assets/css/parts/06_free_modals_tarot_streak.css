@@ -1,0 +1,175 @@
+/* ══════════════ UI11 ══════════════ */
+/* Lingkaran pusat KAMU: halo/glow, teks gelap tegas, + orbit dashed bagian dalam */
+.stApp .dh-matrix-center {
+    box-shadow: 0 0 0 14px rgba(200,98,53,.06); transition: box-shadow .25s ease, background .25s ease;
+}
+.st-key-dhmatrix_wrap:hover .dh-matrix-center, .stApp .dh-matrix-center:hover { box-shadow: 0 0 0 16px rgba(200,98,53,.10), 0 0 34px 10px rgba(200,98,53,.12); }
+.stApp .dh-matrix-center b { color: #1F1B16 !important; font-size: 17px; letter-spacing: .02em; }
+.stApp .dh-matrix-center span { color: #5B534A !important; font-size: 9.5px; font-weight: 500; }
+.st-key-dhmatrix_wrap::after {
+    content: ""; position: absolute; inset: 24%; border-radius: 50%; border: 1.5px dashed #DDD3C4; pointer-events: none; z-index: 0;
+}
+
+/* Modal ringkas fitur gratis */
+[data-testid="stDialog"] > div:has(.dh-step-mini) { width: min(540px, 94vw) !important; max-width: 540px !important; }
+.dh-mn-status { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: #8B8378; margin: 6px 36px 0 0; flex-wrap: wrap; }
+.dh-mn-status b { background: #E6EFE6; color: #4A6B53; font-weight: 600; padding: 3px 10px; border-radius: 100px; font-size: 11.5px; }
+.dh-mn-status b.off { background: #F0ECE4; color: #8B8378; }
+.dh-mn-div { height: 1px; background: #E8E0D5; margin: 12px 0 14px; }
+.dh-mn-title { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.dh-mn-ico { width: 56px; height: 56px; border-radius: 14px; background: #FAF6F0; border: 1px solid #E8E0D5; display: flex; align-items: center; justify-content: center; font-size: 28px; flex: none; }
+.dh-mn-h { font-family: 'Playfair Display', serif; font-size: 25px; font-weight: 700; color: #2D2A26; line-height: 1.2; }
+.dh-mn-sub { font-size: 12px; color: #8B8378; margin-top: 2px; }
+.dh-mn-glyph { color: #7C3AED; }
+.dh-mn-lab2 { font-size: 12px; color: #6B635A; margin: 10px 0 8px; }
+.dh-mn-notice { background: #FEF6E3; border: 1px solid #F3D9A6; border-radius: 12px; padding: 12px 14px; font-size: 12px; line-height: 1.5; color: #6B5A3C; margin: 12px 0; }
+.dh-mn-notice b { display: block; color: #C25E00; font-size: 12.5px; margin-bottom: 3px; }
+.dh-mn-card { background: #FFFFFF; border: 1px solid #E8E0D5; border-radius: 16px; padding: 16px 18px; margin: 12px 0; }
+.dh-mn-cardhead { display: flex; align-items: center; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid #EFE9DD; margin-bottom: 10px; }
+.dh-mn-sym { width: 40px; height: 40px; border-radius: 10px; background: #F3EEFB; display: flex; align-items: center; justify-content: center; font-size: 22px; flex: none; }
+.dh-mn-name { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: #2D2A26; }
+.dh-mn-meta { font-size: 11px; color: #8B8378; }
+.dh-mn-free { margin-left: auto; background: #E6EFE6; color: #4A6B53; font-size: 10.5px; font-weight: 700; padding: 3px 12px; border-radius: 100px; }
+.dh-mn-lab { font-size: 11.5px; font-weight: 800; letter-spacing: .04em; color: #C25E00; margin-bottom: 4px; }
+.dh-mn-card p { font-size: 13px; line-height: 1.6; color: #3A3631; margin: 0 0 10px; }
+.dh-mn-micro { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; border-top: 1px solid #EFE9DD; padding-top: 10px; margin-bottom: 10px; }
+.dh-mn-micro span { display: block; font-size: 10.5px; font-weight: 800; color: #6B635A; letter-spacing: .03em; }
+.dh-mn-micro b { font-size: 12.5px; font-weight: 500; color: #2D2A26; }
+.dh-mn-quote2, .dh-mn-quote { background: #FEF6E3; border: 1px solid #F3D9A6; border-radius: 10px; padding: 10px 14px; font-family: 'Lora', serif; font-style: italic; font-size: 12.5px; line-height: 1.55; color: #5A4A2E; }
+.dh-mn-quote2 b { font-style: normal; color: #C25E00; font-weight: 700; }
+.dh-mn-quote { text-align: center; }
+.dh-mn-lock { position: relative; border: 1px solid #F0DFC4; border-radius: 16px; background: #FDF8EE; overflow: hidden; margin: 12px 0; min-height: 150px; }
+.dh-mn-blur { padding: 18px; filter: blur(5px); opacity: .55; }
+.dh-mn-blur i { display: block; height: 10px; border-radius: 6px; background: #E5C9A0; margin: 0 0 12px; }
+.dh-mn-blur i:nth-child(2) { width: 82%; } .dh-mn-blur i:nth-child(3) { width: 64%; }
+.dh-mn-lockbody { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px; padding: 14px 22px; }
+.dh-mn-lockico { font-size: 22px; }
+.dh-mn-lockbody b { font-size: 14px; color: #2D2A26; }
+.dh-mn-lockbody span { font-size: 11.5px; color: #6B635A; line-height: 1.45; }
+
+/* tombol di modal ringkas */
+[data-testid="stDialog"] div.stButton > button[kind="primary"] { border-radius: 100px; }
+[data-testid="stDialog"] .st-key-dhdy_cta button, [data-testid="stDialog"] .st-key-dhtr_unlock button, [data-testid="stDialog"] .st-key-dhpv_unlock button, [data-testid="stDialog"] .st-key-dhsk_claim button {
+    background: #C8633B !important; border: 0 !important; color: #FFFFFF !important; height: 46px !important; font-weight: 700 !important; border-radius: 100px !important;
+}
+[data-testid="stDialog"] .st-key-dhdy_cta button *, [data-testid="stDialog"] .st-key-dhtr_unlock button *, [data-testid="stDialog"] .st-key-dhpv_unlock button *, [data-testid="stDialog"] .st-key-dhsk_claim button * { color: #FFFFFF !important; }
+[data-testid="stDialog"] .st-key-dhtr_sync button, [data-testid="stDialog"] .st-key-dhpv_sync button {
+    background: #FFFFFF !important; border: 1px solid #E0D6C8 !important; border-radius: 100px !important; height: 42px !important; color: #2D2A26 !important; font-weight: 600 !important;
+}
+[data-testid="stDialog"] .st-key-dhtr_sync button *, [data-testid="stDialog"] .st-key-dhpv_sync button * { color: #2D2A26 !important; }
+/* tab Zodiak/Shio */
+.st-key-dhdy_tabs { background: #FAF6F0; border: 1px solid #E8E0D5; border-radius: 100px; padding: 5px; }
+.st-key-dhdy_tabs [data-testid="stHorizontalBlock"] { gap: 6px !important; }
+[data-testid="stDialog"] .st-key-dhdy_tabs button { height: 38px !important; border-radius: 100px !important; border: 0 !important; background: transparent !important; box-shadow: none !important; }
+[data-testid="stDialog"] .st-key-dhdy_tabs button p { font-size: 13px !important; font-weight: 600 !important; color: #6B635A !important; }
+[data-testid="stDialog"] .st-key-dhdy_tabs button[kind="primary"] { background: #FFFFFF !important; box-shadow: 0 1px 4px rgba(45,42,38,.12) !important; border: 1px solid #E8E0D5 !important; }
+[data-testid="stDialog"] .st-key-dhdy_tabs button[kind="primary"] p { color: #C25E00 !important; }
+/* grid pilihan */
+[data-testid="stDialog"] .st-key-dhdy_grid [data-testid="stVerticalBlock"], .st-key-dhdy_grid { gap: 8px !important; }
+[data-testid="stDialog"] .st-key-dhdy_grid [data-testid="stHorizontalBlock"], [data-testid="stDialog"] .st-key-dhpv_grid [data-testid="stHorizontalBlock"] { gap: 8px !important; }
+[data-testid="stDialog"] .st-key-dhdy_grid button, [data-testid="stDialog"] .st-key-dhpv_grid button {
+    background: #FAF6F0 !important; border: 1px solid #E8E0D5 !important; border-radius: 12px !important; color: #2D2A26 !important; box-shadow: none !important; min-height: 0 !important;
+}
+[data-testid="stDialog"] .st-key-dhdy_grid button { height: 40px !important; }
+[data-testid="stDialog"] .st-key-dhpv_grid button { height: 54px !important; padding: 4px 2px !important; }
+[data-testid="stDialog"] .st-key-dhdy_grid button p, [data-testid="stDialog"] .st-key-dhpv_grid button p { font-size: 12px !important; font-weight: 600 !important; line-height: 1.25 !important; margin: 0 !important; color: inherit !important; }
+[data-testid="stDialog"] .st-key-dhdy_grid button[kind="primary"], [data-testid="stDialog"] .st-key-dhpv_grid button[kind="primary"] { background: #C8633B !important; border-color: #C8633B !important; }
+[data-testid="stDialog"] .st-key-dhdy_grid button[kind="primary"] *, [data-testid="stDialog"] .st-key-dhpv_grid button[kind="primary"] * { color: #FFFFFF !important; }
+/* Tarot */
+.dh-tr-img { display: block; width: min(250px, 70%); aspect-ratio: 926 / 1152; object-fit: cover; border-radius: 14px; margin: 0 auto; border: 1px solid #E0B48A; box-shadow: 0 10px 26px -10px rgba(194,94,0,.45); }
+.dh-tr-ph { display: flex; align-items: center; justify-content: center; background: #FAF6F0; font-size: 60px; height: 320px; }
+.dh-tr-cap { text-align: center; font-size: 11px; font-style: italic; color: #8B8378; margin: 8px 0 12px; }
+.dh-tr-wrap { position: relative; width: min(250px, 70%); margin: 0 auto; }
+.dh-tr-wrap .dh-tr-img { width: 100%; }
+.dh-tr-over { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 14px 14px; border-radius: 0 0 14px 14px; background: linear-gradient(transparent, rgba(20,14,8,.88)); color: #fff; text-align: left; }
+.dh-tr-over b { font-size: 10px; letter-spacing: .06em; }
+.dh-tr-over div { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; line-height: 1.2; }
+/* cover tarot = tombol transparan nutupin gambar */
+.st-key-dhtr_cover { position: relative; width: min(250px, 70%); margin: 0 auto; }
+.st-key-dhtr_cover [data-testid="stElementContainer"] { position: static !important; }
+.st-key-dhtr_cover .dh-tr-img { width: 100%; transition: transform .2s ease, box-shadow .2s ease; }
+.st-key-dhtr_cover:hover .dh-tr-img { transform: translateY(-3px) scale(1.01); box-shadow: 0 16px 30px -10px rgba(194,94,0,.55); }
+.st-key-dhtr_cover .st-key-dhtr_draw { position: absolute !important; inset: 0; z-index: 3; margin: 0 !important; }
+.st-key-dhtr_cover .st-key-dhtr_draw button, .st-key-dhtr_cover .st-key-dhtr_draw div.stButton { width: 100% !important; height: 100% !important; opacity: 0; cursor: pointer; }
+.dh-mn-msg { background: #FAF6F0; border: 1px solid #E8E0D5; border-radius: 14px; padding: 14px 16px; margin: 6px 0 10px; }
+.dh-mn-msghead { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; margin-bottom: 6px; }
+.dh-mn-msghead span { font-size: 11px; font-weight: 800; color: #C25E00; letter-spacing: .03em; }
+.dh-mn-msghead b { font-size: 12.5px; color: #2D2A26; text-align: right; }
+.dh-mn-msg p { font-size: 12.5px; line-height: 1.6; color: #3A3631; margin: 0; }
+.dh-mn-paywall { background: #FEF6E3; border: 1px solid #F3D9A6; border-radius: 14px; padding: 14px 16px 6px; text-align: center; margin: 0 0 -4px; }
+.dh-mn-paywall b { display: block; font-size: 14px; color: #2D2A26; }
+.dh-mn-paywall span { display: block; font-size: 11.5px; color: #6B635A; margin: 2px 0 8px; line-height: 1.45; }
+/* Streak */
+.dh-sk-flame { width: 64px; height: 64px; margin: 4px auto 6px; border-radius: 16px; background: #FAF6F0; border: 1px solid #E8E0D5; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+.dh-sk-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; text-align: center; color: #2D2A26; margin-bottom: 8px; }
+.dh-sk-info { text-align: center; }
+.dh-sk-prog { border: 1px solid #E8E0D5; border-radius: 14px; padding: 14px 16px; margin: 12px 0; }
+.dh-sk-proghead { display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 8px; }
+.dh-sk-proghead span { color: #C8633B; font-weight: 700; }
+.dh-sk-bar { height: 8px; background: #EFEAE2; border-radius: 100px; overflow: hidden; }
+.dh-sk-bar i { display: block; height: 100%; background: #C8633B; border-radius: 100px; }
+.dh-sk-foot { background: #E9F0EA; color: #4A6B53; border-radius: 12px; text-align: center; font-size: 11.5px; font-weight: 600; padding: 12px 14px; margin-top: 12px; line-height: 1.5; }
+
+/* UI11 fix: spesifisitas tombol di modal ringkas (nimpa override global secondary/primary dialog) */
+[data-testid="stDialog"] div.st-key-dhdy_tabs div.stButton > button[kind="secondary"] { background: transparent !important; border: 0 !important; box-shadow: none !important; color: #6B635A !important; }
+[data-testid="stDialog"] div.st-key-dhdy_tabs div.stButton > button[kind="primary"] { background: #FFFFFF !important; border: 1px solid #E8E0D5 !important; box-shadow: 0 1px 4px rgba(45,42,38,.12) !important; color: #C25E00 !important; }
+[data-testid="stDialog"] div.st-key-dhdy_tabs div.stButton > button[kind="primary"] *, [data-testid="stDialog"] div.st-key-dhdy_tabs div.stButton > button[kind="primary"] p { color: #C25E00 !important; }
+[data-testid="stDialog"] div.st-key-dhdy_tabs div.stButton > button[kind="secondary"] * { color: #6B635A !important; }
+[data-testid="stDialog"] div.st-key-dhdy_grid div.stButton > button[kind="secondary"], [data-testid="stDialog"] div.st-key-dhpv_grid div.stButton > button[kind="secondary"] {
+    background: #FAF6F0 !important; border: 1px solid #E8E0D5 !important; color: #2D2A26 !important; box-shadow: none !important;
+}
+[data-testid="stDialog"] div.st-key-dhdy_grid div.stButton > button[kind="secondary"] *, [data-testid="stDialog"] div.st-key-dhpv_grid div.stButton > button[kind="secondary"] * { color: #2D2A26 !important; }
+[data-testid="stDialog"] div.st-key-dhdy_grid div.stButton > button[kind="primary"], [data-testid="stDialog"] div.st-key-dhpv_grid div.stButton > button[kind="primary"] { background: #C8633B !important; border: 1px solid #C8633B !important; }
+[data-testid="stDialog"] div.st-key-dhdy_grid div.stButton > button[kind="primary"] *, [data-testid="stDialog"] div.st-key-dhpv_grid div.stButton > button[kind="primary"] * { color: #FFFFFF !important; }
+[data-testid="stDialog"] div.st-key-dhdy_grid div.stButton > button, [data-testid="stDialog"] div.st-key-dhpv_grid div.stButton > button { border-radius: 12px !important; padding: 4px 2px !important; }
+[data-testid="stDialog"] div.st-key-dhdy_grid div.stButton > button { height: 40px !important; min-height: 40px !important; }
+[data-testid="stDialog"] div.st-key-dhpv_grid div.stButton > button { height: 56px !important; min-height: 56px !important; }
+[data-testid="stDialog"] div.st-key-dhpv_grid button p { font-size: 11px !important; white-space: normal !important; overflow: visible !important; text-overflow: clip !important; text-align: center; display: block !important; }
+[data-testid="stDialog"] div.st-key-dhpv_grid button[kind="secondary"] p::first-line { color: #8B5CF6 !important; font-size: 14px; }
+[data-testid="stDialog"] div.st-key-dhpv_grid button[kind="primary"] p::first-line { color: #FFFFFF !important; font-size: 14px; }
+[data-testid="stDialog"] div.st-key-dhtr_sync div.stButton > button[kind="secondary"], [data-testid="stDialog"] div.st-key-dhpv_sync div.stButton > button[kind="secondary"] { background: #FFFFFF !important; border: 1px solid #E0D6C8 !important; color: #2D2A26 !important; }
+[data-testid="stDialog"] div.st-key-dhtr_sync div.stButton > button *, [data-testid="stDialog"] div.st-key-dhpv_sync div.stButton > button * { color: #2D2A26 !important; }
+
+/* ═══════ UI12: hasil Ramalan Harian + Tarot ramping ═══════ */
+.dh-dr-quota { display: flex; align-items: center; gap: 12px; background: #EEF4EE; border: 1px solid #D5E3D6; border-radius: 14px; padding: 12px 14px; margin: 0 0 12px; }
+.dh-dr-ck { color: #4A6B53; font-size: 16px; font-weight: 700; flex: none; }
+.dh-dr-quota div { flex: 1; min-width: 0; }
+.dh-dr-quota b { display: block; color: #4A6B53; font-size: 13px; font-weight: 700; }
+.dh-dr-quota div span { display: block; color: #6B635A; font-size: 11.5px; margin-top: 1px; }
+.dh-dr-quota em { font-style: normal; background: #FFFDF8; border: 1px solid #DDD5C8; color: #5B534A; font-size: 11px; font-weight: 600; padding: 3px 12px; border-radius: 100px; flex: none; }
+.dh-dr-msg { background: #FFFFFF; border: 1px solid #E8E0D5; border-radius: 14px; padding: 14px 16px; margin: 0 0 12px; }
+.dh-dr-msghead { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
+.dh-dr-msghead b { font-family: 'Playfair Display', serif; font-size: 16px; color: #2D2A26; }
+.dh-dr-msghead span { background: #E6EFE6; color: #4A6B53; font-size: 11px; font-weight: 700; padding: 3px 12px; border-radius: 100px; }
+.dh-dr-msg p { font-size: 14px; line-height: 1.6; color: #2D2A26; margin: 0 0 12px; }
+.dh-dr-foot { display: flex; justify-content: space-between; gap: 10px; border-top: 1px solid #EFE9DD; padding-top: 10px; font-size: 11.5px; color: #6B635A; }
+.dh-dr-foot b { color: #2D2A26; }
+div[data-testid="stVerticalBlock"].st-key-dhdy_lock { position: relative; background: #FBF6EC; border: 1px solid #F0DFC4; border-radius: 16px; padding: 14px 18px 12px; gap: 0 !important; margin: 0 0 12px; align-items: center; }
+.st-key-dhdy_lock .dh-dr-blur { filter: blur(4.5px); opacity: .6; user-select: none; pointer-events: none; height: 92px; overflow: hidden; }
+.st-key-dhdy_lock .dh-dr-blur p { font-size: 12px; line-height: 1.5; color: #6B635A; margin: 0 0 8px; }
+.st-key-dhdy_lock .st-key-dhdy_unlock { margin-top: -62px !important; position: relative; z-index: 2; display: flex; justify-content: center; }
+[data-testid="stDialog"] .st-key-dhdy_unlock button { background: #C8633B !important; border: 0 !important; border-radius: 100px !important; height: 42px !important; padding: 0 26px !important; }
+[data-testid="stDialog"] .st-key-dhdy_unlock button, [data-testid="stDialog"] .st-key-dhdy_unlock button * { color: #FFFFFF !important; font-weight: 700 !important; }
+.st-key-dhdy_lock .dh-dr-sub { text-align: center; font-size: 11px; color: #6B635A; margin-top: 12px; line-height: 1.45; }
+div[data-testid="stVerticalBlock"].st-key-dhdy_swap { background: #FAF6F0; border: 1px solid #E8E0D5; border-radius: 14px; padding: 14px 16px; gap: 2px !important; align-items: center; margin: 0 0 12px; }
+.dh-dr-swaptxt { text-align: center; font-size: 12.5px; color: #6B635A; }
+.st-key-dhdy_swap .stElementContainer { display: flex; justify-content: center; }
+[data-testid="stDialog"] div.st-key-dhdy_swap div.stButton > button { background: transparent !important; border: 0 !important; box-shadow: none !important; height: auto !important; min-height: 0 !important; padding: 2px 6px !important; }
+[data-testid="stDialog"] div.st-key-dhdy_swap div.stButton > button, [data-testid="stDialog"] div.st-key-dhdy_swap div.stButton > button * { color: #C25E00 !important; font-weight: 700 !important; font-size: 13px !important; }
+[data-testid="stDialog"] .st-key-dhdy_sync button { background: #FFFFFF !important; border: 1px solid #E0D6C8 !important; border-radius: 100px !important; height: 42px !important; }
+[data-testid="stDialog"] .st-key-dhdy_sync button, [data-testid="stDialog"] .st-key-dhdy_sync button * { color: #2D2A26 !important; font-weight: 600 !important; }
+/* tarot: kartu ramping 2:3 + animasi flip */
+.dh-tr-img { width: min(190px, 56%); aspect-ratio: 2 / 3; }
+.dh-tr-ph { height: auto; }
+.dh-tr-wrap, .st-key-dhtr_cover { width: min(190px, 56%); }
+.dh-tr-wrap { animation: dhFlip .7s ease both; transform-origin: center; }
+@keyframes dhFlip { 0% { transform: perspective(900px) rotateY(90deg); opacity: .2; } 100% { transform: perspective(900px) rotateY(0); opacity: 1; } }
+.dh-tr-over div { font-size: 16px; }
+.dh-tr-hint { text-align: center; font-size: 12px; font-weight: 600; color: #C25E00; margin: 12px 0 0; }
+.dh-mn-paywall { border-color: #F0C9A0; }
+/* UI12 fix: box paywall tarot (tombol di dalam box) + warna tombol sync */
+div[data-testid="stVerticalBlock"].st-key-dhtr_pay { background: #FEF6E3; border: 1px solid #F0C9A0; border-radius: 14px; padding: 14px 16px; gap: 0 !important; margin: 0 0 12px; }
+.st-key-dhtr_pay .dh-mn-paywall { background: transparent; border: 0; padding: 0 0 10px; margin: 0; }
+[data-testid="stDialog"] div.st-key-dhdy_sync div.stButton > button[kind="secondary"] { background: #FFFFFF !important; border: 1px solid #E0D6C8 !important; border-radius: 100px !important; height: 42px !important; }
+[data-testid="stDialog"] div.st-key-dhdy_sync div.stButton > button *, [data-testid="stDialog"] div.st-key-dhdy_sync div.stButton > button p { color: #2D2A26 !important; font-weight: 600 !important; }
+

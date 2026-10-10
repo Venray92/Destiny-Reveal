@@ -1,0 +1,55 @@
+/* ── NAV: link Home & Tutorial = anchor smooth-scroll (di halaman Home) ── */
+.stApp a.dh-nav-link {
+    display: block; text-align: center; padding: 6px 14px; border-radius: 100px;
+    font-size: 13.5px; font-weight: 600; color: var(--dh-text-dark); text-decoration: none !important;
+    cursor: pointer; transition: background .15s, color .15s;
+}
+.stApp a.dh-nav-link:hover { background: #FBF4EA; color: #D97706; }
+/* Tombol pemicu modal (tersembunyi) + iframe jembatan klik */
+.st-key-dh_modal_trigger_wrap { position: absolute !important; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none; }
+#dh-top.dh-anchor { scroll-margin-top: 400px; }
+
+/* ── MEGA MENU "Jelajahi" (kompak, UI5) ───────────────────────── */
+/* Trigger aktif (panel kebuka) = pill krem + panah naik */
+.st-key-dhnavbar .st-key-dhnav_links div[data-testid="stPopover"] button[aria-expanded="true"] {
+    background: #FBF4EA !important; color: #D97706 !important;
+}
+.st-key-dhnavbar .st-key-dhnav_links div[data-testid="stPopover"] button[aria-expanded="true"] p { color: #D97706 !important; }
+.st-key-dhnavbar .st-key-dhnav_links button[data-testid="stPopoverButton"] div[aria-hidden="true"] { transition: transform .2s ease; }
+.st-key-dhnavbar .st-key-dhnav_links button[data-testid="stPopoverButton"][aria-expanded="true"] div[aria-hidden="true"] { transform: rotate(180deg); }
+
+/* Panel: floating, center di bawah navbar. NB: popover dirender di portal
+   (di luar .stApp), jadi selector-nya TANPA prefix .stApp. */
+div[data-testid="stPopoverBody"]:has(.dh-mega) {
+    position: fixed !important; top: 76px !important; left: 50% !important; right: auto !important;
+    transform: translateX(-50%) !important; width: min(660px, 94vw) !important; max-width: none !important;
+    max-height: none !important; padding: 20px 24px !important; border-radius: 20px !important;
+    border: 1.5px solid var(--dh-border) !important; box-shadow: 0 24px 60px -20px rgba(45,42,38,0.28) !important;
+    background: #fff !important; overflow: visible !important;
+}
+div[data-testid="stPopoverBody"]:has(.dh-mega) [data-testid="stMarkdownContainer"] { margin-bottom: 0 !important; }
+.dh-mega { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.dh-mega-col { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.dh-mega-col-title {
+    display: flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 800;
+    letter-spacing: 0.05em; color: #C25E00; padding: 0 4px 8px 4px; margin-bottom: 6px;
+    border-bottom: 1px solid #EADFD0;
+}
+.dh-mega-emoji { font-size: 14px; line-height: 1; font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif; }
+a.dh-mega-item {
+    display: flex; flex-direction: column; gap: 1px; padding: 6px 10px; border-radius: 10px;
+    border: 1px solid transparent; text-decoration: none !important; cursor: pointer;
+    transition: background .15s ease, border-color .15s ease;
+}
+a.dh-mega-item:hover, a.dh-mega-item.hl { background: #FDF3E0; border-color: #EBCFA6; }
+.dh-mega-title { font-size: 14px; font-weight: 600; line-height: 1.3; color: #3A3631; transition: color .15s ease; }
+.dh-mega-sub { font-size: 11px; line-height: 1.3; color: #9A9285; }
+a.dh-mega-item:hover .dh-mega-title { color: #B2552C; }
+.dh-mega-foot {
+    display: flex; align-items: center; gap: 6px; margin-top: 4px; padding: 8px 10px 0 10px;
+    border-top: 1px solid #EADFD0; font-size: 12px; font-weight: 700;
+}
+.dh-mega-foot a { white-space: nowrap; color: #C25E00; text-decoration: none !important; cursor: pointer; transition: color .15s; }
+.dh-mega-foot a:hover { color: #8F4400; }
+.dh-mega-foot i { color: #CFC6B8; font-style: normal; }
+

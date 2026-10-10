@@ -1,0 +1,215 @@
+/* ── MODAL — ATURAN GLOBAL: SEMUA st.dialog WAJIB LIGHT THEME ───────
+   Streamlit ngikutin dark-mode OS/browser -> kotak dialog jadi gelap. Dipaksa
+   putih + color-scheme light. Dialog = [stDialog] > div (overlay = stDialog). */
+[data-testid="stDialog"] { background: rgba(0,0,0,0.5) !important; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color-scheme: light; }
+[data-testid="stDialog"] > div {
+    background: #FFFFFF !important; color: #2D2A26; border-radius: 24px !important;
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.45); width: min(720px, 94vw) !important; max-width: 720px !important;
+}
+[data-testid="stDialog"] section[role="dialog"] { background: transparent !important; }
+[data-testid="stDialog"] h2 { display: none !important; }  /* judul native diganti header custom */
+[data-testid="stDialog"] button[aria-label="Close"] { color: var(--dh-text-muted) !important; }
+[data-testid="stDialog"] [data-testid="stWidgetLabel"], [data-testid="stDialog"] [data-testid="stWidgetLabel"] * {
+    color: #2D2A26 !important; font-size: 11.5px !important; font-weight: 700 !important;
+}
+[data-testid="stDialog"] input, [data-testid="stDialog"] [data-baseweb="select"] *, [data-testid="stDialog"] [data-testid="stDateInputField"],
+[data-testid="stDialog"] [data-testid="stTimeInputTimeDisplay"], [data-testid="stDialog"] [data-testid="stTimeInputTimeDisplay"] * {
+    color: #2D2A26 !important; font-size: 13px !important;
+}
+[data-testid="stDialog"] input::placeholder { color: #A9A295 !important; opacity: 1; }
+[data-testid="stDialog"] [data-baseweb="input"], [data-testid="stDialog"] [data-baseweb="select"] > div,
+[data-testid="stDialog"] [data-testid="stDateInputField"], [data-testid="stDialog"] [data-testid="stTimeInputTimeDisplay"] {
+    background: #fff !important; border-radius: 10px !important; border: 1.5px solid var(--dh-border) !important; transition: border-color .2s ease;
+}
+[data-testid="stDialog"] [data-baseweb="input"]:hover, [data-testid="stDialog"] [data-baseweb="select"] > div:hover,
+[data-testid="stDialog"] [data-baseweb="input"]:focus-within, [data-testid="stDialog"] [data-testid="stDateInputField"]:hover,
+[data-testid="stDialog"] [data-testid="stTimeInputTimeDisplay"]:hover { border-color: #E8A06E !important; }
+[data-testid="stDialog"] [data-baseweb="input"] > div { background: transparent !important; }
+[data-testid="stDialog"] [data-testid="stVerticalBlock"] { gap: 0.6rem !important; }
+
+/* ── MODAL "Reveal Dirimu" ────────────────────────────────────── */
+.dh-modal-head { text-align: center; margin-bottom: 12px; }
+.dh-modal-eyebrow { font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em; color: var(--dh-primary); margin-bottom: 4px; }
+.dh-modal-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--dh-text-dark); line-height: 1.2; }
+.dh-modal-sub { font-family: 'Lora', serif; font-size: 12.5px; color: var(--dh-text-muted); margin-top: 4px; }
+/* 2 section = kartu krem bergaris tipis */
+[data-testid="stDialog"] [class*="st-key-dhmodal_sec"] {
+    background: #FAF6EF; border: 1px solid var(--dh-border); border-radius: 16px; padding: 14px 16px 14px 16px;
+}
+[data-testid="stDialog"] [class*="st-key-dhmodal_sec"] [data-testid="stMarkdownContainer"] { margin-bottom: 0 !important; }
+.dh-modal-section {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--dh-border);
+    font-size: 11.5px; font-weight: 800; letter-spacing: 0.04em; color: var(--dh-text-dark);
+}
+.dh-modal-section em { font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 0; color: var(--dh-primary); }
+.dh-modal-hint { font-size: 11.5px; color: var(--dh-text-muted); margin-top: 2px; }
+
+/* Kartu mode: container = kartu, tombol transparan nutupin seluruh kartu */
+[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] {
+    position: relative; background: #FFFFFF; border: 1px solid var(--dh-border); border-radius: 14px;
+    padding: 12px 12px 10px 12px; gap: 0 !important; height: 100%; box-sizing: border-box;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] [data-testid="stElementContainer"] { position: static !important; }
+[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] [data-testid="stMarkdownContainer"] { margin-bottom: 0 !important; }
+[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"]:hover {
+    border-color: #D97706; box-shadow: 0 8px 20px rgba(217,119,6,0.14); transform: translateY(-2px);
+}
+[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"]:has(.dh-mm-sel) {
+    border: 2px solid var(--dh-primary); box-shadow: 0 6px 16px rgba(200,98,53,0.16); padding: 11px 11px 9px 11px;
+}
+[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"] [class*="st-key-dhmodal_pick_"] { position: absolute !important; inset: 0; z-index: 3; margin: 0 !important; }
+[data-testid="stDialog"] [class*="st-key-dhmodal_pick_"] button, [data-testid="stDialog"] [class*="st-key-dhmodal_pick_"] div.stButton {
+    width: 100% !important; height: 100% !important; opacity: 0; cursor: pointer; border-radius: 14px !important;
+}
+.dh-mm { display: flex; flex-direction: column; min-height: 188px; }
+.dh-mm-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 8px; min-height: 18px; }
+.dh-mm-tag { font-size: 10px; font-weight: 800; letter-spacing: 0.06em; color: var(--dh-primary-dark); }
+.dh-mm-pill { font-size: 8.5px; font-weight: 700; color: #5E7E5A; background: #EEF3EC; border: 1px solid #DCE6D8; border-radius: 100px; padding: 2px 7px; white-space: nowrap; }
+.dh-mm-ribbon {
+    position: absolute; top: -2px; right: -2px; font-size: 8.5px; font-weight: 800; color: #fff;
+    background: var(--dh-primary); border-radius: 0 13px 0 8px; padding: 3px 10px;
+}
+.dh-mm-title { font-family: 'Playfair Display', serif; font-size: 14.5px; font-weight: 700; color: var(--dh-text-dark); margin-bottom: 8px; transition: color .2s ease; }
+[data-testid="stDialog"] [class*="st-key-dhmodal_mode_"]:hover .dh-mm-title, .dh-mm-sel .dh-mm-title { color: var(--dh-primary); }
+.dh-mm-list { list-style: none; margin: 0 0 10px 0; padding: 0; flex: 1; }
+.dh-mm-list li { font-size: 11.5px; line-height: 1.55; color: #3A3631; }
+.dh-mm-list li::before { content: "•"; margin-right: 6px; color: var(--dh-text-muted); }
+.dh-mm-list li i { font-style: normal; font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif; }
+.dh-mm-foot { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--dh-border); padding-top: 8px; font-size: 10.5px; }
+.dh-mm-foot b { color: var(--dh-primary-dark); }
+.dh-mm-foot span { color: var(--dh-text-muted); }
+.dh-modal-info {
+    margin-top: 2px; padding: 9px 12px; border-radius: 10px; background: #FFFFFF; border: 1px solid var(--dh-border);
+    color: #3A3631; font-size: 11.5px;
+}
+/* CTA modal */
+[data-testid="stDialog"] div.stButton > button[kind="primary"] {
+    background: var(--dh-primary) !important; border-color: var(--dh-primary) !important; color: #fff !important;
+    border-radius: 100px !important; height: 46px; font-weight: 700 !important;
+    transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+[data-testid="stDialog"] div.stButton > button[kind="primary"]:hover {
+    background: var(--dh-primary-dark) !important; box-shadow: 0 10px 24px rgba(200,98,53,0.35); transform: translateY(-1px);
+}
+[data-testid="stDialog"] div.stButton > button[kind="primary"] * { color: #fff !important; }
+.st-key-dhnavbar [data-testid="stMarkdownContainer"] p { margin: 0 !important; }
+
+/* ══ ALUR MODAL MODE 1 (UI6): verifikasi -> pembayaran -> loading -> hasil ══ */
+/* Lebar kotak dialog per langkah (marker .dh-step-* ada di tiap langkah) */
+[data-testid="stDialog"] > div:has(.dh-step-verify), [data-testid="stDialog"] > div:has(.dh-step-pay) { width: min(760px, 94vw) !important; max-width: 760px !important; }
+[data-testid="stDialog"] > div:has(.dh-step-loading) { width: min(560px, 94vw) !important; max-width: 560px !important; }
+[data-testid="stDialog"] > div:has(.dh-step-result) { width: min(820px, 94vw) !important; max-width: 820px !important; }
+.dh-step { display: none; }
+[data-testid="stDialog"] [data-testid="stMarkdownContainer"] { margin-bottom: 0 !important; }
+
+/* Tombol di dalam dialog (secondary) — terang walau OS dark mode */
+[data-testid="stDialog"] div.stButton > button[kind="secondary"], [data-testid="stDialog"] div.stDownloadButton > button {
+    background: #fff !important; border: 1.5px solid #EBC9B6 !important; border-radius: 10px !important;
+    min-height: 38px; padding: 6px 14px !important; transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+[data-testid="stDialog"] div.stButton > button[kind="secondary"] *, [data-testid="stDialog"] div.stDownloadButton > button * {
+    color: var(--dh-primary-dark) !important; font-size: 12px !important; font-weight: 700 !important;
+}
+[data-testid="stDialog"] div.stButton > button[kind="secondary"]:hover, [data-testid="stDialog"] div.stDownloadButton > button:hover {
+    border-color: var(--dh-primary) !important; box-shadow: 0 6px 16px rgba(200,98,53,0.15);
+}
+/* st.error / st.code light */
+[data-testid="stDialog"] [data-testid="stAlert"], [data-testid="stDialog"] [data-testid="stAlertContainer"] {
+    background: #FFF3E0 !important; border: 1.5px solid #E4A56E !important; border-radius: 12px !important;
+}
+[data-testid="stDialog"] [data-testid="stAlert"] * { color: #8A5A2F !important; }
+[data-testid="stDialog"] [data-testid="stCode"] pre, [data-testid="stDialog"] [data-testid="stCode"] code { background: #FAF6EF !important; color: #3A3631 !important; font-size: 12px !important; }
+
+/* Tab langkah */
+.dh-vtabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 6px 0 4px 0; }
+.dh-vtab { text-align: center; padding: 9px 10px; border-radius: 10px; font-size: 12px; font-weight: 600; background: #FAF6EF; border: 1px solid var(--dh-border); color: var(--dh-text-muted); }
+.dh-vtab.on { background: #fff; border: 1.5px solid var(--dh-primary); color: var(--dh-primary); font-weight: 700; }
+.dh-vtab.done { background: #EEF3EC; border-color: #DCE6D8; color: #5E7E5A; font-weight: 700; }
+
+/* Kartu krem tiap blok */
+[data-testid="stDialog"] [class*="st-key-dhv_card_"], [data-testid="stDialog"] .st-key-dhp_methods {
+    background: #FAF6EF; border: 1px solid var(--dh-border); border-radius: 16px; padding: 14px 16px;
+}
+.dh-flabel { font-size: 12px; font-weight: 700; color: #2D2A26; margin-bottom: 2px; }
+.dh-fhint { font-size: 11px; color: var(--dh-text-muted); line-height: 1.5; }
+.dh-opt { font-style: normal; font-size: 10px; font-weight: 600; color: var(--dh-text-muted); border: 1px solid var(--dh-border); border-radius: 100px; padding: 2px 9px; background: #fff; }
+[data-testid="stDialog"] .st-key-dhv_send div.stButton > button[kind="secondary"] { background: #2D2A26 !important; border-color: #2D2A26 !important; }
+[data-testid="stDialog"] .st-key-dhv_send div.stButton > button[kind="secondary"] * { color: #fff !important; }
+[data-testid="stDialog"] .st-key-dhv_send div.stButton > button[kind="secondary"]:hover { background: #4A4640 !important; border-color: #4A4640 !important; }
+
+/* Magic link terkirim */
+[data-testid="stDialog"] .st-key-dhv_sentbox { background: #fff; border: 1px solid #DCE6D8; border-radius: 12px; padding: 12px 14px; gap: 0.5rem !important; }
+.dh-sent-top { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: #3A3631; margin-bottom: 4px; }
+.dh-sent-top em { font-style: normal; font-size: 11px; font-weight: 700; color: #5E7E5A; }
+[data-testid="stDialog"] div.st-key-dhv_go_pay div.stButton > button[kind="secondary"] { background: #7A9B76 !important; border-color: #7A9B76 !important; min-height: 40px; }
+[data-testid="stDialog"] div.st-key-dhv_go_pay div.stButton > button[kind="secondary"] * { color: #fff !important; font-size: 12.5px !important; }
+[data-testid="stDialog"] div.st-key-dhv_go_pay div.stButton > button[kind="secondary"]:hover { background: #688A64 !important; border-color: #688A64 !important; box-shadow: 0 8px 18px rgba(122,155,118,0.35); }
+.dh-okbox { margin-top: 8px; padding: 9px 12px; border-radius: 10px; background: #E8EFE5; color: #5E7E5A; font-size: 11.5px; font-weight: 600; }
+.dh-lockbox { padding: 11px 14px; border-radius: 12px; background: #FDF3E0; border: 1px solid #F0DDB8; color: #8A5A2F; font-size: 11.5px; text-align: center; line-height: 1.5; }
+
+/* Langkah 2: ringkasan verifikasi, paket, metode bayar */
+[data-testid="stDialog"] .st-key-dhp_verified { background: #EEF3EC; border: 1px solid #DCE6D8; border-radius: 12px; padding: 10px 14px; }
+.dh-vtitle { font-size: 11.5px; font-weight: 700; color: #5E7E5A; }
+.dh-vmail { font-size: 12.5px; color: #2D2A26; }
+.dh-vref { font-size: 11px; font-weight: 700; color: var(--dh-primary-dark); margin-top: 2px; }
+[data-testid="stDialog"] .st-key-dhp_change div.stButton > button[kind="secondary"] { background: transparent !important; border: none !important; box-shadow: none !important; min-height: 0 !important; padding: 0 !important; }
+[data-testid="stDialog"] .st-key-dhp_change div.stButton > button[kind="secondary"] * { color: var(--dh-text-muted) !important; font-weight: 500 !important; font-size: 11px !important; text-decoration: underline; }
+.dh-pkg { background: #FDF3E0; border: 1px solid #F0DDB8; border-radius: 14px; padding: 14px 16px; }
+.dh-pkg-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid #F0DDB8; }
+.dh-pkg-label { font-size: 9.5px; font-weight: 800; letter-spacing: 0.05em; color: var(--dh-primary-dark); }
+.dh-pkg-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--dh-text-dark); margin: 2px 0; }
+.dh-pkg-sub { font-size: 11.5px; color: var(--dh-text-muted); }
+.dh-pkg-price { display: flex; flex-direction: column; align-items: flex-end; }
+.dh-pkg-price s { font-size: 11px; color: var(--dh-text-muted); }
+.dh-pkg-price b { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--dh-primary); line-height: 1.2; }
+.dh-pkg-price span { font-size: 11px; color: #3A3631; }
+.dh-pkg-foot { display: flex; justify-content: space-between; margin-top: 8px; font-size: 11px; color: var(--dh-text-muted); }
+.dh-pkg-foot b { color: #3A3631; }
+[data-testid="stDialog"] [class*="st-key-dhpay_m_"] {
+    position: relative; background: #fff; border: 1px solid var(--dh-border); border-radius: 12px; padding: 10px 6px;
+    gap: 0 !important; height: 100%; box-sizing: border-box; transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+[data-testid="stDialog"] [class*="st-key-dhpay_m_"] [data-testid="stElementContainer"] { position: static !important; }
+[data-testid="stDialog"] [class*="st-key-dhpay_m_"]:hover { border-color: #D97706; box-shadow: 0 6px 16px rgba(217,119,6,0.14); transform: translateY(-2px); }
+[data-testid="stDialog"] [class*="st-key-dhpay_m_"]:has(.dh-pm-sel) { border: 2px solid var(--dh-primary); padding: 9px 5px; }
+[data-testid="stDialog"] [class*="st-key-dhpay_m_"] [class*="st-key-dhpay_pick_"] { position: absolute !important; inset: 0; z-index: 3; margin: 0 !important; }
+[data-testid="stDialog"] [class*="st-key-dhpay_pick_"] button, [data-testid="stDialog"] [class*="st-key-dhpay_pick_"] div.stButton { width: 100% !important; height: 100% !important; opacity: 0; cursor: pointer; }
+.dh-pm { text-align: center; }
+.dh-pm-ico { font-size: 18px; margin-bottom: 4px; font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif; }
+.dh-pm-name { font-size: 12px; font-weight: 600; color: #3A3631; }
+.dh-pm-sel .dh-pm-name { color: var(--dh-primary); font-weight: 700; }
+.dh-pm-sub { font-size: 10px; color: var(--dh-text-muted); }
+.dh-pay-total { display: flex; justify-content: space-between; align-items: center; margin-top: 2px; font-size: 11.5px; color: var(--dh-text-muted); }
+.dh-pay-total b { color: #2D2A26; }
+.dh-safe { color: #5E7E5A; font-weight: 700; }
+
+/* Langkah 3: loading */
+.dh-loading { text-align: center; padding: 56px 0 48px 0; }
+.dh-spin { position: relative; width: 54px; height: 54px; margin: 0 auto 22px auto; display: flex; align-items: center; justify-content: center; }
+.dh-spin::before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 3px solid #FBEBDD; border-top-color: var(--dh-primary); animation: dh-spin 1s linear infinite; }
+.dh-spin span { font-size: 16px; color: var(--dh-text-dark); }
+@keyframes dh-spin { to { transform: rotate(360deg); } }
+.dh-loading-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--dh-text-dark); }
+.dh-loading-sub { font-size: 12.5px; color: var(--dh-text-muted); margin-top: 6px; }
+
+/* Langkah 4: hasil */
+.dh-res-badge { font-size: 10px; font-weight: 800; letter-spacing: 0.06em; color: #5E7E5A; }
+.dh-res-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--dh-text-dark); line-height: 1.25; margin: 2px 0; }
+.dh-res-info { font-size: 11px; color: var(--dh-text-muted); }
+.dh-res-info b { color: var(--dh-primary-dark); font-weight: 600; }
+.dh-res-hint { margin: 4px 0; padding: 10px 14px; border-radius: 10px; background: #FAF6EF; border: 1px solid var(--dh-border); font-size: 11.5px; color: #3A3631; }
+[data-testid="stDialog"] [class*="st-key-dhres_card_"] {
+    background: #fff; border: 1px solid var(--dh-border); border-radius: 14px; padding: 14px 16px; gap: 0.4rem !important; height: 100%; box-sizing: border-box;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+[data-testid="stDialog"] [class*="st-key-dhres_card_"]:hover { border-color: #D97706; box-shadow: 0 8px 20px rgba(217,119,6,0.12); transform: translateY(-2px); }
+.dh-rc-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 10px; font-weight: 800; letter-spacing: 0.04em; color: var(--dh-primary); }
+.dh-rc-tag { font-size: 9.5px; font-weight: 600; letter-spacing: 0; color: var(--dh-text-muted); background: #F5EEE3; border-radius: 100px; padding: 2px 8px; }
+.dh-rc-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--dh-text-dark); margin: 6px 0 4px 0; line-height: 1.3; }
+.dh-rc-desc { font-size: 11.5px; line-height: 1.5; color: #3A3631; }
+.dh-rc-quote { margin-top: 8px; padding: 8px 10px; border-radius: 8px; background: #FDF6E3; border: 1px solid #F0DDB8; font-family: 'Lora', serif; font-style: italic; font-size: 11px; line-height: 1.5; color: #6B5A3A; }
+.dh-res-sep { height: 1px; background: var(--dh-border); margin: 6px 0; }
+.dh-res-saved { font-size: 11px; color: var(--dh-text-muted); }
+
