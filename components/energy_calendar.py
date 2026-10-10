@@ -79,6 +79,7 @@ def _payload(tgl, y, m, paid):
                "marks": [{"t": t, "lv": lv, "why": w} for t, lv, w in h["marks"]]}
         if paid:
             row["detail"] = C.detail_hari(tgl, h["d"])
+            row["txt"] = _day_text(row, y, BULAN[m - 1])
         out.append(row)
     return {"y": y, "m": m, "bulan": BULAN[m - 1], "days": out, "today": today_wib().day if (y, m) == (today_wib().year, today_wib().month) else 0,
             "paid": paid, "sum": C.ringkas(hari)}
@@ -112,11 +113,16 @@ _HTML = r"""<!doctype html><html><head><meta charset="utf-8"><meta name="viewpor
 .meta span{background:#FFF6EA;border:1px solid #F0DFC4;border-radius:99px;padding:3px 10px}
 .lock{position:relative;margin-top:12px;padding:14px;border-radius:12px;background:#FBF8F3;border:1px dashed #E0A67E;font-size:12.5px;color:#6B635A;line-height:1.55}
 .lock .bl{filter:blur(4px);user-select:none;margin-top:8px}
+.ok{background:#E9F1EA;border:1px solid #CFDFD2;border-radius:12px;padding:10px 14px;margin:12px 0 0;font-size:12.5px;color:#3F6B4D}
+.bar{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0 4px}
+.bar button{font:inherit;font-weight:700;font-size:14px;height:46px;border-radius:100px;cursor:pointer;transition:background .15s,color .15s}
+.bar .o{background:#fff;border:1px solid #E9C9A8;color:#C25E00}.bar .o:hover{background:#FFF6EA}.bar .o.done{background:#EAF3EC;border-color:#BBD4C0;color:#4A6B53}
+.bar .s{background:#C96234;border:1px solid #C96234;color:#fff;font-weight:600}.bar .s:hover{background:#B5552B}
 </style></head><body>
 <div class="hd"><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span></div>
 <div class="g" id="g"></div>
 <div class="lg"><span><i class="bisnis"></i>Hari bisnis baik</span><span><i class="konflik"></i>Rawan konflik</span><span><i class="romansa"></i>Peluang romansa</span><span>◉ titik bercincin = level kuat</span></div>
-<div class="p" id="p"></div>
+<div id="w"><div class="p" id="p"></div><div id="ft"></div></div>
 <script>
 var D=__DATA__;
 var NAMA={bisnis:"Bisnis baik",konflik:"Rawan konflik",romansa:"Peluang romansa"},COL={bisnis:"#3F8F5E",konflik:"#C0392B",romansa:"#D6568B"};
@@ -142,10 +148,15 @@ function panel(){var x=D.days.filter(function(y){return y.n===sel})[0],p=documen
   h+='<div class="meta"><span>Jam baik: '+esc(d.jam_baik)+'</span><span>Angka: '+esc([].concat(d.angka).join(', '))+'</span><span>Warna: '+esc(d.warna)+'</span></div></div>'}
  else if(!D.paid){h+='<div class="lock">🔒 <b>Detail per hari</b>: pesan, langkah, hal yang dihindari, jam baik, angka, dan warna dari Zodiak, Shio, Weton &amp; Numerologi terbuka setelah kamu membuka bulan ini di bawah.<div class="bl">Hari ini cocok untuk mengambil langkah yang sudah lama kamu pikirkan. Pilih jam baik dan fokus pada satu prioritas utama.</div></div>'}
  p.innerHTML=h;[].forEach.call(p.querySelectorAll('.tabs button'),function(b){b.onclick=function(){sys=b.dataset.k;panel()}})}
-function fit(){try{var h=document.documentElement.scrollHeight;var f=window.frameElement;if(f){f.style.transition='height .3s ease';f.style.height=h+'px';f.setAttribute('height',h);var e=f.parentElement;for(var i=0;i<3&&e&&e.getAttribute('data-testid')!=='stVerticalBlock';i++){e.style.height=h+'px';e.style.minHeight=h+'px';e=e.parentElement}}}catch(e){}}
-function pub(){try{window.parent.__dhCalSel=sel}catch(e){}}
-var _g=grid,_p=panel;grid=function(){_g();pub();fit()};panel=function(){_p();pub();fit()};
-grid();panel();window.addEventListener('resize',fit);
+function fit(){try{var h=Math.ceil(document.getElementById('w').getBoundingClientRect().bottom+window.scrollY)+6;var f=window.frameElement;if(f){f.style.transition='height .3s ease';f.style.height=h+'px';f.setAttribute('height',h);var e=f.parentElement;for(var i=0;i<3&&e&&e.getAttribute('data-testid')!=='stVerticalBlock';i++){e.style.height=h+'px';e.style.minHeight=h+'px';e=e.parentElement}}}catch(e){}}
+var _g=grid,_p=panel;grid=function(){_g();fit()};panel=function(){_p();fit()};
+function foot(){var f=document.getElementById('ft');if(!D.paid){f.innerHTML='';return}
+ f.innerHTML='<div class="ok">✅ Akses Terbuka · Detail bulan ini sudah terbuka. Klik tanggal lalu pilih sistem.</div><div class="bar"><button class="o" id="cp" type="button">📋 Salin Teks Hasil Seluruhnya</button><button class="s" id="dn" type="button">Selesai &amp; Tutup</button></div>';
+ var cp=document.getElementById('cp');function ok(){cp.textContent='✓ Tersalin!';cp.className='o done';setTimeout(function(){cp.textContent='📋 Salin Teks Hasil Seluruhnya';cp.className='o'},2000)}
+ function fb(t){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity=0;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(e){}document.body.removeChild(a)}
+ cp.onclick=function(){var x=D.days.filter(function(y){return y.n===sel})[0],t=(x&&x.txt)||'';if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){fb(t)})}else{fb(t)}};
+ document.getElementById('dn').onclick=function(){try{window.parent.document.querySelector('.st-key-dhcal_done_btn button').click()}catch(e){}}}
+grid();panel();foot();window.addEventListener('resize',fit);fit();
 </script></body></html>"""
 
 
@@ -170,24 +181,6 @@ def _day_text(d, y, bulan):
         ang = ", ".join(str(v) for v in ang) if isinstance(ang, (list, tuple)) else ang
         out.append(f"Jam baik: {x['jam_baik']} · Angka: {ang} · Warna: {x['warna']}")
     return "\n".join(out) + "\n#DestinyReveal"
-
-
-def _copy_dynamic(texts, default):
-    """Tombol salin: teks tanggal terpilih (dibaca dari window.parent.__dhCalSel yang diisi iframe kalender)."""
-    payload = json.dumps(texts, ensure_ascii=False).replace("</", "<\\/")
-    components.html(
-        '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&display=swap" rel="stylesheet">'
-        "<style>html,body{margin:0;background:transparent}"
-        "button{width:100%;height:46px;border-radius:100px;border:1px solid #E9C9A8;background:#FFFFFF;"
-        "color:#C25E00;font:700 14px 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;transition:background .15s}"
-        "button:hover{background:#FFF6EA}button.ok{background:#EAF3EC;border-color:#BBD4C0;color:#4A6B53}</style>"
-        '<button id="b" type="button">📋 Salin Teks Hasil Seluruhnya</button>'
-        f"<script>var D={payload},DEF={default},b=document.getElementById('b');"
-        "function ok(){b.textContent='✓ Tersalin!';b.className='ok';setTimeout(function(){b.textContent='📋 Salin Teks Hasil Seluruhnya';b.className=''},2000)}"
-        "function T(){var n=DEF;try{if(window.parent.__dhCalSel)n=window.parent.__dhCalSel}catch(e){}return D[n]||D[DEF]||''}"
-        "function fb(t){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity=0;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(e){}document.body.removeChild(a)}"
-        "b.onclick=function(){var t=T();if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){fb(t)})}else{fb(t)}};"
-        "</script>", height=50)
 
 
 def _cur_paid():
@@ -239,18 +232,9 @@ def kalender_dialog():
                 f'<span class="k">{s["konflik"]} rawan konflik</span><span class="r">{s["romansa"]} peluang romansa</span></div>',
                 unsafe_allow_html=True)
     components.html(_calendar_html(data), height=620, scrolling=False)
-    if paid:
-        st.markdown('<div class="dh-cal-paid">✅ Akses Terbuka · Detail bulan ini sudah terbuka. Klik tanggal lalu pilih sistem.</div>',
-                    unsafe_allow_html=True)
-        texts = {d["n"]: _day_text(d, ym[0], BULAN[ym[1] - 1]) for d in data["days"]}
-        dflt = data["today"] or next((d["n"] for d in data["days"] if d["marks"]), data["days"][0]["n"])
-        with st.container(key="dhcal_bot"):
-            c1, c2 = st.columns(2, gap="small")
-            with c1:
-                _copy_dynamic(texts, dflt)
-            with c2:
-                st.button("Selesai & Tutup", key="dhcal_done_btn", type="primary", use_container_width=True,
-                          on_click=cc.cb_ask, args=("kalender",))
+    if paid:  # tombol salin + selesai ada di dalam kalender (satu iframe, tanpa gap); tombol ini dipicu dari sana
+        with st.container(key="dhcal_hidden"):
+            st.button("Selesai & Tutup", key="dhcal_done_btn", on_click=cc.cb_ask, args=("kalender",))
         return
     saldo = u.get("koin", 0)
     st.markdown(f'<div class="dh-cal-pay"><b>Buka detail {BULAN[ym[1] - 1]} {ym[0]}</b><span>Pesan, langkah, hindari, jam baik, '

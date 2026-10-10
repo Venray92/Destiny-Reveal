@@ -514,10 +514,7 @@ def preview_dialog():
         f'<div class="dh-mn-lab">SIAPA KAMU:</div><p>{_e(_first_sentences(d["siapa"], 3))}</p>'
         f'<div class="dh-mn-micro"><div><span>MODALITY:</span><b>{_e(d["modality"])}</b></div>'
         f'<div><span>PLANET PENGUASA:</span><b>{_e(d["planet"])}</b></div></div>'
-        f'<div class="dh-mn-quote2"><b>QUOTE:</b> &ldquo;{_e(d["quote"])}&rdquo;</div></div>'
-        '<div class="dh-mn-lock"><div class="dh-mn-blur"><i></i><i></i><i></i></div><div class="dh-mn-lockbody">'
-        f'<span class="dh-mn-lockico">🔒</span><b>Buka Analisis Lengkap {pick}</b>'
-        '<span>Membongkar kekuatan sejati, PR batin (shadow work), serta insight karier, asmara &amp; keuangan.</span></div></div>',
+        f'<div class="dh-mn-quote2"><b>QUOTE:</b> &ldquo;{_e(d["quote"])}&rdquo;</div></div>',
         unsafe_allow_html=True)
     if st.button("🔒 Buka Analisis Lengkap Per Sistem", key="dhpv_unlock", type="primary",
                  use_container_width=True):
