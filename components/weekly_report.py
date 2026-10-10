@@ -11,6 +11,8 @@ from urllib.parse import quote as urlquote
 
 import streamlit as st
 
+from utils import resume as _resume
+
 from components import auth
 from components import close_confirm as cc
 from components.dialog_bus import request_open, request_with_return
@@ -225,6 +227,7 @@ def _render_loading():
         _go("buy")
         st.rerun(scope="fragment")
     u["koin"] -= price
+    _resume.scanned("weekly")  # fitur lain yang kuesionernya tertunda di-reset
     rep["price"] = price
     ss.setdefault("dh_wk_store", {})[_store_key(kind, prof, focus)] = rep
     ss.dh_wk_res, ss.dh_wk_tab = rep, 0

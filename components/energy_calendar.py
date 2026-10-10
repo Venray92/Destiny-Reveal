@@ -9,6 +9,8 @@ import json
 from datetime import date
 
 import streamlit as st
+
+from utils import resume as _resume
 import streamlit.components.v1 as components
 from content import pricing as P
 
@@ -65,6 +67,7 @@ def _cb_pay():
     if not u or u.get("koin", 0) < PRICE or _is_paid(u, ym):
         return
     u["koin"] -= PRICE
+    _resume.scanned("kalender")  # fitur lain yang kuesionernya tertunda di-reset
     ss.setdefault("dh_cal_paid", set()).add(_paid_key(u, ym))
 
 

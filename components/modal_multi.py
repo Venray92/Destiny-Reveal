@@ -10,6 +10,8 @@ from datetime import datetime
 
 import streamlit as st
 
+from utils import resume as _resume
+
 from components import auth
 from components import close_confirm as cc
 from components import quiz_kit as QK
@@ -299,6 +301,7 @@ def render_loading():
         set_step(STEP_PAY)
         st.rerun(scope="fragment")
     u["koin"] -= price(mode)
+    _resume.scanned("reveal")  # fitur lain yang kuesionernya tertunda di-reset
     ss.dh_flow_result = res
     auth.add_history(data.get("nama", ""), data.get("tgl_lahir"), res)
     time.sleep(max(0.0, 3.0 - (time.time() - t0)))

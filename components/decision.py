@@ -12,6 +12,8 @@ import time
 
 import streamlit as st
 
+from utils import resume as _resume
+
 from components import auth
 from components import close_confirm as cc
 from components.dialog_bus import request_with_return
@@ -57,6 +59,7 @@ def _cb_go():
         return
     from engine.tarot import TAROT_DECK
     u["koin"] -= P.DECISION
+    _resume.scanned("decision")  # fitur lain yang kuesionernya tertunda di-reset
     ss.dh_dc_a, ss.dh_dc_b, ss.dh_dc_err = a, b, None
     ss.dh_dc_cards = random.sample(TAROT_DECK, 7)
     ss.dh_dc_open, ss.dh_dc_active, ss.dh_dc_new = [], None, None

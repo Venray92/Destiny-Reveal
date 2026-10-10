@@ -340,6 +340,7 @@ def _render_loading():
         _go("pay")
         st.rerun(scope="fragment")
     u["koin"] -= price
+    _resume.scanned(_feat())  # fitur lain yang kuesionernya tertunda di-reset
     res["price"] = price
     ss.setdefault("dh_sd_store", {})[_skey(prof)] = res
     ss.dh_sd_res = res

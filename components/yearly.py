@@ -11,6 +11,8 @@ from datetime import date
 
 import streamlit as st
 
+from utils import resume as _resume
+
 from components import auth, form_kit
 from components import close_confirm as cc
 from components.dialog_bus import request_with_return
@@ -144,6 +146,7 @@ def _render_loading():
         ss.dh_yr_step = "start"
         st.rerun(scope="fragment")
     u["koin"] -= P.YEARLY
+    _resume.scanned("yearly")  # fitur lain yang kuesionernya tertunda di-reset
     res["nama"] = prof["nama"]
     ss.setdefault("dh_yr_store", {})[_skey(prof, year)] = res
     ss.dh_yr_res, ss.dh_yr_step = res, "result"

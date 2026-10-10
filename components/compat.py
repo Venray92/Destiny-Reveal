@@ -12,6 +12,8 @@ import time
 from datetime import date
 
 import streamlit as st
+
+from utils import resume as _resume
 from content import baru_loader as BL
 from content import pricing as P
 
@@ -375,6 +377,7 @@ def _cb_go():
         ss.dh_cp_err = "Tanggal lahir salah satu pihak di luar jangkauan data sistem (mis. Shio 1945-2020). Saldo tidak dipotong."
         return
     u["koin"] -= cost
+    _resume.scanned("compat")  # fitur lain yang kuesionernya tertunda di-reset
     res["cost"] = cost
     ss.dh_cp_res = res
     ss.dh_cp_err = None

@@ -252,6 +252,7 @@ def _render_loading():
         _go("pay")
         st.rerun(scope="fragment")
     u["koin"] -= SOLO_PRICE
+    _resume.scanned("solo")  # fitur lain yang kuesionernya tertunda di-reset
     ss.dh_solo_res = {"system": name, "detail": detail, "nama": prof["nama"], "raw": raw}
     ss.dh_solo_free = False
     ss.setdefault("dh_solo_store", {})[_okey(name, prof, ss.get("dh_solo_ans") if _KIND[name] == "quiz" else None)] = ss.dh_solo_res

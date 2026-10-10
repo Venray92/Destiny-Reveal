@@ -17,6 +17,8 @@ from functools import lru_cache
 from pathlib import Path
 
 import streamlit as st
+
+from utils import resume as _resume
 from content import pricing as P
 
 from components import auth
@@ -186,6 +188,7 @@ def _cb_swap_pay():
     if not u or u.get("koin", 0) < SWAP_PRICE:
         return
     u["koin"] -= SWAP_PRICE
+    _resume.scanned("daily")  # fitur lain yang kuesionernya tertunda di-reset
     ss.dh_daily_paid = today_wib()  # konten berbayar -> tombol salin & konfirmasi tutup aktif
     ss.dh_daily_swap = False
     ss.dh_daily_confirm = False

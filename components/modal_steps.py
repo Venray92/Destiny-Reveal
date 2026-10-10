@@ -360,4 +360,4 @@ def render_result():
                   args=("Profil & riwayat belum tersedia, masih tahap pengembangan 🚧",), use_container_width=True)
         st.button("Scan Orang Lain", key="dhr_again", on_click=reset_for_new_scan, use_container_width=True)
     RK.actions("dhr", (cc.cb_ask, ("reveal",)), pdf=make_pdf(ttl, f"{modal_multi.title()} - Lahir: {format_tanggal_lengkap(tgl)}", secs),
-               text=_summary_text(nama, tgl, results), wa=wa, name="cetak-biru-takdir", extra=_extra)
+               text=_summary_text(nama, tgl, results), wa=wa, name="cetak-biru-takdir", extra=_extra, clean=True)

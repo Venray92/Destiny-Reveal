@@ -183,7 +183,7 @@ def sections_text(title, sub, sections):
     return "\n".join(out)
 
 
-def actions(prefix, close, pdf=None, text=None, png=None, wa=None, name="hasil", extra=None):
+def actions(prefix, close, pdf=None, text=None, png=None, wa=None, name="hasil", extra=None, clean=False):
     """Footer hasil seragam (REVISI03): PDF | Salin, PNG | WhatsApp, [extra], Tutup coklat.
     close = (callback, args). pdf/png = bytes. text = str. wa = caption WhatsApp. extra = fungsi opsional (tombol tambahan)."""
     from components.modal_detail import copy_button
@@ -193,7 +193,7 @@ def actions(prefix, close, pdf=None, text=None, png=None, wa=None, name="hasil",
                                                 key=f"{prefix}_pdf", use_container_width=True, on_click="ignore",
                                                 icon=":material/download:"))
     if text:
-        cells.append(lambda: copy_button(text, "📋 Salin Teks", f"{prefix}_copy", fs=12.5, h=48, brown=True))
+        cells.append(lambda: copy_button(text, "📋 Salin Teks", f"{prefix}_copy", fs=13, h=44) if clean else copy_button(text, "📋 Salin Teks", f"{prefix}_copy", fs=12.5, h=48, brown=True))
     if png:
         cells.append(lambda: st.download_button("Save Image", png, file_name=f"{name}.png", mime="image/png",
                                                 key=f"{prefix}_png", use_container_width=True, on_click="ignore",
@@ -201,7 +201,7 @@ def actions(prefix, close, pdf=None, text=None, png=None, wa=None, name="hasil",
     if wa:
         cells.append(lambda: st.link_button("Share WhatsApp", f"https://wa.me/?text={urlquote(wa)}",
                                             use_container_width=True, icon=":material/share:"))
-    with st.container(key="dhbp_actions"):
+    with st.container(key="dhcl_acts" if clean else "dhbp_actions"):
         for i in range(0, len(cells), 2):
             row = cells[i:i + 2]
             cols = st.columns(len(row), gap="small")

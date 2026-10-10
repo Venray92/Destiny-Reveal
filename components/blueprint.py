@@ -378,6 +378,7 @@ def _render_loading():
         _go("pay")
         st.rerun(scope="fragment")
     u["koin"] -= price
+    _resume.scanned("blueprint")  # fitur lain yang kuesionernya tertunda di-reset
     res["price"] = price
     ss.setdefault("dh_bp_store", {})[_store_key(prof)] = res
     ss.dh_bp_res, ss.dh_bp_rtab = res, 0
@@ -556,13 +557,13 @@ def _render_result():
         plain.append(f'{s_["icon"]} {s_["name"]}' + (f' · {s_["title"]}' if s_.get("title") else ""))
         plain += [_plain(t) for t in (s_.get("utama") or [])[:2]] + [""]
     plain.append("Cek takdirmu di destinyreveal.id #DestinyReveal")
-    with st.container(key="dhbp_actions"):
+    with st.container(key="dhcl_acts"):
         c1, c2 = st.columns(2, gap="small")
         with c1:
             st.download_button(f"Download PDF ({pages} Hal.)", data, file_name="deep-blueprint.pdf", mime="application/pdf",
                                key="dhbp_pdf", use_container_width=True, on_click="ignore", icon=":material/download:")
         with c2:
-            copy_button("\n".join(plain).strip(), "📋 Salin Teks", "dhbp_copy", fs=12.5, h=48, brown=True)
+            copy_button("\n".join(plain).strip(), "📋 Salin Teks", "dhbp_copy", fs=13, h=44)
         c3, c4 = st.columns(2, gap="small")
         with c3:
             st.link_button("Share WhatsApp", f"https://wa.me/?text={urlquote(cap)}", use_container_width=True, icon=":material/share:")

@@ -8,6 +8,8 @@ DUMMY: saldo belum dipotong, tebaran/sinergi/laporan belum ada backend (toast).
 import html
 
 import streamlit as st
+
+from utils import resume as _resume
 from content import pricing as P
 
 from components import auth
@@ -136,6 +138,7 @@ def _cb_ts_go():
     if not u or u.get("koin", 0) < _SPREADS[n]["koin"]:
         return
     u["koin"] -= _SPREADS[n]["koin"]
+    _resume.scanned("tarot_spread")  # fitur lain yang kuesionernya tertunda di-reset
     ss.dh_ts_cards = random.sample(TAROT_DECK, n)
     ss.dh_ts_open, ss.dh_ts_seen, ss.dh_ts_showcombo = [], False, False
     ss.dh_ts_step = "loading"
