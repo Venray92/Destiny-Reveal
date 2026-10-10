@@ -11,6 +11,8 @@ from datetime import date
 from urllib.parse import quote as urlquote
 
 import streamlit as st
+
+from utils import resume as _resume
 from content import pricing as P
 
 from components import auth
@@ -545,4 +547,10 @@ def open_solo():
     solo_dialog()
 
 
+def _reset_resume():
+    st.session_state.pop("dh_solo_qi", None)
+    _cb_again()
+
+
+_resume.register("solo", _reset_resume)
 DIALOGS = {"solo": open_solo}

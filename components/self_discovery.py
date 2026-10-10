@@ -14,6 +14,8 @@ from datetime import date
 
 import streamlit as st
 
+from utils import resume as _resume
+
 from components import auth, form_kit
 from components import close_confirm as cc
 from components import quiz_kit as QK
@@ -80,7 +82,7 @@ def _reset_view():
 def _cb_close():
     ss = _ss()
     cc.dismiss(_feat(), ss.get("dh_sd_step") == "result" and bool(ss.get("dh_sd_res")), leave=_reset_view)
-    if not cc.asking(_feat()) and ss.get("dh_sd_step") != "result":
+    if not cc.asking(_feat()) and ss.get("dh_sd_step") not in ("result", "quiz"):  # quiz: progres disimpan, lanjut saat dibuka lagi
         _reset_view()
 
 
@@ -481,13 +483,13 @@ def _render_result():
     st.markdown('<div class="dh-step dh-step-bp"></div><div class="dh-nodismiss"></div>', unsafe_allow_html=True)
     st.markdown(_res_career(r) if "plan" in r else _res_strength(r), unsafe_allow_html=True)
     cap = f'{FEAT[_feat()]["h"].title()} {r["nama"]}\nCek takdirmu di destinyreveal.id #DestinyReveal'
-    with st.container(key="dhbp_actions"):
+    with st.container(key="dhsd_acts"):
         c1, c2 = st.columns(2, gap="small")
         with c1:
             st.download_button("Download PDF", _pdf_result(r), file_name=f"{_feat()}-{r['id']}.pdf", mime="application/pdf",
                                key="dhsd_pdf", use_container_width=True, on_click="ignore", icon=":material/download:")
         with c2:
-            copy_button(_plain_result(r), "📋 Salin Teks", "dhsd_copy", fs=12.5, h=48, brown=True)
+            copy_button(_plain_result(r), "📋 Salin Teks", "dhsd_copy", fs=13, h=44)
         c3, c4 = st.columns(2, gap="small")
         with c3:
             st.download_button("Save Image", _card_png(r), file_name=f"{_feat()}-{r['id']}.png", mime="image/png",
@@ -534,4 +536,6 @@ def strength_dialog():
     _dialog_body("strength")
 
 
+_resume.register("career", _reset_view)
+_resume.register("strength", _reset_view)
 DIALOGS = {"career": career_dialog, "strength": strength_dialog}

@@ -9,6 +9,8 @@ tetap kebuka) — JANGAN pakai st.rerun() biasa, itu nutup dialog.
 from datetime import date
 
 import streamlit as st
+
+from utils import resume as _resume
 from content import pricing as P
 
 from components import auth, close_confirm as cc, form_kit, modal_detail, modal_multi, modal_steps
@@ -175,11 +177,24 @@ def _flow_dialog():
 
 def open_reveal_modal():
     """Dipanggil dari tombol/link Reveal mana pun: buka modal dari langkah awal."""
+    _resume.enter("reveal")
     if st.session_state.pop("dh_mx_resume", False) and current_step() in (STEP_PAY, modal_multi.STEP_QUIZ, modal_multi.STEP_MODE):
-        pass  # balik dari login/top-up: lanjut di langkah terakhir
+        pass
+    elif current_step() == modal_multi.STEP_QUIZ:
+        pass  # kuesioner ditutup di tengah: lanjut dari soal terakhir  # balik dari login/top-up: lanjut di langkah terakhir
     else:
         set_step(STEP_FORM)
         st.session_state.pop("dhm_prefilled", None)
     st.session_state.dh_flow_error = None
     _flow_dialog()
 
+
+
+def _reset_resume():
+    ss = st.session_state
+    for k in ("dh_mx_qi", "dh_mx_ans", "dh_mx_qmode"):
+        ss.pop(k, None)
+    set_step(STEP_FORM)
+
+
+_resume.register("reveal", _reset_resume)

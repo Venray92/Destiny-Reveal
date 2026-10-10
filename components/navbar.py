@@ -24,9 +24,11 @@ from components.pricing_modal import DIALOGS as _PRICING_DIALOGS, pricing_dialog
 from components.common import go
 from components.mini_modals import DIALOGS as _MINI_DIALOGS
 from components.modal import open_reveal_modal, reopen_if_pending
+from utils import resume as _resume
 
 
-_ALL_DIALOGS = {**_MINI_DIALOGS, **_FEATURE_DIALOGS, **_PRICING_DIALOGS, **_INFO_DIALOGS, **_HELP_DIALOGS, **_SOLO_DIALOGS, **_SYSINFO_DIALOGS, **_COMPAT_DIALOGS, **_ENERGY_DIALOGS, **_CAL_DIALOGS, **_SD_DIALOGS, **_DC_DIALOGS, **_YR_DIALOGS, "gohome": lambda: go("home")}
+_ALL_DIALOGS_RAW = {**_MINI_DIALOGS, **_FEATURE_DIALOGS, **_PRICING_DIALOGS, **_INFO_DIALOGS, **_HELP_DIALOGS, **_SOLO_DIALOGS, **_SYSINFO_DIALOGS, **_COMPAT_DIALOGS, **_ENERGY_DIALOGS, **_CAL_DIALOGS, **_SD_DIALOGS, **_DC_DIALOGS, **_YR_DIALOGS, "gohome": lambda: go("home")}
+_ALL_DIALOGS = {_k: _resume.tracked(_k, _f) for _k, _f in _ALL_DIALOGS_RAW.items()}
 # dialog yang cuma bisa dibuka lewat dialog_bus.request_open (bukan dari kartu Home)
 _BUS_ONLY = {"auth": lambda: auth.open_auth(keep_return=True), "reveal": open_reveal_modal, "pricing_keep": pricing_dialog}
 

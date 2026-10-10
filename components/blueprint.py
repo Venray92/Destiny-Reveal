@@ -14,6 +14,8 @@ from urllib.parse import quote as urlquote
 
 import streamlit as st
 
+from utils import resume as _resume
+
 from components import auth
 from components import form_kit
 from components import close_confirm as cc
@@ -118,7 +120,7 @@ def _reset_view():
 
 def _cb_close():
     cc.dismiss("blueprint", _ss().get("dh_bp_step") == "result" and bool(_ss().get("dh_bp_res")), leave=_reset_view)
-    if not cc.asking("blueprint") and _ss().get("dh_bp_step") != "result":
+    if not cc.asking("blueprint") and _ss().get("dh_bp_step") not in ("result", "quiz"):  # quiz: progres disimpan
         _reset_view()
 
 
@@ -591,4 +593,5 @@ def blueprint_dialog():
         _render_start()
 
 
+_resume.register("blueprint", _reset_view)
 DIALOGS = {"blueprint": blueprint_dialog}
