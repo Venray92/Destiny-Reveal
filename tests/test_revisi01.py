@@ -102,7 +102,7 @@ def test_revisi03_batch1():
     solo = _t("components/solo_reveal.py")
     assert "Biaya:" not in solo and "{sub} · {SOLO_PRICE}" not in solo
     mm = _t("components/mini_modals.py")
-    assert "Konfirmasi Buka Sistem Lain" in mm and "Ya, Gunakan" in mm and "Konfirmasi Kuota Harian Gratis" in mm
+    assert "Konfirmasi Pilihan" in mm and "Konfirmasi Kuota Harian Gratis" in mm and "Ya, Gunakan" not in mm
     assert "cc.layer(" in _t("components/self_discovery.py")
 
 
@@ -195,3 +195,13 @@ def test_revisi03_batch4b_actions_dan_kartu_laporan():
     from components import result_kit as RK
     assert "Tutup" in _t("components/result_kit.py") and callable(RK.actions)
     assert RK.sections_text("A", "b", [("X", ["y"])]).endswith("By Destiny Reveal")
+
+
+def test_revisi_baru_batch_a():
+    assert "Reveal Takdirku" not in _t("components/navbar.py").split("def render_navbar")[1].split("with right_col")[0]
+    qk = _t("components/quiz_kit.py")
+    assert "qi_key, last" in qk and "disabled=cur is None" in qk
+    for f in ("components/self_discovery.py", "components/blueprint.py", "components/modal_multi.py"):
+        assert _t(f).count('dh-nodismiss') >= 3
+    mm = _t("components/modal_multi.py")
+    assert "Mulai Kuesioner?" in mm and "dh_mx_modesel" in mm
