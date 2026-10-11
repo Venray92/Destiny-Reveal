@@ -126,10 +126,21 @@ def _cb_ts_dismiss():
         cc.dismiss("tarot_spread", True, leave=_ts_reset)
     elif step == "warn":
         _ts_reset()
+    elif step == "pay":
+        _cb_ts_back()
 
 
 def _cb_ts_go():
-    """Bayar (potong SD dummy) lalu tarik kartu & masuk layar loading."""
+    """Tombol Kocok & Buka -> layer konfirmasi pembayaran dulu (belum potong saldo)."""
+    st.session_state.dh_ts_step = "pay"
+
+
+def _cb_ts_back():
+    st.session_state.pop("dh_ts_step", None)
+
+
+def _cb_ts_pay():
+    """Konfirmasi bayar (potong SD dummy) lalu tarik kartu & masuk layar loading."""
     import random
     from engine.tarot import TAROT_DECK
     ss = st.session_state
@@ -377,8 +388,6 @@ def _ts_result():
         def _extra():
             st.button("← Tebar Ulang / Pilih Jenis Spread Lain", key="dhts_again", use_container_width=True,
                       on_click=_cb_ts_leave, args=("again", combo))
-            st.button("Sinkronkan ke Cetak Biru Takdir →", key="dhts_sync", use_container_width=True,
-                      on_click=_cb_ts_leave, args=("sync", combo))
         RK.actions("dhts", (_cb_ts_leave, ("close", combo)), pdf=make_pdf(sp["title"], f"Untuk: {who}", secs),
                    text=RK.sections_text(sp["title"], f"Untuk: {who}", secs), png=ss.dh_ts_png, wa=wa,
                    name="tarot-spread", extra=_extra)
@@ -386,8 +395,6 @@ def _ts_result():
     with st.container(key="dhts_acts"):
         st.button("← Tebar Ulang / Pilih Jenis Spread Lain", key="dhts_again", use_container_width=True,
                   on_click=_cb_ts_leave, args=("again", combo))
-        st.button("Sinkronkan ke Cetak Biru Takdir →", key="dhts_sync", type="primary", use_container_width=True,
-                  on_click=_cb_ts_leave, args=("sync", combo))
         st.button("Selesai & Tutup", key="dhts_done", type="primary", use_container_width=True,
                   on_click=_cb_ts_leave, args=("close", combo))
 
@@ -416,11 +423,18 @@ def tarot_spread_dialog():
                       stay="✨ Lanjut Baca Kartu", go="Ya, Tutup Tebaran")
     elif step == "warn" and ss.get("dh_ts_cards"):
         _ts_warn()
+    elif step == "pay":
+        from components import pay_layer
+        sp = _SPREADS[ss.get("dh_ts_tab", 3)]
+        pay_layer.render("mxpay_ts", _ts_intro, icon="🎴", brand="TAROT SPREAD", price=sp["koin"],
+                         rows=[("Paket", sp["title"]), ("Isi", f'{sp["tab"]} · tebaran posisi kartu')],
+                         on_pay=_cb_ts_pay, on_back=_cb_ts_back, return_to="tarot_spread", pay_label="Bayar & Kocok Kartu")
     else:
         if ss.get("dh_ts_sync"):  # habis "Tetap Lanjut" -> sinkron
             ss.pop("dh_ts_sync", None)
             request_open("reveal")
-        _ts_intro()
+        with cc.bg("mxpay_ts"):  # wadah sama dengan layer bayar -> layar awal tidak di-remount
+            _ts_intro()
 
 
 # ═══════════ 2. CEK KECOCOKAN ═══════════

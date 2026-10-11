@@ -24,6 +24,7 @@ from utils import trait_cards
 from utils.simple_pdf import make_pdf
 
 _e = html.escape
+MIN_CHARS = 5
 _KEYS = ("dh_dc_step", "dh_dc_cards", "dh_dc_open", "dh_dc_active", "dh_dc_new", "dh_dc_err", "dh_dc_png")
 
 
@@ -40,8 +41,17 @@ def _reset():
 def _cb_dismiss():
     if _ss().get("dh_dc_step") == "result":
         cc.dismiss("decision", True, leave=_reset)
+    elif _ss().get("dh_dc_step") == "pay":
+        _cb_back()
     elif _ss().get("dh_dc_step") != "loading":
         _reset()
+
+
+def _valid(t):
+    """Pilihan dianggap sah: min 5 karakter, ada cukup huruf & variasi (bukan 'aaaaa' / '12345')."""
+    t = (t or "").strip()
+    letters = [c for c in t if c.isalpha()]
+    return len(t) >= MIN_CHARS and len(letters) >= 4 and len({c.lower() for c in letters}) >= 3
 
 
 def _name(k, lab):
@@ -49,18 +59,31 @@ def _name(k, lab):
 
 
 def _cb_go():
+    """Tebar 7 Kartu -> validasi -> layer konfirmasi pembayaran (belum potong saldo)."""
     ss = _ss()
     a, b = (ss.get("dhdc_a") or "").strip(), (ss.get("dhdc_b") or "").strip()
-    u = auth.current_user()
-    if not a or not b:
-        ss.dh_dc_err = "Isi kedua pilihan dulu ya (singkat saja)."
+    if not _valid(a) or not _valid(b):
+        ss.dh_dc_err = f"Isi kedua pilihan dengan jelas (minimal {MIN_CHARS} karakter) ya."
         return
+    if a.lower() == b.lower():
+        ss.dh_dc_err = "Pilihan A dan B tidak boleh sama."
+        return
+    ss.dh_dc_a, ss.dh_dc_b, ss.dh_dc_err = a, b, None
+    ss.dh_dc_step = "pay"
+
+
+def _cb_back():
+    _ss().pop("dh_dc_step", None)
+
+
+def _cb_pay():
+    ss = _ss()
+    u = auth.current_user()
     if not u or u.get("koin", 0) < P.DECISION:
         return
     from engine.tarot import TAROT_DECK
     u["koin"] -= P.DECISION
     _resume.scanned("decision")  # fitur lain yang kuesionernya tertunda di-reset
-    ss.dh_dc_a, ss.dh_dc_b, ss.dh_dc_err = a, b, None
     ss.dh_dc_cards = random.sample(TAROT_DECK, 7)
     ss.dh_dc_open, ss.dh_dc_active, ss.dh_dc_new = [], None, None
     ss.dh_dc_step = "loading"
@@ -103,10 +126,12 @@ def _render_start():
                 '<i>✓ Langkah 7 hari</i></div>', unsafe_allow_html=True)
     with st.container(key="dhbp_card"):
         st.markdown('<div class="dh-bp-sec">DUA PILIHANMU</div>', unsafe_allow_html=True)
-        st.text_input("Pilihan A", value=ss.get("dh_dc_a") or "", placeholder="Contoh: Terima tawaran kerja baru", key="dhdc_a",
+        st.text_input("Pilihan A", value=ss.get("dh_dc_a") or "", placeholder="Tulis pilihan lengkap, contoh: Terima tawaran kerja baru di Jakarta", key="dhdc_a",
                       max_chars=60)
-        st.text_input("Pilihan B", value=ss.get("dh_dc_b") or "", placeholder="Contoh: Bertahan di kantor sekarang", key="dhdc_b",
+        st.text_input("Pilihan B", value=ss.get("dh_dc_b") or "", placeholder="Tulis pilihan lengkap, contoh: Bertahan di kantor sekarang dan minta naik gaji", key="dhdc_b",
                       max_chars=60)
+        st.markdown(f'<div class="dh-dc-tip">✍️ Tulis konteks yang jelas (minimal {MIN_CHARS} karakter per pilihan). '
+                    'Isi asal-asalan atau kata acak tetap diproses, jadi jawabannya juga ikut tidak bermakna.</div>', unsafe_allow_html=True)
         st.markdown('<div class="dh-bp-note sm">Pikirkan kedua pilihan itu dengan tenang sebelum menebar kartu. '
                     'Hasilnya kecenderungan energi, bukan kepastian atau pengganti pertimbangan fakta.</div>', unsafe_allow_html=True)
     saldo = int(u.get("koin", 0))
@@ -122,8 +147,9 @@ def _render_start():
             if st.button("Top-up Saldo →", key="dhdc_topup", type="primary", use_container_width=True):
                 request_with_return("pricing_keep", "decision", dh_pr_tab="koin")
         else:
+            ok = _valid(ss.get("dhdc_a")) and _valid(ss.get("dhdc_b"))
             st.button(f"🔮 Tebar 7 Kartu ({P.coin(P.DECISION)})", key="dhdc_go", type="primary", on_click=_cb_go,
-                      use_container_width=True)
+                      use_container_width=True, disabled=not ok)
 
 
 def _render_loading():
@@ -236,8 +262,14 @@ def decision_dialog():
                       tip="Simpan kartu PNG dulu kalau mau dibagikan.", stay="✨ Lanjut Baca", go="Ya, Tutup")
     elif step == "loading":
         _render_loading()
+    elif step == "pay":
+        from components import pay_layer
+        pay_layer.render("mxpay_dc", _render_start, icon="⚖️", brand="DECISION REVEAL", price=P.DECISION,
+                         rows=[("Pilihan A", _name("dh_dc_a", "A")), ("Pilihan B", _name("dh_dc_b", "B")), ("Isi", "Tebaran 7 kartu")],
+                         on_pay=_cb_pay, on_back=_cb_back, return_to="decision", pay_label="Bayar & Tebar Kartu")
     else:
-        _render_start()
+        with cc.bg("mxpay_dc"):
+            _render_start()
 
 
 DIALOGS = {"decision": decision_dialog}
