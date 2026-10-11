@@ -24,7 +24,7 @@ def options(s, q, scale):
         return [(v, f"{v}  ·  {scale[v]}") for v in (5, 4, 3, 2, 1)]
     if s == "DISC":
         return [(L, q["options"][L]) for L in "ABCD"]
-    return [(L, f"{L}.  {q[L]['text']}") for L in "AB"]
+    return [(L, f"**{L}.** {q[L]['text']}") for L in "AB"]
 
 
 def _qtext(s, q):

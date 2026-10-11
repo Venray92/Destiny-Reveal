@@ -554,7 +554,7 @@ def _sys_body(s):
         if s.get(k):
             out += f'<div class="dh-bp-blk"><b>{lb}</b>{_paras(s[k])}</div>'
     if s.get("extra"):
-        ex = "".join(f'<div class="dh-bp-blk"><b>{_e(a)}</b><p>{_fx(b)}</p></div>' for a, b in s["extra"])
+        ex = "".join(f'<div class="dh-bp-blk"><b>{RK.icon_for(a)} {_e(a)}</b><p>{_fx(b)}</p></div>' for a, b in s["extra"])
         out += f'<details class="dh-bp-more"><summary>Analisis A-M lengkap</summary>{ex}</details>'
     return out
 
@@ -640,7 +640,7 @@ def _render_result():
         if not s["ok"]:
             st.markdown(_sys_body(s), unsafe_allow_html=True)
         else:  # kartu insight (sorotan + expand) menggantikan tembok teks
-            _ic = {"utama": "🔹", "karier": "💼", "asmara": "💗", "nasihat": "🧭"}
+            _ic = {"utama": "🔷", "karier": "💼", "asmara": "💖", "nasihat": "🧭"}
             items = [(_ic[k], lb[2:], [_plain(t) for t in s[k]]) for k, lb in _BLOCKS if s.get(k)]
             items += [("🧩", a, [_plain(b)]) for a, b in (s.get("extra") or [])]
             st.markdown(RK.insight_cards(items), unsafe_allow_html=True)

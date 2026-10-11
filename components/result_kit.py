@@ -113,10 +113,26 @@ def _first_sentence(t, n=150):
     return s if len(s) <= n else s[:n].rsplit(" ", 1)[0] + "…"
 
 
+_ICON_RULES = [("blind", "👁️"), ("titik buta", "👁️"), ("shadow", "🌙"), ("sisi gelap", "🌙"), ("pr kecil", "🎯"),
+               ("latihan", "🎯"), ("nasihat", "🧭"), ("kompas", "🧭"), ("karier", "💼"), ("karir", "💼"),
+               ("keuangan", "💰"), ("rezeki", "💼"), ("asmara", "💖"), ("hubungan", "💖"), ("utama", "🔷"), ("siapa", "🔷")]
+
+
+def icon_for(title, default="🧩"):
+    """Ikon seragam per jenis kartu aspek (dipakai kalau ikon bawaan kosong / generik 🧩)."""
+    t = (title or "").lower()
+    for k, ic in _ICON_RULES:
+        if k in t:
+            return ic
+    return default
+
+
 def insight_cards(items):
     """items = [(ikon, judul, [teks...])]. Kartu grid: sorotan 1 kalimat + 'Baca selengkapnya' (expand)."""
     out = ""
     for ic, title, texts in items:
+        if not ic or ic == "🧩":
+            ic = icon_for(title, ic or "🧩")
         texts = [t for t in texts if t]
         if not texts:
             continue

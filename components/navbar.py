@@ -107,6 +107,9 @@ w.eval("['pointerdown','pointerup','mousedown','mouseup','click','touchstart','t
 (function(){var w=window.parent;if(w.__dhModalBound)return;w.__dhModalBound=true;
 // kartu/link dengan .dh-open-modal[data-modal=x] -> klik tombol tersembunyi dh_trig_x; Esc diblok di modal .dh-nodismiss
 w.eval("document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('.dh-open-modal');if(!t)return;e.preventDefault();var pb=t.closest('[data-testid=stPopoverBody]');if(pb){var pt=document.querySelector('[data-testid=stPopover] button[aria-expanded=true]');if(pt)pt.click();}var b=document.querySelector('.st-key-dh_trig_'+t.getAttribute('data-modal')+' button');if(b)b.click();},true);window.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.querySelector('[data-testid=stDialog] .dh-nodismiss')){e.stopImmediatePropagation();e.preventDefault();}},true);");})();
+(function(){var w=window.parent;if(w.__dhXBound)return;w.__dhXBound=true;
+// X di pojok modal hasil = sama persis kayak tombol Tutup (layer konfirmasi tampil di dialog yg sama, tanpa dialog nutup-buka ulang)
+w.eval("['pointerdown','mousedown','mouseup','touchstart','touchend','click'].forEach(function(t){document.addEventListener(t,function(e){var x=e.target.closest&&e.target.closest('[data-testid=stDialog] button[aria-label=Close]');if(!x)return;var d=x.closest('[data-testid=stDialog]');if(!d||d.querySelector('[class*=st-key-dhcc_layer_]'))return;var b=d.querySelector('[class*=st-key-][class*=_done] button');if(!b)return;e.stopImmediatePropagation();e.preventDefault();if(t==='click')b.click();},true);});");})();
 </script>"""
 
 
