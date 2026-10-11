@@ -62,3 +62,25 @@
 [data-testid="stDialog"]:has(.dh-step-quiz) button[aria-label="Close"]:hover,
 [data-testid="stDialog"]:has(.dh-step-result) button[aria-label="Close"]:hover,
 [data-testid="stDialog"]:has(.dh-step-form) button[aria-label="Close"]:hover { background: #FFF3ED !important; transform: rotate(90deg); }
+
+/* revisii: jarak judul soal -> opsi konsisten (22px), teks opsi tidak mengecil & boleh wrap 2 baris (semua kuesioner) */
+[data-testid="stDialog"] .dh-qz-q { min-height: 0 !important; margin: 8px 0 22px !important; }
+[data-testid="stDialog"] div.st-key-dhbp_opts div.stButton > button,
+[data-testid="stDialog"] div.st-key-dhbp_opts div.stButton > button[kind] { height: auto !important; min-height: 52px !important; padding: 12px 16px !important; align-items: center !important; }
+[data-testid="stDialog"] div.st-key-dhbp_opts div.stButton > button p,
+[data-testid="stDialog"] div.st-key-dhbp_opts div.stButton > button[kind] p { font-size: 14px !important; font-weight: 600 !important; line-height: 1.45 !important; white-space: normal !important; word-break: break-word !important; overflow: visible !important; text-overflow: clip !important; text-align: left !important; }
+
+/* revisii: dropdown "Kartu Takdirmu" (Deep Blueprint) tema krem. Dua struktur Streamlit: baseweb (lama) & react-aria (baru) */
+[data-testid="stDialog"] div.st-key-dhbp_cardsel [data-baseweb="select"] > div,
+[data-testid="stDialog"] div.st-key-dhbp_cardsel [data-testid="stSelectbox"] [role="group"] { background: #FFF8EE !important; border: 1.5px solid #E9C9A8 !important; border-radius: 12px !important; min-height: 46px !important; }
+[data-testid="stDialog"] div.st-key-dhbp_cardsel [data-baseweb="select"] > div:hover,
+[data-testid="stDialog"] div.st-key-dhbp_cardsel [data-testid="stSelectbox"] [role="group"]:hover { border-color: #D9A06A !important; }
+[data-testid="stDialog"] div.st-key-dhbp_cardsel [data-baseweb="select"] *,
+[data-testid="stDialog"] div.st-key-dhbp_cardsel [data-testid="stSelectbox"] input { color: #3A2A20 !important; -webkit-text-fill-color: #3A2A20 !important; font-weight: 600 !important; font-size: 14px !important; background: transparent !important; cursor: pointer; }
+[data-testid="stDialog"] div.st-key-dhbp_cardsel svg { fill: #C25E00 !important; color: #C25E00 !important; }
+body:has(.st-key-dhbp_cardsel) div[data-baseweb="popover"] ul, body:has(.st-key-dhbp_cardsel) div[data-baseweb="popover"] li, body:has(.st-key-dhbp_cardsel) div[data-baseweb="menu"],
+body:has(.st-key-dhbp_cardsel) [data-testid="stSelectboxVirtualDropdown"], body:has(.st-key-dhbp_cardsel) [data-testid="stSelectboxVirtualDropdown"] > div,
+body:has(.st-key-dhbp_cardsel) [data-testid="stSelectboxVirtualDropdown"] [role="option"] { background: #FFF8EE !important; color: #3A2A20 !important; }
+body:has(.st-key-dhbp_cardsel) div[data-baseweb="popover"] li:hover, body:has(.st-key-dhbp_cardsel) div[data-baseweb="popover"] li[aria-selected="true"],
+body:has(.st-key-dhbp_cardsel) [data-testid="stSelectboxVirtualDropdown"] [role="option"]:hover, body:has(.st-key-dhbp_cardsel) [data-testid="stSelectboxVirtualDropdown"] [role="option"][aria-selected="true"] { background: #F9E6D3 !important; }
+body:has(.st-key-dhbp_cardsel) div[data-baseweb="popover"] > div, body:has(.st-key-dhbp_cardsel) [data-testid="stSelectboxVirtualDropdown"] { border: 1px solid #E9C9A8 !important; border-radius: 12px !important; }
