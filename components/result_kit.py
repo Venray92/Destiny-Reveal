@@ -183,7 +183,7 @@ def sections_text(title, sub, sections):
     return "\n".join(out)
 
 
-def actions(prefix, close, pdf=None, text=None, png=None, wa=None, name="hasil", extra=None, clean=False):
+def actions(prefix, close, pdf=None, text=None, png=None, wa=None, name="hasil", extra=None, clean=False, close_label="Tutup", side=None):
     """Footer hasil seragam (REVISI03): PDF | Salin, PNG | WhatsApp, [extra], Tutup coklat.
     close = (callback, args). pdf/png = bytes. text = str. wa = caption WhatsApp. extra = fungsi opsional (tombol tambahan)."""
     from components.modal_detail import copy_button
@@ -201,6 +201,9 @@ def actions(prefix, close, pdf=None, text=None, png=None, wa=None, name="hasil",
     if wa:
         cells.append(lambda: st.link_button("Share WhatsApp", f"https://wa.me/?text={urlquote(wa)}",
                                             use_container_width=True, icon=":material/share:"))
+    if side:  # tombol tambahan sejajar dengan baris atas (mis. "Scan Mode Lain")
+        s_label, s_key, s_cb = side
+        cells.append(lambda: st.button(s_label, key=s_key, on_click=s_cb, use_container_width=True))
     with st.container(key="dhcl_acts" if clean else "dhbp_actions"):
         for i in range(0, len(cells), 2):
             row = cells[i:i + 2]
@@ -211,4 +214,4 @@ def actions(prefix, close, pdf=None, text=None, png=None, wa=None, name="hasil",
         if extra:
             extra()
         cb, args = close
-        st.button("Tutup", key=f"{prefix}_done", on_click=cb, args=args, use_container_width=True)
+        st.button(close_label, key=f"{prefix}_done", on_click=cb, args=args, use_container_width=True)

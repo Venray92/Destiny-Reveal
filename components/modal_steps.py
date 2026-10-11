@@ -300,6 +300,12 @@ def _dashboard(results, tgl):
         life_chart.render("Numerologi", tgl, height=560)
 
 
+def _btn_nama(r):
+    """Nama di tombol kartu: 'Zodiak Sagittarius', 'Shio Monyet', 'Weton Selasa Pahing', dst."""
+    s, sh = r["system"], r["short"]
+    return sh if sh.startswith(s) else f"{s} {sh}"
+
+
 def render_result():
     ss = st.session_state
     data = ss.get("dh_modal_data") or {}
@@ -327,7 +333,7 @@ def render_result():
     if ss.get("dh_show_summary"):
         st.code(_summary_text(nama, tgl, results), language=None)
 
-    st.markdown('<div class="dh-res-hint">✨ Ketuk tombol <b>"Lihat &amp; Simpan Kartu Takdir"</b> di setiap '
+    st.markdown('<div class="dh-res-hint">✨ Ketuk tombol <b>"Lihat Lengkap Isi"</b> di setiap '
                 'sistem untuk mengunduh gambar kartu estetik dan membagikannya ke Story sosmed!</div>',
                 unsafe_allow_html=True)
 
@@ -344,7 +350,7 @@ def render_result():
                                 f'<div class="dh-rc-desc">{r["desc"]}</div>', unsafe_allow_html=True)
                     if quote:  # elemen terpisah supaya quote + tombol menempel ke dasar kartu (equal height)
                         st.markdown(quote, unsafe_allow_html=True)
-                    st.button(f'📷 Lihat & Simpan Kartu {r["short"]}', key=f'dhres_dl_{r["system"]}',
+                    st.button(f'📷 Lihat Lengkap Isi {_btn_nama(r)}', key=f'dhres_dl_{r["system"]}',
                               on_click=cb_open_detail, args=(r["system"],), use_container_width=True)
 
     st.markdown('<div class="dh-res-sep"></div>', unsafe_allow_html=True)
@@ -355,9 +361,5 @@ def render_result():
     ttl = f"Peta Jiwa: {nama}"
     wa = f'{ttl} ({modal_multi.title()}). Cek takdirmu di destinyreveal.id #DestinyReveal'
 
-    def _extra():
-        st.button("Buka Profil & Riwayat", key="dhr_profile", on_click=_cb_soon,
-                  args=("Profil & riwayat belum tersedia, masih tahap pengembangan 🚧",), use_container_width=True)
-        st.button("Scan Orang Lain", key="dhr_again", on_click=reset_for_new_scan, use_container_width=True)
-    RK.actions("dhr", (cc.cb_ask, ("reveal",)), pdf=make_pdf(ttl, f"{modal_multi.title()} - Lahir: {format_tanggal_lengkap(tgl)}", secs),
-               text=_summary_text(nama, tgl, results), wa=wa, name="cetak-biru-takdir", extra=_extra, clean=True)
+    RK.actions("dhr", (cc.cb_ask, ("reveal",)), text=_summary_text(nama, tgl, results), clean=True,
+               close_label="Selesai & Tutup", side=("Scan Mode Lain", "dhr_again", reset_for_new_scan))

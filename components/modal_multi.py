@@ -189,13 +189,22 @@ def render_quiz():
 
 
 # ─────────────── layar: pembayaran Stardust ───────────────
-def render_pay():
+def pay_layer(form_fn):
+    """Mode 1: konfirmasi bayar tampil sebagai layer di atas Modal Isi Data (tetap ada, di-blur)."""
+    with cc.bg("mxpay"):
+        form_fn()
+    with st.container(key="dhcc_layer_mxpay"):
+        with st.container(key="dhcc_card_mxpay"):
+            render_pay(marker=False)
+
+
+def render_pay(marker=True):
     ss = st.session_state
     u = auth.current_user()
     ttl, sub, pr, sc = info()
     d = ss.get("dh_modal_data") or {}
     st.markdown(
-        '<div class="dh-step dh-step-bp"></div><div class="dh-nodismiss"></div>'
+        ('<div class="dh-step dh-step-bp"></div>' if marker else "") + '<div class="dh-nodismiss"></div>'
         '<div class="dh-bp-head"><span class="dh-bp-ico">🔮</span><div><div class="dh-bp-h">MULTI-SYSTEM BLUEPRINT</div>'
         '<div class="dh-bp-hs">Konfirmasi pembayaran</div></div></div>', unsafe_allow_html=True)
     if not u:
@@ -227,7 +236,7 @@ def render_pay():
             if st.button("Top-up Saldo →", key="dhmx_topup", type="primary", use_container_width=True):
                 _resume_and("pricing_keep", dh_pr_tab="koin")
         else:
-            st.button(f"✨ Bayar & Buka Hasil ({P.coin(pr)})", key="dhmx_pay", type="primary", on_click=_cb_pay,
+            st.button(f"Bayar & Buka Hasil {pr:,}✨".replace(",", "."), key="dhmx_pay", type="primary", on_click=_cb_pay,
                       use_container_width=True)
     st.button("← Kembali", key="dhmx_pay_back", on_click=_cb_pay_back, type="tertiary")
 
@@ -272,7 +281,7 @@ def compute_systems(mode, data, qmode, ans):
     return out
 
 
-def render_loading():
+def render_loading(form_fn=None):
     """Loading seragam semua mode: hitung -> potong Stardust -> hasil. Gagal hitung = saldo tidak dipotong."""
     from components import modal_steps
     ss = st.session_state
@@ -283,11 +292,18 @@ def render_loading():
         st.rerun(scope="fragment")
     data = ss.get("dh_modal_data") or {}
     t0 = time.time()
-    st.markdown(
-        '<div class="dh-step dh-step-loading"></div><div class="dh-nodismiss"></div>'
-        '<div class="dh-dl-load"><div class="dh-dl-orb"><i></i><span>✦</span></div>'
-        f'<div class="dh-dl-t">Menyelaraskan {_E(title(mode))}...</div>'
-        '<div class="dh-dl-s">Memproses peta takdirmu dan menyimpannya ke akun.</div></div>', unsafe_allow_html=True)
+    _html = (('' if form_fn else '<div class="dh-step dh-step-loading"></div>') + '<div class="dh-nodismiss"></div>'
+             '<div class="dh-dl-load"><div class="dh-dl-orb"><i></i><span>✦</span></div>'
+             f'<div class="dh-dl-t">Menyelaraskan {_E(title(mode))}...</div>'
+             '<div class="dh-dl-s">Memproses peta takdirmu dan menyimpannya ke akun.</div></div>')
+    if form_fn:  # Mode 1: loading jadi layer di atas Modal Isi Data yang di-blur
+        with cc.bg("mxpay"):
+            form_fn()
+        with st.container(key="dhcc_layer_mxpay"):
+            with st.container(key="dhcc_card_mxpay"):
+                st.markdown(_html, unsafe_allow_html=True)
+    else:
+        st.markdown(_html, unsafe_allow_html=True)
     try:
         if mode == "instan":
             res = modal_steps.compute_mode1(data.get("nama", ""), data.get("tgl_lahir"),

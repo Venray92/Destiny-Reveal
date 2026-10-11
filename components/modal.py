@@ -161,9 +161,12 @@ def _flow_dialog():
     elif step == modal_multi.STEP_QUIZ:
         modal_multi.render_quiz()
     elif step == STEP_PAY:
-        modal_multi.render_pay()
+        if modal_multi.needs_quiz():
+            modal_multi.render_pay()
+        else:
+            modal_multi.pay_layer(_render_form)
     elif step == STEP_LOADING:
-        modal_multi.render_loading()
+        modal_multi.render_loading(None if modal_multi.needs_quiz() else _render_form)
     elif step == STEP_RESULT:
         cc.wrap("reveal", modal_steps.render_result, leave=None, icon="🔮", title="Yakin Mau Tutup Peta Jiwamu?",
                       text="Cetak biru takdirmu baru saja terungkap. Kalau ditutup, kamu perlu scan ulang untuk melihatnya lagi.",
