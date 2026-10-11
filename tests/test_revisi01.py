@@ -289,3 +289,16 @@ def test_soulmatch_grup_dan_outline():
     from components import result_kit as RK
     assert inspect.signature(RK.actions).parameters["clean"].default is True
     assert "dhcp_sysrow" in pathlib.Path("components/compat.py").read_text()
+
+
+def test_tarot_decision_pay_layer_dan_validasi():
+    import pathlib
+    from components import decision as D
+    assert not D._valid("") and not D._valid("abc") and not D._valid("aaaaa") and not D._valid("12345") and D._valid("Terima tawaran")
+    fm = pathlib.Path("components/feature_modals.py").read_text()
+    assert "dhts_sync" not in fm and 'dh_ts_step = "pay"' in fm and "_cb_ts_pay" in fm
+    dc = pathlib.Path("components/decision.py").read_text()
+    assert 'dh_dc_step = "pay"' in dc and "disabled=not ok" in dc
+    assert pathlib.Path("components/pay_layer.py").exists()
+    css = pathlib.Path("assets/css/parts/24_revisi_tarot_decision.css").read_text()
+    assert "dhShuffle2" in css and "dhTsGlow" in css and "#FFFFFF" in css
