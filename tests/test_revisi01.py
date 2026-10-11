@@ -222,3 +222,13 @@ def test_revisi2_resume_dan_footer_css():
     css = Path("assets/css/parts/20_revisi2_quiz_footer.css").read_text()
     assert "height: 44px" in css and "min-height: 440px" in css and "st-key-dhsd_acts" in css and "st-key-dhcl_acts" in css
     assert "rotate(90deg)" in css and "dh-step-bp" in css
+
+
+def test_revisii_multi_pay_layer_dan_tombol_hasil():
+    from pathlib import Path
+    ms = Path("components/modal_steps.py").read_text()
+    assert "Lihat Lengkap Isi" in ms and "Selesai & Tutup" in ms and "Scan Mode Lain" in ms
+    assert "Buka Profil & Riwayat" not in ms and "Share WhatsApp" not in ms
+    mm = Path("components/modal_multi.py").read_text()
+    assert 'Bayar & Buka Hasil {pr:,}✨' in mm and "def pay_layer" in mm
+    assert Path("assets/css/parts/21_revisi_mx_pay_layer.css").exists()
