@@ -14,6 +14,8 @@ from utils import resume as _resume
 
 from components import auth
 from components import close_confirm as cc
+from components import quiz_reuse as QR
+from utils import quiz_store as QS
 from components import quiz_kit as QK
 from components.dialog_bus import request_with_return
 from components.flow_state import STEP_FORM, STEP_LOADING, STEP_PAY, STEP_RESULT, set_step
@@ -22,7 +24,7 @@ from content import blueprint_calc as BC
 from content import pricing as P
 from content.result_builder import compute_raw_result
 
-STEP_MODE, STEP_QUIZ = "mode", "quiz"
+STEP_MODE, STEP_QUIZ, STEP_REUSE = "mode", "quiz", "reuse"
 _E = html.escape
 _SCALE = {1: "Sangat Tidak Setuju", 2: "Tidak Setuju", 3: "Netral", 4: "Setuju", 5: "Sangat Setuju"}
 BIRTH5 = ["Zodiak", "Shio", "Weton", "Numerologi", "Matrix Destiny"]
@@ -72,7 +74,8 @@ def go_after_form():
     """Dipanggil setelah form valid: Mode 1 langsung bayar, Mode 2/3 pilih kedalaman kuesioner."""
     if needs_quiz():
         st.session_state.pop("dh_mx_qi", None)
-        set_step(STEP_MODE)
+        st.session_state.pop("dh_mx_reused", None)
+        set_step(STEP_REUSE if _offer() else STEP_MODE)
     else:
         set_step(STEP_PAY)
 
@@ -80,7 +83,60 @@ def go_after_form():
 def _cb_qmode(m):
     ss = st.session_state
     ss.dh_mx_qmode, ss.dh_mx_qi, ss.dh_mx_ans = m, 0, {}
+    ss.pop("dh_mx_reused", None)
     set_step(STEP_QUIZ)
+
+
+def _pk():
+    d = st.session_state.get("dh_modal_data") or {}
+    return QS.pkey(d.get("nama"), d.get("tgl_lahir")) if d.get("tgl_lahir") else None
+
+
+def _offer():
+    pk = _pk()
+    return QS.offer("mx", pk, lambda m: BC.plan(m, info()[3])) if pk else None
+
+
+def _cb_reuse():
+    ss = st.session_state
+    o = _offer()
+    if not o:
+        set_step(STEP_MODE)
+        return
+    ss.dh_mx_qmode = o["mode"]
+    ss.dh_mx_ans, ss.dh_mx_qi = QS.fill(o, BC.plan(o["mode"], info()[3]))
+    if o["full"]:
+        ss.dh_mx_reused = True
+        set_step(STEP_PAY)
+    else:
+        ss.pop("dh_mx_reused", None)
+        set_step(STEP_QUIZ)
+
+
+def _cb_redo():
+    set_step(STEP_MODE)
+
+
+def _cb_quiz_done():
+    ss = st.session_state
+    pk = _pk()
+    if pk:
+        m = ss.get("dh_mx_qmode") or "singkat"
+        QS.save("mx", pk, m, BC.plan(m, info()[3]), ss.get("dh_mx_ans") or {}, title())
+    set_step(STEP_PAY)
+
+
+def render_reuse():
+    o = _offer()
+    if not o:
+        set_step(STEP_MODE)
+        st.rerun(scope="fragment")
+    ttl = info()[0]
+    st.markdown(
+        '<div class="dh-step dh-step-bp"></div><div class="dh-nodismiss"></div>'
+        f'<div class="dh-bp-head"><span class="dh-bp-ico">🔮</span><div><div class="dh-bp-h">{_E(ttl.upper())}</div>'
+        '<div class="dh-bp-hs">Jawaban kuesionermu sudah tersimpan.</div></div></div>', unsafe_allow_html=True)
+    QR.screen("dhmx", o, _cb_reuse, _cb_redo, _cb_back_form)
 
 
 def _cb_back_form():
@@ -88,7 +144,9 @@ def _cb_back_form():
 
 
 def _cb_pay_back():
-    if needs_quiz():
+    if needs_quiz() and st.session_state.get("dh_mx_reused"):
+        set_step(STEP_REUSE)
+    elif needs_quiz():
         st.session_state.dh_mx_qi = max(0, len(_items()) - 1)
         set_step(STEP_QUIZ)
     else:
@@ -185,7 +243,7 @@ def _qput(sys_, qid, val):
 
 def render_quiz():
     QK.render("dhmx", _items(), _qget, _qput, "dh_mx_qi", "Kuesioner " + title().split(": ")[0], _who(),
-              lambda: set_step(STEP_MODE), lambda: set_step(STEP_PAY), _SCALE)
+              lambda: set_step(STEP_MODE), _cb_quiz_done, _SCALE)
 
 
 # ─────────────── layar: pembayaran Stardust ───────────────

@@ -14,12 +14,14 @@ from urllib.parse import quote as urlquote
 
 import streamlit as st
 
+from utils import quiz_store as QS
 from utils import resume as _resume
 
 from components import auth
 from components import form_kit
 from components import close_confirm as cc
 from components import quiz_kit as QK
+from components import quiz_reuse as QR
 from components import result_kit as RK
 from components.modal_detail import copy_button
 from components.aspek_info import heading_with_info
@@ -113,7 +115,7 @@ def _cb_rtab(i):
 
 def _reset_view():
     ss = _ss()
-    for k in ("dh_bp_res", "dh_bp_rtab", "dh_bp_err", "dh_bp_qi", "dh_bp_ans", "dh_bp_mode"):
+    for k in ("dh_bp_res", "dh_bp_rtab", "dh_bp_err", "dh_bp_qi", "dh_bp_ans", "dh_bp_mode", "dh_bp_modesel", "dh_bp_modeconf", "dh_bp_reused"):
         ss.pop(k, None)
     ss.dh_bp_step = "start"
 
@@ -152,7 +154,8 @@ def _cb_generate():
         ss.dh_bp_rtab = 0
         _go("result")
     elif [s for s in sc if s in BC.QUIZ]:
-        _go("mode")
+        ss.pop("dh_bp_reused", None)
+        _go("reuse" if _offer() else "mode")
     else:
         ss.dh_bp_mode = "lengkap"
         _go("pay")
@@ -161,7 +164,62 @@ def _cb_generate():
 def _cb_mode(m):
     ss = _ss()
     ss.dh_bp_mode, ss.dh_bp_qi, ss.dh_bp_ans = m, 0, {}
+    ss.pop("dh_bp_modeconf", None)
+    ss.pop("dh_bp_reused", None)
     _go("quiz")
+
+
+def _cb_modesel(m):
+    _ss().dh_bp_modesel = m
+
+
+def _cb_modeask():
+    if _ss().get("dh_bp_modesel"):
+        _ss().dh_bp_modeconf = True
+
+
+def _cb_modestay():
+    _ss().pop("dh_bp_modeconf", None)
+
+
+def _feat_label():
+    return "Complete Blueprint" if _tab() == "complete" else "Deep Dive"
+
+
+def _pk():
+    p = _ss().get("dh_solo_prof") or {}
+    return QS.pkey(p.get("nama"), p.get("tgl")) if p.get("tgl") else None
+
+
+def _offer():
+    pk = _pk()
+    return QS.offer("bp", pk, lambda m: BC.plan(m, _scope())) if pk else None
+
+
+def _cb_reuse():
+    ss = _ss()
+    o = _offer()
+    if not o:
+        _go("mode")
+        return
+    items = BC.plan(o["mode"], _scope())
+    ss.dh_bp_mode = o["mode"]
+    ss.dh_bp_ans, ss.dh_bp_qi = QS.fill(o, items)
+    if o["full"]:
+        ss.dh_bp_reused = True
+        _go("pay")
+    else:
+        ss.pop("dh_bp_reused", None)
+        _go("quiz")
+
+
+def _cb_quiz_done():
+    ss = _ss()
+    pk = _pk()
+    if pk:
+        QS.save("bp", pk, ss.get("dh_bp_mode") or "singkat", BC.plan(ss.get("dh_bp_mode") or "singkat", _scope()),
+                ss.get("dh_bp_ans") or {}, _feat_label())
+    _go("pay")
 
 
 def _cb_ans(sys_, qid, val):
@@ -181,6 +239,9 @@ def _cb_qback():
 
 
 def _cb_pay_back():
+    if _ss().get("dh_bp_reused"):
+        _go("reuse")
+        return
     _go("quiz" if [s for s in _scope() if s in BC.QUIZ] else "start")
     if _ss().dh_bp_step == "quiz":
         _ss().dh_bp_qi = max(0, len(BC.plan(_ss().get("dh_bp_mode"), _scope())) - 1)
@@ -270,8 +331,22 @@ def _render_start():
         st.button("Generate Deep Blueprint →", key="dhbp_go", type="primary", on_click=_cb_generate, use_container_width=True)
 
 
-# ─────────────── layar: mode kuesioner ───────────────
+# ─────────────── layar: mode kuesioner (pola sama dengan Career DNA) ───────────────
 def _render_mode():
+    ss = _ss()
+    sel = ss.get("dh_bp_modesel")
+    if ss.get("dh_bp_modeconf") and sel:
+        nm = "Cepat" if sel == "singkat" else "Deep"
+        cc.layer("bpmode", _mode_screen, on_go=lambda: _cb_mode(sel), on_stay=_cb_modestay, icon="📝",
+                 title="Mulai Kuesioner?", text=f"Apakah kamu yakin ingin melanjutkan dengan kuesioner mode <b>{nm}</b>?",
+                 stay="Batal / Beralih", go="Ya, Lanjutkan")
+    else:
+        with cc.bg("bpmode"):
+            _mode_screen()
+
+
+def _mode_screen():
+    sel = _ss().get("dh_bp_modesel")
     sc = _scope()
     _head("Satu langkah lagi: pilih kedalaman kuesioner kepribadianmu.")
     n_s, n_l = len(BC.plan("singkat", sc)), len(BC.plan("lengkap", sc))
@@ -286,11 +361,32 @@ def _render_mode():
     c1, c2 = st.columns(2, gap="small")
     for col, (m, ttl, tm, n, ds) in zip((c1, c2), cards):
         with col:
-            st.markdown(f'<div class="dh-bp-mcard"><b>{ttl}</b><em>{tm} · {n} soal</em><p>{ds}</p></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="dh-bp-mcard{" is-sel" if sel == m else ""}"><b>{ttl}</b><em>{tm} · {n} soal</em><p>{ds}</p></div>',
+                        unsafe_allow_html=True)
             with st.container(key=f"dhbp_mode_{m}"):
-                st.button("Pilih", key=f"dhbp_pick_{m}", on_click=_cb_mode, args=(m,), type="primary" if m == "lengkap" else "secondary",
-                          use_container_width=True)
+                st.button("Dipilih ✓" if sel == m else "Pilih", key=f"dhbp_pick_{m}", on_click=_cb_modesel, args=(m,),
+                          type="primary" if sel == m else "secondary", use_container_width=True)
+    with st.container(key="dhbp_cta"):
+        st.button("Mulai Kuesioner →", key="dhbp_mode_go", type="primary", on_click=_cb_modeask,
+                  disabled=not sel, use_container_width=True)
     st.button("← Kembali", key="dhbp_mode_back", on_click=_go, args=("start",), type="tertiary")
+
+
+def _render_reuse():
+    o = _offer()
+    if not o:
+        _go("mode")
+        st.rerun(scope="fragment")
+    _head("Jawaban kuesionermu sudah tersimpan.")
+    QR.screen("dhbp", o, _cb_reuse, _go_mode, _go_start)
+
+
+def _go_mode():
+    _go("mode")
+
+
+def _go_start():
+    _go("start")
 
 
 # ─────────────── layar: kuesioner ───────────────
@@ -308,7 +404,7 @@ def _render_quiz():
     prof = ss.get("dh_solo_prof") or {}
     meta = " · ".join(str(x) for x in (prof.get("tgl"), prof.get("kota")) if x)
     QK.render("dhbp", items, _qget, _qput, "dh_bp_qi", "Kuesioner Blueprint",
-              (prof.get("nama"), meta), lambda: _go("mode"), lambda: _go("pay"), _SCALE)
+              (prof.get("nama"), meta), lambda: _go("mode"), _cb_quiz_done, _SCALE)
 
 
 # ─────────────── layar: bayar ───────────────
@@ -582,6 +678,8 @@ def blueprint_dialog():
                       text="Blueprint ini sudah tersimpan. Kamu bisa membukanya lagi dari menu ini tanpa bayar ulang "
                            "(isi data yang sama).",
                       tip="Download PDF dulu kalau mau dibaca offline.", stay="✨ Lanjut Baca", go="Ya, Tutup Blueprint")
+    elif step == "reuse":
+        _render_reuse()
     elif step == "mode":
         _render_mode()
     elif step == "quiz":

@@ -156,7 +156,9 @@ def reopen_if_pending():
 @st.dialog("Multi-System Blueprint", width="large", on_dismiss=_on_dismiss)
 def _flow_dialog():
     step = current_step()
-    if step == modal_multi.STEP_MODE:
+    if step == modal_multi.STEP_REUSE:
+        modal_multi.render_reuse()
+    elif step == modal_multi.STEP_MODE:
         modal_multi.render_mode()
     elif step == modal_multi.STEP_QUIZ:
         modal_multi.render_quiz()
@@ -181,7 +183,7 @@ def _flow_dialog():
 def open_reveal_modal():
     """Dipanggil dari tombol/link Reveal mana pun: buka modal dari langkah awal."""
     _resume.enter("reveal")
-    if st.session_state.pop("dh_mx_resume", False) and current_step() in (STEP_PAY, modal_multi.STEP_QUIZ, modal_multi.STEP_MODE):
+    if st.session_state.pop("dh_mx_resume", False) and current_step() in (STEP_PAY, modal_multi.STEP_QUIZ, modal_multi.STEP_MODE, modal_multi.STEP_REUSE):
         pass
     elif current_step() == modal_multi.STEP_QUIZ:
         pass  # kuesioner ditutup di tengah: lanjut dari soal terakhir  # balik dari login/top-up: lanjut di langkah terakhir
