@@ -1,0 +1,6 @@
+/* revisii: konfirmasi bayar & loading Multi-System Mode 1 = layer di atas Modal Isi Data (blur) */
+[class*="st-key-dhcc_card_mxpay"] { width: min(560px, 92vw) !important; padding: 18px 22px 20px !important; }
+[class*="st-key-dhcc_card_mxpay"] .dh-bp-head { margin-top: 0; }
+[class*="st-key-dhcc_card_mxpay"] div.stButton > button[kind="primary"] { height: 50px !important; }
+[class*="st-key-dhcc_card_mxpay"] div.stButton > button[kind="tertiary"] { border: 0 !important; background: transparent !important; height: auto !important; justify-content: flex-start !important; }
+[class*="st-key-dhcc_card_mxpay"] .dh-dl-load { padding: 24px 10px 20px; }
