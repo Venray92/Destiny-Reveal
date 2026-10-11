@@ -260,3 +260,16 @@ def test_quiz_store_tawaran_pakai_ulang():
     QS.save("bp", pk, "singkat", BC.plan("singkat", list(BC.NAMES)), full_ans, "Complete Blueprint")
     assert QS.offer("bp", pk, plan)["full"]
     st.session_state.pop("dh_user")
+
+
+def test_revisi_x_card_icon_quizopts():
+    import pathlib
+    from components import result_kit as RK
+    nav = pathlib.Path("components/navbar.py").read_text()
+    assert "__dhXBound" in nav and "_done] button" in nav
+    assert RK.icon_for("PR Kecil Buat Kamu") == "🎯" and RK.icon_for("Blindspot") == "👁️" and RK.icon_for("Shadow Work") == "🌙"
+    assert 'ikon' not in RK.insight_cards([("🧩", "Blindspot", ["Tes."])]) and "👁️" in RK.insight_cards([("🧩", "Blindspot", ["Tes."])])
+    css = pathlib.Path("assets/css/parts/22_revisi_cardacts_quizopts.css").read_text()
+    assert "#E2BC9D" in css and "padding: 16px 20px" in css and "line-height: 1.5" in css
+    from components import quiz_kit
+    assert quiz_kit.options("Love Language", {"A": {"text": "x"}, "B": {"text": "y"}}, None)[0][1] == "**A.** x"
