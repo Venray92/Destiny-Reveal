@@ -1,0 +1,32 @@
+/* REVISI A: tombol Simpan PNG & WhatsApp di bawah kartu visual = gaya outline One-System Blueprint, universal semua modal hasil */
+[data-testid="stDialog"] div[class*="_cardacts"] { max-width: 520px; margin-left: auto !important; margin-right: auto !important; }
+[data-testid="stDialog"] div[class*="_cardacts"] div.stButton > button,
+[data-testid="stDialog"] div[class*="_cardacts"] div.stButton > button[kind],
+[data-testid="stDialog"] div[class*="_cardacts"] div.stDownloadButton > button,
+[data-testid="stDialog"] div[class*="_cardacts"] div.stDownloadButton > button[kind],
+[data-testid="stDialog"] div[class*="_cardacts"] [data-testid="stLinkButton"] a {
+  height: 44px !important; min-height: 44px !important; padding: 0 14px !important; border-radius: 999px !important;
+  background: #FFFFFF !important; border: 1px solid #E2BC9D !important; box-shadow: none !important; opacity: 1 !important;
+  transition: background .15s, border-color .15s !important;
+}
+[data-testid="stDialog"] div[class*="_cardacts"] div.stButton > button *,
+[data-testid="stDialog"] div[class*="_cardacts"] div.stDownloadButton > button *,
+[data-testid="stDialog"] div[class*="_cardacts"] div.stDownloadButton > button[kind] *,
+[data-testid="stDialog"] div[class*="_cardacts"] [data-testid="stLinkButton"] a * {
+  color: #C85A28 !important; -webkit-text-fill-color: #C85A28 !important; font-size: 13px !important; font-weight: 700 !important; opacity: 1 !important;
+}
+[data-testid="stDialog"] div[class*="_cardacts"] div.stButton > button:hover,
+[data-testid="stDialog"] div[class*="_cardacts"] div.stDownloadButton > button:hover,
+[data-testid="stDialog"] div[class*="_cardacts"] div.stDownloadButton > button[kind]:hover,
+[data-testid="stDialog"] div[class*="_cardacts"] [data-testid="stLinkButton"] a:hover { background: #FFF6EA !important; border-color: #D9A06A !important; }
+[data-testid="stDialog"] div[class*="_cardacts"] div.stDownloadButton > button:hover *,
+[data-testid="stDialog"] div[class*="_cardacts"] [data-testid="stLinkButton"] a:hover * { color: #C85A28 !important; -webkit-text-fill-color: #C85A28 !important; }
+
+/* REVISI B: opsi kuesioner rata kiri, huruf (A./B.) kolom tetap + teks di kanannya, padding 16x20, line-height 1.5 */
+[data-testid="stDialog"] div.st-key-dhbp_opts div.stButton > button,
+[data-testid="stDialog"] div.st-key-dhbp_opts div.stButton > button[kind] { padding: 16px 20px !important; justify-content: flex-start !important; text-align: left !important; }
+[data-testid="stDialog"] div.st-key-dhbp_opts div.stButton > button > div,
+[data-testid="stDialog"] div.st-key-dhbp_opts div.stButton > button [data-testid="stMarkdownContainer"] { width: 100% !important; justify-content: flex-start !important; text-align: left !important; }
+[data-testid="stDialog"] div.st-key-dhbp_opts div.stButton > button p,
+[data-testid="stDialog"] div.st-key-dhbp_opts div.stButton > button[kind] p { display: flex !important; align-items: flex-start !important; gap: 10px !important; text-align: left !important; line-height: 1.5 !important; width: 100% !important; margin: 0 !important; }
+[data-testid="stDialog"] div.st-key-dhbp_opts div.stButton > button p strong { flex: 0 0 20px !important; min-width: 20px !important; font-size: 14px !important; line-height: 1.5 !important; font-weight: 800 !important; text-align: left !important; }
