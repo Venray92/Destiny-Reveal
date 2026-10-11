@@ -232,3 +232,11 @@ def test_revisii_multi_pay_layer_dan_tombol_hasil():
     mm = Path("components/modal_multi.py").read_text()
     assert 'Bayar & Buka Hasil {pr:,}✨' in mm and "def pay_layer" in mm
     assert Path("assets/css/parts/21_revisi_mx_pay_layer.css").exists()
+
+
+def test_revisii_kuesioner_spacing_dan_dropdown_kartu():
+    from pathlib import Path
+    css = Path("assets/css/parts/20_revisi2_quiz_footer.css").read_text()
+    assert "margin: 8px 0 22px" in css and "white-space: normal" in css and "st-key-dhbp_cardsel" in css
+    bp = Path("components/blueprint.py").read_text()
+    assert "st.selectbox" in bp and "dhbp_cardsel" in bp and "dhbp_cardpick" not in bp
