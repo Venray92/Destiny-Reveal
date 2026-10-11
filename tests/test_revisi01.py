@@ -240,3 +240,23 @@ def test_revisii_kuesioner_spacing_dan_dropdown_kartu():
     assert "margin: 8px 0 22px" in css and "white-space: normal" in css and "st-key-dhbp_cardsel" in css
     bp = Path("components/blueprint.py").read_text()
     assert "st.selectbox" in bp and "dhbp_cardsel" in bp and "dhbp_cardpick" not in bp
+
+
+def test_quiz_store_tawaran_pakai_ulang():
+    import streamlit as st
+    from content import blueprint_calc as BC
+    from utils import quiz_store as QS
+    st.session_state["dh_user"] = {"email": "a@b.c"}
+    pk = QS.pkey("Rina", "1995-03-14")
+    items = BC.plan("singkat", ["MBTI"])
+    ans = {"MBTI": {it["q"]["id"]: True for it in items}}
+    QS.save("bp", pk, "singkat", items, ans, "Deep Dive")
+    plan = lambda m: BC.plan(m, list(BC.NAMES))  # Complete Blueprint
+    o = QS.offer("bp", pk, plan)
+    assert o and o["mode"] == "singkat" and list(o["cov"]) == ["MBTI"] and not o["full"]
+    assert QS.offer("bp", QS.pkey("Budi", "1995-03-14"), plan) is None  # nama beda -> tidak ada tawaran
+    assert QS.offer("mx", pk, plan) is None  # keluarga lain
+    full_ans = {s: {it["q"]["id"]: True for it in BC.plan("singkat", list(BC.NAMES)) if it["sys"] == s} for s in BC.QUIZ}
+    QS.save("bp", pk, "singkat", BC.plan("singkat", list(BC.NAMES)), full_ans, "Complete Blueprint")
+    assert QS.offer("bp", pk, plan)["full"]
+    st.session_state.pop("dh_user")
