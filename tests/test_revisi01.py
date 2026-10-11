@@ -273,3 +273,19 @@ def test_revisi_x_card_icon_quizopts():
     assert "#E2BC9D" in css and "padding: 16px 20px" in css and "line-height: 1.5" in css
     from components import quiz_kit
     assert quiz_kit.options("Love Language", {"A": {"text": "x"}, "B": {"text": "y"}}, None)[0][1] == "**A.** x"
+
+
+def test_soulmatch_grup_dan_outline():
+    import pathlib
+    from components import compat as C
+    pp = [{"nama": n, "tgl": t, "gender": None} for n, t in
+          (("A", __import__("datetime").date(1995, 3, 14)), ("B", __import__("datetime").date(1990, 8, 2)),
+           ("C", __import__("datetime").date(1988, 11, 21)))]
+    r = C._compute_group(["Zodiak", "Shio"], pp, "Keluarga")
+    assert r["n"] == 3 and len(r["pairs"]) == 3 and r["a"] == "A, B" and r["b"] == "C"
+    assert r["pairs"][0]["total"] >= r["pairs"][-1]["total"] and 0 <= r["total"] <= 100
+    assert C.GROUP_MAX == 5 and len(C.SIDES) == 5 and all(f"dhcp_e_{f}" in C._FORM_KEYS for f in ("nama", "tgl"))
+    import inspect
+    from components import result_kit as RK
+    assert inspect.signature(RK.actions).parameters["clean"].default is True
+    assert "dhcp_sysrow" in pathlib.Path("components/compat.py").read_text()
