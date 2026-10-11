@@ -54,6 +54,8 @@ WEIGHTS = {
     "Persahabatan": {"Zodiak": 0.35, "Shio": 0.20, "Weton": 0.20, "Numerologi": 0.25},
     "Mitra Bisnis / Rekan Kerja": {"Zodiak": 0.15, "Shio": 0.30, "Weton": 0.20, "Numerologi": 0.35},
 }
+GROUP_MAX = 5  # maksimal orang (non-asmara): 5 orang = 10 pasangan, masih kebaca rapi di satu layar
+SIDES = "abcde"
 GENDERS = ["Perempuan", "Laki-laki", "Lainnya / Tidak ingin menyebut"]
 LOADING_SEC = 2.2
 
@@ -230,6 +232,12 @@ _ADVICE = {
         "Kejelasan di awal mencegah rasa tidak adil yang menumpuk diam-diam.",
     ],
 }
+_CTX_GRP = {"Asmara / Pasangan": "sebagai pasangan", "Mitra Bisnis / Rekan Kerja": "sebagai tim kerja",
+            "Persahabatan": "sebagai lingkar pertemanan", "Keluarga": "sebagai keluarga"}
+_KUAT_GRP = "Dalam kelompok, kekuatan terbesar datang dari pasangan paling selaras: jadikan mereka jembatan komunikasi bagi anggota lain."
+_TANTANG_GRP = "Dalam kelompok, satu pasangan yang renggang bisa menular ke dinamika seluruh grup. Bicarakan lebih awal sebelum anggota lain terpaksa memihak."
+_NASIHAT_GRP = ("Libatkan {a} & {b} sebagai penghubung, dan beri ruang ekstra untuk {c} & {d} lewat percakapan langsung "
+                "atau pembagian peran yang jelas supaya gesekan tidak menumpuk.")
 _KUAT_CTX = {
     "Asmara / Pasangan": "Dalam konteks asmara, kekuatan di atas paling terasa saat kalian sama-sama merasa aman untuk jujur. Rawat kebiasaan kecil yang membuat kalian merasa dipilih setiap hari.",
     "Mitra Bisnis / Rekan Kerja": "Dalam konteks kerja sama, kekuatan di atas bisa jadi modal besar untuk pembagian peran yang efisien. Manfaatkan sebagai fondasi kepercayaan di setiap keputusan penting.",
@@ -302,6 +310,38 @@ def _compute(systems, pa, pb, rel):
             "nasihat": nasihat, "ringkas": ringkas, "rel": rel, "a": pa["nama"], "b": pb["nama"], "systems": list(systems)}
 
 
+def _compute_group(systems, people, rel):
+    """3-5 orang: tiap pasangan dihitung dengan _compute, skor kelompok = rata-rata semua pasangan."""
+    pairs = []
+    for i in range(len(people)):
+        for j in range(i + 1, len(people)):
+            r = _compute(systems, people[i], people[j], rel)
+            if not r:
+                return None
+            pairs.append({"a": people[i]["nama"], "b": people[j]["nama"], "total": r["total"], "label": r["label"], "res": r})
+    names = [p["nama"] for p in people]
+    total = round(sum(x["total"] for x in pairs) / len(pairs))
+    rows = []
+    for k, sname in enumerate(systems):
+        sc = round(sum(x["res"]["rows"][k]["score"] for x in pairs) / len(pairs))
+        rows.append({"system": sname, "score": sc, "w": pairs[0]["res"]["rows"][k]["w"],
+                     "note": f"Rata-rata dari {len(pairs)} pasangan"})
+    rank = sorted(pairs, key=lambda x: -x["total"])
+    best, worst = rank[0], rank[-1]
+    ctx = _CTX_GRP[rel]
+    ringkas = (f"{', '.join(names[:-1])} & {names[-1]} {ctx} berada di level “{_label(total)}” ({total}/100) "
+               f"berdasarkan {len(systems)} sistem ({', '.join(systems)}) dan {len(pairs)} kombinasi pasangan. "
+               f"Paling selaras: {best['a']} & {best['b']} ({best['total']}). Paling perlu dijaga: {worst['a']} & {worst['b']} ({worst['total']}).")
+    kuat = [f"{best['a']} & {best['b']}: {t}" for t in best["res"]["kuat"][:2]] + [_KUAT_GRP]
+    tantang = [f"{worst['a']} & {worst['b']}: {t}" for t in worst["res"]["tantang"][:2]] + [_TANTANG_GRP]
+    nasihat = list(_ADVICE[rel]) + [_NASIHAT_GRP.format(a=best["a"], b=best["b"], c=worst["a"], d=worst["b"])]
+    if total < 60:
+        nasihat.insert(0, "Skor ini bukan vonis. Anggap sebagai peta area yang perlu dijaga lebih sadar bersama-sama.")
+    return {"total": total, "label": _label(total), "rows": rows, "kuat": kuat, "tantang": tantang, "nasihat": nasihat,
+            "ringkas": ringkas, "rel": rel, "a": ", ".join(names[:-1]), "b": names[-1], "systems": list(systems),
+            "pairs": [{"a": x["a"], "b": x["b"], "total": x["total"], "label": x["label"]} for x in rank], "n": len(people)}
+
+
 # ─────────────── callbacks ───────────────
 def _go(step):
     st.session_state.dh_cp_step = step
@@ -310,6 +350,24 @@ def _go(step):
 def _rel_name():
     k = st.session_state.get("dh_cp_rel_key")
     return REL_KEYS[k][0] if k in REL_KEYS else None
+
+
+def _np():
+    """Jumlah orang yang dicek. Asmara selalu 2; keluarga / teman / bisnis boleh 2-5."""
+    ss = st.session_state
+    if ss.get("dh_cp_rel_key") == "asmara":
+        return 2
+    return max(2, min(GROUP_MAX, ss.get("dh_cp_p", 2)))
+
+
+def _cost(nsys):
+    return PRICE * nsys * (_np() - 1)  # tiap orang tambahan = +1x harga dasar
+
+
+def _cb_people(n):
+    ss = st.session_state
+    ss.dh_cp_p = n
+    ss.dh_cp_err = None
 
 
 def _cb_count(n):
@@ -356,10 +414,12 @@ def _cb_go():
     u = auth.current_user()
     systems = ss.get("dh_cp_sys", [])
     n = ss.get("dh_cp_n", 2)
-    cost = PRICE * len(systems)
-    pa, pb = _person("a"), _person("b")
+    cost = _cost(len(systems))
+    np_ = _np()
+    people = [_person(x) for x in SIDES[:np_]]
     rel = _rel_name()
-    for lab, p in (("Pihak Pertama", pa), ("Pihak Kedua", pb)):
+    for i, p in enumerate(people):
+        lab = ("Pihak Pertama", "Pihak Kedua")[i] if np_ == 2 else f"Orang ke-{i + 1}"
         if not p["nama"] or not p["tgl"]:
             ss.dh_cp_err = f"Nama dan Tanggal Lahir {lab} wajib diisi."
             return
@@ -372,9 +432,9 @@ def _cb_go():
     if u.get("koin", 0) < cost:
         ss.dh_cp_err = f"Saldo belum cukup, kurang {cost - u['koin']} ✨."
         return
-    res = _compute(systems, pa, pb, rel)
+    res = _compute(systems, people[0], people[1], rel) if np_ == 2 else _compute_group(systems, people, rel)
     if not res:
-        ss.dh_cp_err = "Tanggal lahir salah satu pihak di luar jangkauan data sistem (mis. Shio 1945-2020). Saldo tidak dipotong."
+        ss.dh_cp_err = "Tanggal lahir salah satu orang di luar jangkauan data sistem (mis. Shio 1945-2020). Saldo tidak dipotong."
         return
     u["koin"] -= cost
     _resume.scanned("compat")  # fitur lain yang kuesionernya tertunda di-reset
@@ -387,7 +447,7 @@ def _cb_go():
 def _cb_reset():
     """Bersihkan form & hasil; jenis hubungan tetap (kembali ke form kalau sudah dipilih)."""
     ss = st.session_state
-    for k in ("dh_cp_res", "dh_cp_sys", "dh_cp_n", "dh_cp_err", *_FORM_KEYS, *("_sv_" + k for k in _FORM_KEYS)):
+    for k in ("dh_cp_res", "dh_cp_sys", "dh_cp_n", "dh_cp_p", "dh_cp_err", *_FORM_KEYS, *("_sv_" + k for k in _FORM_KEYS)):
         ss.pop(k, None)
     _go("form" if ss.get("dh_cp_rel_key") in REL_KEYS else "pick")
 
@@ -432,19 +492,20 @@ def _systems_picker():
         cols = st.columns(4, gap="small")
         for i, col in enumerate(cols, 1):
             with col:
-                st.button(f"{i} Sistem  \n**{PRICE * i} ✨**", key=f"dhcp_n{i}", on_click=_cb_count, args=(i,),
+                st.button(f"{i} Sistem  \n**{_cost(i)} ✨**", key=f"dhcp_n{i}", on_click=_cb_count, args=(i,),
                           type="primary" if n == i else "secondary", use_container_width=True)
-    lc, ic, _sp, cc = st.columns([2.1, 0.8, 2.6, 2.2], gap="small", vertical_alignment="center")
-    with lc:
-        st.markdown(f'<div class="dh-cp-lab" style="margin:0">Pilih {n} Sistem</div>', unsafe_allow_html=True)
-    with ic:
-        with st.container(key="dhcp_info"):
-            with st.popover("ⓘ", help=None):
-                st.markdown('<div class="dh-cp-pop"><b>Beda ke-4 sistem</b>' + "".join(
-                    f'<div><span>{i}</span><p><b>{_e(n_)}:</b> {_e(d)}</p></div>' for i, n_, d in _INFO) + '</div>',
-                    unsafe_allow_html=True)
-    with cc:
-        st.markdown(f'<div class="dh-cp-cnt" style="text-align:center">{len(sel)}/{n} terpilih</div>', unsafe_allow_html=True)
+    with st.container(key="dhcp_sysrow"):
+        lc, ic, _sp, cc = st.columns(4, gap="small", vertical_alignment="center")
+        with lc:
+            st.markdown(f'<div class="dh-cp-lab" style="margin:0">Pilih {n} Sistem</div>', unsafe_allow_html=True)
+        with ic:
+            with st.container(key="dhcp_info"):
+                with st.popover("ⓘ", help=None):
+                    st.markdown('<div class="dh-cp-pop"><b>Beda ke-4 sistem</b>' + "".join(
+                        f'<div><span>{i}</span><p><b>{_e(n_)}:</b> {_e(d)}</p></div>' for i, n_, d in _INFO) + '</div>',
+                        unsafe_allow_html=True)
+        with cc:
+            st.markdown(f'<div class="dh-cp-cnt" style="text-align:center">{len(sel)}/{n} terpilih</div>', unsafe_allow_html=True)
     with st.container(key="dhcp_sys"):
         for r in range(0, len(SYSTEMS), 2):
             cols = st.columns(2, gap="small")
@@ -468,7 +529,7 @@ def _side(side, title):
         st.selectbox("Jenis Kelamin (Opsional)", GENDERS, index=None, placeholder="Pilih", key=f"dhcp_{side}_gender")
 
 
-_FORM_KEYS = [f"dhcp_{x}_{f}" for x in "ab" for f in ("nama", "tgl", "jam", "kota", "gender")]
+_FORM_KEYS = [f"dhcp_{x}_{f}" for x in SIDES for f in ("nama", "tgl", "jam", "kota", "gender")]
 
 
 def _restore():
@@ -492,16 +553,29 @@ def _render_form():
     u = auth.current_user()
     rel_key = ss.get("dh_cp_rel_key")
     systems = ss.get("dh_cp_sys", [])
-    cost = PRICE * len(systems)
-    _head(f"{REL_KEYS[rel_key][3]} · isi data kedua belah pihak")
+    cost = _cost(len(systems))
+    _head(f"{REL_KEYS[rel_key][3]} · isi data kedua belah pihak" if _np() == 2 else f"{REL_KEYS[rel_key][3]} · isi data {_np()} orang")
     _stepper(0)
     st.markdown('<div class="dh-modal-section"><span>📅 DATA KALIAN</span><em>Wajib</em></div>', unsafe_allow_html=True)
     form_kit.data_bar("dhcp_a", f"compat_{rel_key}")
-    c1, c2 = st.columns(2, gap="medium")
-    with c1:
-        _side("a", "Pihak Pertama (Kamu)")
-    with c2:
-        _side("b", "Pihak Kedua")
+    np_ = _np()
+    if rel_key != "asmara":
+        st.markdown('<div class="dh-cp-lab">Berapa orang yang mau dicek?</div>', unsafe_allow_html=True)
+        with st.container(key="dhcp_ppl"):
+            cols = st.columns(GROUP_MAX - 1, gap="small")
+            for i, col in zip(range(2, GROUP_MAX + 1), cols):
+                with col:
+                    st.button(f"{i} Orang", key=f"dhcp_p{i}", on_click=_cb_people, args=(i,),
+                              type="primary" if np_ == i else "secondary", use_container_width=True)
+        if np_ > 2:
+            st.markdown(f'<div class="dh-cp-hint" style="margin:-2px 0 8px">Skor kelompok = rata-rata {np_ * (np_ - 1) // 2} kombinasi pasangan. '
+                        f'Biaya naik +1x harga dasar tiap orang tambahan.</div>', unsafe_allow_html=True)
+    titles = ["Pihak Pertama (Kamu)", "Pihak Kedua"] if np_ == 2 else ["Orang 1 (Kamu)"] + [f"Orang {i}" for i in range(2, np_ + 1)]
+    for r0 in range(0, np_, 2):
+        cs = st.columns(2, gap="medium")
+        for c, i in zip(cs, range(r0, min(r0 + 2, np_))):
+            with c:
+                _side(SIDES[i], titles[i])
     _systems_picker()
     _save()
     if not u:
@@ -539,6 +613,8 @@ def _render_loading():
 def _plain(r):
     out = [f"CEK KECOCOKAN: {r['a']} & {r['b']}", r["ringkas"], "", f"SKOR: {r['total']}/100 ({r['label']})", ""]
     out += [f"- {x['system']}: {x['score']} ({x['note']})" for x in r["rows"]]
+    if r.get("pairs"):
+        out += ["", "PETA ANTAR PASANGAN", *[f"- {x['a']} & {x['b']}: {x['total']} ({x['label']})" for x in r["pairs"]]]
     out += ["", "KEKUATAN", *r["kuat"], "", "TANTANGAN", *r["tantang"], "", "NASIHAT STRATEGIS", *r["nasihat"]]
     return "\n".join(out)
 
@@ -564,11 +640,17 @@ def _render_result():
         f'<div class="dh-cp-bar"><i style="width:{x["score"]}%"></i></div><div class="dh-cp-rn">{_e(x["note"])}</div></div>'
         for x in r["rows"])
     st.markdown(f'<div class="dh-cp-card"><div class="dh-cp-ct">📊 Skor Per Sistem</div>{rows}</div>', unsafe_allow_html=True)
+    if r.get("pairs"):
+        prow = "".join(
+            f'<div class="dh-cp-row"><div class="dh-cp-rh"><span>{_e(x["a"])} &amp; {_e(x["b"])} <small>· {_e(x["label"])}</small></span><b>{x["total"]}</b></div>'
+            f'<div class="dh-cp-bar"><i style="width:{x["total"]}%"></i></div></div>' for x in r["pairs"])
+        st.markdown(f'<div class="dh-cp-card"><div class="dh-cp-ct">🔗 Peta Antar Pasangan</div>{prow}</div>', unsafe_allow_html=True)
     for ico, ttl, items in (("💪", "Poin Kekuatan Hubungan", r["kuat"]), ("⚠️", "Poin Tantangan", r["tantang"]),
                             ("⚖️", "Nasihat Strategis", r["nasihat"])):
         st.markdown(f'<div class="dh-cp-card"><div class="dh-cp-ct">{ico} {ttl}</div>'
                     + "".join(f"<p>{_e(t)}</p>" for t in items) + '</div>', unsafe_allow_html=True)
-    secs = [("Ringkasan", [r["ringkas"]]), ("Skor Per Sistem", [f"{x['system']}: {x['score']} - {x['note']}" for x in r["rows"]]),
+    secs = [("Ringkasan", [r["ringkas"]]), *([("Peta Antar Pasangan", [f"{x['a']} & {x['b']}: {x['total']} ({x['label']})" for x in r["pairs"]])] if r.get("pairs") else []),
+            ("Skor Per Sistem", [f"{x['system']}: {x['score']} - {x['note']}" for x in r["rows"]]),
             ("Poin Kekuatan", r["kuat"]), ("Poin Tantangan", r["tantang"]), ("Nasihat Strategis", r["nasihat"])]
     if not r.get("_png"):
         r["_png"] = trait_cards.kartu_laporan("SOUL MATCH", f'{r["a"]} & {r["b"]}', f'{r["total"]}/100', f'{r["label"]} · {r["rel"]}',
@@ -615,7 +697,7 @@ def open_compat(rel_key=None):
             ss.dh_cp_rel_key = None
             _go("pick")
     elif ss.get("dh_cp_rel_key") != rel_key:
-        for k in ("dh_cp_res", "dh_cp_sys", "dh_cp_n", *_FORM_KEYS, *("_sv_" + k for k in _FORM_KEYS)):
+        for k in ("dh_cp_res", "dh_cp_sys", "dh_cp_n", "dh_cp_p", *_FORM_KEYS, *("_sv_" + k for k in _FORM_KEYS)):
             ss.pop(k, None)
         ss.dh_cp_rel_key = rel_key
         _go("form")

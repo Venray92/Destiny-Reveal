@@ -199,7 +199,7 @@ def sections_text(title, sub, sections):
     return "\n".join(out)
 
 
-def actions(prefix, close, pdf=None, text=None, png=None, wa=None, name="hasil", extra=None, clean=False, close_label="Tutup", side=None):
+def actions(prefix, close, pdf=None, text=None, png=None, wa=None, name="hasil", extra=None, clean=True, close_label="Tutup", side=None):
     """Footer hasil seragam (REVISI03): PDF | Salin, PNG | WhatsApp, [extra], Tutup coklat.
     close = (callback, args). pdf/png = bytes. text = str. wa = caption WhatsApp. extra = fungsi opsional (tombol tambahan)."""
     from components.modal_detail import copy_button
