@@ -1,0 +1,27 @@
+/* REVISI Tarot Spread & Decision Reveal */
+/* tips validasi Decision */
+.dh-dc-tip { font-size: 12px; line-height: 1.5; color: #8A5A36; background: #FFF6EA; border: 1px dashed #E9C9A8; border-radius: 10px; padding: 8px 12px; margin: 2px 0 10px; }
+/* loading: deck bergetar-berputar lembut + pulse */
+.dh-tr-shuf img { animation: dhShuffle2 1.2s ease-in-out infinite !important; transform-origin: 50% 85%; filter: drop-shadow(0 8px 14px rgba(194,94,0,.28)); }
+@keyframes dhShuffle2 {
+  0% { transform: rotate(0) translate(0,0) scale(1); } 15% { transform: rotate(-6deg) translate(-5px,-4px) scale(1.03); }
+  30% { transform: rotate(5deg) translate(5px,0) scale(1); } 45% { transform: rotate(-4deg) translate(-3px,-5px) scale(1.04); }
+  60% { transform: rotate(4deg) translate(3px,0) scale(1); } 80% { transform: rotate(-2deg) translate(0,-3px) scale(1.02); } 100% { transform: rotate(0) translate(0,0) scale(1); }
+}
+/* kartu terkunci: glow + hover zoom */
+@keyframes dhTsGlow { 0%,100% { box-shadow: 0 0 14px 2px rgba(240,180,90,.30), 0 0 34px 8px rgba(194,94,0,.14); } 50% { box-shadow: 0 0 24px 6px rgba(255,205,120,.60), 0 0 56px 16px rgba(214,110,40,.28); } }
+.dh-ts-tile:not(.is-open) { animation: dhTsGlow 2.6s ease-in-out infinite; border-color: #E8B987; }
+[class*="st-key-dhtsk_"]:hover .dh-ts-tile:not(.is-open) { animation-play-state: paused; transform: translateY(-5px) scale(1.04); border-color: #C8633B; box-shadow: 0 18px 30px -14px rgba(194,94,0,.7), 0 0 26px 6px rgba(255,205,120,.5); }
+[class*="st-key-dhtsk_"]:hover .dh-ts-tile.is-open { transform: translateY(-4px) scale(1.02); }
+/* header hasil: tombol Buka Semua Kartu tidak menabrak X */
+[data-testid="stDialog"] div.st-key-dhts_openall { width: calc(100% - 52px) !important; max-width: calc(100% - 52px) !important; margin: 0 !important; }
+@media (max-width: 640px) { [data-testid="stDialog"] div.st-key-dhts_openall { width: calc(100% - 46px) !important; max-width: calc(100% - 46px) !important; } }
+/* hover X modal hasil tebaran / intro / loading */
+[data-testid="stDialog"]:has(.dh-step-tsres) button[aria-label="Close"],
+[data-testid="stDialog"]:has(.dh-step-fm) button[aria-label="Close"] { border-radius: 50% !important; transition: background .15s, transform .2s !important; }
+[data-testid="stDialog"]:has(.dh-step-tsres) button[aria-label="Close"]:hover,
+[data-testid="stDialog"]:has(.dh-step-fm) button[aria-label="Close"]:hover { background: #FFF3ED !important; transform: rotate(90deg); }
+/* Selesai & Tutup: teks putih tegas di atas terakota */
+[data-testid="stDialog"] div.st-key-dhts_done button, [data-testid="stDialog"] div.st-key-dhdc_done button { background: #C8633B !important; border: 1px solid #C8633B !important; opacity: 1 !important; }
+[data-testid="stDialog"] div.st-key-dhts_done button *, [data-testid="stDialog"] div.st-key-dhdc_done button * { color: #FFFFFF !important; -webkit-text-fill-color: #FFFFFF !important; font-weight: 700 !important; opacity: 1 !important; }
+[data-testid="stDialog"] div.st-key-dhts_done button:hover, [data-testid="stDialog"] div.st-key-dhdc_done button:hover { background: #A85226 !important; }

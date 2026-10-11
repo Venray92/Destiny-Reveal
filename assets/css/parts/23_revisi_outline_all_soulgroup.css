@@ -1,16 +1,14 @@
 /* Tombol "Selesai & Tutup" modal hasil lain (Daily, Kalender, Decision, Tarot) ikut gaya outline */
 [data-testid="stDialog"] div.st-key-dhdy_done_btn div.stButton > button, [data-testid="stDialog"] div.st-key-dhdy_done_btn button,
-[data-testid="stDialog"] div.st-key-dhcal_done_btn button, [data-testid="stDialog"] div.st-key-dhts_done button, [data-testid="stDialog"] div.st-key-dhdc_done button {
+[data-testid="stDialog"] div.st-key-dhcal_done_btn button {
   height: 44px !important; min-height: 44px !important; border-radius: 999px !important; background: #FFFFFF !important;
   border: 1px solid #E9C9A8 !important; box-shadow: none !important; background-image: none !important; opacity: 1 !important;
   transition: background .15s, border-color .15s !important;
 }
-[data-testid="stDialog"] div.st-key-dhdy_done_btn button *, [data-testid="stDialog"] div.st-key-dhcal_done_btn button *,
-[data-testid="stDialog"] div.st-key-dhts_done button *, [data-testid="stDialog"] div.st-key-dhdc_done button * {
+[data-testid="stDialog"] div.st-key-dhdy_done_btn button *, [data-testid="stDialog"] div.st-key-dhcal_done_btn button * {
   color: #C25E00 !important; -webkit-text-fill-color: #C25E00 !important; font-size: 13px !important; font-weight: 700 !important;
 }
-[data-testid="stDialog"] div.st-key-dhdy_done_btn button:hover, [data-testid="stDialog"] div.st-key-dhcal_done_btn button:hover,
-[data-testid="stDialog"] div.st-key-dhts_done button:hover, [data-testid="stDialog"] div.st-key-dhdc_done button:hover { background: #FFF6EA !important; border-color: #D9A06A !important; }
+[data-testid="stDialog"] div.st-key-dhdy_done_btn button:hover, [data-testid="stDialog"] div.st-key-dhcal_done_btn button:hover { background: #FFF6EA !important; border-color: #D9A06A !important; }
 
 /* Soul Match grup: kartu orang 1-5, pilih jumlah orang, ikon info menempel di teks "Pilih N Sistem" */
 div[data-testid="stVerticalBlock"][class*="st-key-dhcp_card_"] { background: #FFFCF7; border: 1px solid #EADCC8; border-radius: 16px; padding: 14px 16px 6px; transition: all .2s ease-in-out; }
