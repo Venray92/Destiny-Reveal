@@ -408,13 +408,13 @@ def _score_panels(r):
 
 
 def _card_gallery(r):
-    """Kartu visual per sistem (assets/cards) + Simpan PNG + WhatsApp. Pilih sistem lewat pills."""
+    """Kartu visual per sistem (assets/cards) + Simpan PNG + WhatsApp. Pilih sistem lewat dropdown."""
     raws = r.get("raws") or {}
     names = [s["name"] for s in r["systems"] if s["ok"] and RK.has_card(s["name"], raws.get(s["name"]))]
     if not names:
         return
     st.markdown('<div class="dh-bp-ct" style="margin:10px 2px 8px">🃏 KARTU TAKDIRMU</div>', unsafe_allow_html=True)
-    pick = st.pills("Pilih kartu", names, default=names[0], key="dhbp_cardpick", label_visibility="collapsed") or names[0]
+    pick = st.selectbox("Pilih kartu", names, index=0, key="dhbp_cardsel", label_visibility="collapsed")
     cap = f'{r["nama"]} · Kartu {pick}\nCek takdirmu di destinyreveal.id #DestinyReveal'
     RK.card_visual(pick, raws.get(pick), r["nama"], cap, "dhbprc")
 
